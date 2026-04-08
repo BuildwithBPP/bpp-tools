@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP — Service Packages 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771;
+    --blue: #5987A5;
+    --gold: #F1BE5C;
+    --white: #FCFCFC;
+    --black: #000000;
+    --gray: #6B6B6B;
+    --navy-light: #e8f0f7;
+    --blue-light: #eaf0f5;
+    --gold-light: #fdf6e3;
+    --rule: #dde4ea;
+    --rule-light: #eef2f5;
+  }
+  body { font-family: 'Poppins', sans-serif; background: #f7f9fb; color: var(--black); min-height: 100vh; padding: 0; }
+
+  /* HEADER */
+  .doc-header {
+    background: var(--navy);
+    padding: 28px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo-area { display: flex; align-items: center; gap: 14px; }
+  .logo-img { width: 44px; height: 44px; border-radius: 6px; object-fit: cover; }
+  .brand-text { color: white; }
+  .brand-name { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.02em; }
+  .brand-tag { font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 300; opacity: 0.7; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 1px; }
+  .doc-meta { text-align: right; }
+  .doc-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; color: var(--gold); letter-spacing: 0.04em; }
+  .doc-sub { font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 2px; font-weight: 300; }
+
+  /* PAGE */
+  .page { max-width: 920px; margin: 0 auto; padding: 40px 32px 64px; }
+
+  /* HERO */
+  .hero { margin-bottom: 36px; }
+  .hero-eye { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+  .hero-title { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 800; color: var(--navy); line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .hero-title span { color: var(--gold); }
+  .hero-sub { font-size: 13px; color: var(--gray); line-height: 1.7; max-width: 580px; font-weight: 300; }
+
+  /* SPINE */
+  .spine { background: var(--navy); border-radius: 8px; padding: 14px 24px; margin-bottom: 10px; display: flex; align-items: center; gap: 16px; }
+  .spine-label { font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.45); white-space: nowrap; }
+  .spine-steps { display: flex; flex: 1; }
+  .spine-step { flex: 1; text-align: center; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; color: white; padding: 5px 8px; position: relative; letter-spacing: 0.02em; }
+  .spine-step::after { content: '→'; position: absolute; right: -6px; top: 50%; transform: translateY(-50%); opacity: 0.35; font-size: 12px; }
+  .spine-step:last-child::after { display: none; }
+
+  /* PROCESS NOTE */
+  .process-note { background: var(--navy-light); border-left: 4px solid var(--navy); border-radius: 0 6px 6px 0; padding: 14px 20px; margin-bottom: 24px; }
+  .process-note p { font-size: 12.5px; line-height: 1.7; color: var(--navy); font-weight: 400; }
+  .process-note strong { font-weight: 600; color: var(--navy); }
+
+  /* PACKAGES */
+  .packages { display: flex; flex-direction: column; gap: 16px; }
+
+  /* PACKAGE CARD */
+  .pkg { border-radius: 10px; overflow: hidden; border: 1px solid var(--rule); background: white; }
+
+  /* PKG HEADER */
+  .pkg-header { padding: 20px 24px 16px; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .pkg-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 4px; }
+  .pkg-name { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 700; line-height: 1.2; margin-bottom: 4px; }
+  .pkg-who { font-size: 11.5px; font-weight: 300; color: var(--gray); }
+  .pkg-price { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; display: block; margin-bottom: 2px; }
+  .pkg-timeline { font-size: 10px; font-weight: 400; color: var(--gray); }
+
+  /* COVERAGE */
+  .coverage { display: flex; padding: 0 24px; gap: 4px; margin-bottom: 16px; }
+  .cov-pill { flex: 1; text-align: center; font-size: 9px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 5px 4px; border-radius: 3px; }
+  .cov-inactive { background: #f0f2f4; color: #b0b8c0; }
+
+  /* BODY */
+  .pkg-body { padding: 0 24px 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .pkg-body.single-col { grid-template-columns: 1fr; }
+  .section-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; color: var(--gray); }
+  .deliverables { list-style: none; }
+  .deliverables li { font-size: 12.5px; line-height: 1.55; padding: 5px 0; border-bottom: 1px solid var(--rule-light); display: flex; align-items: flex-start; gap: 8px; color: var(--black); }
+  .deliverables li:last-child { border-bottom: none; }
+  .deliverables li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+
+  /* ADD-ON ROW */
+  .add-on-row { margin: 0 24px 14px; border-radius: 6px; padding: 12px 16px; }
+  .add-on-row .section-label { margin-bottom: 8px; }
+  .add-ons { display: flex; flex-wrap: wrap; gap: 6px; }
+  .add-on-pill { font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; background: white; border: 1px solid var(--rule); color: var(--gray); }
+  .add-on-pill .price { font-weight: 700; }
+  .free-pill { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
+
+  /* OUTCOME */
+  .outcome-box { margin: 0 24px 14px; padding: 12px 16px; border-radius: 6px; font-size: 12px; line-height: 1.6; }
+  .outcome-box strong { font-weight: 700; display: block; margin-bottom: 3px; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* NOTE */
+  .note-box { margin: 0 24px 18px; padding: 10px 14px; border-radius: 4px; border-left: 3px solid; font-size: 11.5px; line-height: 1.6; color: var(--gray); }
+
+  /* UPGRADE */
+  .upgrade-strip { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 0; }
+  .upgrade-arrow { font-size: 11px; color: var(--gray); display: flex; align-items: center; gap: 6px; }
+
+  /* THEMES */
+  /* LAUNCH PAD - Gray */
+  .pkg-launchpad .pkg-header { background: #f5f7f9; }
+  .pkg-launchpad .pkg-eyebrow { color: var(--gray); }
+  .pkg-launchpad .pkg-name { color: var(--black); }
+  .pkg-launchpad .pkg-price { color: var(--navy); }
+  .pkg-launchpad .cov-pill.active { background: var(--gray); color: white; }
+  .pkg-launchpad .section-label { color: var(--gray); }
+  .pkg-launchpad .deliverables li::before { background: var(--gray); }
+  .pkg-launchpad .add-on-row { background: #f0f2f4; }
+  .pkg-launchpad .free-pill { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+  .pkg-launchpad .outcome-box { background: #f5f7f9; color: var(--navy); }
+  .pkg-launchpad .outcome-box strong { color: var(--gray); }
+  .pkg-launchpad .note-box { background: #f0f2f4; border-color: var(--gray); }
+
+  /* OPERATOR - Navy */
+  .pkg-operator { border-color: var(--navy); border-width: 2px; }
+  .pkg-operator .pkg-header { background: var(--navy-light); }
+  .pkg-operator .pkg-eyebrow { color: var(--navy); }
+  .pkg-operator .pkg-name { color: var(--navy); }
+  .pkg-operator .pkg-price { color: var(--navy); }
+  .pkg-operator .pkg-timeline { color: var(--blue); }
+  .pkg-operator .cov-pill.active { background: var(--navy); color: white; }
+  .pkg-operator .cov-pill.partial { background: var(--blue); color: white; }
+  .pkg-operator .section-label { color: var(--navy); }
+  .pkg-operator .deliverables li::before { background: var(--navy); }
+  .pkg-operator .add-on-row { background: #dce8f0; }
+  .pkg-operator .add-on-row .section-label { color: var(--navy); }
+  .pkg-operator .outcome-box { background: var(--navy-light); color: var(--navy); border: 1px solid #b8d0e4; }
+  .pkg-operator .outcome-box strong { color: var(--navy); }
+  .pkg-operator .note-box { background: #e8f0f7; border-color: var(--navy); }
+
+  /* SCALE - Gold */
+  .pkg-scale .pkg-header { background: var(--gold-light); }
+  .pkg-scale .pkg-eyebrow { color: #8a6a1a; }
+  .pkg-scale .pkg-name { color: var(--navy); }
+  .pkg-scale .pkg-price { color: var(--navy); }
+  .pkg-scale .cov-pill.active { background: var(--navy); color: white; }
+  .pkg-scale .section-label { color: #8a6a1a; }
+  .pkg-scale .deliverables li::before { background: var(--gold); }
+  .pkg-scale .add-on-row { background: #faefd4; }
+  .pkg-scale .add-on-row .section-label { color: #8a6a1a; }
+  .pkg-scale .outcome-box { background: var(--gold-light); color: var(--navy); border: 1px solid #e8d4a0; }
+  .pkg-scale .outcome-box strong { color: #8a6a1a; }
+  .pkg-scale .note-box { background: #fdf6e3; border-color: var(--gold); }
+
+  /* FOOTER */
+  .footer { border-top: 1px solid var(--rule); padding-top: 24px; margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .footer-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); margin-bottom: 10px; }
+  .footer-items { list-style: none; }
+  .footer-items li { font-size: 12px; color: var(--gray); padding: 3px 0; line-height: 1.55; }
+  .footer-items li strong { color: var(--black); font-weight: 600; }
+  .footer-items li.warning { color: #c0392b; font-weight: 500; }
+
+  /* DOC FOOTER */
+  .doc-footer { background: var(--navy); padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; margin-top: 0; }
+  .doc-footer-text { font-size: 10px; color: rgba(255,255,255,0.45); }
+  .doc-footer-gold { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: var(--gold); letter-spacing: 0.06em; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="logo-area">
+    <img class="logo-img" src="data:image/png;base64,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" alt="BPP Logo">
+    <div class="brand-text">
+      <div class="brand-name">Business Plans Plus</div>
+      <div class="brand-tag">Growth Consulting · Tampa Bay</div>
+    </div>
+  </div>
+  <div class="doc-meta">
+    <div class="doc-title">Service Packages 2026</div>
+    <div class="doc-sub">Internal use &amp; sales conversations · Confidential</div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="hero">
+    <div class="hero-eye">BPP Operating Framework</div>
+    <h1 class="hero-title">Our Packages &amp; <span>Pricing</span></h1>
+    <p class="hero-sub">We help established service businesses automate operations, centralize data, and build AI-powered systems so the owner can stop being the bottleneck.</p>
+  </div>
+
+  <div class="spine">
+    <div class="spine-label">Our framework</div>
+    <div class="spine-steps">
+      <div class="spine-step">Attract &amp; close</div>
+      <div class="spine-step">Deliver &amp; serve</div>
+      <div class="spine-step">See &amp; decide</div>
+    </div>
+  </div>
+
+  <div class="process-note">
+    <p><strong>How every Operator and Scale engagement starts:</strong> Before we build anything, we map your key business processes. This diagnostic tells us exactly what to build and in what order — so nothing gets implemented wrong and every dollar creates real ROI.</p>
+  </div>
+
+  <div class="packages">
+
+    <!-- LAUNCH PAD -->
+    <div class="pkg pkg-launchpad">
+      <div class="pkg-header">
+        <div>
+          <div class="pkg-eyebrow">Tier 1 — Launch Pad</div>
+          <div class="pkg-name">Get your business off the ground</div>
+          <div class="pkg-who">Growth-Ready Founder · Pre-revenue to $150K · Solo or 1–3 person team</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="pkg-price">$1,500–$2,000</span>
+          <div class="pkg-timeline">2–3 weeks · Fixed price</div>
+        </div>
+      </div>
+      <div class="coverage">
+        <div class="cov-pill active">Attract &amp; close</div>
+        <div class="cov-pill cov-inactive">Deliver &amp; serve</div>
+        <div class="cov-pill cov-inactive">See &amp; decide</div>
+      </div>
+      <div class="pkg-body single-col">
+        <div>
+          <div class="section-label">What's included</div>
+          <ul class="deliverables">
+            <li>LLC formation + EIN registration</li>
+            <li>Business plan — foundation document, lender/partner ready</li>
+            <li>Landing page — built in Wix, live within days, mobile optimized</li>
+            <li>Google Business Profile — setup, verification, and optimization</li>
+          </ul>
+        </div>
+      </div>
+      <div class="add-on-row">
+        <div class="section-label">Included free</div>
+        <div class="add-ons" style="margin-bottom:10px;">
+          <div class="free-pill">Business email setup ✓ Free</div>
+        </div>
+        <div class="section-label">Optional add-ons</div>
+        <div class="add-ons">
+          <div class="add-on-pill">Brand identity (logo + colors + fonts) <span class="price" style="color:var(--navy);">,000</span></div>
+          <div class="add-on-pill">Full Wix website (3–5 pages) <span class="price" style="color:var(--navy);">,000</span></div>
+        </div>
+      </div>
+      <div class="outcome-box">
+        <strong>Outcome</strong>
+        Your business is legally formed, looks professional, and can be found by customers — everything needed before anything else gets built.
+      </div>
+      <div class="note-box">
+        <strong>Payment:</strong> 50% at signing · 50% within 5 days of client sign-off on all deliverables<br>
+        Upgrade credit: 50% of Launch Pad fee applied toward Operator System within 12 months.
+      </div>
+    </div>
+
+    <div class="upgrade-strip">
+      <div class="upgrade-arrow">
+        <span style="color:var(--navy); font-weight:600;">↓</span>
+        <span style="color:var(--gray); font-size:11px;">Launch Pad clients: 50% of fee credited toward Operator System within 12 months</span>
+      </div>
+    </div>
+
+    <!-- OPERATOR -->
+    <div class="pkg pkg-operator">
+      <div class="pkg-header">
+        <div>
+          <div class="pkg-eyebrow">Tier 2 — Operator System ⭐ Primary Focus</div>
+          <div class="pkg-name">A faster, more consistent way to close and serve clients</div>
+          <div class="pkg-who">Established Operator · $250K–$2M revenue · 5–25 employees · Service-based · Operationally chaotic</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="pkg-price">$4,500</span>
+          <div class="pkg-timeline">6–8 weeks · Fixed price</div>
+        </div>
+      </div>
+      <div class="coverage">
+        <div class="cov-pill active">Attract &amp; close</div>
+        <div class="cov-pill active">Deliver &amp; serve</div>
+        <div class="cov-pill partial">See &amp; decide — partial</div>
+      </div>
+      <div class="pkg-body">
+        <div>
+          <div class="section-label">Core deliverables (in order)</div>
+          <ul class="deliverables">
+            <li>Process mapping — 1–2 key revenue processes documented before any tech is touched</li>
+            <li>CRM — new HubSpot setup OR full audit + optimization of existing CRM. Same price either way.</li>
+            <li>Website — audit + implemented improvements (Wix or Webflow). Tangible upgrades, not just a report.</li>
+            <li>1 AI workflow automation — chosen based on process map findings</li>
+            <li>Financial clarity session — key metrics dashboard, margin by service</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-label">Delivery &amp; support</div>
+          <ul class="deliverables">
+            <li>Week 1: Discovery + process mapping session</li>
+            <li>2 training sessions (2 hrs each) — team-facing, recorded</li>
+            <li>Loom walkthrough for every deliverable</li>
+            <li>30-day email + Microsoft Teams support post-delivery</li>
+            <li>Full documentation package</li>
+            <li>1 optional quarterly check-in call</li>
+          </ul>
+        </div>
+      </div>
+      <div class="add-on-row">
+        <div class="section-label" style="color:var(--navy);">Optional add-ons</div>
+        <div class="add-ons">
+          <div class="add-on-pill">Additional AI workflow <span class="price" style="color:var(--navy);">,500 each</span></div>
+          <div class="add-on-pill">QuickBooks setup or cleanup <span class="price" style="color:var(--navy);">99–,499</span></div>
+          <div class="add-on-pill">Full Webflow website build <span class="price" style="color:var(--navy);">from ,500</span></div>
+          <div class="add-on-pill">Brand identity (via partner) <span class="price" style="color:var(--navy);">,000</span></div>
+        </div>
+      </div>
+      <div class="outcome-box">
+        <strong>Outcome</strong>
+        Your team closes leads consistently, onboards clients without the owner in the middle, and you have real visibility into what's working — built around how your business actually runs.
+      </div>
+      <div class="note-box">
+        <strong>Payment:</strong> 50% at signing · 25% when process map + CRM delivered · 25% within 5 days of final sign-off<br>
+        All deliverables flow from the process map. Scope changes beyond the map require a written change order.
+      </div>
+    </div>
+
+    <div class="upgrade-strip">
+      <div class="upgrade-arrow">
+        <span style="color:var(--navy); font-weight:600;">↓</span>
+        <span style="color:var(--gray); font-size:11px;">Operator System clients: $1,000 credited toward Scale System</span>
+      </div>
+    </div>
+
+    <!-- SCALE -->
+    <div class="pkg pkg-scale">
+      <div class="pkg-header">
+        <div>
+          <div class="pkg-eyebrow">Tier 3 — Scale System</div>
+          <div class="pkg-name">Full visibility. Automated operations. A business that runs without you.</div>
+          <div class="pkg-who">Scale-Ready Executive · $1.5M–$5M revenue · 15–50 employees · Already has tools — needs intelligence layered on top</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="pkg-price">$10,000–$15,000</span>
+          <div class="pkg-timeline">10–14 weeks · Fixed price · Custom above $15K</div>
+        </div>
+      </div>
+      <div class="coverage">
+        <div class="cov-pill active">Attract &amp; close</div>
+        <div class="cov-pill active">Deliver &amp; serve</div>
+        <div class="cov-pill active">See &amp; decide</div>
+      </div>
+      <div class="pkg-body">
+        <div>
+          <div class="section-label">Foundation — always first</div>
+          <ul class="deliverables">
+            <li>Full process audit — 3–5 key business processes mapped, gaps identified, optimization roadmap built</li>
+            <li>SOP documentation for each process — any team member can execute without asking the owner</li>
+          </ul>
+          <div class="section-label" style="margin-top:14px;">Core deliverables</div>
+          <ul class="deliverables">
+            <li>BI dashboard — Power BI or Looker Studio, auto-refreshing KPIs, margin by service, cash flow</li>
+            <li>2–4 advanced AI workflow automations — multi-step, cross-tool, higher complexity</li>
+            <li>Financial planning analysis — 12-month model, scenario planning, decision-ready output</li>
+            <li>Advanced CRM optimization — built on what they already have, not reinstalled</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-label">If needed — not assumed</div>
+          <ul class="deliverables">
+            <li>Custom AI tool — proposal builder, client-facing front-end, or gov contractor workflow</li>
+            <li>Website rebuild or Webflow migration — only if current site is a real barrier to growth</li>
+            <li>Full CRM migration — only if existing CRM is unsalvageable</li>
+          </ul>
+          <div class="section-label" style="margin-top:14px;">Delivery &amp; support</div>
+          <ul class="deliverables">
+            <li>3–4 training sessions (2 hrs each), team and leadership</li>
+            <li>60-day priority email + Microsoft Teams support</li>
+            <li>3-month check-in cadence post-delivery</li>
+            <li>Full playbook + documentation handoff</li>
+          </ul>
+        </div>
+      </div>
+      <div class="outcome-box">
+        <strong>Outcome</strong>
+        The owner has real-time visibility into the business, operations run on documented and automated systems, and the leadership team makes decisions from data — not gut feel and spreadsheets.
+      </div>
+      <div class="note-box">
+        <strong>Payment:</strong> 40% at signing · 30% when BI dashboard + automations delivered · 30% within 5 days of full playbook sign-off<br>
+        Scale clients typically already have a website and CRM. BPP optimizes and layers intelligence — not installs more tools.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>
+      <div class="footer-label">Payment structure</div>
+      <ul class="footer-items">
+        <li><strong>Launch Pad:</strong> 50% at signing · 50% at sign-off</li>
+        <li><strong>Operator:</strong> 50% at signing · 25% at CRM delivery · 25% at sign-off</li>
+        <li><strong>Scale:</strong> 40% at signing · 30% at BI/AI delivery · 30% at sign-off</li>
+        <li>Pay in full upfront: <strong>3% discount</strong></li>
+        <li class="warning">Late payment: work pauses after 7 days — no exceptions</li>
+        <li>5-day acceptance window on all milestone deliverables</li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-label">Disqualify — do not sell if</div>
+      <ul class="footer-items">
+        <li>No revenue traction or team in place</li>
+        <li>Founder resists systems or technology entirely</li>
+        <li>Expects heavy discounts to start</li>
+        <li>Wants a business plan only (no package)</li>
+        <li>Won't adopt what BPP builds</li>
+        <li>No upgrade potential (Launch Pad)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-label">Credits &amp; referrals</div>
+      <ul class="footer-items">
+        <li><strong>$250</strong> referral credit per closed deal</li>
+        <li>Launch Pad → Operator: <strong>50% credit</strong></li>
+        <li>Operator → Scale: <strong>$1,000 credit</strong></li>
+        <li>Branding delivered in-house</li>
+        <li>Gov. contractor AI tools: quoted separately</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <div class="doc-footer-text">Business Plans Plus LLC · Temple Terrace, FL · Internal Use Only · 2026</div>
+  <div class="doc-footer-gold">buildwithbpp.com</div>
+</div>
+
+</body>
+</html>

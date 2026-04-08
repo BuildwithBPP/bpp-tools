@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP — Ideal Client Profiles 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771; --blue: #5987A5; --gold: #F1BE5C;
+    --white: #FCFCFC; --black: #000000; --gray: #6B6B6B;
+    --navy-light: #e8f0f7; --blue-light: #eaf0f5; --gold-light: #fdf6e3;
+    --rule: #dde4ea; --rule-light: #eef2f5;
+    --green-light: #eaf5ea; --red-light: #fdecea;
+  }
+  body { font-family: 'Poppins', sans-serif; background: #f7f9fb; color: var(--black); }
+
+  .doc-header { background: var(--navy); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; }
+  .logo-area { display: flex; align-items: center; gap: 14px; }
+  .logo-img { width: 44px; height: 44px; border-radius: 6px; object-fit: cover; }
+  .brand-name { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700; color: white; }
+  .brand-tag { font-size: 10px; font-weight: 300; color: rgba(255,255,255,0.55); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 1px; }
+  .doc-meta { text-align: right; }
+  .doc-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; color: var(--gold); letter-spacing: 0.04em; }
+  .doc-sub { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+  .page { max-width: 960px; margin: 0 auto; padding: 40px 32px 64px; }
+
+  .hero { margin-bottom: 40px; }
+  .hero-eye { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+  .hero-title { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 800; color: var(--navy); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .hero-title span { color: var(--gold); }
+  .hero-sub { font-size: 13px; color: var(--gray); line-height: 1.7; max-width: 620px; font-weight: 300; }
+
+  .icp-cards { display: flex; flex-direction: column; gap: 28px; }
+
+  .icp-card { border-radius: 12px; overflow: hidden; border: 1px solid var(--rule); background: white; }
+
+  .card-header { padding: 22px 28px 18px; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+  .card-tier { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 4px; }
+  .card-name { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; line-height: 1.15; margin-bottom: 5px; }
+  .card-tagline { font-family: 'Merriweather', serif; font-size: 12.5px; font-style: italic; color: var(--gray); }
+  .card-price-badge { flex-shrink: 0; text-align: right; padding: 10px 16px; border-radius: 8px; line-height: 1.5; }
+  .price-big { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; display: block; }
+  .price-label { font-size: 9px; font-weight: 500; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .card-body { padding: 0 28px 20px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .card-body-wide { padding: 0 28px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .col-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+
+  .detail-list { list-style: none; }
+  .detail-list li { font-size: 12.5px; line-height: 1.55; padding: 5px 0; border-bottom: 1px solid var(--rule-light); color: var(--black); }
+  .detail-list li:last-child { border-bottom: none; }
+  .detail-list li strong { font-weight: 600; }
+
+  .quote-block { margin: 0 28px 16px; padding: 14px 18px; border-radius: 6px; border-left: 4px solid; }
+  .q-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .q-text { font-family: 'Merriweather', serif; font-size: 14px; font-style: italic; line-height: 1.6; }
+
+  .channel-strip { margin: 0 28px 16px; padding: 12px 16px; border-radius: 6px; display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+  .ch-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-right: 4px; }
+  .ch-pill { font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--rule); background: white; color: var(--gray); }
+  .ch-pill.primary { font-weight: 700; }
+
+  .bottom-row { margin: 0 28px 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .signal-box { border-radius: 8px; padding: 14px 16px; }
+  .sb-green { background: var(--green-light); border: 1px solid #b8ddb8; }
+  .sb-red { background: var(--red-light); border: 1px solid #f5b8b8; }
+  .sig-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .sig-label-g { color: #1a6b1a; } .sig-label-r { color: #c0392b; }
+  .sig-list { list-style: none; }
+  .sig-list li { font-size: 12px; color: var(--gray); padding: 3px 0; display: flex; gap: 7px; line-height: 1.5; }
+  .sig-list.g li::before { content: '✓'; color: #1a6b1a; font-weight: 700; flex-shrink: 0; }
+  .sig-list.r li::before { content: '✕'; color: #c0392b; font-weight: 700; flex-shrink: 0; }
+
+  /* ICP THEMES */
+  /* TIER 1 - Gray */
+  .icp-1 .card-header { background: #f5f7f9; }
+  .icp-1 .card-tier { color: var(--gray); }
+  .icp-1 .card-name { color: var(--black); }
+  .icp-1 .card-price-badge { background: white; border: 1px solid var(--rule); color: var(--navy); }
+  .icp-1 .col-label { color: var(--gray); }
+  .icp-1 .quote-block { background: #f0f2f4; border-color: var(--gray); }
+  .icp-1 .q-label { color: var(--gray); }
+  .icp-1 .q-text { color: var(--black); }
+  .icp-1 .channel-strip { background: #f5f7f9; }
+  .icp-1 .ch-label { color: var(--gray); }
+  .icp-1 .ch-pill.primary { background: var(--gray); color: white; border-color: var(--gray); }
+
+  /* TIER 2 - Navy */
+  .icp-2 { border-color: var(--navy); border-width: 2px; }
+  .icp-2 .card-header { background: var(--navy-light); }
+  .icp-2 .card-tier { color: var(--navy); }
+  .icp-2 .card-name { color: var(--navy); }
+  .icp-2 .card-tagline { color: var(--blue); }
+  .icp-2 .card-price-badge { background: white; border: 1px solid #b8d0e4; color: var(--navy); }
+  .icp-2 .col-label { color: var(--navy); }
+  .icp-2 .quote-block { background: var(--navy-light); border-color: var(--navy); }
+  .icp-2 .q-label { color: var(--navy); }
+  .icp-2 .q-text { color: var(--navy); }
+  .icp-2 .channel-strip { background: var(--navy-light); }
+  .icp-2 .ch-label { color: var(--navy); }
+  .icp-2 .ch-pill.primary { background: var(--navy); color: white; border-color: var(--navy); }
+
+  /* TIER 3 - Gold */
+  .icp-3 .card-header { background: var(--gold-light); }
+  .icp-3 .card-tier { color: #8a6a1a; }
+  .icp-3 .card-name { color: var(--navy); }
+  .icp-3 .card-price-badge { background: white; border: 1px solid #e8d4a0; color: var(--navy); }
+  .icp-3 .col-label { color: #8a6a1a; }
+  .icp-3 .quote-block { background: var(--gold-light); border-color: var(--gold); }
+  .icp-3 .q-label { color: #8a6a1a; }
+  .icp-3 .q-text { color: var(--navy); }
+  .icp-3 .channel-strip { background: var(--gold-light); }
+  .icp-3 .ch-label { color: #8a6a1a; }
+  .icp-3 .ch-pill.primary { background: var(--navy); color: white; border-color: var(--navy); }
+
+  .doc-footer { background: var(--navy); padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; }
+  .doc-footer-text { font-size: 10px; color: rgba(255,255,255,0.45); }
+  .doc-footer-gold { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="logo-area">
+    <img class="logo-img" src="data:image/png;base64,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" alt="BPP Logo">
+    <div>
+      <div class="brand-name">Business Plans Plus</div>
+      <div class="brand-tag">Growth Consulting · Tampa Bay</div>
+    </div>
+  </div>
+  <div class="doc-meta">
+    <div class="doc-title">Ideal Client Profiles 2026</div>
+    <div class="doc-sub">Internal use — sales &amp; marketing alignment · Confidential</div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="hero">
+    <div class="hero-eye">BPP Sales Qualification</div>
+    <h1 class="hero-title">Ideal Client <span>Profiles</span></h1>
+    <p class="hero-sub">Three distinct client types. Three distinct packages. Use this to qualify every lead before a proposal is written. If the client doesn't match one of these profiles clearly, don't force it.</p>
+  </div>
+
+  <div class="icp-cards">
+
+    <!-- ICP 1 -->
+    <div class="icp-card icp-1">
+      <div class="card-header">
+        <div>
+          <div class="card-tier">Tier 1 — Launch Pad</div>
+          <div class="card-name">"The Growth-Ready Founder"</div>
+          <div class="card-tagline">Building something real — just needs the foundation to do it right</div>
+        </div>
+        <div class="card-price-badge">
+          <span class="price-label">Package</span>
+          <span class="price-big">$1,500–$2,000</span>
+          Launch Pad · Upgrade target within 12 mo
+        </div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="col-label">Who they are</div>
+          <ul class="detail-list">
+            <li><strong>Business age:</strong> 0–18 months</li>
+            <li>Solo operator or 1–3 person team</li>
+            <li>Revenue: Pre-revenue to $150K</li>
+            <li>Industries: Trades, cleaning, consulting, creatives, local services, wellness</li>
+            <li>Often first-generation business owner</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">What actually hurts</div>
+          <ul class="detail-list">
+            <li>"I don't look like a real business yet"</li>
+            <li>No legal structure — worried about liability</li>
+            <li>No website or online presence at all</li>
+            <li>Overwhelmed — doesn't know what to do first</li>
+            <li>Losing credibility with clients or lenders</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">What they value</div>
+          <ul class="detail-list">
+            <li>Speed — wants to be open for business now</li>
+            <li>Simplicity — not overwhelmed with complexity</li>
+            <li>Credibility — looking legitimate and professional</li>
+            <li>Clarity — someone telling them what to do first</li>
+            <li>Affordability — price sensitive at this stage</li>
+          </ul>
+        </div>
+      </div>
+      <div class="quote-block">
+        <div class="q-label">What they sound like</div>
+        <div class="q-text">"I've been running this out of my personal account. I need to make this official and get a real website before I can go after bigger clients."</div>
+      </div>
+      <div class="channel-strip">
+        <span class="ch-label">Where to find them</span>
+        <span class="ch-pill primary">Google Search</span>
+        <span class="ch-pill primary">Referrals (family, accountants)</span>
+        <span class="ch-pill">Instagram / TikTok</span>
+        <span class="ch-pill">Local chambers</span>
+        <span class="ch-pill">YouTube</span>
+      </div>
+      <div class="bottom-row">
+        <div class="signal-box sb-green">
+          <div class="sig-label sig-label-g">Green lights — close it</div>
+          <ul class="sig-list g">
+            <li>No LLC or EIN yet — clear need</li>
+            <li>No website at all or just a social page</li>
+            <li>Has a real service to sell, just not set up</li>
+            <li>Ambitious — talks about where they want to be</li>
+            <li>Shows clear Operator potential within 12 months</li>
+          </ul>
+        </div>
+        <div class="signal-box sb-red">
+          <div class="sig-label sig-label-r">Red flags — walk away</div>
+          <ul class="sig-list r">
+            <li>Only wants a business plan, nothing else</li>
+            <li>Budget under $1,000 — wrong fit</li>
+            <li>No real service or product to sell yet</li>
+            <li>Side hustle mentality, no growth ambition</li>
+            <li>No upgrade potential toward Operator</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ICP 2 -->
+    <div class="icp-card icp-2">
+      <div class="card-header">
+        <div>
+          <div class="card-tier">Tier 2 — Operator System ⭐ Primary Focus</div>
+          <div class="card-name">"The Established Operator"</div>
+          <div class="card-tagline">Revenue is real — but everything still runs through the owner</div>
+        </div>
+        <div class="card-price-badge">
+          <span class="price-label">Package</span>
+          <span class="price-big">$4,500</span>
+          Operator System · BPP's primary target
+        </div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="col-label">Who they are</div>
+          <ul class="detail-list">
+            <li><strong>Business age:</strong> 3–8 years</li>
+            <li>Team: 5–25 employees or contractors</li>
+            <li>Revenue: $250K–$2M annually</li>
+            <li>Industries: Cleaning, trades, landscaping, healthcare, agencies, professional services</li>
+            <li>Owner-operated — founder still runs everything</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">What actually hurts</div>
+          <ul class="detail-list">
+            <li>"Everything runs through me — I can't step away"</li>
+            <li>Leads fall through the cracks constantly</li>
+            <li>Tools exist but don't talk to each other</li>
+            <li>Client onboarding is inconsistent every time</li>
+            <li>Can't trust the numbers — no real reporting</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">What they value</div>
+          <ul class="detail-list">
+            <li>Outcomes over features — "show me what changes"</li>
+            <li>Proof — a case study from someone like them</li>
+            <li>Trust — they buy from people they believe in</li>
+            <li>Clarity — know exactly what they're getting</li>
+            <li>Respect — they built this, want to be treated as such</li>
+          </ul>
+        </div>
+      </div>
+      <div class="quote-block">
+        <div class="q-label">What they sound like</div>
+        <div class="q-text">"I have a CRM — I think. But nobody uses it. And I'm still the one chasing every lead and walking every new client through everything myself. I can't keep doing this."</div>
+      </div>
+      <div class="card-body-wide" style="padding-top:0;">
+        <div>
+          <div class="col-label">Psychographic profile</div>
+          <ul class="detail-list">
+            <li><strong>Identity:</strong> "I built this myself" — deep pride in what they've created</li>
+            <li><strong>Core fear:</strong> Losing what they built, chaos getting worse as they grow</li>
+            <li><strong>Core drive:</strong> Wants to step back without things falling apart</li>
+            <li><strong>Relationship to tech:</strong> Open to it but skeptical — has been burned before</li>
+            <li><strong>Buying trigger:</strong> Referral from someone they trust, or an industry case study</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">How they buy</div>
+          <ul class="detail-list">
+            <li>Trusts referrals above everything — warm intro beats any cold pitch</li>
+            <li>Does own research first — 60–70% decided before first call</li>
+            <li>Needs proof of outcome, not a feature list</li>
+            <li>Decision-maker is usually the owner — no committee</li>
+            <li>Hesitates on price when really hesitating on trust</li>
+          </ul>
+        </div>
+      </div>
+      <div class="channel-strip">
+        <span class="ch-label">Where to find them</span>
+        <span class="ch-pill primary">Accountant referrals</span>
+        <span class="ch-pill primary">Bookkeeper referrals</span>
+        <span class="ch-pill primary">Google Search</span>
+        <span class="ch-pill">LinkedIn</span>
+        <span class="ch-pill">Chamber events</span>
+        <span class="ch-pill">Peer owner referrals</span>
+      </div>
+      <div class="bottom-row">
+        <div class="signal-box sb-green">
+          <div class="sig-label sig-label-g">Green lights — close it</div>
+          <ul class="sig-list g">
+            <li>Says "everything runs through me" in some version</li>
+            <li>Has tools but doesn't trust or use them</li>
+            <li>Revenue growing but ops getting messier</li>
+            <li>Open to tech when they understand the outcome</li>
+            <li>Came through a warm referral</li>
+          </ul>
+        </div>
+        <div class="signal-box sb-red">
+          <div class="sig-label sig-label-r">Red flags — walk away</div>
+          <ul class="sig-list r">
+            <li>Under $150K revenue — not an Operator yet</li>
+            <li>Resistant to systems entirely</li>
+            <li>Pushes hard on price before understanding value</li>
+            <li>No urgency — pain isn't painful enough yet</li>
+            <li>Won't commit to adopting what gets built</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ICP 3 -->
+    <div class="icp-card icp-3">
+      <div class="card-header">
+        <div>
+          <div class="card-tier">Tier 3 — Scale System</div>
+          <div class="card-name">"The Scale-Ready Executive"</div>
+          <div class="card-tagline">High revenue, real infrastructure — but decisions are reactive and data is scattered</div>
+        </div>
+        <div class="card-price-badge">
+          <span class="price-label">Package</span>
+          <span class="price-big">$10K–$15K</span>
+          Scale System · Via referral or upgrade
+        </div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="col-label">Who they are</div>
+          <ul class="detail-list">
+            <li><strong>Business age:</strong> 5+ years</li>
+            <li>Team: 15–50 employees, multi-location</li>
+            <li>Revenue: $1.5M–$5M annually</li>
+            <li>Industries: Healthcare, professional services, janitorial, logistics, agencies</li>
+            <li>Already has tools — CRM, QB, website all exist</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">What actually hurts</div>
+          <ul class="detail-list">
+            <li>"I have revenue but I don't have clarity"</li>
+            <li>Data is scattered — no single source of truth</li>
+            <li>Decisions are reactive, not data-driven</li>
+            <li>Leadership depends on owner for answers</li>
+            <li>Can't see margin by service, location, or client</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">Key differences from Operator</div>
+          <ul class="detail-list">
+            <li>Already has CRM — BPP optimizes, doesn't install</li>
+            <li>Already has a website — BPP enhances, rarely rebuilds</li>
+            <li>Already has QB — BPP connects and builds from it</li>
+            <li>Needs BI and financial planning, not basic reporting</li>
+            <li>Decision may involve leadership team, not just owner</li>
+          </ul>
+        </div>
+      </div>
+      <div class="quote-block">
+        <div class="q-label">What they sound like</div>
+        <div class="q-text">"We're doing $2M a year but I still don't really know which part of the business is actually profitable. My team is running around and I'm still the one answering all the questions."</div>
+      </div>
+      <div class="channel-strip">
+        <span class="ch-label">Where to find them</span>
+        <span class="ch-pill primary">CPA / banker referrals</span>
+        <span class="ch-pill primary">Operator upgrades</span>
+        <span class="ch-pill primary">LinkedIn authority content</span>
+        <span class="ch-pill">Speaking engagements</span>
+        <span class="ch-pill">Executive peer groups</span>
+      </div>
+      <div class="bottom-row">
+        <div class="signal-box sb-green">
+          <div class="sig-label sig-label-g">Green lights — close it</div>
+          <ul class="sig-list g">
+            <li>"We have data but I can't see it in one place"</li>
+            <li>Has all the tools but they're disconnected</li>
+            <li>Leadership asks owner for answers constantly</li>
+            <li>Revenue growing but margin visibility is zero</li>
+            <li>Came through a high-trust referral (CPA, banker)</li>
+          </ul>
+        </div>
+        <div class="signal-box sb-red">
+          <div class="sig-label sig-label-r">Red flags — walk away</div>
+          <ul class="sig-list r">
+            <li>No existing tech stack — they're an Operator</li>
+            <li>Leadership resistant to changing operations</li>
+            <li>Expects Scale output at Operator pricing</li>
+            <li>No internal champion to drive adoption</li>
+            <li>Decision-maker unclear after two conversations</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="doc-footer">
+  <div class="doc-footer-text">Business Plans Plus LLC · Temple Terrace, FL · Internal Use Only · 2026</div>
+  <div class="doc-footer-gold">buildwithbpp.com</div>
+</div>
+
+</body>
+</html>

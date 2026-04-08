@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP — Client Journey Playbook 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f7f9fb; --surface: #ffffff; --surface2: #f0f3f6;
+    --rule: #dde4ea; --rule2: #ccd6e0;
+    --text: #000000; --text-muted: #6B6B6B; --text-faint: #a0a8b0;
+    --teal: #044771; --teal-dim: #e8f0f7; --teal-bright: #044771;
+    --purple: #5987A5; --purple-dim: #eaf0f5; --purple-bright: #5987A5;
+    --amber: #8a6a1a; --amber-dim: #fdf6e3; --amber-bright: #8a6a1a;
+    --gray: #6B6B6B; --gray-dim: #f5f7f9; --gray-bright: #444441;
+    --blue-bright: #044771; --blue-dim: #e8f0f7;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); }
+
+  .nav { position: sticky; top: 0; z-index: 100; background: #044771; border-bottom: 1px solid var(--rule); padding: 0 36px; display: flex; align-items: center; height: 50px; }
+  .nav-brand { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; margin-right: 28px; white-space: nowrap; }
+  .nav-brand span { color: #F1BE5C; }
+  .nav-tabs { display: flex; overflow-x: auto; }
+  .nav-tab { padding: 0 16px; height: 50px; display: flex; align-items: center; font-size: 11.5px; font-weight: 500; color: rgba(255,255,255,0.6); text-decoration: none; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.2s; }
+  .nav-tab:hover { color: white; }
+  .t-amber { color: #F1BE5C !important; border-bottom-color: #F1BE5C !important; }
+  .t-gray  { color: rgba(255,255,255,0.85) !important; border-bottom-color: rgba(255,255,255,0.85) !important; }
+  .t-teal  { color: #2dd4a0 !important; border-bottom-color: #2dd4a0 !important; }
+  .t-purple{ color: var(--purple-bright) !important; border-bottom-color: var(--purple) !important; }
+  .t-pink  { color: #F1BE5C !important; border-bottom-color: #F1BE5C !important; }
+
+  .hero { padding: 56px 36px 44px; border-bottom: 1px solid var(--rule); max-width: 1080px; margin: 0 auto; }
+  .hero-eye { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #5987A5; margin-bottom: 14px; }
+  .hero-title { font-family: 'Montserrat', sans-serif; font-size: 38px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; margin-bottom: 14px; color: #044771; }
+  .hero-title span { color: #F1BE5C; }
+  .hero-sub { font-size: 14px; font-weight: 300; color: var(--text-muted); line-height: 1.7; max-width: 580px; margin-bottom: 28px; }
+  .pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill { font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 20px; border: 1px solid var(--rule2); color: var(--text-muted); }
+
+  .legend-bar { max-width: 1080px; margin: 0 auto; padding: 14px 36px; border-bottom: 1px solid var(--rule); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; background: white; }
+  .leg-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); margin-right: 4px; }
+  .chip { display: inline-flex; align-items: center; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 4px; }
+  .ch-deal   { background: #e8f0f7; color: #044771; border: 1px solid #b8d0e4; }
+  .ch-tech   { background: #e8f0f7; color: #044771; border: 1px solid #044771; }
+  .ch-any    { background: #fdf6e3; color: #8a6a1a; border: 1px solid #e8d4a0; }
+  .ch-all    { background: #eaf0f5; color: #5987A5; border: 1px solid #5987A5; }
+  .ch-client { background: #f5f7f9; color: #6B6B6B; border: 1px solid #ccd6e0; }
+
+  .section { max-width: 1080px; margin: 0 auto; padding: 48px 36px; border-bottom: 1px solid var(--rule); }
+  .sec-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 28px; }
+  .sec-kicker { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 5px; }
+  .sec-title { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: #044771; }
+  .sec-desc { font-size: 13px; font-weight: 300; color: var(--text-muted); margin-top: 5px; line-height: 1.6; }
+  .pkg-badge { flex-shrink: 0; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; padding: 8px 14px; border-radius: 6px; text-align: right; line-height: 1.5; }
+  .pkg-badge small { display: block; font-size: 9px; font-weight: 400; opacity: 0.65; margin-bottom: 2px; }
+  .bd-gray   { background: var(--gray-dim);   color: var(--gray-bright);   border: 1px solid #3a3a36; }
+  .bd-teal   { background: var(--teal-dim);   color: var(--teal-bright);   border: 1px solid var(--teal); }
+  .bd-purple { background: var(--purple-dim); color: var(--purple-bright); border: 1px solid var(--purple); }
+
+  .mon-phases { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
+  .mp { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; }
+  .mp-i { background: var(--blue-dim);   color: var(--blue-bright);   border: 1px solid #2a4060; }
+  .mp-p { background: var(--purple-dim); color: var(--purple-bright); border: 1px solid #3a3468; }
+  .mp-e { background: var(--teal-dim);   color: var(--teal-bright);   border: 1px solid #1a5c42; }
+  .mp-m { background: var(--amber-dim);  color: var(--amber-bright);  border: 1px solid #5a3a10; }
+  .mp-c { background: #f5eeff; color: #7c3aed; border: 1px solid #c4b5fd; }
+
+  .sub-head { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 14px; margin-top: 28px; }
+
+  .q-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .q-block { background: white; border: 1px solid var(--rule); border-radius: 8px; padding: 16px 18px; }
+  .q-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+  .ql { list-style: none; }
+  .ql li { font-size: 12.5px; color: var(--text-muted); line-height: 1.6; padding: 5px 0; border-bottom: 1px solid var(--rule); display: flex; gap: 8px; }
+  .ql li:last-child { border-bottom: none; }
+  .ql li::before { content: 'Q'; font-size: 8px; font-weight: 700; padding: 2px 4px; border-radius: 2px; flex-shrink: 0; margin-top: 4px; }
+  .ql-gray   li::before { background: #252523; color: var(--gray-bright); }
+  .ql-teal   li::before { background: var(--teal-dim); color: var(--teal-bright); }
+  .ql-purple li::before { background: var(--purple-dim); color: var(--purple-bright); }
+  .ql li span { color: var(--text); }
+
+  .qual { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+  .qb { border-radius: 8px; padding: 14px 16px; }
+  .qb-g { background: #eaf5ea; border: 1px solid #b8ddb8; }
+  .qb-r { background: #fdecea; border: 1px solid #f5b8b8; }
+  .qt { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .qt-g { color: #1a6b1a; } .qt-r { color: #c0392b; }
+  .qi { list-style: none; }
+  .qi li { font-size: 12px; color: var(--text-muted); padding: 3px 0; display: flex; gap: 7px; line-height: 1.5; }
+  .qi.g li::before { content: '✓'; color: #1a6b1a; font-weight: 700; flex-shrink: 0; }
+  .qi.r li::before { content: '✕'; color: #c0392b; font-weight: 700; flex-shrink: 0; }
+
+  .timeline { display: flex; flex-direction: column; }
+  .phase { display: grid; grid-template-columns: 132px 1fr; }
+  .ph-left { padding: 18px 18px 0 0; display: flex; flex-direction: column; align-items: flex-end; }
+  .ph-wk  { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-align: right; margin-bottom: 4px; }
+  .ph-lbl { font-size: 9px; font-weight: 500; text-align: right; opacity: 0.65; margin-bottom: 5px; }
+  .ph-dot { width: 9px; height: 9px; border-radius: 50%; border: 2px solid; background: var(--bg); flex-shrink: 0; }
+  .ph-line { width: 1px; flex: 1; min-height: 30px; margin-top: 4px; margin-left: auto; }
+  .ph-right { border-left: 2px solid #e8f0f7; padding: 18px 0 26px 24px; }
+  .phase:last-child .ph-right { border-left-color: transparent; }
+  .ph-name { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 5px; }
+  .ph-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; font-weight: 300; max-width: 620px; }
+
+  .tasks { display: flex; flex-direction: column; gap: 5px; }
+  .task { background: #f7f9fb; border: 1px solid var(--rule); border-radius: 6px; padding: 9px 12px; display: flex; align-items: flex-start; gap: 10px; }
+  .tr { font-size: 9px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 2px 6px; border-radius: 3px; flex-shrink: 0; margin-top: 2px; white-space: nowrap; }
+  .tb { flex: 1; }
+  .tt { font-size: 12.5px; color: var(--text); line-height: 1.55; }
+  .tn { font-size: 11px; color: var(--text-faint); margin-top: 2px; font-weight: 300; }
+
+  .mstones { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
+  .ms { font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 20px; border: 1px solid; }
+
+  .sg { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .sc { background: white; border: 1px solid var(--rule); border-radius: 8px; padding: 18px 20px; }
+  .sc-t { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+  .sl { list-style: none; }
+  .sl li { font-size: 12px; color: var(--text-muted); padding: 5px 0; border-bottom: 1px solid var(--rule); line-height: 1.55; display: flex; gap: 7px; }
+  .sl li:last-child { border-bottom: none; }
+  .sl li::before { content: '—'; color: var(--text-faint); flex-shrink: 0; }
+
+  .rtable { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  .rtable th { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 14px; text-align: left; background: #044771; color: white; border-bottom: 1px solid #044771; }
+  .rtable td { font-size: 12px; color: var(--text-muted); padding: 9px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.55; }
+  .rtable tr:last-child td { border-bottom: none; }
+  .rtable td:first-child { font-weight: 500; color: var(--text); white-space: nowrap; }
+
+  .c-gray   { color: #444441; }
+  .c-teal   { color: #044771; }
+  .c-purple { color: #5987A5; }
+  .c-amber  { color: var(--amber-bright); }
+  .c-blue   { color: #044771; }
+  .c-pink   { color: #8a6a1a; }
+</style>
+</head>
+<body>
+<div style="background:#044771; padding:20px 36px; display:flex; align-items:center; justify-content:space-between;">
+  <div style="display:flex; align-items:center; gap:14px;">
+    <img src="data:image/png;base64,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" style="width:40px; height:40px; border-radius:5px; object-fit:cover;" alt="BPP">
+    <div>
+      <div style="font-family:Montserrat,sans-serif; font-size:16px; font-weight:700; color:white;">Business Plans Plus</div>
+      <div style="font-size:9px; color:rgba(255,255,255,0.55); letter-spacing:0.08em; text-transform:uppercase;">Growth Consulting &middot; Tampa Bay</div>
+    </div>
+  </div>
+  <div style="text-align:right;">
+    <div style="font-family:Montserrat,sans-serif; font-size:12px; font-weight:600; color:#F1BE5C;">Client Journey Playbook 2026</div>
+    <div style="font-size:10px; color:rgba(255,255,255,0.45);">Internal operations &middot; Confidential</div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-brand">Business Plans <span>Plus</span></div>
+  <div class="nav-tabs">
+    <a href="#roles"     class="nav-tab t-amber">Role Guide</a>
+    <a href="#launchpad" class="nav-tab t-gray">Launch Pad</a>
+    <a href="#operator"  class="nav-tab t-teal">Operator System</a>
+    <a href="#scale"     class="nav-tab t-purple">Scale System</a>
+    <a href="#standards" class="nav-tab t-pink">Shared Standards</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eye">Internal Operations · BPP 2026</div>
+  <h1 class="hero-title">Client Journey <span>Playbook</span></h1>
+  <p class="hero-sub">Discovery through final handoff — questions to ask, phases to execute, and who owns what. Use this on every engagement, every time.</p>
+  <div class="pills">
+    <span class="pill">3 packages</span>
+    <span class="pill">Monday.com phases integrated</span>
+    <span class="pill">Deal owner model</span>
+    <span class="pill">Role-based task ownership</span>
+  </div>
+</div>
+
+<div class="legend-bar">
+  <span class="leg-label">Task ownership</span>
+  <span class="chip ch-deal">Deal Owner</span>
+  <span class="chip ch-tech">Tech Lead (Daunte)</span>
+  <span class="chip ch-any">Any Partner</span>
+  <span class="chip ch-all">All Three</span>
+  <span class="chip ch-client">Client</span>
+</div>
+
+<!-- ROLE GUIDE -->
+<div class="section" id="roles">
+  <div class="sec-header">
+    <div>
+      <div class="sec-kicker c-amber">How we work</div>
+      <div class="sec-title c-amber">Role Guide</div>
+      <div class="sec-desc">The deal owner model + who owns what by default. Assignments confirmed at each kickoff.</div>
+    </div>
+  </div>
+
+  <div class="sg">
+    <div class="sc">
+      <div class="sc-t c-blue">Deal Owner — whoever closes the deal</div>
+      <ul class="sl">
+        <li>Primary client contact for the full engagement</li>
+        <li>Runs all client-facing touchpoints — calls, check-ins, updates</li>
+        <li>Collects all three payments (deposit, midpoint, final)</li>
+        <li>Logs all client interactions in HubSpot within 24 hrs</li>
+        <li>Updates deal stage within 24 hrs of any change</li>
+        <li>Sends completion summary, survey, testimonial ask, referral ask</li>
+        <li>Owns the client relationship even after project closes</li>
+      </ul>
+    </div>
+    <div class="sc">
+      <div class="sc-t c-teal">Tech Lead — Daunte</div>
+      <ul class="sl">
+        <li>Primary owner of AI workflow automation (Make, Zapier, custom builds)</li>
+        <li>Owns all BI dashboard builds (Power BI, Looker Studio)</li>
+        <li>Owns financial planning analysis and QB data connections</li>
+        <li>Head of strategy — final technical sign-off before client delivery</li>
+        <li>Most technically versatile — fills gaps where needed</li>
+        <li>Internal financial operations and partner distributions</li>
+      </ul>
+    </div>
+    <div class="sc">
+      <div class="sc-t c-amber">Any Partner — shared delivery pool</div>
+      <ul class="sl">
+        <li>Business plan writing — assigned at kickoff by bandwidth</li>
+        <li>Google Business Profile setup and optimization</li>
+        <li>SOP documentation for client processes</li>
+        <li>Training sessions — whoever built the deliverable trains on it</li>
+        <li>Loom recordings for any deliverable they own</li>
+        <li>LLC formation and EIN registration</li>
+      </ul>
+    </div>
+    <div class="sc">
+      <div class="sc-t c-purple">Specialized skills by partner</div>
+      <ul class="sl">
+        <li><strong style="color:var(--text);">Eli</strong> — Marketing lead: content, brand, website delivery (Wix, Webflow), client experience</li>
+        <li><strong style="color:var(--text);">Kenny</strong> — CRM setup and optimization (HubSpot), sales support, business planning, training documentation</li>
+        <li><strong style="color:var(--text);">Daunte</strong> — AI workflows, BI dashboards, financial analysis, strategy oversight, fills wherever needed</li>
+        <li>Exact assignments confirmed in internal scope call at each project kickoff</li>
+      </ul>
+    </div>
+  </div>
+
+  <table class="rtable">
+    <thead>
+      <tr>
+        <th style="color:var(--amber-bright);">Deliverable</th>
+        <th style="color:var(--amber-bright);">Default owner</th>
+        <th style="color:var(--amber-bright);">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Client relationship + check-ins</td><td><span class="chip ch-deal" style="font-size:10px;">Deal Owner</span></td><td>Always the deal owner — no exceptions</td></tr>
+      <tr><td>Payment collection (all 3)</td><td><span class="chip ch-deal" style="font-size:10px;">Deal Owner</span></td><td>Deposit, midpoint, final</td></tr>
+      <tr><td>HubSpot pipeline + notes</td><td><span class="chip ch-deal" style="font-size:10px;">Deal Owner</span></td><td>Within 24 hrs of any change</td></tr>
+      <tr><td>CRM setup / optimization</td><td><span class="chip ch-any" style="font-size:10px;">Any Partner</span></td><td>Kenny is primary; Daunte fills if Kenny is at capacity</td></tr>
+      <tr><td>AI workflow automation</td><td><span class="chip ch-tech" style="font-size:10px;">Tech Lead</span></td><td>Daunte primary; Kenny can support simpler builds</td></tr>
+      <tr><td>BI dashboard / financial analysis</td><td><span class="chip ch-tech" style="font-size:10px;">Tech Lead</span></td><td>Daunte — requires QB + data access</td></tr>
+      <tr><td>Website (Wix / Webflow)</td><td><span class="chip ch-any" style="font-size:10px;">Any Partner</span></td><td>Eli is primary</td></tr>
+      <tr><td>Business plan</td><td><span class="chip ch-any" style="font-size:10px;">Any Partner</span></td><td>Assign at kickoff by bandwidth</td></tr>
+      <tr><td>Process mapping</td><td><span class="chip ch-any" style="font-size:10px;">Any Partner</span></td><td>Most available senior partner leads</td></tr>
+      <tr><td>Training sessions</td><td><span class="chip ch-any" style="font-size:10px;">Any Partner</span></td><td>Whoever built the deliverable trains on it</td></tr>
+      <tr><td>GBP setup</td><td><span class="chip ch-any" style="font-size:10px;">Any Partner</span></td><td>Low complexity — assign at kickoff</td></tr>
+      <tr><td>SOP documentation</td><td><span class="chip ch-any" style="font-size:10px;">Any Partner</span></td><td>Kenny is strong here</td></tr>
+      <tr><td>Technical quality sign-off</td><td><span class="chip ch-tech" style="font-size:10px;">Tech Lead</span></td><td>Daunte reviews all AI, BI, and financial work before client delivery</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- LAUNCH PAD -->
+<div class="section" id="launchpad">
+  <div class="sec-header">
+    <div>
+      <div class="sec-kicker c-gray">Tier 1</div>
+      <div class="sec-title c-gray">Launch Pad</div>
+      <div class="sec-desc">2–3 weeks · $1,500–$2,000 · Growth-Ready Founder</div>
+    </div>
+    <div class="pkg-badge bd-gray"><small>Target client</small>0–18 months · Solo to 3-person team</div>
+  </div>
+
+  <div class="mon-phases">
+    <span class="mp mp-i">Initiation</span>
+    <span class="mp mp-e">Execution</span>
+    <span class="mp mp-m">Monitoring</span>
+    <span class="mp mp-c">Closure</span>
+  </div>
+
+  <div class="sub-head c-gray">Discovery call — what to ask</div>
+  <div class="q-grid">
+    <div class="q-block">
+      <div class="q-lbl" style="color:var(--gray-bright);">Qualify the client</div>
+      <ul class="ql ql-gray">
+        <li><span>What does your business do and who do you serve?</span></li>
+        <li><span>Are you structured as an LLC or sole proprietor yet?</span></li>
+        <li><span>Do you have an EIN?</span></li>
+        <li><span>Are you generating revenue or still pre-revenue?</span></li>
+        <li><span>Do you have a website or any online presence right now?</span></li>
+        <li><span>What's the #1 thing you need to feel like a real business?</span></li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-lbl" style="color:var(--gray-bright);">Understand the goal</div>
+      <ul class="ql ql-gray">
+        <li><span>Where do you want to be in 12 months?</span></li>
+        <li><span>Do you have a logo or brand identity, or starting from zero?</span></li>
+        <li><span>Who are your first customers — how are you finding them now?</span></li>
+        <li><span>What's your timeline — any urgency to get this done?</span></li>
+        <li><span>Have you worked with a consultant or agency before?</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="qual">
+    <div class="qb qb-g"><div class="qt qt-g">Close it — green lights</div><ul class="qi g">
+      <li>No LLC or EIN yet</li><li>No website at all or just a social page</li>
+      <li>Has a real service to sell, just not set up legally</li>
+      <li>Shows Operator ambition — wants to grow beyond this</li>
+      <li>Realistic on 2–3 week timeline</li>
+    </ul></div>
+    <div class="qb qb-r"><div class="qt qt-r">Walk away — red flags</div><ul class="qi r">
+      <li>Only wants a business plan, nothing else</li>
+      <li>Budget under $1,000 — wrong fit</li>
+      <li>No real service or product to sell yet</li>
+      <li>Side hustle mentality, no growth ambition</li>
+      <li>No upgrade potential toward Operator within 12 months</li>
+    </ul></div>
+  </div>
+
+  <div class="sub-head c-gray" style="margin-top:32px;">Delivery timeline</div>
+  <div class="timeline">
+
+    <div class="phase">
+      <div class="ph-left">
+        <div class="ph-wk" style="color:var(--gray);">Week 1</div>
+        <div class="ph-lbl" style="color:var(--blue-bright);">Initiation</div>
+        <div class="ph-dot" style="border-color:#888780; background:#888780;"></div>
+        <div class="ph-line" style="background:linear-gradient(#888780,#dde4ea);"></div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-name c-gray">Internal Setup + Project Kickoff</div>
+        <div class="ph-desc">Get organized internally first. Nothing gets built until the kickoff is complete and the deposit is collected.</div>
+        <div class="tasks">
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Create Google Drive folder (client name, organized by deliverable). Create project in Monday.com.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Collect 50% deposit, send contract via HubSpot, get signed before any work begins</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Run kickoff call (30 min) — confirm scope, collect all info for business plan and LLC filing, set timeline expectations</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Send post-kickoff onboarding template — request any remaining assets or credentials needed</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">File LLC with Florida DOS, apply for EIN via IRS</div><div class="tn">Assign at kickoff by bandwidth. LLC: 3–5 business days. EIN: same day online.</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="ph-left">
+        <div class="ph-wk" style="color:var(--gray);">Week 2</div>
+        <div class="ph-lbl" style="color:var(--teal-bright);">Execution</div>
+        <div class="ph-dot" style="border-color:#888780; background:#888780;"></div>
+        <div class="ph-line" style="background:linear-gradient(#888780,#dde4ea);"></div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-name c-gray">Plan + Build</div>
+        <div class="ph-desc">Define scope in Monday, build all deliverables in parallel. Client reviews business plan before final week.</div>
+        <div class="tasks">
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Input timeline in HubSpot and Monday. Define scope in writing — what's in, what's out.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Draft business plan — executive summary, services, target market, 12-month goals, basic financial projections</div><div class="tn">Kenny is strong here. Assign by bandwidth.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Build Wix landing page — home, services, contact form. Mobile optimized. Use client brand assets if available.</div><div class="tn">Eli is primary. Others assist on content if needed.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Set up business email (Google Workspace or Microsoft 365) — configure, test, document credentials</div><div class="tn">Included free in Launch Pad</div></div></div>
+          <div class="task"><span class="tr ch-client">Client</span><div class="tb"><div class="tt">Review business plan draft — provide feedback within 48 hours</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Review Service Playbook — confirm all deliverables on track before final week</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="ph-left">
+        <div class="ph-wk" style="color:var(--gray);">Week 3</div>
+        <div class="ph-lbl" style="color:#e879f9;">Monitoring → Closure</div>
+        <div class="ph-dot" style="border-color:#888780; background:#f7f9fb;"></div>
+      </div>
+      <div class="ph-right" style="border-left-color:transparent;">
+        <div class="ph-name c-gray">Finalize + Train + Close Out</div>
+        <div class="ph-desc">Everything finalized, published, and handed off. Client leaves with a working business foundation.</div>
+        <div class="tasks">
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Finalize business plan with client edits — produce final PDF, save to Drive</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Set up and verify Google Business Profile — add photos, services, hours, description, link to website</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Publish Wix site — QA on mobile + desktop, confirm contact form works, check all links</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Internal review — send project brief + milestone links internally. Sign off on all deliverables before client sees them.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Client review call — go over all deliverables, confirm satisfaction</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Training call (60 min) — walk client through GBP, Wix editor basics, email. Record Loom.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Set up and run project closeout meeting — collect final 50% payment</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Collect survey + Google review. Ask for referral and upsell — remind of 50% upgrade credit toward Operator System.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Finalize in Monday.com — mark complete. Log close in HubSpot. Update all deal fields.</div></div></div>
+        </div>
+        <div class="mstones">
+          <span class="ms" style="background:#f5f7f9; border-color:#888; color:#444441;">LLC filed</span>
+          <span class="ms" style="background:#f5f7f9; border-color:#888; color:#444441;">EIN obtained</span>
+          <span class="ms" style="background:#f5f7f9; border-color:#888; color:#444441;">Business plan delivered</span>
+          <span class="ms" style="background:#f5f7f9; border-color:#888; color:#444441;">Website live</span>
+          <span class="ms" style="background:#f5f7f9; border-color:#888; color:#444441;">GBP verified</span>
+          <span class="ms" style="background:#f5f7f9; border-color:#888; color:#444441;">Email active</span>
+          <span class="ms" style="background:#f5f7f9; border-color:#888; color:#444441;">Client trained</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPERATOR SYSTEM -->
+<div class="section" id="operator">
+  <div class="sec-header">
+    <div>
+      <div class="sec-kicker c-teal">Tier 2 — Primary focus</div>
+      <div class="sec-title c-teal">Operator System</div>
+      <div class="sec-desc">6–8 weeks · $4,500 flat · Established Operator</div>
+    </div>
+    <div class="pkg-badge bd-teal"><small>Target client</small>$250K–$2M · 5–25 employees</div>
+  </div>
+
+  <div class="mon-phases">
+    <span class="mp mp-i">Initiation</span>
+    <span class="mp mp-p">Planning</span>
+    <span class="mp mp-e">Execution</span>
+    <span class="mp mp-m">Monitoring</span>
+    <span class="mp mp-c">Closure</span>
+  </div>
+
+  <div class="sub-head c-teal">Discovery call — what to ask</div>
+  <div class="q-grid">
+    <div class="q-block">
+      <div class="q-lbl" style="color:var(--teal-bright);">Diagnose the operation</div>
+      <ul class="ql ql-teal">
+        <li><span>Walk me through how a new lead comes in — from first contact to signed contract?</span></li>
+        <li><span>What falls through the cracks most often in your business?</span></li>
+        <li><span>Do you have a CRM? Which one — does your team actually use it?</span></li>
+        <li><span>How do you onboard a new client right now — is it consistent every time?</span></li>
+        <li><span>If you were unavailable for 2 weeks, what would break?</span></li>
+        <li><span>How do you currently track revenue or profitability by service?</span></li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-lbl" style="color:var(--teal-bright);">Understand the business</div>
+      <ul class="ql ql-teal">
+        <li><span>How many people on your team — employees vs contractors?</span></li>
+        <li><span>What are your top 2–3 services by revenue?</span></li>
+        <li><span>What tools are you already paying for?</span></li>
+        <li><span>What's the one thing that if fixed would have the biggest impact?</span></li>
+        <li><span>What does success look like 6 months from now?</span></li>
+        <li><span>What's your investment comfort level for this engagement?</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="qual">
+    <div class="qb qb-g"><div class="qt qt-g">Close it — green lights</div><ul class="qi g">
+      <li>Says "everything runs through me" in some version</li>
+      <li>Has tools but doesn't trust or use them consistently</li>
+      <li>Revenue is real and growing but ops are messier as it grows</li>
+      <li>Open to tech when they understand the outcome</li>
+      <li>Warm referral — trust is already partially built</li>
+    </ul></div>
+    <div class="qb qb-r"><div class="qt qt-r">Walk away — red flags</div><ul class="qi r">
+      <li>Under $150K revenue — not an Operator yet</li>
+      <li>Resistant to systems entirely</li>
+      <li>Pushes hard on price before understanding value</li>
+      <li>No urgency — pain isn't painful enough yet</li>
+      <li>Won't commit to adopting what gets built</li>
+    </ul></div>
+  </div>
+
+  <div class="sub-head c-teal" style="margin-top:32px;">Delivery timeline</div>
+  <div class="timeline">
+
+    <div class="phase">
+      <div class="ph-left">
+        <div class="ph-wk" style="color:var(--teal);">Week 1</div>
+        <div class="ph-lbl" style="color:var(--blue-bright);">Initiation</div>
+        <div class="ph-dot" style="border-color:#044771; background:#044771;"></div>
+        <div class="ph-line" style="background:linear-gradient(#044771,#dde4ea);"></div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-name c-teal">Internal Setup + Project Kickoff</div>
+        <div class="ph-desc">Internal first, then client. Assignments confirmed before kickoff call. Nothing gets built until the process map is done.</div>
+        <div class="tasks">
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Create Google Drive folder and Monday.com project. Confirm internal partner assignments in team scope call.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Collect 50% deposit, send contract, get signed before kickoff call</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Set up and run kickoff meeting — confirm scope, collect credentials and project assets</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Send post-kickoff onboarding template — request CRM access, QB, website login, any other tools needed</div></div></div>
+          <div class="task"><span class="tr ch-all">All Three</span><div class="tb"><div class="tt">Internal scope call (30 min) — confirm deliverable assignments, review Service Playbook, set internal milestones in Monday</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="ph-left">
+        <div class="ph-wk" style="color:var(--teal);">Weeks 1–2</div>
+        <div class="ph-lbl" style="color:var(--purple-bright);">Planning</div>
+        <div class="ph-dot" style="border-color:#044771; background:#044771;"></div>
+        <div class="ph-line" style="background:linear-gradient(#044771,#dde4ea);"></div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-name c-teal">Process Mapping + Execution Plan</div>
+        <div class="ph-desc">The most important phase. Nothing gets built until the process map is complete and confirmed. It drives every deliverable that follows.</div>
+        <div class="tasks">
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Input confirmed timeline in HubSpot and Monday. Develop project execution plan — milestones week by week.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Lead 90-min process mapping session — map 1–2 key revenue processes (lead → close, close → onboarding). Document gaps and bottlenecks.</div><div class="tn">Use Miro or Notion. Share output with client same day for confirmation.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Finalize process map document — share with client, get confirmation on priorities before any building starts</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="ph-left">
+        <div class="ph-wk" style="color:var(--teal);">Weeks 2–5</div>
+        <div class="ph-lbl" style="color:var(--teal-bright);">Execution</div>
+        <div class="ph-dot" style="border-color:#044771; background:#044771;"></div>
+        <div class="ph-line" style="background:linear-gradient(#044771,#dde4ea);"></div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-name c-teal">Build Phase — Milestones 1 through 4</div>
+        <div class="ph-desc">All deliverables built from the process map. Halfway milestone triggers invoice and client check-in.</div>
+        <div class="tasks">
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Milestone 1 — CRM: New HubSpot setup built from process map (pipeline stages, contact import, email templates) OR full audit + optimization of existing CRM. Same deliverable and price either way.</div><div class="tn">Kenny is primary.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Milestone 2 — Website: Audit + implement top improvements. Client walks away with a tangibly better site, not just a report.</div><div class="tn">Eli is primary for website work.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Milestone payment trigger: when process map is confirmed AND CRM is live — invoice 25%. Due within 5 days. Review progress with client, confirm remaining scope.</div></div></div>
+          <div class="task"><span class="tr ch-tech">Tech Lead</span><div class="tb"><div class="tt">Milestone 3 — AI Workflow: Build 1 automation from process map findings (lead follow-up, onboarding trigger, or internal ops). Test with live data before client review.</div><div class="tn">Daunte primary. Kenny can support simpler builds.</div></div></div>
+          <div class="task"><span class="tr ch-tech">Tech Lead</span><div class="tb"><div class="tt">Milestone 4 — Financial Clarity: Pull QB or client data, identify margin by service, build simple KPI dashboard</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="ph-left">
+        <div class="ph-wk" style="color:var(--teal);">Week 6</div>
+        <div class="ph-lbl" style="color:var(--amber-bright);">Monitoring</div>
+        <div class="ph-dot" style="border-color:#044771; background:#044771;"></div>
+        <div class="ph-line" style="background:linear-gradient(#044771,#dde4ea);"></div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-name c-teal">Internal Review + Client Review</div>
+        <div class="ph-desc">Internal quality pass before anything goes to the client. Then a full client review of all deliverables together.</div>
+        <div class="tasks">
+          <div class="task"><span class="tr ch-all">All Three</span><div class="tb"><div class="tt">Internal review — send project brief + milestone links. Each partner signs off on their deliverables. Daunte reviews all technical work.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Client review call — go over all deliverables, confirm satisfaction, note final adjustments</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Address client feedback — final adjustments only. Any new scope requires a change order.</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="ph-left">
+        <div class="ph-wk" style="color:var(--teal);">Weeks 7–8</div>
+        <div class="ph-lbl" style="color:#e879f9;">Closure</div>
+        <div class="ph-dot" style="border-color:#044771; background:#f7f9fb;"></div>
+      </div>
+      <div class="ph-right" style="border-left-color:transparent;">
+        <div class="ph-name c-teal">Training + Documentation + Close Out</div>
+        <div class="ph-desc">Client leaves knowing how to use everything. Every deliverable has a Loom. Project is formally closed in HubSpot and Monday.</div>
+        <div class="tasks">
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Training session 1 (2 hrs) — CRM walkthrough: add leads, move deals, use templates, run reports. Whoever built it trains on it.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Training session 2 (2 hrs) — AI workflow: how it triggers, what it does, how to adjust. Whoever built it trains on it.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Record Loom for every deliverable — max 10 min each. CRM, workflow, website changes, KPI dashboard.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Produce documentation package — process map (final), CRM guide, workflow diagram, website change log, KPI guide</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Set up and run project closeout meeting — walk through all deliverables, confirm client is satisfied</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Invoice final 25% — due within 5 days of client sign-off on all remaining deliverables. 5-day acceptance window starts at delivery call. Collect survey. Request Google review.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Ask for referral. Discuss Scale System upsell — remind client of $1,000 upgrade credit.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Finalize in Monday.com. Log close in HubSpot. Schedule optional quarterly check-in.</div></div></div>
+        </div>
+        <div class="mstones">
+          <span class="ms" style="background:#e8f0f7; border-color:#044771; color:#044771;">Process map done</span>
+          <span class="ms" style="background:#e8f0f7; border-color:#044771; color:#044771;">CRM live</span>
+          <span class="ms" style="background:#e8f0f7; border-color:#044771; color:#044771;">Website improved</span>
+          <span class="ms" style="background:#e8f0f7; border-color:#044771; color:#044771;">AI workflow running</span>
+          <span class="ms" style="background:#e8f0f7; border-color:#044771; color:#044771;">KPI dashboard built</span>
+          <span class="ms" style="background:#e8f0f7; border-color:#044771; color:#044771;">Team trained</span>
+          <span class="ms" style="background:#e8f0f7; border-color:#044771; color:#044771;">Docs delivered</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCALE SYSTEM -->
+<div class="section" id="scale">
+  <div class="sec-header">
+    <div>
+      <div class="sec-kicker c-purple">Tier 3</div>
+      <div class="sec-title c-purple">Scale System</div>
+      <div class="sec-desc">10–14 weeks · $10,000–$15,000 · Scale-Ready Executive</div>
+    </div>
+    <div class="pkg-badge bd-purple"><small>Target client</small>$1.5M–$5M · 15–50 employees</div>
+  </div>
+
+  <div class="mon-phases">
+    <span class="mp mp-i">Initiation</span>
+    <span class="mp mp-p">Planning</span>
+    <span class="mp mp-e">Execution</span>
+    <span class="mp mp-m">Monitoring</span>
+    <span class="mp mp-c">Closure</span>
+  </div>
+
+  <div class="sub-head c-purple">Discovery call — what to ask</div>
+  <div class="q-grid">
+    <div class="q-block">
+      <div class="q-lbl" style="color:var(--purple-bright);">Diagnose the operation</div>
+      <ul class="ql ql-purple">
+        <li><span>If I asked right now what your most profitable service is, could you prove it with data?</span></li>
+        <li><span>How many tools is your team using that don't talk to each other?</span></li>
+        <li><span>When leadership needs to make a decision, where does that information come from?</span></li>
+        <li><span>What processes still require someone to manually move information between systems?</span></li>
+        <li><span>What would you do with your time if operational questions stopped coming to you?</span></li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-lbl" style="color:var(--purple-bright);">Understand the vision</div>
+      <ul class="ql ql-purple">
+        <li><span>What does growth look like — more locations, more services, more clients?</span></li>
+        <li><span>Do you have a leadership team that can run areas without you?</span></li>
+        <li><span>Have you worked with consultants before — what worked, what didn't?</span></li>
+        <li><span>What's the investment you're prepared to make to get this right?</span></li>
+        <li><span>Who else needs to be involved in the decision to move forward?</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="qual">
+    <div class="qb qb-g"><div class="qt qt-g">Close it — green lights</div><ul class="qi g">
+      <li>Has revenue but no financial clarity or data visibility</li>
+      <li>Already has CRM + website + QB — needs intelligence on top</li>
+      <li>Leadership still dependent on owner for answers</li>
+      <li>Came through CPA, banker, or high-trust referral</li>
+      <li>Talks in outcomes and ROI — understands investment</li>
+    </ul></div>
+    <div class="qb qb-r"><div class="qt qt-r">Walk away — red flags</div><ul class="qi r">
+      <li>No existing tech stack — they're an Operator, not Scale</li>
+      <li>Leadership resistant to changing how they operate</li>
+      <li>Expects Scale output at Operator pricing</li>
+      <li>No internal champion to drive adoption post-delivery</li>
+      <li>Decision-maker unclear after two conversations</li>
+    </ul></div>
+  </div>
+
+  <div class="sub-head c-purple" style="margin-top:32px;">Delivery timeline</div>
+  <div class="timeline">
+
+    <div class="phase">
+      <div class="ph-left">
+        <div class="ph-wk" style="color:var(--purple);">Weeks 1–2</div>
+        <div class="ph-lbl" style="color:var(--blue-bright);">Initiation</div>
+        <div class="ph-dot" style="border-color:#5987A5; background:#5987A5;"></div>
+        <div class="ph-line" style="background:linear-gradient(#5987A5,#dde4ea);"></div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-name c-purple">Internal Setup + Kickoff</div>
+        <div class="ph-desc">More complex setup than Operator — multiple tool accesses, leadership contacts, and data sources all collected before the process audit begins.</div>
+        <div class="tasks">
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Create Drive folder and Monday.com project. Internal scope call — confirm Daunte leads the technical workstream.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Collect 40% at signing — send contract, execute. Work does not start until deposit and signed contract are both received.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Kickoff meeting with client leadership — confirm scope, collect all credentials, send post-kickoff onboarding template</div></div></div>
+          <div class="task"><span class="tr ch-tech">Tech Lead</span><div class="tb"><div class="tt">Financial data audit — access QB and bank data, flag data gaps that would limit the BI dashboard before building starts</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="ph-left">
+        <div class="ph-wk" style="color:var(--purple);">Weeks 2–4</div>
+        <div class="ph-lbl" style="color:var(--purple-bright);">Planning</div>
+        <div class="ph-dot" style="border-color:#5987A5; background:#5987A5;"></div>
+        <div class="ph-line" style="background:linear-gradient(#5987A5,#dde4ea);"></div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-name c-purple">Full Process Audit + Execution Plan</div>
+        <div class="ph-desc">3–5 processes mapped across sales, delivery, ops, and reporting. Interview key team members — not just the owner. Present roadmap to leadership before any building begins.</div>
+        <div class="tasks">
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Input timeline in HubSpot and Monday. Develop project execution plan with all milestones mapped out.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Process audit sessions (2–3 × 90 min) — map 3–5 core processes. Interview team members across roles, not just the owner.</div><div class="tn">Most senior available partner leads. Daunte attends for strategy sign-off.</div></div></div>
+          <div class="task"><span class="tr ch-all">All Three</span><div class="tb"><div class="tt">Produce full process audit report + optimization roadmap. Present to client leadership. Confirm all priorities before build phase starts.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Review Service Playbook — confirm all deliverable assignments align with audit findings before building</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="ph-left">
+        <div class="ph-wk" style="color:var(--purple);">Weeks 4–9</div>
+        <div class="ph-lbl" style="color:var(--teal-bright);">Execution</div>
+        <div class="ph-dot" style="border-color:#5987A5; background:#5987A5;"></div>
+        <div class="ph-line" style="background:linear-gradient(#5987A5,#dde4ea);"></div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-name c-purple">Build Phase — Milestones 1 through 4</div>
+        <div class="ph-desc">Intelligence and automation layered on top of what they already have. No new tools unless the audit demands it. Halfway milestone triggers invoice.</div>
+        <div class="tasks">
+          <div class="task"><span class="tr ch-tech">Tech Lead</span><div class="tb"><div class="tt">Milestone 1 — BI Dashboard: Connect QB + CRM to Power BI or Looker Studio. Build leadership dashboard — revenue by service, margin, pipeline, cash flow.</div></div></div>
+          <div class="task"><span class="tr ch-tech">Tech Lead</span><div class="tb"><div class="tt">Milestone 2 — Advanced AI Automations: Build 2–4 multi-step workflows from audit priority list. Each tested with live data before client review.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Milestone payment trigger: when BI dashboard is live AND AI automations are delivered and tested — invoice 30%. Due within 5 days. Review all deliverables with client, confirm remaining scope.</div></div></div>
+          <div class="task"><span class="tr ch-tech">Tech Lead</span><div class="tb"><div class="tt">Milestone 3 — Financial Planning Analysis: 12-month model, margin by service, scenario planning (conservative / base / stretch)</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Milestone 4 — Advanced CRM Optimization: Rebuild pipelines to match audit, add team-level dashboards, configure sequences, clean data. Optimize existing — don't reinstall.</div><div class="tn">Kenny is primary.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">SOP documentation — step-by-step for each mapped process, written so any team member can execute without asking the owner</div><div class="tn">Kenny is strong here. One SOP per process mapped in audit.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">If scoped from audit: custom AI tool or website work — only if process audit identified it as needed. Separate workstream.</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="ph-left">
+        <div class="ph-wk" style="color:var(--purple);">Weeks 10–11</div>
+        <div class="ph-lbl" style="color:var(--amber-bright);">Monitoring</div>
+        <div class="ph-dot" style="border-color:#5987A5; background:#5987A5;"></div>
+        <div class="ph-line" style="background:linear-gradient(#5987A5,#dde4ea);"></div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-name c-purple">Internal Review + Client Review</div>
+        <div class="ph-desc">Full internal quality pass first. Then leadership review with client before training begins.</div>
+        <div class="tasks">
+          <div class="task"><span class="tr ch-all">All Three</span><div class="tb"><div class="tt">Internal review — send project brief + all milestone links. Each partner signs off. Daunte does final technical review on all AI, BI, and financial deliverables.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Client review call with leadership team — walk through all deliverables, confirm outcomes, note final adjustments</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Address feedback — final adjustments only. Any new requests require a change order.</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="ph-left">
+        <div class="ph-wk" style="color:var(--purple);">Weeks 12–14</div>
+        <div class="ph-lbl" style="color:#e879f9;">Closure</div>
+        <div class="ph-dot" style="border-color:#5987A5; background:#f7f9fb;"></div>
+      </div>
+      <div class="ph-right" style="border-left-color:transparent;">
+        <div class="ph-name c-purple">Training + Playbook + Full Close Out</div>
+        <div class="ph-desc">Leadership and team trained on everything. Full playbook delivered. 3-month check-in cadence starts.</div>
+        <div class="tasks">
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Training sessions (3–4 × 2 hrs) — BI dashboard for leadership, CRM for sales team, AI workflows for ops, SOP walkthroughs. Whoever built it trains on it.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Record Loom for every deliverable — max 10 min each. Organized in shared Drive folder for client.</div></div></div>
+          <div class="task"><span class="tr ch-any">Any Partner</span><div class="tb"><div class="tt">Compile full playbook — process audit, SOPs, workflow diagrams, BI guide, CRM guide, financial model. Delivered as organized Drive folder or Notion workspace.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Set up and run project closeout meeting — walk through everything delivered, confirm outcomes, set 3-month check-in schedule</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Invoice final 30% — due within 5 days of client sign-off on full playbook. 5-day acceptance window starts at closeout call. Collect survey. Request testimonial.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Ask for referral. Discuss retainer option ($1,500–$3,000/mo). Log close in HubSpot.</div></div></div>
+          <div class="task"><span class="tr ch-deal">Deal Owner</span><div class="tb"><div class="tt">Finalize in Monday.com. Schedule Month 1, 2, and 3 check-in calls before closing the project.</div></div></div>
+        </div>
+        <div class="mstones">
+          <span class="ms" style="background:#eaf0f5; border-color:#5987A5; color:#5987A5;">Process audit done</span>
+          <span class="ms" style="background:#eaf0f5; border-color:#5987A5; color:#5987A5;">BI dashboard live</span>
+          <span class="ms" style="background:#eaf0f5; border-color:#5987A5; color:#5987A5;">AI workflows running</span>
+          <span class="ms" style="background:#eaf0f5; border-color:#5987A5; color:#5987A5;">SOPs written</span>
+          <span class="ms" style="background:#eaf0f5; border-color:#5987A5; color:#5987A5;">Financial model delivered</span>
+          <span class="ms" style="background:#eaf0f5; border-color:#5987A5; color:#5987A5;">CRM optimized</span>
+          <span class="ms" style="background:#eaf0f5; border-color:#5987A5; color:#5987A5;">Full playbook handed off</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SHARED STANDARDS -->
+<div class="section" id="standards">
+  <div class="sec-header">
+    <div>
+      <div class="sec-kicker c-pink">All packages</div>
+      <div class="sec-title c-pink">Shared Standards</div>
+      <div class="sec-desc">Rules that apply to every engagement, every partner, every time — no exceptions.</div>
+    </div>
+  </div>
+
+  <div class="sg">
+    <div class="sc">
+      <div class="sc-t c-blue">Scope protection</div>
+      <ul class="sl">
+        <li>Everything delivered is documented in the proposal — no verbal promises</li>
+        <li>Any work outside original scope requires a written change order before starting</li>
+        <li>If a client asks for more than scoped, that's a change order — not a favor</li>
+        <li>Never discount a package after a proposal is sent</li>
+        <li>Alert the full team when a project hits 80% of estimated hours</li>
+      </ul>
+    </div>
+    <div class="sc">
+      <div class="sc-t c-blue">Communication standards</div>
+      <ul class="sl">
+        <li>Respond to all client messages within 24 hours on business days</li>
+        <li>Weekly status update to client — even if nothing changed, send a note</li>
+        <li>All client communication logged in HubSpot — not in personal DMs or texts</li>
+        <li>Support channel: email + Microsoft Teams. Not WhatsApp or personal phone.</li>
+        <li>If a deadline slips, tell the client before the deadline — never after</li>
+      </ul>
+    </div>
+    <div class="sc">
+      <div class="sc-t c-blue">Payment enforcement</div>
+      <ul class="sl">
+        <li><strong>Launch Pad:</strong> 50% at signing · 50% within 5 days of client sign-off on all deliverables</li>
+        <li><strong>Operator:</strong> 50% at signing · 25% when process map + CRM delivered · 25% within 5 days of final sign-off</li>
+        <li><strong>Scale:</strong> 40% at signing · 30% when BI dashboard + automations delivered · 30% within 5 days of full playbook sign-off</li>
+        <li style="color:#e24b4a;">Late payment: work pauses automatically after 7 days overdue — written in every contract, no exceptions</li>
+        <li>All invoices created in QuickBooks — set auto-reminders: 3 days before due + day of due date</li><li>5-day acceptance window on all deliverables — if client does not respond, milestone is treated as accepted and payment is due</li>
+      </ul>
+    </div>
+    <div class="sc">
+      <div class="sc-t c-blue">Quality gates</div>
+      <ul class="sl">
+        <li>Every deliverable reviewed internally before going to the client</li>
+        <li>Every workflow tested with live or simulated data before handoff</li>
+        <li>Every website change QA'd on mobile + desktop before publishing</li>
+        <li>Every Loom watched back before sharing — confirm audio is clear</li>
+        <li>Daunte reviews all technical deliverables (AI, BI, financial) before client delivery</li>
+      </ul>
+    </div>
+    <div class="sc">
+      <div class="sc-t c-blue">HubSpot hygiene — Deal Owner</div>
+      <ul class="sl">
+        <li>Every new lead entered in HubSpot within 24 hours of first contact</li>
+        <li>Deal stage updated within 24 hours of any status change</li>
+        <li>Discovery call notes logged in contact record immediately after the call</li>
+        <li>Every closed-won deal: create Monday project, assign partners, set kickoff date</li>
+        <li>Every closed-lost deal: log reason in HubSpot — needed for ICP and pricing learning</li>
+      </ul>
+    </div>
+    <div class="sc">
+      <div class="sc-t c-blue">Post-delivery — every package</div>
+      <ul class="sl">
+        <li>Send upgrade credit reminder in closeout email — plant the seed early</li>
+        <li>Request testimonial or Google review 2 weeks after delivery</li>
+        <li>Add client to quarterly check-in calendar if they opted in</li>
+        <li>Flag every completed client for referral outreach at 30 days post-delivery</li>
+        <li>Log project learnings in Notion — what took longer, what to do differently next time</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div style="background:#044771; padding:14px 36px; display:flex; align-items:center; justify-content:space-between; margin-top:0;">
+  <div style="font-size:10px; color:rgba(255,255,255,0.45);">Business Plans Plus LLC &middot; Temple Terrace, FL &middot; Internal Use Only &middot; 2026</div>
+  <div style="font-family:Montserrat,sans-serif; font-size:10px; font-weight:700; color:#F1BE5C;">buildwithbpp.com</div>
+</div>
+
+</body>
+</html>
