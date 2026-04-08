@@ -6,12 +6,12 @@ Business Plans Plus LLC (BPP). Growth consulting firm. Temple Terrace, FL. Found
 ## What We Do
 Help growth-stage entrepreneurs build the operating systems that make their business easier to run. We specialize in taking owners from "we're working hard" to "this actually runs."
 
-## Services & Pricing
+## Services & Pricing (updated April 2026)
 
 **Packages:**
-- Starter: $1,499 (3-4 weeks). Business plan, financial projections, basic strategy.
-- Growth: $3,499 (5-7 weeks). Most popular. Full business plan + CRM setup + financial cleanup + marketing strategy.
-- Scale: $6,999 (8-10 weeks). Everything in Growth + workflow automation + AI workflows + advanced reporting.
+- Launch Pad: $1,500-$2,000. Business plan, financial projections, basic strategy.
+- Operator System: $4,500 (rising to $5,500 after 3 case studies, $6,500 in Q4). PRIMARY package. Full business plan + CRM setup + financial cleanup + marketing strategy.
+- Scale System: $10,000-$15,000. Everything in Operator System + workflow automation + AI workflows + advanced reporting.
 
 **A La Carte:**
 - Business planning & strategy: $125/hr
@@ -21,7 +21,12 @@ Help growth-stage entrepreneurs build the operating systems that make their busi
 - Website development & SEO: $150/hr
 - Digital marketing: $125/hr
 
-**Payment terms:** 50/25/25. Pay in full: 3% discount. 3 monthly payments: +5%. Referral credit: $250. Bundle discount: 15-20%.
+**Payment terms (deliverable-triggered, not time-based):**
+- Operator System: 50/25/25
+- Scale System: 40/30/30
+- Launch Pad: 50/50
+- Key clause: 5-day acceptance window (no response = accepted) + 7-day late payment work pause
+- Pay in full: 3% discount. Referral credit: $250. Bundle discount: 15-20%.
 
 ## Team
 
@@ -46,10 +51,10 @@ Help growth-stage entrepreneurs build the operating systems that make their busi
 - Standardized onboarding per service
 - Consistent marketing output
 
-## ICP Personas
-1. **Builder** (Starter package): Pre-revenue to $150K, 0-18 months old, needs foundation
-2. **Operator** (Growth package): $250K-$1.5M, 2-5 years old, PRIMARY ICP, needs structure under existing demand
-3. **Executive** (Scale package): $1.5M+, 5+ years old, needs systems optimization
+## ICP Personas (updated April 2026)
+1. **Growth-Ready Founder** (Launch Pad): Pre-revenue to $150K, 0-18 months old, needs foundation
+2. **Established Operator** (Operator System): $250K-$2M, 3-8 years old, 5-25 employees, Tampa Bay service businesses. PRIMARY ICP, needs structure under existing demand
+3. **Scale-Ready Executive** (Scale System): $1.5M+, 5+ years old, needs systems optimization
 
 ## Brand
 - Colors: Navy #044771, Mid-Blue #5987A5, Gold #F1BE5C, Off-White #FCFCFC
