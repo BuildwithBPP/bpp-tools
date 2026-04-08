@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Tools - BPP Tools Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<nav class="hub-nav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">B</div>
+    <div class="nav-brand">BPP <span>Tools</span></div>
+  </div>
+  <div class="nav-tabs">
+    <a class="hub-tab" href="../index.html"><span class="tab-emoji">&#127968;</span> Home</a>
+    <a class="hub-tab" href="pre-call.html"><span class="tab-emoji">&#128222;</span> Pre-Call</a>
+    <a class="hub-tab" href="kickoff.html"><span class="tab-emoji">&#128640;</span> Kickoff</a>
+    <a class="hub-tab" href="ops.html"><span class="tab-emoji">&#128202;</span> Ops</a>
+    <a class="hub-tab on" href="finance.html"><span class="tab-emoji">&#128176;</span> Finance</a>
+    <a class="hub-tab" href="marketing.html"><span class="tab-emoji">&#128227;</span> Marketing</a>
+    <a class="hub-tab" href="systems.html"><span class="tab-emoji">&#9881;</span> Systems</a>
+  </div>
+  <div class="nav-people">
+    <button class="person-btn" onclick="togglePerson('daunte',this)">Daunte</button>
+    <button class="person-btn" onclick="togglePerson('kenny',this)">Kenny</button>
+    <button class="person-btn" onclick="togglePerson('eli',this)">Eli</button>
+  </div>
+</nav>
+
+<main>
+
+  <div class="sec-header">
+    <div class="sec-eyebrow">Finance</div>
+    <div class="sec-title">Financial <span>Tools</span></div>
+    <div class="sec-desc">QuickBooks, invoicing, subscriptions, and financial tracking.</div>
+  </div>
+
+  <div class="card-grid">
+    <a class="link-card" href="https://app.qbo.intuit.com" target="_blank" data-person="daunte">
+      <div class="lc-icon">&#128181;</div>
+      <div class="lc-body"><div class="lc-title">QuickBooks Online</div><div class="lc-desc">Invoicing, expenses, financial reports</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="#" target="_blank" data-person="daunte">
+      <div class="lc-icon">&#128196;</div>
+      <div class="lc-body"><div class="lc-title">Invoice Tracker</div><div class="lc-desc">Outstanding and paid invoices</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="#" target="_blank" data-person="daunte">
+      <div class="lc-icon">&#128179;</div>
+      <div class="lc-body"><div class="lc-title">Subscription Tracker</div><div class="lc-desc">Monthly SaaS and tool costs</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="https://webflow.com" target="_blank" data-person="eli daunte">
+      <div class="lc-icon">&#127760;</div>
+      <div class="lc-body"><div class="lc-title">Webflow Billing</div><div class="lc-desc">Website hosting and subscription</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="#" target="_blank" data-person="daunte">
+      <div class="lc-icon">&#128176;</div>
+      <div class="lc-body"><div class="lc-title">Rodney Rev-Share Tracker</div><div class="lc-desc">5% gross revenue obligation</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="#" target="_blank" data-person="daunte">
+      <div class="lc-icon">&#128197;</div>
+      <div class="lc-body"><div class="lc-title">Tax Payment Schedule</div><div class="lc-desc">Quarterly estimated tax deadlines</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+  </div>
+
+</main>
+
+<div class="hub-footer">
+  <div class="footer-brand">Business Plans <span>Plus</span></div>
+  <div class="footer-note">Internal Tools Hub &middot; Tampa Bay &middot; 2026</div>
+</div>
+
+<script>
+// -- Person switcher --
+function togglePerson(name, el) {
+  var body = document.body;
+  var btns = document.querySelectorAll('.person-btn');
+  if (body.getAttribute('data-person') === name) {
+    body.removeAttribute('data-person');
+    btns.forEach(function(b) { b.className = 'person-btn'; });
+  } else {
+    body.setAttribute('data-person', name);
+    btns.forEach(function(b) { b.className = 'person-btn'; });
+    el.classList.add('active-' + name);
+  }
+}
+
+// -- Date display --
+function setDates() {
+  var d = new Date();
+  var opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  var el = document.getElementById('home-date');
+  if (el) el.textContent = d.toLocaleDateString('en-US', opts);
+}
+
+// -- Init --
+setDates();
+</script>
+
+</body>
+</html>

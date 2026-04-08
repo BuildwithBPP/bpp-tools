@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing & Content - BPP Tools Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<nav class="hub-nav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">B</div>
+    <div class="nav-brand">BPP <span>Tools</span></div>
+  </div>
+  <div class="nav-tabs">
+    <a class="hub-tab" href="../index.html"><span class="tab-emoji">&#127968;</span> Home</a>
+    <a class="hub-tab" href="pre-call.html"><span class="tab-emoji">&#128222;</span> Pre-Call</a>
+    <a class="hub-tab" href="kickoff.html"><span class="tab-emoji">&#128640;</span> Kickoff</a>
+    <a class="hub-tab" href="ops.html"><span class="tab-emoji">&#128202;</span> Ops</a>
+    <a class="hub-tab" href="finance.html"><span class="tab-emoji">&#128176;</span> Finance</a>
+    <a class="hub-tab on" href="marketing.html"><span class="tab-emoji">&#128227;</span> Marketing</a>
+    <a class="hub-tab" href="systems.html"><span class="tab-emoji">&#9881;</span> Systems</a>
+  </div>
+  <div class="nav-people">
+    <button class="person-btn" onclick="togglePerson('daunte',this)">Daunte</button>
+    <button class="person-btn" onclick="togglePerson('kenny',this)">Kenny</button>
+    <button class="person-btn" onclick="togglePerson('eli',this)">Eli</button>
+  </div>
+</nav>
+
+<main>
+
+  <div class="sec-header">
+    <div class="sec-eyebrow">Marketing</div>
+    <div class="sec-title">Marketing & <span>Content</span></div>
+    <div class="sec-desc">Content dashboard, social media, and marketing tools.</div>
+  </div>
+
+  <div class="sec-label">Content Dashboard</div>
+  <div class="iframe-wrap">
+    <iframe src="content-dashboard.html" title="Content Dashboard"></iframe>
+  </div>
+
+  <div class="sec-label">Marketing Tools</div>
+  <div class="card-grid">
+    <a class="link-card" href="https://app.metricool.com" target="_blank" data-person="eli daunte">
+      <div class="lc-icon">&#128202;</div>
+      <div class="lc-body"><div class="lc-title">Metricool</div><div class="lc-desc">Social media scheduling and analytics</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="#" target="_blank" data-person="eli">
+      <div class="lc-icon">&#128221;</div>
+      <div class="lc-body"><div class="lc-title">Notion Idea Bank</div><div class="lc-desc">Content ideas and editorial planning</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="https://www.linkedin.com/company/businessplansplus" target="_blank" data-person="eli kenny">
+      <div class="lc-icon">&#128101;</div>
+      <div class="lc-body"><div class="lc-title">LinkedIn Company Page</div><div class="lc-desc">BPP company profile and posts</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="#" target="_blank" data-person="eli">
+      <div class="lc-icon">&#128197;</div>
+      <div class="lc-body"><div class="lc-title">Content Calendar</div><div class="lc-desc">Weekly content schedule</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="https://buildwithbpp.com" target="_blank" data-person="eli daunte">
+      <div class="lc-icon">&#127760;</div>
+      <div class="lc-body"><div class="lc-title">BPP Website</div><div class="lc-desc">buildwithbpp.com (Webflow)</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="#" target="_blank" data-person="eli daunte">
+      <div class="lc-icon">&#128200;</div>
+      <div class="lc-body"><div class="lc-title">Google Analytics</div><div class="lc-desc">Website traffic and conversions</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+  </div>
+
+</main>
+
+<div class="hub-footer">
+  <div class="footer-brand">Business Plans <span>Plus</span></div>
+  <div class="footer-note">Internal Tools Hub &middot; Tampa Bay &middot; 2026</div>
+</div>
+
+<script>
+// -- Person switcher --
+function togglePerson(name, el) {
+  var body = document.body;
+  var btns = document.querySelectorAll('.person-btn');
+  if (body.getAttribute('data-person') === name) {
+    body.removeAttribute('data-person');
+    btns.forEach(function(b) { b.className = 'person-btn'; });
+  } else {
+    body.setAttribute('data-person', name);
+    btns.forEach(function(b) { b.className = 'person-btn'; });
+    el.classList.add('active-' + name);
+  }
+}
+
+// -- Date display --
+function setDates() {
+  var d = new Date();
+  var opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  var el = document.getElementById('home-date');
+  if (el) el.textContent = d.toLocaleDateString('en-US', opts);
+}
+
+// -- Init --
+setDates();
+</script>
+
+</body>
+</html>

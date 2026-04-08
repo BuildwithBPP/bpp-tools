@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Systems & Tools - BPP Tools Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<nav class="hub-nav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">B</div>
+    <div class="nav-brand">BPP <span>Tools</span></div>
+  </div>
+  <div class="nav-tabs">
+    <a class="hub-tab" href="../index.html"><span class="tab-emoji">&#127968;</span> Home</a>
+    <a class="hub-tab" href="pre-call.html"><span class="tab-emoji">&#128222;</span> Pre-Call</a>
+    <a class="hub-tab" href="kickoff.html"><span class="tab-emoji">&#128640;</span> Kickoff</a>
+    <a class="hub-tab" href="ops.html"><span class="tab-emoji">&#128202;</span> Ops</a>
+    <a class="hub-tab" href="finance.html"><span class="tab-emoji">&#128176;</span> Finance</a>
+    <a class="hub-tab" href="marketing.html"><span class="tab-emoji">&#128227;</span> Marketing</a>
+    <a class="hub-tab on" href="systems.html"><span class="tab-emoji">&#9881;</span> Systems</a>
+  </div>
+  <div class="nav-people">
+    <button class="person-btn" onclick="togglePerson('daunte',this)">Daunte</button>
+    <button class="person-btn" onclick="togglePerson('kenny',this)">Kenny</button>
+    <button class="person-btn" onclick="togglePerson('eli',this)">Eli</button>
+  </div>
+</nav>
+
+<main>
+
+  <div class="sec-header">
+    <div class="sec-eyebrow">IT & Infrastructure</div>
+    <div class="sec-title">Systems & <span>Tools</span></div>
+    <div class="sec-desc">Every tool BPP uses, in one place.</div>
+  </div>
+
+  <div class="sec-label">AI Skills</div>
+  <div class="card-grid" style="margin-bottom:28px;">
+    <a class="link-card" href="skill-dictionary.html" target="_blank" data-person="daunte kenny eli">
+      <div class="lc-icon">&#129302;</div>
+      <div class="lc-body"><div class="lc-title">Skill Dictionary</div><div class="lc-desc">35 AI skills + 9 plugins -- searchable reference with triggers and use cases</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="https://github.com/alirezarezvani/claude-skills" target="_blank" data-person="daunte">
+      <div class="lc-icon">&#128218;</div>
+      <div class="lc-body"><div class="lc-title">Claude Skills Repo</div><div class="lc-desc">220+ community skills (source repo)</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+  </div>
+
+  <div class="sec-label">Platforms & Tools</div>
+  <div class="card-grid">
+    <a class="link-card" href="https://drive.google.com" target="_blank" data-person="daunte kenny eli">
+      <div class="lc-icon">&#128193;</div>
+      <div class="lc-body"><div class="lc-title">Google Drive</div><div class="lc-desc">Shared files and client folders</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="https://github.com/BuildwithBPP" target="_blank" data-person="daunte">
+      <div class="lc-icon">&#128187;</div>
+      <div class="lc-body"><div class="lc-title">GitHub (BuildwithBPP)</div><div class="lc-desc">Code repos, tools, and automation</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="https://www.make.com" target="_blank" data-person="daunte">
+      <div class="lc-icon">&#9881;</div>
+      <div class="lc-body"><div class="lc-title">Make (Integromat)</div><div class="lc-desc">Automation workflows</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="https://app.hubspot.com" target="_blank" data-person="kenny">
+      <div class="lc-icon">&#128200;</div>
+      <div class="lc-body"><div class="lc-title">HubSpot CRM</div><div class="lc-desc">Pipeline, contacts, and deals</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="https://businessplansplus.monday.com" target="_blank" data-person="daunte kenny eli">
+      <div class="lc-icon">&#128203;</div>
+      <div class="lc-body"><div class="lc-title">Monday.com</div><div class="lc-desc">Project management and sprints</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="#" target="_blank" data-person="daunte">
+      <div class="lc-icon">&#128202;</div>
+      <div class="lc-body"><div class="lc-title">Power BI</div><div class="lc-desc">Reporting and data visualization</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="https://webflow.com" target="_blank" data-person="eli daunte">
+      <div class="lc-icon">&#127760;</div>
+      <div class="lc-body"><div class="lc-title">Webflow</div><div class="lc-desc">Website builder and CMS</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="https://app.metricool.com" target="_blank" data-person="eli daunte">
+      <div class="lc-icon">&#128202;</div>
+      <div class="lc-body"><div class="lc-title">Metricool</div><div class="lc-desc">Social media analytics</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="https://app.qbo.intuit.com" target="_blank" data-person="daunte">
+      <div class="lc-icon">&#128181;</div>
+      <div class="lc-body"><div class="lc-title">QuickBooks Online</div><div class="lc-desc">Accounting and invoicing</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="data-source-map.html" target="_blank" data-person="daunte">
+      <div class="lc-icon">&#128506;</div>
+      <div class="lc-body"><div class="lc-title">Data Source Map</div><div class="lc-desc">Where BPP data lives and flows</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="#" target="_blank" data-person="daunte kenny eli">
+      <div class="lc-icon">&#128172;</div>
+      <div class="lc-body"><div class="lc-title">Microsoft Teams</div><div class="lc-desc">Team communication</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="#" target="_blank" data-person="eli">
+      <div class="lc-icon">&#127909;</div>
+      <div class="lc-body"><div class="lc-title">CapCut</div><div class="lc-desc">Video editing for content</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+  </div>
+
+</main>
+
+<div class="hub-footer">
+  <div class="footer-brand">Business Plans <span>Plus</span></div>
+  <div class="footer-note">Internal Tools Hub &middot; Tampa Bay &middot; 2026</div>
+</div>
+
+<script>
+// -- Person switcher --
+function togglePerson(name, el) {
+  var body = document.body;
+  var btns = document.querySelectorAll('.person-btn');
+  if (body.getAttribute('data-person') === name) {
+    body.removeAttribute('data-person');
+    btns.forEach(function(b) { b.className = 'person-btn'; });
+  } else {
+    body.setAttribute('data-person', name);
+    btns.forEach(function(b) { b.className = 'person-btn'; });
+    el.classList.add('active-' + name);
+  }
+}
+
+// -- Date display --
+function setDates() {
+  var d = new Date();
+  var opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  var el = document.getElementById('home-date');
+  if (el) el.textContent = d.toLocaleDateString('en-US', opts);
+}
+
+// -- Init --
+setDates();
+</script>
+
+</body>
+</html>

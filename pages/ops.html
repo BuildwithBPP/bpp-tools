@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operations Hub - BPP Tools Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<nav class="hub-nav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">B</div>
+    <div class="nav-brand">BPP <span>Tools</span></div>
+  </div>
+  <div class="nav-tabs">
+    <a class="hub-tab" href="../index.html"><span class="tab-emoji">&#127968;</span> Home</a>
+    <a class="hub-tab" href="pre-call.html"><span class="tab-emoji">&#128222;</span> Pre-Call</a>
+    <a class="hub-tab" href="kickoff.html"><span class="tab-emoji">&#128640;</span> Kickoff</a>
+    <a class="hub-tab on" href="ops.html"><span class="tab-emoji">&#128202;</span> Ops</a>
+    <a class="hub-tab" href="finance.html"><span class="tab-emoji">&#128176;</span> Finance</a>
+    <a class="hub-tab" href="marketing.html"><span class="tab-emoji">&#128227;</span> Marketing</a>
+    <a class="hub-tab" href="systems.html"><span class="tab-emoji">&#9881;</span> Systems</a>
+  </div>
+  <div class="nav-people">
+    <button class="person-btn" onclick="togglePerson('daunte',this)">Daunte</button>
+    <button class="person-btn" onclick="togglePerson('kenny',this)">Kenny</button>
+    <button class="person-btn" onclick="togglePerson('eli',this)">Eli</button>
+  </div>
+</nav>
+
+<main>
+
+  <div class="sec-header">
+    <div class="sec-eyebrow">Operations</div>
+    <div class="sec-title">Operations <span>Hub</span></div>
+    <div class="sec-desc">Weekly scorecard, CEO meeting agenda, and quarterly review. Fill before every Monday meeting.</div>
+  </div>
+
+  <!-- Sub-tabs for Ops -->
+  <div style="display:flex;gap:6px;margin-bottom:24px;">
+    <button class="btn btn-navy" onclick="showOpsPanel('ceo',this)" id="ops-tab-ceo">Monday CEO Meeting</button>
+    <button class="btn" onclick="showOpsPanel('scorecard',this)" id="ops-tab-scorecard">Weekly Scorecard</button>
+    <button class="btn" onclick="showOpsPanel('quarterly',this)" id="ops-tab-quarterly">Quarterly Review</button>
+  </div>
+
+  <!-- CEO Meeting Panel -->
+  <div class="ops-panel active" id="ops-ceo">
+    <div class="ops-section">
+      <div class="ops-section-title"><span class="emoji">&#128202;</span> Monday CEO Meeting</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Every Monday, 30 minutes, owners only. Owner-altitude only. No project deep dives.</p>
+
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;">
+        <button class="btn btn-gold" onclick="resetMeeting()">New Meeting</button>
+        <button class="btn" onclick="window.print()">Export Notes</button>
+        <span style="font-size:11px;color:var(--muted);margin-left:6px;" id="mtg-date">Week of --</span>
+      </div>
+
+      <div class="callout"><strong>Before this meeting:</strong> Daunte pulls QB numbers and fills the Scorecard tab. Kenny confirms HubSpot pipeline is clean. Eli confirms lead count. Meeting starts with numbers ready.</div>
+
+      <!-- Block 1: Scoreboard Pulse -->
+      <div class="agenda-block">
+        <div class="a-timebar"><div class="a-time">0:00 - 3:00</div><div class="a-mins">3 min</div></div>
+        <div class="a-main">
+          <div class="a-title">Scoreboard Pulse</div>
+          <div class="why-inline"><span>&#128161;</span><div><div class="wi-label">Why this block matters</div>Forces you to look at actual numbers, not feelings. Daunte owns this block.</div></div>
+          <ul class="cklist">
+            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Leads added this week <span class="ck-owner">(Kenny reports)</span></span></li>
+            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Active proposals out + pipeline value <span class="ck-owner">(Kenny from HubSpot)</span></span></li>
+            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Deals closed + cash collected <span class="ck-owner">(Daunte from QB)</span></span></li>
+            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Active clients in delivery <span class="ck-owner">(Kenny reports)</span></span></li>
+            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Rodney 5% rev-share -- is it current? <span class="ck-owner">(Daunte confirms)</span></span></li>
+            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Biggest bottleneck in one sentence</span></li>
+          </ul>
+          <textarea class="textarea" placeholder="Quick numbers from Scorecard tab..."></textarea>
+        </div>
+      </div>
+
+      <!-- Block 2: Wins & Friction -->
+      <div class="agenda-block">
+        <div class="a-timebar"><div class="a-time">3:00 - 8:00</div><div class="a-mins">5 min</div></div>
+        <div class="a-main">
+          <div class="a-title">Wins & Friction</div>
+          <div class="why-inline"><span>&#128161;</span><div><div class="wi-label">Why this block matters</div>Wins build momentum. Friction is gold: anything manual, slow, or repeated is a candidate for an SOP or automation.</div></div>
+          <div class="p-cols">
+            <div><div class="pcol-head"><span class="ppill ppill-d">Daunte</span></div><textarea class="textarea" style="min-height:70px;" placeholder="What moved forward? What felt slow?"></textarea></div>
+            <div><div class="pcol-head"><span class="ppill ppill-k">Kenny</span></div><textarea class="textarea" style="min-height:70px;" placeholder="What moved forward? What felt slow?"></textarea></div>
+            <div><div class="pcol-head"><span class="ppill ppill-e">Eli</span></div><textarea class="textarea" style="min-height:70px;" placeholder="What moved forward? What felt slow?"></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Block 3: Highest-Leverage Move -->
+      <div class="agenda-block">
+        <div class="a-timebar"><div class="a-time">8:00 - 15:00</div><div class="a-mins">7 min</div></div>
+        <div class="a-main">
+          <div class="a-title">Highest-Leverage Move This Week</div>
+          <div class="why-inline"><span>&#128161;</span><div><div class="wi-label">Why this block matters</div>Growth comes from doing the right thing each week. One focus area, one highest-leverage move.</div></div>
+          <div style="margin:10px 0;">
+            <div style="font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Focus Area This Week</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              <button class="focus-btn" onclick="selFocus(this)">Sales</button>
+              <button class="focus-btn" onclick="selFocus(this)">Delivery</button>
+              <button class="focus-btn" onclick="selFocus(this)">Finance</button>
+              <button class="focus-btn" onclick="selFocus(this)">Operations</button>
+              <button class="focus-btn" onclick="selFocus(this)">Marketing</button>
+              <button class="focus-btn" onclick="selFocus(this)">Delegation</button>
+            </div>
+          </div>
+          <textarea class="textarea" placeholder="What is the single highest-leverage move for BPP this week? Be specific." style="min-height:65px;"></textarea>
+        </div>
+      </div>
+
+      <!-- Block 4: Decisions -->
+      <div class="agenda-block">
+        <div class="a-timebar"><div class="a-time">15:00 - 22:00</div><div class="a-mins">7 min</div></div>
+        <div class="a-main">
+          <div class="a-title">Decisions</div>
+          <div class="why-inline"><span>&#128161;</span><div><div class="wi-label">Why this block matters</div>A decision isn't real until it has an owner and is written down.</div></div>
+          <div id="dec-list">
+            <div class="dec-row"><div class="dec-dot"></div><textarea class="dec-text" rows="1" placeholder="Decision made..." oninput="ar(this)"></textarea><select class="dec-own"><option value="">Owner</option><option>Daunte</option><option>Kenny</option><option>Eli</option><option>All</option></select></div>
+          </div>
+          <button class="btn" onclick="addDec()" style="margin-top:7px;">+ Add Decision</button>
+        </div>
+      </div>
+
+      <!-- Block 5: Owner Actions -->
+      <div class="agenda-block">
+        <div class="a-timebar"><div class="a-time">22:00 - 27:00</div><div class="a-mins">5 min</div></div>
+        <div class="a-main">
+          <div class="a-title">Owner Actions</div>
+          <div class="why-inline"><span>&#128161;</span><div><div class="wi-label">Why this block matters</div>No one leaves without three commitments. Strategic, operational, and unblock.</div></div>
+          <div class="p-cols">
+            <div><div class="pcol-head"><span class="ppill ppill-d">Daunte</span></div><input type="text" class="field" placeholder="Strategic action..."><input type="text" class="field" placeholder="Operational action..."><input type="text" class="field" placeholder="Unblock / follow-up..."></div>
+            <div><div class="pcol-head"><span class="ppill ppill-k">Kenny</span></div><input type="text" class="field" placeholder="Strategic action..."><input type="text" class="field" placeholder="Operational action..."><input type="text" class="field" placeholder="Unblock / follow-up..."></div>
+            <div><div class="pcol-head"><span class="ppill ppill-e">Eli</span></div><input type="text" class="field" placeholder="Strategic action..."><input type="text" class="field" placeholder="Operational action..."><input type="text" class="field" placeholder="Unblock / follow-up..."></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Block 6: Risks -->
+      <div class="agenda-block" style="border-bottom:none;">
+        <div class="a-timebar"><div class="a-time">27:00 - 30:00</div><div class="a-mins">3 min</div></div>
+        <div class="a-main">
+          <div class="a-title">Risks & Watch-outs</div>
+          <ul class="cklist">
+            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">What might slip this week?</span></li>
+            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Any client at risk of scope creep or dissatisfaction?</span></li>
+            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Any proposal about to go cold? <span class="ck-owner">(Kenny)</span></span></li>
+            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Anything that needs eyes before next Monday?</span></li>
+          </ul>
+          <textarea class="textarea" placeholder="Risks, watch-outs, anything that needs attention..."></textarea>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Parking Lot</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Good ideas, not this week. Don't lose them, don't let them hijack the meeting.</p>
+      <div id="park-list">
+        <div class="park-entry"><div class="park-dot"></div><textarea class="park-text" rows="1" placeholder="Idea or topic to revisit later..." oninput="ar(this)"></textarea></div>
+      </div>
+      <button class="btn" onclick="addPark()" style="margin-top:7px;">+ Add Item</button>
+    </div>
+  </div>
+
+  <!-- Scorecard Panel -->
+  <div class="ops-panel" id="ops-scorecard" style="display:none;">
+    <div class="ops-section">
+      <div class="ops-section-title"><span class="emoji">&#128202;</span> Weekly Scorecard</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Fill before every Monday meeting. Daunte fills financials from QuickBooks. Kenny confirms pipeline from HubSpot. Eli confirms leads.</p>
+
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;">
+        <button class="btn btn-gold" onclick="calcMetrics()">Calculate & Review</button>
+        <button class="btn" onclick="clearSC()">Clear Week</button>
+        <span style="font-size:11px;color:var(--muted);margin-left:6px;">Week of <span id="sc-week">--</span></span>
+      </div>
+
+      <div class="guide-box">
+        <div class="guide-head">How to Read This Scorecard</div>
+        <div class="guide-row"><div class="guide-metric">New Leads</div><div class="guide-sigs"><div class="sig"><span class="sdot sg"></span>3+ leads -- healthy flow</div><div class="sig"><span class="sdot sy"></span>1-2 leads -- light week</div><div class="sig"><span class="sdot sr"></span>0 leads -- flag immediately</div></div></div>
+        <div class="guide-row"><div class="guide-metric">Pipeline Value</div><div class="guide-sigs"><div class="sig"><span class="sdot sg"></span>$5,000+ -- healthy</div><div class="sig"><span class="sdot sy"></span>$2,000-$4,999 -- thin</div><div class="sig"><span class="sdot sr"></span>Under $2,000 -- low visibility</div></div></div>
+        <div class="guide-row"><div class="guide-metric">Close Rate</div><div class="guide-sigs"><div class="sig"><span class="sdot sg"></span>50%+ -- strong</div><div class="sig"><span class="sdot sy"></span>30-49% -- average</div><div class="sig"><span class="sdot sr"></span>Below 30% -- needs work</div></div></div>
+        <div class="guide-row"><div class="guide-metric">Discount Leakage</div><div class="guide-sigs"><div class="sig"><span class="sdot sg"></span>$0 -- clean</div><div class="sig"><span class="sdot sy"></span>Under $500 -- minor</div><div class="sig"><span class="sdot sr"></span>$500+ -- red flag</div></div></div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">Pipeline Value</div><div class="stat-val gold" id="sc-pipeline">$--</div><div class="stat-sub">active proposals</div></div>
+        <div class="stat-card"><div class="stat-label">Cash Collected</div><div class="stat-val" id="sc-cash">$--</div><div class="stat-sub">this week</div></div>
+        <div class="stat-card"><div class="stat-label">Active Clients</div><div class="stat-val" id="sc-clients">--</div><div class="stat-sub">in delivery</div></div>
+        <div class="stat-card"><div class="stat-label">Close Rate</div><div class="stat-val" id="sc-rate">--%</div><div class="stat-sub">proposals to closes</div></div>
+      </div>
+
+      <div class="sec-label" style="border-bottom-color:var(--gold);">Sales & Pipeline <span style="text-transform:none;font-weight:400;letter-spacing:0;color:var(--muted);font-size:10px;">-- Kenny confirms from HubSpot</span></div>
+      <div class="metric-grid">
+        <div class="metric-card"><div class="metric-name">New Leads Added</div><div class="metric-hint">Referrals + networking + inbound</div><input type="number" class="metric-input" id="m-leads" placeholder="0" min="0"></div>
+        <div class="metric-card"><div class="metric-name">Active Proposals Out</div><div class="metric-hint">Sent but not yet closed</div><input type="number" class="metric-input" id="m-proposals" placeholder="0" min="0"></div>
+        <div class="metric-card"><div class="metric-name">Proposals Sent This Week</div><div class="metric-hint">New proposals delivered</div><input type="number" class="metric-input" id="m-sent" placeholder="0" min="0"></div>
+        <div class="metric-card"><div class="metric-name">Deals Closed</div><div class="metric-hint">Signed agreements this week</div><input type="number" class="metric-input" id="m-closed" placeholder="0" min="0"></div>
+        <div class="metric-card"><div class="metric-name">Pipeline Value ($)</div><div class="metric-hint">Total value of active proposals</div><input type="number" class="metric-input" id="m-pipeline" placeholder="0" min="0"></div>
+        <div class="metric-card"><div class="metric-name">Cash Collected ($)</div><div class="metric-hint">Payments received from QB</div><input type="number" class="metric-input" id="m-cash" placeholder="0" min="0"></div>
+      </div>
+
+      <div class="sec-label" style="border-bottom-color:var(--steel);">Delivery & Operations <span style="text-transform:none;font-weight:400;letter-spacing:0;color:var(--muted);font-size:10px;">-- Kenny confirms before meeting</span></div>
+      <div class="metric-grid">
+        <div class="metric-card"><div class="metric-name">Active Clients in Delivery</div><div class="metric-hint">Projects currently being worked</div><input type="number" class="metric-input" id="m-clients" placeholder="0" min="0"></div>
+        <div class="metric-card"><div class="metric-name">Overdue Tasks</div><div class="metric-hint">Past due date</div><input type="number" class="metric-input" id="m-overdue" placeholder="0" min="0"></div>
+        <div class="metric-card"><div class="metric-name">Delivery Bottleneck</div><div class="metric-hint">What's slowing delivery?</div><select class="metric-select" id="m-bottleneck"><option value="">Select...</option><option>Waiting on client docs</option><option>Scope creep / unclear scope</option><option>Founder bandwidth</option><option>Tech / tool issues</option><option>None this week</option><option>Other</option></select></div>
+        <div class="metric-card"><div class="metric-name">Team Capacity</div><div class="metric-hint">Overall bandwidth</div><select class="metric-select" id="m-capacity"><option value="">Select...</option><option>High -- room for more</option><option>Normal -- fully engaged</option><option>Stretched -- at limit</option><option>Overloaded -- need to triage</option></select></div>
+      </div>
+
+      <div class="sec-label" style="border-bottom-color:var(--gold);">Finance <span style="text-transform:none;font-weight:400;letter-spacing:0;color:var(--muted);font-size:10px;">-- Daunte owns from QuickBooks</span></div>
+      <div class="metric-grid" style="margin-bottom:24px;">
+        <div class="metric-card"><div class="metric-name">Discount Leakage ($)</div><div class="metric-hint">Revenue lost to scope discounts</div><input type="number" class="metric-input" id="m-discounts" placeholder="0" min="0"></div>
+        <div class="metric-card"><div class="metric-name">QuickBooks in Sync?</div><div class="metric-hint">Are books current?</div><select class="metric-select" id="m-qb"><option value="">Select...</option><option>Yes -- current</option><option>1 week behind</option><option>2+ weeks behind</option><option>Needs reconciliation</option></select></div>
+      </div>
+
+      <div class="sec-label">Scorecard Summary</div>
+      <table class="score-table">
+        <thead><tr><th>Metric</th><th>This Week</th><th>Signal</th></tr></thead>
+        <tbody id="sc-summary"><tr><td colspan="3" style="color:var(--muted);font-size:11px;font-style:italic;">Hit "Calculate & Review" to generate your weekly summary.</td></tr></tbody>
+      </table>
+      <textarea class="textarea" placeholder="Weekly context -- unusual wins, client situations, external factors..." style="min-height:60px;"></textarea>
+    </div>
+  </div>
+
+  <!-- Quarterly Panel -->
+  <div class="ops-panel" id="ops-quarterly" style="display:none;">
+    <div class="ops-section">
+      <div class="ops-section-title"><span class="emoji">&#128200;</span> Quarterly Review</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Zoom out from weekly execution. Review what happened, what it means, and what changes next quarter.</p>
+
+      <div style="margin-bottom:20px;">
+        <select class="metric-select" id="q-quarter" style="width:120px;"><option>Q1 2026</option><option selected>Q2 2026</option><option>Q3 2026</option><option>Q4 2026</option></select>
+      </div>
+
+      <div class="sec-label" style="border-bottom-color:var(--gold);">Financial Performance <span style="text-transform:none;font-weight:400;letter-spacing:0;color:var(--muted);font-size:10px;">-- Daunte presents from QuickBooks</span></div>
+      <div class="stat-grid" style="margin-bottom:16px;">
+        <div class="stat-card"><div class="stat-label">Gross Revenue</div><div style="display:flex;align-items:center;gap:4px;margin-top:6px;"><span style="font-size:14px;color:var(--muted);">$</span><input type="number" class="metric-input" id="q-rev" placeholder="0" style="font-size:17px;" oninput="calcQ()"></div></div>
+        <div class="stat-card"><div class="stat-label">Total Expenses</div><div style="display:flex;align-items:center;gap:4px;margin-top:6px;"><span style="font-size:14px;color:var(--muted);">$</span><input type="number" class="metric-input" id="q-exp" placeholder="0" style="font-size:17px;" oninput="calcQ()"></div></div>
+        <div class="stat-card"><div class="stat-label">Net Income</div><div class="stat-val green" id="q-net">$--</div><div class="stat-sub">revenue minus expenses</div></div>
+        <div class="stat-card"><div class="stat-label">Rodney Rev-Share (5%)</div><div class="stat-val" style="color:var(--yellow);" id="q-rodney">$--</div><div class="stat-sub">5% of gross revenue</div></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">Per-Partner Distribution</div><div class="stat-val gold" id="q-distrib">$--</div><div class="stat-sub">33.3% of net after Rodney</div></div>
+        <div class="stat-card"><div class="stat-label">Profit Margin</div><div class="stat-val" id="q-margin">--%</div><div class="stat-sub">target: 20-25%</div></div>
+        <div class="stat-card"><div class="stat-label">QBI Deduction Est. (20%)</div><div class="stat-val" id="q-qbi">$--</div><div class="stat-sub">tax planning reference</div></div>
+      </div>
+
+      <div class="alert" style="margin-top:20px;"><span style="font-size:13px;">&#9888;&#65039;</span><span>Website Development has historically run at a loss. Review scope locks and minimum fees every quarter before continuing at current pricing.</span></div>
+    </div>
+  </div>
+
+  <div class="sec-label" style="margin-top:28px;">Ops Quick Links</div>
+  <div class="card-grid">
+    <a class="link-card" href="https://businessplansplus.monday.com/boards/18406003425" target="_blank" data-person="daunte kenny eli">
+      <div class="lc-icon">&#128203;</div>
+      <div class="lc-body"><div class="lc-title">Monday Operations Board</div><div class="lc-desc">Sprints, tasks, and internal work</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="https://app.qbo.intuit.com" target="_blank" data-person="daunte">
+      <div class="lc-icon">&#128181;</div>
+      <div class="lc-body"><div class="lc-title">QuickBooks Online</div><div class="lc-desc">Financial source of truth</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+    <a class="link-card" href="#" target="_blank" data-person="daunte">
+      <div class="lc-icon">&#128202;</div>
+      <div class="lc-body"><div class="lc-title">KPI Scorecard (Power BI)</div><div class="lc-desc">Reporting dashboard</div></div>
+      <div class="lc-arrow">&rarr;</div>
+    </a>
+  </div>
+
+</main>
+
+<div class="hub-footer">
+  <div class="footer-brand">Business Plans <span>Plus</span></div>
+  <div class="footer-note">Internal Tools Hub &middot; Tampa Bay &middot; 2026</div>
+</div>
+
+<script>
+// -- Person switcher --
+function togglePerson(name, el) {
+  var body = document.body;
+  var btns = document.querySelectorAll('.person-btn');
+  if (body.getAttribute('data-person') === name) {
+    body.removeAttribute('data-person');
+    btns.forEach(function(b) { b.className = 'person-btn'; });
+  } else {
+    body.setAttribute('data-person', name);
+    btns.forEach(function(b) { b.className = 'person-btn'; });
+    el.classList.add('active-' + name);
+  }
+}
+
+// -- Date display --
+function setDates() {
+  var d = new Date();
+  var opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  var homeDate = document.getElementById('home-date');
+  if (homeDate) homeDate.textContent = d.toLocaleDateString('en-US', opts);
+
+  // Week of (Monday)
+  var day = d.getDay();
+  var diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  var monday = new Date(d.setDate(diff));
+  var weekStr = monday.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  var mtgDate = document.getElementById('mtg-date');
+  if (mtgDate) mtgDate.textContent = 'Week of ' + weekStr;
+  var scWeek = document.getElementById('sc-week');
+  if (scWeek) scWeek.textContent = weekStr;
+}
+
+// -- Ops sub-tabs --
+function showOpsPanel(name, el) {
+  document.querySelectorAll('.ops-panel').forEach(function(p) { p.style.display = 'none'; });
+  document.getElementById('ops-' + name).style.display = 'block';
+  document.querySelectorAll('.btn').forEach(function(b) {
+    if (b.id && b.id.startsWith('ops-tab-')) b.classList.remove('btn-navy');
+  });
+  // Also handle the three sub-tab buttons specifically
+  var btns = el.parentElement.querySelectorAll('.btn');
+  btns.forEach(function(b) { b.classList.remove('btn-navy'); });
+  el.classList.add('btn-navy');
+}
+
+// -- Checkbox toggle --
+function tc(el) { el.classList.toggle('checked'); }
+
+// -- Auto-resize textarea --
+function ar(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
+
+// -- Add decision row --
+function addDec() {
+  var list = document.getElementById('dec-list');
+  var row = document.createElement('div');
+  row.className = 'dec-row';
+  row.innerHTML = '<div class="dec-dot"></div><textarea class="dec-text" rows="1" placeholder="Decision made..." oninput="ar(this)"></textarea><select class="dec-own"><option value="">Owner</option><option>Daunte</option><option>Kenny</option><option>Eli</option><option>All</option></select>';
+  list.appendChild(row);
+}
+
+// -- Add parking lot item --
+function addPark() {
+  var list = document.getElementById('park-list');
+  var entry = document.createElement('div');
+  entry.className = 'park-entry';
+  entry.innerHTML = '<div class="park-dot"></div><textarea class="park-text" rows="1" placeholder="Idea or topic to revisit later..." oninput="ar(this)"></textarea>';
+  list.appendChild(entry);
+}
+
+// -- Focus button --
+function selFocus(el) {
+  document.querySelectorAll('.focus-btn').forEach(function(b) { b.classList.remove('on'); });
+  el.classList.add('on');
+}
+
+// -- Reset meeting --
+function resetMeeting() {
+  if (!confirm('Start a new meeting? This will clear all fields.')) return;
+  document.querySelectorAll('#ops-ceo textarea, #ops-ceo input[type="text"]').forEach(function(el) { el.value = ''; });
+  document.querySelectorAll('#ops-ceo .cbox').forEach(function(el) { el.classList.remove('checked'); });
+  document.querySelectorAll('#ops-ceo .focus-btn').forEach(function(el) { el.classList.remove('on'); });
+  setDates();
+}
+
+// -- Scorecard calculations --
+function calcMetrics() {
+  var pipeline = parseFloat(document.getElementById('m-pipeline').value) || 0;
+  var cash = parseFloat(document.getElementById('m-cash').value) || 0;
+  var clients = parseInt(document.getElementById('m-clients').value) || 0;
+  var sent = parseInt(document.getElementById('m-sent').value) || 0;
+  var closed = parseInt(document.getElementById('m-closed').value) || 0;
+  var rate = sent > 0 ? Math.round((closed / sent) * 100) : 0;
+
+  document.getElementById('sc-pipeline').textContent = '$' + pipeline.toLocaleString();
+  document.getElementById('sc-cash').textContent = '$' + cash.toLocaleString();
+  document.getElementById('sc-clients').textContent = clients;
+  document.getElementById('sc-rate').textContent = rate + '%';
+
+  var leads = parseInt(document.getElementById('m-leads').value) || 0;
+  var discounts = parseFloat(document.getElementById('m-discounts').value) || 0;
+  var overdue = parseInt(document.getElementById('m-overdue').value) || 0;
+
+  function sig(val, g, y) { return val >= g ? '<span style="color:var(--green);">Green</span>' : val >= y ? '<span style="color:var(--yellow);">Yellow</span>' : '<span style="color:var(--red);">Red</span>'; }
+
+  var tbody = document.getElementById('sc-summary');
+  tbody.innerHTML =
+    '<tr><td>New Leads</td><td class="val">' + leads + '</td><td>' + sig(leads, 3, 1) + '</td></tr>' +
+    '<tr><td>Pipeline Value</td><td class="val">$' + pipeline.toLocaleString() + '</td><td>' + sig(pipeline, 5000, 2000) + '</td></tr>' +
+    '<tr><td>Close Rate</td><td class="val">' + rate + '%</td><td>' + sig(rate, 50, 30) + '</td></tr>' +
+    '<tr><td>Cash Collected</td><td class="val">$' + cash.toLocaleString() + '</td><td>--</td></tr>' +
+    '<tr><td>Discount Leakage</td><td class="val">$' + discounts.toLocaleString() + '</td><td>' + (discounts === 0 ? '<span style="color:var(--green);">Green</span>' : discounts < 500 ? '<span style="color:var(--yellow);">Yellow</span>' : '<span style="color:var(--red);">Red</span>') + '</td></tr>' +
+    '<tr><td>Overdue Tasks</td><td class="val">' + overdue + '</td><td>' + sig(-overdue, 0, -2) + '</td></tr>';
+}
+
+function clearSC() {
+  if (!confirm('Clear all scorecard fields?')) return;
+  document.querySelectorAll('#ops-scorecard input, #ops-scorecard select').forEach(function(el) {
+    if (el.type === 'number') el.value = '';
+    else if (el.tagName === 'SELECT') el.selectedIndex = 0;
+  });
+  document.getElementById('sc-pipeline').textContent = '$--';
+  document.getElementById('sc-cash').textContent = '$--';
+  document.getElementById('sc-clients').textContent = '--';
+  document.getElementById('sc-rate').textContent = '--%';
+  document.getElementById('sc-summary').innerHTML = '<tr><td colspan="3" style="color:var(--muted);font-size:11px;font-style:italic;">Hit "Calculate & Review" to generate your weekly summary.</td></tr>';
+}
+
+// -- Quarterly calculations --
+function calcQ() {
+  var rev = parseFloat(document.getElementById('q-rev').value) || 0;
+  var exp = parseFloat(document.getElementById('q-exp').value) || 0;
+  var net = rev - exp;
+  var rodney = rev * 0.05;
+  var distrib = (net - rodney) / 3;
+  var margin = rev > 0 ? ((net / rev) * 100).toFixed(1) : 0;
+  var qbi = distrib * 0.20;
+
+  document.getElementById('q-net').textContent = '$' + net.toLocaleString();
+  document.getElementById('q-rodney').textContent = '$' + rodney.toLocaleString();
+  document.getElementById('q-distrib').textContent = '$' + Math.round(distrib).toLocaleString();
+  document.getElementById('q-margin').textContent = margin + '%';
+  document.getElementById('q-qbi').textContent = '$' + Math.round(qbi).toLocaleString();
+}
+
+// -- Init --
+setDates();
+</script>
+
+</body>
+</html>
