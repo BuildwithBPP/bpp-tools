@@ -18,17 +18,35 @@ Business Plans Plus (BPP) is a growth consulting firm in Temple Terrace, FL. We 
 **Claude handles all git operations for this team.** When someone says to save, push, commit, or create a PR, handle it. Explain what you're doing so the team learns by watching.
 
 ### Rules
-- Never commit directly to `main`. Create a branch: `yourname/what-you-did`
-- Merge via pull request
-- Delete branch after merge
 - Write clear commit messages
+- For feature work, create a branch: `yourname/what-you-did` and merge via PR
+- Small fixes and content updates can go directly to `main`
+- Delete branches after merge
 
 ## Repo Structure
 
 ```
 bpp-tools/
+  index.html                   # Home page (stats, who's-on-what, quick links)
   CLAUDE.md                    # You are here
-  README.md                    # Team overview
+  README.md                    # Team overview and usage guide
+
+  css/
+    styles.css                 # Shared CSS for all pages (design system, nav, cards, ops hub)
+
+  pages/
+    pre-call.html              # Pre-Call toolkit (discovery, ICP, proposals)
+    kickoff.html               # Kickoff toolkit (onboarding, playbook)
+    ops.html                   # Operations hub (meeting agenda, scorecard, quarterly review)
+    finance.html               # Finance tools (QuickBooks, invoices, subscriptions)
+    marketing.html             # Marketing tools + content dashboard iframe
+    systems.html               # Systems, platforms, and AI skills
+    skill-dictionary.html      # Searchable AI skill dictionary (37 skills + 9 plugins)
+    content-dashboard.html     # Content performance dashboard (reference page)
+    delivery-playbook.html     # Delivery SOPs and standards (reference page)
+    icp-profiles.html          # Ideal client profiles (reference page)
+    service-packages.html      # Service package details (reference page)
+    data-source-map.html       # Data flow diagram (reference page)
 
   context/                     # BPP company context (copied from OneDrive)
     bpp-overview.md            # Company info, services, pricing, ICP
@@ -38,9 +56,6 @@ bpp-tools/
     getting-started.md         # Dev environment setup (Mac + Windows)
     git-basics.md              # The 10 git commands you need
     claude-code-basics.md      # How to use Claude Code
-
-  shared/                      # Cross-project utilities
-    utils/                     # Shared Python helpers (as needed)
 ```
 
 ## Brand Voice
@@ -50,12 +65,21 @@ Read `context/brand-voice.md` for all written output. Key rules:
 - No em dashes, no "leverage" as a verb, no filler phrases
 - Numbers like a business owner: "~$3.8K/month"
 
+## Architecture Notes
+
+- Each hub tab is a standalone HTML page in `pages/`. The Home page is `index.html` at the root.
+- All pages share `css/styles.css` for consistent styling. Change it once, every page updates.
+- Nav bar, person switcher, and footer are duplicated on each page (no framework, no build step).
+- The Ops page (`pages/ops.html`) has significant embedded JS: meeting agenda, scorecard calculations, quarterly review formulas. Edit carefully.
+- Reference pages (ICP profiles, service packages, etc.) are self-contained HTML files linked from the hub but not styled by `styles.css`.
+- The content dashboard is loaded via iframe in `pages/marketing.html`.
+
 ## Other BPP Repos
 
 | Repo | Purpose |
 |------|---------|
 | `BuildwithBPP/bpp-webflow-site` | Website code, Webflow export, SEO/copy tools |
-| `BuildwithBPP/bpp-proposal-tool` | RFP automation product (future) |
+| `BuildwithBPP/ruflo` | Agent orchestration platform (forked from ruvnet/ruflo) |
 
 ## How Memory Works Across BPP
 
