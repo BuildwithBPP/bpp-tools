@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP Skill Dictionary</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#044771;--gold:#F1BE5C;--gold-dim:#D4A63E;--steel:#5987A5;--bg:#F4F6F8;--card:#FFFFFF;--border:#E2E8F0;--text:#1A2B3C;--text2:#334155;--muted:#64748B;--green:#16a34a;--sans:'Inter',sans-serif;--head:'Montserrat',sans-serif;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);padding:0;margin:0;}
+
+.header{background:var(--navy);padding:28px 40px;color:#fff;}
+.header-title{font-family:var(--head);font-size:28px;font-weight:800;}
+.header-title span{color:var(--gold);}
+.header-sub{font-size:13px;color:rgba(255,255,255,0.6);margin-top:4px;}
+.header-meta{display:flex;gap:20px;margin-top:12px;}
+.meta-tag{font-size:11px;font-weight:600;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:4px;color:rgba(255,255,255,0.8);}
+
+.container{max-width:1100px;margin:0 auto;padding:28px 24px 60px;}
+
+.search-bar{width:100%;padding:12px 18px;border:2px solid var(--border);border-radius:10px;font-family:var(--sans);font-size:14px;color:var(--text);background:var(--card);outline:none;margin-bottom:24px;transition:border-color .15s;}
+.search-bar:focus{border-color:var(--navy);}
+
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px;}
+.filter-btn{font-family:var(--head);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 14px;border-radius:6px;border:1.5px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;transition:all .15s;}
+.filter-btn:hover{border-color:var(--navy);color:var(--navy);}
+.filter-btn.on{background:var(--navy);border-color:var(--navy);color:#fff;}
+
+.category{margin-bottom:32px;}
+.cat-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--gold);}
+.cat-title{font-family:var(--head);font-size:16px;font-weight:800;color:var(--navy);}
+.cat-count{font-size:11px;font-weight:600;color:var(--muted);background:var(--bg);padding:2px 8px;border-radius:10px;}
+.cat-badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;}
+.cat-badge.custom{background:rgba(241,190,92,0.15);color:var(--gold-dim);}
+.cat-badge.community{background:rgba(89,135,165,0.15);color:var(--steel);}
+.cat-badge.plugin{background:rgba(22,163,74,0.1);color:var(--green);}
+
+.skill-grid{display:grid;grid-template-columns:1fr;gap:8px;}
+.skill-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:16px 20px;transition:all .15s;cursor:default;}
+.skill-card:hover{border-color:var(--navy);box-shadow:0 2px 8px rgba(4,71,113,0.06);}
+.skill-top{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.skill-name{font-family:var(--head);font-size:14px;font-weight:700;color:var(--navy);}
+.skill-desc{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px;}
+.skill-trigger{font-size:11px;color:var(--muted);line-height:1.5;}
+.skill-trigger strong{color:var(--navy);font-weight:600;}
+.skill-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px;}
+.tag{font-size:9px;font-weight:600;padding:2px 7px;border-radius:3px;background:var(--bg);color:var(--muted);}
+
+.tip-box{background:var(--card);border:1.5px solid var(--gold);border-radius:10px;padding:20px 24px;margin-top:32px;}
+.tip-title{font-family:var(--head);font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px;}
+.tip-item{font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:6px;padding-left:16px;position:relative;}
+.tip-item::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--gold);}
+
+@media(max-width:768px){
+  .header{padding:20px 16px;}
+  .container{padding:16px 12px 40px;}
+  .header-meta{flex-wrap:wrap;gap:8px;}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">BPP Skill <span>Dictionary</span></div>
+  <div class="header-sub">Every AI skill installed in the BPP workspace. Skills trigger automatically based on what you ask.</div>
+  <div class="header-meta">
+    <span class="meta-tag">35 Workspace Skills</span>
+    <span class="meta-tag">9 Cowork Plugins</span>
+    <span class="meta-tag">Updated Apr 8, 2026</span>
+  </div>
+</div>
+
+<div class="container">
+
+<input type="text" class="search-bar" placeholder="Search skills... (e.g. 'email', 'proposal', 'social media')" oninput="filterSkills(this.value)">
+
+<div class="filter-row">
+  <button class="filter-btn on" onclick="filterCat('all',this)">All</button>
+  <button class="filter-btn" onclick="filterCat('bpp',this)">BPP Custom</button>
+  <button class="filter-btn" onclick="filterCat('marketing',this)">Marketing</button>
+  <button class="filter-btn" onclick="filterCat('sales',this)">Sales</button>
+  <button class="filter-btn" onclick="filterCat('strategy',this)">Strategy</button>
+  <button class="filter-btn" onclick="filterCat('finance',this)">Finance</button>
+  <button class="filter-btn" onclick="filterCat('pm',this)">Project Mgmt</button>
+  <button class="filter-btn" onclick="filterCat('growth',this)">Launch & Growth</button>
+  <button class="filter-btn" onclick="filterCat('plugin',this)">Plugins</button>
+</div>
+
+<div id="skills-container">
+
+<!-- BPP Custom -->
+<div class="category" data-cat="bpp">
+  <div class="cat-header"><div class="cat-title">BPP Custom Skills</div><span class="cat-badge custom">Built for BPP</span><span class="cat-count">5</span></div>
+  <div class="skill-grid">
+    <div class="skill-card" data-search="bpp todoist tasks task management"><div class="skill-top"><div class="skill-name">bpp-todoist</div></div><div class="skill-desc">Manages tasks in BPP's Todoist workspace. Creates, updates, and organizes tasks across projects.</div><div class="skill-trigger"><strong>Say:</strong> "Add a task to Todoist," "check my BPP tasks," "what's in my backlog?"</div></div>
+    <div class="skill-card" data-search="bpp webflow website edit pages"><div class="skill-top"><div class="skill-name">bpp-webflow</div></div><div class="skill-desc">Edits and maintains buildwithbpp.com through the Webflow API. Updates pages, content, and site structure.</div><div class="skill-trigger"><strong>Say:</strong> "Update the website," "edit the packages page," "change the homepage copy"</div></div>
+    <div class="skill-card" data-search="client onboarding setup folder brief checklist new client"><div class="skill-top"><div class="skill-name">client-onboarding</div></div><div class="skill-desc">Sets up new client folders, project briefs, and onboarding checklists. Standardized setup for every engagement.</div><div class="skill-trigger"><strong>Say:</strong> "Onboard a new client," "set up [client name]," "create client folder"</div></div>
+    <div class="skill-card" data-search="meeting notes transcript summary action items teams"><div class="skill-top"><div class="skill-name">meeting-notes</div></div><div class="skill-desc">Processes Teams transcripts into structured summaries with action items, decisions, and follow-up emails.</div><div class="skill-trigger"><strong>Say:</strong> "Process these meeting notes," "summarize this transcript," "what were the action items?"</div></div>
+    <div class="skill-card" data-search="xcjs xtremely clean janitorial rfp proposal"><div class="skill-top"><div class="skill-name">xcjs-proposal-builder</div></div><div class="skill-desc">6-phase RFP workflow built for Xtremely Clean Janitorial Services. Handles large proposal development.</div><div class="skill-trigger"><strong>Say:</strong> "Build the XCJS proposal," "work on the RFP response"</div></div>
+  </div>
+</div>
+
+<!-- Marketing -->
+<div class="category" data-cat="marketing">
+  <div class="cat-header"><div class="cat-title">Marketing & Content</div><span class="cat-badge community">Community</span><span class="cat-count">12</span></div>
+  <div class="skill-grid">
+    <div class="skill-card" data-search="content strategy plan calendar topics what to write blog"><div class="skill-top"><div class="skill-name">content-strategy</div></div><div class="skill-desc">Plans content pillars, topic clusters, and editorial calendars. Decides what content to create and why.</div><div class="skill-trigger"><strong>Say:</strong> "Plan our content for April," "what should we post about?" "build a topic cluster"</div><div class="skill-tags"><span class="tag">planning</span><span class="tag">editorial</span><span class="tag">topics</span></div></div>
+    <div class="skill-card" data-search="content creator write article blog post"><div class="skill-top"><div class="skill-name">content-creator</div></div><div class="skill-desc">Routes content requests to the right specialist skill. Handles blog posts, articles, and guides.</div><div class="skill-trigger"><strong>Say:</strong> "Write a blog post," "create an article about [topic]"</div><div class="skill-tags"><span class="tag">writing</span><span class="tag">articles</span></div></div>
+    <div class="skill-card" data-search="humanize ai content voice personality robot generic"><div class="skill-top"><div class="skill-name">content-humanizer</div></div><div class="skill-desc">Strips AI-sounding language and injects real personality. Makes content sound like a human wrote it.</div><div class="skill-trigger"><strong>Say:</strong> "This sounds like AI," "make it more human," "humanize this," "add personality"</div><div class="skill-tags"><span class="tag">voice</span><span class="tag">editing</span><span class="tag">quality</span></div></div>
+    <div class="skill-card" data-search="copywriting landing page headline cta marketing copy homepage"><div class="skill-top"><div class="skill-name">copywriting</div></div><div class="skill-desc">Writes marketing copy for landing pages, homepages, pricing pages, feature pages, and CTAs.</div><div class="skill-trigger"><strong>Say:</strong> "Write copy for the homepage," "improve this headline," "rewrite this page"</div><div class="skill-tags"><span class="tag">pages</span><span class="tag">headlines</span><span class="tag">CTAs</span></div></div>
+    <div class="skill-card" data-search="copy editing proofread polish review feedback"><div class="skill-top"><div class="skill-name">copy-editing</div></div><div class="skill-desc">Edits and polishes existing marketing copy through multiple focused passes. Systematic review process.</div><div class="skill-trigger"><strong>Say:</strong> "Edit this copy," "proofread this," "do a copy sweep," "polish this draft"</div><div class="skill-tags"><span class="tag">editing</span><span class="tag">review</span><span class="tag">polish</span></div></div>
+    <div class="skill-card" data-search="social content linkedin twitter instagram tiktok post"><div class="skill-top"><div class="skill-name">social-content</div></div><div class="skill-desc">Creates platform-specific social media posts optimized for each network's format and audience.</div><div class="skill-trigger"><strong>Say:</strong> "Write a LinkedIn post," "create an Instagram caption," "draft a Twitter thread"</div><div class="skill-tags"><span class="tag">LinkedIn</span><span class="tag">Instagram</span><span class="tag">Twitter</span></div></div>
+    <div class="skill-card" data-search="social media manager strategy calendar community growth followers"><div class="skill-top"><div class="skill-name">social-media-manager</div></div><div class="skill-desc">Full social strategy: calendar planning, platform selection, community management, and audience growth.</div><div class="skill-trigger"><strong>Say:</strong> "Plan our social media strategy," "which platforms should we use?" "grow our following"</div><div class="skill-tags"><span class="tag">strategy</span><span class="tag">calendar</span><span class="tag">growth</span></div></div>
+    <div class="skill-card" data-search="social media analyzer analytics engagement rate roi benchmark"><div class="skill-top"><div class="skill-name">social-media-analyzer</div></div><div class="skill-desc">Analyzes engagement rates, ROI, and benchmarks across platforms. Calculates campaign performance.</div><div class="skill-trigger"><strong>Say:</strong> "Analyze our social media performance," "how's our engagement?" "benchmark our metrics"</div><div class="skill-tags"><span class="tag">analytics</span><span class="tag">ROI</span><span class="tag">benchmarks</span></div></div>
+    <div class="skill-card" data-search="cold email outreach prospecting sdr sales sequence"><div class="skill-top"><div class="skill-name">cold-email</div></div><div class="skill-desc">Writes B2B cold outreach sequences for prospects who haven't heard from you. Humanized, not salesy.</div><div class="skill-trigger"><strong>Say:</strong> "Draft a cold email to [company]," "write a prospecting sequence," "outreach to Tampa CDC"</div><div class="skill-tags"><span class="tag">outreach</span><span class="tag">prospecting</span><span class="tag">B2B</span></div></div>
+    <div class="skill-card" data-search="email sequence drip nurture onboarding welcome automation lifecycle"><div class="skill-top"><div class="skill-name">email-sequence</div></div><div class="skill-desc">Builds nurture, onboarding, and lifecycle email flows. Welcome sequences, re-engagement, and drip campaigns.</div><div class="skill-trigger"><strong>Say:</strong> "Create a welcome email sequence," "build an onboarding drip," "design a nurture flow"</div><div class="skill-tags"><span class="tag">nurture</span><span class="tag">automation</span><span class="tag">lifecycle</span></div></div>
+    <div class="skill-card" data-search="campaign analytics attribution funnel roi roas cpa"><div class="skill-top"><div class="skill-name">campaign-analytics</div></div><div class="skill-desc">Multi-touch attribution, funnel conversion analysis, and ROI calculation across marketing channels.</div><div class="skill-trigger"><strong>Say:</strong> "Analyze this campaign," "what's our ROAS?" "break down the funnel"</div><div class="skill-tags"><span class="tag">attribution</span><span class="tag">funnel</span><span class="tag">ROI</span></div></div>
+    <div class="skill-card" data-search="seo audit technical ranking meta tags search"><div class="skill-top"><div class="skill-name">seo-audit</div></div><div class="skill-desc">Technical SEO analysis, on-page optimization, and ranking diagnostics for your website.</div><div class="skill-trigger"><strong>Say:</strong> "Audit our website SEO," "why aren't we ranking?" "check our meta tags"</div><div class="skill-tags"><span class="tag">SEO</span><span class="tag">technical</span><span class="tag">ranking</span></div></div>
+  </div>
+</div>
+
+<!-- Sales -->
+<div class="category" data-cat="sales">
+  <div class="cat-header"><div class="cat-title">Sales & Business Growth</div><span class="cat-badge community">Community</span><span class="cat-count">4</span></div>
+  <div class="skill-grid">
+    <div class="skill-card" data-search="contract proposal writer sow nda msa agreement"><div class="skill-top"><div class="skill-name">contract-and-proposal-writer</div></div><div class="skill-desc">Generates professional contracts, SOWs, NDAs, MSAs, and project proposals. Multi-jurisdiction support.</div><div class="skill-trigger"><strong>Say:</strong> "Draft a contract for [client]," "write an SOW," "create an NDA"</div><div class="skill-tags"><span class="tag">contracts</span><span class="tag">proposals</span><span class="tag">legal</span></div></div>
+    <div class="skill-card" data-search="revenue operations pipeline forecast gtm sales efficiency"><div class="skill-top"><div class="skill-name">revenue-operations</div></div><div class="skill-desc">Sales pipeline health analysis, revenue forecasting, and go-to-market efficiency metrics.</div><div class="skill-trigger"><strong>Say:</strong> "Analyze our pipeline," "forecast this quarter," "how efficient is our sales?"</div><div class="skill-tags"><span class="tag">pipeline</span><span class="tag">forecast</span><span class="tag">GTM</span></div></div>
+    <div class="skill-card" data-search="customer success churn retention health score upsell expansion"><div class="skill-top"><div class="skill-name">customer-success-manager</div></div><div class="skill-desc">Customer health scoring, churn prediction, and expansion opportunity identification.</div><div class="skill-trigger"><strong>Say:</strong> "Which clients are at risk?" "find upsell opportunities," "score client health"</div><div class="skill-tags"><span class="tag">retention</span><span class="tag">churn</span><span class="tag">expansion</span></div></div>
+    <div class="skill-card" data-search="sales engineer rfp rfi response feature comparison poc demo"><div class="skill-top"><div class="skill-name">sales-engineer</div></div><div class="skill-desc">RFP/RFI responses, competitive feature matrices, and proof-of-concept planning for pre-sales.</div><div class="skill-trigger"><strong>Say:</strong> "Respond to this RFP," "build a competitor comparison," "plan a POC"</div><div class="skill-tags"><span class="tag">RFP</span><span class="tag">comparison</span><span class="tag">pre-sales</span></div></div>
+  </div>
+</div>
+
+<!-- Strategy -->
+<div class="category" data-cat="strategy">
+  <div class="cat-header"><div class="cat-title">Strategy & Leadership</div><span class="cat-badge community">Community</span><span class="cat-count">6</span></div>
+  <div class="skill-grid">
+    <div class="skill-card" data-search="ceo advisor strategy board investors organization leadership"><div class="skill-top"><div class="skill-name">ceo-advisor</div></div><div class="skill-desc">Executive leadership guidance: strategic decisions, org development, stakeholder management, board prep.</div><div class="skill-trigger"><strong>Say:</strong> "Help me think through this strategy," "prepare for the board meeting"</div><div class="skill-tags"><span class="tag">strategy</span><span class="tag">leadership</span><span class="tag">board</span></div></div>
+    <div class="skill-card" data-search="cfo advisor financial model unit economics cash runway fundraising burn"><div class="skill-top"><div class="skill-name">cfo-advisor</div></div><div class="skill-desc">Financial modeling, unit economics, fundraising strategy, cash management, and board financial packages.</div><div class="skill-trigger"><strong>Say:</strong> "Build a financial model," "what's our burn rate?" "plan our fundraising"</div><div class="skill-tags"><span class="tag">finance</span><span class="tag">modeling</span><span class="tag">fundraising</span></div></div>
+    <div class="skill-card" data-search="cmo advisor brand positioning growth model marketing budget channel"><div class="skill-top"><div class="skill-name">cmo-advisor</div></div><div class="skill-desc">Brand positioning, growth model design (PLG vs sales-led), marketing budget allocation, and team building.</div><div class="skill-trigger"><strong>Say:</strong> "Review our marketing strategy," "how should we allocate budget?" "PLG or sales-led?"</div><div class="skill-tags"><span class="tag">brand</span><span class="tag">growth</span><span class="tag">budget</span></div></div>
+    <div class="skill-card" data-search="competitive intelligence competitor tracking battlecard market positioning"><div class="skill-top"><div class="skill-name">competitive-intel</div></div><div class="skill-desc">Systematic competitor tracking, sales battlecards, market positioning, and win/loss analysis.</div><div class="skill-trigger"><strong>Say:</strong> "Analyze our competitors," "build a battlecard," "how do we compare to [competitor]?"</div><div class="skill-tags"><span class="tag">competitors</span><span class="tag">battlecards</span><span class="tag">positioning</span></div></div>
+    <div class="skill-card" data-search="company os operating system eos scaling up okr meeting rhythm accountability"><div class="skill-top"><div class="skill-name">company-os</div></div><div class="skill-desc">Operating system design: EOS, Scaling Up, OKRs, accountability charts, scorecards, and meeting rhythms.</div><div class="skill-trigger"><strong>Say:</strong> "Design our operating system," "set up our meeting cadence," "implement EOS"</div><div class="skill-tags"><span class="tag">EOS</span><span class="tag">OKRs</span><span class="tag">operations</span></div></div>
+    <div class="skill-card" data-search="board deck builder presentation investor update quarterly review"><div class="skill-top"><div class="skill-name">board-deck-builder</div></div><div class="skill-desc">Assembles board presentations, investor updates, and quarterly business reviews across all C-suite perspectives.</div><div class="skill-trigger"><strong>Say:</strong> "Build a board deck," "prepare the quarterly update," "investor presentation"</div><div class="skill-tags"><span class="tag">board</span><span class="tag">investors</span><span class="tag">quarterly</span></div></div>
+  </div>
+</div>
+
+<!-- Finance -->
+<div class="category" data-cat="finance">
+  <div class="cat-header"><div class="cat-title">Finance</div><span class="cat-badge community">Community</span><span class="cat-count">2</span></div>
+  <div class="skill-grid">
+    <div class="skill-card" data-search="financial analyst ratio dcf valuation budget variance forecast"><div class="skill-top"><div class="skill-name">financial-analyst</div></div><div class="skill-desc">Financial ratio analysis, DCF valuation, budget variance analysis, and rolling forecast construction.</div><div class="skill-trigger"><strong>Say:</strong> "Analyze these financials," "build a valuation model," "review budget variance"</div><div class="skill-tags"><span class="tag">analysis</span><span class="tag">valuation</span><span class="tag">forecasting</span></div></div>
+    <div class="skill-card" data-search="saas metrics coach arr mrr churn ltv cac nrr"><div class="skill-top"><div class="skill-name">saas-metrics-coach</div></div><div class="skill-desc">SaaS financial health advisor. Analyzes ARR, MRR, churn, LTV, CAC, and NRR for subscription businesses.</div><div class="skill-trigger"><strong>Say:</strong> "How's our SaaS business?" "calculate LTV:CAC," "what's our churn rate?"</div><div class="skill-tags"><span class="tag">SaaS</span><span class="tag">metrics</span><span class="tag">health</span></div></div>
+  </div>
+</div>
+
+<!-- PM -->
+<div class="category" data-cat="pm">
+  <div class="cat-header"><div class="cat-title">Project Management & Comms</div><span class="cat-badge community">Community</span><span class="cat-count">3</span></div>
+  <div class="skill-grid">
+    <div class="skill-card" data-search="senior pm project plan risk resource portfolio enterprise"><div class="skill-top"><div class="skill-name">senior-pm</div></div><div class="skill-desc">Enterprise project planning, quantitative risk analysis, resource optimization, and executive reporting.</div><div class="skill-trigger"><strong>Say:</strong> "Create a project plan," "assess project risks," "resource allocation"</div><div class="skill-tags"><span class="tag">planning</span><span class="tag">risk</span><span class="tag">resources</span></div></div>
+    <div class="skill-card" data-search="meeting analyzer transcript communication patterns coaching feedback speaking"><div class="skill-top"><div class="skill-name">meeting-analyzer</div></div><div class="skill-desc">Analyzes meeting transcripts for behavioral patterns, communication anti-patterns, and coaching feedback.</div><div class="skill-trigger"><strong>Say:</strong> "Analyze my meeting style," "review this transcript," "how do I come across?"</div><div class="skill-tags"><span class="tag">transcripts</span><span class="tag">coaching</span><span class="tag">patterns</span></div></div>
+    <div class="skill-card" data-search="team communications internal update newsletter status report 3p"><div class="skill-top"><div class="skill-name">team-communications</div></div><div class="skill-desc">Internal company communications: weekly updates, newsletters, status reports, incident reports, and 3P updates.</div><div class="skill-trigger"><strong>Say:</strong> "Write our weekly update," "draft an internal announcement," "summarize what we did"</div><div class="skill-tags"><span class="tag">updates</span><span class="tag">newsletter</span><span class="tag">internal</span></div></div>
+  </div>
+</div>
+
+<!-- Growth -->
+<div class="category" data-cat="growth">
+  <div class="cat-header"><div class="cat-title">Launch & Growth</div><span class="cat-badge community">Community</span><span class="cat-count">3</span></div>
+  <div class="skill-grid">
+    <div class="skill-card" data-search="launch strategy product hunt feature release go to market gtm"><div class="skill-top"><div class="skill-name">launch-strategy</div></div><div class="skill-desc">Product/service launch planning: phased launches, channel strategy, and sustained launch momentum.</div><div class="skill-trigger"><strong>Say:</strong> "Plan the launch for [service]," "create a GTM plan," "launch checklist"</div><div class="skill-tags"><span class="tag">launch</span><span class="tag">GTM</span><span class="tag">momentum</span></div></div>
+    <div class="skill-card" data-search="pricing strategy tiers value metric freemium packaging monetization"><div class="skill-top"><div class="skill-name">pricing-strategy</div></div><div class="skill-desc">Pricing models, tier design, value metrics, and pricing page optimization. Good-better-best structures.</div><div class="skill-trigger"><strong>Say:</strong> "Review our pricing," "design pricing tiers," "should we change our prices?"</div><div class="skill-tags"><span class="tag">pricing</span><span class="tag">tiers</span><span class="tag">packaging</span></div></div>
+    <div class="skill-card" data-search="referral program affiliate ambassador word of mouth incentive partner"><div class="skill-top"><div class="skill-name">referral-program</div></div><div class="skill-desc">Referral system design: mechanics, incentives, tracking, and optimization for customer-driven growth.</div><div class="skill-trigger"><strong>Say:</strong> "Build a referral program," "design our ambassador program," "referral incentives"</div><div class="skill-tags"><span class="tag">referrals</span><span class="tag">incentives</span><span class="tag">growth</span></div></div>
+  </div>
+</div>
+
+<!-- Plugins -->
+<div class="category" data-cat="plugin">
+  <div class="cat-header"><div class="cat-title">Cowork Plugins</div><span class="cat-badge plugin">Anthropic</span><span class="cat-count">9</span></div>
+  <div class="skill-grid">
+    <div class="skill-card" data-search="xlsx excel spreadsheet financial model budget chart data table"><div class="skill-top"><div class="skill-name">xlsx</div></div><div class="skill-desc">Creates, edits, and analyzes Excel spreadsheets. Formulas, formatting, charts, and data analysis.</div><div class="skill-trigger"><strong>Say:</strong> Any mention of spreadsheet, Excel, .xlsx, budget, financial model, or chart</div></div>
+    <div class="skill-card" data-search="docx word document report memo letter proposal template"><div class="skill-top"><div class="skill-name">docx</div></div><div class="skill-desc">Creates and edits Word documents with professional formatting, tables of contents, and headers.</div><div class="skill-trigger"><strong>Say:</strong> Any mention of Word doc, .docx, report, memo, letter, or template</div></div>
+    <div class="skill-card" data-search="pptx powerpoint presentation slide deck pitch"><div class="skill-top"><div class="skill-name">pptx</div></div><div class="skill-desc">Creates and edits PowerPoint presentations, pitch decks, and slide files.</div><div class="skill-trigger"><strong>Say:</strong> Any mention of deck, slides, presentation, or .pptx</div></div>
+    <div class="skill-card" data-search="pdf extract merge split form"><div class="skill-top"><div class="skill-name">pdf</div></div><div class="skill-desc">Reads, creates, merges, splits, and manipulates PDF files.</div><div class="skill-trigger"><strong>Say:</strong> Any mention of PDF, .pdf, merge, split, or extract</div></div>
+    <div class="skill-card" data-search="canvas design poster visual art image"><div class="skill-top"><div class="skill-name">canvas-design</div></div><div class="skill-desc">Creates visual designs, posters, and artwork as .png and .pdf files.</div><div class="skill-trigger"><strong>Say:</strong> "Create a poster," "design a visual," "make an image"</div></div>
+    <div class="skill-card" data-search="schedule cron recurring task automation"><div class="skill-top"><div class="skill-name">schedule</div></div><div class="skill-desc">Creates scheduled tasks that run on demand or automatically on an interval.</div><div class="skill-trigger"><strong>Say:</strong> "Schedule a task," "run this every Monday," "set up recurring automation"</div></div>
+    <div class="skill-card" data-search="skill creator build edit test optimize"><div class="skill-top"><div class="skill-name">skill-creator</div></div><div class="skill-desc">Creates new skills, modifies existing ones, and runs evals to test performance.</div><div class="skill-trigger"><strong>Say:</strong> "Create a new skill," "improve this skill," "test skill accuracy"</div></div>
+    <div class="skill-card" data-search="weekly planner schedule todoist calendar time block organize"><div class="skill-top"><div class="skill-name">weekly-planner</div></div><div class="skill-desc">Daunte's custom weekly planning skill. Syncs Todoist tasks to Google Calendar with time-blocked scheduling.</div><div class="skill-trigger"><strong>Say:</strong> "Plan my week," "build my schedule," "sync tasks to calendar"</div></div>
+    <div class="skill-card" data-search="setup cowork plugin install connect tools"><div class="skill-top"><div class="skill-name">setup-cowork</div></div><div class="skill-desc">Guided setup for connecting new plugins and tools to your Cowork environment.</div><div class="skill-trigger"><strong>Say:</strong> "Set up a new plugin," "connect a tool"</div></div>
+  </div>
+</div>
+
+</div>
+
+<div class="tip-box">
+  <div class="tip-title">Tips for Using Skills</div>
+  <div class="tip-item">You don't need to memorize triggers. Just describe what you need and the right skill activates.</div>
+  <div class="tip-item">Combine skills by asking naturally: "Write a cold email to Tampa CDC using our brand voice."</div>
+  <div class="tip-item">Skills read BPP context automatically -- they know your ICP, packages, brand voice, and team.</div>
+  <div class="tip-item">If the wrong skill triggers, say "use the [name] skill for this instead."</div>
+  <div class="tip-item">All workspace skills sync via OneDrive. Any machine that opens the BPP Workspace gets them.</div>
+</div>
+
+</div>
+
+<script>
+function filterSkills(query) {
+  query = query.toLowerCase();
+  document.querySelectorAll('.skill-card').forEach(function(card) {
+    var text = (card.textContent + ' ' + (card.dataset.search || '')).toLowerCase();
+    card.style.display = text.includes(query) ? '' : 'none';
+  });
+  document.querySelectorAll('.category').forEach(function(cat) {
+    var visible = cat.querySelectorAll('.skill-card:not([style*="display: none"])').length;
+    cat.style.display = visible > 0 ? '' : 'none';
+  });
+}
+
+function filterCat(cat, el) {
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('on'); });
+  el.classList.add('on');
+  document.querySelectorAll('.search-bar').forEach(function(s) { s.value = ''; });
+  document.querySelectorAll('.skill-card').forEach(function(c) { c.style.display = ''; });
+  if (cat === 'all') {
+    document.querySelectorAll('.category').forEach(function(c) { c.style.display = ''; });
+  } else {
+    document.querySelectorAll('.category').forEach(function(c) {
+      c.style.display = c.dataset.cat === cat ? '' : 'none';
+    });
+  }
+}
+</script>
+
+</body>
+</html>
