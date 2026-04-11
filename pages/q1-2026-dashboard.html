@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP Q1 2026 KPI Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771;
+    --navy-dark: #033359;
+    --blue: #5987A5;
+    --blue-mid: #3a6d8f;
+    --gold: #F1BE5C;
+    --gold-dark: #d4a43e;
+    --white: #FCFCFC;
+    --black: #000000;
+    --gray: #4a4a4a;
+    --gray-light: #6B6B6B;
+    --bg: #edf1f5;
+    --card-bg: #ffffff;
+    --card-border: #c8d3dc;
+    --section-bg: #e2e9f0;
+    --green: #1a9e5c;
+    --green-light: #d4f0e1;
+    --red: #c0392b;
+    --red-light: #f5d5d1;
+    --amber: #d4920a;
+    --amber-light: #fdf0d0;
+  }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--black); min-height: 100vh; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(4,71,113,0.3); }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .header-logo { width: 44px; height: 44px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: var(--navy-dark); box-shadow: 0 2px 8px rgba(241,190,92,0.4); }
+  .header-text { color: white; }
+  .header-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+  .header-sub { font-size: 11px; font-weight: 300; opacity: 0.65; margin-top: 2px; }
+  .header-right { text-align: right; color: white; }
+  .header-period { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: var(--gold); }
+  .header-date { font-size: 10px; opacity: 0.5; margin-top: 3px; }
+
+  .page { max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  /* SECTION HEADERS */
+  .section-bar { background: var(--navy); border-radius: 8px; padding: 14px 24px; margin: 36px 0 6px; display: flex; align-items: center; justify-content: space-between; }
+  .section-bar-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.1em; }
+  .section-bar-sub { font-size: 10px; color: rgba(255,255,255,0.6); }
+  .section-note { font-size: 10px; color: var(--gray-light); margin-bottom: 16px; padding: 0 4px; }
+
+  /* KPI CARDS */
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .kpi-card { background: var(--card-bg); border-radius: 10px; padding: 18px; border: 1px solid var(--card-border); text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .kpi-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-light); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; color: var(--navy); }
+  .kpi-value.sm { font-size: 22px; }
+  .kpi-sub { font-size: 11px; color: var(--gray-light); margin-top: 4px; font-weight: 400; }
+  .kpi-source { font-size: 8px; color: var(--blue-mid); margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.7; }
+  .kpi-card.gold { border-left: 5px solid var(--gold); }
+  .kpi-card.green { border-left: 5px solid var(--green); }
+  .kpi-card.red { border-left: 5px solid var(--red); }
+  .kpi-card.amber { border-left: 5px solid var(--amber); }
+  .kpi-card.navy { border-left: 5px solid var(--navy); }
+
+  .status-pill { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 600; }
+  .pill-green { background: var(--green-light); color: var(--green); }
+  .pill-red { background: var(--red-light); color: var(--red); }
+  .pill-amber { background: var(--amber-light); color: var(--amber); }
+
+  /* PROGRESS */
+  .progress-wrap { margin-top: 10px; }
+  .progress-bar { height: 10px; background: #dde4ea; border-radius: 5px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 5px; }
+  .progress-labels { display: flex; justify-content: space-between; font-size: 9px; color: var(--gray-light); margin-top: 4px; }
+
+  /* TABLES */
+  .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 10px; overflow: hidden; border: 1px solid var(--card-border); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .data-table th { background: var(--navy); color: white; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 12px 16px; text-align: left; }
+  .data-table td { padding: 10px 16px; font-size: 12px; border-bottom: 1px solid #e8ecf0; color: var(--black); }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table .total td { font-weight: 700; background: var(--section-bg); color: var(--navy); }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .tag-won { background: var(--green-light); color: var(--green); }
+  .tag-lost { background: var(--red-light); color: var(--red); }
+  .tag-open { background: var(--amber-light); color: var(--amber); }
+  .tag-active { background: #d0e3f5; color: var(--navy); }
+
+  /* LAYOUTS */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+
+  /* INSIGHT BOX */
+  .insight-box { background: var(--card-bg); border-radius: 10px; padding: 20px; border: 1px solid var(--card-border); border-left: 5px solid var(--navy); margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .insight-box.gold-border { border-left-color: var(--gold); }
+  .insight-box.red-border { border-left-color: var(--red); }
+  .insight-title { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .insight-text { font-size: 12px; color: var(--gray); line-height: 1.75; }
+  .insight-text strong { color: var(--navy-dark); }
+
+  /* BAR CHART */
+  .chart-card { background: var(--card-bg); border-radius: 10px; padding: 20px; border: 1px solid var(--card-border); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .chart-title { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .chart-sub { font-size: 9px; color: var(--gray-light); margin-bottom: 14px; }
+  .bar-chart { display: flex; align-items: flex-end; gap: 12px; height: 140px; padding: 0 16px; }
+  .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .bar { width: 100%; border-radius: 6px 6px 0 0; min-height: 4px; }
+  .bar-label { font-size: 9px; color: var(--gray); margin-top: 8px; text-align: center; line-height: 1.4; }
+  .bar-value { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+
+  /* FOOTER */
+  .footer { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 18px 48px; display: flex; justify-content: space-between; align-items: center; margin-top: 48px; }
+  .footer-text { font-size: 10px; color: rgba(255,255,255,0.45); }
+  .footer-gold { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; color: var(--gold); }
+
+  @media (max-width: 768px) {
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+    .header { padding: 20px 24px; }
+    .page { padding: 24px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div style="background:#022a45; padding:8px 48px;">
+  <a href="../index.html" style="color:#F1BE5C; text-decoration:none; font-family:'Montserrat',sans-serif; font-size:12px; font-weight:600;">&larr; Back to BPP Tools Hub</a>
+</div>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">BPP</div>
+    <div class="header-text">
+      <div class="header-title">Business Plans Plus</div>
+      <div class="header-sub">Growth Consulting . Tampa Bay</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-period">Q1 2026 Quarterly Review</div>
+    <div class="header-date">January 1 - March 31, 2026 . Prepared April 11, 2026</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ============================================ -->
+  <!-- 1. SALES & PIPELINE (HubSpot) -->
+  <!-- ============================================ -->
+  <div class="section-bar">
+    <div class="section-bar-title">Sales and Pipeline</div>
+    <div class="section-bar-sub">Source: HubSpot CRM . Jan 1 - Mar 31, 2026 . Monthly sales target: $5,000</div>
+  </div>
+  <div class="section-note"></div>
+
+  <div class="kpi-row">
+    <div class="kpi-card gold">
+      <div class="kpi-label">Deals Closed (HubSpot)</div>
+      <div class="kpi-value">$9,050</div>
+      <div class="kpi-sub">6 deals closed-won in Q1</div>
+      <div class="kpi-source">HubSpot closed-won</div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" style="width:60%; background:var(--gold);"></div></div>
+        <div class="progress-labels"><span>$0</span><span>$15,000 target</span></div>
+      </div>
+    </div>
+    <div class="kpi-card navy">
+      <div class="kpi-label">Avg Deal Size (Packages)</div>
+      <div class="kpi-value">$2,517</div>
+      <div class="kpi-sub">3 package deals . Excludes hourly</div>
+      <div class="kpi-source">HubSpot deal reports</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Conversion Rate</div>
+      <div class="kpi-value">32%</div>
+      <div class="kpi-sub">6 won / 19 total <span class="pill-green status-pill">Above 25-30% benchmark</span></div>
+      <div class="kpi-source">HubSpot won / total</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Active Pipeline (Q2)</div>
+      <div class="kpi-value">$21,697</div>
+      <div class="kpi-sub">7 deals . 1.4x quarterly target</div>
+      <div class="kpi-source">HubSpot pipeline view</div>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi-card navy">
+      <div class="kpi-label">Hourly Consulting</div>
+      <div class="kpi-value">$1,500</div>
+      <div class="kpi-sub">3 deals . Avg $500 . Separate bucket</div>
+      <div class="kpi-source">HubSpot . Xtremely Clean, MAA</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">First Operator System Deal</div>
+      <div class="kpi-value">$4,500</div>
+      <div class="kpi-sub">Lois Marketing . $1,358 deposit received (30%)</div>
+      <div class="kpi-source">HubSpot . Payment: 30/40/30</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Deals Lost</div>
+      <div class="kpi-value">8</div>
+      <div class="kpi-sub">$11,751 in lost value (exceeds won)</div>
+      <div class="kpi-source">HubSpot closed-lost</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">HubSpot vs QB Gap</div>
+      <div class="kpi-value">$1,771</div>
+      <div class="kpi-sub">Closed in HS, not yet in QB cash</div>
+      <div class="kpi-source">HubSpot - QuickBooks delta</div>
+    </div>
+  </div>
+
+  <div class="kpi-row" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="kpi-card navy">
+      <div class="kpi-label">Qualified Leads</div>
+      <div class="kpi-value">31</div>
+      <div class="kpi-sub">Cleaned from 70 on Apr 9</div>
+      <div class="kpi-source">HubSpot pipeline (Kenny)</div>
+    </div>
+    <div class="kpi-card" style="border-left:5px solid var(--card-border);">
+      <div class="kpi-label">Sales Cycle Length</div>
+      <div class="kpi-value sm" style="color:var(--gray-light);">--</div>
+      <div class="kpi-sub">Not yet tracked in HubSpot</div>
+      <div class="kpi-source">HubSpot time-to-close</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <table class="data-table">
+        <thead><tr><th>Closed Won (Q1)</th><th>Amount</th><th>Owner</th></tr></thead>
+        <tbody>
+          <tr><td>Financial Acuity - Growth Package</td><td>$3,350</td><td>Daunte</td></tr>
+          <tr><td>SEEDFOLkids - Strategic Planning</td><td>$3,200</td><td>Eli</td></tr>
+          <tr><td>SEEDFOLKids - Brand Guideline</td><td>$1,000</td><td>Eli</td></tr>
+          <tr><td>Xtremely Clean - Hourly Consulting</td><td>$500</td><td>Daunte</td></tr>
+          <tr><td>Xtremely Clean - 10hrs Consulting</td><td>$500</td><td>Daunte</td></tr>
+          <tr><td>MAA - 10hrs Consulting</td><td>$500</td><td>Eli</td></tr>
+          <tr class="total"><td>Total Closed Won</td><td>$9,050</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table class="data-table">
+        <thead><tr><th>Active Pipeline (Q2)</th><th>Amount</th><th>Stage</th></tr></thead>
+        <tbody>
+          <tr><td>Twanda Bradley - Campaign</td><td>$5,197</td><td><span class="tag tag-active">Qualified</span></td></tr>
+          <tr><td>Lois Marketing - Operator System</td><td>$4,500</td><td><span class="tag tag-active">Qualified</span></td></tr>
+          <tr><td>Replace It Auto Glass</td><td>$4,500</td><td><span class="tag tag-open">Early</span></td></tr>
+          <tr><td>StudentCrowd - Focus Group</td><td>$3,000</td><td><span class="tag tag-active">Proposal</span></td></tr>
+          <tr><td>Zing Juice Bar</td><td>$2,000</td><td><span class="tag tag-open">Early</span></td></tr>
+          <tr><td>Legacy B. Studio</td><td>$1,500</td><td><span class="tag tag-open">Appt Set</span></td></tr>
+          <tr><td>Cape to the Bay</td><td>$1,000</td><td><span class="tag tag-open">Appt Set</span></td></tr>
+          <tr class="total"><td>Total Pipeline</td><td>$21,697</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-card">
+      <div class="chart-title">Q1 Closed Revenue by Owner</div>
+      <div class="chart-sub">Source: HubSpot closed-won . Jan-Mar 2026</div>
+      <div class="bar-chart">
+        <div class="bar-col">
+          <div class="bar-value">$4,350</div>
+          <div class="bar" style="height:92px; background:var(--navy);"></div>
+          <div class="bar-label">Daunte<br><span style="font-size:8px;color:var(--gray-light);">3 deals</span></div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-value">$4,700</div>
+          <div class="bar" style="height:100px; background:var(--blue);"></div>
+          <div class="bar-label">Eli<br><span style="font-size:8px;color:var(--gray-light);">3 deals</span></div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-value">$0</div>
+          <div class="bar" style="height:4px; background:var(--gold);"></div>
+          <div class="bar-label">Kenny<br><span style="font-size:8px;color:var(--gray-light);">0 deals</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="insight-box">
+      <div class="insight-title">Sales Insights</div>
+      <div class="insight-text">
+        <strong>Lost deal value ($11,751) exceeded closed deal value ($9,050).</strong> Team should review: which lost deals would the new ICP framework have disqualified earlier?<br><br>
+        <strong>Kenny's Q2 opportunity:</strong> Twanda Bradley ($5,197) would be the single largest deal BPP has ever closed. Converting it changes the trajectory.<br><br>
+        <strong>Deal size is inflecting.</strong> Lois Marketing at $4,500 is 3x the Q1 average. The Operator System tier is working. Two more at that price point and Q2 beats Q1 on fewer deals.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- 2. FINANCIAL HEALTH (QuickBooks) -->
+  <!-- ============================================ -->
+  <div class="section-bar">
+    <div class="section-bar-title">Financial Health</div>
+    <div class="section-bar-sub">Source: QuickBooks P&L (Cash Basis) . Jan 1 - Mar 31, 2026 . Annual budget: $60,000</div>
+  </div>
+  <div class="section-note"></div>
+
+  <div class="kpi-row">
+    <div class="kpi-card amber">
+      <div class="kpi-label">Q1 Cash Revenue</div>
+      <div class="kpi-value">$7,279</div>
+      <div class="kpi-sub">48% of $15,000 quarterly target</div>
+      <div class="kpi-source">QuickBooks P&L</div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" style="width:48%; background:var(--amber);"></div></div>
+        <div class="progress-labels"><span>$0</span><span>$15,000</span></div>
+      </div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Total Expenses</div>
+      <div class="kpi-value">$5,606</div>
+      <div class="kpi-sub">COGS $306 + Operating $5,299</div>
+      <div class="kpi-source">QuickBooks P&L</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Net Profit Margin</div>
+      <div class="kpi-value">23%</div>
+      <div class="kpi-sub">$1,675 net income <span class="pill-green status-pill">Goal: 20-25%</span></div>
+      <div class="kpi-source">QB net income / revenue</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Efficiency Ratio</div>
+      <div class="kpi-value">77%</div>
+      <div class="kpi-sub">$0.77 spent per $1 earned <span class="pill-amber status-pill">Goal: under 75%</span></div>
+      <div class="kpi-source">QB expenses / revenue</div>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi-card red">
+      <div class="kpi-label">Software Cost</div>
+      <div class="kpi-value">$3,022</div>
+      <div class="kpi-sub">57% of all expenses <span class="pill-red status-pill">Audit</span></div>
+      <div class="kpi-source">QB vendor expense</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Cash on Hand</div>
+      <div class="kpi-value">$5,220</div>
+      <div class="kpi-sub">$3,204 available . $2,016 earmarked</div>
+      <div class="kpi-source">QB Checking . As of Apr 11</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Rodney Rev-Share (5%)</div>
+      <div class="kpi-value">$364</div>
+      <div class="kpi-sub">Jan $127 . Feb $123 . Mar $114 . Only $143 set aside</div>
+      <div class="kpi-source">5% of QB gross revenue per month</div>
+    </div>
+    <div class="kpi-card navy">
+      <div class="kpi-label">vs 2025 Full Year</div>
+      <div class="kpi-value">57%</div>
+      <div class="kpi-sub">Q1 '26 ($7,279) vs all '25 ($12,782)</div>
+      <div class="kpi-source">QuickBooks YoY</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-card">
+      <div class="chart-title">Monthly P&L Trend</div>
+      <div class="chart-sub">Source: QuickBooks Cash Basis P&L . Jan-Mar 2026</div>
+      <table class="data-table" style="margin-bottom:0; border:none; box-shadow:none;">
+        <thead><tr><th></th><th>Jan</th><th>Feb</th><th>Mar</th><th>Q1 Total</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Revenue</strong></td><td>$2,540</td><td>$2,459</td><td>$2,280</td><td><strong>$7,279</strong></td></tr>
+          <tr><td style="padding-left:20px;color:var(--gray-light);">Consulting</td><td>$500</td><td>$1,000</td><td>--</td><td>$1,500</td></tr>
+          <tr><td style="padding-left:20px;color:var(--gray-light);">Marketing</td><td>$294</td><td>$1,459</td><td>$2,280</td><td>$4,033</td></tr>
+          <tr><td style="padding-left:20px;color:var(--gray-light);">Technology</td><td>$1,892</td><td>--</td><td>--</td><td>$1,892</td></tr>
+          <tr><td><strong>Expenses</strong></td><td>$1,112</td><td>$1,992</td><td>$2,502</td><td><strong>$5,606</strong></td></tr>
+          <tr><td style="padding-left:20px;color:var(--gray-light);">Software & Apps</td><td>$569</td><td>$655</td><td>$1,798</td><td>$3,022</td></tr>
+          <tr><td style="padding-left:20px;color:var(--gray-light);">Content/Ads</td><td>$247</td><td>$821</td><td>$591</td><td>$1,659</td></tr>
+          <tr><td style="padding-left:20px;color:var(--gray-light);">Other (meals, fees, legal)</td><td>$296</td><td>$516</td><td>$113</td><td>$925</td></tr>
+          <tr class="total"><td><strong>Net Income</strong></td><td style="color:var(--green);">$1,431</td><td style="color:var(--green);">$461</td><td style="color:var(--red);">-$217</td><td><strong>$1,675</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="chart-card" style="margin-bottom:16px;">
+        <div class="chart-title">Q1 Revenue by Service Category</div>
+        <div class="chart-sub">Source: QuickBooks P&L . Note: Will shift to package tiers (Launch Pad / Operator / Scale) in Q2</div>
+        <div style="display:flex; gap:12px; align-items:stretch;">
+          <div style="flex:55; background:var(--navy); border-radius:6px; padding:14px; color:white; text-align:center;">
+            <div style="font-family:'Montserrat',sans-serif; font-size:18px; font-weight:800;">$4,033</div>
+            <div style="font-size:10px; opacity:0.8; margin-top:2px;">Marketing . 55%</div>
+          </div>
+          <div style="flex:26; background:var(--blue); border-radius:6px; padding:14px; color:white; text-align:center;">
+            <div style="font-family:'Montserrat',sans-serif; font-size:18px; font-weight:800;">$1,892</div>
+            <div style="font-size:10px; opacity:0.8; margin-top:2px;">Tech . 26%</div>
+          </div>
+          <div style="flex:21; background:var(--gold); border-radius:6px; padding:14px; color:var(--navy-dark); text-align:center;">
+            <div style="font-family:'Montserrat',sans-serif; font-size:18px; font-weight:800;">$1,500</div>
+            <div style="font-size:10px; opacity:0.7; margin-top:2px;">Consulting . 21%</div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-card" style="margin-bottom:16px;">
+        <div class="chart-title">Cash Position (Apr 11, 2026)</div>
+        <div class="chart-sub">Source: QuickBooks Checking Account</div>
+        <table class="data-table" style="border:none; box-shadow:none; margin:0;">
+          <tbody>
+            <tr><td><strong>Checking (available)</strong></td><td style="text-align:right;"><strong>$3,204</strong></td></tr>
+            <tr><td style="padding-left:20px;color:var(--gray-light);">Savings Reserve</td><td style="text-align:right;">$1,699</td></tr>
+            <tr><td style="padding-left:20px;color:var(--gray-light);">Profit Sharing</td><td style="text-align:right;">$174</td></tr>
+            <tr><td style="padding-left:20px;color:var(--gray-light);">Advisor 5% (Rodney - Jan only)</td><td style="text-align:right;">$143</td></tr>
+            <tr><td><strong>Envelopes (earmarked)</strong></td><td style="text-align:right;"><strong>$2,016</strong></td></tr>
+            <tr class="total"><td><strong>Total Balance</strong></td><td style="text-align:right;"><strong>$5,220</strong></td></tr>
+            <tr><td style="color:var(--green);">Lois Marketing deposit received</td><td style="text-align:right;">+$1,358 (30%)</td></tr>
+            <tr><td style="color:var(--red);">Rodney rev-share owed (Feb+Mar)</td><td style="text-align:right;">-$237 unpaid</td></tr>
+            <tr><td style="color:var(--amber);">Monthly burn rate (Q1 avg)</td><td style="text-align:right;">$1,869/mo</td></tr>
+            <tr><td style="color:var(--amber);">Runway (available cash only)</td><td style="text-align:right;"><strong>~1.7 months</strong></td></tr>
+            <tr><td style="color:var(--gray-light);">Runway (including reserves)</td><td style="text-align:right;">~2.8 months</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight-box red-border" style="margin-bottom:0;">
+        <div class="insight-title">Financial Flags</div>
+        <div class="insight-text">
+          <strong>1.7 months runway on available cash.</strong> Lois Marketing deposit ($1,358) already received but at 30% instead of the standard 50%. Payment structure adjusted to 30/40/30. Future Operator deals should enforce 50/25/25.<br><br>
+          <strong>Software costs spiked in March ($1,798)</strong> due to Microsoft 365 renewal (~$600). Still 57% of total expenses. Audit remaining subs. Target: under 40%.<br><br>
+          <strong>Rodney rev-share: $364 owed, $143 set aside.</strong> $237 outstanding for Feb ($123) + Mar ($114). Calculate and set aside before next payout.<br><br>
+          <strong>Income categories don't map to packages.</strong> Q2 action: recategorize QB income as Launch Pad / Operator / Scale so revenue-per-tier is trackable.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- 3. MARKETING & CONTENT -->
+  <!-- ============================================ -->
+  <div class="section-bar">
+    <div class="section-bar-title">Marketing and Content</div>
+    <div class="section-bar-sub">Source: Content Performance Dashboard (Metricool) . Aug 2025 - Apr 2026 (full tracking period)</div>
+  </div>
+  <div class="section-note"></div>
+
+  <div class="kpi-row">
+    <div class="kpi-card navy">
+      <div class="kpi-label">Total Posts</div>
+      <div class="kpi-value">296</div>
+      <div class="kpi-sub">4 platforms . Aug '25 - Apr '26</div>
+      <div class="kpi-source">Content Dashboard</div>
+    </div>
+    <div class="kpi-card navy">
+      <div class="kpi-label">Total Views (All Platforms)</div>
+      <div class="kpi-value sm">48,383</div>
+      <div class="kpi-sub">IG 52% . FB 29% . TT 19%</div>
+      <div class="kpi-source">Metricool . Aug '25 - Apr '26</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">LinkedIn Click-Through Rate</div>
+      <div class="kpi-value">9.1%</div>
+      <div class="kpi-sub">42 posts . Highest-converting platform</div>
+      <div class="kpi-source">Metricool . Aug '25 - Apr '26</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Cost Per Acquisition</div>
+      <div class="kpi-value">$277</div>
+      <div class="kpi-sub">$1,659 content spend / 6 closes</div>
+      <div class="kpi-source">QB ad spend / HubSpot closes</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-card">
+      <div class="chart-title">Views by Platform</div>
+      <div class="chart-sub">Metric: Total content views . Source: Metricool . Aug 2025 - Apr 2026</div>
+      <div class="bar-chart" style="height:160px; padding-bottom:30px;">
+        <div class="bar-col">
+          <div class="bar-value">25,164</div>
+          <div class="bar" style="height:95px; background: linear-gradient(var(--navy), var(--blue));"></div>
+          <div class="bar-label" style="margin-top:10px;">Instagram<br><span style="font-size:8px;color:var(--gray-light);">78 posts . 52%</span></div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-value">13,824</div>
+          <div class="bar" style="height:52px; background: linear-gradient(var(--blue), var(--blue-mid));"></div>
+          <div class="bar-label" style="margin-top:10px;">Facebook<br><span style="font-size:8px;color:var(--gray-light);">101 posts . 29%</span></div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-value">9,395</div>
+          <div class="bar" style="height:36px; background: linear-gradient(var(--navy-dark), var(--navy));"></div>
+          <div class="bar-label" style="margin-top:10px;">TikTok<br><span style="font-size:8px;color:var(--gray-light);">75 posts . 19%</span></div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-value">9.1% CTR</div>
+          <div class="bar" style="height:70px; background: linear-gradient(var(--gold-dark), var(--gold));"></div>
+          <div class="bar-label" style="margin-top:10px;">LinkedIn<br><span style="font-size:8px;color:var(--gray-light);">42 posts . CTR metric</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="chart-card" style="margin-bottom:16px;">
+        <div class="chart-title">Top Performing Content by Platform</div>
+        <div class="chart-sub">Source: Content Performance Dashboard . Aug 2025 - Apr 2026</div>
+        <table class="data-table" style="border:none; box-shadow:none; margin:0;">
+          <thead><tr><th>Platform</th><th>Top Content Type</th><th>Best Performer</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Instagram</strong></td><td>Financial tips (Reels)</td><td>Drives highest reach</td></tr>
+            <tr><td><strong>Facebook</strong></td><td>Legacy/mission content</td><td>High engagement on Reels</td></tr>
+            <tr><td><strong>TikTok</strong></td><td>How-to/actionable</td><td>"7 steps to make you legit"</td></tr>
+            <tr><td><strong>LinkedIn</strong></td><td>Expertise/case studies</td><td>9.1% CTR when active</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight-box gold-border" style="margin-bottom:0;">
+        <div class="insight-title">Tracking Gaps (Q2 Action Items)</div>
+        <div class="insight-text">
+          <strong>Link clicks:</strong> Needs Metricool Advanced ($36/mo) or manual UTM tracking<br>
+          <strong>Form submissions:</strong> Needs Google Analytics goal setup (Eli)<br>
+          <strong>Impressions per post:</strong> Available in Metricool but not yet pulled into dashboard<br>
+          <strong>Content-to-pipeline attribution:</strong> Currently cannot trace which posts generate leads. Fix: UTM links + HubSpot source tracking
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- 3b. WEBSITE & LEAD CAPTURE -->
+  <!-- ============================================ -->
+  <div class="section-bar">
+    <div class="section-bar-title">Website and Lead Capture</div>
+    <div class="section-bar-sub">Source: Google Analytics + HubSpot Forms . Jan 1 - Mar 31, 2026</div>
+  </div>
+  <div class="section-note"></div>
+
+  <div class="kpi-row">
+    <div class="kpi-card navy">
+      <div class="kpi-label">Active Users</div>
+      <div class="kpi-value">161</div>
+      <div class="kpi-sub">133 from US (83%) . 12 from Tampa</div>
+      <div class="kpi-source">Google Analytics . Q1 2026</div>
+    </div>
+    <div class="kpi-card navy">
+      <div class="kpi-label">Page Views</div>
+      <div class="kpi-value">254</div>
+      <div class="kpi-sub">Homepage: 235 . About: 19</div>
+      <div class="kpi-source">Google Analytics . Q1 2026</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Form Submissions</div>
+      <div class="kpi-value">2</div>
+      <div class="kpi-sub">17 started . 11.8% completion rate</div>
+      <div class="kpi-source">HubSpot Forms . Q1 2026</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Form Views</div>
+      <div class="kpi-value">500</div>
+      <div class="kpi-sub">0.4% view-to-submit rate</div>
+      <div class="kpi-source">HubSpot Forms . Q1 2026</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-card">
+      <div class="chart-title">Top Cities by Active Users</div>
+      <div class="chart-sub">Source: Google Analytics . Q1 2026 . US only</div>
+      <div class="bar-chart" style="height:130px; padding-bottom:24px;">
+        <div class="bar-col">
+          <div class="bar-value">12</div>
+          <div class="bar" style="height:100px; background:var(--navy);"></div>
+          <div class="bar-label" style="margin-top:8px;">Tampa</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-value">7</div>
+          <div class="bar" style="height:58px; background:var(--blue);"></div>
+          <div class="bar-label" style="margin-top:8px;">Miami</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-value">6</div>
+          <div class="bar" style="height:50px; background:var(--blue);"></div>
+          <div class="bar-label" style="margin-top:8px;">Fort Worth</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-value">5</div>
+          <div class="bar" style="height:42px; background:var(--blue-mid);"></div>
+          <div class="bar-label" style="margin-top:8px;">Atlanta</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-value">4</div>
+          <div class="bar" style="height:33px; background:var(--blue-mid);"></div>
+          <div class="bar-label" style="margin-top:8px;">Temple Terr.</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-value">4</div>
+          <div class="bar" style="height:33px; background:var(--gold);"></div>
+          <div class="bar-label" style="margin-top:8px;">LA</div>
+        </div>
+      </div>
+    </div>
+    <div class="insight-box">
+      <div class="insight-title">Website and Conversion Insights</div>
+      <div class="insight-text">
+        <strong>Form completion is a bottleneck.</strong> 500 views, 17 starts, but only 2 submissions (11.8% completion). The form takes 9:22 to complete. Consider: is the form too long? Can it be shortened to increase submissions?<br><br>
+        <strong>Traffic is mostly homepage.</strong> 235 of 254 page views (93%) hit the homepage. Only 19 hit About. The Packages and Consultation pages aren't showing up in GA. Either they're not getting traffic, or tracking isn't set up on all pages.<br><br>
+        <strong>Tampa Bay market:</strong> 12 Tampa + 4 Temple Terrace + 4 Town 'n' Country = 20 local users. That's 12% of total traffic from the home market. Good sign for local targeting.<br><br>
+        <strong>SmartLinks (Metricool):</strong> Last 30 days: 145 link-in-bio views, 2 clicks to website (1.38% CTR). Low conversion. Recommend updating links to match new packages and adding UTM tracking.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- 4. SERVICE OPERATIONS -->
+  <!-- ============================================ -->
+  <div class="section-bar">
+    <div class="section-bar-title">Service Operations</div>
+    <div class="section-bar-sub">Source: Monday.com + QuickBooks . Q1 2026</div>
+  </div>
+  <div class="section-note"></div>
+
+  <div class="kpi-row">
+    <div class="kpi-card navy">
+      <div class="kpi-label">Active Client Projects</div>
+      <div class="kpi-value">3</div>
+      <div class="kpi-sub">SEEDFOLKids . Financial Acuity . Lois Mktg</div>
+      <div class="kpi-source">Monday.com Client Delivery</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Service Margin (Gross)</div>
+      <div class="kpi-value">96%</div>
+      <div class="kpi-sub">$6,973 GP / $7,279 revenue</div>
+      <div class="kpi-source">QB revenue by item</div>
+    </div>
+    <div class="kpi-card navy">
+      <div class="kpi-label">Discount Leakage</div>
+      <div class="kpi-value">-$186</div>
+      <div class="kpi-sub">Discounts given in Q1</div>
+      <div class="kpi-source">QuickBooks vs HubSpot</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Sprint 1 Progress</div>
+      <div class="kpi-value">47%</div>
+      <div class="kpi-sub">9 of 19 items done . 7 days left</div>
+      <div class="kpi-source">Monday.com BPP Operations</div>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi-card navy">
+      <div class="kpi-label">Packages Finalized</div>
+      <div class="kpi-value">3 Tiers</div>
+      <div class="kpi-sub">Launch Pad . Operator . Scale</div>
+      <div class="kpi-source">Apr 9 team alignment</div>
+    </div>
+    <div class="kpi-card navy">
+      <div class="kpi-label">Delivery Playbook</div>
+      <div class="kpi-value sm">Ready</div>
+      <div class="kpi-sub">Week-by-week timeline with roles</div>
+      <div class="kpi-source">bpp-delivery-playbook-2026.html</div>
+    </div>
+    <div class="kpi-card" style="border-left:5px solid var(--card-border);">
+      <div class="kpi-label">Time Per Deliverable</div>
+      <div class="kpi-value sm" style="color:var(--gray-light);">--</div>
+      <div class="kpi-sub">Needs Clockify setup (backlog)</div>
+      <div class="kpi-source">Not yet tracked</div>
+    </div>
+    <div class="kpi-card" style="border-left:5px solid var(--card-border);">
+      <div class="kpi-label">Revenue Per Team Member</div>
+      <div class="kpi-value sm" style="color:var(--gray-light);">--</div>
+      <div class="kpi-sub">Needs time tracking to calculate</div>
+      <div class="kpi-source">Clockify + QuickBooks</div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- Q2 OUTLOOK -->
+  <!-- ============================================ -->
+  <div class="section-bar" style="background: linear-gradient(135deg, var(--navy-dark), var(--navy));">
+    <div class="section-bar-title">Q2 Outlook and Action Plan</div>
+    <div class="section-bar-sub">What needs to happen next</div>
+  </div>
+  <div class="section-note"></div>
+
+  <div class="two-col">
+    <div class="insight-box gold-border">
+      <div class="insight-title">Where We Are</div>
+      <div class="insight-text">
+        Q1 cash revenue was $7,279 against a $15,000 target (48%). HubSpot shows $9,050 in closed deals, with a $1,771 collection gap. Net margin hit 23%, within the 20-25% target, but only because absolute numbers are low. As revenue scales, margin needs to hold.<br><br>
+        <strong>Lost deals ($11,751) exceeded won deals ($9,050).</strong> The team closed at a 32% win rate, which is competitive, but the volume of lost value points to qualification issues the new ICP framework should fix.<br><br>
+        Q1 was the pre-ICP period. Pricing was inconsistent. Packages weren't standardized. The team was still building the operating system. That context matters.
+      </div>
+    </div>
+    <div class="insight-box gold-border">
+      <div class="insight-title">Where We're Going</div>
+      <div class="insight-text">
+        <strong>The ICP and packages are finalized.</strong> Three tiers. Clear qualification criteria. Standardized delivery playbook. This didn't exist in Q1.<br><br>
+        <strong>The pipeline is real.</strong> $21,697 across 7 deals. Lois Marketing ($4,500) and Twanda Bradley ($5,197) alone are $9,697. If both close, Q2 outpaces Q1 on two deals.<br><br>
+        <strong>The leverage point is delivery.</strong> Lois Marketing is the first Operator System engagement. Nail it. Get the testimonial. That case study becomes the sales tool for the next 3 deals at $4,500 each. That's the path from $7K quarters to $15K+ quarters.
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box red-border">
+    <div class="insight-title">5 Things to Fix in Q2</div>
+    <div class="insight-text">
+      <strong>1. Software costs eating 57% of expenses.</strong> Audit every subscription. Microsoft 365 renewal ($600) inflated March, but the baseline is still too high. Target: under 40%.<br><br>
+      <strong>2. Close the HubSpot-to-QB gap ($1,771).</strong> Deals marked closed but cash not collected. Enforce the 7-day late payment clause. Make collection a standing weekly task.<br><br>
+      <strong>3. Recategorize QB income by package tier.</strong> Current categories (Consulting/Marketing/Technology) don't map to the new package structure. Without this, you can't track revenue per tier.<br><br>
+      <strong>4. Start tracking time per deliverable.</strong> Clockify is in the backlog. Lois Marketing is the test case. Track hours per milestone so you know whether $4,500 is priced right.<br><br>
+      <strong>5. Connect content to pipeline.</strong> 48K views and $277 CPA, but no way to trace which posts generate leads. Set up UTM links and GA goals, or upgrade Metricool to Advanced.
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-text">Business Plans Plus LLC . Temple Terrace, FL . Internal Use Only . Q1 2026</div>
+  <div class="footer-gold">buildwithbpp.com</div>
+</div>
+
+</body>
+</html>
