@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project Kickoff - BPP Tools Hub</title>
+<title>Reviews - BPP Tools Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css">
 </head>
@@ -18,12 +18,12 @@
   <div class="nav-tabs">
     <a class="hub-tab" href="../index.html"><span class="tab-emoji">&#127968;</span> Home</a>
     <a class="hub-tab" href="pre-call.html"><span class="tab-emoji">&#128222;</span> Pre-Call</a>
-    <a class="hub-tab on" href="kickoff.html"><span class="tab-emoji">&#128640;</span> Kickoff</a>
+    <a class="hub-tab" href="kickoff.html"><span class="tab-emoji">&#128640;</span> Kickoff</a>
     <a class="hub-tab" href="ops.html"><span class="tab-emoji">&#128202;</span> Ops</a>
     <a class="hub-tab" href="finance.html"><span class="tab-emoji">&#128176;</span> Finance</a>
     <a class="hub-tab" href="marketing.html"><span class="tab-emoji">&#128227;</span> Marketing</a>
     <a class="hub-tab" href="systems.html"><span class="tab-emoji">&#9881;</span> Systems</a>
-    <a class="hub-tab" href="reviews.html"><span class="tab-emoji">&#128200;</span> Reviews</a>
+    <a class="hub-tab on" href="reviews.html"><span class="tab-emoji">&#128200;</span> Reviews</a>
   </div>
   <div class="nav-people">
     <button class="person-btn" onclick="togglePerson('daunte',this)">Daunte</button>
@@ -35,37 +35,31 @@
 <main>
 
   <div class="sec-header">
-    <div class="sec-eyebrow">Client Onboarding</div>
-    <div class="sec-title">Project <span>Kickoff</span></div>
-    <div class="sec-desc">Start every client engagement the right way. Kickoff deck, onboarding checklist, delivery playbook.</div>
+    <div class="sec-eyebrow">Business Reviews</div>
+    <div class="sec-title">BPP <span>Reviews</span></div>
+    <div class="sec-desc">Quarterly and monthly business reviews. Dashboards, agendas, and prep docs in one place.</div>
   </div>
 
+  <div class="sec-label">Quarterly Reviews</div>
   <div class="card-grid">
-    <a class="link-card" href="#" target="_blank" data-person="kenny eli">
-      <div class="lc-icon">&#128640;</div>
-      <div class="lc-body"><div class="lc-title">Kickoff Deck</div><div class="lc-desc">Client-facing kickoff presentation</div></div>
+    <a class="link-card" href="q1-2026-dashboard.html" data-person="daunte kenny eli">
+      <div class="lc-icon">&#128200;</div>
+      <div class="lc-body"><div class="lc-title">Q1 2026 Dashboard</div><div class="lc-desc">Financials, KPIs, pipeline health</div></div>
       <div class="lc-arrow">&rarr;</div>
     </a>
-    <a class="link-card" href="#" target="_blank" data-person="kenny daunte">
-      <div class="lc-icon">&#9989;</div>
-      <div class="lc-body"><div class="lc-title">Onboarding Checklist</div><div class="lc-desc">Standard client setup steps</div></div>
+    <a class="link-card" href="q1-2026-agenda.html" data-person="daunte kenny eli">
+      <div class="lc-icon">&#128221;</div>
+      <div class="lc-body"><div class="lc-title">Q1 2026 Agenda</div><div class="lc-desc">Review meeting agenda and talking points</div></div>
       <div class="lc-arrow">&rarr;</div>
     </a>
-    <a class="link-card" href="https://businessplansplus.monday.com/boards/18406004595" target="_blank" data-person="kenny daunte eli">
-      <div class="lc-icon">&#128203;</div>
-      <div class="lc-body"><div class="lc-title">Client Projects Board</div><div class="lc-desc">Create client group and assign deliverables</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="delivery-playbook.html" target="_blank" data-person="kenny daunte eli">
-      <div class="lc-icon">&#128214;</div>
-      <div class="lc-body"><div class="lc-title">Delivery Playbook</div><div class="lc-desc">SOPs and delivery standards for every engagement</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="#" target="_blank" data-person="kenny">
-      <div class="lc-icon">&#128193;</div>
-      <div class="lc-body"><div class="lc-title">Client Folder Template</div><div class="lc-desc">Google Drive structure for new clients</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
+  </div>
+
+  <div class="sec-label">Monthly Reviews</div>
+  <div class="card-grid">
+    <div class="link-card" style="opacity:0.6; cursor:default;">
+      <div class="lc-icon">&#128197;</div>
+      <div class="lc-body"><div class="lc-title">Coming Soon</div><div class="lc-desc">Monthly review dashboards will live here</div></div>
+    </div>
   </div>
 
 </main>
@@ -76,7 +70,6 @@
 </div>
 
 <script>
-// -- Person switcher --
 function togglePerson(name, el) {
   var body = document.body;
   var btns = document.querySelectorAll('.person-btn');
@@ -89,17 +82,6 @@ function togglePerson(name, el) {
     el.classList.add('active-' + name);
   }
 }
-
-// -- Date display --
-function setDates() {
-  var d = new Date();
-  var opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  var el = document.getElementById('home-date');
-  if (el) el.textContent = d.toLocaleDateString('en-US', opts);
-}
-
-// -- Init --
-setDates();
 </script>
 
 </body>
