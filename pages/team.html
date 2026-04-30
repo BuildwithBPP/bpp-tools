@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP Team & AI Workforce</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771;
+    --navy-dark: #033359;
+    --blue: #5987A5;
+    --blue-mid: #3a6d8f;
+    --gold: #F1BE5C;
+    --gold-dark: #d4a43e;
+    --gold-light: #fdf0d0;
+    --white: #FCFCFC;
+    --black: #000000;
+    --gray: #4a4a4a;
+    --gray-light: #6B6B6B;
+    --bg: #edf1f5;
+    --card-bg: #ffffff;
+    --card-border: #c8d3dc;
+    --section-bg: #e2e9f0;
+    --green: #1a9e5c;
+    --green-light: #d4f0e1;
+    --red: #c0392b;
+    --red-light: #f5d5d1;
+    --amber: #d4920a;
+    --amber-light: #fdf0d0;
+    --daunte: #5987A5;
+    --kenny: #1a9e5c;
+    --eli: #F1BE5C;
+  }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--black); min-height: 100vh; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(4,71,113,0.3); }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .header-logo { width: 44px; height: 44px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: var(--navy-dark); box-shadow: 0 2px 8px rgba(241,190,92,0.4); }
+  .header-text { color: white; }
+  .header-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+  .header-title span { color: var(--gold); }
+  .header-sub { font-size: 11px; font-weight: 300; opacity: 0.65; margin-top: 2px; }
+  .header-right { text-align: right; color: white; }
+  .header-period { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: var(--gold); }
+  .header-date { font-size: 10px; opacity: 0.5; margin-top: 3px; }
+
+  .page { max-width: 1200px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  /* SECTION HEADERS */
+  .section-bar { background: var(--navy); border-radius: 8px; padding: 14px 24px; margin: 36px 0 14px; display: flex; align-items: center; justify-content: space-between; }
+  .section-bar-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.1em; }
+  .section-bar-sub { font-size: 10px; color: rgba(255,255,255,0.6); }
+
+  /* INTRO */
+  .intro-box { background: var(--card-bg); border: 1px solid var(--card-border); border-left: 5px solid var(--gold); border-radius: 10px; padding: 20px 24px; margin-bottom: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .intro-box p { font-size: 13px; color: var(--gray); line-height: 1.7; }
+  .intro-box p + p { margin-top: 10px; }
+  .intro-box strong { color: var(--navy-dark); }
+
+  /* ORG CHART */
+  .org-wrap { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 32px 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .org-tier-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: var(--gray-light); text-transform: uppercase; letter-spacing: 0.12em; text-align: center; margin-bottom: 14px; }
+  .org-row { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+  .org-row + .org-tier-label { margin-top: 32px; }
+  .org-connector { width: 2px; height: 28px; background: var(--card-border); margin: 0 auto; }
+  .org-card { background: var(--card-bg); border: 2px solid var(--card-border); border-radius: 10px; padding: 18px; width: 280px; text-align: center; transition: transform .15s, box-shadow .15s; position: relative; }
+  .org-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(4,71,113,0.12); }
+  .org-card.daunte { border-top: 5px solid var(--daunte); }
+  .org-card.kenny { border-top: 5px solid var(--kenny); }
+  .org-card.eli { border-top: 5px solid var(--eli); }
+  .org-card.support { border-top: 5px solid var(--blue); border-style: dashed; }
+  .org-card.future { border-top: 5px solid var(--gold); border-style: dashed; background: #fdfaf2; }
+  .org-card.ai { border-top: 5px solid var(--navy); background: #f6f9fc; }
+  .org-avatar { width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: white; }
+  .org-avatar.daunte { background: var(--daunte); }
+  .org-avatar.kenny { background: var(--kenny); }
+  .org-avatar.eli { background: var(--eli); color: var(--navy-dark); }
+  .org-avatar.support { background: var(--blue); }
+  .org-avatar.future { background: var(--gold); color: var(--navy-dark); }
+  .org-avatar.ai { background: var(--navy); }
+  .org-name { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: var(--navy-dark); }
+  .org-role { font-size: 11px; color: var(--gray-light); font-weight: 500; margin-top: 2px; }
+  .org-tagline { font-size: 11px; color: var(--gray); margin-top: 10px; line-height: 1.5; padding-top: 10px; border-top: 1px dashed var(--card-border); }
+  .org-pill { display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 8px; border-radius: 4px; margin-top: 8px; }
+  .pill-current { background: var(--green-light); color: var(--green); }
+  .pill-contract { background: #d0e3f5; color: var(--navy); }
+  .pill-future { background: var(--gold-light); color: var(--amber); }
+  .pill-ai { background: rgba(4,71,113,0.1); color: var(--navy); }
+
+  /* DEPARTMENT GRID */
+  .dept-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .dept-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 22px 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-left: 5px solid var(--navy); }
+  .dept-card.sales { border-left-color: var(--kenny); }
+  .dept-card.marketing { border-left-color: var(--gold); }
+  .dept-card.delivery { border-left-color: var(--eli); }
+  .dept-card.ops { border-left-color: var(--daunte); }
+  .dept-card.finance { border-left-color: var(--green); }
+  .dept-card.hr { border-left-color: var(--blue-mid); }
+  .dept-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+  .dept-name { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; color: var(--navy-dark); }
+  .dept-lead-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 4px; background: var(--section-bg); color: var(--navy); }
+  .dept-lead-tag.daunte { background: rgba(89,135,165,0.15); color: var(--daunte); }
+  .dept-lead-tag.kenny { background: rgba(26,158,92,0.12); color: var(--kenny); }
+  .dept-lead-tag.eli { background: rgba(241,190,92,0.2); color: var(--gold-dark); }
+  .dept-purpose { font-size: 12px; color: var(--gray-light); line-height: 1.5; margin-bottom: 14px; font-style: italic; }
+  .dept-block { margin-top: 14px; }
+  .dept-block-title { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .dept-block-title .ico { font-size: 12px; }
+  .dept-list { list-style: none; padding: 0; margin: 0; }
+  .dept-list li { font-size: 12px; color: var(--gray); line-height: 1.6; padding: 4px 0 4px 18px; position: relative; }
+  .dept-list li::before { content: ""; position: absolute; left: 4px; top: 11px; width: 5px; height: 5px; border-radius: 50%; background: var(--navy); }
+  .dept-list.ai li::before { background: var(--gold); }
+  .dept-list.hire li::before { background: var(--blue); }
+  .dept-list strong { color: var(--navy-dark); font-weight: 600; }
+
+  /* DEPARTMENTAL ORG (FULL-WIDTH HORIZONTAL ROW OF VERTICAL DEPT FLOWS) */
+  .dept-section-fullwidth { width: 100vw; position: relative; left: 50%; margin-left: -50vw; padding: 8px 32px 40px; background: var(--bg); box-sizing: border-box; }
+  .dept-section-fullwidth .section-bar { max-width: 1400px; margin: 24px auto 14px; }
+  .dept-row { display: flex; flex-direction: row; gap: 16px; overflow-x: auto; padding: 8px 0 20px; align-items: flex-start; justify-content: center; }
+  .dept-row::-webkit-scrollbar { height: 8px; }
+  .dept-row::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+  .dept-column { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--card-border); padding: 14px 14px 18px; min-width: 320px; max-width: 360px; flex-shrink: 0; display: flex; flex-direction: column; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .dept-tier-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 8px; }
+  .dept-tier-cards.single { grid-template-columns: 1fr; }
+  .dept-column.gold { border-top: 5px solid var(--gold); }
+  .dept-column.kenny { border-top: 5px solid var(--kenny); }
+  .dept-column.eli { border-top: 5px solid var(--eli); }
+  .dept-column.daunte { border-top: 5px solid var(--daunte); }
+  .dept-column.green { border-top: 5px solid var(--green); }
+  .dept-column.blue { border-top: 5px solid var(--blue-mid); }
+  .dept-header { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 800; color: var(--navy-dark); text-align: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--card-border); }
+  .dept-tier-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; color: var(--gray-light); text-transform: uppercase; letter-spacing: 0.1em; text-align: center; margin: 10px 0 6px; }
+  .dept-vert-connector { width: 2px; height: 14px; background: var(--card-border); margin: 0 auto; }
+  .dept-column .org-card { width: 100%; max-width: none; padding: 12px; margin: 0; }
+  .dept-column .org-avatar { width: 38px; height: 38px; font-size: 14px; margin-bottom: 6px; }
+  .dept-column .org-name { font-size: 12px; }
+  .dept-column .org-role { font-size: 10px; margin-top: 1px; }
+  .dept-column .org-tagline { font-size: 10px; padding-top: 6px; line-height: 1.45; }
+  .dept-column .org-pill { font-size: 8px; padding: 2px 6px; }
+
+  /* ROADMAP */
+  .roadmap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .phase-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 22px 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); position: relative; }
+  .phase-card.now { border-top: 5px solid var(--green); }
+  .phase-card.next { border-top: 5px solid var(--gold); }
+  .phase-card.later { border-top: 5px solid var(--blue); }
+  .phase-tag { display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 9px; border-radius: 4px; margin-bottom: 8px; }
+  .phase-tag.now { background: var(--green-light); color: var(--green); }
+  .phase-tag.next { background: var(--gold-light); color: var(--amber); }
+  .phase-tag.later { background: #d0e3f5; color: var(--navy); }
+  .phase-title { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 800; color: var(--navy-dark); margin-bottom: 4px; }
+  .phase-sub { font-size: 11px; color: var(--gray-light); margin-bottom: 14px; }
+  .phase-list { list-style: none; padding: 0; margin: 0; }
+  .phase-list li { font-size: 12px; color: var(--gray); line-height: 1.55; padding: 6px 0 6px 18px; position: relative; border-bottom: 1px dashed var(--card-border); }
+  .phase-list li:last-child { border-bottom: none; }
+  .phase-list li::before { content: ""; position: absolute; left: 0; top: 12px; width: 8px; height: 8px; border-radius: 2px; background: var(--gold); }
+  .phase-list strong { color: var(--navy-dark); font-weight: 700; display: block; margin-bottom: 2px; font-size: 12px; }
+
+  /* HIRING TABLE */
+  .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 10px; overflow: hidden; border: 1px solid var(--card-border); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .data-table th { background: var(--navy); color: white; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 13px 16px; text-align: left; }
+  .data-table td { padding: 12px 16px; font-size: 12px; border-bottom: 1px solid #e8ecf0; color: var(--gray); vertical-align: top; line-height: 1.5; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td strong { color: var(--navy-dark); }
+  .priority { display: inline-block; padding: 3px 9px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+  .priority.high { background: var(--red-light); color: var(--red); }
+  .priority.med { background: var(--amber-light); color: var(--amber); }
+  .priority.low { background: var(--green-light); color: var(--green); }
+  .type-pill { display: inline-block; padding: 3px 9px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .type-hire { background: rgba(89,135,165,0.15); color: var(--blue-mid); }
+  .type-contract { background: var(--gold-light); color: var(--amber); }
+  .type-ai { background: rgba(4,71,113,0.1); color: var(--navy); }
+
+  /* TBD CALLOUT */
+  .tbd-card { background: #fdfaf2; border: 1.5px dashed var(--gold); border-radius: 10px; padding: 18px 22px; margin-top: 16px; }
+  .tbd-card-title { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--navy-dark); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .tbd-card-title::before { content: "?"; display: inline-flex; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); color: var(--navy-dark); font-weight: 800; align-items: center; justify-content: center; font-size: 11px; }
+  .tbd-list { list-style: none; padding: 0; margin: 0; }
+  .tbd-list li { font-size: 12px; color: var(--gray); line-height: 1.6; padding: 4px 0 4px 18px; position: relative; }
+  .tbd-list li::before { content: ""; position: absolute; left: 4px; top: 11px; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+
+  /* FOOTER */
+  .footer { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 18px 48px; display: flex; justify-content: space-between; align-items: center; margin-top: 48px; }
+  .footer-text { font-size: 10px; color: rgba(255,255,255,0.45); }
+  .footer-gold { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; color: var(--gold); }
+
+  @media (max-width: 900px) {
+    .dept-grid, .roadmap-grid { grid-template-columns: 1fr; }
+    .header { padding: 20px 24px; }
+    .page { padding: 24px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div style="background:#022a45; padding:8px 48px;"><a href="../index.html" style="color:#F1BE5C; text-decoration:none; font-family:Montserrat,sans-serif; font-size:12px; font-weight:600;">&larr; Back to BPP Tools Hub</a></div>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">BPP</div>
+    <div class="header-text">
+      <div class="header-title">Team &amp; <span>AI Workforce</span></div>
+      <div class="header-sub">Org chart, department leads, AI agents, and the hiring/outsourcing watch list</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-period">Draft v1</div>
+    <div class="header-date">Last updated April 29, 2026</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <p><strong>What this is:</strong> BPP&rsquo;s organizational map &mdash; who owns what, where each department is headed, which AI agents we plan to deploy as &ldquo;digital employees,&rdquo; and what we should outsource or hire next. Treat this as the blueprint for scaling without bloating headcount.</p>
+    <p><strong>How we&rsquo;re using AI:</strong> Every department gets at least one specialist Claude agent with its own skill, prompt, and data sources. The agent handles the repeatable parts so the human owner can focus on judgment, relationships, and strategy. Items marked <span class="org-pill pill-ai">AI</span> are agents we plan to build inside this workspace.</p>
+  </div>
+
+  <!-- ORG CHART -->
+  <div class="section-bar">
+    <div class="section-bar-title">Organizational Chart</div>
+    <div class="section-bar-sub">Owners, support, and planned roles</div>
+  </div>
+
+  <div class="org-wrap">
+
+    <div class="org-tier-label">Ownership &middot; Co-Owners</div>
+    <div class="org-row">
+      <div class="org-card daunte">
+        <div class="org-avatar daunte">DB</div>
+        <div class="org-name">Daunte Benjamin</div>
+        <div class="org-role">Co-Owner &middot; Data, Ops &amp; Marketing</div>
+        <div class="org-tagline">Leads Operations, IT, Finance, and Marketing strategy. AI architect, dashboard builder, automation owner.</div>
+        <span class="org-pill pill-current">Current</span>
+      </div>
+      <div class="org-card kenny">
+        <div class="org-avatar kenny">KH</div>
+        <div class="org-name">Kenny Hawkins</div>
+        <div class="org-role">Co-Owner &middot; Business Dev &amp; Sales</div>
+        <div class="org-tagline">Leads Sales and HubSpot. Strong on funnel design and CRM. Day-to-day scope is the most open question on the team.</div>
+        <span class="org-pill pill-current">Current</span>
+      </div>
+      <div class="org-card eli">
+        <div class="org-avatar eli">EF</div>
+        <div class="org-name">Eli Fisher</div>
+        <div class="org-role">Co-Owner &middot; Design, Delivery, PM</div>
+        <div class="org-tagline">PMP-certified project manager. Owns Monday board structure, website builds, production (camera, Drive). Runs many discovery calls.</div>
+        <span class="org-pill pill-current">Current</span>
+      </div>
+    </div>
+
+    <div class="org-connector"></div>
+    <div class="org-tier-label">Extended Team &middot; Contractors &amp; Partners</div>
+    <div class="org-row">
+      <div class="org-card support">
+        <div class="org-avatar support">JS</div>
+        <div class="org-name">Justin Smith</div>
+        <div class="org-role">Head of Marketing (Contract)</div>
+        <div class="org-tagline">Marketing orchestrator. Owns content calendar, KJ direction, newsletter graphics. <strong>$400/month.</strong> Reports to Daunte.</div>
+        <span class="org-pill pill-contract">Contractor</span>
+      </div>
+      <div class="org-card support">
+        <div class="org-avatar support">KJ</div>
+        <div class="org-name">KJ</div>
+        <div class="org-role">Video Editor (Contract)</div>
+        <div class="org-tagline">Edits raw footage from BPP content days into finished assets for the calendar. Reports to Justin.</div>
+        <span class="org-pill pill-contract">Contractor</span>
+      </div>
+      <div class="org-card support">
+        <div class="org-avatar support">RJ</div>
+        <div class="org-name">Rodney Jones</div>
+        <div class="org-role">Strategic Advisor &middot; Founder</div>
+        <div class="org-tagline">5% gross revenue share. Function on the team is strategic advisor: business planning input and general help where needed.</div>
+        <span class="org-pill pill-contract">Partner</span>
+      </div>
+    </div>
+
+    <div class="org-connector"></div>
+    <div class="org-tier-label">AI Workforce &middot; Specialist Agents (Building Now)</div>
+    <div class="org-row">
+      <div class="org-card ai">
+        <div class="org-avatar ai">M</div>
+        <div class="org-name">Marketing Agent</div>
+        <div class="org-role">Reports to Eli</div>
+        <div class="org-tagline">Blogs, newsletters, social drafts, market research scraping. Skill: content-writer.</div>
+        <span class="org-pill pill-ai">AI &middot; Phase 1</span>
+      </div>
+      <div class="org-card ai">
+        <div class="org-avatar ai">S</div>
+        <div class="org-name">Sales Agent</div>
+        <div class="org-role">Reports to Kenny</div>
+        <div class="org-tagline">Lead research, outreach drafts, proposal generation, HubSpot updates.</div>
+        <span class="org-pill pill-ai">AI &middot; Phase 1</span>
+      </div>
+      <div class="org-card ai">
+        <div class="org-avatar ai">O</div>
+        <div class="org-name">Ops/Finance Agent</div>
+        <div class="org-role">Reports to Daunte</div>
+        <div class="org-tagline">Sprint planning, dashboard refresh, QB categorization, KPI alerts.</div>
+        <span class="org-pill pill-ai">AI &middot; Phase 1</span>
+      </div>
+    </div>
+
+    <div class="org-connector"></div>
+    <div class="org-tier-label">Future Hires &middot; Watch List</div>
+    <div class="org-row">
+      <div class="org-card future">
+        <div class="org-avatar future">AS</div>
+        <div class="org-name">Appointment Setter</div>
+        <div class="org-role">Sales (Contract first)</div>
+        <div class="org-tagline">Books discovery calls from Kenny&rsquo;s outbound. Likely first external hire.</div>
+        <span class="org-pill pill-future">Q3 2026 (target)</span>
+      </div>
+      <div class="org-card future">
+        <div class="org-avatar future">VA</div>
+        <div class="org-name">Virtual Assistant</div>
+        <div class="org-role">Operations (Contract)</div>
+        <div class="org-tagline">Inbox triage, scheduling, admin. Frees ~5 hrs/wk per owner.</div>
+        <span class="org-pill pill-future">Q4 2026 (target)</span>
+      </div>
+      <div class="org-card future">
+        <div class="org-avatar future">DG</div>
+        <div class="org-name">Designer (Overflow)</div>
+        <div class="org-role">Delivery (Contract)</div>
+        <div class="org-tagline">Production design when Eli is at capacity. Hourly, on-demand.</div>
+        <span class="org-pill pill-future">As needed</span>
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+  <!-- END OF .page CONSTRAINED CONTENT (1st part) -->
+
+  <!-- DEPARTMENTAL ORG CHARTS (full-width breakout, moved up from bottom per Daunte's request) -->
+  <div class="dept-section-fullwidth">
+    <div class="section-bar">
+      <div class="section-bar-title">Org Chart by Department</div>
+      <div class="section-bar-sub">Each department is a vertical flow. Centered. Tier cards lay out in 2-col grids when there are 2+ in a tier.</div>
+    </div>
+
+    <div class="dept-row">
+
+      <!-- MARKETING -->
+      <div class="dept-column gold">
+        <div class="dept-header">Marketing</div>
+        <div class="dept-tier-label">Lead</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card daunte"><div class="org-avatar daunte">DB</div><div class="org-name">Daunte Benjamin</div><div class="org-role">Marketing Lead</div><div class="org-tagline">Strategy, agent infrastructure, newsletter rotation.</div><span class="org-pill pill-current">Owner</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">Marketing Team</div>
+        <div class="dept-tier-cards">
+          <div class="org-card support"><div class="org-avatar support">JS</div><div class="org-name">Justin Smith</div><div class="org-role">Head of Marketing</div><div class="org-tagline">Calendar, KJ direction, graphics. $400/mo.</div><span class="org-pill pill-contract">Contractor</span></div>
+          <div class="org-card support"><div class="org-avatar support">KJ</div><div class="org-name">KJ</div><div class="org-role">Video Editor</div><div class="org-tagline">Edits raw footage. Reports to Justin.</div><span class="org-pill pill-contract">Contractor</span></div>
+          <div class="org-card eli"><div class="org-avatar eli">EF</div><div class="org-name">Eli Fisher</div><div class="org-role">Production Support</div><div class="org-tagline">Video, content, social systems, brand visuals.</div><span class="org-pill pill-current">Owner</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">AI Plugins</div>
+        <div class="dept-tier-cards">
+          <div class="org-card ai"><div class="org-avatar ai">M</div><div class="org-name">marketing-coordinator</div><div class="org-role">Built v0.1.0</div><div class="org-tagline">linkedin + newsletter + youtube-seo</div><span class="org-pill pill-ai">Active</span></div>
+          <div class="org-card ai"><div class="org-avatar ai">C</div><div class="org-name">content-producer</div><div class="org-role">Built v0.1.0</div><div class="org-tagline">grab + transcribe + brief + script-from-video</div><span class="org-pill pill-ai">Active</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">Future Hire</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card future"><div class="org-avatar future">VE</div><div class="org-name">Video Editor Backup</div><div class="org-role">Contract</div><div class="org-tagline">Trigger: content scales past KJ.</div><span class="org-pill pill-future">When needed</span></div>
+        </div>
+      </div>
+
+      <!-- SALES -->
+      <div class="dept-column kenny">
+        <div class="dept-header">Sales &amp; BD</div>
+        <div class="dept-tier-label">Lead</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card kenny"><div class="org-avatar kenny">KH</div><div class="org-name">Kenny Hawkins</div><div class="org-role">Sales Lead</div><div class="org-tagline">HubSpot, funnel design, pipeline, LinkedIn outreach.</div><span class="org-pill pill-current">Owner</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">Co-Contributor</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card eli"><div class="org-avatar eli">EF</div><div class="org-name">Eli Fisher</div><div class="org-role">Discovery Calls</div><div class="org-tagline">Runs many discovery calls. Built the playbooks.</div><span class="org-pill pill-current">Owner</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">AI Plugins</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card ai" style="opacity:0.7;"><div class="org-avatar ai">S</div><div class="org-name">sales-agent</div><div class="org-role">Planned Q3</div><div class="org-tagline">Lead research + outreach drafts + pipeline hygiene.</div><span class="org-pill pill-future">Planned</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">Future Hire (#1)</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card future"><div class="org-avatar future">AS</div><div class="org-name">Appointment Setter</div><div class="org-role">Contract, $15-25/hr</div><div class="org-tagline">~60 days post May 8 newsletter launch.</div><span class="org-pill pill-future">~Q3 2026</span></div>
+        </div>
+      </div>
+
+      <!-- CLIENT DELIVERY -->
+      <div class="dept-column eli">
+        <div class="dept-header">Client Delivery</div>
+        <div class="dept-tier-label">Lead</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card eli"><div class="org-avatar eli">EF</div><div class="org-name">Eli Fisher</div><div class="org-role">Project Manager (PMP)</div><div class="org-tagline">Monday board, timelines, design + production.</div><span class="org-pill pill-current">Owner</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">Co-Contributors</div>
+        <div class="dept-tier-cards">
+          <div class="org-card daunte"><div class="org-avatar daunte">DB</div><div class="org-name">Daunte Benjamin</div><div class="org-role">AI / BI / Finance</div><div class="org-tagline">Quality gate on AI/BI/financial work.</div><span class="org-pill pill-current">Owner</span></div>
+          <div class="org-card kenny"><div class="org-avatar kenny">KH</div><div class="org-name">Kenny Hawkins</div><div class="org-role">CRM / HubSpot</div><div class="org-tagline">HubSpot setup + optimization for clients.</div><span class="org-pill pill-current">Owner</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">AI Plugins</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card ai" style="opacity:0.7;"><div class="org-avatar ai">CD</div><div class="org-name">client-delivery</div><div class="org-role">Planned Q2</div><div class="org-tagline">onboarding + brand + 3 decks + meeting-notes + status-report.</div><span class="org-pill pill-future">Planned</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">Future Hire</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card future"><div class="org-avatar future">PD</div><div class="org-name">Production Designer</div><div class="org-role">Contract</div><div class="org-tagline">Trigger: 4+ active clients in Build phase.</div><span class="org-pill pill-future">When needed</span></div>
+        </div>
+      </div>
+
+      <!-- OPERATIONS & IT -->
+      <div class="dept-column daunte">
+        <div class="dept-header">Operations &amp; IT</div>
+        <div class="dept-tier-label">Lead</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card daunte"><div class="org-avatar daunte">DB</div><div class="org-name">Daunte Benjamin</div><div class="org-role">Ops &amp; IT Lead</div><div class="org-tagline">AI infrastructure, automations, Tools Hub, Monday admin.</div><span class="org-pill pill-current">Owner</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">Co-Contributor</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card eli"><div class="org-avatar eli">EF</div><div class="org-name">Eli Fisher</div><div class="org-role">Monday Board</div><div class="org-tagline">PMP. Templates and structural maintenance.</div><span class="org-pill pill-current">Owner</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">AI Plugins</div>
+        <div class="dept-tier-cards">
+          <div class="org-card ai" style="opacity:0.7;"><div class="org-avatar ai">EA</div><div class="org-name">executive-assistant</div><div class="org-role">Planned Q2</div><div class="org-tagline">Morning brief, EOD, journal upload.</div><span class="org-pill pill-future">Planned</span></div>
+          <div class="org-card ai" style="opacity:0.7;"><div class="org-avatar ai">SU</div><div class="org-name">mcp-setup</div><div class="org-role">Planned Q2</div><div class="org-tagline">One-command Outlook + Notion + Drive setup.</div><span class="org-pill pill-future">Planned</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">Future Hires</div>
+        <div class="dept-tier-cards">
+          <div class="org-card future"><div class="org-avatar future">VA</div><div class="org-name">Virtual Assistant</div><div class="org-role">Contract, $10-20/hr</div><div class="org-tagline">Trigger: owner &gt;45 hrs/week.</div><span class="org-pill pill-future">When needed</span></div>
+          <div class="org-card future"><div class="org-avatar future">JD</div><div class="org-name">Junior Developer</div><div class="org-role">$50-80K W-2</div><div class="org-tagline">Trigger: 6+ active clients with tech work.</div><span class="org-pill pill-future">Later 2026</span></div>
+        </div>
+      </div>
+
+      <!-- FINANCE -->
+      <div class="dept-column green">
+        <div class="dept-header">Finance</div>
+        <div class="dept-tier-label">Lead</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card daunte"><div class="org-avatar daunte">DB</div><div class="org-name">Daunte Benjamin</div><div class="org-role">Finance Lead</div><div class="org-tagline">QB, monthly close, Rodney rev share, AR + 1099.</div><span class="org-pill pill-current">Owner</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">Strategic Advisor</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card support"><div class="org-avatar support">RJ</div><div class="org-name">Rodney Jones</div><div class="org-role">Strategic Advisor</div><div class="org-tagline">5% gross rev share. Business planning input.</div><span class="org-pill pill-contract">Partner</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">AI Plugins</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card ai" style="opacity:0.7;"><div class="org-avatar ai">FM</div><div class="org-name">finance-manager</div><div class="org-role">Planned Q2</div><div class="org-tagline">monthly-close + quickbooks + financial-pulse.</div><span class="org-pill pill-future">Planned</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">Future Hires</div>
+        <div class="dept-tier-cards">
+          <div class="org-card future"><div class="org-avatar future">BK</div><div class="org-name">Bookkeeper</div><div class="org-role">Contract, $300-600/mo</div><div class="org-tagline">Trigger: $250K+ ARR.</div><span class="org-pill pill-future">When needed</span></div>
+          <div class="org-card future"><div class="org-avatar future">CF</div><div class="org-name">Fractional CFO</div><div class="org-role">Contract, $2-5K/mo</div><div class="org-tagline">Trigger: $500K+ ARR.</div><span class="org-pill pill-future">Later</span></div>
+        </div>
+      </div>
+
+      <!-- HR -->
+      <div class="dept-column blue">
+        <div class="dept-header">HR &amp; People Ops</div>
+        <div class="dept-tier-label">Lead</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card future" style="border-style:dashed;"><div class="org-avatar future">&mdash;</div><div class="org-name">No lead</div><div class="org-role">Intentionally</div><div class="org-tagline">No employees yet. Defaults to Daunte if needed.</div><span class="org-pill pill-future">Open</span></div>
+        </div>
+        <div class="dept-vert-connector"></div>
+        <div class="dept-tier-label">Future Hire</div>
+        <div class="dept-tier-cards single">
+          <div class="org-card future"><div class="org-avatar future">RC</div><div class="org-name">Recruiter</div><div class="org-role">Contract, 15-25%</div><div class="org-tagline">Project-based, only for first W-2 hire.</div><span class="org-pill pill-future">When needed</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- END dept-section-fullwidth, RESUME .page -->
+
+  <div class="page">
+
+  <!-- DEPARTMENTS -->
+  <div class="section-bar">
+    <div class="section-bar-title">Departments &middot; Leads, Responsibilities, AI Agents</div>
+    <div class="section-bar-sub">6 functions &middot; aligned with Monday Operations board</div>
+  </div>
+
+  <div class="dept-grid">
+
+    <!-- SALES -->
+    <div class="dept-card sales">
+      <div class="dept-head">
+        <div class="dept-name">Sales &amp; Business Development</div>
+        <span class="dept-lead-tag kenny">Lead: Kenny &middot; Eli co-contributes</span>
+      </div>
+      <div class="dept-purpose">Fill the pipeline, qualify leads, close deals. Kenny owns HubSpot and funnel design. Eli runs many discovery calls and built the discovery playbooks.</div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128203;</span> Roles &amp; Responsibilities</div>
+        <ul class="dept-list">
+          <li>HubSpot CRM admin and pipeline management</li>
+          <li>Outbound prospecting (LinkedIn, email)</li>
+          <li>Discovery call qualification (with Eli)</li>
+          <li>Proposal development and negotiation</li>
+          <li>Quarterly sales target ownership</li>
+        </ul>
+      </div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#129302;</span> AI Agents to Deploy</div>
+        <ul class="dept-list ai">
+          <li><strong>Lead Research Agent</strong> &mdash; pulls public company data (size, recent news, tech stack) into HubSpot before Kenny reaches out</li>
+          <li><strong>Outreach Drafter</strong> &mdash; personalized LinkedIn/email drafts using ICP profiles + lead context</li>
+          <li><strong>Proposal Builder</strong> &mdash; generates first-draft proposals from service-packages.html templates</li>
+          <li><strong>Pipeline Hygiene Agent</strong> &mdash; flags stale deals, missing fields, stage mismatches weekly</li>
+        </ul>
+      </div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128100;</span> Outsource / Hire Watch</div>
+        <ul class="dept-list hire">
+          <li><strong>Appointment Setter</strong> (contract, $15-25/hr) &mdash; books discovery calls so Kenny stays on closing</li>
+          <li><strong>SDR/BDR</strong> (longer term) &mdash; only after appointment setter proves ROI</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- MARKETING -->
+    <div class="dept-card marketing">
+      <div class="dept-head">
+        <div class="dept-name">Marketing &amp; Content</div>
+        <span class="dept-lead-tag daunte">Lead: Daunte &middot; Justin orchestrates</span>
+      </div>
+      <div class="dept-purpose">Build BPP brand presence, drive inbound leads, support sales with content. Daunte owns strategy. Justin runs the content calendar and briefs KJ. Eli contributes design and production.</div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128203;</span> Roles &amp; Responsibilities</div>
+        <ul class="dept-list">
+          <li>Brand guidelines and voice consistency</li>
+          <li>Blog, newsletter, social media calendar</li>
+          <li>Webflow site updates and SEO</li>
+          <li>Metricool dashboard monitoring</li>
+          <li>Case studies from active client work</li>
+        </ul>
+      </div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#129302;</span> AI Agents to Deploy</div>
+        <ul class="dept-list ai">
+          <li><strong>Blog Writer Agent</strong> &mdash; full drafts in BPP voice from a topic + outline; uses brand-voice.md</li>
+          <li><strong>Newsletter Agent</strong> &mdash; weekly digest pulling from blog, client wins, and industry news</li>
+          <li><strong>Market Research Scraper</strong> &mdash; pulls competitor pricing, content, and positioning on a schedule</li>
+          <li><strong>Social Repurposer</strong> &mdash; converts one blog into LinkedIn posts, Threads, and email teasers</li>
+          <li><strong>SEO Auditor</strong> &mdash; weekly check on Webflow site, flags broken links, missing meta, ranking shifts</li>
+        </ul>
+      </div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128100;</span> Outsource / Hire Watch</div>
+        <ul class="dept-list hire">
+          <li><strong>Video Editor</strong> (contract, project-based) &mdash; for case study reels and founder content</li>
+          <li><strong>SEO Specialist</strong> (consultant) &mdash; one-time audit, then quarterly check-ins</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CLIENT DELIVERY -->
+    <div class="dept-card delivery">
+      <div class="dept-head">
+        <div class="dept-name">Client Delivery &amp; Design</div>
+        <span class="dept-lead-tag eli">Lead: Eli (PM) &middot; All three deliver</span>
+      </div>
+      <div class="dept-purpose">Deliver every client engagement on time, on brand, beyond expectations. Eli runs project management (Monday board, timelines). Daunte handles AI/BI/finance deliverables. Kenny handles CRM/HubSpot client work.</div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128203;</span> Roles &amp; Responsibilities</div>
+        <ul class="dept-list">
+          <li>Discovery calls and kickoff facilitation</li>
+          <li>Deliverable design (decks, brand kits, web)</li>
+          <li>Client communication and weekly updates</li>
+          <li>Quality gate before deliverables ship</li>
+          <li>Service playbook adherence</li>
+        </ul>
+      </div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#129302;</span> AI Agents to Deploy</div>
+        <ul class="dept-list ai">
+          <li><strong>Kickoff Document Generator</strong> &mdash; turns discovery notes into a kickoff deck and project plan</li>
+          <li><strong>Status Report Agent</strong> &mdash; pulls Monday board state into a client-facing weekly update</li>
+          <li><strong>Brand QA Agent</strong> &mdash; reviews deliverables against brand-voice.md and design standards</li>
+          <li><strong>Meeting Note Synthesizer</strong> &mdash; turns Otter/transcripts into action items + Monday subitems</li>
+        </ul>
+      </div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128100;</span> Outsource / Hire Watch</div>
+        <ul class="dept-list hire">
+          <li><strong>Production Designer</strong> (contract) &mdash; overflow capacity when Eli is bottlenecked</li>
+          <li><strong>Project Coordinator</strong> (longer term) &mdash; once we run 6+ active clients</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- OPERATIONS & IT -->
+    <div class="dept-card ops">
+      <div class="dept-head">
+        <div class="dept-name">Operations &amp; IT</div>
+        <span class="dept-lead-tag daunte">Lead: Daunte</span>
+      </div>
+      <div class="dept-purpose">Build the systems that make BPP itself easier to run. Same medicine we sell to clients.</div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128203;</span> Roles &amp; Responsibilities</div>
+        <ul class="dept-list">
+          <li>Monday.com admin (Operations + Client boards)</li>
+          <li>Tools Hub maintenance and GitHub Pages</li>
+          <li>Sprint planning and retrospectives</li>
+          <li>Automations and integrations across the stack</li>
+          <li>Tool stack reviews and cost discipline</li>
+        </ul>
+      </div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#129302;</span> AI Agents to Deploy</div>
+        <ul class="dept-list ai">
+          <li><strong>Sprint Planner Agent</strong> &mdash; drafts the sprint backlog from Monday Product Backlog using story points</li>
+          <li><strong>Dashboard Refresher</strong> &mdash; weekly KPI pull from HubSpot, QB, Metricool into hub stat cards</li>
+          <li><strong>Hub Maintenance Agent</strong> &mdash; checks for broken links, outdated stats, stale skills monthly</li>
+          <li><strong>Automation Builder</strong> &mdash; converts &ldquo;every time X happens, do Y&rdquo; requests into Make/Zapier or Monday automations</li>
+        </ul>
+      </div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128100;</span> Outsource / Hire Watch</div>
+        <ul class="dept-list hire">
+          <li><strong>Virtual Assistant</strong> (contract, $10-20/hr offshore) &mdash; calendar, inbox, file admin</li>
+          <li><strong>Junior Developer</strong> (longer term) &mdash; once Daunte is bottlenecked on client tech work</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FINANCE -->
+    <div class="dept-card finance">
+      <div class="dept-head">
+        <div class="dept-name">Finance</div>
+        <span class="dept-lead-tag daunte">Lead: Daunte</span>
+      </div>
+      <div class="dept-purpose">Cash flow, profitability, and clarity. Source of truth lives in QuickBooks.</div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128203;</span> Roles &amp; Responsibilities</div>
+        <ul class="dept-list">
+          <li>QuickBooks bookkeeping and categorization</li>
+          <li>Invoicing, AR, and payment follow-up</li>
+          <li>Monthly P&amp;L and quarterly review</li>
+          <li>Tax prep coordination (CPA partner)</li>
+          <li>Tool stack cost discipline</li>
+        </ul>
+      </div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#129302;</span> AI Agents to Deploy</div>
+        <ul class="dept-list ai">
+          <li><strong>Expense Categorizer</strong> &mdash; weekly QB transaction review with category suggestions</li>
+          <li><strong>AR Reminder Agent</strong> &mdash; flags overdue invoices, drafts polite follow-up emails</li>
+          <li><strong>Monthly Close Agent</strong> &mdash; generates P&amp;L summary + variance commentary on the 5th of every month</li>
+          <li><strong>Cost Watcher</strong> &mdash; tracks software subscriptions, flags unused tools (cost-review pattern)</li>
+        </ul>
+      </div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128100;</span> Outsource / Hire Watch</div>
+        <ul class="dept-list hire">
+          <li><strong>Bookkeeper</strong> (contract) &mdash; offload routine QB work from Daunte once revenue justifies (~$500/mo)</li>
+          <li><strong>Fractional CFO</strong> (longer term) &mdash; only at $500K+ ARR</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- HR -->
+    <div class="dept-card hr">
+      <div class="dept-head">
+        <div class="dept-name">HR &amp; People Ops</div>
+        <span class="dept-lead-tag">No lead &middot; intentionally</span>
+      </div>
+      <div class="dept-purpose">No employees, no urgent need. Contractor relationships handled by whoever brought them in (Justin to Daunte; KJ to Justin). Defaults to Daunte if a real HR question shows up.</div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128203;</span> Roles &amp; Responsibilities</div>
+        <ul class="dept-list">
+          <li>Contractor agreements and onboarding (Justin, Rodney, future)</li>
+          <li>Role specs and hiring criteria</li>
+          <li>Team rituals (sprint reviews, quarterly retros)</li>
+          <li>Equity/profit-share decisions (owners only currently)</li>
+          <li><em>Department lead to be assigned &mdash; team to discuss</em></li>
+        </ul>
+      </div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#129302;</span> AI Agents to Deploy</div>
+        <ul class="dept-list ai">
+          <li><strong>Role Spec Generator</strong> &mdash; turns &ldquo;we need someone who does X&rdquo; into a full job description with rate ranges</li>
+          <li><strong>Contractor Brief Writer</strong> &mdash; standardized SOWs with deliverables, timeline, payment</li>
+          <li><strong>Onboarding Checklist Agent</strong> &mdash; generates first-week tasks for new contractors</li>
+        </ul>
+      </div>
+
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128100;</span> Outsource / Hire Watch</div>
+        <ul class="dept-list hire">
+          <li><strong>Recruiter</strong> (project-based) &mdash; only when we hire our first W-2 employee</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BUILD QUEUE -->
+  <div class="section-bar" style="margin-top: 24px;">
+    <div class="section-bar-title">Build Queue &middot; Skills Not Yet Written</div>
+    <div class="section-bar-sub">Queued in rough order of leverage</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+    <div class="dept-card" style="padding:14px 18px;">
+      <div style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--navy-dark);margin-bottom:4px;">carousel-builder</div>
+      <div style="font-size:11px;color:var(--gray);line-height:1.5;">Long-form content &rarr; multi-slide IG carousel in BPP brand. Owns the Content Producer's biggest current gap.</div>
+    </div>
+    <div class="dept-card" style="padding:14px 18px;">
+      <div style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--navy-dark);margin-bottom:4px;">script-writer</div>
+      <div style="font-size:11px;color:var(--gray);line-height:1.5;">Short-form video scripts (30-90 sec) from a topic, in BPP voice. Hook, value, CTA.</div>
+    </div>
+    <div class="dept-card" style="padding:14px 18px;">
+      <div style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--navy-dark);margin-bottom:4px;">monday-sprint-planner</div>
+      <div style="font-size:11px;color:var(--gray);line-height:1.5;">Pulls from BPP Operations backlog, drafts sprint at story points, assigns owners. Replaces Daunte's Monday morning planning.</div>
+    </div>
+    <div class="dept-card" style="padding:14px 18px;">
+      <div style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--navy-dark);margin-bottom:4px;">kpi-pull</div>
+      <div style="font-size:11px;color:var(--gray);line-height:1.5;">Weekly metrics from HubSpot, QB, Metricool consolidated for Hub stat cards and KPI dashboard.</div>
+    </div>
+    <div class="dept-card" style="padding:14px 18px;">
+      <div style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--navy-dark);margin-bottom:4px;">daily-brief (formalized)</div>
+      <div style="font-size:11px;color:var(--gray);line-height:1.5;">Encode Daunte's lane discipline system as proper <code style="background:#f0f4f7;padding:1px 4px;border-radius:3px;">_claude/skills/</code> entries so the team can fork.</div>
+    </div>
+    <div class="dept-card" style="padding:14px 18px;">
+      <div style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--navy-dark);margin-bottom:4px;">canva-cover-card</div>
+      <div style="font-size:11px;color:var(--gray);line-height:1.5;">Auto-generate branded preview cards for repost videos using suggested preview line + BPP palette.</div>
+    </div>
+  </div>
+
+  <!-- AI EMPLOYEE PLUGINS -->
+  <div class="section-bar">
+    <div class="section-bar-title">AI Employee Plugins &middot; Architecture</div>
+    <div class="section-bar-sub">Each plugin = one employee. Skills inside = that employee&rsquo;s tasks.</div>
+  </div>
+
+  <div class="intro-box" style="border-left-color: var(--gold); margin-bottom: 16px;">
+    <p><strong>The model:</strong> A plugin is the umbrella for an AI employee. Skills inside are the tasks that employee handles. Teammates run <code style="background:#f0f4f7;padding:1px 5px;border-radius:3px;font-size:11px;">claude plugin install [path]</code> and get the entire role in one command. Replaces the loose-skills approach because shipping a "Marketing Coordinator" to Eli is one command, not ten setup steps.</p>
+    <p>The first plugin (bpp-content-producer) shipped 2026-04-30 at <code style="background:#f0f4f7;padding:1px 5px;border-radius:3px;font-size:11px;">c:/Users/dtben/Developer/bpp-plugins/</code>. The other five are queued for Q2 2026.</p>
+  </div>
+
+  <div class="dept-grid">
+
+    <!-- 1. CONTENT PRODUCER -->
+    <div class="dept-card" style="border-left: 5px solid var(--green);">
+      <div class="dept-head">
+        <div class="dept-name">bpp-content-producer</div>
+        <span class="dept-lead-tag" style="background:var(--green-light);color:var(--green);">Built v0.1.0</span>
+      </div>
+      <div class="dept-purpose">Pulls IG/YouTube videos, transcribes, writes repost briefs, studies script structures for the BPP Script Library.</div>
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128100;</span> Reports to</div>
+        <ul class="dept-list"><li>Daunte (with Justin reviewing repost queue, KJ on raw video)</li></ul>
+      </div>
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128218;</span> Skills bundled</div>
+        <ul class="dept-list ai">
+          <li><strong>bpp-ig-grab</strong> &mdash; yt-dlp wrapper</li>
+          <li><strong>bpp-transcribe</strong> &mdash; faster-whisper local</li>
+          <li><strong>bpp-repost-brief</strong> &mdash; structured brief generator</li>
+          <li><strong>bpp-script-from-video</strong> &mdash; hook + beats + CTA analysis (new)</li>
+        </ul>
+      </div>
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#9889;</span> Slash commands</div>
+        <ul class="dept-list"><li><code style="background:#f0f4f7;padding:1px 5px;border-radius:3px;font-size:11px;">/grab-and-brief [URLs]</code></li></ul>
+      </div>
+    </div>
+
+    <!-- 2. MARKETING COORDINATOR -->
+    <div class="dept-card" style="border-left: 5px solid #d0e3f5;">
+      <div class="dept-head">
+        <div class="dept-name">bpp-marketing-coordinator</div>
+        <span class="dept-lead-tag" style="background:#d0e3f5;color:var(--navy);">Planned Q2</span>
+      </div>
+      <div class="dept-purpose">Daily LinkedIn engagement, bi-weekly newsletter rotation, YouTube SEO research.</div>
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128100;</span> Reports to</div>
+        <ul class="dept-list"><li>Daunte (with Justin orchestrating cadence)</li></ul>
+      </div>
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128218;</span> Skills bundled</div>
+        <ul class="dept-list ai">
+          <li><strong>bpp-linkedin-engagement</strong></li>
+          <li><strong>bpp-newsletter-rotation</strong></li>
+          <li><strong>bpp-youtube-seo</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 3. CLIENT DELIVERY -->
+    <div class="dept-card" style="border-left: 5px solid #d0e3f5;">
+      <div class="dept-head">
+        <div class="dept-name">bpp-client-delivery</div>
+        <span class="dept-lead-tag" style="background:#d0e3f5;color:var(--navy);">Planned Q2</span>
+      </div>
+      <div class="dept-purpose">New client setup, brand decks, discovery and kickoff and closeout decks, meeting recap. Heaviest plugin.</div>
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128100;</span> Reports to</div>
+        <ul class="dept-list"><li>Eli (PM)</li></ul>
+      </div>
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128218;</span> Skills bundled</div>
+        <ul class="dept-list ai">
+          <li><strong>client-onboarding</strong></li>
+          <li><strong>brand-guidelines</strong></li>
+          <li><strong>bpp-discovery-deck</strong></li>
+          <li><strong>bpp-kickoff-deck</strong></li>
+          <li><strong>bpp-closeout-deck</strong></li>
+          <li><strong>meeting-notes</strong></li>
+          <li><strong>bpp-client-status-report</strong> (planned, top Sprint 2 pick)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4. FINANCE MANAGER -->
+    <div class="dept-card" style="border-left: 5px solid #d0e3f5;">
+      <div class="dept-head">
+        <div class="dept-name">bpp-finance-manager</div>
+        <span class="dept-lead-tag" style="background:#d0e3f5;color:var(--navy);">Planned Q2</span>
+      </div>
+      <div class="dept-purpose">Monthly close, QuickBooks integration, partner rev share, AR + 1099 watch, weekly financial pulse.</div>
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128100;</span> Reports to</div>
+        <ul class="dept-list"><li>Daunte</li></ul>
+      </div>
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128218;</span> Skills bundled</div>
+        <ul class="dept-list ai">
+          <li><strong>bpp-monthly-close</strong></li>
+          <li><strong>bpp-quickbooks</strong></li>
+          <li><strong>bpp-financial-pulse</strong> (planned, Sprint 2 candidate)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5. EXECUTIVE ASSISTANT -->
+    <div class="dept-card" style="border-left: 5px solid #d0e3f5;">
+      <div class="dept-head">
+        <div class="dept-name">bpp-executive-assistant <span style="font-size:10px;color:var(--gray-light);font-weight:500;">(personal)</span></div>
+        <span class="dept-lead-tag" style="background:#d0e3f5;color:var(--navy);">Planned Q2</span>
+      </div>
+      <div class="dept-purpose">Daunte&rsquo;s lane discipline system as a forkable plugin. Morning brief, EOD reflection, journal management.</div>
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128100;</span> Reports to</div>
+        <ul class="dept-list"><li>Daunte (personal; pattern available for team to fork)</li></ul>
+      </div>
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128218;</span> Skills bundled</div>
+        <ul class="dept-list ai">
+          <li><strong>morning-brief</strong></li>
+          <li><strong>eod-workday</strong></li>
+          <li><strong>eod-evening</strong></li>
+          <li><strong>catch-up-brief</strong></li>
+          <li><strong>journal-upload</strong> (Notion personal)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 6. MCP SETUP -->
+    <div class="dept-card" style="border-left: 5px solid var(--gold);">
+      <div class="dept-head">
+        <div class="dept-name">bpp-mcp-setup</div>
+        <span class="dept-lead-tag" style="background:var(--gold-light);color:var(--amber);">Planned (high team-impact)</span>
+      </div>
+      <div class="dept-purpose">The "send to the team" plugin. One-command setup walkthrough for Outlook, Notion (BPP + personal), Google Drive MCPs. Covers Whisper + ffmpeg install.</div>
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128100;</span> Reports to</div>
+        <ul class="dept-list"><li>Daunte (maintainer); installable by Eli, Kenny, future hires</li></ul>
+      </div>
+      <div class="dept-block">
+        <div class="dept-block-title"><span class="ico">&#128218;</span> Includes</div>
+        <ul class="dept-list ai">
+          <li>README walkthrough (Azure app reg, Notion integration creation)</li>
+          <li>Sample mcp_config entries</li>
+          <li>Install script (winget + pip)</li>
+          <li>Verification commands</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- FUTURE HIRES (SIMPLIFIED LIST) -->
+  <div class="section-bar">
+    <div class="section-bar-title">Future Hires &middot; Quick List</div>
+    <div class="section-bar-sub">In rough order of when we&rsquo;ll need them</div>
+  </div>
+
+  <div class="dept-card" style="padding: 18px 24px;">
+    <ol style="list-style: decimal; padding-left: 24px; line-height: 1.85; color: var(--gray); font-size: 13px;">
+      <li><strong>Appointment Setter</strong> &mdash; Contract, $15-25/hr (~$1.5-2K/mo). Sales. <em>Trigger: Kenny + Eli combined call volume exceeds close capacity. Likely first external hire after newsletter starts driving inbound (~60 days from May 8).</em></li>
+      <li><strong>Virtual Assistant</strong> &mdash; Contract, $10-20/hr (~$800-1.2K/mo). Operations. <em>Trigger: any owner consistently &gt;45 hrs/week.</em></li>
+      <li><strong>Production Designer (overflow)</strong> &mdash; Contract, $30-60/hr project-based. Delivery. <em>Trigger: 4+ active clients in Build phase simultaneously.</em></li>
+      <li><strong>Bookkeeper</strong> &mdash; Contract, $300-600/mo. Finance. <em>Trigger: $250K+ annual revenue or Daunte spending &gt;5 hrs/mo on books. AI agent defers this further.</em></li>
+      <li><strong>Video Editor backup</strong> &mdash; Contract, $50-100/hr project-based. Marketing. <em>KJ is current; backup needed when content scales past one editor.</em></li>
+      <li><strong>SEO Specialist</strong> &mdash; Contract, $1-3K one-time audit + quarterly. Marketing. <em>Trigger: organic search traffic plateaus.</em></li>
+      <li><strong>Junior Developer</strong> &mdash; W-2 ($50-80K) or 1099 ($40-60/hr). Operations. <em>Trigger: 6+ active clients with technical deliverables. AI agents extend Daunte first.</em></li>
+      <li><strong>Recruiter</strong> &mdash; Contract, 15-25% first-year salary. HR. <em>Only for first W-2 hire.</em></li>
+      <li><strong>Fractional CFO</strong> &mdash; Contract, $2-5K/mo. Finance. <em>Trigger: $500K+ ARR or planning a raise.</em></li>
+    </ol>
+  </div>
+
+  <!-- TEAM TO DISCUSS -->
+  <div class="section-bar">
+    <div class="section-bar-title">Team to Discuss</div>
+    <div class="section-bar-sub">Open questions before this is final</div>
+  </div>
+
+  <div class="tbd-card">
+    <div class="tbd-card-title">Open Questions (Resolved + Live)</div>
+    <p style="font-size:11px;color:var(--gray-light);margin-bottom:10px;">Resolved 2026-04-30 in role clarification session: HR lead (none, intentionally), Marketing ownership (Daunte leads, Justin orchestrates), Justin's scope (head of marketing, $400/mo, see <code>_claude/context/team-roles.md</code>), Rodney's function (strategic advisor, not just rev share), AI agent priority (Marketing + Content + Finance + Delivery + EA active), AI governance (skills in <code>_claude/skills/</code>, <code>bpp-</code> prefix for BPP-specific).</p>
+    <p style="font-size:12px;color:var(--navy-dark);font-weight:600;margin-bottom:8px;">Still open:</p>
+    <ul class="tbd-list">
+      <li><strong>Kenny&rsquo;s day-to-day scope:</strong> Sales lead + HubSpot is the obvious answer but doesn&rsquo;t fully describe his contribution. Worth a real conversation.</li>
+      <li><strong>Sales co-lead:</strong> Eli is doing more sales than the formal org chart suggests. Rename Kenny&rsquo;s role or formalize Eli as co-lead?</li>
+      <li><strong>First external hire:</strong> Appointment setter is the leading candidate. Trigger: when Kenny + Eli combined call volume exceeds close-rate capacity. Recommend revisiting after newsletter is driving inbound leads (~60 days).</li>
+      <li><strong>Metricool Advanced upgrade:</strong> Required for the kpi-pull skill to query their API. Decision: upgrade or delay?</li>
+      <li><strong>Budget for AI tooling:</strong> Claude Pro seats, MCPs, automation tools &mdash; folded into $60K annual budget or separate line?</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-text">Business Plans Plus &middot; Internal Team Blueprint &middot; Draft</div>
+  <div class="footer-gold">Built for review &middot; Not yet linked from Hub</div>
+</div>
+
+</body>
+</html>
