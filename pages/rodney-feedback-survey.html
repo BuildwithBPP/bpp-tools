@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rodney Feedback Survey - BPP</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771;
+    --navy-dark: #033359;
+    --gold: #F1BE5C;
+    --bg: #edf1f5;
+    --card: #ffffff;
+    --border: #c8d3dc;
+    --text: #1a2b3c;
+    --gray: #4a4a4a;
+    --gray-light: #6B6B6B;
+    --green: #1a9e5c;
+    --green-light: #d4f0e1;
+  }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); padding: 0; min-height: 100vh; }
+
+  .header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 28px 40px; color: white; box-shadow: 0 4px 20px rgba(4,71,113,0.3); }
+  .header-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; }
+  .header-title span { color: var(--gold); }
+  .header-sub { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .intro-box { background: var(--card); border: 1px solid var(--border); border-left: 5px solid var(--gold); border-radius: 10px; padding: 20px 24px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .intro-box p { font-size: 13px; color: var(--gray); line-height: 1.7; }
+  .intro-box p + p { margin-top: 10px; }
+  .intro-box strong { color: var(--navy-dark); }
+
+  .section-bar { background: var(--navy); border-radius: 8px; padding: 14px 24px; margin: 32px 0 14px; }
+  .section-bar-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.1em; }
+  .section-bar-sub { font-size: 10px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .question-label { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--navy-dark); margin-bottom: 6px; }
+  .question-help { font-size: 11px; color: var(--gray-light); margin-bottom: 10px; line-height: 1.55; }
+  .question-card.owner-block { background: #fafbfc; }
+  .owner-name { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+  .owner-role { font-size: 11px; color: var(--gray-light); margin-bottom: 12px; }
+
+  textarea, input[type="text"] { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--text); background: white; outline: none; resize: vertical; }
+  textarea:focus, input[type="text"]:focus { border-color: var(--navy); }
+  textarea { min-height: 80px; }
+  textarea.short { min-height: 50px; }
+  textarea.long { min-height: 120px; }
+  .stacked-textareas textarea { margin-top: 6px; }
+
+  .checkbox-row { display: flex; flex-direction: column; gap: 8px; }
+  .checkbox-row label { font-size: 12px; color: var(--gray); cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 4px; transition: background .15s; }
+  .checkbox-row label:hover { background: #f0f4f7; }
+  .checkbox-row input[type="checkbox"] { accent-color: var(--navy); }
+
+  .footer-card { background: var(--card); border: 2px solid var(--gold); border-radius: 12px; padding: 24px; margin-top: 32px; text-align: center; }
+  .footer-card-title { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; color: var(--navy-dark); margin-bottom: 10px; }
+  .footer-card-help { font-size: 12px; color: var(--gray); line-height: 1.7; margin-bottom: 16px; }
+  .btn { display: inline-block; padding: 12px 24px; background: var(--navy); color: white; border: none; border-radius: 6px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background .15s; margin: 4px; }
+  .btn:hover { background: var(--navy-dark); }
+  .btn.gold { background: var(--gold); color: var(--navy-dark); }
+  .btn.gold:hover { background: #d4a43e; }
+
+  #copyStatus { display: none; padding: 12px; background: var(--green-light); color: var(--green); border-radius: 6px; margin-top: 14px; font-size: 12px; font-weight: 600; }
+  #copyStatus.show { display: block; }
+
+  .footer { background: var(--navy-dark); padding: 16px; text-align: center; color: rgba(255,255,255,0.5); font-size: 11px; }
+
+  @media (max-width: 768px) {
+    .header { padding: 20px 16px; }
+    .container { padding: 20px 16px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">Rodney Feedback <span>Survey</span></div>
+  <div class="header-sub">Outside perspective on BPP. 15-20 minutes.</div>
+</div>
+
+<div class="container">
+
+  <div class="intro-box">
+    <p><strong>Hey Rodney,</strong></p>
+    <p>Daunte, Kenny, and Eli are sitting down for an Accountability Chart session &mdash; to clarify who owns what, where we overlap, and where we're each running on fumes. You see us from outside the daily work in a way none of us see ourselves. Your perspective is the most valuable input we can get going in.</p>
+    <p>This is short &mdash; about 15-20 minutes. Be honest. There are no wrong answers, and nothing here is a performance review. Daunte will use what's useful and discard what isn't.</p>
+    <p><strong>How to use this form:</strong> Type your answers in. When you're done, click <strong>Copy My Answers</strong> at the bottom and paste into a reply email to Daunte (daunte@buildwithbpp.com). Nothing leaves this page until you copy.</p>
+  </div>
+
+  <form id="surveyForm">
+
+  <!-- BLOCK 1: WHAT YOU OBSERVE -->
+  <div class="section-bar">
+    <div class="section-bar-title">1. What you observe</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">1a. The single biggest pattern you notice</div>
+    <div class="question-help">When you watch the three of us in group chats, client meetings, and strategic conversations &mdash; what stands out?</div>
+    <textarea name="q1a"></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">1b. Overlap that confuses you</div>
+    <div class="question-help">e.g., "I'm not sure if X is Daunte's call or Eli's call."</div>
+    <textarea name="q1b"></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">1c. Gaps you see</div>
+    <div class="question-help">Things that nobody seems to clearly own.</div>
+    <textarea name="q1c"></textarea>
+  </div>
+
+  <!-- BLOCK 2: EACH OF US, BRIEFLY -->
+  <div class="section-bar">
+    <div class="section-bar-title">2. Each of us, briefly</div>
+    <div class="section-bar-sub">For each owner: one strength + one growth area.</div>
+  </div>
+
+  <div class="question-card owner-block">
+    <div class="owner-name">Daunte Benjamin</div>
+    <div class="owner-role">Data, Operations, Marketing strategy</div>
+    <div class="stacked-textareas">
+      <div class="question-label">Strength I see</div>
+      <textarea name="q2_daunte_strength" class="short"></textarea>
+      <div class="question-label" style="margin-top:14px;">Could grow into / rebalance</div>
+      <textarea name="q2_daunte_grow" class="short"></textarea>
+    </div>
+  </div>
+
+  <div class="question-card owner-block">
+    <div class="owner-name">Kenny Hawkins</div>
+    <div class="owner-role">Sales, Business Development</div>
+    <div class="stacked-textareas">
+      <div class="question-label">Strength I see</div>
+      <textarea name="q2_kenny_strength" class="short"></textarea>
+      <div class="question-label" style="margin-top:14px;">Could grow into / rebalance</div>
+      <textarea name="q2_kenny_grow" class="short"></textarea>
+    </div>
+  </div>
+
+  <div class="question-card owner-block">
+    <div class="owner-name">Eli Fisher</div>
+    <div class="owner-role">Design, Delivery, Project Management</div>
+    <div class="stacked-textareas">
+      <div class="question-label">Strength I see</div>
+      <textarea name="q2_eli_strength" class="short"></textarea>
+      <div class="question-label" style="margin-top:14px;">Could grow into / rebalance</div>
+      <textarea name="q2_eli_grow" class="short"></textarea>
+    </div>
+  </div>
+
+  <!-- BLOCK 3: TEAM AS A UNIT -->
+  <div class="section-bar">
+    <div class="section-bar-title">3. The team as a unit</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">3a. Where do you see us decide quickly and well?</div>
+    <textarea name="q3a"></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">3b. Where do you see us decide slowly or get stuck?</div>
+    <textarea name="q3b"></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">3c. Where do you see us avoiding a conversation we should be having?</div>
+    <textarea name="q3c"></textarea>
+  </div>
+
+  <!-- BLOCK 4: BURNOUT SIGNALS -->
+  <div class="section-bar">
+    <div class="section-bar-title">4. Burnout signals (your read)</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">4a. Anyone showing signs of burnout, overload, or scope creep?</div>
+    <div class="question-help">Be specific. You're allowed to say "yes, [name], because of [observation]."</div>
+    <textarea name="q4a"></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">4b. Anyone you see UNDER-utilized?</div>
+    <div class="question-help">Capable of more than they're currently doing.</div>
+    <textarea name="q4b"></textarea>
+  </div>
+
+  <!-- BLOCK 5: AS ADVISOR -->
+  <div class="section-bar">
+    <div class="section-bar-title">5. From your seat as advisor</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">5a. The FIRST decision you'd make in the next 30 days if you were running BPP</div>
+    <textarea name="q5a"></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">5b. A strategic move BPP is NOT making that you think we should be</div>
+    <textarea name="q5b"></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">5c. A strategic move BPP IS making that you'd push back on</div>
+    <textarea name="q5c"></textarea>
+  </div>
+
+  <!-- BLOCK 6: SESSION -->
+  <div class="section-bar">
+    <div class="section-bar-title">6. The session</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">6a. ONE topic you think we shouldn't skip</div>
+    <input type="text" name="q6a">
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">6b. Would you like to be present for any portion of the session?</div>
+    <div class="checkbox-row">
+      <label><input type="radio" name="q6b" value="Yes, synthesis only"> Yes, for the synthesis discussion (first 25 min)</label>
+      <label><input type="radio" name="q6b" value="Yes, full session"> Yes, for the whole 90 min</label>
+      <label><input type="radio" name="q6b" value="Output only"> No, just give me the synthesized output afterward</label>
+      <label><input type="radio" name="q6b" value="Other"> Other (write in below)</label>
+    </div>
+    <input type="text" name="q6b_other" placeholder="If 'Other', write here..." style="margin-top:10px;">
+  </div>
+
+  <!-- BLOCK 7: FREE SPACE -->
+  <div class="section-bar">
+    <div class="section-bar-title">7. Free space</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">Anything else you want to share?</div>
+    <div class="question-help">Patterns, hunches, advice, observations &mdash; all welcome. Optional.</div>
+    <textarea name="q7" class="long"></textarea>
+  </div>
+
+  <!-- COPY ANSWERS -->
+  <div class="footer-card">
+    <div class="footer-card-title">Done? Copy your answers and email them back.</div>
+    <div class="footer-card-help">Click below. Your answers get formatted and copied to your clipboard. Paste into a reply email to <strong>daunte@buildwithbpp.com</strong>.</div>
+    <button type="button" class="btn gold" onclick="copyAnswers()">Copy My Answers</button>
+    <button type="button" class="btn" onclick="downloadAnswers()">Download as Text File</button>
+    <div id="copyStatus"></div>
+  </div>
+
+  </form>
+
+</div>
+
+<div class="footer">Business Plans Plus &middot; Rodney Feedback Survey &middot; Pre-Accountability-Chart-Session</div>
+
+<script>
+function buildOutput() {
+  const form = document.getElementById('surveyForm');
+  const data = new FormData(form);
+  const date = new Date().toISOString().slice(0, 10);
+
+  let out = `# Rodney Feedback Survey — ${date}\n\n`;
+
+  out += `## 1. What you observe\n\n**1a. Biggest pattern:**\n${data.get('q1a') || '(no answer)'}\n\n**1b. Overlap that confuses:**\n${data.get('q1b') || '(no answer)'}\n\n**1c. Gaps:**\n${data.get('q1c') || '(no answer)'}\n\n`;
+
+  out += `## 2. Each of us\n\n`;
+  out += `### Daunte\n- Strength: ${data.get('q2_daunte_strength') || '(no answer)'}\n- Could grow: ${data.get('q2_daunte_grow') || '(no answer)'}\n\n`;
+  out += `### Kenny\n- Strength: ${data.get('q2_kenny_strength') || '(no answer)'}\n- Could grow: ${data.get('q2_kenny_grow') || '(no answer)'}\n\n`;
+  out += `### Eli\n- Strength: ${data.get('q2_eli_strength') || '(no answer)'}\n- Could grow: ${data.get('q2_eli_grow') || '(no answer)'}\n\n`;
+
+  out += `## 3. The team as a unit\n\n**3a. Decide well:**\n${data.get('q3a') || '(no answer)'}\n\n**3b. Get stuck:**\n${data.get('q3b') || '(no answer)'}\n\n**3c. Avoiding:**\n${data.get('q3c') || '(no answer)'}\n\n`;
+
+  out += `## 4. Burnout signals\n\n**4a. Showing burnout:**\n${data.get('q4a') || '(no answer)'}\n\n**4b. Under-utilized:**\n${data.get('q4b') || '(no answer)'}\n\n`;
+
+  out += `## 5. From your seat as advisor\n\n**5a. First decision:**\n${data.get('q5a') || '(no answer)'}\n\n**5b. Move not making:**\n${data.get('q5b') || '(no answer)'}\n\n**5c. Move to push back on:**\n${data.get('q5c') || '(no answer)'}\n\n`;
+
+  out += `## 6. The session\n\n- Topic not to skip: ${data.get('q6a') || '(no answer)'}\n- Attendance: ${data.get('q6b') || '(no answer)'}`;
+  if (data.get('q6b_other')) out += ` — ${data.get('q6b_other')}`;
+  out += `\n\n`;
+
+  if (data.get('q7')) out += `## 7. Free space\n\n${data.get('q7')}\n`;
+
+  return out;
+}
+
+function copyAnswers() {
+  const text = buildOutput();
+  navigator.clipboard.writeText(text).then(() => {
+    const status = document.getElementById('copyStatus');
+    status.textContent = 'Copied to clipboard. Now paste into a reply email to daunte@buildwithbpp.com.';
+    status.className = 'show';
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const status = document.getElementById('copyStatus');
+    status.textContent = 'Copied (fallback). Paste into a reply email to daunte@buildwithbpp.com.';
+    status.className = 'show';
+  });
+}
+
+function downloadAnswers() {
+  const text = buildOutput();
+  const date = new Date().toISOString().slice(0, 10);
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `rodney-feedback-${date}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+  const status = document.getElementById('copyStatus');
+  status.textContent = `Downloaded as rodney-feedback-${date}.txt. Email it as an attachment to daunte@buildwithbpp.com.`;
+  status.className = 'show';
+}
+</script>
+
+</body>
+</html>

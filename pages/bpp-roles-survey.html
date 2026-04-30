@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP Roles & Operating Model Survey</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771;
+    --navy-dark: #033359;
+    --gold: #F1BE5C;
+    --gold-light: #fdf0d0;
+    --bg: #edf1f5;
+    --card: #ffffff;
+    --border: #c8d3dc;
+    --text: #1a2b3c;
+    --gray: #4a4a4a;
+    --gray-light: #6B6B6B;
+    --green: #1a9e5c;
+    --green-light: #d4f0e1;
+    --amber: #d4920a;
+    --red: #c0392b;
+  }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); padding: 0; min-height: 100vh; }
+
+  .header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 28px 40px; color: white; box-shadow: 0 4px 20px rgba(4,71,113,0.3); }
+  .header-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; }
+  .header-title span { color: var(--gold); }
+  .header-sub { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .intro-box { background: var(--card); border: 1px solid var(--border); border-left: 5px solid var(--gold); border-radius: 10px; padding: 20px 24px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .intro-box p { font-size: 13px; color: var(--gray); line-height: 1.7; }
+  .intro-box p + p { margin-top: 10px; }
+  .intro-box strong { color: var(--navy-dark); }
+
+  .section-bar { background: var(--navy); border-radius: 8px; padding: 14px 24px; margin: 32px 0 14px; }
+  .section-bar-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.1em; }
+  .section-bar-sub { font-size: 10px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .question-label { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--navy-dark); margin-bottom: 6px; }
+  .question-help { font-size: 11px; color: var(--gray-light); margin-bottom: 10px; line-height: 1.55; }
+
+  textarea, input[type="text"] { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--text); background: #fafbfc; outline: none; resize: vertical; }
+  textarea:focus, input[type="text"]:focus { border-color: var(--navy); }
+  textarea { min-height: 80px; }
+  textarea.short { min-height: 50px; }
+  textarea.long { min-height: 120px; }
+
+  .ownership-grid { display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; padding: 8px 0; border-top: 1px dashed var(--border); }
+  .ownership-grid:first-of-type { border-top: none; }
+  .ownership-num { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; color: var(--gray-light); padding-top: 4px; }
+  .ownership-row .ownership-fn { font-size: 12px; color: var(--text); margin-bottom: 6px; font-weight: 500; }
+  .ownership-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .ownership-controls select { padding: 5px 10px; border: 1.5px solid var(--border); border-radius: 4px; font-size: 11px; background: white; font-family: 'Poppins', sans-serif; }
+  .ownership-controls input[type="text"] { flex: 1; min-width: 200px; padding: 5px 10px; font-size: 11px; }
+
+  .radio-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .radio-row label { font-size: 12px; color: var(--gray); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+  .radio-row input[type="radio"] { accent-color: var(--navy); }
+
+  .footer-card { background: var(--card); border: 2px solid var(--gold); border-radius: 12px; padding: 24px; margin-top: 32px; text-align: center; }
+  .footer-card-title { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; color: var(--navy-dark); margin-bottom: 10px; }
+  .footer-card-help { font-size: 12px; color: var(--gray); line-height: 1.7; margin-bottom: 16px; }
+  .btn { display: inline-block; padding: 12px 24px; background: var(--navy); color: white; border: none; border-radius: 6px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background .15s; margin: 4px; }
+  .btn:hover { background: var(--navy-dark); }
+  .btn.gold { background: var(--gold); color: var(--navy-dark); }
+  .btn.gold:hover { background: #d4a43e; }
+
+  #copyStatus { display: none; padding: 12px; background: var(--green-light); color: var(--green); border-radius: 6px; margin-top: 14px; font-size: 12px; font-weight: 600; }
+  #copyStatus.show { display: block; }
+
+  .footer { background: var(--navy-dark); padding: 16px; text-align: center; color: rgba(255,255,255,0.5); font-size: 11px; }
+
+  @media (max-width: 768px) {
+    .header { padding: 20px 16px; }
+    .container { padding: 20px 16px 40px; }
+    .ownership-grid { grid-template-columns: 24px 1fr; gap: 8px; }
+    .ownership-controls input[type="text"] { min-width: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">BPP Roles &amp; Operating Model <span>Survey</span></div>
+  <div class="header-sub">Pre-session input. 30-45 minutes. Be honest.</div>
+</div>
+
+<div class="container">
+
+  <div class="intro-box">
+    <p><strong>Why this exists:</strong> Daunte, Kenny, and Eli each fill this out before the Accountability Chart session. The whole point is to come out of that session knowing exactly who owns what, where we overlap, and where we're each running on fumes.</p>
+    <p><strong>How to use this form:</strong> Type your answers in directly. When you're done, click <strong>Copy My Answers</strong> at the bottom. Paste the result into a reply email to Daunte. There's no save button or backend &mdash; everything stays on this page until you copy.</p>
+    <p><strong>Heads up:</strong> Don't refresh the page or close the tab without copying first. Your answers will be lost. If you want to pause, copy mid-way and save the text somewhere.</p>
+  </div>
+
+  <form id="surveyForm">
+
+  <!-- BLOCK 1: WEEKLY SNAPSHOT -->
+  <div class="section-bar">
+    <div class="section-bar-title">1. Snapshot of your week</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">1.1 &mdash; Walk me through a typical week at BPP</div>
+    <div class="question-help">List the buckets of work you actually do, with rough percentages. Should add to ~100%.<br>Example: "Discovery calls &mdash; 15% &mdash; 4-5 calls/week, ~45 min each"</div>
+    <textarea name="q1_1" class="long" placeholder="Discovery calls &mdash; 15% &mdash; 4-5 calls/week..."></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">1.2 &mdash; Anything else about your week?</div>
+    <div class="question-help">Optional. Anything the buckets above don't capture.</div>
+    <textarea name="q1_2" class="short"></textarea>
+  </div>
+
+  <!-- BLOCK 2: OWNERSHIP -->
+  <div class="section-bar">
+    <div class="section-bar-title">2. Decision Ownership</div>
+    <div class="section-bar-sub">For each function: pick your role, then if you're not the Owner, name who you think is.</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">For each of the 28 functions, answer 2 things</div>
+    <div class="question-help">
+      <strong>Your role:</strong> Own (you decide) / Contribute (involved but not deciding) / Not Involved (this isn't yours) / Unclear (nobody clearly owns it).<br>
+      <strong>If not Owner:</strong> name who you think OWNS it, or comment.
+    </div>
+
+    <div id="ownershipList"></div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">Anything I missed?</div>
+    <div class="question-help">Add any function that should be on the list but isn't.</div>
+    <textarea name="q2_added" class="short"></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">Where do you wish ownership was clearer?</div>
+    <div class="question-help">Pick the 1-2 most important. Be specific.</div>
+    <textarea name="q2_clearer"></textarea>
+  </div>
+
+  <!-- BLOCK 3: ENERGY -->
+  <div class="section-bar">
+    <div class="section-bar-title">3. What energizes vs. drains you</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">3.1 &mdash; Top 3 things that energize you in BPP work</div>
+    <div class="question-help">Things you genuinely want to do more of.</div>
+    <textarea name="q3_energize" placeholder="1.&#10;2.&#10;3."></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">3.2 &mdash; Top 3 things that drain you</div>
+    <div class="question-help">Things you'd offload tomorrow if you could.</div>
+    <textarea name="q3_drain" placeholder="1.&#10;2.&#10;3."></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">3.3 &mdash; One thing you'd WANT to own that you don't currently</div>
+    <div class="question-help">Optional.</div>
+    <textarea name="q3_want" class="short"></textarea>
+  </div>
+
+  <!-- BLOCK 4: WHERE IT'S UNCLEAR -->
+  <div class="section-bar">
+    <div class="section-bar-title">4. Where it's unclear</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">4.1 &mdash; Where do you feel scope creep ON YOURSELF?</div>
+    <div class="question-help">Things you ended up doing that aren't really your role.</div>
+    <textarea name="q4_self_creep"></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">4.2 &mdash; Where do you feel scope creep on OTHERS?</div>
+    <div class="question-help">Things one of the other owners is doing that you think should sit elsewhere.</div>
+    <textarea name="q4_other_creep"></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">4.3 &mdash; Where do decisions get stuck?</div>
+    <div class="question-help">Be specific: what was the decision, who needed to make it, what made it slow?</div>
+    <textarea name="q4_stuck"></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">4.4 &mdash; Where have you stepped back because you weren't sure if it was your call?</div>
+    <div class="question-help">Optional.</div>
+    <textarea name="q4_stepped_back" class="short"></textarea>
+  </div>
+
+  <!-- BLOCK 5: STOP / START / CONTINUE -->
+  <div class="section-bar">
+    <div class="section-bar-title">5. Stop / Start / Continue</div>
+    <div class="section-bar-sub">Pick the SINGLE most important answer for each.</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">5.1 &mdash; ONE thing the team should STOP doing</div>
+    <input type="text" name="q5_stop" placeholder="">
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">5.2 &mdash; ONE thing the team should START doing</div>
+    <input type="text" name="q5_start" placeholder="">
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">5.3 &mdash; ONE thing the team should CONTINUE (and protect)</div>
+    <input type="text" name="q5_continue" placeholder="">
+  </div>
+
+  <!-- BLOCK 6: SCOREBOARD -->
+  <div class="section-bar">
+    <div class="section-bar-title">6. Your scoreboard</div>
+    <div class="section-bar-sub">If your role was measured on 2-3 metrics, what would they be?</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">6.1 &mdash; LEADING metrics (2-3, weekly trackable, things you DO)</div>
+    <textarea name="q6_leading" placeholder="1.&#10;2.&#10;3."></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">6.2 &mdash; LAGGING metrics (2-3, quarterly, things that RESULT from your work)</div>
+    <textarea name="q6_lagging" placeholder="1.&#10;2.&#10;3."></textarea>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">6.3 &mdash; ONE number that matters more than any other for your role</div>
+    <input type="text" name="q6_one" placeholder="">
+  </div>
+
+  <!-- BLOCK 7: BURNOUT SELF-CHECK -->
+  <div class="section-bar">
+    <div class="section-bar-title">7. Honest self-check</div>
+    <div class="section-bar-sub">Not a performance review. A sanity check. Pick the closest answer.</div>
+  </div>
+
+  <div id="burnoutList"></div>
+
+  <div class="question-card">
+    <div class="question-label">Notes on the burnout check</div>
+    <div class="question-help">Optional. Anything you want to add.</div>
+    <textarea name="q7_notes" class="short"></textarea>
+  </div>
+
+  <!-- BLOCK 8: SESSION -->
+  <div class="section-bar">
+    <div class="section-bar-title">8. The Accountability Chart Session</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">8.1 &mdash; ONE thing you want to come out of the session with</div>
+    <input type="text" name="q8_want" placeholder="">
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">8.2 &mdash; ONE topic you DON'T want to skip</div>
+    <input type="text" name="q8_skip" placeholder="">
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">8.3 &mdash; ONE conversation we've been avoiding that we should have</div>
+    <input type="text" name="q8_avoid" placeholder="">
+  </div>
+
+  <!-- BLOCK 9: FREE SPACE -->
+  <div class="section-bar">
+    <div class="section-bar-title">9. Free space</div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-label">Anything else you want Daunte (or the team) to know?</div>
+    <div class="question-help">Optional.</div>
+    <textarea name="q9" class="long"></textarea>
+  </div>
+
+  <!-- COPY ANSWERS -->
+  <div class="footer-card">
+    <div class="footer-card-title">Done? Copy your answers and email them back to Daunte.</div>
+    <div class="footer-card-help">Click below. Your answers get formatted and copied to your clipboard. Paste them into a reply email to <strong>daunte@buildwithbpp.com</strong>. No save / no submit / nothing leaves this page until you copy.</div>
+    <div>
+      <input type="text" id="respondentName" placeholder="Your first name (e.g., Eli)" style="max-width: 280px; margin: 8px;">
+    </div>
+    <button type="button" class="btn gold" onclick="copyAnswers()">Copy My Answers</button>
+    <button type="button" class="btn" onclick="downloadAnswers()">Download as Text File</button>
+    <div id="copyStatus"></div>
+  </div>
+
+  </form>
+
+</div>
+
+<div class="footer">Business Plans Plus &middot; Internal Roles Survey &middot; Pre-Accountability-Chart-Session</div>
+
+<script>
+// Render the 28 ownership rows
+const functions = [
+  "Marketing strategy (what we say, to whom, why)",
+  "What gets posted on social media (content calendar)",
+  "Newsletter topic + author selection",
+  "Blog / website content production",
+  "Brand visual direction",
+  "Pricing for a new prospect (above standard package)",
+  "Whether a discovery call moves to proposal",
+  "Going / no-going on a sales prospect",
+  "Pipeline reporting + forecasting",
+  "Project timeline for a client engagement",
+  "Quality control before deliverables ship",
+  "Client onboarding sequence (first 2 weeks)",
+  "Client weekly status / recap emails",
+  "Internal SOP creation + maintenance",
+  "Hiring a contractor or new role",
+  "Vendor / contractor management (Justin, KJ, future)",
+  "Tool stack additions (new subscription)",
+  "Tool stack removals + renewals (cost discipline)",
+  "Spending over $500 (one-time)",
+  "Revenue split / financial distributions",
+  "Tax filings + compliance",
+  "Bank account access + controls",
+  "Legal / contracts (MSAs, NDAs, scope changes)",
+  "Monday.com board structure + automations",
+  "HubSpot CRM admin + pipeline rules",
+  "Google Drive / SharePoint folder structure",
+  "AI tooling decisions (which plugins, which MCPs)",
+  "Quarterly planning + goal-setting"
+];
+
+const ownerListEl = document.getElementById('ownershipList');
+functions.forEach((fn, i) => {
+  const row = document.createElement('div');
+  row.className = 'ownership-grid';
+  row.innerHTML = `
+    <div class="ownership-num">${i+1}.</div>
+    <div class="ownership-row">
+      <div class="ownership-fn">${fn}</div>
+      <div class="ownership-controls">
+        <select name="q2_role_${i+1}">
+          <option value="">-- Pick --</option>
+          <option value="Own">Own</option>
+          <option value="Contribute">Contribute</option>
+          <option value="Not Involved">Not Involved</option>
+          <option value="Unclear">Unclear</option>
+        </select>
+        <input type="text" name="q2_owner_${i+1}" placeholder="If not Owner, who do you think owns it?">
+      </div>
+    </div>
+  `;
+  ownerListEl.appendChild(row);
+});
+
+// Render burnout signals
+const burnoutSignals = [
+  "Sunday-night dread (or worse, Sunday-afternoon dread)",
+  "I share problems with the team but rarely share wins",
+  "I avoid scheduling 1:1s with co-owners",
+  "Sleep is degrading (fewer than 6 hrs, restless, late)",
+  "I haven't taken a real day off in over a month",
+  "I'm working past 9pm more than 2 nights/week",
+  "I feel like I'm wearing too many hats",
+  "I feel like I'm under-using my best skills"
+];
+
+const burnoutListEl = document.getElementById('burnoutList');
+burnoutSignals.forEach((sig, i) => {
+  const card = document.createElement('div');
+  card.className = 'question-card';
+  card.innerHTML = `
+    <div class="question-label">${sig}</div>
+    <div class="radio-row">
+      <label><input type="radio" name="q7_${i+1}" value="Yes"> Yes</label>
+      <label><input type="radio" name="q7_${i+1}" value="Sometimes"> Sometimes</label>
+      <label><input type="radio" name="q7_${i+1}" value="No"> No</label>
+    </div>
+  `;
+  burnoutListEl.appendChild(card);
+});
+
+// Build the formatted output text
+function buildOutput() {
+  const form = document.getElementById('surveyForm');
+  const data = new FormData(form);
+  const name = document.getElementById('respondentName').value || '[your name]';
+  const date = new Date().toISOString().slice(0, 10);
+
+  let out = `# BPP Roles Survey — ${name} — ${date}\n\n`;
+
+  out += `## 1. Weekly Snapshot\n\n**1.1 Typical week:**\n${data.get('q1_1') || '(no answer)'}\n\n`;
+  if (data.get('q1_2')) out += `**1.2 Notes:**\n${data.get('q1_2')}\n\n`;
+
+  out += `## 2. Decision Ownership\n\n`;
+  for (let i = 1; i <= 28; i++) {
+    const role = data.get(`q2_role_${i}`);
+    const owner = data.get(`q2_owner_${i}`);
+    if (role || owner) {
+      out += `${i}. ${functions[i-1]}\n   Role: ${role || '(not answered)'}`;
+      if (owner) out += `\n   Owner/comment: ${owner}`;
+      out += `\n\n`;
+    }
+  }
+  if (data.get('q2_added')) out += `**Anything missed:**\n${data.get('q2_added')}\n\n`;
+  if (data.get('q2_clearer')) out += `**Where ownership should be clearer:**\n${data.get('q2_clearer')}\n\n`;
+
+  out += `## 3. Energy\n\n**3.1 Energizers:**\n${data.get('q3_energize') || '(no answer)'}\n\n**3.2 Drainers:**\n${data.get('q3_drain') || '(no answer)'}\n\n`;
+  if (data.get('q3_want')) out += `**3.3 Would want to own:** ${data.get('q3_want')}\n\n`;
+
+  out += `## 4. Where it's unclear\n\n**4.1 Self scope creep:**\n${data.get('q4_self_creep') || '(no answer)'}\n\n**4.2 Other scope creep:**\n${data.get('q4_other_creep') || '(no answer)'}\n\n**4.3 Decisions stuck:**\n${data.get('q4_stuck') || '(no answer)'}\n\n`;
+  if (data.get('q4_stepped_back')) out += `**4.4 Stepped back:**\n${data.get('q4_stepped_back')}\n\n`;
+
+  out += `## 5. Stop / Start / Continue\n\n- STOP: ${data.get('q5_stop') || '(no answer)'}\n- START: ${data.get('q5_start') || '(no answer)'}\n- CONTINUE: ${data.get('q5_continue') || '(no answer)'}\n\n`;
+
+  out += `## 6. Scoreboard\n\n**Leading:**\n${data.get('q6_leading') || '(no answer)'}\n\n**Lagging:**\n${data.get('q6_lagging') || '(no answer)'}\n\n**One number:** ${data.get('q6_one') || '(no answer)'}\n\n`;
+
+  out += `## 7. Burnout self-check\n\n`;
+  burnoutSignals.forEach((sig, i) => {
+    const ans = data.get(`q7_${i+1}`);
+    out += `- ${sig} → ${ans || '(no answer)'}\n`;
+  });
+  if (data.get('q7_notes')) out += `\n**Notes:** ${data.get('q7_notes')}\n`;
+  out += `\n`;
+
+  out += `## 8. The Session\n\n- Want from session: ${data.get('q8_want') || '(no answer)'}\n- Don't skip: ${data.get('q8_skip') || '(no answer)'}\n- Conversation we've avoided: ${data.get('q8_avoid') || '(no answer)'}\n\n`;
+
+  if (data.get('q9')) out += `## 9. Free space\n\n${data.get('q9')}\n`;
+
+  return out;
+}
+
+function copyAnswers() {
+  const text = buildOutput();
+  navigator.clipboard.writeText(text).then(() => {
+    const status = document.getElementById('copyStatus');
+    status.textContent = 'Copied to clipboard. Now paste into a reply email to daunte@buildwithbpp.com.';
+    status.className = 'show';
+  }).catch(() => {
+    // Fallback for older browsers
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const status = document.getElementById('copyStatus');
+    status.textContent = 'Copied (fallback). Paste into a reply email to daunte@buildwithbpp.com.';
+    status.className = 'show';
+  });
+}
+
+function downloadAnswers() {
+  const text = buildOutput();
+  const name = document.getElementById('respondentName').value || 'response';
+  const date = new Date().toISOString().slice(0, 10);
+  const filename = `bpp-roles-survey-${name.toLowerCase()}-${date}.txt`;
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+  const status = document.getElementById('copyStatus');
+  status.textContent = `Downloaded as ${filename}. Email it as an attachment to daunte@buildwithbpp.com.`;
+  status.className = 'show';
+}
+</script>
+
+</body>
+</html>
