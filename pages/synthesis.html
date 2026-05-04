@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP Operating Model · Synthesis</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #044771;
+    --navy-dark: #023154;
+    --gold: #F1BE5C;
+    --gold-dark: #d6a648;
+    --gold-light: #fdf0d0;
+    --green: #1a9e5c;
+    --blue-mid: #5987A5;
+    --cream: #FAF6EE;
+    --ink: #1a2436;
+    --ink-soft: #4a5568;
+    --line: #e2e8f0;
+    --bg: #edf1f5;
+    --white: #ffffff;
+    --daunte: #5987A5;
+    --kenny: #1a9e5c;
+    --eli: #c2912f;
+    --rodney: #6b4a8a;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 15px; }
+  h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--navy); }
+  h1 { font-size: 36px; line-height: 1.15; }
+  h2 { font-size: 26px; margin-bottom: 8px; }
+  h3 { font-size: 18px; margin-bottom: 6px; }
+  h4 { font-size: 15px; font-weight: 600; }
+  p { margin-bottom: 10px; color: var(--ink-soft); }
+  a { color: var(--navy); }
+  a:hover { text-decoration: underline; }
+
+  nav.top { position: sticky; top: 0; background: var(--navy); color: var(--white); z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+  nav.top .nav-inner { max-width: 1280px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-brand { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: 0.5px; color: var(--white); }
+  .nav-brand .accent { color: var(--gold); }
+  .nav-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-tabs a { color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: background 0.15s; text-decoration: none; }
+  .nav-tabs a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+
+  main { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  section { padding: 56px 0; border-bottom: 1px solid var(--line); }
+  section:last-child { border-bottom: none; }
+  .section-eyebrow { text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; }
+  .section-desc { font-size: 16px; color: var(--ink-soft); max-width: 800px; margin-bottom: 28px; }
+
+  .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: var(--white); padding: 72px 32px; text-align: left; }
+  .hero-inner { max-width: 1280px; margin: 0 auto; }
+  .hero .section-eyebrow { color: var(--gold); }
+  .hero h1 { color: var(--white); font-size: 44px; margin-bottom: 16px; }
+  .hero .lede { color: rgba(255,255,255,0.85); font-size: 18px; max-width: 800px; margin-bottom: 24px; }
+  .hero-meta { display: flex; gap: 32px; flex-wrap: wrap; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.15); }
+  .hero-meta .meta-item { font-size: 13px; }
+  .hero-meta .meta-label { text-transform: uppercase; letter-spacing: 1px; font-size: 10px; color: var(--gold); margin-bottom: 4px; font-weight: 600; }
+  .hero-meta .meta-value { color: var(--white); font-weight: 500; }
+
+  .glossary { background: var(--white); border: 1px solid var(--line); border-left: 5px solid var(--gold); border-radius: 10px; padding: 22px 26px; margin-top: 24px; }
+  .glossary h4 { color: var(--navy); margin-bottom: 12px; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; }
+  .glossary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px 22px; }
+  .glossary-item { font-size: 13px; }
+  .glossary-term { font-weight: 700; color: var(--navy); font-family: 'Montserrat', sans-serif; font-size: 13px; }
+  .glossary-def { color: var(--ink-soft); margin-top: 2px; }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .card-grid-2 { grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); }
+  .card-grid-3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .card { background: var(--white); border: 1px solid var(--line); border-radius: 10px; padding: 22px; transition: transform 0.15s, box-shadow 0.15s; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(4,71,113,0.08); }
+  .card .card-eyebrow { text-transform: uppercase; letter-spacing: 1.5px; font-size: 10px; font-weight: 700; color: var(--ink-soft); margin-bottom: 8px; }
+
+  /* Wins section */
+  .wins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .win-card { background: var(--white); border-radius: 10px; padding: 22px; border: 1px solid var(--line); border-top: 5px solid var(--green); }
+  .win-card.daunte { border-top-color: var(--daunte); }
+  .win-card.eli { border-top-color: var(--eli); }
+  .win-card.kenny { border-top-color: var(--kenny); }
+  .win-card.team { border-top-color: var(--gold); }
+  .win-card .win-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 17px; color: var(--navy); }
+  .win-card .win-name.daunte { color: var(--daunte); }
+  .win-card .win-name.eli { color: var(--eli); }
+  .win-card .win-name.kenny { color: var(--kenny); }
+  .win-card ul { padding-left: 18px; font-size: 13px; color: var(--ink-soft); margin-top: 12px; }
+  .win-card ul li { margin-bottom: 6px; }
+  .win-card ul li strong { color: var(--ink); }
+
+  /* Voice cards */
+  .voice-card { border-top: 4px solid var(--ink-soft); }
+  .voice-card.daunte { border-top-color: var(--daunte); }
+  .voice-card.eli    { border-top-color: var(--eli); }
+  .voice-card.kenny  { border-top-color: var(--kenny); }
+  .voice-card.rodney { border-top-color: var(--rodney); }
+  .voice-card .voice-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 19px; margin-bottom: 2px; }
+  .voice-card.daunte .voice-name { color: var(--daunte); }
+  .voice-card.eli    .voice-name { color: var(--eli); }
+  .voice-card.kenny  .voice-name { color: var(--kenny); }
+  .voice-card.rodney .voice-name { color: var(--rodney); }
+  .voice-card .voice-role { font-size: 12px; color: var(--ink-soft); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .voice-card .voice-quote { font-family: 'Merriweather', serif; font-style: italic; font-size: 14px; line-height: 1.6; color: var(--ink); border-left: 3px solid var(--gold); padding-left: 12px; margin: 12px 0; }
+  .voice-card ul { padding-left: 18px; font-size: 13px; color: var(--ink-soft); margin-top: 8px; }
+  .voice-card ul li { margin-bottom: 4px; }
+
+  /* Theme cards */
+  .theme-card { border-left: 4px solid var(--gold); padding: 22px 24px; background: var(--white); border-radius: 6px; margin-bottom: 16px; }
+  .theme-card .theme-num { display: inline-block; background: var(--gold); color: var(--navy); font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 4px; margin-right: 10px; letter-spacing: 0.5px; }
+  .theme-card h3 { display: inline-block; vertical-align: middle; }
+  .theme-card .theme-evidence { margin-top: 14px; padding: 14px 16px; background: var(--cream); border-radius: 6px; font-size: 13px; }
+  .theme-card .theme-evidence .evidence-row { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed var(--line); }
+  .theme-card .theme-evidence .evidence-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .who-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; margin-right: 8px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--white); vertical-align: middle; }
+  .who-tag.daunte { background: var(--daunte); }
+  .who-tag.eli { background: var(--eli); }
+  .who-tag.kenny { background: var(--kenny); }
+  .who-tag.rodney { background: var(--rodney); }
+  .theme-fix { margin-top: 14px; padding: 12px 16px; background: rgba(241,190,92,0.12); border-radius: 6px; font-size: 13px; color: var(--ink); }
+  .theme-fix strong { color: var(--gold-dark); }
+
+  /* Org chart */
+  .org-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 8px; }
+  .org-dept { background: var(--white); border-radius: 10px; border: 1px solid var(--line); overflow: hidden; }
+  .org-dept-header { background: var(--navy); color: var(--white); padding: 12px 16px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; }
+  .org-dept-header.sales { background: var(--kenny); }
+  .org-dept-header.marketing { background: var(--gold); color: var(--navy); }
+  .org-dept-header.delivery { background: var(--eli); }
+  .org-dept-header.ops { background: var(--daunte); }
+  .org-dept-header.finance { background: var(--green); }
+  .org-dept-header.hr { background: var(--blue-mid); }
+  .org-dept-body { padding: 14px 16px; }
+  .org-row { padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .org-row:last-child { border-bottom: none; }
+  .org-role-label { text-transform: uppercase; font-size: 10px; font-weight: 700; letter-spacing: 1px; color: var(--ink-soft); margin-bottom: 2px; }
+  .org-row .org-name { font-weight: 600; color: var(--ink); font-size: 14px; }
+  .org-row .org-name.daunte { color: var(--daunte); }
+  .org-row .org-name.eli { color: var(--eli); }
+  .org-row .org-name.kenny { color: var(--kenny); }
+  .org-row.ai-row .org-name { color: var(--gold-dark); font-style: italic; }
+  .org-tag-moved { display: inline-block; font-size: 9px; font-weight: 700; background: var(--eli); color: var(--white); padding: 1px 5px; border-radius: 3px; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .org-functions { font-size: 11px; color: var(--ink-soft); padding-top: 8px; line-height: 1.5; }
+
+  .transitions { margin-top: 28px; background: var(--white); border: 1px solid var(--line); border-radius: 10px; padding: 22px; }
+  .transitions h4 { color: var(--navy); margin-bottom: 14px; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; }
+  .transition-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .transition-row:last-child { border-bottom: none; }
+  .transition-arrow { color: var(--gold-dark); font-weight: 700; font-size: 16px; }
+  .transition-from { color: var(--ink-soft); }
+  .transition-to { color: var(--ink); font-weight: 600; }
+
+  .table-wrap { background: var(--white); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-top: 24px; overflow-x: auto; }
+  table.fn-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.fn-table th { background: var(--navy); color: var(--white); padding: 12px 14px; text-align: left; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+  table.fn-table td { padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.fn-table tr:hover td { background: rgba(241,190,92,0.06); }
+  table.fn-table .fn-num { color: var(--ink-soft); font-weight: 600; width: 32px; }
+  table.fn-table .fn-name { font-weight: 600; }
+  table.fn-table .fn-current { color: var(--ink-soft); font-size: 12px; }
+  table.fn-table .fn-target { font-weight: 600; }
+  table.fn-table .fn-target.daunte { color: var(--daunte); }
+  table.fn-table .fn-target.eli { color: var(--eli); }
+  table.fn-table .fn-target.kenny { color: var(--kenny); }
+  table.fn-table .fn-ai { color: var(--gold-dark); font-style: italic; font-size: 12px; }
+  table.fn-table .row-decision td { background: rgba(241,190,92,0.1); }
+  .dept-pill { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--white); white-space: nowrap; }
+  .dept-pill.sales { background: var(--kenny); }
+  .dept-pill.marketing { background: var(--gold-dark); }
+  .dept-pill.delivery { background: var(--eli); }
+  .dept-pill.ops { background: var(--daunte); }
+  .dept-pill.finance { background: var(--green); }
+  .dept-pill.hr { background: var(--blue-mid); }
+
+  /* AI workforce */
+  .ai-card { background: var(--white); border: 1px solid var(--line); border-top: 5px solid var(--gold); border-radius: 10px; padding: 22px; }
+  .ai-card .ai-num { background: var(--gold); color: var(--navy); font-weight: 700; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; margin-bottom: 12px; }
+  .ai-card h3 { margin-bottom: 6px; }
+  .ai-card .ai-purpose { font-size: 13px; color: var(--ink-soft); margin: 8px 0 14px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .ai-card .ai-fix { font-size: 12px; background: var(--cream); padding: 8px 12px; border-radius: 6px; color: var(--navy); }
+  .ai-card .ai-fix strong { color: var(--navy); }
+
+  .adoption-tracks { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 32px; }
+  .track-card { background: var(--white); border: 1px solid var(--line); border-left: 4px solid; padding: 22px; border-radius: 10px; }
+  .track-card.daunte { border-left-color: var(--daunte); }
+  .track-card.eli { border-left-color: var(--eli); }
+  .track-card.kenny { border-left-color: var(--kenny); }
+  .track-card .track-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 17px; margin-bottom: 4px; }
+  .track-card.daunte .track-name { color: var(--daunte); }
+  .track-card.eli .track-name { color: var(--eli); }
+  .track-card.kenny .track-name { color: var(--kenny); }
+  .track-card .track-status { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; padding: 2px 8px; border-radius: 3px; background: var(--ink-soft); color: var(--white); margin-bottom: 12px; }
+  .track-card.daunte .track-status { background: var(--daunte); }
+  .track-card.eli .track-status { background: var(--eli); }
+  .track-card.kenny .track-status { background: var(--kenny); }
+  .track-card ul { padding-left: 18px; font-size: 13px; }
+  .track-card ul li { margin-bottom: 6px; }
+
+  /* Timeline */
+  .timeline { margin-top: 24px; border-left: 3px solid var(--gold); padding-left: 24px; }
+  .timeline-block { margin-bottom: 24px; background: var(--white); padding: 18px 22px; border-radius: 10px; border: 1px solid var(--line); position: relative; }
+  .timeline-block::before { content: ''; position: absolute; left: -33px; top: 24px; width: 14px; height: 14px; border-radius: 50%; background: var(--gold); border: 3px solid var(--white); }
+  .timeline-time { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--gold-dark); font-size: 13px; margin-bottom: 4px; }
+  .timeline-block h4 { color: var(--navy); margin-bottom: 6px; }
+  .timeline-block .timeline-purpose { font-size: 13px; color: var(--ink-soft); margin-bottom: 8px; }
+  .timeline-block .timeline-decision { font-size: 12px; background: var(--cream); padding: 6px 10px; border-radius: 4px; color: var(--navy); font-weight: 500; }
+
+  /* Open questions */
+  .question-list { background: var(--white); border-radius: 10px; border: 1px solid var(--line); padding: 8px 0; }
+  .question-row { padding: 14px 22px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 32px 1fr; gap: 12px; font-size: 14px; }
+  .question-row:last-child { border-bottom: none; }
+  .question-num { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--gold-dark); font-size: 18px; }
+  .question-row .q-title { font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .question-row .q-desc { color: var(--ink-soft); font-size: 13px; }
+  .pill-decided { background: var(--kenny); color: var(--white); font-size: 10px; padding: 2px 7px; border-radius: 3px; margin-left: 8px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+
+  /* Related links */
+  .related-links { background: var(--white); border: 1px solid var(--line); border-radius: 10px; padding: 22px; margin-top: 28px; }
+  .related-links h4 { color: var(--navy); margin-bottom: 14px; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; }
+  .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .related-card { padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; transition: background 0.15s; display: block; }
+  .related-card:hover { background: var(--cream); text-decoration: none; }
+  .related-card .rc-title { font-weight: 700; color: var(--navy); font-size: 13px; }
+  .related-card .rc-desc { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+
+  footer { background: var(--navy-dark); color: rgba(255,255,255,0.75); padding: 36px 32px; text-align: center; font-size: 12px; }
+  footer .ft-brand { color: var(--white); font-weight: 700; font-family: 'Montserrat', sans-serif; }
+  footer .ft-brand .accent { color: var(--gold); }
+
+  @media (max-width: 720px) {
+    main { padding: 0 16px; }
+    .hero { padding: 48px 16px; }
+    .hero h1 { font-size: 30px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; }
+    nav.top .nav-inner { flex-direction: column; gap: 10px; padding: 12px 16px; }
+    .nav-tabs { justify-content: center; }
+    .transition-row { grid-template-columns: 1fr; gap: 4px; text-align: left; }
+    .transition-arrow { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="nav-inner">
+    <div class="nav-brand">BPP <span class="accent">Synthesis</span></div>
+    <div class="nav-tabs">
+      <a href="#read">Executive</a>
+      <a href="#wins">Wins</a>
+      <a href="#voices">Voices</a>
+      <a href="#themes">Themes</a>
+      <a href="#chart">Chart</a>
+      <a href="#ai">AI Workforce</a>
+      <a href="#session">Session</a>
+      <a href="#questions">Questions</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="read">
+  <div class="hero-inner">
+    <div class="section-eyebrow">Operating Model · 2026-05-04</div>
+    <h1>The BPP we have today, the BPP we&#39;re building toward, and what changes between.</h1>
+    <p class="lede">A synthesis across four surveys (Daunte, Eli, Kenny, Rodney). This is a structured proposal to anchor the Accountability Chart session, name the structural moves, and leave nothing on the table. Not a final answer.</p>
+
+    <div class="hero-meta">
+      <div class="meta-item">
+        <div class="meta-label">Inputs</div>
+        <div class="meta-value">4 surveys, all complete</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Tone</div>
+        <div class="meta-value">Direct. Honoring. No call-outs of vulnerability.</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Audience</div>
+        <div class="meta-value">All 3 owners + Rodney (advisor)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Goal</div>
+        <div class="meta-value">Walk out with a documented chart + decisions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main>
+
+<!-- GLOSSARY -->
+<section style="padding: 32px 0;">
+  <div class="glossary">
+    <h4>Key Terms Used in This Synthesis</h4>
+    <div class="glossary-grid">
+      <div class="glossary-item">
+        <div class="glossary-term">DRI · Directly Responsible Individual</div>
+        <div class="glossary-def">The single named person accountable for a function. Decisions in their lane move through them. Not the same as "does all the work" but the one who owns the outcome.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Backup</div>
+        <div class="glossary-def">The named second. Steps in if DRI is unavailable. Cross-trained over time so the function never has a single point of failure.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Async-DACI</div>
+        <div class="glossary-def">A decision pattern. Owner proposes a decision in writing. Others have until end of day to object. Silence equals approval. Replaces in-meeting "you guys good?" rubber-stamping.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">AI Worker</div>
+        <div class="glossary-def">A Claude Code plugin or MCP automation that handles repeatable parts of a function. Each AI worker has a human DRI, treated as a real seat on the chart.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">MCP · Model Context Protocol</div>
+        <div class="glossary-def">The connection layer between Claude and external tools (Outlook, HubSpot, Monday, Notion). MCPs let AI workers do real work, not just give advice.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Single Point of Failure</div>
+        <div class="glossary-def">A function only one person knows how to do. If they're out, the work stops. Rodney&#39;s headline observation: BPP has too many of these today.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXECUTIVE READ -->
+<section>
+  <div class="section-eyebrow">The Headline</div>
+  <h2>Three co-owners are running BPP alongside full-time day jobs and shipping. Honor that first.</h2>
+  <p class="section-desc">Underneath the output is a five-point structural problem. Every survey named it from a different angle, including Rodney from outside the system. The fixes reinforce each other, so doing one without the others won&#39;t stick.</p>
+
+  <div class="card-grid card-grid-3" style="margin-top: 16px;">
+    <div class="card">
+      <div class="card-eyebrow">The Diagnosis</div>
+      <h3>5 structural problems, all interconnected</h3>
+      <p style="margin-top: 8px; font-size: 13px;">Single-points-of-failure. Concentration of decisions. Decisions rubber-stamped instead of deliberated. Team-wide fatigue in different shapes. Three blank-spot functions (cross-training, marketing structure, QA).</p>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow">The Structural Moves</div>
+      <h3>Three shifts, not a checklist</h3>
+      <p style="margin-top: 8px; font-size: 13px;">From default ownership to a documented chart with DRIs and backups. AI workers as the bridge between "no budget for hires" and "can&#39;t keep doing it ourselves." Chart describes target state, not just today.</p>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow">The Session</div>
+      <h3>90 minutes. Three non-skippables.</h3>
+      <p style="margin-top: 8px; font-size: 13px;">Compensation. Exit and continuation strategy. AI adoption gap. All three on the table.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHERE THE TEAM IS WINNING -->
+<section id="wins">
+  <div class="section-eyebrow">Where the Team is Winning</div>
+  <h2>What&#39;s working before we get to what&#39;s changing</h2>
+  <p class="section-desc">Every owner is putting real work into BPP right now. The diagnosis section names where the operating model needs to evolve. This section names what each person is already doing well, because the chart we build forward needs to honor the contributions already on the board.</p>
+
+  <div class="wins-grid">
+
+    <div class="win-card eli">
+      <div class="win-name eli">Eli</div>
+      <ul>
+        <li><strong>Closed the first deals for each of our service packages.</strong> Eli is the deal owner who proved the offerings actually convert.</li>
+        <li><strong>Standardized the discovery, kickoff, and final handoff decks</strong> on the Monday board. Those decks are now part of how we run a client engagement, not improvised every time.</li>
+        <li><strong>Currently dedicating the most time to BPP of any owner.</strong> Lost his job recently, and instead of slowing down, he poured the energy into closing deals and shipping client work.</li>
+        <li><strong>Personally building apps</strong> in his off-hours. He&#39;s told Daunte he&#39;s ready to find use cases inside BPP that scratch the same build itch.</li>
+        <li><strong>Visual and design lane.</strong> The design quality on every client deliverable is on him, and clients respond to it.</li>
+      </ul>
+    </div>
+
+    <div class="win-card kenny">
+      <div class="win-name kenny">Kenny</div>
+      <ul>
+        <li><strong>Owning HubSpot pipeline and forecasting.</strong> The CRM works because Kenny set it up and runs it.</li>
+        <li><strong>Conversational selling at events.</strong> One of his energizers and a real edge for BPP&#39;s top-of-funnel.</li>
+        <li><strong>Volunteered for legal and contracts.</strong> First explicit ownership transfer in any survey. That&#39;s a leadership move during recovery.</li>
+        <li><strong>Showing up while in active recovery.</strong> Sleep is degrading and he&#39;s working past 9pm, but he&#39;s still in the work, still bringing the BD lane forward.</li>
+      </ul>
+    </div>
+
+    <div class="win-card daunte">
+      <div class="win-name daunte">Daunte</div>
+      <ul>
+        <li><strong>Shipped the AI workforce foundation.</strong> Three plugins live (content-producer, marketing-coordinator, html-page-builder). MCPs wired (Outlook, Notion, Monday).</li>
+        <li><strong>Built the Tools Hub</strong> as the centralized command center for the team.</li>
+        <li><strong>Owns financial discipline.</strong> April cost review found ~$1.6 to 1.9K in annual savings. KPI framework and Q1 review document the financial truth.</li>
+        <li><strong>Honest framing in his own survey:</strong> sometimes the bottleneck. Branding work where Eli is waiting on him. Client work that slows down when internal sprints spike. The "I lean in" framing is real, but so is "I&#39;m the slow link sometimes."</li>
+      </ul>
+    </div>
+
+    <div class="win-card team">
+      <div class="win-name">As a team</div>
+      <ul>
+        <li><strong>3 active clients</strong> (SEEDFOLKids, Financial Acuity, Lois Marketing).</li>
+        <li><strong>$12K pipeline value</strong> in 5 deals.</li>
+        <li><strong>Q1 revenue of $7,279</strong> at 23% margin. Below target but real.</li>
+        <li><strong>Operating cadence is working.</strong> Monday stand-up, Wednesday midweek, Saturday review. Eli, Kenny, and Daunte all flagged "continue check-ins" as the thing to protect.</li>
+        <li><strong>Three co-owners running BPP alongside full-time day jobs and shipping.</strong> The output is real even when the system underneath needs tightening.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- VOICES -->
+<section id="voices">
+  <div class="section-eyebrow">What Each Person Said</div>
+  <h2>The headline from each survey</h2>
+  <p class="section-desc">Every person added something the others didn&#39;t. Read these as the four lenses the chart needs to fit. Quotes are summaries of survey answers, not edited for emphasis.</p>
+
+  <div class="card-grid card-grid-2" style="margin-top: 24px;">
+
+    <div class="card voice-card daunte">
+      <div class="voice-name">Daunte</div>
+      <div class="voice-role">Co-Owner · Data &amp; Operations</div>
+      <div class="voice-quote">"Stepping back isn&#39;t my pattern. I lean in. The fix isn&#39;t &#39;step back more,&#39; it&#39;s calibrate the timing. Let the owner lead first. And I should be honest that I&#39;m sometimes the bottleneck too, especially on branding."</div>
+      <h4 style="margin-top: 12px;">Headline takeaways</h4>
+      <ul>
+        <li>14 of 28 functions default to him by gap-filling. Many he doesn&#39;t actually want to own (brand visual, SOPs, vendor mgmt, tool stack).</li>
+        <li>"Two yeses are connected": too many hats AND under-using best skills. The hats keep him off his highest-leverage work.</li>
+        <li>"Side missions and BPP can be allies." Each owner&#39;s personal-build energy can land inside BPP without taking from personal stuff.</li>
+        <li>"Less time-for-sale, more leverage." Productized offerings and AI workforce as the two leverage tracks.</li>
+        <li>Naming his own bottleneck pattern: branding work where Eli is waiting on him, internal sprints that compete with client work.</li>
+      </ul>
+    </div>
+
+    <div class="card voice-card eli">
+      <div class="voice-name">Eli</div>
+      <div class="voice-role">Co-Owner · Design, Sales &amp; Client Delivery</div>
+      <div class="voice-quote">"I think long term my vision for BPP is to get it to the place where we&#39;re playing the role of Board of Directors and the company has a CEO and functional managers. I&#39;d love to scale this to a place where we can exit and make a lot of money so we never have to work again, if we don&#39;t want to."</div>
+      <h4 style="margin-top: 12px;">Headline takeaways</h4>
+      <ul>
+        <li>Closed first deals for each of BPP&#39;s service packages. Standardized discovery / kickoff / handoff decks now in our flow.</li>
+        <li>Currently dedicating the most time to BPP. Lost his job, doubled down on the work.</li>
+        <li>Asked an honest question worth surfacing: "How do we incentivize ourselves while we&#39;re growing?"</li>
+        <li>Energizers: clients winning, vibe coding, team time. Drainers: sales outreach, pointless meetings.</li>
+        <li>Wants to build apps. Open to building inside BPP if there&#39;s a fit.</li>
+        <li>Long-term: the three of us as Board of Directors with managers running daily ops.</li>
+      </ul>
+    </div>
+
+    <div class="card voice-card kenny">
+      <div class="voice-name">Kenny</div>
+      <div class="voice-role">Co-Owner · Business Development &amp; Sales</div>
+      <div class="voice-quote">"We can be too quick to agree. We could spend time during our meetings to propose an idea and take time to research the best answers so we can have formal conversations rooted in perspective."</div>
+      <h4 style="margin-top: 12px;">Headline takeaways</h4>
+      <ul>
+        <li>In active recovery since 3/17. Sleep degrading, working past 9pm. Still showing up.</li>
+        <li>Volunteered for legal and contracts. First explicit ownership transfer offer in the surveys.</li>
+        <li>Owns HubSpot pipeline. Energizers: process mapping, conversational selling at events, brand strategy.</li>
+        <li>STOP: leading with text or email instead of calls. Relationship-first sales.</li>
+        <li>One of three avoided conversations: exit strategy.</li>
+      </ul>
+    </div>
+
+    <div class="card voice-card rodney">
+      <div class="voice-name">Rodney</div>
+      <div class="voice-role">Outside Advisor</div>
+      <div class="voice-quote">"Stay laser focused on providing specific client business solutions rather than hunting for evidence that supports providing a specific tool or app."</div>
+      <h4 style="margin-top: 12px;">Headline takeaways</h4>
+      <ul>
+        <li>Cross-training is the biggest single observation: "Should be cross-trained on everything."</li>
+        <li>Headline gap: "Less than 3 business plans have been created by Eli or Kenny." That&#39;s a capacity risk, not a criticism.</li>
+        <li>Strategic move not being made: target political campaigns ahead of the 2028 cycle.</li>
+        <li>Client relationship deepening: invite clients to social gatherings, post-engagement deep-dives. "Should be part of client prospecting DNA."</li>
+        <li>External read on the team dynamic: "Too much reliance on DTB as final decision maker. No hard pushback."</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- THEMES -->
+<section id="themes">
+  <div class="section-eyebrow">The Five Cross-Cutting Themes</div>
+  <h2>Patterns that show up in three or more surveys</h2>
+  <p class="section-desc">These are the truths the chart has to address. Each theme has the evidence inline and a fix that&#39;s structural, not personal.</p>
+
+  <div class="theme-card">
+    <span class="theme-num">01</span>
+    <h3>Single Points of Failure</h3>
+    <p style="margin-top: 8px;">Daunte defaults into 14 of 28 ownership functions, often by gap-filling. If he&#39;s out, the business stops in too many places. Most-named pattern across all four surveys.</p>
+    <div class="theme-evidence">
+      <div class="evidence-row"><span class="who-tag rodney">Rodney</span> "Too much specialization will create huge capacity issues when only one can do a specific task."</div>
+      <div class="evidence-row"><span class="who-tag rodney">Rodney</span> "Too much reliance on DTB as final decision maker."</div>
+      <div class="evidence-row"><span class="who-tag kenny">Kenny</span> "DTB picks up a lot of slack managing clients and making sure our internal process is optimized."</div>
+      <div class="evidence-row"><span class="who-tag daunte">Daunte</span> Self-named: "I become the quality gate for things even when no one made me the QC owner, because I see something needs to ship clean and I just do it."</div>
+    </div>
+    <div class="theme-fix"><strong>Fix:</strong> the chart with named DRIs and backups, plus a real cross-training plan. Not "Daunte do less."</div>
+  </div>
+
+  <div class="theme-card">
+    <span class="theme-num">02</span>
+    <h3>Decisions Concentrate When Ownership Isn&#39;t Clear</h3>
+    <p style="margin-top: 8px;">When ownership is unclear, decisions concentrate on whoever has the strongest opinion or most context. That tends to be Daunte. The team has named this from inside; Rodney named it from outside. Daunte himself flagged that his data background means he pushes back hard, and that may make people hesitant to share.</p>
+    <div class="theme-evidence">
+      <div class="evidence-row"><span class="who-tag daunte">Daunte</span> "I tend to step IN on things others technically own."</div>
+      <div class="evidence-row"><span class="who-tag daunte">Daunte</span> "My data and automation background means I push back on HubSpot ideas hard, and that may be making people hesitant to share."</div>
+      <div class="evidence-row"><span class="who-tag rodney">Rodney</span> "No hard pushback on what DTB thinks."</div>
+      <div class="evidence-row"><span class="who-tag kenny">Kenny</span> Defers on QC and AI tooling because of "best skillset" framing.</div>
+    </div>
+    <div class="theme-fix"><strong>Fix:</strong> calibration plus mechanism. Daunte holds input until owner moves first. Async-DACI for non-trivial decisions. Pattern is structural, not personal.</div>
+  </div>
+
+  <div class="theme-card">
+    <span class="theme-num">03</span>
+    <h3>Decisions Get Rubber-Stamped, Not Deliberated</h3>
+    <p style="margin-top: 8px;">All three owners named this in different words. The conversation feels collaborative, but the decision was already made by whoever spoke first. Speed feels productive. The cost is hollow agreement.</p>
+    <div class="theme-evidence">
+      <div class="evidence-row"><span class="who-tag eli">Eli</span> "We all have tools and systems we manage, but in regards to making decisions it&#39;s more collaborative instead of executing."</div>
+      <div class="evidence-row"><span class="who-tag kenny">Kenny</span> "We can be too quick to agree. &#39;You guys good with xyz&#39; framework, then delegate best opinion to the initial suggestion."</div>
+      <div class="evidence-row"><span class="who-tag daunte">Daunte</span> Decisions stuck for three reasons: validation-seeking, no clear ownership, waiting for QA/QC.</div>
+    </div>
+    <div class="theme-fix"><strong>Fix:</strong> Clear DRI per function (resolves "no clear ownership"). Async-DACI (resolves "validation-seeking"). QA owner or checklist (resolves "waiting for QA/QC").</div>
+  </div>
+
+  <div class="theme-card">
+    <span class="theme-num">04</span>
+    <h3>Team-Wide Fatigue, Different Shapes Per Person</h3>
+    <p style="margin-top: 8px;">Nobody answered "burned out." All three owners report bandwidth and misallocation, not exhaustion. The fix is not "work less." It&#39;s "redistribute load so each person&#39;s time lands on their high-leverage work."</p>
+    <div class="theme-evidence">
+      <div class="evidence-row"><span class="who-tag eli">Eli</span> Hasn&#39;t taken a real day off in a month. The fatigue is monotony plus the financial pressure of being between jobs while also putting in the most BPP time of any owner.</div>
+      <div class="evidence-row"><span class="who-tag kenny">Kenny</span> Sleep degrading, working past 9pm. In active recovery since 3/17, balancing health and the work.</div>
+      <div class="evidence-row"><span class="who-tag daunte">Daunte</span> "Too many hats: Yes. Under-using best skills: Yes. The hats keep me from working on what I&#39;m best at."</div>
+      <div class="evidence-row"><span class="who-tag rodney">Rodney</span> "Yes, at times everyone, because BPP is a side gig and all work full-time jobs."</div>
+    </div>
+    <div class="theme-fix"><strong>Fix per owner:</strong> Daunte transfers QuickBooks knowledge and branding kit. Eli takes brand visual and QC ownership (his lane already). Kenny takes legal, gets paced AI adoption (no load during recovery). Justin&#39;s seat clarified.</div>
+  </div>
+
+  <div class="theme-card">
+    <span class="theme-num">05</span>
+    <h3>Three Functions Have No Owner</h3>
+    <p style="margin-top: 8px;">The biggest blank spots on the chart. Each one is a single point of failure waiting to happen.</p>
+    <div class="theme-evidence">
+      <div class="evidence-row"><span class="who-tag rodney">Rodney</span> <strong>Cross-training:</strong> "Should be cross-trained on everything." Headline flag.</div>
+      <div class="evidence-row"><span class="who-tag eli">Eli</span> <strong>Marketing structure:</strong> Marked Unclear on multiple marketing rows. Most-Unclear cluster in his survey.</div>
+      <div class="evidence-row"><span class="who-tag daunte">Daunte</span> <strong>QA / QC:</strong> "No clear owner today, feels like a group thing. I do not feel like I&#39;m the owner."</div>
+    </div>
+    <div class="theme-fix"><strong>Fix:</strong> Cross-training plan owned by Daunte (chair) and Eli (executor). Marketing DRI: decided as Daunte (2026-05-04), Justin executor. QA: Eli, with Daunte paired for first 2 sprints to calibrate.</div>
+  </div>
+</section>
+
+<!-- ORG CHART -->
+<section id="chart">
+  <div class="section-eyebrow">Accountability Chart · Target State</div>
+  <h2>Six departments, mapped to the Monday board structure</h2>
+  <p class="section-desc">Department layer first, then function-level. Each department has a DRI, a backup, and (where applicable) an AI worker supporting the human. The departments below match the BPP Operations board on Monday.com so the chart is operationally usable, not just conceptual.</p>
+
+  <div class="org-grid">
+
+    <div class="org-dept">
+      <div class="org-dept-header sales">Sales &amp; Business Development</div>
+      <div class="org-dept-body">
+        <div class="org-row">
+          <div class="org-role-label">DRI</div>
+          <div class="org-name kenny">Kenny</div>
+        </div>
+        <div class="org-row">
+          <div class="org-role-label">Backup</div>
+          <div class="org-name eli">Eli (deal-type split)</div>
+        </div>
+        <div class="org-row ai-row">
+          <div class="org-role-label">AI Worker</div>
+          <div class="org-name">AI Sales Prep (Kenny pace)</div>
+        </div>
+        <div class="org-row org-functions">Pipeline, HubSpot admin, outreach, conversational selling, pricing for new prospects, discovery to proposal, go/no-go.</div>
+      </div>
+    </div>
+
+    <div class="org-dept">
+      <div class="org-dept-header marketing">Marketing &amp; Content</div>
+      <div class="org-dept-body">
+        <div class="org-row">
+          <div class="org-role-label">DRI</div>
+          <div class="org-name daunte">Daunte</div>
+        </div>
+        <div class="org-row">
+          <div class="org-role-label">Executor</div>
+          <div class="org-name">Justin (contractor)</div>
+        </div>
+        <div class="org-row ai-row">
+          <div class="org-role-label">AI Worker</div>
+          <div class="org-name">AI Marketing Coordinator (built)</div>
+        </div>
+        <div class="org-row org-functions">Marketing strategy, social calendar, newsletter, blog content, content idea bank.</div>
+      </div>
+    </div>
+
+    <div class="org-dept">
+      <div class="org-dept-header delivery">Client Delivery &amp; Design</div>
+      <div class="org-dept-body">
+        <div class="org-row">
+          <div class="org-role-label">DRI</div>
+          <div class="org-name eli">Eli</div>
+        </div>
+        <div class="org-row">
+          <div class="org-role-label">Backup</div>
+          <div class="org-name daunte">Daunte (tech-heavy)</div>
+        </div>
+        <div class="org-row ai-row">
+          <div class="org-role-label">AI Worker</div>
+          <div class="org-name">AI Client Onboarding Coordinator (planned)</div>
+        </div>
+        <div class="org-row org-functions">Onboarding, project timeline, status, client experience, brand visual, website CMS, QC, post-engagement deep-dive.</div>
+      </div>
+    </div>
+
+    <div class="org-dept">
+      <div class="org-dept-header ops">Operations &amp; IT</div>
+      <div class="org-dept-body">
+        <div class="org-row">
+          <div class="org-role-label">DRI</div>
+          <div class="org-name daunte">Daunte</div>
+        </div>
+        <div class="org-row">
+          <div class="org-role-label">Backup</div>
+          <div class="org-name eli">Eli (over time)</div>
+        </div>
+        <div class="org-row ai-row">
+          <div class="org-role-label">AI Worker</div>
+          <div class="org-name">html-page-builder (built), Monday MCP</div>
+        </div>
+        <div class="org-row org-functions">SOPs, vendor mgmt, tool stack, AI tooling, plugins, automations, hub, Drive structure, Monday automations.</div>
+      </div>
+    </div>
+
+    <div class="org-dept">
+      <div class="org-dept-header finance">Finance</div>
+      <div class="org-dept-body">
+        <div class="org-row">
+          <div class="org-role-label">DRI</div>
+          <div class="org-name daunte">Daunte</div>
+        </div>
+        <div class="org-row">
+          <div class="org-role-label">Backup</div>
+          <div class="org-name">Eli or Kenny (shadow + cross-train)</div>
+        </div>
+        <div class="org-row ai-row">
+          <div class="org-role-label">AI Worker</div>
+          <div class="org-name">AI Finance Manager (planned)</div>
+        </div>
+        <div class="org-row org-functions">QuickBooks, AR, tax, bank, revenue split, tool stack cost, financial pulse, KPI dashboards.</div>
+      </div>
+    </div>
+
+    <div class="org-dept">
+      <div class="org-dept-header hr">HR &amp; People Ops</div>
+      <div class="org-dept-body">
+        <div class="org-row">
+          <div class="org-role-label">Chair</div>
+          <div class="org-name daunte">Daunte (proposed, ratify in session)</div>
+        </div>
+        <div class="org-row">
+          <div class="org-role-label">Cross-training executor</div>
+          <div class="org-name eli">Eli</div>
+        </div>
+        <div class="org-row ai-row">
+          <div class="org-role-label">AI Worker</div>
+          <div class="org-name">SOP plugin (planned)</div>
+        </div>
+        <div class="org-row org-functions">Hiring, contractor management, compensation framework, cross-training plan, legal/contracts (Kenny taking).</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="transitions">
+    <h4>Transitions from Today&#39;s De Facto to Target Chart</h4>
+    <div class="transition-row">
+      <div class="transition-from">Brand visual: Daunte (default, sometimes bottleneck)</div>
+      <div class="transition-arrow">→</div>
+      <div class="transition-to">Eli (DRI · already in his lane)</div>
+    </div>
+    <div class="transition-row">
+      <div class="transition-from">Legal / contracts: Collaborative</div>
+      <div class="transition-arrow">→</div>
+      <div class="transition-to">Kenny (volunteered)</div>
+    </div>
+    <div class="transition-row">
+      <div class="transition-from">QC before ship: No owner</div>
+      <div class="transition-arrow">→</div>
+      <div class="transition-to">Eli (Daunte paired first 2 sprints)</div>
+    </div>
+    <div class="transition-row">
+      <div class="transition-from">SOPs: No owner</div>
+      <div class="transition-arrow">→</div>
+      <div class="transition-to">Each dept DRI owns their dept SOPs</div>
+    </div>
+    <div class="transition-row">
+      <div class="transition-from">QuickBooks: Daunte only</div>
+      <div class="transition-arrow">→</div>
+      <div class="transition-to">Daunte DRI, Eli + Kenny shadow</div>
+    </div>
+    <div class="transition-row">
+      <div class="transition-from">Cross-training plan: No owner</div>
+      <div class="transition-arrow">→</div>
+      <div class="transition-to">Daunte chairs, Eli executes</div>
+    </div>
+    <div class="transition-row">
+      <div class="transition-from">Marketing strategy: Daunte (default)</div>
+      <div class="transition-arrow">→</div>
+      <div class="transition-to">Daunte (decided · ratify in session)</div>
+    </div>
+    <div class="transition-row">
+      <div class="transition-from">Tool stack removal: Daunte (de facto)</div>
+      <div class="transition-arrow">→</div>
+      <div class="transition-to">Shared monthly review (Daunte chairs)</div>
+    </div>
+    <div class="transition-row">
+      <div class="transition-from">Monday automations: Daunte</div>
+      <div class="transition-arrow">→</div>
+      <div class="transition-to">Team-shared (Daunte teaches over time)</div>
+    </div>
+    <div class="transition-row">
+      <div class="transition-from">HubSpot: Kenny owns, Daunte engages early</div>
+      <div class="transition-arrow">→</div>
+      <div class="transition-to">Kenny owns, Daunte calibrates input timing</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 36px;">Function-Level Chart</h3>
+  <p style="font-size:13px; color: var(--ink-soft); margin-bottom: 10px;">28 ownership functions plus 7 currently-missing functions, mapped to department. Highlighted rows are session decisions.</p>
+
+  <div class="table-wrap">
+    <table class="fn-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Department</th>
+          <th>Function</th>
+          <th>Today</th>
+          <th>Target DRI</th>
+          <th>Backup</th>
+          <th>AI Worker</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="fn-num">1</td><td><span class="dept-pill marketing">Marketing</span></td><td class="fn-name">Marketing strategy</td><td class="fn-current">Daunte (default)</td><td class="fn-target daunte">Daunte (decided)</td><td>Justin (executor)</td><td class="fn-ai">Marketing Coordinator</td></tr>
+        <tr><td class="fn-num">2</td><td><span class="dept-pill marketing">Marketing</span></td><td class="fn-name">Social media calendar</td><td class="fn-current">Daunte / Justin</td><td class="fn-target">Justin</td><td><span class="org-name daunte">Daunte</span></td><td class="fn-ai">Content Producer</td></tr>
+        <tr><td class="fn-num">3</td><td><span class="dept-pill marketing">Marketing</span></td><td class="fn-name">Newsletter topic + author</td><td class="fn-current">Unclear</td><td class="fn-target daunte">Daunte</td><td>Eli/Kenny rotating</td><td class="fn-ai">Marketing Coordinator</td></tr>
+        <tr><td class="fn-num">4</td><td><span class="dept-pill marketing">Marketing</span></td><td class="fn-name">Blog content production</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte</td><td><span class="org-name eli">Eli (website integration)</span></td><td class="fn-ai">Content Producer</td></tr>
+        <tr><td class="fn-num">5</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Brand visual direction</td><td class="fn-current">Daunte (default)</td><td class="fn-target eli">Eli <span class="org-tag-moved">Moved</span></td><td><span class="org-name daunte">Daunte</span></td><td class="fn-ai">Canva MCP, Stitch</td></tr>
+        <tr><td class="fn-num">6</td><td><span class="dept-pill sales">Sales</span></td><td class="fn-name">Pricing for new prospect</td><td class="fn-current">Collaborative</td><td class="fn-target kenny">Kenny (deal owner)</td><td>Eli/Daunte input</td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">7</td><td><span class="dept-pill sales">Sales</span></td><td class="fn-name">Discovery to proposal</td><td class="fn-current">Deal owner</td><td class="fn-target kenny">Kenny / Eli</td><td><span class="org-name daunte">Daunte (tech)</span></td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">8</td><td><span class="dept-pill sales">Sales</span></td><td class="fn-name">Go / no-go on prospect</td><td class="fn-current">Deal owner</td><td class="fn-target kenny">Kenny / Eli</td><td><span class="org-name daunte">Daunte</span></td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">9</td><td><span class="dept-pill sales">Sales</span></td><td class="fn-name">Pipeline reporting</td><td class="fn-current">Kenny</td><td class="fn-target kenny">Kenny</td><td><span class="org-name daunte">Daunte (dashboard)</span></td><td class="fn-ai">HubSpot MCP</td></tr>
+        <tr><td class="fn-num">10</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Project timeline</td><td class="fn-current">Eli</td><td class="fn-target eli">Eli</td><td><span class="org-name daunte">Daunte</span></td><td class="fn-ai">Monday MCP</td></tr>
+        <tr class="row-decision"><td class="fn-num">11</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">QC before ship</td><td class="fn-current">No owner</td><td class="fn-target eli">Eli <span class="org-tag-moved">Moved</span></td><td><span class="org-name daunte">Daunte</span></td><td class="fn-ai">QC checklist (build)</td></tr>
+        <tr><td class="fn-num">12</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Client onboarding (2 wks)</td><td class="fn-current">Eli</td><td class="fn-target eli">Eli</td><td><span class="org-name kenny">Kenny</span></td><td class="fn-ai">Onboarding plugin (build)</td></tr>
+        <tr class="row-decision"><td class="fn-num">13</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Weekly client status emails</td><td class="fn-current">System gap</td><td class="fn-target eli">Eli</td><td><span class="org-name kenny">Kenny</span></td><td class="fn-ai">Status email automation</td></tr>
+        <tr><td class="fn-num">14</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">Internal SOP creation</td><td class="fn-current">No owner</td><td class="fn-target">Each dept DRI</td><td>.</td><td class="fn-ai">SOP generator</td></tr>
+        <tr><td class="fn-num">15</td><td><span class="dept-pill hr">HR</span></td><td class="fn-name">Hiring contractor / role</td><td class="fn-current">Daunte (default)</td><td class="fn-target">Team decision</td><td><span class="org-name daunte">Daunte chairs</span></td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">16</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">Vendor management</td><td class="fn-current">Daunte</td><td class="fn-target">By function (each dept)</td><td>.</td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">17</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">Tool stack additions</td><td class="fn-current">Daunte (financial gate)</td><td class="fn-target daunte">Daunte (gatekeeper)</td><td>Eli/Kenny propose</td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">18</td><td><span class="dept-pill finance">Finance</span></td><td class="fn-name">Tool stack removal / cost</td><td class="fn-current">Daunte (de facto)</td><td class="fn-target">Shared monthly review</td><td><span class="org-name daunte">Daunte chairs</span></td><td class="fn-ai">Cost dashboard</td></tr>
+        <tr><td class="fn-num">19</td><td><span class="dept-pill finance">Finance</span></td><td class="fn-name">Spending over $500</td><td class="fn-current">Team approval</td><td class="fn-target">Team approval</td><td><span class="org-name daunte">Daunte chairs</span></td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">20</td><td><span class="dept-pill finance">Finance</span></td><td class="fn-name">Revenue split / distributions</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte (with shadows)</td><td>Eli or Kenny</td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">21</td><td><span class="dept-pill finance">Finance</span></td><td class="fn-name">Tax filings + compliance</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte (walkthrough team)</td><td>Eli or Kenny shadow</td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">22</td><td><span class="dept-pill finance">Finance</span></td><td class="fn-name">Bank account controls</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte</td><td>Eli or Kenny shadow</td><td class="fn-ai">.</td></tr>
+        <tr class="row-decision"><td class="fn-num">23</td><td><span class="dept-pill hr">HR</span></td><td class="fn-name">Legal / contracts</td><td class="fn-current">Collaborative</td><td class="fn-target kenny">Kenny <span class="org-tag-moved">Moved</span></td><td><span class="org-name daunte">Daunte (financial)</span></td><td class="fn-ai">Contract review plugin</td></tr>
+        <tr><td class="fn-num">24</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">Monday structure + automations</td><td class="fn-current">Daunte/Eli split</td><td class="fn-target eli">Eli (struct), team (auto)</td><td><span class="org-name daunte">Daunte</span></td><td class="fn-ai">Monday MCP</td></tr>
+        <tr><td class="fn-num">25</td><td><span class="dept-pill sales">Sales</span></td><td class="fn-name">HubSpot CRM admin</td><td class="fn-current">Kenny</td><td class="fn-target kenny">Kenny</td><td><span class="org-name daunte">Daunte (calibrate input)</span></td><td class="fn-ai">HubSpot MCP</td></tr>
+        <tr><td class="fn-num">26</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">Drive folder structure</td><td class="fn-current">Unclear</td><td class="fn-target daunte">Daunte (canonical)</td><td><span class="org-name eli">Eli (Media)</span></td><td class="fn-ai">.</td></tr>
+        <tr class="row-decision"><td class="fn-num">27</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">AI tooling decisions</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte (with adoption framework)</td><td><span class="org-name eli">Eli</span></td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">28</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">Quarterly planning</td><td class="fn-current">Collaborative</td><td class="fn-target daunte">Daunte (data); team (vision)</td><td>All</td><td class="fn-ai">KPI dashboard</td></tr>
+        <tr style="background: var(--cream);"><td colspan="7" style="font-weight:600; color: var(--navy); padding: 12px 14px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Functions to add to the chart (currently missing)</td></tr>
+        <tr><td class="fn-num">29</td><td><span class="dept-pill marketing">Marketing</span></td><td class="fn-name">Content idea bank</td><td class="fn-current">No owner</td><td class="fn-target">Eli or Daunte</td><td>.</td><td class="fn-ai">Content Producer</td></tr>
+        <tr class="row-decision"><td class="fn-num">30</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Post-engagement client deep-dive</td><td class="fn-current">No owner</td><td class="fn-target eli">Eli (client experience)</td><td><span class="org-name kenny">Kenny</span></td><td class="fn-ai">.</td></tr>
+        <tr class="row-decision"><td class="fn-num">31</td><td><span class="dept-pill hr">HR</span></td><td class="fn-name">Cross-training plan</td><td class="fn-current"><strong>No owner · biggest gap</strong></td><td class="fn-target daunte">Daunte chairs</td><td><span class="org-name eli">Eli executes</span></td><td class="fn-ai">SOP plugin</td></tr>
+        <tr><td class="fn-num">32</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Website + CMS</td><td class="fn-current">Implicit Eli</td><td class="fn-target eli">Eli</td><td><span class="org-name daunte">Daunte</span></td><td class="fn-ai">html-page-builder</td></tr>
+        <tr><td class="fn-num">33</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">AI Workforce / plugin roadmap</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte</td><td><span class="org-name eli">Eli (quarterly review)</span></td><td class="fn-ai">.</td></tr>
+        <tr class="row-decision"><td class="fn-num">34</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">QA / QC checklist owner</td><td class="fn-current">No owner</td><td class="fn-target eli">Eli</td><td><span class="org-name daunte">Daunte (technical)</span></td><td class="fn-ai">QC checklist plugin</td></tr>
+        <tr class="row-decision"><td class="fn-num">35</td><td><span class="dept-pill hr">HR</span></td><td class="fn-name">Compensation framework</td><td class="fn-current">No owner</td><td class="fn-target">TBD in session</td><td>.</td><td class="fn-ai">.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- AI WORKFORCE -->
+<section id="ai">
+  <div class="section-eyebrow">AI Workforce Roadmap</div>
+  <h2>Three AI workers to build this quarter</h2>
+  <p class="section-desc">The bridge between "no budget for hires" and "can&#39;t keep doing it ourselves." Each AI worker is a real seat on the chart with a human DRI. Already shipped: bpp-content-producer, bpp-marketing-coordinator, html-page-builder.</p>
+
+  <div class="card-grid card-grid-3" style="margin-top: 24px;">
+    <div class="ai-card">
+      <div class="ai-num">1</div>
+      <h3>AI Finance Manager</h3>
+      <div class="ai-purpose">QuickBooks integration, AR aging tracker, weekly financial pulse, cost discipline dashboard, Rodney rev share automation.</div>
+      <div class="ai-fix"><strong>Why this one:</strong> directly addresses the QuickBooks single-point-of-failure. Currently only Daunte can answer "how is the business doing?" with real data.</div>
+    </div>
+    <div class="ai-card">
+      <div class="ai-num">2</div>
+      <h3>AI QA Coordinator</h3>
+      <div class="ai-purpose">Deliverable checklist runner, brand voice validator, financial accuracy check, file-naming + lane discipline check before client send.</div>
+      <div class="ai-fix"><strong>Why this one:</strong> resolves Theme 5 (QA has no owner). Pairs with Eli taking QA DRI to give him a tool, not just another job.</div>
+    </div>
+    <div class="ai-card">
+      <div class="ai-num">3</div>
+      <h3>AI Client Onboarding Coordinator</h3>
+      <div class="ai-purpose">Monday board group setup, Drive folder structure, QuickBooks revenue recognition, kickoff agenda generation, first 2-week milestone tracking.</div>
+      <div class="ai-fix"><strong>Why this one:</strong> currently a Daunte-only setup task on every new client. Turns onboarding into a 30-min run instead of a multi-hour ad-hoc.</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 40px;">Adoption Tracks Per Owner</h3>
+  <p style="font-size: 13px; color: var(--ink-soft); margin-bottom: 16px;">Calibrated to bandwidth, not a uniform team rollout. Each track respects current capacity.</p>
+
+  <div class="adoption-tracks">
+    <div class="track-card daunte">
+      <div class="track-name">Daunte&#39;s track</div>
+      <span class="track-status">High build capacity</span>
+      <ul>
+        <li>Owns plugin roadmap. Already shipped 3 plugins.</li>
+        <li>Lead build of all 3 quarter targets above.</li>
+        <li>Owns AI tooling decisions with team adoption framework.</li>
+        <li>Build the Eli + Kenny adoption path through pairing, not lecturing.</li>
+      </ul>
+    </div>
+    <div class="track-card eli">
+      <div class="track-name">Eli&#39;s track</div>
+      <span class="track-status">Co-builder · refilling</span>
+      <ul>
+        <li>Eli wants to build, not just adopt. Daunte&#39;s signal 2026-05-04: "Eli is getting pretty tech savvy using AI, and I think that refills him." Track upgraded from "user" to "co-builder."</li>
+        <li>Use Claude Code for client deliverables. Already starting.</li>
+        <li>Adopt html-page-builder for client dashboards and briefings.</li>
+        <li>Pair on AI Client Onboarding Coordinator build (training during build).</li>
+        <li>Lead his own plugin. Picks during session. Candidates: AI Brand Kit Generator, AI Client Experience Coordinator (post-engagement deep-dive), AI Project Coordinator, AI Web Build Assistant.</li>
+      </ul>
+    </div>
+    <div class="track-card kenny">
+      <div class="track-name">Kenny&#39;s track</div>
+      <span class="track-status">Recovery · paced</span>
+      <ul>
+        <li>Use Claude Code at his pace. No forced timeline.</li>
+        <li>First adoption when ready: AI Sales Prep tool. Research a prospect, draft conversational selling notes.</li>
+        <li>Does not need to learn the plugin / MCP layer right now.</li>
+        <li>Re-evaluate at the next quarterly check-in.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="theme-fix" style="margin-top: 24px;">
+    <strong>Decision needed in session:</strong> Is Claude Code a team-wide default, or a Daunte-only function? Daunte&#39;s 8.2: "Either we agree it&#39;s a team standard with a real plan for Eli and Kenny, or we explicitly say it&#39;s Daunte-only and stop pretending. Ambiguity is the worst outcome."
+  </div>
+</section>
+
+<!-- SESSION AGENDA -->
+<section id="session">
+  <div class="section-eyebrow">Session Agenda · 90 Minutes</div>
+  <h2>Walk in with surveys, walk out with decisions</h2>
+  <p class="section-desc">Each segment has a forcing function. The decision the segment exists to land. Rodney is advisory. Recommend present for segments 1, 2, and 5 (highest-leverage outside lens). Owners-only fine for 3 and 4.</p>
+
+  <div class="timeline">
+    <div class="timeline-block">
+      <div class="timeline-time">0 to 10 min</div>
+      <h4>Frame + ground rules</h4>
+      <div class="timeline-purpose">Synthesis recap, Rodney advisory framing, session goal clarity (decisions, not discussion).</div>
+      <div class="timeline-decision">Forcing function: Yes/No on the diagnosis as written</div>
+    </div>
+    <div class="timeline-block">
+      <div class="timeline-time">10 to 25 min</div>
+      <h4>The 5 themes · agree or revise</h4>
+      <div class="timeline-purpose">Walk through Themes 1 to 5. Each owner says what resonates and what doesn&#39;t.</div>
+      <div class="timeline-decision">Forcing function: Which themes will the chart fix? Which need separate workstreams?</div>
+    </div>
+    <div class="timeline-block">
+      <div class="timeline-time">25 to 55 min</div>
+      <h4>Accountability chart · function-by-function</h4>
+      <div class="timeline-purpose">Walk through the 28 + 7 missing functions. Confirm or revise DRI + Backup.</div>
+      <div class="timeline-decision">Forcing function: Documented chart with names</div>
+    </div>
+    <div class="timeline-block">
+      <div class="timeline-time">55 to 70 min</div>
+      <h4>AI workforce roadmap</h4>
+      <div class="timeline-purpose">Top 3 AI workers to build this quarter. Adoption track per owner. Claude Code: team default or Daunte-only?</div>
+      <div class="timeline-decision">Forcing function: Top 3 named, owners assigned, target ship dates</div>
+    </div>
+    <div class="timeline-block">
+      <div class="timeline-time">70 to 85 min</div>
+      <h4>The avoided conversations</h4>
+      <div class="timeline-purpose">Compensation. Exit / continuation. AI adoption gap. All three on the table.</div>
+      <div class="timeline-decision">Forcing function: Frameworks named, follow-up scheduled</div>
+    </div>
+    <div class="timeline-block">
+      <div class="timeline-time">85 to 90 min</div>
+      <h4>Decision recap + next steps</h4>
+      <div class="timeline-purpose">Document decisions. Schedule follow-ups for what wasn&#39;t resolved. Calendar next quarterly.</div>
+      <div class="timeline-decision">Output: decisions log + action assignments</div>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN QUESTIONS -->
+<section id="questions">
+  <div class="section-eyebrow">Open Questions</div>
+  <h2>Things we name and schedule, even if we don&#39;t resolve in session</h2>
+  <p class="section-desc">These do not need to be solved in 90 minutes. They DO need to be acknowledged so they don&#39;t quietly disappear.</p>
+
+  <div class="question-list">
+    <div class="question-row">
+      <div class="question-num">1</div>
+      <div>
+        <div class="q-title">Compensation framework</div>
+        <div class="q-desc">What does each of us get out of BPP today, what should we get, on what timeline. Daunte 8.2 + Eli avoided conversation.</div>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="question-num">2</div>
+      <div>
+        <div class="q-title">Cross-training timeline</div>
+        <div class="q-desc">Especially during Kenny&#39;s recovery. Minimum-viable cross-training plan over the next quarter. Rodney&#39;s headline.</div>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="question-num">3</div>
+      <div>
+        <div class="q-title">Side mission / BPP overlap</div>
+        <div class="q-desc">Daunte 9: where can each owner&#39;s personal-build energy land inside BPP without taking from personal stuff? Each owner answers for themselves. Eli&#39;s app-building energy is a real candidate here.</div>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="question-num">4</div>
+      <div>
+        <div class="q-title">Productization roadmap</div>
+        <div class="q-desc">What service offerings could become products? AI workforce is one. What else? When does BPP stop being purely service-based?</div>
+      </div>
+    </div>
+    <div class="question-row" style="opacity: 0.65;">
+      <div class="question-num">5</div>
+      <div>
+        <div class="q-title">Marketing DRI decision <span class="pill-decided">Decided</span></div>
+        <div class="q-desc">Decided 2026-05-04: Daunte DRI, Justin executes, team contributes on strategy. Team ratifies in session.</div>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="question-num">6</div>
+      <div>
+        <div class="q-title">Justin&#39;s role evolution</div>
+        <div class="q-desc">Continues as contractor / executor under Daunte&#39;s DRI. Re-evaluate elevation to "Marketing Lead" in next quarterly check-in if scope grows.</div>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="question-num">7</div>
+      <div>
+        <div class="q-title">HubSpot input dynamic</div>
+        <div class="q-desc">Daunte&#39;s self-named pattern. Calibration, not personality change. Worth a Daunte / Kenny side conversation outside the session.</div>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="question-num">8</div>
+      <div>
+        <div class="q-title">Eli wants to build</div>
+        <div class="q-desc">Eli is building apps personally and open to BPP-overlap projects. Pick a plugin lane he leads. Don&#39;t over-pressure. Use the energy where it lands.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-links">
+    <h4>Related BPP Tools</h4>
+    <div class="related-grid">
+      <a class="related-card" href="team.html">
+        <div class="rc-title">Team &amp; AI Workforce</div>
+        <div class="rc-desc">Org chart, departments, AI agents, hiring/outsourcing watch list</div>
+      </a>
+      <a class="related-card" href="bpp-roles-survey.html">
+        <div class="rc-title">Roles Survey (Team)</div>
+        <div class="rc-desc">Source survey for the BPP Roles inputs</div>
+      </a>
+      <a class="related-card" href="rodney-feedback-survey.html">
+        <div class="rc-title">Rodney Feedback Survey</div>
+        <div class="rc-desc">Outside-advisor survey form</div>
+      </a>
+      <a class="related-card" href="index.html">
+        <div class="rc-title">Tools Hub</div>
+        <div class="rc-desc">Back to BPP tools home</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="ft-brand">Business Plans <span class="accent">Plus</span></div>
+  <div style="margin-top: 8px;">Operating Model Synthesis · Internal · Living Document · Updated 2026-05-04</div>
+  <div style="margin-top: 4px; font-size: 11px;">After the session: update with actual decisions made.</div>
+</footer>
+
+</body>
+</html>
