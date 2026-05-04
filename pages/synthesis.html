@@ -127,8 +127,8 @@
   .org-dept-header.sales { background: var(--kenny); }
   .org-dept-header.marketing { background: var(--gold); color: var(--navy); }
   .org-dept-header.delivery { background: var(--eli); }
-  .org-dept-header.ops { background: var(--daunte); }
-  .org-dept-header.finance { background: var(--green); }
+  .org-dept-header.aitech { background: var(--navy); }
+  .org-dept-header.finops { background: var(--daunte); }
   .org-dept-header.hr { background: var(--blue-mid); }
   .org-dept-body { padding: 14px 16px; }
   .org-row { padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
@@ -168,8 +168,8 @@
   .dept-pill.sales { background: var(--kenny); }
   .dept-pill.marketing { background: var(--gold-dark); }
   .dept-pill.delivery { background: var(--eli); }
-  .dept-pill.ops { background: var(--daunte); }
-  .dept-pill.finance { background: var(--green); }
+  .dept-pill.aitech { background: var(--navy); }
+  .dept-pill.finops { background: var(--daunte); }
   .dept-pill.hr { background: var(--blue-mid); }
 
   /* AI workforce */
@@ -491,7 +491,7 @@
     <p style="margin-top: 8px;">When ownership is unclear, decisions concentrate on whoever has the strongest opinion or most context. That tends to be Daunte. The team has named this from inside; Rodney named it from outside. Daunte himself flagged that his data background means he pushes back hard, and that may make people hesitant to share.</p>
     <div class="theme-evidence">
       <div class="evidence-row"><span class="who-tag daunte">Daunte</span> "I tend to step IN on things others technically own."</div>
-      <div class="evidence-row"><span class="who-tag daunte">Daunte</span> "My data and automation background means I push back on HubSpot ideas hard, and that may be making people hesitant to share."</div>
+      <div class="evidence-row"><span class="who-tag daunte">Daunte</span> "My data and automation background means I push back hard on ideas in that space or that domain, and that may be making people hesitant to share."</div>
       <div class="evidence-row"><span class="who-tag rodney">Rodney</span> "No hard pushback on what DTB thinks."</div>
       <div class="evidence-row"><span class="who-tag kenny">Kenny</span> Defers on QC and AI tooling because of "best skillset" framing.</div>
     </div>
@@ -539,8 +539,8 @@
 <!-- ORG CHART -->
 <section id="chart">
   <div class="section-eyebrow">Accountability Chart · Target State</div>
-  <h2>Six departments, mapped to the Monday board structure</h2>
-  <p class="section-desc">Department layer first, then function-level. Each department has a DRI, a backup, and (where applicable) an AI worker supporting the human. The departments below match the BPP Operations board on Monday.com so the chart is operationally usable, not just conceptual.</p>
+  <h2>Six departments with explicit scope and clear distinctions</h2>
+  <p class="section-desc">The structure below carves AI Workforce &amp; Tech out from Operations as a strategic department, and merges Finance with Operations since they&#39;re tightly coupled (cost discipline is both financial and operational). Each department has a DRI, a backup, an AI worker (where applicable), and an explicit "what&#39;s in / what&#39;s out" scope so there&#39;s no overlap confusion.</p>
 
   <div class="org-grid">
 
@@ -559,7 +559,7 @@
           <div class="org-role-label">AI Worker</div>
           <div class="org-name">AI Sales Prep (Kenny pace)</div>
         </div>
-        <div class="org-row org-functions">Pipeline, HubSpot admin, outreach, conversational selling, pricing for new prospects, discovery to proposal, go/no-go.</div>
+        <div class="org-row org-functions"><strong>In:</strong> Pipeline, HubSpot admin, outreach, conversational selling, discovery to proposal, go/no-go, pricing for new prospects.<br><strong>Out:</strong> Client delivery (handed to Delivery at proposal close). Legal/contracts (Kenny owns but lives in HR).</div>
       </div>
     </div>
 
@@ -578,7 +578,7 @@
           <div class="org-role-label">AI Worker</div>
           <div class="org-name">AI Marketing Coordinator (built)</div>
         </div>
-        <div class="org-row org-functions">Marketing strategy, social calendar, newsletter, blog content, content idea bank.</div>
+        <div class="org-row org-functions"><strong>In:</strong> Marketing strategy, social calendar, newsletter, blog content production, content idea bank, brand voice and messaging.<br><strong>Out:</strong> Brand visual identity, logos, website CMS (those are Client Delivery &amp; Design).<br><strong>Distinction line:</strong> Marketing is what we SAY. Design is what we LOOK like.</div>
       </div>
     </div>
 
@@ -597,45 +597,45 @@
           <div class="org-role-label">AI Worker</div>
           <div class="org-name">AI Client Onboarding Coordinator (planned)</div>
         </div>
-        <div class="org-row org-functions">Onboarding, project timeline, status, client experience, brand visual, website CMS, QC, post-engagement deep-dive.</div>
+        <div class="org-row org-functions"><strong>In:</strong> Onboarding (first 2 weeks), project timeline, weekly status emails, client experience, brand visual direction, brand kit, logo creation, website CMS, deliverable design, QC before ship, post-engagement client deep-dive.<br><strong>Out:</strong> Sales/proposal phase (Sales &amp; BD). AI plugin development (AI Workforce &amp; Tech).</div>
       </div>
     </div>
 
     <div class="org-dept">
-      <div class="org-dept-header ops">Operations &amp; IT</div>
+      <div class="org-dept-header aitech">AI Workforce &amp; Tech</div>
       <div class="org-dept-body">
         <div class="org-row">
           <div class="org-role-label">DRI</div>
           <div class="org-name daunte">Daunte</div>
         </div>
         <div class="org-row">
-          <div class="org-role-label">Backup</div>
-          <div class="org-name eli">Eli (over time)</div>
+          <div class="org-role-label">Co-builder</div>
+          <div class="org-name eli">Eli (refilling track)</div>
         </div>
         <div class="org-row ai-row">
-          <div class="org-role-label">AI Worker</div>
-          <div class="org-name">html-page-builder (built), Monday MCP</div>
+          <div class="org-role-label">AI Outputs</div>
+          <div class="org-name">3 plugins built · 3 planned this quarter</div>
         </div>
-        <div class="org-row org-functions">SOPs, vendor mgmt, tool stack, AI tooling, plugins, automations, hub, Drive structure, Monday automations.</div>
+        <div class="org-row org-functions"><strong>In:</strong> AI plugins (Claude Code), MCP setup and config, custom automations, Hub builds, Claude Code adoption framework, AI workforce roadmap, Monday automations layer.<br><strong>Out:</strong> Buying SaaS (Finance &amp; Ops). Running existing tools (lives in the function the tool serves).<br><strong>Distinction line:</strong> This dept BUILDS technology. Finance &amp; Ops RUNS the business systems.</div>
       </div>
     </div>
 
     <div class="org-dept">
-      <div class="org-dept-header finance">Finance</div>
+      <div class="org-dept-header finops">Finance &amp; Operations</div>
       <div class="org-dept-body">
         <div class="org-row">
           <div class="org-role-label">DRI</div>
           <div class="org-name daunte">Daunte</div>
         </div>
         <div class="org-row">
-          <div class="org-role-label">Backup</div>
-          <div class="org-name">Eli or Kenny (shadow + cross-train)</div>
+          <div class="org-role-label">Backup / cross-train</div>
+          <div class="org-name">Eli + Kenny (shadow)</div>
         </div>
         <div class="org-row ai-row">
           <div class="org-role-label">AI Worker</div>
           <div class="org-name">AI Finance Manager (planned)</div>
         </div>
-        <div class="org-row org-functions">QuickBooks, AR, tax, bank, revenue split, tool stack cost, financial pulse, KPI dashboards.</div>
+        <div class="org-row org-functions"><strong>In:</strong> QuickBooks, AR, tax, bank, revenue split, tool stack cost discipline, financial pulse, KPI dashboards, SOP creation (cross-dept), Drive folder structure, vendor management (existing vendors), Monday board structure.<br><strong>Out:</strong> Building automations (AI Workforce). Hiring contractors (HR). Compensation framework (HR).</div>
       </div>
     </div>
 
@@ -644,20 +644,50 @@
       <div class="org-dept-body">
         <div class="org-row">
           <div class="org-role-label">Chair</div>
-          <div class="org-name daunte">Daunte (proposed, ratify in session)</div>
+          <div class="org-name daunte">Daunte</div>
         </div>
         <div class="org-row">
-          <div class="org-role-label">Cross-training executor</div>
-          <div class="org-name eli">Eli</div>
+          <div class="org-role-label">Legal owner</div>
+          <div class="org-name kenny">Kenny</div>
         </div>
         <div class="org-row ai-row">
           <div class="org-role-label">AI Worker</div>
-          <div class="org-name">SOP plugin (planned)</div>
+          <div class="org-name">SOP plugin + Contract review plugin (planned)</div>
         </div>
-        <div class="org-row org-functions">Hiring, contractor management, compensation framework, cross-training plan, legal/contracts (Kenny taking).</div>
+        <div class="org-row org-functions"><strong>In:</strong> Hiring contractors / new roles, compensation framework, cross-training plan (Eli executes), legal &amp; contracts (Kenny owns), revenue share with advisors (Rodney), ownership transitions / exit strategy.<br><strong>Out:</strong> Existing-vendor management (Finance &amp; Ops). Tool stack subscriptions (Finance &amp; Ops).</div>
       </div>
     </div>
 
+  </div>
+
+  <div class="glossary" style="margin-top: 28px;">
+    <h4>Department Distinction Cheat Sheet</h4>
+    <div class="glossary-grid">
+      <div class="glossary-item">
+        <div class="glossary-term">Marketing vs. Design</div>
+        <div class="glossary-def">Marketing is what we SAY (positioning, content, voice, social, newsletter, blog). Design is what we LOOK like (visual identity, logos, brand kit, website appearance, deliverable design).</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">AI Workforce vs. Finance &amp; Ops</div>
+        <div class="glossary-def">AI Workforce BUILDS technology (plugins, MCPs, automations, hub features). Finance &amp; Ops RUNS the business backbone (QB, AR, SOPs, Drive, vendor mgmt). The plugins Daunte builds = AI Workforce. The QuickBooks book-keeping = Finance.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Finance &amp; Ops vs. HR</div>
+        <div class="glossary-def">Finance &amp; Ops is about MONEY and SYSTEMS (QB, tool stack, vendor mgmt, SOPs, Drive). HR is about PEOPLE and TEAM STRUCTURE (hiring, comp, cross-training, legal/contracts).</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Sales &amp; BD vs. Client Delivery</div>
+        <div class="glossary-def">Sales &amp; BD owns the deal from first touch through closed-won. Client Delivery picks up at proposal close: onboarding, project work, status, QC, post-engagement deep-dive.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Tool stack: who decides?</div>
+        <div class="glossary-def">Anyone can propose. Cost gate runs through Finance &amp; Ops (Daunte). Building an integration = AI Workforce. Day-to-day use = wherever the function lives.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Monday board: who owns what?</div>
+        <div class="glossary-def">Monday board STRUCTURE (groups, columns, layout) = Finance &amp; Ops (Daunte/Eli). Monday AUTOMATIONS layer = AI Workforce (Daunte, team-shared over time).</div>
+      </div>
+    </div>
   </div>
 
   <div class="transitions">
@@ -744,27 +774,28 @@
         <tr class="row-decision"><td class="fn-num">11</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">QC before ship</td><td class="fn-current">No owner</td><td class="fn-target eli">Eli <span class="org-tag-moved">Moved</span></td><td><span class="org-name daunte">Daunte</span></td><td class="fn-ai">QC checklist (build)</td></tr>
         <tr><td class="fn-num">12</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Client onboarding (2 wks)</td><td class="fn-current">Eli</td><td class="fn-target eli">Eli</td><td><span class="org-name kenny">Kenny</span></td><td class="fn-ai">Onboarding plugin (build)</td></tr>
         <tr class="row-decision"><td class="fn-num">13</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Weekly client status emails</td><td class="fn-current">System gap</td><td class="fn-target eli">Eli</td><td><span class="org-name kenny">Kenny</span></td><td class="fn-ai">Status email automation</td></tr>
-        <tr><td class="fn-num">14</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">Internal SOP creation</td><td class="fn-current">No owner</td><td class="fn-target">Each dept DRI</td><td>.</td><td class="fn-ai">SOP generator</td></tr>
+        <tr><td class="fn-num">14</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Internal SOP creation</td><td class="fn-current">No owner</td><td class="fn-target">Each dept DRI</td><td>.</td><td class="fn-ai">SOP generator</td></tr>
         <tr><td class="fn-num">15</td><td><span class="dept-pill hr">HR</span></td><td class="fn-name">Hiring contractor / role</td><td class="fn-current">Daunte (default)</td><td class="fn-target">Team decision</td><td><span class="org-name daunte">Daunte chairs</span></td><td class="fn-ai">.</td></tr>
-        <tr><td class="fn-num">16</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">Vendor management</td><td class="fn-current">Daunte</td><td class="fn-target">By function (each dept)</td><td>.</td><td class="fn-ai">.</td></tr>
-        <tr><td class="fn-num">17</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">Tool stack additions</td><td class="fn-current">Daunte (financial gate)</td><td class="fn-target daunte">Daunte (gatekeeper)</td><td>Eli/Kenny propose</td><td class="fn-ai">.</td></tr>
-        <tr><td class="fn-num">18</td><td><span class="dept-pill finance">Finance</span></td><td class="fn-name">Tool stack removal / cost</td><td class="fn-current">Daunte (de facto)</td><td class="fn-target">Shared monthly review</td><td><span class="org-name daunte">Daunte chairs</span></td><td class="fn-ai">Cost dashboard</td></tr>
-        <tr><td class="fn-num">19</td><td><span class="dept-pill finance">Finance</span></td><td class="fn-name">Spending over $500</td><td class="fn-current">Team approval</td><td class="fn-target">Team approval</td><td><span class="org-name daunte">Daunte chairs</span></td><td class="fn-ai">.</td></tr>
-        <tr><td class="fn-num">20</td><td><span class="dept-pill finance">Finance</span></td><td class="fn-name">Revenue split / distributions</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte (with shadows)</td><td>Eli or Kenny</td><td class="fn-ai">.</td></tr>
-        <tr><td class="fn-num">21</td><td><span class="dept-pill finance">Finance</span></td><td class="fn-name">Tax filings + compliance</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte (walkthrough team)</td><td>Eli or Kenny shadow</td><td class="fn-ai">.</td></tr>
-        <tr><td class="fn-num">22</td><td><span class="dept-pill finance">Finance</span></td><td class="fn-name">Bank account controls</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte</td><td>Eli or Kenny shadow</td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">16</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Vendor management</td><td class="fn-current">Daunte</td><td class="fn-target">By function (each dept)</td><td>.</td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">17</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Tool stack additions</td><td class="fn-current">Daunte (financial gate)</td><td class="fn-target daunte">Daunte (gatekeeper)</td><td>Eli/Kenny propose</td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">18</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Tool stack removal / cost</td><td class="fn-current">Daunte (de facto)</td><td class="fn-target">Shared monthly review</td><td><span class="org-name daunte">Daunte chairs</span></td><td class="fn-ai">Cost dashboard</td></tr>
+        <tr><td class="fn-num">19</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Spending over $500</td><td class="fn-current">Team approval</td><td class="fn-target">Team approval</td><td><span class="org-name daunte">Daunte chairs</span></td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">20</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Revenue split / distributions</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte (with shadows)</td><td>Eli or Kenny</td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">21</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Tax filings + compliance</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte (walkthrough team)</td><td>Eli or Kenny shadow</td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">22</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Bank account controls</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte</td><td>Eli or Kenny shadow</td><td class="fn-ai">.</td></tr>
         <tr class="row-decision"><td class="fn-num">23</td><td><span class="dept-pill hr">HR</span></td><td class="fn-name">Legal / contracts</td><td class="fn-current">Collaborative</td><td class="fn-target kenny">Kenny <span class="org-tag-moved">Moved</span></td><td><span class="org-name daunte">Daunte (financial)</span></td><td class="fn-ai">Contract review plugin</td></tr>
-        <tr><td class="fn-num">24</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">Monday structure + automations</td><td class="fn-current">Daunte/Eli split</td><td class="fn-target eli">Eli (struct), team (auto)</td><td><span class="org-name daunte">Daunte</span></td><td class="fn-ai">Monday MCP</td></tr>
+        <tr><td class="fn-num">24a</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Monday board structure</td><td class="fn-current">Eli (de facto)</td><td class="fn-target eli">Eli</td><td><span class="org-name daunte">Daunte</span></td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">24b</td><td><span class="dept-pill aitech">AI &amp; Tech</span></td><td class="fn-name">Monday automations layer</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte (team-shared over time)</td><td><span class="org-name eli">Eli</span></td><td class="fn-ai">Monday MCP</td></tr>
         <tr><td class="fn-num">25</td><td><span class="dept-pill sales">Sales</span></td><td class="fn-name">HubSpot CRM admin</td><td class="fn-current">Kenny</td><td class="fn-target kenny">Kenny</td><td><span class="org-name daunte">Daunte (calibrate input)</span></td><td class="fn-ai">HubSpot MCP</td></tr>
-        <tr><td class="fn-num">26</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">Drive folder structure</td><td class="fn-current">Unclear</td><td class="fn-target daunte">Daunte (canonical)</td><td><span class="org-name eli">Eli (Media)</span></td><td class="fn-ai">.</td></tr>
-        <tr class="row-decision"><td class="fn-num">27</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">AI tooling decisions</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte (with adoption framework)</td><td><span class="org-name eli">Eli</span></td><td class="fn-ai">.</td></tr>
-        <tr><td class="fn-num">28</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">Quarterly planning</td><td class="fn-current">Collaborative</td><td class="fn-target daunte">Daunte (data); team (vision)</td><td>All</td><td class="fn-ai">KPI dashboard</td></tr>
+        <tr><td class="fn-num">26</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Drive folder structure</td><td class="fn-current">Unclear</td><td class="fn-target daunte">Daunte (canonical)</td><td><span class="org-name eli">Eli (Media)</span></td><td class="fn-ai">.</td></tr>
+        <tr class="row-decision"><td class="fn-num">27</td><td><span class="dept-pill aitech">AI &amp; Tech</span></td><td class="fn-name">AI tooling decisions</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte (with adoption framework)</td><td><span class="org-name eli">Eli</span></td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">28</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Quarterly planning</td><td class="fn-current">Collaborative</td><td class="fn-target daunte">Daunte (data); team (vision)</td><td>All</td><td class="fn-ai">KPI dashboard</td></tr>
         <tr style="background: var(--cream);"><td colspan="7" style="font-weight:600; color: var(--navy); padding: 12px 14px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Functions to add to the chart (currently missing)</td></tr>
         <tr><td class="fn-num">29</td><td><span class="dept-pill marketing">Marketing</span></td><td class="fn-name">Content idea bank</td><td class="fn-current">No owner</td><td class="fn-target">Eli or Daunte</td><td>.</td><td class="fn-ai">Content Producer</td></tr>
         <tr class="row-decision"><td class="fn-num">30</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Post-engagement client deep-dive</td><td class="fn-current">No owner</td><td class="fn-target eli">Eli (client experience)</td><td><span class="org-name kenny">Kenny</span></td><td class="fn-ai">.</td></tr>
         <tr class="row-decision"><td class="fn-num">31</td><td><span class="dept-pill hr">HR</span></td><td class="fn-name">Cross-training plan</td><td class="fn-current"><strong>No owner · biggest gap</strong></td><td class="fn-target daunte">Daunte chairs</td><td><span class="org-name eli">Eli executes</span></td><td class="fn-ai">SOP plugin</td></tr>
         <tr><td class="fn-num">32</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Website + CMS</td><td class="fn-current">Implicit Eli</td><td class="fn-target eli">Eli</td><td><span class="org-name daunte">Daunte</span></td><td class="fn-ai">html-page-builder</td></tr>
-        <tr><td class="fn-num">33</td><td><span class="dept-pill ops">Ops/IT</span></td><td class="fn-name">AI Workforce / plugin roadmap</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte</td><td><span class="org-name eli">Eli (quarterly review)</span></td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">33</td><td><span class="dept-pill aitech">AI &amp; Tech</span></td><td class="fn-name">AI Workforce / plugin roadmap</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte</td><td><span class="org-name eli">Eli (quarterly review)</span></td><td class="fn-ai">.</td></tr>
         <tr class="row-decision"><td class="fn-num">34</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">QA / QC checklist owner</td><td class="fn-current">No owner</td><td class="fn-target eli">Eli</td><td><span class="org-name daunte">Daunte (technical)</span></td><td class="fn-ai">QC checklist plugin</td></tr>
         <tr class="row-decision"><td class="fn-num">35</td><td><span class="dept-pill hr">HR</span></td><td class="fn-name">Compensation framework</td><td class="fn-current">No owner</td><td class="fn-target">TBD in session</td><td>.</td><td class="fn-ai">.</td></tr>
       </tbody>
@@ -939,8 +970,8 @@
     <div class="question-row">
       <div class="question-num">7</div>
       <div>
-        <div class="q-title">HubSpot input dynamic</div>
-        <div class="q-desc">Daunte&#39;s self-named pattern. Calibration, not personality change. Worth a Daunte / Kenny side conversation outside the session.</div>
+        <div class="q-title">Pushback dynamic in data/automation domain</div>
+        <div class="q-desc">Daunte&#39;s self-named pattern. When the topic is in his wheelhouse (data, automation, CRM, dashboards), he pushes back hard early, and that may make others hesitant to share. Calibration, not personality change. Worth a Daunte / Kenny side conversation outside the session.</div>
       </div>
     </div>
     <div class="question-row">
