@@ -140,6 +140,7 @@
   .org-row .org-name.kenny { color: var(--kenny); }
   .org-row.ai-row .org-name { color: var(--gold-dark); font-style: italic; }
   .org-tag-moved { display: inline-block; font-size: 9px; font-weight: 700; background: var(--eli); color: var(--white); padding: 1px 5px; border-radius: 3px; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .org-tag-tbd { display: inline-block; font-size: 9px; font-weight: 700; background: var(--gold); color: var(--navy); padding: 1px 6px; border-radius: 3px; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
   .org-functions { font-size: 11px; color: var(--ink-soft); padding-top: 8px; line-height: 1.5; }
 
   .transitions { margin-top: 28px; background: var(--white); border: 1px solid var(--line); border-radius: 10px; padding: 22px; }
@@ -690,7 +691,7 @@
       <div class="org-dept-body">
         <div class="org-row">
           <div class="org-role-label">Chair</div>
-          <div class="org-name daunte">Daunte</div>
+          <div class="org-name">Open <span class="org-tag-tbd">TBD in session</span></div>
         </div>
         <div class="org-row">
           <div class="org-role-label">Legal owner</div>
@@ -700,7 +701,7 @@
           <div class="org-role-label">AI Worker</div>
           <div class="org-name">SOP plugin + Contract review plugin (planned)</div>
         </div>
-        <div class="org-row org-functions"><strong>In:</strong> Hiring contractors / new roles, compensation framework, cross-training plan (Eli executes), legal &amp; contracts (Kenny owns), revenue share with advisors (Rodney), ownership transitions / exit strategy.<br><strong>Out:</strong> Existing-vendor management (Finance &amp; Ops). Tool stack subscriptions (Finance &amp; Ops).</div>
+        <div class="org-row org-functions"><strong>In:</strong> Hiring contractors / new roles, compensation framework, cross-training plan, legal &amp; contracts (Kenny owns), revenue share with advisors (Rodney), ownership transitions / exit strategy.<br><strong>Out:</strong> Existing-vendor management (Finance &amp; Ops). Tool stack subscriptions (Finance &amp; Ops).<br><strong>Note:</strong> Chair is open. Whoever wants to take it claims it in the session. Cross-training plan executor also TBD.</div>
       </div>
     </div>
 
@@ -767,11 +768,11 @@
         <tr><td class="fn-num">12</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Client onboarding (2 wks)</td><td class="fn-current">Eli</td><td class="fn-target eli">Eli</td><td><span class="org-name kenny">Kenny</span></td><td class="fn-ai">Onboarding plugin (build)</td></tr>
         <tr class="row-decision"><td class="fn-num">13</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Weekly client status emails</td><td class="fn-current">System gap</td><td class="fn-target eli">Eli</td><td><span class="org-name kenny">Kenny</span></td><td class="fn-ai">Status email automation</td></tr>
         <tr><td class="fn-num">14</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Internal SOP creation</td><td class="fn-current">No owner</td><td class="fn-target">Each dept DRI</td><td>.</td><td class="fn-ai">SOP generator</td></tr>
-        <tr><td class="fn-num">15</td><td><span class="dept-pill hr">HR</span></td><td class="fn-name">Hiring contractor / role</td><td class="fn-current">Daunte (default)</td><td class="fn-target">Team decision</td><td><span class="org-name daunte">Daunte chairs</span></td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">15</td><td><span class="dept-pill hr">HR</span></td><td class="fn-name">Hiring contractor / role</td><td class="fn-current">Daunte (default)</td><td class="fn-target">Team decision</td><td><span class="org-name">Open · TBD</span></td><td class="fn-ai">.</td></tr>
         <tr><td class="fn-num">16</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Vendor management</td><td class="fn-current">Daunte</td><td class="fn-target">By function (each dept)</td><td>.</td><td class="fn-ai">.</td></tr>
         <tr><td class="fn-num">17</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Tool stack additions</td><td class="fn-current">Daunte (financial gate)</td><td class="fn-target daunte">Daunte (gatekeeper)</td><td>Eli/Kenny propose</td><td class="fn-ai">.</td></tr>
-        <tr><td class="fn-num">18</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Tool stack removal / cost</td><td class="fn-current">Daunte (default)</td><td class="fn-target">Shared monthly review</td><td><span class="org-name daunte">Daunte chairs</span></td><td class="fn-ai">Cost dashboard</td></tr>
-        <tr><td class="fn-num">19</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Spending over $500</td><td class="fn-current">Team approval</td><td class="fn-target">Team approval</td><td><span class="org-name daunte">Daunte chairs</span></td><td class="fn-ai">.</td></tr>
+        <tr><td class="fn-num">18</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Tool stack removal / cost</td><td class="fn-current">Daunte (default)</td><td class="fn-target daunte">Daunte (Fin &amp; Ops DRI)</td><td>Shared monthly review</td><td class="fn-ai">Cost dashboard</td></tr>
+        <tr><td class="fn-num">19</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Spending over $500</td><td class="fn-current">Team approval</td><td class="fn-target">Team approval</td><td><span class="org-name daunte">Daunte (Fin &amp; Ops chair)</span></td><td class="fn-ai">.</td></tr>
         <tr><td class="fn-num">20</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Revenue split / distributions</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte (with shadows)</td><td>Eli or Kenny</td><td class="fn-ai">.</td></tr>
         <tr><td class="fn-num">21</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Tax filings + compliance</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte (walkthrough team)</td><td>Eli or Kenny shadow</td><td class="fn-ai">.</td></tr>
         <tr><td class="fn-num">22</td><td><span class="dept-pill finops">Fin &amp; Ops</span></td><td class="fn-name">Bank account controls</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte</td><td>Eli or Kenny shadow</td><td class="fn-ai">.</td></tr>
@@ -785,7 +786,7 @@
         <tr style="background: var(--cream);"><td colspan="7" style="font-weight:600; color: var(--navy); padding: 12px 14px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Functions to add to the chart (currently missing)</td></tr>
         <tr><td class="fn-num">29</td><td><span class="dept-pill marketing">Marketing</span></td><td class="fn-name">Content idea bank</td><td class="fn-current">No owner</td><td class="fn-target">Eli or Daunte</td><td>.</td><td class="fn-ai">Content Producer</td></tr>
         <tr class="row-decision"><td class="fn-num">30</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Post-engagement client deep-dive</td><td class="fn-current">No owner</td><td class="fn-target eli">Eli (client experience)</td><td><span class="org-name kenny">Kenny</span></td><td class="fn-ai">.</td></tr>
-        <tr class="row-decision"><td class="fn-num">31</td><td><span class="dept-pill hr">HR</span></td><td class="fn-name">Cross-training plan</td><td class="fn-current"><strong>No owner · biggest gap</strong></td><td class="fn-target daunte">Daunte chairs</td><td><span class="org-name eli">Eli executes</span></td><td class="fn-ai">SOP plugin</td></tr>
+        <tr class="row-decision"><td class="fn-num">31</td><td><span class="dept-pill hr">HR</span></td><td class="fn-name">Cross-training plan</td><td class="fn-current"><strong>No owner · biggest gap</strong></td><td class="fn-target">Open · TBD</td><td>TBD</td><td class="fn-ai">SOP plugin</td></tr>
         <tr><td class="fn-num">32</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">Website + CMS</td><td class="fn-current">Implicit Eli</td><td class="fn-target eli">Eli</td><td><span class="org-name daunte">Daunte</span></td><td class="fn-ai">html-page-builder</td></tr>
         <tr><td class="fn-num">33</td><td><span class="dept-pill aitech">AI &amp; Tech</span></td><td class="fn-name">AI Workforce / plugin roadmap</td><td class="fn-current">Daunte</td><td class="fn-target daunte">Daunte</td><td><span class="org-name eli">Eli (quarterly review)</span></td><td class="fn-ai">.</td></tr>
         <tr class="row-decision"><td class="fn-num">34</td><td><span class="dept-pill delivery">Delivery</span></td><td class="fn-name">QA / QC checklist owner</td><td class="fn-current">No owner</td><td class="fn-target eli">Eli</td><td><span class="org-name daunte">Daunte (technical)</span></td><td class="fn-ai">QC checklist plugin</td></tr>
