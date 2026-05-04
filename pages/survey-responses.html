@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP Roles Survey Responses</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #044771;
+    --navy-dark: #023154;
+    --gold: #F1BE5C;
+    --gold-dark: #d6a648;
+    --gold-light: #fdf0d0;
+    --green: #1a9e5c;
+    --blue-mid: #5987A5;
+    --cream: #FAF6EE;
+    --ink: #1a2436;
+    --ink-soft: #4a5568;
+    --line: #e2e8f0;
+    --bg: #edf1f5;
+    --white: #ffffff;
+    --daunte: #5987A5;
+    --kenny: #1a9e5c;
+    --eli: #c2912f;
+    --rodney: #6b4a8a;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.65; font-size: 15px; }
+  h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--navy); }
+  h1 { font-size: 36px; line-height: 1.15; }
+  h2 { font-size: 26px; margin-bottom: 12px; }
+  h3 { font-size: 18px; margin-bottom: 8px; margin-top: 18px; }
+  h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; margin-top: 12px; }
+  p { margin-bottom: 10px; color: var(--ink); }
+  a { color: var(--navy); }
+  a:hover { text-decoration: underline; }
+  ul, ol { margin: 8px 0 12px 22px; }
+  li { margin-bottom: 4px; }
+  strong { color: var(--navy); }
+
+  nav.top { position: sticky; top: 0; background: var(--navy); color: var(--white); z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+  nav.top .nav-inner { max-width: 1280px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .nav-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: 6px; text-decoration: none; transition: background 0.15s, color 0.15s; border: 1px solid rgba(255,255,255,0.2); }
+  .nav-back:hover { background: rgba(255,255,255,0.1); color: var(--white); text-decoration: none; }
+  .nav-brand { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: 0.5px; color: var(--white); }
+  .nav-brand .accent { color: var(--gold); }
+  .nav-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-tabs a { color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: background 0.15s; text-decoration: none; }
+  .nav-tabs a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+
+  main { max-width: 980px; margin: 0 auto; padding: 0 32px 56px; }
+
+  .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: var(--white); padding: 64px 32px; }
+  .hero-inner { max-width: 980px; margin: 0 auto; }
+  .hero .section-eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; font-weight: 700; margin-bottom: 8px; }
+  .hero h1 { color: var(--white); font-size: 38px; margin-bottom: 14px; }
+  .hero .lede { color: rgba(255,255,255,0.85); font-size: 16px; max-width: 760px; }
+
+  .person-section { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+  .person-section:first-of-type { border-top: none; padding-top: 0; }
+
+  .person-header { background: var(--white); border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; border-left: 6px solid var(--ink-soft); display: flex; align-items: center; gap: 18px; }
+  .person-header.daunte { border-left-color: var(--daunte); }
+  .person-header.eli { border-left-color: var(--eli); }
+  .person-header.kenny { border-left-color: var(--kenny); }
+  .person-header.rodney { border-left-color: var(--rodney); }
+  .person-avatar { width: 60px; height: 60px; border-radius: 50%; background: var(--ink-soft); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 22px; flex-shrink: 0; }
+  .person-header.daunte .person-avatar { background: var(--daunte); }
+  .person-header.eli .person-avatar { background: var(--eli); }
+  .person-header.kenny .person-avatar { background: var(--kenny); }
+  .person-header.rodney .person-avatar { background: var(--rodney); }
+  .person-name { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 24px; color: var(--navy); }
+  .person-role { font-size: 13px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 2px; }
+
+  .survey-section { background: var(--white); border-radius: 10px; border: 1px solid var(--line); padding: 24px 28px; margin-bottom: 18px; }
+  .survey-section h2 { font-size: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }
+  .survey-block { margin-bottom: 18px; }
+  .survey-block:last-child { margin-bottom: 0; }
+  .field-label { font-weight: 700; color: var(--navy); margin-top: 12px; margin-bottom: 4px; font-size: 14px; }
+
+  table.survey-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+  table.survey-table th { background: var(--cream); color: var(--navy); padding: 10px 12px; text-align: left; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--line); }
+  table.survey-table td { padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.survey-table tr:last-child td { border-bottom: none; }
+
+  .ownership-list { background: var(--cream); border-radius: 8px; padding: 16px 20px; margin: 12px 0; }
+  .ownership-row { padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 13px; }
+  .ownership-row:last-child { border-bottom: none; }
+  .ownership-row .row-num { display: inline-block; min-width: 24px; font-weight: 700; color: var(--navy); }
+  .ownership-row .row-fn { font-weight: 600; }
+  .ownership-row .row-role { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; margin-left: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .role-own { background: var(--green); color: var(--white); }
+  .role-contribute { background: var(--blue-mid); color: var(--white); }
+  .role-not { background: var(--ink-soft); color: var(--white); }
+  .role-unclear { background: var(--gold); color: var(--navy); }
+  .ownership-row .row-comment { display: block; color: var(--ink-soft); margin-top: 3px; padding-left: 24px; font-style: italic; font-size: 12px; }
+
+  blockquote { border-left: 3px solid var(--gold); padding: 6px 14px; margin: 10px 0; background: rgba(241,190,92,0.06); font-family: 'Merriweather', serif; font-size: 14px; color: var(--ink); font-style: italic; }
+
+  .person-section h3 { color: var(--navy); }
+
+  footer { background: var(--navy-dark); color: rgba(255,255,255,0.75); padding: 32px; text-align: center; font-size: 12px; }
+  footer .ft-brand { color: var(--white); font-weight: 700; font-family: 'Montserrat', sans-serif; }
+  footer .ft-brand .accent { color: var(--gold); }
+
+  @media (max-width: 720px) {
+    main { padding: 0 16px 40px; }
+    .hero { padding: 48px 16px; }
+    .hero h1 { font-size: 28px; }
+    h2 { font-size: 20px; }
+    nav.top .nav-inner { flex-direction: column; gap: 10px; padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="../index.html" class="nav-back">&larr; Hub</a>
+      <a href="synthesis.html" class="nav-back">&larr; Synthesis</a>
+      <div class="nav-brand">BPP <span class="accent">Survey Responses</span></div>
+    </div>
+    <div class="nav-tabs">
+      <a href="#daunte">Daunte</a>
+      <a href="#eli">Eli</a>
+      <a href="#kenny">Kenny</a>
+      <a href="#rodney">Rodney</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="section-eyebrow">Captured 2026-04-30</div>
+    <h1>What each of us shared</h1>
+    <p class="lede">The full text of every survey response. The synthesis pulls patterns and proposals; this page preserves the actual words. Read here when the synthesis shorthand isn&#39;t enough or when you want to see how someone framed something themselves.</p>
+  </div>
+</section>
+
+<main>
+
+<!-- DAUNTE -->
+<section class="person-section" id="daunte">
+  <div class="person-header daunte">
+    <div class="person-avatar">D</div>
+    <div>
+      <div class="person-name">Daunte</div>
+      <div class="person-role">Co-Owner &middot; Data &amp; Operations</div>
+    </div>
+  </div>
+
+  <div class="survey-section">
+    <h2>1. Weekly Snapshot</h2>
+    <div class="field-label">Typical week</div>
+    <p>Total hours vary by what&#39;s in the sprint. Steady-state ~22&ndash;25 hrs/week. Peak (active build sprint, plugin push, hub overhaul, financial close) ~30&ndash;35 hrs/week. Numbers below are by % of total BPP capacity, which stays roughly stable across both modes.</p>
+    <table class="survey-table">
+      <thead><tr><th>Bucket</th><th>Steady</th><th>Peak</th><th>%</th></tr></thead>
+      <tbody>
+        <tr><td>Internal standing meetings (Mon stand-up, Wed midweek, Sat review)</td><td>~5</td><td>~5</td><td>17%</td></tr>
+        <tr><td>Discovery calls</td><td>~1</td><td>~1.5</td><td>4%</td></tr>
+        <tr><td>Client project meetings (status / kickoff)</td><td>~1.5</td><td>~2</td><td>7%</td></tr>
+        <tr><td>Client deliverables (actual work)</td><td>~2</td><td>~2.5</td><td>8%</td></tr>
+        <tr><td>Financial work (QB, AR, KPI, cost discipline)</td><td>~1</td><td>~1.5</td><td>5%</td></tr>
+        <tr><td>Marketing oversight (Justin reviews, content direction)</td><td>~1</td><td>~1</td><td>3%</td></tr>
+        <tr><td>Research / prep</td><td>~1</td><td>~1</td><td>3%</td></tr>
+        <tr><td><strong>Internal sprints &mdash; biggest bucket</strong> (cloud workflows, plugins, MCPs, hub, Monday admin)</td><td>~8</td><td>~14</td><td>43%</td></tr>
+        <tr><td>Buffer / admin</td><td>~2.5</td><td>~3.5</td><td>10%</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>~22&ndash;25 hrs</strong></td><td><strong>~30&ndash;35 hrs</strong></td><td><strong>100%</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="field-label">Notes</div>
+    <p>I&#39;m very spread thin. I do a little bit of everything &mdash; the internal sprints bucket is by far my biggest, because that&#39;s where I&#39;m building things for the team (plugins, MCPs, hub, Monday admin, anything that makes the rest of the business run cleaner). The pattern is that I keep absorbing &ldquo;make this work&rdquo; tasks instead of distributing them.</p>
+    <p>The reason the total varies is that internal sprints flex based on what&#39;s in the build pipeline. Standing meetings, client meetings, and financial work stay roughly constant. Build time is the volume knob.</p>
+    <p>The reason I&#39;m running this whole exercise is to figure out how to <strong>delegate more or automate more</strong>. The current state isn&#39;t sustainable as we add more clients or more tooling, and the team deserves a structure that doesn&#39;t depend on me being the systems person for every function.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>2. Decision Ownership</h2>
+    <div class="ownership-list">
+      <div class="ownership-row"><span class="row-num">1</span><span class="row-fn">Marketing strategy</span><span class="row-role role-own">Own</span><span class="row-comment">Under Justin&#39;s direction. He&#39;s the marketing strategist; I&#39;m the executive translating that into action and budget.</span></div>
+      <div class="ownership-row"><span class="row-num">2</span><span class="row-fn">Social media calendar</span><span class="row-role role-own">Own</span><span class="row-comment">Justin executes; I review.</span></div>
+      <div class="ownership-row"><span class="row-num">3</span><span class="row-fn">Newsletter topic + author</span><span class="row-role role-own">Own</span><span class="row-comment">Currently unclear; I&#39;ve taken the lead by default. Resolving toward: I own as DRI with all 3 owners as equal contributors on rotation.</span></div>
+      <div class="ownership-row"><span class="row-num">4</span><span class="row-fn">Blog / website content production</span><span class="row-role role-own">Own</span><span class="row-comment">I&#39;ll own content (blog + newsletter). Need contributors. Eli should own website + CMS.</span></div>
+      <div class="ownership-row"><span class="row-num">5</span><span class="row-fn">Brand visual direction</span><span class="row-role role-own">Own (current), should redistribute</span><span class="row-comment">Currently me by default. Eli is the right long-term owner. I don&#39;t want to own this.</span></div>
+      <div class="ownership-row"><span class="row-num">6</span><span class="row-fn">Pricing for new prospect</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Collaborative across all 3.</span></div>
+      <div class="ownership-row"><span class="row-num">7</span><span class="row-fn">Discovery to proposal</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Eli has been doing more of the deal-owner work.</span></div>
+      <div class="ownership-row"><span class="row-num">8</span><span class="row-fn">Go / no-go on prospect</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Whoever owns the deal/prospect.</span></div>
+      <div class="ownership-row"><span class="row-num">9</span><span class="row-fn">Pipeline reporting + forecasting</span><span class="row-role role-not">Not Involved</span><span class="row-comment">Kenny owns. I own the dashboard layer that pulls pipeline data into the Hub.</span></div>
+      <div class="ownership-row"><span class="row-num">10</span><span class="row-fn">Project timeline</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Eli owns; I&#39;m a contributor.</span></div>
+      <div class="ownership-row"><span class="row-num">11</span><span class="row-fn">QC before deliverables ship</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">No clear owner today. I do not feel like I&#39;m the owner. Needs an owner; flag for session.</span></div>
+      <div class="ownership-row"><span class="row-num">12</span><span class="row-fn">Client onboarding (first 2 weeks)</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Eli, taking on PM lead.</span></div>
+      <div class="ownership-row"><span class="row-num">13</span><span class="row-fn">Client weekly status emails</span><span class="row-role role-not">Not Involved</span><span class="row-comment">We don&#39;t really do these. System gap.</span></div>
+      <div class="ownership-row"><span class="row-num">14</span><span class="row-fn">Internal SOP creation</span><span class="row-role role-unclear">Unclear</span><span class="row-comment">Should this be by department? Each person owns their dept SOPs?</span></div>
+      <div class="ownership-row"><span class="row-num">15</span><span class="row-fn">Hiring contractor / new role</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Should be everyone contributing. Justin was hired solo; that&#39;s the pattern we&#39;re correcting.</span></div>
+      <div class="ownership-row"><span class="row-num">16</span><span class="row-fn">Vendor / contractor management</span><span class="row-role role-own">Own (default)</span><span class="row-comment">Long-term should follow function (Sales contractor to Kenny, PM/design to Eli, Marketing to me).</span></div>
+      <div class="ownership-row"><span class="row-num">17</span><span class="row-fn">Tool stack additions</span><span class="row-role role-own">Own (financial gate)</span><span class="row-comment">Everyone can propose. I&#39;m the budget gate.</span></div>
+      <div class="ownership-row"><span class="row-num">18</span><span class="row-fn">Tool stack removals + cost discipline</span><span class="row-role role-own">Own (default)</span><span class="row-comment">Not something I asked to own. Should be a shared monthly review.</span></div>
+      <div class="ownership-row"><span class="row-num">19</span><span class="row-fn">Spending over $500</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Team approval required.</span></div>
+      <div class="ownership-row"><span class="row-num">20</span><span class="row-fn">Revenue split / financial distributions</span><span class="row-role role-own">Own</span><span class="row-comment">Want to teach Eli or Kenny so it&#39;s not concentrated.</span></div>
+      <div class="ownership-row"><span class="row-num">21</span><span class="row-fn">Tax filings + compliance</span><span class="row-role role-own">Own</span><span class="row-comment">Want to walk the team through it so the knowledge is shared.</span></div>
+      <div class="ownership-row"><span class="row-num">22</span><span class="row-fn">Bank account access + controls</span><span class="row-role role-own">Own</span><span class="row-comment">Others have access; I control reconciliation, AR, bank logic.</span></div>
+      <div class="ownership-row"><span class="row-num">23</span><span class="row-fn">Legal / contracts</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Kenny offered to take this. Kenny becomes Owner going forward.</span></div>
+      <div class="ownership-row"><span class="row-num">24</span><span class="row-fn">Monday board structure + automations</span><span class="row-role role-own">Own (automations), should redistribute</span><span class="row-comment">Eli should own structure. I want everyone to get good at automations.</span></div>
+      <div class="ownership-row"><span class="row-num">25</span><span class="row-fn">HubSpot CRM admin</span><span class="row-role role-not">Not Involved</span><span class="row-comment"><strong>Important pattern:</strong> my data/automation background means I push back hard on ideas in that space, and that may be making people hesitant to share. Calibration needed.</span></div>
+      <div class="ownership-row"><span class="row-num">26</span><span class="row-fn">Drive folder structure</span><span class="row-role role-unclear">Unclear</span><span class="row-comment">No clear owner. Kenny&#39;s survey says he owns it; mine says no one does. Misalignment to fix.</span></div>
+      <div class="ownership-row"><span class="row-num">27</span><span class="row-fn">AI tooling decisions</span><span class="row-role role-own">Own (default)</span><span class="row-comment">Defaulting to me because Eli/Kenny defer. Concentration is a single-point-of-failure (Rodney&#39;s flag).</span></div>
+      <div class="ownership-row"><span class="row-num">28</span><span class="row-fn">Quarterly planning + goal-setting</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">All 3 contribute. I own the infrastructure underneath.</span></div>
+    </div>
+    <div class="field-label">Anything missed</div>
+    <p>The bigger gap underneath all 28 rows: <strong>we need a framework to build AI tools and AI employees as the bridge until we have revenue to hire contractors and humans.</strong> The accountability chart is one half of the answer. The other half is treating &ldquo;AI worker&rdquo; as a real ownership category alongside human owners.</p>
+    <div class="field-label">Where ownership should be clearer</div>
+    <p>Two levels:</p>
+    <ol>
+      <li><strong>Department level.</strong> What department exists, who owns it, what functions roll up under each.</li>
+      <li><strong>Function level.</strong> Within each department, every function in section 2 needs a single DRI and a backup. No more &ldquo;we all own it.&rdquo;</li>
+    </ol>
+  </div>
+
+  <div class="survey-section">
+    <h2>3. Energy</h2>
+    <div class="field-label">Energizers (top 3)</div>
+    <ol>
+      <li><strong>Helping clients actually win.</strong> Watching them earn more, grow, save time from the tools we put in their hands. That refills me.</li>
+      <li><strong>Sitting with AI to brainstorm and build systems that reduce friction.</strong> Process optimization, automation, dashboards. When I can see top-down how things connect, I get energy. When the business is spaghetti, I have to decode before I can even start, and that drains.</li>
+      <li><strong>In-person team time.</strong> Whiteboard / strategy sessions, content days, team outings, networking events. The team time is its own category of fuel.</li>
+    </ol>
+    <div class="field-label">Drainers (top 3)</div>
+    <ol>
+      <li><strong>Brand / visual / logo design work.</strong> I&#39;m not a designer and shouldn&#39;t be doing this. Belongs with Eli.</li>
+      <li><strong>Discovery calls when someone else from the team is already the lead.</strong> If Eli or Kenny owns the deal, my presence is redundant.</li>
+      <li><strong>Untangling spaghetti.</strong> Decoding unstructured work before I can start contributing &mdash; the friction tax I pay when systems aren&#39;t documented.</li>
+    </ol>
+    <p>Also draining: procrastination &mdash; when something I should have shipped is lingering, it sits on me even when I&#39;m not actively working on it.</p>
+    <div class="field-label">Would want to own</div>
+    <p>Largely already doing what I want to own: business process optimization, AI infrastructure (co-owned is fine), the operational backbone &mdash; making sure the business runs smoothly, top-down.</p>
+    <p>What I&#39;d actively want to NOT own: HubSpot, Marketing long-term, Brand visual.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>4. Where it&#39;s unclear</h2>
+    <div class="field-label">Self scope creep</div>
+    <p>The underlying pattern: I think about the business at a high level, see gaps, and fill them myself instead of stopping to delegate. That&#39;s the engine behind almost every scope-creep example.</p>
+    <ul>
+      <li><strong>QC by default.</strong> I become the quality gate even when no one made me the QC owner.</li>
+      <li><strong>Brand visual / logo / branding kit.</strong> I want to delegate this.</li>
+      <li>Marketing strategy beyond initial direction. Vendor / contractor management. Tool stack removal. AI tooling decisions made solo.</li>
+    </ul>
+    <p>The fix isn&#39;t a personality fix (&ldquo;stop seeing gaps&rdquo;). It&#39;s a mechanism: when I see a gap, the move should be <strong>flag it for the team to take</strong>, not silently absorb it.</p>
+    <div class="field-label">Other scope creep</div>
+    <p>I don&#39;t see scope creep on others. Eli owns Monday &mdash; that&#39;s clearly his. The rest, I genuinely don&#39;t have an answer for. Worth checking against the other surveys.</p>
+    <div class="field-label">Decisions stuck (three mechanisms)</div>
+    <ol>
+      <li><strong>Validation-seeking.</strong> The team isn&#39;t always comfortable making a decision without checking with someone first &mdash; sometimes specifically with me, because I&#39;ll disagree or have a different way of doing it.</li>
+      <li><strong>No clear ownership.</strong> When no one knows whose call it is, the decision sits.</li>
+      <li><strong>QA / QC bottleneck.</strong> Decisions wait on review when the QA function doesn&#39;t have an owner.</li>
+    </ol>
+    <div class="field-label">Stepped back</div>
+    <p>Stepping back isn&#39;t actually my pattern. I lean in.</p>
+    <p>The more honest read: I tend to step <strong>IN</strong> on things others technically own &mdash; helping out with HubSpot, helping out with the website, stepping in on calls. The pattern: I have the data/automation/systems instinct, so when I see something I think should be done differently, I weigh in.</p>
+    <p>The fix isn&#39;t &ldquo;step back more&rdquo; &mdash; it&#39;s calibrate the timing. Let the owner lead first.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>5. Stop / Start / Continue</h2>
+    <ul>
+      <li><strong>STOP: Working in silos.</strong> Compound our efforts and protect transparency between us.</li>
+      <li><strong>START: Utilizing AI as an employee and automations to fill our gaps and save our time.</strong> The bridge between &ldquo;we don&#39;t have budget for a hire&rdquo; and &ldquo;we can&#39;t keep doing it ourselves.&rdquo;</li>
+      <li><strong>CONTINUE: Our check-ins and team outings.</strong> The cadence of staying connected is the thing that keeps trust intact when we&#39;re under load.</li>
+    </ul>
+  </div>
+
+  <div class="survey-section">
+    <h2>6. Scoreboard</h2>
+    <div class="field-label">Leading metrics (weekly)</div>
+    <ol>
+      <li>Story points shipped per sprint (Operations board completion rate)</li>
+      <li>Financial pulse cadence honored (weekly AR aging, cash position, run rate)</li>
+      <li>Plugins / MCPs / Hub features shipped per sprint (AI workforce roadmap progress)</li>
+    </ol>
+    <div class="field-label">Lagging metrics (quarterly)</div>
+    <ol>
+      <li>Gross margin (Q1: 23%, target 35%+)</li>
+      <li>Revenue actual vs. target (Q1: $7,279 / $15K = 48%)</li>
+      <li>Tool stack cost as % of revenue</li>
+    </ol>
+    <div class="field-label">One number</div>
+    <p>Gross margin. If margin stays under 30%, no system I build pays for itself fast enough &mdash; and the entire AI-workforce thesis depends on systems that compound over time, which only works if margin gives them runway.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>7. Burnout self-check</h2>
+    <table class="survey-table">
+      <thead><tr><th>Signal</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>Sunday-night dread</td><td>No</td></tr>
+        <tr><td>I share problems but rarely share wins</td><td>No</td></tr>
+        <tr><td>I avoid scheduling 1:1s with co-owners</td><td>No</td></tr>
+        <tr><td>Sleep is degrading</td><td>Sometimes</td></tr>
+        <tr><td>I haven&#39;t taken a real day off in over a month</td><td>Sometimes</td></tr>
+        <tr><td>I&#39;m working past 9pm more than 2 nights/week</td><td>Sometimes</td></tr>
+        <tr><td>I feel like I&#39;m wearing too many hats</td><td><strong>Yes</strong></td></tr>
+        <tr><td>I feel like I&#39;m under-using my best skills</td><td><strong>Yes</strong></td></tr>
+      </tbody>
+    </table>
+    <p>I don&#39;t feel burned out. The connection points worth naming:</p>
+    <ul>
+      <li><strong>The two yeses are connected.</strong> I&#39;m wearing too many hats AND I feel like I&#39;m under-using my best skills, because the hats keep me from working on what I&#39;m best at.</li>
+      <li><strong>Bandwidth, not exhaustion.</strong> RS&amp;H day job takes a lot of my bandwidth. Client work absorbs a meaningful chunk while I&#39;m also pushing internal sprint work.</li>
+      <li><strong>Two specific transfers would unlock real capacity.</strong> Sharing how I do certain client work (QuickBooks setup, branding kit creation) with someone else &mdash; those are the two things I&#39;m currently the only one doing.</li>
+    </ul>
+  </div>
+
+  <div class="survey-section">
+    <h2>8. Session wants</h2>
+    <div class="field-label">One thing I want from the session</div>
+    <p>A documented accountability chart with single owners + named backups for every function in section 2 &mdash; paired with agreement on the top 3 AI workers we&#39;re building this quarter.</p>
+    <div class="field-label">Topic I don&#39;t want to skip</div>
+    <p>All three are non-negotiable: <strong>compensation</strong>, <strong>exit / continuation strategy</strong>, <strong>the AI adoption gap</strong>.</p>
+    <div class="field-label">Conversation we&#39;ve been avoiding</div>
+    <p>Whether the team wants to keep doing this. If anyone wants to leave, what&#39;s the strategy. What we&#39;d do with resale or exit. We&#39;ve been heads-down building, and we haven&#39;t checked in on whether all 3 of us still want to be on this ride 6 / 12 / 24 months from now.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>9. Free space</h2>
+    <p><strong>The team has been doing excellent work with the bandwidth and tools we have.</strong> Three co-owners running BPP alongside full-time day jobs and still shipping is not a small thing.</p>
+    <p><strong>I&#39;d like to continue shaping BPP into something all 3 of us actually want to do.</strong> The chart should describe the BPP we&#39;re building toward, not just the BPP we have today.</p>
+    <p><strong>Side missions and BPP can be allies, not competitors.</strong> Each of us has personal endeavors and side projects. Some of that energy can land inside BPP &mdash; building tools, products, processes that ALSO scratch the personal-build itch. The AI plugin work is the cleanest example. BPP shouldn&#39;t take away from personal stuff, but it should benefit from the parts of personal energy that align with where we&#39;re going.</p>
+    <p><strong>Long-term: less time-for-sale, more leverage.</strong> Repeatable and product-like, not always service-based. The AI workforce thesis is one piece. Productized offerings are another. The chart should hold both today&#39;s accountability and tomorrow&#39;s leverage.</p>
+  </div>
+</section>
+
+<!-- ELI -->
+<section class="person-section" id="eli">
+  <div class="person-header eli">
+    <div class="person-avatar">E</div>
+    <div>
+      <div class="person-name">Eli</div>
+      <div class="person-role">Co-Owner &middot; Design, Sales &amp; Client Delivery</div>
+    </div>
+  </div>
+
+  <div class="survey-section">
+    <h2>1. Weekly Snapshot</h2>
+    <div class="field-label">Typical week</div>
+    <ul>
+      <li>Internal Meetings (Weekly Stand Up, Midweek, Weekly Overview): 3 calls/week, ~4 hours weekly &mdash; 12%</li>
+      <li>Discovery Calls: 1&ndash;3 calls/week, ~3 hours weekly (45&ndash;75 min per call) &mdash; 9%</li>
+      <li>Client Project Meetings (including Kickoffs): 1&ndash;4 calls/week, ~3 hours weekly &mdash; 9%</li>
+      <li>Client Deliverables: 5&ndash;10 hours weekly &mdash; 23%</li>
+      <li>Internal Sprint Deliverables: 5&ndash;10 hours weekly &mdash; 23%</li>
+      <li>Research &amp; Prep for Client-Facing Calls: 1&ndash;4 hours weekly, scaled to call volume and complexity &mdash; 8%</li>
+      <li>Buffer / Admin / Async Work: remaining capacity &mdash; 16%</li>
+    </ul>
+  </div>
+
+  <div class="survey-section">
+    <h2>2. Decision Ownership</h2>
+    <div class="ownership-list">
+      <div class="ownership-row"><span class="row-num">1</span><span class="row-fn">Marketing strategy</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">DTB and Justin</span></div>
+      <div class="ownership-row"><span class="row-num">2</span><span class="row-fn">Social media calendar</span><span class="row-role role-not">Not Involved</span><span class="row-comment">DTB and Justin</span></div>
+      <div class="ownership-row"><span class="row-num">3</span><span class="row-fn">Newsletter topic + author</span><span class="row-role role-unclear">Unclear</span><span class="row-comment">Not sure on owner, feels collaborative</span></div>
+      <div class="ownership-row"><span class="row-num">4</span><span class="row-fn">Blog / website content</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Not sure on owner, feels collaborative</span></div>
+      <div class="ownership-row"><span class="row-num">5</span><span class="row-fn">Brand visual direction</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Not sure on owner, feels collaborative</span></div>
+      <div class="ownership-row"><span class="row-num">6</span><span class="row-fn">Pricing for new prospect</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Not sure on owner, feels collaborative</span></div>
+      <div class="ownership-row"><span class="row-num">7</span><span class="row-fn">Discovery to proposal</span><span class="row-role role-own">Own</span><span class="row-comment">All owners for our individual accounts</span></div>
+      <div class="ownership-row"><span class="row-num">8</span><span class="row-fn">Go / no-go on prospect</span><span class="row-role role-own">Own</span><span class="row-comment">Own based on agreed criteria (red flags vs. Target ICP)</span></div>
+      <div class="ownership-row"><span class="row-num">9</span><span class="row-fn">Pipeline reporting</span><span class="row-role role-not">Not Involved</span><span class="row-comment">Kenny</span></div>
+      <div class="ownership-row"><span class="row-num">10</span><span class="row-fn">Project timeline</span><span class="row-role role-own">Own</span><span class="row-comment">All owners for our individual accounts</span></div>
+      <div class="ownership-row"><span class="row-num">11</span><span class="row-fn">QC before deliverables ship</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Not sure who owns QA as a dept; we all do internal reviews before shipping</span></div>
+      <div class="ownership-row"><span class="row-num">12</span><span class="row-fn">Client onboarding (first 2 weeks)</span><span class="row-role role-own">Own</span><span class="row-comment">All owners for our individual accounts</span></div>
+      <div class="ownership-row"><span class="row-num">13</span><span class="row-fn">Client weekly status emails</span><span class="row-role role-own">Own</span><span class="row-comment">All owners for our individual accounts</span></div>
+      <div class="ownership-row"><span class="row-num">14</span><span class="row-fn">Internal SOP creation</span><span class="row-role role-own">Own</span><span class="row-comment">PM is me, Sales is Kenny, Marketing/Enterprise is DTB</span></div>
+      <div class="ownership-row"><span class="row-num">15</span><span class="row-fn">Hiring contractor / new role</span><span class="row-role role-unclear">Unclear</span><span class="row-comment">For Marketing, DTB hired Justin but not sure if we were included in the decision</span></div>
+      <div class="ownership-row"><span class="row-num">16</span><span class="row-fn">Vendor / contractor management</span><span class="row-role role-unclear">Unclear</span><span class="row-comment">DTB pertaining to marketing; future probably all owners by dept</span></div>
+      <div class="ownership-row"><span class="row-num">17</span><span class="row-fn">Tool stack additions</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">DTB suggests; company decision on add</span></div>
+      <div class="ownership-row"><span class="row-num">18</span><span class="row-fn">Tool stack removals</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Company decision; most tech is auto-renewed</span></div>
+      <div class="ownership-row"><span class="row-num">19</span><span class="row-fn">Spending over $500</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">All owners</span></div>
+      <div class="ownership-row"><span class="row-num">20</span><span class="row-fn">Revenue split / distributions</span><span class="row-role role-not">Not Involved</span><span class="row-comment">Finances has been DTB</span></div>
+      <div class="ownership-row"><span class="row-num">21</span><span class="row-fn">Tax filings + compliance</span><span class="row-role role-not">Not Involved</span><span class="row-comment">DTB</span></div>
+      <div class="ownership-row"><span class="row-num">22</span><span class="row-fn">Bank account access</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">I have access but don&#39;t control anything</span></div>
+      <div class="ownership-row"><span class="row-num">23</span><span class="row-fn">Legal / contracts</span><span class="row-role role-not">Not Involved</span><span class="row-comment">Haven&#39;t been involved currently</span></div>
+      <div class="ownership-row"><span class="row-num">24</span><span class="row-fn">Monday board structure + automations</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Board structure I primarily own with DTB assisting; automations primarily DTB</span></div>
+      <div class="ownership-row"><span class="row-num">25</span><span class="row-fn">HubSpot CRM admin</span><span class="row-role role-not">Not Involved</span><span class="row-comment">Kenny</span></div>
+      <div class="ownership-row"><span class="row-num">26</span><span class="row-fn">Drive folder structure</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">I own BPP Media folder, not anything else</span></div>
+      <div class="ownership-row"><span class="row-num">27</span><span class="row-fn">AI tooling decisions</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Collaborative but no true owner</span></div>
+      <div class="ownership-row"><span class="row-num">28</span><span class="row-fn">Quarterly planning</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Collaborative but no true owner</span></div>
+    </div>
+    <div class="field-label">Anything missed</div>
+    <p>Who owns content creation (idea bank).</p>
+    <div class="field-label">Where ownership should be clearer</div>
+    <ol>
+      <li>Marketing since we have evolved that dept.</li>
+      <li>Specifically, who owns what tool or what dept in 2026 since we&#39;ve added new frameworks and processes like Monday and Claude.</li>
+    </ol>
+  </div>
+
+  <div class="survey-section">
+    <h2>3. Energy</h2>
+    <div class="field-label">Energizers</div>
+    <ol>
+      <li>Building a deliverable for a client in which they&#39;re genuinely excited about using or showing off.</li>
+      <li>Vibe coding and learning more about how to combine product management, project management, and software engineering into how we deliver work.</li>
+      <li>Hanging out with my bruthas.</li>
+    </ol>
+    <div class="field-label">Drainers</div>
+    <ol>
+      <li>Sales calls / outreach.</li>
+      <li>Pointless, inefficient meetings.</li>
+    </ol>
+    <div class="field-label">Would want to own</div>
+    <p>My heart says Project Management related activities but I&#39;m not an expert in that field and wouldn&#39;t want to steer the team in the wrong direction.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>4. Where it&#39;s unclear</h2>
+    <div class="field-label">Self scope creep</div>
+    <ol>
+      <li>Extended client related meetings.</li>
+      <li>I&#39;m sure there&#39;s more but that&#39;s the only thing I can think of right now.</li>
+    </ol>
+    <div class="field-label">Other scope creep</div>
+    <p>Probably anything that&#39;s not related to the main internal sprint we set out to do, unless it&#39;s BAU work (which we don&#39;t have sussed out per dept), client deliverables, or meetings.</p>
+    <div class="field-label">Decisions stuck</div>
+    <p>Goes back to ownership. For the most part we all have tools and systems that we manage, but in regards to making decisions it&#39;s more collaborative instead of executing.</p>
+    <div class="field-label">Stepped back</div>
+    <p>Probably in regards to the creation of some ideas. I feel like I can be better at making certain decisions and being proactive but historically, it&#39;s been harder to make decisions since in the beginning I&#39;d throw out ideas and it felt like it would be deflected with another idea that was more sound.</p>
+    <p>I think I just lost my confidence with the collaborative element of formulating new ideas since in some parts of our business I have a domain gap.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>5. Stop / Start / Continue</h2>
+    <ul>
+      <li><strong>STOP:</strong> not sure</li>
+      <li><strong>START:</strong> not sure</li>
+      <li><strong>CONTINUE:</strong> Continue communicating and having transparency so we&#39;re all aligned.</li>
+    </ul>
+  </div>
+
+  <div class="survey-section">
+    <h2>6. Scoreboard</h2>
+    <div class="field-label">Leading</div>
+    <ol>
+      <li>What deliverables I&#39;ve accomplished</li>
+      <li>Conversion rate of new clients</li>
+    </ol>
+    <div class="field-label">Lagging</div>
+    <p>Not sure.</p>
+    <div class="field-label">One number</div>
+    <p>Not sure.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>7. Burnout self-check</h2>
+    <table class="survey-table">
+      <thead><tr><th>Signal</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>Sunday-night dread</td><td>Sometimes</td></tr>
+        <tr><td>Share problems but rarely share wins</td><td>Sometimes</td></tr>
+        <tr><td>Avoid scheduling 1:1s with co-owners</td><td>No</td></tr>
+        <tr><td>Sleep is degrading</td><td>No</td></tr>
+        <tr><td>Haven&#39;t taken a real day off in over a month</td><td>Yes</td></tr>
+        <tr><td>Working past 9pm more than 2 nights/week</td><td>No</td></tr>
+        <tr><td>Wearing too many hats</td><td>Sometimes</td></tr>
+        <tr><td>Under-using best skills</td><td>No</td></tr>
+      </tbody>
+    </table>
+    <div class="field-label">Notes</div>
+    <p>Burnout may just be coming from the monotony without incentive or a lot of work with no real results (personally) to show for it outside of business improvements and client satisfaction.</p>
+    <p>It&#39;s tiresome to research new clients and then create a sales strategy to close them, then work on many deliverables at the same time while still prepping for new meetings while still having to think about ways we can improve internally and all the other things that come with business. Then I still have a lot going on mentally since it&#39;s been almost 3 months and I still don&#39;t have a job, no active income coming in, etc. Also I&#39;m trying to continue upskilling myself so that I can turn my six-figure skillset into a million dollar plus skillset. Also wanting to do other hobbies on top of all of this is very draining and I tend not to get around to it as intensely as I&#39;d like.</p>
+    <p>I believe in us and BPP though, and I&#39;m aware of all of this so I know I&#39;ll keep going regardless.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>8. Session wants</h2>
+    <ul>
+      <li><strong>Want from session:</strong> Alignment / Clarity</li>
+      <li><strong>Don&#39;t skip:</strong> Nah, let&#39;s talk about it all.</li>
+      <li><strong>Conversation we&#39;ve avoided:</strong> How can we incentivize ourselves while we&#39;re still growing?</li>
+    </ul>
+  </div>
+
+  <div class="survey-section">
+    <h2>9. Free space</h2>
+    <p>This was very reflective and probably a good time to be asking these questions since I can tell all of our bandwidths have been trending down recently.</p>
+    <p>I think the beauty is that our systems and packages are getting tighter and more sussed out, but now trying to figure out the time component is going to be the tricky part.</p>
+    <p>In my mind, I felt like for the next couple of years the pace we&#39;re currently going is just a necessary evil so we can get to the place to where we have enough resources to hire the right people so we can work on other pieces of the business.</p>
+    <p>I think long term my vision for BPP is to get it to the place to where we&#39;re playing the role of Board of Directors and the company has a CEO and functional managers.</p>
+    <p>I genuinely don&#39;t think I&#39;d want to do this as a career, but I would LOVE to scale this to a place to where we can exit and make a lot of money so we never have to work again (if we don&#39;t want to).</p>
+  </div>
+</section>
+
+<!-- KENNY -->
+<section class="person-section" id="kenny">
+  <div class="person-header kenny">
+    <div class="person-avatar">K</div>
+    <div>
+      <div class="person-name">Kenny</div>
+      <div class="person-role">Co-Owner &middot; Business Development &amp; Sales</div>
+    </div>
+  </div>
+
+  <div class="survey-section">
+    <h2>1. Weekly Snapshot</h2>
+    <div class="field-label">Typical week</div>
+    <ul>
+      <li>Client deliverables / follow-up: ~20%</li>
+      <li>Internal stuff: ~15%</li>
+      <li>Calls with team and clients: ~50%</li>
+      <li>General research: ~10%</li>
+      <li>Marketing and content: ~5%</li>
+    </ul>
+    <div class="field-label">Notes</div>
+    <p>The majority of my weeks are caught up between managing personal appointments, managing my research schedule, and then trying to manage work-life balance for every week. I&#39;m not the best but I&#39;m working on it.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>2. Decision Ownership</h2>
+    <div class="ownership-list">
+      <div class="ownership-row"><span class="row-num">1</span><span class="row-fn">Marketing strategy</span><span class="row-role role-not">Not Involved</span></div>
+      <div class="ownership-row"><span class="row-num">2</span><span class="row-fn">Social media calendar</span><span class="row-role role-not">Not Involved</span></div>
+      <div class="ownership-row"><span class="row-num">3</span><span class="row-fn">Newsletter topic + author</span><span class="row-role role-not">Not Involved</span></div>
+      <div class="ownership-row"><span class="row-num">4</span><span class="row-fn">Blog / website content</span><span class="row-role role-contribute">Contribute</span></div>
+      <div class="ownership-row"><span class="row-num">5</span><span class="row-fn">Brand visual direction</span><span class="row-role role-not">Not Involved</span></div>
+      <div class="ownership-row"><span class="row-num">6</span><span class="row-fn">Pricing for new prospect</span><span class="row-role role-contribute">Contribute</span></div>
+      <div class="ownership-row"><span class="row-num">7</span><span class="row-fn">Discovery to proposal</span><span class="row-role role-own">Own</span></div>
+      <div class="ownership-row"><span class="row-num">8</span><span class="row-fn">Go / no-go on prospect</span><span class="row-role role-own">Own</span></div>
+      <div class="ownership-row"><span class="row-num">9</span><span class="row-fn">Pipeline reporting</span><span class="row-role role-own">Own</span></div>
+      <div class="ownership-row"><span class="row-num">10</span><span class="row-fn">Project timeline</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Eli understands agile framework</span></div>
+      <div class="ownership-row"><span class="row-num">11</span><span class="row-fn">QC before deliverables ship</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">DTB has best eye for detail</span></div>
+      <div class="ownership-row"><span class="row-num">12</span><span class="row-fn">Client onboarding</span><span class="row-role role-contribute">Contribute</span></div>
+      <div class="ownership-row"><span class="row-num">13</span><span class="row-fn">Client weekly status emails</span><span class="row-role role-contribute">Contribute</span></div>
+      <div class="ownership-row"><span class="row-num">14</span><span class="row-fn">Internal SOP creation</span><span class="row-role role-contribute">Contribute</span></div>
+      <div class="ownership-row"><span class="row-num">15</span><span class="row-fn">Hiring contractor</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Domain dependencies</span></div>
+      <div class="ownership-row"><span class="row-num">16</span><span class="row-fn">Vendor / contractor management</span><span class="row-role role-contribute">Contribute</span></div>
+      <div class="ownership-row"><span class="row-num">17</span><span class="row-fn">Tool stack additions</span><span class="row-role role-contribute">Contribute</span></div>
+      <div class="ownership-row"><span class="row-num">18</span><span class="row-fn">Tool stack removals</span><span class="row-role role-contribute">Contribute</span></div>
+      <div class="ownership-row"><span class="row-num">19</span><span class="row-fn">Spending over $500</span><span class="row-role role-contribute">Contribute</span></div>
+      <div class="ownership-row"><span class="row-num">20</span><span class="row-fn">Revenue split</span><span class="row-role role-not">Not Involved</span><span class="row-comment">DTB maybe has best skillset</span></div>
+      <div class="ownership-row"><span class="row-num">21</span><span class="row-fn">Tax filings</span><span class="row-role role-not">Not Involved</span><span class="row-comment">DTB</span></div>
+      <div class="ownership-row"><span class="row-num">22</span><span class="row-fn">Bank account access</span><span class="row-role role-contribute">Contribute</span></div>
+      <div class="ownership-row"><span class="row-num">23</span><span class="row-fn">Legal / contracts</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">I don&#39;t mind legal docs or contracts</span></div>
+      <div class="ownership-row"><span class="row-num">24</span><span class="row-fn">Monday board structure + automations</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">Eli</span></div>
+      <div class="ownership-row"><span class="row-num">25</span><span class="row-fn">HubSpot CRM admin</span><span class="row-role role-own">Own</span></div>
+      <div class="ownership-row"><span class="row-num">26</span><span class="row-fn">Drive folder structure</span><span class="row-role role-own">Own</span></div>
+      <div class="ownership-row"><span class="row-num">27</span><span class="row-fn">AI tooling decisions</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">DTB has best skillset</span></div>
+      <div class="ownership-row"><span class="row-num">28</span><span class="row-fn">Quarterly planning</span><span class="row-role role-contribute">Contribute</span><span class="row-comment">All</span></div>
+    </div>
+  </div>
+
+  <div class="survey-section">
+    <h2>3. Energy</h2>
+    <div class="field-label">Energizers</div>
+    <ol>
+      <li>Process mapping / researching gaps in business models.</li>
+      <li>Conversational selling at events, podcasts, early funnel calls.</li>
+      <li>Overall brand strategy and funnel building.</li>
+    </ol>
+    <div class="field-label">Drainers</div>
+    <ol>
+      <li>Social media posting / short form.</li>
+      <li>Non-motivated / non-committed clients.</li>
+      <li>GMB lol.</li>
+    </ol>
+  </div>
+
+  <div class="survey-section">
+    <h2>4. Where it&#39;s unclear</h2>
+    <div class="field-label">Self scope creep</div>
+    <p>Honestly I feel I could be better at client delivery and staying on time with target goals.</p>
+    <div class="field-label">Other scope creep</div>
+    <p>I feel DTB picks up a lot of slack managing clients and making sure our internal process is optimized.</p>
+    <div class="field-label">Decisions stuck</div>
+    <p>I feel like we can be too quick to agree, and we could spend time during our meetings to propose an idea and take time to research the best answers so we can have formal conversations rooted in perspective. Sometimes we can use the &ldquo;you guys good with xyz&rdquo; framework then just delegate best opinion to the initial suggestion instead of digging deep. A lack of ownership almost in decisions.</p>
+    <div class="field-label">Stepped back</div>
+    <p>In general since 3/17 I&#39;ve taken a step back from sales outreach and clients to focus on healing up. Now trying to get back into my routine.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>5. Stop / Start / Continue</h2>
+    <ul>
+      <li><strong>STOP:</strong> We probably should lead with calling instead of relying on texts/emails as primary communication.</li>
+      <li><strong>START:</strong> We should start doing podcast.</li>
+      <li><strong>CONTINUE:</strong> We should continue to go to events and focus on relationships.</li>
+    </ul>
+  </div>
+
+  <div class="survey-section">
+    <h2>6. Scoreboard</h2>
+    <div class="field-label">Leading</div>
+    <ol>
+      <li>Leads entered</li>
+      <li>Lead deal conversion rate</li>
+      <li>Time per stage in pipeline</li>
+    </ol>
+    <div class="field-label">Lagging</div>
+    <ol>
+      <li>Revenue actual vs. target</li>
+      <li>LTV</li>
+      <li>Project profitability</li>
+    </ol>
+    <div class="field-label">One number</div>
+    <p>Total revenue value.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>7. Burnout self-check</h2>
+    <table class="survey-table">
+      <thead><tr><th>Signal</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>Sunday-night dread</td><td>Sometimes</td></tr>
+        <tr><td>Share problems but rarely share wins</td><td>Sometimes</td></tr>
+        <tr><td>Avoid scheduling 1:1s with co-owners</td><td>No</td></tr>
+        <tr><td>Sleep is degrading</td><td>Yes</td></tr>
+        <tr><td>Haven&#39;t taken a real day off in over a month</td><td>No</td></tr>
+        <tr><td>Working past 9pm more than 2 nights/week</td><td>Yes</td></tr>
+        <tr><td>Wearing too many hats</td><td>Sometimes</td></tr>
+        <tr><td>Under-using best skills</td><td>No</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="survey-section">
+    <h2>8. Session wants</h2>
+    <ul>
+      <li><strong>Want from session:</strong> (no answer)</li>
+      <li><strong>Don&#39;t skip:</strong> (no answer)</li>
+      <li><strong>Conversation we&#39;ve avoided:</strong> Exit strategy</li>
+    </ul>
+  </div>
+
+  <div class="survey-section">
+    <h2>9. Free space</h2>
+    <p>This is my second time filling this out because all my answers got deleted, but I remember I put down that the survey was quite difficult as some of the answers. I wasn&#39;t sure on how to go back and think about it a few times. I definitely have felt due to my health that I have not been as productive as I would like, but I&#39;m trying to find a balance of recovery and still knocking out my responsibilities.</p>
+  </div>
+</section>
+
+<!-- RODNEY -->
+<section class="person-section" id="rodney">
+  <div class="person-header rodney">
+    <div class="person-avatar">R</div>
+    <div>
+      <div class="person-name">Rodney</div>
+      <div class="person-role">Outside Advisor</div>
+    </div>
+  </div>
+
+  <div class="survey-section">
+    <h2>1. What you observe</h2>
+    <div class="field-label">Biggest pattern</div>
+    <p>Lack of pre-prep work on an established company&#39;s industry.</p>
+    <div class="field-label">Overlap that confuses</div>
+    <ol type="A">
+      <li>Too much reliance on DTB as final decision maker. No hard pushback on what DTB thinks.</li>
+      <li>Too much specialization will create huge capacity issues when only one can do a specific task.</li>
+    </ol>
+    <div class="field-label">Gaps</div>
+    <p>Building strong client relationships by mixing business with pleasure. Inviting clients to personal social gatherings, getting to know them better. That&#39;s what attorneys and business consultants do all the time (and legally write it off). They will share more issues and open tremendous opportunities to do more business by revealing more intimate details about current and future opportunities. And will share more.</p>
+    <p>Also post-engagement deep dive to determine a client&#39;s true level of satisfaction. No one will write a bad google review (that&#39;s considered unprofessional) but they will decide to not do business again.</p>
+    <p><strong>NO ONE OWNER OF THIS AS IT SHOULD BE A PART OF CLIENT PROSPECTING DNA.</strong></p>
+  </div>
+
+  <div class="survey-section">
+    <h2>2. Each of us</h2>
+    <p style="font-style: italic; color: var(--ink-soft);">(Rodney didn&#39;t fill out per-person strengths or grow areas. Reserved for live conversation in the session.)</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>3. The team as a unit</h2>
+    <div class="field-label">Decide well</div>
+    <p>Scope of work and invoicing.</p>
+    <div class="field-label">Get stuck</div>
+    <p>Custom opportunities outside of current product / solution opportunities.</p>
+    <div class="field-label">Avoiding</div>
+    <ol type="A">
+      <li>Sales and developing customer relationships.</li>
+      <li>Deep-dive post-implementation feedback from clients.</li>
+    </ol>
+  </div>
+
+  <div class="survey-section">
+    <h2>4. Burnout signals</h2>
+    <div class="field-label">Showing burnout</div>
+    <p>Yes... at times everyone because BPP is a side gig and all work full-time jobs.</p>
+    <div class="field-label">Under-utilized</div>
+    <p>Should be cross-trained on everything. Less than 3 business plans have been created by Eli / Kenny.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>5. From your seat as advisor</h2>
+    <div class="field-label">First decision</div>
+    <p>Insure social media efforts are tracked, measured and modified based on specific BASIC METRICS that correlate back to sales.</p>
+    <div class="field-label">Move not making</div>
+    <p>Target political campaigns using basic marketing and analytical tools. Lots of available campaign dollars over the next 2 years going into 2028 election cycle.</p>
+    <div class="field-label">Move to push back on</div>
+    <p>None.</p>
+  </div>
+
+  <div class="survey-section">
+    <h2>6. The session</h2>
+    <ul>
+      <li><strong>Topic not to skip:</strong> Acquiring new clients.</li>
+      <li><strong>Attendance:</strong> Combination of both (in-person and remote)</li>
+    </ul>
+  </div>
+
+  <div class="survey-section">
+    <h2>7. Free space</h2>
+    <p>Continue path and stay laser focused on providing specific client business solutions rather than hunting for evidence that supports providing a specific tool or app.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="ft-brand">Business Plans <span class="accent">Plus</span></div>
+  <div style="margin-top: 8px;">Survey Responses &middot; Internal &middot; Captured 2026-04-30 &middot; Synthesized 2026-05-04</div>
+</footer>
+
+</body>
+</html>
