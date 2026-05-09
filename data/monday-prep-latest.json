@@ -1,0 +1,131 @@
+{
+  "week_of": "2026-05-11",
+  "generated_at": "2026-05-09T20:00:00",
+  "generation_mode": "hand-seeded-v1",
+  "sources_status": {
+    "QB": "OK",
+    "HubSpot": "PENDING",
+    "Monday": "PENDING",
+    "Forecast": "OK",
+    "Git": "OK"
+  },
+  "stale_flags": [
+    "HubSpot and Monday MCP wire-up pending; brief uses placeholders for those fields"
+  ],
+  "north_star": "Lock in May AR. Operating is $321 below 2-month buffer; four high-likelihood receivables ($4,260) cover the gap. If those land, Phase 2 activates in June.",
+  "operating_norms": [
+    "$2K rule: below = DRI calls it. Above = team debate.",
+    "Iron sharpens iron: defend with rationale, don't defer for harmony.",
+    "AI per dept: framework central, agents owned by the dept they serve."
+  ],
+  "out_of_scope": [
+    "Project deep-dives (delivery sync, not here)",
+    "Compensation / exit / strategic shifts (separate sessions)"
+  ],
+  "sprint": {
+    "number": 2,
+    "total": null,
+    "day": null,
+    "pct_done": null,
+    "goal": "Pending Monday MCP — currently inferred: ship LinkedIn engagement push + Marketing transition kit"
+  },
+  "top_three": [
+    {"title": "Package Kenny's Marketing transition kit", "owner": "Daunte", "status": "In Progress"},
+    {"title": "AR follow-ups for Lois milestone $1,800 + Maxine $1,000", "owner": "Eli/Daunte", "status": "In Progress"},
+    {"title": "Wedelia + SEEDFOLKids next-milestone confirmations", "owner": "Eli", "status": "Open"}
+  ],
+  "suggested_move": {
+    "headline": "Lock in this week's high-likelihood AR collections.",
+    "reasoning": "Operating is $321 below the 2-month buffer. The four high-likelihood receivables in flight cover the gap. Eli + Daunte to confirm Lois milestone timing and Maxine milestone trigger this week. If Lois closeout ($1,350) lands too, Stretch scenario activates and we get within striking distance of Phase 3."
+  },
+  "overdue": [],
+  "clients_at_risk": [
+    {"name": "Bellido", "flag_reason": "Event date pressure; mid-engagement pivot from biz plan + QB to event services connect", "owner": "Daunte"},
+    {"name": "HALO Commons", "flag_reason": "Project may not finish in May (per 4/28 transcript); flag for May 15 check", "owner": "Eli"}
+  ],
+  "cold_deals": [],
+  "wip_violations": [],
+  "cash": {
+    "operating": 3328,
+    "savings": 2805,
+    "rodney_envelope": 363,
+    "total": 6496,
+    "buffer_target": 3649,
+    "buffer_gap": -321,
+    "savings_pct_to_phase2": 93
+  },
+  "ar_scenarios": [
+    {
+      "name": "Conservative",
+      "receivables_in": 4260,
+      "expenses_out": -2100,
+      "ending_operating": 5488,
+      "savings_after": 3453,
+      "hits_phase2": true,
+      "highlight": false,
+      "detail": "Highs only: Wanda $500, Lois milestone $1,800, Jeannette $960, Maxine $1,000."
+    },
+    {
+      "name": "Realistic",
+      "receivables_in": 5085,
+      "expenses_out": -2100,
+      "ending_operating": 6313,
+      "savings_after": 3700,
+      "hits_phase2": true,
+      "highlight": true,
+      "detail": "+ HALO Commons $824."
+    },
+    {
+      "name": "Stretch",
+      "receivables_in": 6434,
+      "expenses_out": -2100,
+      "ending_operating": 7663,
+      "savings_after": 4105,
+      "hits_phase2": true,
+      "highlight": false,
+      "detail": "+ Lois closeout $1,350. Within reach of Phase 3."
+    }
+  ],
+  "pipeline": {
+    "total": 12000,
+    "count": 5,
+    "hot_count": null,
+    "hot_value": null,
+    "cold_count": null,
+    "cold_value": null,
+    "verified_date": "2026-05-04"
+  },
+  "phase": {
+    "current": "Phase 1",
+    "next_trigger": "Savings >= $3K (93% there)",
+    "transitioning_to": "Phase 2"
+  },
+  "capacity_per_owner": {
+    "Daunte": {"in_flight": null, "overdue": null, "points": null, "day_job_flag": "RS&H bandwidth limited"},
+    "Kenny": {"in_flight": null, "overdue": null, "points": null, "day_job_flag": "Recovery context (3/17 ongoing)"},
+    "Eli": {"in_flight": null, "overdue": null, "points": null, "day_job_flag": "Most BPP time of any owner"}
+  },
+  "capacity_alert": "Per April 28 transcript: team was already over-leveraged with Curbology and Halo approaching. Don't pile on without resource planning.",
+  "shipped_last_week": [
+    {"repo": "bpp-tools", "commit_summary": "590a9cc Survey Responses page + Conversations We Owe Each Other section", "author": "Daunte"},
+    {"repo": "bpp-tools", "commit_summary": "b914129 Ratify org chart from 2026-05-06 mid-week session", "author": "Daunte"},
+    {"repo": "bpp-tools", "commit_summary": "6562cb8 Redesign hub home page for daily operating use", "author": "Daunte"}
+  ],
+  "prior_decisions": [],
+  "drift_signals": [
+    "Forecast is 9 days old (fresh enough; watch for next monthly close first week of June)",
+    "Marketing transition kit not yet packaged — blocks Kenny KT sessions",
+    "Friday survey (Cellstaff/15Five) not yet built — agreed in 5/6 ratification"
+  ],
+  "qc_schedule": {
+    "next_qb_qc": "TBD",
+    "next_hubspot_qc": "TBD",
+    "next_drive_qc": "TBD"
+  },
+  "parking_lot": [
+    "Two-board friction (Operations vs. Client Projects)",
+    "Compensation framework conversation",
+    "Cellstaff Friday survey build",
+    "AI workforce top 3 confirmation"
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "_format": "Persistent decision tracker. New entries are pushed to weeks[]. Each week stores decisions made in that Monday's CEO meeting. Status updates flow back via ops.html during subsequent meetings.",
+  "_status_values": ["OPEN", "IN_FLIGHT", "DONE", "BLOCKED", "DROPPED"],
+  "weeks": [
+    {
+      "week_of": "2026-05-06",
+      "note": "From the 2026-05-06 mid-week ratification session (not a Monday CEO meeting, but seeded here so 5/11 brief can pull last decisions).",
+      "decisions": [
+        {
+          "decision": "Kenny takes Marketing & Content DRI; Daunte steps back as backup",
+          "owner": "Kenny + Daunte",
+          "set_date": "2026-05-06",
+          "due_date": null,
+          "status": "IN_FLIGHT",
+          "notes": "Transition kit packaging in flight before KT sessions"
+        },
+        {
+          "decision": "$2K decision threshold rule",
+          "owner": "All",
+          "set_date": "2026-05-06",
+          "due_date": null,
+          "status": "DONE",
+          "notes": "Operating norm; no further action"
+        },
+        {
+          "decision": "Iron sharpens iron debate norm",
+          "owner": "All",
+          "set_date": "2026-05-06",
+          "due_date": null,
+          "status": "DONE",
+          "notes": "Operating norm; no further action"
+        },
+        {
+          "decision": "AI agents per dept (framework central, ownership distributed)",
+          "owner": "Daunte (framework) + each dept DRI",
+          "set_date": "2026-05-06",
+          "due_date": null,
+          "status": "DONE",
+          "notes": "Operating norm"
+        },
+        {
+          "decision": "Build dummy QB / HubSpot / Live Plan accounts for cross-training",
+          "owner": "Daunte",
+          "set_date": "2026-05-06",
+          "due_date": "2026-05-20",
+          "status": "OPEN",
+          "notes": "Prereq for KT sessions"
+        },
+        {
+          "decision": "Set up Friday feedback survey (Cellstaff/15Five model)",
+          "owner": "TBD",
+          "set_date": "2026-05-06",
+          "due_date": null,
+          "status": "OPEN",
+          "notes": "Owner not assigned in session"
+        },
+        {
+          "decision": "Daunte researches HR / contractor / procurement role shape before HR chair is named",
+          "owner": "Daunte",
+          "set_date": "2026-05-06",
+          "due_date": null,
+          "status": "OPEN",
+          "notes": "Parked until research is done"
+        },
+        {
+          "decision": "Schedule compensation framework conversation (separate session)",
+          "owner": "Daunte (to schedule)",
+          "set_date": "2026-05-06",
+          "due_date": null,
+          "status": "OPEN",
+          "notes": "Connected to Eli's financial pressure + Kenny's exit strategy avoided conversation"
+        }
+      ]
+    }
+  ]
+}

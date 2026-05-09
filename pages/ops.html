@@ -37,7 +37,7 @@
   <div class="sec-header">
     <div class="sec-eyebrow">Operations</div>
     <div class="sec-title">Operations <span>Hub</span></div>
-    <div class="sec-desc">Weekly scorecard, CEO meeting agenda, and quarterly review. Fill before every Monday meeting.</div>
+    <div class="sec-desc">Monday CEO meeting (auto-prepped Sunday 8pm), weekly scorecard, and quarterly review.</div>
   </div>
 
   <!-- Sub-tabs for Ops -->
@@ -50,119 +50,176 @@
   <!-- CEO Meeting Panel -->
   <div class="ops-panel active" id="ops-ceo">
     <div class="ops-section">
-      <div class="ops-section-title"><span class="emoji">&#128202;</span> Monday CEO Meeting</div>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Every Monday, 30 minutes, owners only. Owner-altitude only. No project deep dives.</p>
+      <div class="ops-section-title"><span class="emoji">&#128202;</span> Monday CEO Meeting <span style="font-size:11px;font-weight:400;color:var(--muted);margin-left:8px;">30 min &middot; owners only &middot; decision-first</span></div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">Brief auto-generated Sunday 8pm by <code style="background:var(--bg);padding:1px 5px;border-radius:3px;font-size:11px;">bpp-monday-prep</code>. Meeting is for <strong>deciding</strong>, not gathering. Project deep-dives go to delivery sync.</p>
 
-      <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;">
-        <button class="btn btn-gold" onclick="resetMeeting()">New Meeting</button>
+      <!-- Brief Status -->
+      <div class="brief-status">
+        <div>
+          <strong style="font-size:12px;">Brief for week of <span id="mtg-date">--</span></strong>
+          <span style="margin-left:10px;color:var(--muted);font-size:11px;">Generated <span id="brief-generated-at">--</span></span>
+        </div>
+        <div class="brief-status-pills" id="brief-source-pills"></div>
+      </div>
+      <div id="brief-stale-warning" style="display:none;" class="alert"><span>&#9888;&#65039;</span><span id="brief-stale-text"></span></div>
+
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:18px;flex-wrap:wrap;">
+        <button class="btn btn-gold" onclick="refreshBrief()" title="Re-fetch the latest brief">&#8635; Refresh Brief</button>
         <button class="btn" onclick="window.print()">Export Notes</button>
-        <span style="font-size:11px;color:var(--muted);margin-left:6px;" id="mtg-date">Week of --</span>
+        <button class="btn btn-navy" onclick="sendRecap()" title="Format decisions + commits as recap message via Outlook MCP draft">Send Recap &rarr;</button>
+        <button class="btn" onclick="saveDecisions()" title="Save decisions to monday-decisions.json so next week's brief surfaces them">&#128190; Save Decisions</button>
       </div>
 
-      <div class="callout"><strong>Before this meeting:</strong> Daunte pulls QB numbers and fills the Scorecard tab. Kenny confirms HubSpot pipeline is clean. Eli confirms lead count. Meeting starts with numbers ready.</div>
-
-      <!-- Block 1: Scoreboard Pulse -->
+      <!-- Block 1: Purpose & Framing -->
       <div class="agenda-block">
-        <div class="a-timebar"><div class="a-time">0:00 - 3:00</div><div class="a-mins">3 min</div></div>
+        <div class="a-timebar"><div class="a-time">0:00 - 4:00</div><div class="a-mins">4 min</div></div>
         <div class="a-main">
-          <div class="a-title">Scoreboard Pulse</div>
-          <div class="why-inline"><span>&#128161;</span><div><div class="wi-label">Why this block matters</div>Forces you to look at actual numbers, not feelings. Daunte owns this block.</div></div>
-          <ul class="cklist">
-            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Leads added this week <span class="ck-owner">(Kenny reports)</span></span></li>
-            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Active proposals out + pipeline value <span class="ck-owner">(Kenny from HubSpot)</span></span></li>
-            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Deals closed + cash collected <span class="ck-owner">(Daunte from QB)</span></span></li>
-            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Active clients in delivery <span class="ck-owner">(Kenny reports)</span></span></li>
-            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Rodney 5% rev-share -- is it current? <span class="ck-owner">(Daunte confirms)</span></span></li>
-            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Biggest bottleneck in one sentence</span></li>
-          </ul>
-          <textarea class="textarea" placeholder="Quick numbers from Scorecard tab..."></textarea>
+          <div class="a-title">Purpose &amp; Framing</div>
+          <div class="north-star">
+            <div class="north-star-label">North Star this week</div>
+            <div class="north-star-text" id="brief-north-star">_loading_</div>
+          </div>
+          <div class="norms-mini" id="brief-norms"></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;"><strong style="color:var(--text2);">Out of scope today:</strong> <span id="brief-out-of-scope">_loading_</span></div>
         </div>
       </div>
 
-      <!-- Block 2: Wins & Friction -->
+      <!-- Block 2: Weekly Priorities & Focus -->
       <div class="agenda-block">
-        <div class="a-timebar"><div class="a-time">3:00 - 8:00</div><div class="a-mins">5 min</div></div>
+        <div class="a-timebar"><div class="a-time">4:00 - 8:00</div><div class="a-mins">4 min</div></div>
         <div class="a-main">
-          <div class="a-title">Wins & Friction</div>
-          <div class="why-inline"><span>&#128161;</span><div><div class="wi-label">Why this block matters</div>Wins build momentum. Friction is gold: anything manual, slow, or repeated is a candidate for an SOP or automation.</div></div>
-          <div class="p-cols">
-            <div><div class="pcol-head"><span class="ppill ppill-d">Daunte</span></div><textarea class="textarea" style="min-height:70px;" placeholder="What moved forward? What felt slow?"></textarea></div>
-            <div><div class="pcol-head"><span class="ppill ppill-k">Kenny</span></div><textarea class="textarea" style="min-height:70px;" placeholder="What moved forward? What felt slow?"></textarea></div>
-            <div><div class="pcol-head"><span class="ppill ppill-e">Eli</span></div><textarea class="textarea" style="min-height:70px;" placeholder="What moved forward? What felt slow?"></textarea></div>
+          <div class="a-title">Weekly Priorities &amp; Focus</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:10px;">
+            <strong>Sprint <span id="brief-sprint-num">--</span></strong>
+            <span style="color:var(--muted);">&middot; Day <span id="brief-sprint-day">--</span>/14 &middot; <span id="brief-sprint-pct">--</span>% done</span>
+            <div style="margin-top:4px;font-size:11px;"><span style="color:var(--muted);">Sprint goal:</span> <span id="brief-sprint-goal">_loading_</span></div>
+          </div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 6px;">Top 3 on-deck</div>
+          <ol id="brief-top-three" style="font-size:12px;padding-left:20px;color:var(--text2);"></ol>
+
+          <div class="suggested-move">
+            <div class="suggested-move-label">AI-Suggested ONE Move</div>
+            <div class="suggested-move-headline" id="brief-suggested-move">_loading_</div>
+            <div class="suggested-move-reason" id="brief-suggested-reason"></div>
+            <div class="suggested-move-disclaimer">Brief is a suggestion, not a decision. Override if the team disagrees.</div>
           </div>
         </div>
       </div>
 
-      <!-- Block 3: Highest-Leverage Move -->
+      <!-- Block 3: Bottlenecks & Risks -->
       <div class="agenda-block">
-        <div class="a-timebar"><div class="a-time">8:00 - 15:00</div><div class="a-mins">7 min</div></div>
+        <div class="a-timebar"><div class="a-time">8:00 - 12:00</div><div class="a-mins">4 min</div></div>
         <div class="a-main">
-          <div class="a-title">Highest-Leverage Move This Week</div>
-          <div class="why-inline"><span>&#128161;</span><div><div class="wi-label">Why this block matters</div>Growth comes from doing the right thing each week. One focus area, one highest-leverage move.</div></div>
-          <div style="margin:10px 0;">
-            <div style="font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Focus Area This Week</div>
-            <div style="display:flex;flex-wrap:wrap;gap:6px;">
-              <button class="focus-btn" onclick="selFocus(this)">Sales</button>
-              <button class="focus-btn" onclick="selFocus(this)">Delivery</button>
-              <button class="focus-btn" onclick="selFocus(this)">Finance</button>
-              <button class="focus-btn" onclick="selFocus(this)">Operations</button>
-              <button class="focus-btn" onclick="selFocus(this)">Marketing</button>
-              <button class="focus-btn" onclick="selFocus(this)">Delegation</button>
+          <div class="a-title">Bottlenecks &amp; Risks</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:8px;">
+            <div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Overdue tasks (<span id="brief-overdue-count">0</span>)</div>
+              <ul class="risk-list" id="brief-overdue"></ul>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Clients at risk</div>
+              <ul class="risk-list" id="brief-clients-at-risk"></ul>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Cold deals (&gt;14 days)</div>
+              <ul class="risk-list" id="brief-cold-deals"></ul>
             </div>
           </div>
-          <textarea class="textarea" placeholder="What is the single highest-leverage move for BPP this week? Be specific." style="min-height:65px;"></textarea>
         </div>
       </div>
 
-      <!-- Block 4: Decisions -->
+      <!-- Block 4: Revenue & Pipeline Check -->
       <div class="agenda-block">
-        <div class="a-timebar"><div class="a-time">15:00 - 22:00</div><div class="a-mins">7 min</div></div>
+        <div class="a-timebar"><div class="a-time">12:00 - 16:00</div><div class="a-mins">4 min</div></div>
         <div class="a-main">
-          <div class="a-title">Decisions</div>
-          <div class="why-inline"><span>&#128161;</span><div><div class="wi-label">Why this block matters</div>A decision isn't real until it has an owner and is written down.</div></div>
+          <div class="a-title">Revenue &amp; Pipeline Check</div>
+
+          <div class="brief-row"><span class="brief-row-label">Operating</span><span class="brief-row-val">$<span id="brief-cash-op">--</span> <span style="color:var(--muted);font-weight:400;font-size:11px;">(buffer $<span id="brief-cash-buffer">--</span>, gap <span id="brief-cash-gap">--</span>)</span></span></div>
+          <div class="brief-row"><span class="brief-row-label">Savings</span><span class="brief-row-val">$<span id="brief-cash-savings">--</span> <span style="color:var(--muted);font-weight:400;font-size:11px;">(<span id="brief-savings-pct">--</span>% to Phase 2)</span></span></div>
+          <div class="brief-row"><span class="brief-row-label">Pipeline</span><span class="brief-row-val">$<span id="brief-pipeline-total">--</span> &middot; <span id="brief-pipeline-count">--</span> deals</span></div>
+          <div class="brief-row"><span class="brief-row-label">Phase</span><span class="brief-row-val"><span id="brief-phase-current">--</span> &rarr; <span style="color:var(--muted);font-weight:400;" id="brief-phase-trigger">--</span></span></div>
+
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px;">AR scenarios (if we close this month)</div>
+          <table class="score-table" style="margin-bottom:0;">
+            <thead><tr><th>Scenario</th><th>Receivables in</th><th>Ending operating</th><th>Phase 2?</th></tr></thead>
+            <tbody id="brief-ar-scenarios"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Block 5: Workload & Capacity -->
+      <div class="agenda-block">
+        <div class="a-timebar"><div class="a-time">16:00 - 20:00</div><div class="a-mins">4 min</div></div>
+        <div class="a-main">
+          <div class="a-title">Workload &amp; Capacity Reality Check</div>
+          <table class="cap-table">
+            <thead><tr><th>Owner</th><th>In flight</th><th>Overdue</th><th>Sprint pts</th><th>Day-job flag</th></tr></thead>
+            <tbody id="brief-capacity"></tbody>
+          </table>
+          <div id="brief-capacity-alert" style="margin-top:10px;font-size:11px;color:var(--text2);"></div>
+        </div>
+      </div>
+
+      <!-- Block 6: Systems & Visibility -->
+      <div class="agenda-block">
+        <div class="a-timebar"><div class="a-time">20:00 - 24:00</div><div class="a-mins">4 min</div></div>
+        <div class="a-main">
+          <div class="a-title">Systems &amp; Visibility</div>
+
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:6px 0 6px;">What shipped last week</div>
+          <ul class="risk-list" id="brief-shipped"></ul>
+
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px;">Prior week's decisions &mdash; status check</div>
+          <div class="decision-tracker" id="brief-prior-decisions"></div>
+
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px;">Drift signals</div>
+          <ul class="risk-list" id="brief-drift"></ul>
+        </div>
+      </div>
+
+      <!-- Block 7: Close & Commitments -->
+      <div class="agenda-block" style="border-bottom:none;">
+        <div class="a-timebar"><div class="a-time">24:00 - 30:00</div><div class="a-mins">6 min</div></div>
+        <div class="a-main">
+          <div class="a-title">Close &amp; Commitments</div>
+          <div class="why-inline"><span>&#128161;</span><div><div class="wi-label">This is the only block you fill in live</div>Brief gave you the data. This block captures the calls.</div></div>
+
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 6px;">Decisions made today</div>
           <div id="dec-list">
-            <div class="dec-row"><div class="dec-dot"></div><textarea class="dec-text" rows="1" placeholder="Decision made..." oninput="ar(this)"></textarea><select class="dec-own"><option value="">Owner</option><option>Daunte</option><option>Kenny</option><option>Eli</option><option>All</option></select></div>
+            <div class="dec-row"><div class="dec-dot"></div><textarea class="dec-text" rows="1" placeholder="Decision made (under $2K = DRI calls it; over $2K = full team debate)..." oninput="ar(this)"></textarea><select class="dec-own"><option value="">Owner</option><option>Daunte</option><option>Kenny</option><option>Eli</option><option>All</option></select><input type="date" class="dec-due" style="padding:5px 8px;border:1px solid var(--border);border-radius:5px;font-size:10px;font-family:var(--sans);" title="Due date"></div>
           </div>
           <button class="btn" onclick="addDec()" style="margin-top:7px;">+ Add Decision</button>
-        </div>
-      </div>
 
-      <!-- Block 5: Owner Actions -->
-      <div class="agenda-block">
-        <div class="a-timebar"><div class="a-time">22:00 - 27:00</div><div class="a-mins">5 min</div></div>
-        <div class="a-main">
-          <div class="a-title">Owner Actions</div>
-          <div class="why-inline"><span>&#128161;</span><div><div class="wi-label">Why this block matters</div>No one leaves without three commitments. Strategic, operational, and unblock.</div></div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px;">Owner commits (1 strategic / 1 operational / 1 unblock each)</div>
           <div class="p-cols">
-            <div><div class="pcol-head"><span class="ppill ppill-d">Daunte</span></div><input type="text" class="field" placeholder="Strategic action..."><input type="text" class="field" placeholder="Operational action..."><input type="text" class="field" placeholder="Unblock / follow-up..."></div>
-            <div><div class="pcol-head"><span class="ppill ppill-k">Kenny</span></div><input type="text" class="field" placeholder="Strategic action..."><input type="text" class="field" placeholder="Operational action..."><input type="text" class="field" placeholder="Unblock / follow-up..."></div>
-            <div><div class="pcol-head"><span class="ppill ppill-e">Eli</span></div><input type="text" class="field" placeholder="Strategic action..."><input type="text" class="field" placeholder="Operational action..."><input type="text" class="field" placeholder="Unblock / follow-up..."></div>
+            <div><div class="pcol-head"><span class="ppill ppill-d">Daunte</span></div><input type="text" class="field" id="commit-d-strat" placeholder="Strategic..."><input type="text" class="field" id="commit-d-op" placeholder="Operational..."><input type="text" class="field" id="commit-d-unblock" placeholder="Unblock..."></div>
+            <div><div class="pcol-head"><span class="ppill ppill-k">Kenny</span></div><input type="text" class="field" id="commit-k-strat" placeholder="Strategic..."><input type="text" class="field" id="commit-k-op" placeholder="Operational..."><input type="text" class="field" id="commit-k-unblock" placeholder="Unblock..."></div>
+            <div><div class="pcol-head"><span class="ppill ppill-e">Eli</span></div><input type="text" class="field" id="commit-e-strat" placeholder="Strategic..."><input type="text" class="field" id="commit-e-op" placeholder="Operational..."><input type="text" class="field" id="commit-e-unblock" placeholder="Unblock..."></div>
           </div>
-        </div>
-      </div>
-
-      <!-- Block 6: Risks -->
-      <div class="agenda-block" style="border-bottom:none;">
-        <div class="a-timebar"><div class="a-time">27:00 - 30:00</div><div class="a-mins">3 min</div></div>
-        <div class="a-main">
-          <div class="a-title">Risks & Watch-outs</div>
-          <ul class="cklist">
-            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">What might slip this week?</span></li>
-            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Any client at risk of scope creep or dissatisfaction?</span></li>
-            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Any proposal about to go cold? <span class="ck-owner">(Kenny)</span></span></li>
-            <li class="ck-item"><div class="cbox" onclick="tc(this)"></div><span class="ck-txt">Anything that needs eyes before next Monday?</span></li>
-          </ul>
-          <textarea class="textarea" placeholder="Risks, watch-outs, anything that needs attention..."></textarea>
         </div>
       </div>
 
       <div class="divider"></div>
       <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Parking Lot</div>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Good ideas, not this week. Don't lose them, don't let them hijack the meeting.</p>
-      <div id="park-list">
-        <div class="park-entry"><div class="park-dot"></div><textarea class="park-text" rows="1" placeholder="Idea or topic to revisit later..." oninput="ar(this)"></textarea></div>
-      </div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Good ideas, not this week. Auto-loaded from brief; add new ones during meeting.</p>
+      <div id="park-list"></div>
       <button class="btn" onclick="addPark()" style="margin-top:7px;">+ Add Item</button>
+
+      <!-- Recap modal -->
+      <div id="recap-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center;padding:20px;">
+        <div style="background:var(--card);border-radius:10px;max-width:680px;width:100%;max-height:80vh;overflow-y:auto;padding:24px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+            <div style="font-family:var(--head);font-weight:700;color:var(--navy);">Meeting Recap &mdash; ready to send</div>
+            <button class="btn" onclick="closeRecap()">Close</button>
+          </div>
+          <p style="font-size:11px;color:var(--muted);margin-bottom:10px;">Copy below. Or in Claude Code: paste this and ask "draft Outlook email to Daunte/Eli/Kenny" &mdash; ms365 MCP creates the draft, you review + send.</p>
+          <textarea id="recap-text" class="textarea" style="min-height:280px;font-family:'Consolas',monospace;font-size:11px;"></textarea>
+          <div style="margin-top:12px;display:flex;gap:8px;">
+            <button class="btn btn-gold" onclick="copyRecap()">Copy to Clipboard</button>
+            <button class="btn" onclick="closeRecap()">Done</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -355,13 +412,285 @@ function selFocus(el) {
   el.classList.add('on');
 }
 
+// -- Brief loader --
+var BRIEF_DATA = null;
+
+function refreshBrief() {
+  // Cache-bust so we always get the latest after a Sunday-night auto-run
+  var url = '../data/monday-prep-latest.json?t=' + Date.now();
+  fetch(url)
+    .then(function(r) {
+      if (!r.ok) throw new Error('Brief not available (status ' + r.status + ')');
+      return r.json();
+    })
+    .then(function(data) {
+      BRIEF_DATA = data;
+      renderBrief(data);
+    })
+    .catch(function(err) {
+      console.error('Brief load failed:', err);
+      var ns = document.getElementById('brief-north-star');
+      if (ns) ns.textContent = 'Brief not available. Run /monday-prep in Claude Code or check data/monday-prep-latest.json.';
+    });
+}
+
+function renderBrief(d) {
+  if (!d) return;
+
+  // Header
+  setText('mtg-date', d.week_of || '--');
+  setText('brief-generated-at', formatTime(d.generated_at));
+
+  // Source pills
+  var pillBox = document.getElementById('brief-source-pills');
+  pillBox.innerHTML = '';
+  if (d.sources_status) {
+    Object.keys(d.sources_status).forEach(function(k) {
+      var status = d.sources_status[k];
+      var cls = status === 'OK' ? 'ok' : status === 'PENDING' ? 'pending' : 'error';
+      pillBox.insertAdjacentHTML('beforeend',
+        '<span class="brief-pill ' + cls + '">' + k + ' ' + (status === 'OK' ? '✓' : status === 'PENDING' ? '⏳' : '⚠') + '</span>');
+    });
+  }
+
+  // Stale warning
+  if (d.stale_flags && d.stale_flags.length) {
+    document.getElementById('brief-stale-warning').style.display = 'flex';
+    document.getElementById('brief-stale-text').textContent = d.stale_flags.join(' · ');
+  } else {
+    document.getElementById('brief-stale-warning').style.display = 'none';
+  }
+
+  // Block 1
+  setText('brief-north-star', d.north_star || '--');
+  var normsBox = document.getElementById('brief-norms');
+  normsBox.innerHTML = '';
+  (d.operating_norms || []).forEach(function(n) {
+    normsBox.insertAdjacentHTML('beforeend', '<span>' + escapeHtml(n) + '</span>');
+  });
+  setText('brief-out-of-scope', (d.out_of_scope || []).join(' · '));
+
+  // Block 2
+  if (d.sprint) {
+    setText('brief-sprint-num', d.sprint.number != null ? d.sprint.number : '--');
+    setText('brief-sprint-day', d.sprint.day != null ? d.sprint.day : '--');
+    setText('brief-sprint-pct', d.sprint.pct_done != null ? d.sprint.pct_done : '--');
+    setText('brief-sprint-goal', d.sprint.goal || '--');
+  }
+  var topBox = document.getElementById('brief-top-three');
+  topBox.innerHTML = '';
+  (d.top_three || []).forEach(function(t) {
+    topBox.insertAdjacentHTML('beforeend',
+      '<li><strong>' + escapeHtml(t.title || '') + '</strong> &mdash; ' +
+      escapeHtml(t.owner || '') + ' &mdash; <span style="color:var(--muted);">' + escapeHtml(t.status || '') + '</span></li>');
+  });
+  if (d.suggested_move) {
+    setText('brief-suggested-move', d.suggested_move.headline || '--');
+    setText('brief-suggested-reason', d.suggested_move.reasoning || '');
+  }
+
+  // Block 3
+  setText('brief-overdue-count', (d.overdue || []).length);
+  renderRiskList('brief-overdue', d.overdue, function(o) {
+    return '<strong>' + escapeHtml(o.title || '') + '</strong> <span class="risk-owner">' + escapeHtml(o.owner || '') + '</span> &middot; ' + (o.days_overdue || '?') + ' days late';
+  });
+  renderRiskList('brief-clients-at-risk', d.clients_at_risk, function(c) {
+    return '<strong>' + escapeHtml(c.name || '') + '</strong> &mdash; ' + escapeHtml(c.flag_reason || '') + ' <span class="risk-owner">' + escapeHtml(c.owner || '') + '</span>';
+  });
+  renderRiskList('brief-cold-deals', d.cold_deals, function(deal) {
+    return '<strong>' + escapeHtml(deal.name || '') + '</strong> &mdash; $' + (deal.amount || 0) + ' &middot; last touched ' + escapeHtml(deal.last_activity || '');
+  });
+
+  // Block 4
+  if (d.cash) {
+    setText('brief-cash-op', fmtMoney(d.cash.operating));
+    setText('brief-cash-buffer', fmtMoney(d.cash.buffer_target));
+    setText('brief-cash-gap', d.cash.buffer_gap < 0 ? '-$' + fmtMoney(-d.cash.buffer_gap) : '+$' + fmtMoney(d.cash.buffer_gap));
+    setText('brief-cash-savings', fmtMoney(d.cash.savings));
+    setText('brief-savings-pct', d.cash.savings_pct_to_phase2 || '--');
+  }
+  if (d.pipeline) {
+    setText('brief-pipeline-total', fmtMoney(d.pipeline.total));
+    setText('brief-pipeline-count', d.pipeline.count);
+  }
+  if (d.phase) {
+    setText('brief-phase-current', d.phase.current);
+    setText('brief-phase-trigger', d.phase.next_trigger);
+  }
+  var arBody = document.getElementById('brief-ar-scenarios');
+  arBody.innerHTML = '';
+  (d.ar_scenarios || []).forEach(function(s) {
+    var rowStyle = s.highlight ? 'style="background:var(--green-bg);"' : '';
+    arBody.insertAdjacentHTML('beforeend',
+      '<tr ' + rowStyle + '><td>' + escapeHtml(s.name) + (s.highlight ? ' <strong style="color:var(--green);font-size:9px;">(target)</strong>' : '') +
+      '</td><td class="val">$' + fmtMoney(s.receivables_in) +
+      '</td><td class="val">$' + fmtMoney(s.ending_operating) +
+      '</td><td>' + (s.hits_phase2 ? '<span style="color:var(--green);">✓ Yes</span>' : '<span style="color:var(--muted);">No</span>') + '</td></tr>');
+  });
+
+  // Block 5
+  var capBody = document.getElementById('brief-capacity');
+  capBody.innerHTML = '';
+  ['Daunte', 'Kenny', 'Eli'].forEach(function(name) {
+    var cap = (d.capacity_per_owner || {})[name] || {};
+    capBody.insertAdjacentHTML('beforeend',
+      '<tr><td><strong>' + name + '</strong></td>' +
+      '<td>' + (cap.in_flight != null ? cap.in_flight : '--') + '</td>' +
+      '<td>' + (cap.overdue != null ? cap.overdue : '--') + '</td>' +
+      '<td>' + (cap.points != null ? cap.points : '--') + '</td>' +
+      '<td><span class="cap-flag">' + escapeHtml(cap.day_job_flag || '') + '</span></td></tr>');
+  });
+  setText('brief-capacity-alert', d.capacity_alert || '');
+
+  // Block 6
+  renderRiskList('brief-shipped', d.shipped_last_week, function(s) {
+    return '<strong>' + escapeHtml(s.repo || '') + ':</strong> ' + escapeHtml(s.commit_summary || '') + ' <span class="risk-owner">' + escapeHtml(s.author || '') + '</span>';
+  });
+
+  var priorBox = document.getElementById('brief-prior-decisions');
+  priorBox.innerHTML = '';
+  if (!d.prior_decisions || !d.prior_decisions.length) {
+    priorBox.innerHTML = '<div style="color:var(--muted);font-size:11px;font-style:italic;">No prior week file found. Going forward, this populates from the previous Monday\'s recap.</div>';
+  } else {
+    d.prior_decisions.forEach(function(dec, i) {
+      var statusClass = 'status-' + (dec.status || 'OPEN').replace(' ', '_');
+      priorBox.insertAdjacentHTML('beforeend',
+        '<div class="decision-prior">' +
+        '<span class="decision-prior-status ' + statusClass + '">' + escapeHtml(dec.status || 'OPEN') + '</span>' +
+        '<span class="decision-prior-text">' + escapeHtml(dec.decision || '') + '</span>' +
+        '<span class="decision-prior-owner">' + escapeHtml(dec.owner || '') + '</span>' +
+        '<select class="decision-status-select" data-idx="' + i + '">' +
+        ['OPEN', 'IN_FLIGHT', 'DONE', 'BLOCKED', 'DROPPED'].map(function(s) {
+          return '<option' + (s === (dec.status || 'OPEN').replace(' ', '_') ? ' selected' : '') + '>' + s + '</option>';
+        }).join('') +
+        '</select></div>');
+    });
+  }
+
+  renderRiskList('brief-drift', d.drift_signals ? d.drift_signals.map(function(s) { return {text: s}; }) : null,
+    function(item) { return escapeHtml(item.text); });
+
+  // Parking lot
+  var parkList = document.getElementById('park-list');
+  parkList.innerHTML = '';
+  (d.parking_lot || []).forEach(function(p) {
+    parkList.insertAdjacentHTML('beforeend',
+      '<div class="park-entry"><div class="park-dot"></div>' +
+      '<textarea class="park-text" rows="1" oninput="ar(this)">' + escapeHtml(p) + '</textarea></div>');
+  });
+  if ((d.parking_lot || []).length === 0) {
+    parkList.insertAdjacentHTML('beforeend',
+      '<div class="park-entry"><div class="park-dot"></div><textarea class="park-text" rows="1" placeholder="Idea or topic to revisit later..." oninput="ar(this)"></textarea></div>');
+  }
+}
+
+// -- Helpers --
+function setText(id, val) {
+  var el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+function fmtMoney(n) {
+  if (n == null) return '--';
+  return Number(n).toLocaleString();
+}
+function formatTime(iso) {
+  if (!iso) return '--';
+  try {
+    var d = new Date(iso);
+    return d.toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  } catch (e) { return iso; }
+}
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, function(c) {
+    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+  });
+}
+function renderRiskList(id, items, formatter) {
+  var box = document.getElementById(id);
+  if (!box) return;
+  box.innerHTML = '';
+  if (!items || !items.length) {
+    box.innerHTML = '<li class="risk-item" style="color:var(--muted);font-style:italic;">_(none)_</li>';
+    return;
+  }
+  items.forEach(function(it) {
+    box.insertAdjacentHTML('beforeend', '<li class="risk-item">' + formatter(it) + '</li>');
+  });
+}
+
+// -- Send Recap --
+function sendRecap() {
+  var lines = [];
+  lines.push('Subject: BPP Monday CEO Meeting Recap — Week of ' + (BRIEF_DATA && BRIEF_DATA.week_of || '--'));
+  lines.push('');
+  lines.push('Team,');
+  lines.push('');
+  lines.push('Decisions made today:');
+  document.querySelectorAll('#dec-list .dec-row').forEach(function(row, i) {
+    var text = row.querySelector('.dec-text').value.trim();
+    var owner = row.querySelector('.dec-own').value;
+    var due = row.querySelector('.dec-due') ? row.querySelector('.dec-due').value : '';
+    if (text) {
+      lines.push('  ' + (i + 1) + '. ' + text + (owner ? ' — ' + owner : '') + (due ? ' (due ' + due + ')' : ''));
+    }
+  });
+  lines.push('');
+  lines.push('Owner commits:');
+  ['d', 'k', 'e'].forEach(function(p, idx) {
+    var name = ['Daunte', 'Kenny', 'Eli'][idx];
+    var s = document.getElementById('commit-' + p + '-strat').value.trim();
+    var o = document.getElementById('commit-' + p + '-op').value.trim();
+    var u = document.getElementById('commit-' + p + '-unblock').value.trim();
+    lines.push('  ' + name + ':');
+    if (s) lines.push('    Strategic: ' + s);
+    if (o) lines.push('    Operational: ' + o);
+    if (u) lines.push('    Unblock: ' + u);
+  });
+  lines.push('');
+  lines.push('North Star this week: ' + (BRIEF_DATA && BRIEF_DATA.north_star || '--'));
+  lines.push('');
+  lines.push('— Auto-generated by BPP Tools Hub. Brief at ' + window.location.origin + '/bpp-tools/pages/ops.html');
+
+  document.getElementById('recap-text').value = lines.join('\n');
+  document.getElementById('recap-modal').style.display = 'flex';
+}
+function closeRecap() {
+  document.getElementById('recap-modal').style.display = 'none';
+}
+function copyRecap() {
+  var ta = document.getElementById('recap-text');
+  ta.select();
+  document.execCommand('copy');
+  alert('Copied. Paste into Claude Code with "draft Outlook email" or send manually.');
+}
+
+// -- Save Decisions (writes intent; actual file write needs Claude Code) --
+function saveDecisions() {
+  var decisions = [];
+  document.querySelectorAll('#dec-list .dec-row').forEach(function(row) {
+    var text = row.querySelector('.dec-text').value.trim();
+    var owner = row.querySelector('.dec-own').value;
+    var due = row.querySelector('.dec-due') ? row.querySelector('.dec-due').value : '';
+    if (text) decisions.push({ decision: text, owner: owner, due_date: due, status: 'OPEN', set_date: new Date().toISOString().slice(0, 10) });
+  });
+  // Status updates from prior decisions
+  var statusUpdates = [];
+  document.querySelectorAll('#brief-prior-decisions .decision-status-select').forEach(function(sel) {
+    statusUpdates.push({ idx: sel.dataset.idx, status: sel.value });
+  });
+  var payload = { week_of: BRIEF_DATA && BRIEF_DATA.week_of, new_decisions: decisions, status_updates: statusUpdates };
+  var json = JSON.stringify(payload, null, 2);
+
+  // Browser can't write to disk. Surface the JSON for Claude Code to pick up.
+  var msg = 'Copy this JSON, then in Claude Code say:\n  "save monday decisions <paste>"\n\nThe skill will merge into data/monday-decisions.json.\n\n' + json;
+  prompt('Decisions ready to save', json);
+}
+
 // -- Reset meeting --
 function resetMeeting() {
-  if (!confirm('Start a new meeting? This will clear all fields.')) return;
-  document.querySelectorAll('#ops-ceo textarea, #ops-ceo input[type="text"]').forEach(function(el) { el.value = ''; });
-  document.querySelectorAll('#ops-ceo .cbox').forEach(function(el) { el.classList.remove('checked'); });
-  document.querySelectorAll('#ops-ceo .focus-btn').forEach(function(el) { el.classList.remove('on'); });
-  setDates();
+  if (!confirm('Start a new meeting? This will clear decision and commit fields (brief stays).')) return;
+  document.querySelectorAll('#ops-ceo .dec-text, #ops-ceo input[type="text"], #ops-ceo input[type="date"]').forEach(function(el) { el.value = ''; });
 }
 
 // -- Scorecard calculations --
@@ -426,6 +755,7 @@ function calcQ() {
 
 // -- Init --
 setDates();
+refreshBrief();
 </script>
 
 </body>
