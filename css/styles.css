@@ -213,6 +213,68 @@ body[data-person="eli"] .link-card[data-person*="eli"]{border-color:var(--eli);b
 .footer-brand span{color:var(--gold);}
 .footer-note{font-size:10px;font-weight:400;color:var(--muted);}
 
+/* -- WHAT'S NEW BANNER -- */
+.whatsnew{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 100%);color:#fff;border-radius:10px;padding:20px 24px;margin-bottom:28px;box-shadow:0 4px 16px rgba(4,71,113,0.15);}
+.whatsnew-eyebrow{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.whatsnew-title{font-family:var(--head);font-size:18px;font-weight:800;margin-bottom:12px;}
+.whatsnew-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:14px;}
+.whatsnew-item{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:8px;padding:10px 14px;}
+.whatsnew-item-label{font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.whatsnew-item-text{font-size:12px;line-height:1.5;color:rgba(255,255,255,0.9);}
+.whatsnew-item-text strong{color:#fff;}
+.whatsnew-link{display:inline-block;font-size:11px;font-weight:600;color:var(--gold);text-decoration:none;padding-top:8px;border-top:1px solid rgba(255,255,255,0.15);margin-top:6px;}
+.whatsnew-link:hover{color:#fff;}
+
+/* -- AR FORECAST SCENARIOS -- */
+.ar-section{background:var(--card);border:1.5px solid var(--border);border-left:5px solid var(--green);border-radius:10px;padding:20px 24px;margin-bottom:28px;}
+.ar-section-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.ar-section-title{font-family:var(--head);font-size:15px;font-weight:800;color:var(--navy);}
+.ar-section-sub{font-size:11px;color:var(--muted);}
+.ar-confid{font-size:9px;font-weight:700;color:var(--red);background:var(--red-bg);padding:3px 8px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase;}
+.ar-cash-now{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:12px;}
+.ar-cash-now strong{font-family:var(--head);font-size:16px;color:var(--navy);}
+.scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.scenario-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
+.scenario-card.realistic{border-color:var(--green);background:var(--green-bg);}
+.scenario-name{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.scenario-card.realistic .scenario-name{color:var(--green);}
+.scenario-end{font-family:var(--head);font-size:18px;font-weight:800;color:var(--navy);line-height:1.1;}
+.scenario-detail{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4;}
+.scenario-trigger{font-size:10px;color:var(--text2);margin-top:6px;padding-top:6px;border-top:1px dashed var(--border);}
+.scenario-trigger strong{color:var(--green);}
+
+/* -- ACTIVE CLIENT TILES -- */
+.client-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:28px;}
+.client-tile{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:16px 18px;border-top:3px solid var(--steel);transition:all .18s;}
+.client-tile:hover{border-color:var(--navy);box-shadow:0 2px 8px rgba(4,71,113,0.08);transform:translateY(-1px);}
+.client-tile.eli{border-top-color:var(--eli);}
+.client-tile.daunte{border-top-color:var(--gold);}
+.client-tile.kenny{border-top-color:var(--steel);}
+.client-name{font-family:var(--head);font-size:14px;font-weight:800;color:var(--navy);margin-bottom:2px;}
+.client-meta{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
+.client-row{display:flex;justify-content:space-between;font-size:11px;padding:6px 0;border-top:1px solid var(--bg);}
+.client-row:first-of-type{border-top:none;padding-top:0;}
+.client-row-label{color:var(--muted);}
+.client-row-val{color:var(--text2);font-weight:500;text-align:right;max-width:60%;}
+.client-phase-pill{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.06em;}
+.phase-discovery{background:var(--steel-glow);color:var(--steel);border:1px solid var(--steel-border);}
+.phase-build{background:var(--gold-glow);color:var(--gold-dim);border:1px solid var(--gold-border);}
+.phase-deliver{background:var(--green-bg);color:var(--green);}
+.phase-closeout{background:rgba(217,119,6,0.08);color:var(--yellow);border:1px solid rgba(217,119,6,0.25);}
+
+/* -- OPERATING NORMS STRIP -- */
+.norms-strip{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:28px;}
+.norms-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px;}
+.norms-title{font-family:var(--head);font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.1em;}
+.norms-link{font-size:10px;color:var(--muted);text-decoration:none;}
+.norms-link:hover{color:var(--navy);}
+.norms-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;}
+.norm-item{font-size:11px;color:var(--text2);padding:6px 10px;background:var(--bg);border-radius:6px;line-height:1.4;}
+.norm-item strong{color:var(--navy);}
+
+/* -- TWO-COL QUICK LINKS -- */
+.links-section-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;margin-top:4px;}
+
 /* -- RESPONSIVE -- */
 @media(max-width:768px){
   .hub-nav{padding:0 12px;height:auto;flex-wrap:wrap;gap:8px;padding:10px 12px;}
@@ -225,4 +287,6 @@ body[data-person="eli"] .link-card[data-person*="eli"]{border-color:var(--eli);b
   .agenda-block{flex-direction:column;gap:8px;}
   .a-timebar{min-width:auto;}
   main{padding:16px 12px 40px;}
+  .scenario-grid{grid-template-columns:1fr;}
+  .client-grid{grid-template-columns:1fr;}
 }
