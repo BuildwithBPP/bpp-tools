@@ -162,7 +162,7 @@
         <div class="a-main">
           <div class="a-title">Workload &amp; Capacity Reality Check</div>
           <table class="cap-table">
-            <thead><tr><th>Owner</th><th>In flight</th><th>Overdue</th><th>Parent pts</th><th>Commits/wk</th><th>Day-job flag</th></tr></thead>
+            <thead><tr><th>Owner</th><th>In flight</th><th>Overdue</th><th>Shipped last wk</th><th>Parent pts</th><th>Commits/wk</th><th>Day-job flag</th></tr></thead>
             <tbody id="brief-capacity"></tbody>
           </table>
           <div id="brief-capacity-alert" style="margin-top:10px;font-size:11px;color:var(--text2);"></div>
@@ -552,10 +552,12 @@ function renderBrief(d) {
     var cap = (d.capacity_per_owner || {})[name] || {};
     var pts = cap.parent_points != null ? cap.parent_points : (cap.points != null ? cap.points : '--');
     var commits = cap.commits_last_7d != null ? cap.commits_last_7d : '--';
+    var shipped = cap.shipped_last_wk != null ? cap.shipped_last_wk : '--';
     capBody.insertAdjacentHTML('beforeend',
       '<tr><td><strong>' + name + '</strong></td>' +
       '<td>' + (cap.in_flight != null ? cap.in_flight : '--') + '</td>' +
       '<td>' + (cap.overdue != null ? cap.overdue : '--') + '</td>' +
+      '<td>' + shipped + '</td>' +
       '<td>' + pts + '</td>' +
       '<td>' + commits + '</td>' +
       '<td><span class="cap-flag">' + escapeHtml(cap.day_job_flag || '') + '</span></td></tr>');
