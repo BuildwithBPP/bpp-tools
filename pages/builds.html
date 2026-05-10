@@ -23,13 +23,15 @@
   .velo-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px;}
   .velo-title{font-family:var(--head);font-size:14px;font-weight:700;color:var(--navy);}
   .velo-meta{font-size:11px;color:var(--muted);}
-  .velo-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;align-items:end;height:160px;}
-  .velo-bar-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;}
+  .velo-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;height:220px;padding-top:24px;}
+  .velo-bar-wrap{display:flex;flex-direction:column;height:100%;}
+  .velo-bar-area{flex:1;display:flex;align-items:flex-end;justify-content:center;width:100%;}
   .velo-bar{width:100%;background:linear-gradient(to top, var(--navy) 0%, var(--steel) 100%);border-radius:6px 6px 0 0;position:relative;min-height:6px;transition:transform .2s;}
   .velo-bar:hover{transform:translateY(-2px);}
   .velo-bar.peak{background:linear-gradient(to top, var(--gold-dim) 0%, var(--gold) 100%);}
-  .velo-bar-val{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-family:var(--head);font-size:13px;font-weight:700;color:var(--navy);}
-  .velo-bar-label{font-size:10px;color:var(--muted);text-align:center;line-height:1.3;font-weight:500;}
+  .velo-bar.empty{background:transparent;border:1px dashed var(--border);min-height:6px;height:6px;}
+  .velo-bar-val{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-family:var(--head);font-size:13px;font-weight:700;color:var(--navy);white-space:nowrap;}
+  .velo-bar-label{font-size:10px;color:var(--muted);text-align:center;line-height:1.3;font-weight:500;margin-top:8px;padding:0 2px;}
 
   /* plugin cards */
   .plugin-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:14px;margin-bottom:28px;}
@@ -239,11 +241,26 @@
     </div>
   </div>
 
-  <!-- SKILLS BY DEPARTMENT -->
+  <!-- SKILLS BY DEPARTMENT (per 2026-05-06 ratified org chart) -->
   <div class="sec-label">BPP-Built Skills &middot; By Department</div>
+  <div style="font-size:11px;color:var(--muted);margin-top:-6px;margin-bottom:14px;">Six departments per the 2026-05-06 ratified org chart. <a href="synthesis.html" style="color:var(--navy);font-weight:600;">View synthesis &rarr;</a></div>
   <div class="dept-grid">
     <div class="dept-card">
+      <div class="dept-head"><div class="dept-name">Finance &amp; Operations</div><div class="dept-count">6</div></div>
+      <div style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600;letter-spacing:.04em;">DRI: Daunte</div>
+      <ul class="skill-list">
+        <li class="skill-item">bpp-monday-prep</li>
+        <li class="skill-item">bpp-monday-recap</li>
+        <li class="skill-item">bpp-monday-save-decisions</li>
+        <li class="skill-item">bpp-todoist</li>
+        <li class="skill-item">bpp-quickbooks</li>
+        <li class="skill-item">bpp-monthly-close</li>
+      </ul>
+    </div>
+
+    <div class="dept-card">
       <div class="dept-head"><div class="dept-name">Marketing &amp; Content</div><div class="dept-count">7</div></div>
+      <div style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600;letter-spacing:.04em;">DRI: Kenny</div>
       <ul class="skill-list">
         <li class="skill-item">bpp-youtube-seo</li>
         <li class="skill-item">bpp-linkedin-engagement</li>
@@ -256,38 +273,35 @@
     </div>
 
     <div class="dept-card">
-      <div class="dept-head"><div class="dept-name">Operations &amp; PM</div><div class="dept-count">4</div></div>
+      <div class="dept-head"><div class="dept-name">Client Delivery &amp; Design</div><div class="dept-count">2</div></div>
+      <div style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600;letter-spacing:.04em;">DRI: Eli</div>
       <ul class="skill-list">
-        <li class="skill-item">bpp-monday-prep</li>
-        <li class="skill-item">bpp-monday-recap</li>
-        <li class="skill-item">bpp-monday-save-decisions</li>
-        <li class="skill-item">bpp-todoist</li>
-      </ul>
-    </div>
-
-    <div class="dept-card">
-      <div class="dept-head"><div class="dept-name">Sales &amp; Discovery</div><div class="dept-count">3</div></div>
-      <ul class="skill-list">
-        <li class="skill-item">bpp-discovery-deck</li>
         <li class="skill-item">bpp-kickoff-deck</li>
         <li class="skill-item">bpp-closeout-deck</li>
       </ul>
     </div>
 
     <div class="dept-card">
-      <div class="dept-head"><div class="dept-name">Finance</div><div class="dept-count">2</div></div>
-      <ul class="skill-list">
-        <li class="skill-item">bpp-quickbooks</li>
-        <li class="skill-item">bpp-monthly-close</li>
-      </ul>
-    </div>
-
-    <div class="dept-card">
-      <div class="dept-head"><div class="dept-name">Tech &amp; AI Workforce</div><div class="dept-count">2</div></div>
+      <div class="dept-head"><div class="dept-name">AI Workforce &amp; Tech</div><div class="dept-count">2</div></div>
+      <div style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600;letter-spacing:.04em;">DRI: Daunte</div>
       <ul class="skill-list">
         <li class="skill-item">build-page (html-page-builder)</li>
         <li class="skill-item">bpp-webflow</li>
       </ul>
+    </div>
+
+    <div class="dept-card">
+      <div class="dept-head"><div class="dept-name">Sales &amp; Business Development</div><div class="dept-count">1</div></div>
+      <div style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600;letter-spacing:.04em;">DRI: Kenny</div>
+      <ul class="skill-list">
+        <li class="skill-item">bpp-discovery-deck</li>
+      </ul>
+    </div>
+
+    <div class="dept-card" style="opacity:0.7;">
+      <div class="dept-head"><div class="dept-name">HR &amp; People Ops</div><div class="dept-count" style="color:var(--muted);">0</div></div>
+      <div style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600;letter-spacing:.04em;">DRI: Parked</div>
+      <div style="font-size:11px;color:var(--muted);font-style:italic;line-height:1.5;">Chair open. Daunte researching role shape (HR / contractor / procurement) before assignment. Kenny owns Legal &amp; Contracts in the meantime.</div>
     </div>
   </div>
 
@@ -433,20 +447,27 @@
     weeks.forEach(w => {
       const wrap = document.createElement('div');
       wrap.className = 'velo-bar-wrap';
-      const heightPct = w.count === 0 ? 4 : (w.count / max) * 100;
+
+      const area = document.createElement('div');
+      area.className = 'velo-bar-area';
+
       const bar = document.createElement('div');
-      bar.className = 'velo-bar' + (w.peak ? ' peak' : '');
-      bar.style.height = heightPct + '%';
+      bar.className = 'velo-bar' + (w.peak ? ' peak' : '') + (w.count === 0 ? ' empty' : '');
       if(w.count > 0){
+        const heightPct = (w.count / max) * 100;
+        bar.style.height = Math.max(heightPct, 6) + '%';
         const valEl = document.createElement('div');
         valEl.className = 'velo-bar-val';
         valEl.textContent = w.count;
         bar.appendChild(valEl);
       }
+      area.appendChild(bar);
+
       const label = document.createElement('div');
       label.className = 'velo-bar-label';
       label.textContent = w.label;
-      wrap.appendChild(bar);
+
+      wrap.appendChild(area);
       wrap.appendChild(label);
       grid.appendChild(wrap);
     });
