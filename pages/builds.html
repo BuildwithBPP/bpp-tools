@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What We've Built · BPP Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  /* Builds page */
+  .builds-hero{background:linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);color:#fff;border-radius:14px;padding:32px 32px 28px;margin-bottom:24px;position:relative;overflow:hidden;}
+  .builds-hero::before{content:"";position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:var(--gold);opacity:0.08;border-radius:50%;}
+  .builds-eyebrow{font-family:var(--head);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;position:relative;z-index:1;}
+  .builds-headline{font-family:var(--head);font-size:30px;font-weight:800;line-height:1.15;margin-bottom:8px;position:relative;z-index:1;}
+  .builds-headline span{color:var(--gold);}
+  .builds-sub{font-size:13px;font-weight:400;color:rgba(255,255,255,0.75);max-width:640px;line-height:1.6;position:relative;z-index:1;}
+
+  .stat-val.builds{color:var(--navy);}
+  .stat-val.builds.gold{color:var(--gold-dim);}
+
+  /* velocity chart */
+  .velo-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:24px;margin-bottom:28px;}
+  .velo-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px;}
+  .velo-title{font-family:var(--head);font-size:14px;font-weight:700;color:var(--navy);}
+  .velo-meta{font-size:11px;color:var(--muted);}
+  .velo-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;align-items:end;height:160px;}
+  .velo-bar-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;}
+  .velo-bar{width:100%;background:linear-gradient(to top, var(--navy) 0%, var(--steel) 100%);border-radius:6px 6px 0 0;position:relative;min-height:6px;transition:transform .2s;}
+  .velo-bar:hover{transform:translateY(-2px);}
+  .velo-bar.peak{background:linear-gradient(to top, var(--gold-dim) 0%, var(--gold) 100%);}
+  .velo-bar-val{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-family:var(--head);font-size:13px;font-weight:700;color:var(--navy);}
+  .velo-bar-label{font-size:10px;color:var(--muted);text-align:center;line-height:1.3;font-weight:500;}
+
+  /* plugin cards */
+  .plugin-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:14px;margin-bottom:28px;}
+  .plugin-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:20px;transition:all .18s;}
+  .plugin-card:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:0 4px 14px rgba(4,71,113,0.08);}
+  .plugin-card.bpp{border-left:4px solid var(--gold);}
+  .plugin-card.adopted{border-left:4px solid var(--steel);}
+  .plugin-icon{width:44px;height:44px;border-radius:10px;background:var(--gold-glow);color:var(--navy);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:18px;font-weight:800;margin-bottom:14px;}
+  .plugin-card.adopted .plugin-icon{background:var(--steel-glow);color:var(--steel);}
+  .plugin-name{font-family:var(--head);font-size:15px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+  .plugin-tag{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:10px;}
+  .plugin-card.adopted .plugin-tag{color:var(--steel);}
+  .plugin-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:14px;}
+  .plugin-skills{display:flex;flex-wrap:wrap;gap:5px;}
+  .plugin-skill-pill{font-size:10px;background:var(--bg);border:1px solid var(--border);padding:3px 8px;border-radius:12px;color:var(--text2);font-weight:500;}
+  .plugin-stars{font-size:10px;color:var(--muted);margin-top:10px;font-family:var(--head);font-weight:600;letter-spacing:.04em;}
+
+  /* dept skill cards */
+  .dept-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:12px;margin-bottom:28px;}
+  .dept-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:18px 20px;}
+  .dept-card .dept-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--bg);}
+  .dept-name{font-family:var(--head);font-size:13px;font-weight:700;color:var(--navy);}
+  .dept-count{font-family:var(--head);font-size:18px;font-weight:800;color:var(--gold-dim);}
+  .skill-list{list-style:none;padding:0;margin:0;}
+  .skill-item{font-size:12px;color:var(--text2);padding:5px 0;line-height:1.4;display:flex;gap:8px;align-items:flex-start;}
+  .skill-item::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px;}
+
+  /* timeline */
+  .timeline-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:24px;margin-bottom:28px;}
+  .timeline-list{list-style:none;padding:0;margin:0;border-left:2px solid var(--border);margin-left:8px;padding-left:20px;}
+  .timeline-item{position:relative;padding-bottom:14px;}
+  .timeline-item::before{content:"";position:absolute;left:-26px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--card);box-shadow:0 0 0 2px var(--gold-border);}
+  .timeline-date{font-family:var(--head);font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.06em;margin-bottom:2px;}
+  .timeline-msg{font-size:12.5px;color:var(--text);line-height:1.45;}
+  .timeline-repo{display:inline-block;font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--steel);background:var(--steel-glow);padding:1px 6px;border-radius:3px;margin-left:6px;text-transform:uppercase;}
+
+  /* repos grid */
+  .repo-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));gap:10px;margin-bottom:28px;}
+  .repo-card{background:var(--card);border:1.5px solid var(--border);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--text);transition:all .15s;}
+  .repo-card:hover{border-color:var(--navy);box-shadow:0 2px 8px rgba(4,71,113,0.06);}
+  .repo-name{font-family:var(--head);font-size:12px;font-weight:700;color:var(--navy);margin-bottom:3px;display:flex;align-items:center;gap:6px;}
+  .repo-vis{font-size:8px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:1px 5px;border-radius:3px;}
+  .repo-vis.public{background:var(--green-bg);color:var(--green);}
+  .repo-vis.private{background:var(--bg);color:var(--muted);}
+  .repo-desc{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:6px;min-height:30px;}
+  .repo-meta{font-size:10px;color:var(--muted);font-weight:500;}
+
+  .legend-row{display:flex;gap:20px;font-size:11px;color:var(--muted);margin-bottom:14px;flex-wrap:wrap;}
+  .legend-dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;vertical-align:middle;}
+  .legend-dot.bpp{background:var(--gold);}
+  .legend-dot.adopted{background:var(--steel);}
+</style>
+</head>
+<body>
+
+<nav class="hub-nav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">B</div>
+    <div class="nav-brand">BPP <span>Tools</span></div>
+  </div>
+  <div class="nav-tabs">
+    <a class="hub-tab" href="../index.html"><span class="tab-emoji">&#127968;</span> Home</a>
+    <a class="hub-tab" href="pre-call.html"><span class="tab-emoji">&#128222;</span> Pre-Call</a>
+    <a class="hub-tab" href="kickoff.html"><span class="tab-emoji">&#128640;</span> Kickoff</a>
+    <a class="hub-tab" href="ops.html"><span class="tab-emoji">&#128202;</span> Ops</a>
+    <a class="hub-tab" href="finance.html"><span class="tab-emoji">&#128176;</span> Finance</a>
+    <a class="hub-tab" href="marketing.html"><span class="tab-emoji">&#128227;</span> Marketing</a>
+    <a class="hub-tab" href="systems.html"><span class="tab-emoji">&#9881;</span> Systems</a>
+    <a class="hub-tab on" href="builds.html"><span class="tab-emoji">&#128296;</span> Builds</a>
+    <a class="hub-tab" href="reviews.html"><span class="tab-emoji">&#128200;</span> Reviews</a>
+  </div>
+  <div class="nav-people">
+    <button class="person-btn" onclick="togglePerson('daunte',this)">Daunte</button>
+    <button class="person-btn" onclick="togglePerson('kenny',this)">Kenny</button>
+    <button class="person-btn" onclick="togglePerson('eli',this)">Eli</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <div class="builds-hero">
+    <div class="builds-eyebrow">Snapshot &middot; 2026-05-10</div>
+    <div class="builds-headline">What We've <span>Built</span></div>
+    <div class="builds-sub">Every plugin, skill, and shipping repo in the BPP stack. What we built, what we adopted, and what shipped this month. Updated when we ship.</div>
+  </div>
+
+  <!-- HERO STATS -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-label">BPP Skills Built</div>
+      <div class="stat-val builds">18</div>
+      <div class="stat-sub">Custom AI workflows we own</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">AI Employees Live</div>
+      <div class="stat-val builds gold">3</div>
+      <div class="stat-sub">Plugins running real work</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Active Repos</div>
+      <div class="stat-val builds">9</div>
+      <div class="stat-sub">In BuildwithBPP org</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Last 30 Days</div>
+      <div class="stat-val builds">34</div>
+      <div class="stat-sub">Commits across the stack</div>
+    </div>
+  </div>
+
+  <!-- VELOCITY CHART -->
+  <div class="velo-card">
+    <div class="velo-head">
+      <div>
+        <div class="velo-title">Shipping Velocity</div>
+        <div class="velo-meta" style="margin-top:3px;">Commits per week, last 6 weeks. Combined across bpp-tools + bpp-plugins.</div>
+      </div>
+      <div class="velo-meta"><strong style="color:var(--navy);">45</strong> total commits in the period</div>
+    </div>
+    <div class="velo-grid" id="velo-chart">
+      <!-- Bars rendered via JS for clean math -->
+    </div>
+    <div style="margin-top:16px;font-size:11px;color:var(--muted);text-align:center;">Last week was the biggest in 6 weeks. Org chart ratification + Cloudflare Worker + monday-prep buildout drove the spike.</div>
+  </div>
+
+  <!-- BPP PLUGINS -->
+  <div class="sec-label">BPP Plugins &middot; The AI Employees We've Hired</div>
+  <div class="legend-row">
+    <span><span class="legend-dot bpp"></span> Built by BPP</span>
+    <span><span class="legend-dot adopted"></span> Adopted from community</span>
+  </div>
+  <div class="plugin-grid">
+    <div class="plugin-card bpp">
+      <div class="plugin-icon">CP</div>
+      <div class="plugin-tag">BPP &middot; Marketing</div>
+      <div class="plugin-name">bpp-content-producer</div>
+      <div class="plugin-desc">Pulls IG / YouTube videos, transcribes them locally, and drafts repost briefs for Justin's queue. Used for the Boris Cherny session and weekly content rotation.</div>
+      <div class="plugin-skills">
+        <span class="plugin-skill-pill">bpp-ig-grab</span>
+        <span class="plugin-skill-pill">bpp-transcribe</span>
+        <span class="plugin-skill-pill">bpp-repost-brief</span>
+        <span class="plugin-skill-pill">bpp-script-from-video</span>
+      </div>
+    </div>
+
+    <div class="plugin-card bpp">
+      <div class="plugin-icon">MC</div>
+      <div class="plugin-tag">BPP &middot; Marketing</div>
+      <div class="plugin-name">bpp-marketing-coordinator</div>
+      <div class="plugin-desc">LinkedIn engagement workflow, bi-weekly newsletter rotation across owners, and YouTube SEO keyword research. Set up at the 2026-04-29 mid-week meeting.</div>
+      <div class="plugin-skills">
+        <span class="plugin-skill-pill">bpp-linkedin-engagement</span>
+        <span class="plugin-skill-pill">bpp-newsletter-rotation</span>
+        <span class="plugin-skill-pill">bpp-youtube-seo</span>
+      </div>
+    </div>
+
+    <div class="plugin-card bpp">
+      <div class="plugin-icon">HP</div>
+      <div class="plugin-tag">BPP &middot; Tech</div>
+      <div class="plugin-name">html-page-builder</div>
+      <div class="plugin-desc">Builds single-file HTML pages: dashboards, org charts, briefing docs, hub pages. Loads the BPP theme automatically. This page was built with it.</div>
+      <div class="plugin-skills">
+        <span class="plugin-skill-pill">build-page</span>
+      </div>
+    </div>
+
+    <div class="plugin-card adopted">
+      <div class="plugin-icon">SP</div>
+      <div class="plugin-tag">Adopted &middot; Engineering</div>
+      <div class="plugin-name">SuperPowers</div>
+      <div class="plugin-desc">Makes Claude plan, brainstorm, TDD, debug, and self-review before output. The "stop jumping around the code" plugin.</div>
+      <div class="plugin-stars">150K+ stars &middot; obra/superpowers</div>
+    </div>
+
+    <div class="plugin-card adopted">
+      <div class="plugin-icon">FD</div>
+      <div class="plugin-tag">Adopted &middot; Design</div>
+      <div class="plugin-name">Frontend Design</div>
+      <div class="plugin-desc">Anthropic's official skill for production-grade UI with distinctive aesthetic direction. Kills the basic AI look.</div>
+      <div class="plugin-stars">285K+ installs &middot; anthropics/claude-code</div>
+    </div>
+
+    <div class="plugin-card adopted">
+      <div class="plugin-icon">CR</div>
+      <div class="plugin-tag">Adopted &middot; Engineering</div>
+      <div class="plugin-name">Code Review</div>
+      <div class="plugin-desc">Parallel agents check code from multiple angles: bugs, CLAUDE.md compliance, git history context. Only posts high-confidence issues.</div>
+      <div class="plugin-stars">Anthropic official &middot; /code-review</div>
+    </div>
+
+    <div class="plugin-card adopted">
+      <div class="plugin-icon">SR</div>
+      <div class="plugin-tag">Adopted &middot; Security</div>
+      <div class="plugin-name">Security Review</div>
+      <div class="plugin-desc">AI-powered security scanner. Diff-aware vulnerability analysis. Run before exposing any new public link from the hub.</div>
+      <div class="plugin-stars">Anthropic official &middot; /security-review</div>
+    </div>
+
+    <div class="plugin-card adopted">
+      <div class="plugin-icon">ST</div>
+      <div class="plugin-tag">Adopted &middot; Eng team</div>
+      <div class="plugin-name">Stack (gstack)</div>
+      <div class="plugin-desc">Garry Tan's 23 specialist skills + 8 power tools. CEO, designer, eng manager, QA, security officer, release engineer running parallel sprints.</div>
+      <div class="plugin-stars">89.7K stars &middot; garrytan/gstack</div>
+    </div>
+  </div>
+
+  <!-- SKILLS BY DEPARTMENT -->
+  <div class="sec-label">BPP-Built Skills &middot; By Department</div>
+  <div class="dept-grid">
+    <div class="dept-card">
+      <div class="dept-head"><div class="dept-name">Marketing &amp; Content</div><div class="dept-count">7</div></div>
+      <ul class="skill-list">
+        <li class="skill-item">bpp-youtube-seo</li>
+        <li class="skill-item">bpp-linkedin-engagement</li>
+        <li class="skill-item">bpp-newsletter-rotation</li>
+        <li class="skill-item">bpp-ig-grab</li>
+        <li class="skill-item">bpp-transcribe</li>
+        <li class="skill-item">bpp-repost-brief</li>
+        <li class="skill-item">bpp-script-from-video</li>
+      </ul>
+    </div>
+
+    <div class="dept-card">
+      <div class="dept-head"><div class="dept-name">Operations &amp; PM</div><div class="dept-count">4</div></div>
+      <ul class="skill-list">
+        <li class="skill-item">bpp-monday-prep</li>
+        <li class="skill-item">bpp-monday-recap</li>
+        <li class="skill-item">bpp-monday-save-decisions</li>
+        <li class="skill-item">bpp-todoist</li>
+      </ul>
+    </div>
+
+    <div class="dept-card">
+      <div class="dept-head"><div class="dept-name">Sales &amp; Discovery</div><div class="dept-count">3</div></div>
+      <ul class="skill-list">
+        <li class="skill-item">bpp-discovery-deck</li>
+        <li class="skill-item">bpp-kickoff-deck</li>
+        <li class="skill-item">bpp-closeout-deck</li>
+      </ul>
+    </div>
+
+    <div class="dept-card">
+      <div class="dept-head"><div class="dept-name">Finance</div><div class="dept-count">2</div></div>
+      <ul class="skill-list">
+        <li class="skill-item">bpp-quickbooks</li>
+        <li class="skill-item">bpp-monthly-close</li>
+      </ul>
+    </div>
+
+    <div class="dept-card">
+      <div class="dept-head"><div class="dept-name">Tech &amp; AI Workforce</div><div class="dept-count">2</div></div>
+      <ul class="skill-list">
+        <li class="skill-item">build-page (html-page-builder)</li>
+        <li class="skill-item">bpp-webflow</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RECENT SHIPMENTS -->
+  <div class="sec-label">Last 30 Days &middot; What Shipped</div>
+  <div class="timeline-card">
+    <ul class="timeline-list">
+      <li class="timeline-item">
+        <div class="timeline-date">May 10</div>
+        <div class="timeline-msg">Re-enable Worker integration; fresh PAT works end-to-end<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 10</div>
+        <div class="timeline-msg">Reference org-wide CLAUDE.md base from .github repo<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 10</div>
+        <div class="timeline-msg">Cloudflare Worker for one-click recap + auto-refresh home page<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 10</div>
+        <div class="timeline-msg">Wire ops.html to deployed Cloudflare Worker<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 10</div>
+        <div class="timeline-msg">Add Voice Update section to Monday CEO meeting agenda<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 10</div>
+        <div class="timeline-msg">Add CLAUDE.md following org-wide template<span class="timeline-repo">bpp-plugins</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 9</div>
+        <div class="timeline-msg">Rebuild Monday CEO meeting around auto-generated brief<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 9</div>
+        <div class="timeline-msg">Redesign hub home page for daily operating use<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 9</div>
+        <div class="timeline-msg">Ratify org chart from 2026-05-06 mid-week session<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 4</div>
+        <div class="timeline-msg">Add Survey Responses page + Conversations We Owe Each Other section<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 4</div>
+        <div class="timeline-msg">Restructure to 6-dept Option B: AI Workforce + Finance &amp; Operations merge<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 4</div>
+        <div class="timeline-msg">Add operating model synthesis page<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">Apr 30</div>
+        <div class="timeline-msg">Add html-page-builder plugin v0.1.0 (lane-agnostic)<span class="timeline-repo">bpp-plugins</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">Apr 30</div>
+        <div class="timeline-msg">Initial commit: bpp-plugins monorepo with first 2 AI employees<span class="timeline-repo">bpp-plugins</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">Apr 11</div>
+        <div class="timeline-msg">Add Q1 2026 dashboard, agenda, and back navigation to all Hub pages<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- REPOS -->
+  <div class="sec-label">Repos &middot; BuildwithBPP Org</div>
+  <div class="repo-grid">
+    <a class="repo-card" href="https://github.com/BuildwithBPP/bpp-tools" target="_blank">
+      <div class="repo-name">bpp-tools <span class="repo-vis public">Public</span></div>
+      <div class="repo-desc">Team hub, onboarding docs, cross-project utilities. This page lives here.</div>
+      <div class="repo-meta">Pushed today &middot; 30 commits in 30d</div>
+    </a>
+    <a class="repo-card" href="https://github.com/BuildwithBPP/bpp-plugins" target="_blank">
+      <div class="repo-name">bpp-plugins <span class="repo-vis private">Private</span></div>
+      <div class="repo-desc">BPP AI Employee plugins for Claude Code. Each plugin = one employee.</div>
+      <div class="repo-meta">Pushed today &middot; 4 commits in 30d</div>
+    </a>
+    <a class="repo-card" href="https://github.com/BuildwithBPP/.github" target="_blank">
+      <div class="repo-name">.github <span class="repo-vis public">Public</span></div>
+      <div class="repo-desc">Org defaults: profile, CLAUDE.md template, contribution standards.</div>
+      <div class="repo-meta">Pushed today &middot; new this week</div>
+    </a>
+    <a class="repo-card" href="https://github.com/BuildwithBPP/bpp-webflow-site" target="_blank">
+      <div class="repo-name">bpp-webflow-site <span class="repo-vis private">Private</span></div>
+      <div class="repo-desc">Website code, Webflow export, SEO and copy tools.</div>
+      <div class="repo-meta">Pushed Apr 8</div>
+    </a>
+    <a class="repo-card" href="https://github.com/BuildwithBPP/ruflo" target="_blank">
+      <div class="repo-name">ruflo <span class="repo-vis public">Public</span></div>
+      <div class="repo-desc">Agent orchestration platform, fork of ruvnet/ruflo. Multi-agent swarms.</div>
+      <div class="repo-meta">Pushed Apr 7</div>
+    </a>
+    <a class="repo-card" href="https://github.com/BuildwithBPP/rblawnpros-site" target="_blank">
+      <div class="repo-name">rblawnpros-site <span class="repo-vis private">Private</span></div>
+      <div class="repo-desc">Client website project archive.</div>
+      <div class="repo-meta">Pushed Oct 2025</div>
+    </a>
+    <a class="repo-card" href="https://github.com/BuildwithBPP/bpp-website-starters" target="_blank">
+      <div class="repo-name">bpp-website-starters <span class="repo-vis private">Private</span></div>
+      <div class="repo-desc">Starter templates for client website builds.</div>
+      <div class="repo-meta">Pushed Oct 2025</div>
+    </a>
+    <a class="repo-card" href="https://github.com/BuildwithBPP/AI-Automation" target="_blank">
+      <div class="repo-name">AI-Automation <span class="repo-vis private">Private</span></div>
+      <div class="repo-desc">N8N workflow templates for AI automation.</div>
+      <div class="repo-meta">Pushed Oct 2025</div>
+    </a>
+    <a class="repo-card" href="https://github.com/BuildwithBPP/ai-workflows" target="_blank">
+      <div class="repo-name">ai-workflows <span class="repo-vis private">Private</span></div>
+      <div class="repo-desc">JSON prompt workflows for AI automation.</div>
+      <div class="repo-meta">Pushed Oct 2025</div>
+    </a>
+  </div>
+
+  <!-- FOOTNOTE -->
+  <div style="text-align:center;font-size:11px;color:var(--muted);margin-top:30px;padding-top:20px;border-top:1px solid var(--border);">
+    Snapshot updated 2026-05-10. Auto-refresh on Sunday 8pm is on the roadmap (tied to bpp-monday-prep cron migration).<br>
+    Want to ship something next? Open Claude Code in the workspace and ask "what's the highest-leverage thing I could build this week?"
+  </div>
+
+</main>
+
+<script>
+  // Render velocity chart bars
+  (function(){
+    const weeks = [
+      {label: "Apr 6-12", count: 15, peak: false},
+      {label: "Apr 13-19", count: 1, peak: false},
+      {label: "Apr 20-26", count: 0, peak: false},
+      {label: "Apr 27-May 3", count: 5, peak: false},
+      {label: "May 4-10", count: 23, peak: true},
+      {label: "May 11-17", count: 0, peak: false}
+    ];
+    const max = Math.max(...weeks.map(w => w.count), 1);
+    const grid = document.getElementById('velo-chart');
+    if(!grid) return;
+    weeks.forEach(w => {
+      const wrap = document.createElement('div');
+      wrap.className = 'velo-bar-wrap';
+      const heightPct = w.count === 0 ? 4 : (w.count / max) * 100;
+      const bar = document.createElement('div');
+      bar.className = 'velo-bar' + (w.peak ? ' peak' : '');
+      bar.style.height = heightPct + '%';
+      if(w.count > 0){
+        const valEl = document.createElement('div');
+        valEl.className = 'velo-bar-val';
+        valEl.textContent = w.count;
+        bar.appendChild(valEl);
+      }
+      const label = document.createElement('div');
+      label.className = 'velo-bar-label';
+      label.textContent = w.label;
+      wrap.appendChild(bar);
+      wrap.appendChild(label);
+      grid.appendChild(wrap);
+    });
+  })();
+
+  // Person switcher (matches existing hub pages)
+  function togglePerson(name, btn){
+    const body = document.body;
+    const cur = body.getAttribute('data-person');
+    document.querySelectorAll('.person-btn').forEach(b => {
+      b.classList.remove('active-daunte','active-kenny','active-eli');
+    });
+    if(cur === name){
+      body.removeAttribute('data-person');
+      localStorage.removeItem('bpp-person');
+    } else {
+      body.setAttribute('data-person', name);
+      btn.classList.add('active-' + name);
+      localStorage.setItem('bpp-person', name);
+    }
+  }
+  // Restore saved selection
+  (function(){
+    const saved = localStorage.getItem('bpp-person');
+    if(saved){
+      document.body.setAttribute('data-person', saved);
+      const b = document.querySelector('.person-btn[onclick*="' + saved + '"]');
+      if(b) b.classList.add('active-' + saved);
+    }
+  })();
+</script>
+
+</body>
+</html>
