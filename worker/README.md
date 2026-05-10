@@ -1,103 +1,100 @@
 # bpp-recap-worker
 
-Cloudflare Worker that takes the friction out of the Monday CEO recap. Browser POSTs decisions + commits → Worker sends the HTML email via Microsoft Graph and commits decisions to GitHub. **No Claude Code required for the recap flow.**
+A 5-minute Cloudflare Worker that lets the Hub save data from the browser. **Save only — no email send.** Email goes out from Claude Code via the ms365 MCP, same way the personal morning brief does.
+
+## Why this is small on purpose
+
+Daunte's personal pattern: action checklist saves to Cloudflare; emails come from Claude Code. The Monday recap mirrors that.
+
+```
+Browser (ops.html)
+   ↓ POST /save-recap
+Cloudflare Worker
+   ↓ commit
+GitHub repo (bpp-tools)
+   ↓ Daunte runs /monday-recap when ready
+Claude Code + ms365 MCP
+   ↓ send-mail
+Outlook (3 BPP owner inboxes)
+```
+
+No Microsoft Graph App Registration. No Azure admin consent. No client secrets to rotate. Just a GitHub PAT and a bearer token.
 
 ## Endpoints
 
-- `POST /send-recap` — sends HTML recap email + commits decisions JSON + writes recap markdown
-- `POST /save-decisions` — commits decisions only (no email)
-- `GET /` — health check
+| Method | Path | Purpose |
+|---|---|---|
+| GET | `/health` | health check |
+| POST | `/save-recap` | append decisions + write recap markdown |
+| POST | `/save-decisions` | append decisions only |
 
-All POST endpoints require `Authorization: Bearer <SHARED_SECRET>` header.
+All POSTs need `Authorization: Bearer <SHARED_SECRET>`.
 
-## One-time setup
+## One-time setup (5 min)
 
-### 1. Cloudflare account + Wrangler CLI
+### 1. Wrangler CLI
 
 ```powershell
-# Install Wrangler (Cloudflare's CLI)
 npm install -g wrangler
-
-# Sign in (opens browser)
-wrangler login
+wrangler login   # opens browser, sign in to your Cloudflare account
 ```
 
-Free tier covers this Worker forever (100K req/day; we'll use ~5/week).
+Free tier covers this Worker forever.
 
-### 2. Microsoft Graph app registration (for sending email)
+### 2. GitHub fine-grained PAT
 
-In Azure portal (using daunte@buildwithbpp.com or admin account):
+github.com → Settings → Developer settings → Personal access tokens → **Fine-grained tokens** → Generate new token
 
-1. Azure Active Directory → App registrations → **New registration**
-2. Name: `bpp-recap-worker`
-3. Supported account types: **Single tenant**
-4. Redirect URI: leave blank
-5. Click Register
-6. Note the **Application (client) ID** and **Directory (tenant) ID** — you'll need these
-7. Certificates & secrets → **New client secret** → 24 months → copy the **Value** (only shown once)
-8. API permissions → **Add a permission** → Microsoft Graph → **Application permissions** → search `Mail.Send` → check it → Add
-9. **Grant admin consent for [tenant]** ← critical, without this the Worker gets 403
+- Name: `bpp-recap-worker`
+- Expiration: 1 year
+- Repository access: **Only select repositories** → `BuildwithBPP/bpp-tools`
+- Repository permissions:
+  - **Contents**: Read and write
+  - **Metadata**: Read (auto)
 
-### 3. GitHub fine-grained PAT
+Copy the token value.
 
-1. github.com → Settings → Developer settings → Personal access tokens → **Fine-grained tokens** → Generate new token
-2. Name: `bpp-recap-worker`
-3. Expiration: 1 year
-4. Repository access: **Only select repositories** → `BuildwithBPP/bpp-tools`
-5. Repository permissions:
-   - **Contents**: Read and write
-   - **Metadata**: Read (auto)
-6. Generate token → copy the value
-
-### 4. Push secrets to the Worker
-
-From `worker/` directory:
+### 3. Push secrets
 
 ```powershell
 cd "C:\Users\dtben\Developer\bpp-tools\worker"
 
-# Generate a shared secret (the bearer token ops.html will send)
+# Generate a shared bearer token
 $secret = -join ((48..57) + (65..90) + (97..122) | Get-Random -Count 40 | ForEach-Object { [char]$_ })
-$secret  # save this — you'll paste it into ops.html
+$secret  # save this — paste into ops.html in step 5
 
-# Push secrets
-wrangler secret put SHARED_SECRET           # paste $secret
-wrangler secret put GITHUB_TOKEN            # paste fine-grained PAT
-wrangler secret put GRAPH_TENANT_ID         # paste tenant id from step 2
-wrangler secret put GRAPH_CLIENT_ID         # paste client id
-wrangler secret put GRAPH_CLIENT_SECRET     # paste client secret value
-wrangler secret put GRAPH_SENDER_UPN        # paste daunte@buildwithbpp.com
+# Push to Cloudflare
+wrangler secret put SHARED_SECRET    # paste $secret
+wrangler secret put GITHUB_TOKEN     # paste fine-grained PAT
 ```
 
-### 5. Deploy
+### 4. Deploy
 
 ```powershell
 wrangler deploy
 ```
 
-You'll get a URL like `https://bpp-recap-worker.<subdomain>.workers.dev`. Note this — ops.html needs it.
+You'll get a URL like `https://bpp-recap-worker.<subdomain>.workers.dev`. Note it.
 
-### 6. Wire ops.html
+### 5. Wire ops.html
 
-In `pages/ops.html`, find the constants near the top of the script and set:
+Edit `pages/ops.html`. Near the top of the script section, set:
 
 ```js
-const RECAP_WORKER_URL = "https://bpp-recap-worker.<your-subdomain>.workers.dev";
-const RECAP_WORKER_SECRET = "<the SHARED_SECRET you generated>";
+var RECAP_WORKER_URL = "https://bpp-recap-worker.<your-subdomain>.workers.dev";
+var RECAP_WORKER_SECRET = "<the SHARED_SECRET you generated>";
 ```
 
-Note: the secret IS exposed in the page source. That's fine for an internal-only tool — Daunte/Kenny/Eli are the only people with the Hub URL, and the Worker also enforces `Access-Control-Allow-Origin` to the GitHub Pages domain. Rotate quarterly.
+Commit + push. The next time the Hub loads, the meeting buttons will use the Worker.
 
-For higher security: put ops.html behind Cloudflare Access with M365 SSO; the Worker can verify the access JWT instead of a bearer token.
-
-### 7. Test
+### 6. Test
 
 ```powershell
 # Health check
 curl https://bpp-recap-worker.<sub>.workers.dev/health
 
-# Test send-recap (replace SECRET)
-curl -X POST https://bpp-recap-worker.<sub>.workers.dev/send-recap `
+# Test save-recap
+curl -X POST https://bpp-recap-worker.<sub>.workers.dev/save-recap `
   -H "Authorization: Bearer <SECRET>" `
   -H "Content-Type: application/json" `
   -d '{
@@ -108,7 +105,27 @@ curl -X POST https://bpp-recap-worker.<sub>.workers.dev/send-recap `
   }'
 ```
 
-If success, check daunte@buildwithbpp.com (and the other two BPP inboxes) for the test email. Also check that `data/monday-decisions.json` got a new entry on `main`.
+Expected response:
+```json
+{
+  "ok": true,
+  "decisions_committed": 1,
+  "recap_path": "data/monday-recaps/2026-05-11.md",
+  "next_step": "In Claude Code, run: /monday-recap 2026-05-11"
+}
+```
+
+Check the `bpp-tools` repo `main` branch — `data/monday-decisions.json` and `data/monday-recaps/2026-05-11.md` should both have new commits.
+
+## Daily flow after setup
+
+After a Monday CEO meeting:
+
+1. Click **Save Decisions** on ops.html → decisions commit instantly via Worker
+2. Click **Send Recap** on ops.html → recap markdown commits instantly via Worker (you don't need to do anything else for the team to see it on the Hub)
+3. To email the team, in Claude Code: `/monday-recap` — reads the saved markdown, sends via ms365 MCP
+
+If you'd rather the email go automatically: schedule a Routine that fires Monday at 6pm: "Run /monday-recap, send to BPP owners." It checks for the saved recap; if no file for today, no-op.
 
 ## Local dev
 
@@ -121,18 +138,9 @@ Set ops.html's `RECAP_WORKER_URL` to `http://localhost:8787` for local testing.
 
 ## Costs
 
-Worker: free tier (100K requests/day, we use ~5/week).
-MS Graph: free, no per-call charge for Mail.Send under business tenant.
-GitHub API: free, 5000 requests/hour authenticated.
-
-**Total ongoing cost: $0.**
-
-## What this Worker does NOT do
-
-- Does not auto-fire on a schedule. The Sunday brief generation still runs as a Routine via `/monday-prep`. This Worker is purely the recap flow (post-meeting button click).
-- Does not access HubSpot, QuickBooks, or Monday. Those are still pulled by the Sunday Routine via Connector MCPs.
-- Does not store any data of its own. Stateless. Reads/writes through GitHub.
-- Does not send to recipients other than the three BPP owner inboxes (set in `wrangler.toml` vars). To override, change `DEFAULT_TO_EMAILS`.
+- Worker: free tier (100K req/day, we use ~5/week).
+- GitHub API: free, 5000 req/hour authenticated.
+- **Total: $0/month.**
 
 ## Updating the Worker
 
@@ -142,4 +150,8 @@ cd "C:\Users\dtben\Developer\bpp-tools\worker"
 wrangler deploy
 ```
 
-Deploy is instant (~10s). No restart needed for the Hub.
+## What this Worker doesn't do
+
+- No email send. That's Claude Code's job (matches personal brief).
+- No QuickBooks, HubSpot, or Monday access. Those are pulled by the Sunday Routine via Connector MCPs.
+- No state of its own. Stateless. Just a thin wrapper over the GitHub API.

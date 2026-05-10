@@ -66,8 +66,8 @@
       <div style="display:flex;gap:8px;align-items:center;margin-bottom:18px;flex-wrap:wrap;">
         <button class="btn btn-gold" onclick="refreshBrief()" title="Re-fetch the latest brief from data/monday-prep-latest.json">&#8635; Refresh Brief</button>
         <button class="btn" onclick="window.print()">Export Notes</button>
-        <button class="btn btn-navy" onclick="sendRecap(event)" title="Send HTML recap email to all 3 owners + commit decisions (via Cloudflare Worker)">Send Recap &rarr;</button>
-        <button class="btn" onclick="saveDecisions(event)" title="Commit decisions to bpp-tools/data/monday-decisions.json (via Cloudflare Worker)">&#128190; Save Decisions</button>
+        <button class="btn btn-navy" onclick="sendRecap(event)" title="Save recap markdown + decisions to bpp-tools (via Cloudflare Worker). Email send is a follow-up: run /monday-recap in Claude Code.">Save Recap &rarr;</button>
+        <button class="btn" onclick="saveDecisions(event)" title="Commit decisions to bpp-tools/data/monday-decisions.json (via Cloudflare Worker)">&#128190; Save Decisions Only</button>
         <span style="margin-left:auto;font-size:10px;color:var(--muted);" id="worker-status-hint">Worker not configured &mdash; will fall back to Claude Code paste flow.</span>
       </div>
 
@@ -701,14 +701,18 @@ function sendRecap() {
   // Try Worker first (one-click). Fall back to clipboard/Claude Code if not configured or fails.
   if (RECAP_WORKER_URL && RECAP_WORKER_SECRET) {
     var btn = event && event.target;
-    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
-    postToWorker('/send-recap', payload).then(function(j) {
-      alert('Recap sent ✓\n\nTo: ' + (j.sent_to || []).join(', ') + '\nDecisions committed: ' + j.decisions_committed + '\nArchived to: ' + j.recap_path);
-      if (btn) { btn.disabled = false; btn.textContent = 'Send Recap →'; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
+    postToWorker('/save-recap', payload).then(function(j) {
+      alert('Recap saved ✓\n\n' +
+            'Decisions committed: ' + j.decisions_committed + '\n' +
+            'Recap markdown: ' + j.recap_path + '\n\n' +
+            'To email the team, in Claude Code run:\n  /monday-recap ' + payload.week_of + '\n\n' +
+            '(Or schedule a Routine to do it automatically Monday afternoon.)');
+      if (btn) { btn.disabled = false; btn.textContent = 'Save Recap →'; }
     }).catch(function(err) {
-      console.error('Worker send-recap failed:', err);
+      console.error('Worker save-recap failed:', err);
       alert('Worker call failed: ' + err.message + '\n\nFalling back to Claude Code paste flow.');
-      if (btn) { btn.disabled = false; btn.textContent = 'Send Recap →'; }
+      if (btn) { btn.disabled = false; btn.textContent = 'Save Recap →'; }
       sendRecapClipboardFallback(payload);
     });
     return;
