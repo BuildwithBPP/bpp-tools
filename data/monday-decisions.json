@@ -1,7 +1,25 @@
 {
-  "_format": "Persistent decision tracker. New entries are pushed to weeks[]. Each week stores decisions made in that Monday's CEO meeting. Status updates flow back via ops.html during subsequent meetings.",
-  "_status_values": ["OPEN", "IN_FLIGHT", "DONE", "BLOCKED", "DROPPED"],
+  "_format": "Persistent decision tracker. New entries are pushed to weeks[].",
+  "_status_values": [
+    "OPEN",
+    "IN_FLIGHT",
+    "DONE",
+    "BLOCKED",
+    "DROPPED"
+  ],
   "weeks": [
+    {
+      "week_of": "2026-05-11",
+      "decisions": [
+        {
+          "decision": "Validate Worker pipeline end-to-end",
+          "owner": "Daunte",
+          "due_date": "2026-05-18",
+          "status": "OPEN",
+          "set_date": "2026-05-11"
+        }
+      ]
+    },
     {
       "week_of": "2026-05-06",
       "note": "From the 2026-05-06 mid-week ratification session (not a Monday CEO meeting, but seeded here so 5/11 brief can pull last decisions).",
