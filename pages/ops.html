@@ -66,9 +66,9 @@
       <div style="display:flex;gap:8px;align-items:center;margin-bottom:18px;flex-wrap:wrap;">
         <button class="btn btn-gold" onclick="refreshBrief()" title="Re-fetch the latest brief from data/monday-prep-latest.json">&#8635; Refresh Brief</button>
         <button class="btn" onclick="window.print()">Export Notes</button>
-        <button class="btn btn-navy" onclick="sendRecap()" title="Format decisions + commits, then run /monday-recap in Claude Code">Send Recap &rarr;</button>
-        <button class="btn" onclick="saveDecisions()" title="Capture decisions JSON, then run /monday-save-decisions in Claude Code">&#128190; Save Decisions</button>
-        <span style="margin-left:auto;font-size:10px;color:var(--muted);">Run <code style="background:var(--bg);padding:1px 5px;border-radius:3px;">/monday-prep</code> in Claude Code to regenerate the brief.</span>
+        <button class="btn btn-navy" onclick="sendRecap(event)" title="Send HTML recap email to all 3 owners + commit decisions (via Cloudflare Worker)">Send Recap &rarr;</button>
+        <button class="btn" onclick="saveDecisions(event)" title="Commit decisions to bpp-tools/data/monday-decisions.json (via Cloudflare Worker)">&#128190; Save Decisions</button>
+        <span style="margin-left:auto;font-size:10px;color:var(--muted);" id="worker-status-hint">Worker not configured &mdash; will fall back to Claude Code paste flow.</span>
       </div>
 
       <!-- Block 1: Purpose & Framing -->
@@ -424,6 +424,11 @@ function selFocus(el) {
   el.classList.add('on');
 }
 
+// -- Recap Worker config (set after deploying worker/) --
+// See worker/README.md for setup.
+var RECAP_WORKER_URL = "";   // e.g. "https://bpp-recap-worker.YOUR-SUBDOMAIN.workers.dev"
+var RECAP_WORKER_SECRET = "";  // SHARED_SECRET from wrangler
+
 // -- Brief loader --
 var BRIEF_DATA = null;
 
@@ -634,46 +639,112 @@ function renderRiskList(id, items, formatter) {
 // -- Send Recap --
 // The browser can't call MCPs directly. Workflow: build the formatted recap,
 // show it in a modal, copy to clipboard, user runs /monday-recap in Claude Code.
-function sendRecap() {
-  var weekOf = (BRIEF_DATA && BRIEF_DATA.week_of) || '--';
-  var lines = [];
-  lines.push('# BPP Monday CEO Meeting Recap — Week of ' + weekOf);
-  lines.push('');
-  lines.push('## North Star this week');
-  lines.push((BRIEF_DATA && BRIEF_DATA.north_star) || '--');
-  lines.push('');
+// Build the structured payload from the meeting form
+function collectRecapPayload() {
   var voiceUpdate = document.getElementById('voice-update-text');
-  if (voiceUpdate && voiceUpdate.value.trim()) {
-    lines.push('## Voice updates / corrections');
-    lines.push(voiceUpdate.value.trim());
-    lines.push('');
-  }
-  lines.push('## Decisions made today');
-  var anyDec = false;
-  document.querySelectorAll('#dec-list .dec-row').forEach(function(row, i) {
+  var decisions = [];
+  document.querySelectorAll('#dec-list .dec-row').forEach(function(row) {
     var text = row.querySelector('.dec-text').value.trim();
     var owner = row.querySelector('.dec-own').value;
     var due = row.querySelector('.dec-due') ? row.querySelector('.dec-due').value : '';
-    if (text) {
-      anyDec = true;
-      lines.push((i + 1) + '. ' + text + (owner ? ' — ' + owner : '') + (due ? ' (due ' + due + ')' : ''));
-    }
+    if (text) decisions.push({ decision: text, owner: owner || null, due_date: due || null, status: 'OPEN', set_date: new Date().toISOString().slice(0, 10) });
   });
-  if (!anyDec) lines.push('_(none captured)_');
-  lines.push('');
-  lines.push('## Owner commits');
+  var commits = {};
   ['d', 'k', 'e'].forEach(function(p, idx) {
     var name = ['Daunte', 'Kenny', 'Eli'][idx];
     var s = document.getElementById('commit-' + p + '-strat').value.trim();
     var o = document.getElementById('commit-' + p + '-op').value.trim();
     var u = document.getElementById('commit-' + p + '-unblock').value.trim();
-    if (s || o || u) {
-      lines.push('### ' + name);
-      if (s) lines.push('- Strategic: ' + s);
-      if (o) lines.push('- Operational: ' + o);
-      if (u) lines.push('- Unblock: ' + u);
-      lines.push('');
-    }
+    if (s || o || u) commits[name] = { strategic: s, operational: o, unblock: u };
+  });
+  var statusUpdates = [];
+  document.querySelectorAll('#brief-prior-decisions .decision-status-select').forEach(function(sel) {
+    statusUpdates.push({
+      week_of: BRIEF_DATA && BRIEF_DATA.week_of_prior,
+      decision_idx: parseInt(sel.dataset.idx, 10),
+      status: sel.value
+    });
+  });
+  return {
+    week_of: (BRIEF_DATA && BRIEF_DATA.week_of) || new Date().toISOString().slice(0, 10),
+    north_star: (BRIEF_DATA && BRIEF_DATA.north_star) || '',
+    voice_update: voiceUpdate ? voiceUpdate.value.trim() : '',
+    decisions: decisions,
+    commits: commits,
+    status_updates: statusUpdates
+  };
+}
+
+// POST to the Cloudflare Worker (sends email + commits to GitHub)
+function postToWorker(path, payload) {
+  if (!RECAP_WORKER_URL || !RECAP_WORKER_SECRET) {
+    return Promise.reject(new Error('Worker not configured. Set RECAP_WORKER_URL and RECAP_WORKER_SECRET at the top of ops.html script.'));
+  }
+  return fetch(RECAP_WORKER_URL.replace(/\/$/, '') + path, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + RECAP_WORKER_SECRET
+    },
+    body: JSON.stringify(payload)
+  }).then(function(r) {
+    return r.json().then(function(j) {
+      if (!r.ok) throw new Error(j.error || ('HTTP ' + r.status));
+      return j;
+    });
+  });
+}
+
+function sendRecap() {
+  var payload = collectRecapPayload();
+
+  // Try Worker first (one-click). Fall back to clipboard/Claude Code if not configured or fails.
+  if (RECAP_WORKER_URL && RECAP_WORKER_SECRET) {
+    var btn = event && event.target;
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+    postToWorker('/send-recap', payload).then(function(j) {
+      alert('Recap sent ✓\n\nTo: ' + (j.sent_to || []).join(', ') + '\nDecisions committed: ' + j.decisions_committed + '\nArchived to: ' + j.recap_path);
+      if (btn) { btn.disabled = false; btn.textContent = 'Send Recap →'; }
+    }).catch(function(err) {
+      console.error('Worker send-recap failed:', err);
+      alert('Worker call failed: ' + err.message + '\n\nFalling back to Claude Code paste flow.');
+      if (btn) { btn.disabled = false; btn.textContent = 'Send Recap →'; }
+      sendRecapClipboardFallback(payload);
+    });
+    return;
+  }
+
+  // No worker configured — fall back to Claude Code paste
+  sendRecapClipboardFallback(payload);
+}
+
+function sendRecapClipboardFallback(payload) {
+  var weekOf = payload.week_of;
+  var lines = [];
+  lines.push('# BPP Monday CEO Meeting Recap — Week of ' + weekOf);
+  lines.push('');
+  lines.push('## North Star this week');
+  lines.push(payload.north_star || '--');
+  lines.push('');
+  if (payload.voice_update) {
+    lines.push('## Voice updates / corrections');
+    lines.push(payload.voice_update);
+    lines.push('');
+  }
+  lines.push('## Decisions made today');
+  if (!payload.decisions.length) lines.push('_(none captured)_');
+  payload.decisions.forEach(function(d, i) {
+    lines.push((i + 1) + '. ' + d.decision + (d.owner ? ' — ' + d.owner : '') + (d.due_date ? ' (due ' + d.due_date + ')' : ''));
+  });
+  lines.push('');
+  lines.push('## Owner commits');
+  Object.keys(payload.commits || {}).forEach(function(name) {
+    var c = payload.commits[name];
+    lines.push('### ' + name);
+    if (c.strategic) lines.push('- Strategic: ' + c.strategic);
+    if (c.operational) lines.push('- Operational: ' + c.operational);
+    if (c.unblock) lines.push('- Unblock: ' + c.unblock);
+    lines.push('');
   });
   lines.push('---');
   lines.push('Hub: https://buildwithbpp.github.io/bpp-tools/pages/ops.html');
@@ -692,29 +763,30 @@ function copyRecap() {
 }
 
 // -- Save Decisions --
-// Surface a JSON payload the user copies into Claude Code. The companion
-// /monday-save-decisions skill merges it into monday-decisions.json.
+// Try the Worker first (one-click commit). Fall back to Claude Code paste.
 function saveDecisions() {
-  var decisions = [];
-  var today = new Date().toISOString().slice(0, 10);
-  document.querySelectorAll('#dec-list .dec-row').forEach(function(row) {
-    var text = row.querySelector('.dec-text').value.trim();
-    var owner = row.querySelector('.dec-own').value;
-    var due = row.querySelector('.dec-due') ? row.querySelector('.dec-due').value : '';
-    if (text) decisions.push({ decision: text, owner: owner, due_date: due || null, status: 'OPEN', set_date: today });
-  });
-  var statusUpdates = [];
-  document.querySelectorAll('#brief-prior-decisions .decision-status-select').forEach(function(sel) {
-    statusUpdates.push({ idx: sel.dataset.idx, status: sel.value });
-  });
-  var payload = {
-    week_of: (BRIEF_DATA && BRIEF_DATA.week_of) || today,
-    new_decisions: decisions,
-    status_updates: statusUpdates
-  };
-  var json = JSON.stringify(payload, null, 2);
+  var payload = collectRecapPayload();
 
-  // Drop into the recap modal's textarea (reusing the modal for both flows)
+  if (RECAP_WORKER_URL && RECAP_WORKER_SECRET) {
+    var btn = event && event.target;
+    if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
+    postToWorker('/save-decisions', payload).then(function(j) {
+      alert('Decisions saved ✓\n\n' + j.decisions_committed + ' decisions committed to bpp-tools/data/monday-decisions.json.\n\nNext Monday\'s brief will surface these under "Prior week\'s decisions."');
+      if (btn) { btn.disabled = false; btn.textContent = '💾 Save Decisions'; }
+    }).catch(function(err) {
+      console.error('Worker save-decisions failed:', err);
+      alert('Worker call failed: ' + err.message + '\n\nFalling back to Claude Code paste flow.');
+      if (btn) { btn.disabled = false; btn.textContent = '💾 Save Decisions'; }
+      saveDecisionsClipboardFallback(payload);
+    });
+    return;
+  }
+
+  saveDecisionsClipboardFallback(payload);
+}
+
+function saveDecisionsClipboardFallback(payload) {
+  var json = JSON.stringify(payload, null, 2);
   var ta = document.getElementById('recap-text');
   ta.value = '# Save Decisions Payload\n# Copy from below, then in Claude Code run:\n#   /monday-save-decisions <paste>\n\n' + json;
   document.getElementById('recap-modal').style.display = 'flex';
@@ -789,6 +861,14 @@ function calcQ() {
 // -- Init --
 setDates();
 refreshBrief();
+(function() {
+  var hint = document.getElementById('worker-status-hint');
+  if (!hint) return;
+  if (RECAP_WORKER_URL && RECAP_WORKER_SECRET) {
+    hint.innerHTML = '✓ Worker wired &middot; Send Recap and Save Decisions are 1-click.';
+    hint.style.color = 'var(--green)';
+  }
+})();
 </script>
 
 </body>

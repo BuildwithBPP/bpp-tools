@@ -1,0 +1,112 @@
+{
+  "_format": "Auto-refreshed every Sunday 8pm by bpp-monday-prep skill (Step 11.5). Hand-seeded v1 from May 1 forecast + 2026-05-06 ratification. index.html fetches this on load.",
+  "generated_at": "2026-05-10T20:00:00",
+  "generation_mode": "hand-seeded-v1",
+  "as_of_date": "2026-05-01",
+  "stats": {
+    "cash_on_hand": 6496,
+    "cash_breakdown": {
+      "operating": 3328,
+      "savings": 2805,
+      "rodney_envelope": 363
+    },
+    "buffer_target": 3649,
+    "buffer_gap": -321,
+    "savings_pct_to_phase2": 93,
+    "ar_total": null,
+    "ar_breakdown": {
+      "issued": null,
+      "drafts": null
+    },
+    "ar_aging": {
+      "0_30": null,
+      "31_60": null,
+      "60_plus": null
+    },
+    "expected_may_ar_high": 4260,
+    "active_clients_count": 4,
+    "active_clients_names": ["SEEDFOLKids", "Financial Acuity", "Lois Marketing", "Wedelia Wellness"],
+    "pipeline_total": 12000,
+    "pipeline_count": 5,
+    "pipeline_verified_date": "2026-05-04"
+  },
+  "ar_scenarios": [
+    {
+      "name": "Conservative",
+      "receivables_in": 4260,
+      "ending_operating": 5488,
+      "savings_after": 3453,
+      "hits_phase2": true,
+      "highlight": false,
+      "detail": "Highs only: Wanda $500, Lois milestone $1,800, Jeannette $960, Maxine $1,000."
+    },
+    {
+      "name": "Realistic",
+      "receivables_in": 5085,
+      "ending_operating": 6313,
+      "savings_after": 3700,
+      "hits_phase2": true,
+      "highlight": true,
+      "detail": "+ HALO Commons $824."
+    },
+    {
+      "name": "Stretch",
+      "receivables_in": 6434,
+      "ending_operating": 7663,
+      "savings_after": 4105,
+      "hits_phase2": true,
+      "highlight": false,
+      "detail": "+ Lois closeout $1,350. Within reach of Phase 3."
+    }
+  ],
+  "phase": {
+    "current": "Phase 1",
+    "next_trigger": "Savings >= $3K (93% there)",
+    "transitioning_to": "Phase 2"
+  },
+  "active_clients": [
+    {
+      "name": "Lois Marketing",
+      "subtitle": "Phil Tirado · Operator System ($4,500)",
+      "owner": "Eli",
+      "owner_color": "eli",
+      "phase": "Build",
+      "next_milestone": "40% payment $1,800 (May)",
+      "closeout": "30% $1,350 (later)"
+    },
+    {
+      "name": "Financial Acuity",
+      "subtitle": "Maxine",
+      "owner": "Daunte/Eli",
+      "owner_color": "daunte",
+      "phase": "Build",
+      "next_milestone": "$1,000 (May, high likelihood)"
+    },
+    {
+      "name": "SEEDFOLKids",
+      "subtitle": "",
+      "owner": "Eli",
+      "owner_color": "eli",
+      "phase": "Build",
+      "next_milestone": "TBD — verify"
+    },
+    {
+      "name": "Wedelia Wellness",
+      "subtitle": "Whol-Sum Juice / Root to Radiance",
+      "owner": "Eli",
+      "owner_color": "eli",
+      "phase": "Build",
+      "next_milestone": "TBD — verify"
+    }
+  ],
+  "whats_new": {
+    "ratified_date": "2026-05-06",
+    "headline": "The chart is the chart. 5 of 6 dept owners locked in.",
+    "items": [
+      {"label": "Marketing flipped", "text": "Kenny took DRI from Daunte. Justin still executes. Transition kit packaging in flight before KT sessions."},
+      {"label": "$2K decision rule", "text": "Below $2K with time pressure: dept DRI calls it. Above $2K: full team debate."},
+      {"label": "Iron sharpens iron", "text": "For big decisions, defending a position with rationale beats deferring to keep peace."},
+      {"label": "AI agents per dept", "text": "AI Workforce provides the framework. Each dept builds and owns its own agents."}
+    ]
+  }
+}

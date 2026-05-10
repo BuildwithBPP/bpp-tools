@@ -1,0 +1,26 @@
+name = "bpp-recap-worker"
+main = "src/index.js"
+compatibility_date = "2026-05-10"
+
+# Allow ops.html on GitHub Pages to call this Worker.
+# CORS is handled in index.js (the Worker explicitly sets Access-Control-Allow-Origin).
+
+# Routes (set up after first deploy via Cloudflare dashboard or via this file):
+# routes = [
+#   { pattern = "bpp-recap.YOUR_SUBDOMAIN.workers.dev/*", zone_name = "" }
+# ]
+
+[vars]
+# Public, non-secret config:
+HUB_URL = "https://buildwithbpp.github.io/bpp-tools/pages/ops.html"
+ALLOWED_ORIGIN = "https://buildwithbpp.github.io"
+GITHUB_REPO = "BuildwithBPP/bpp-tools"
+DEFAULT_TO_EMAILS = "daunte@buildwithbpp.com,kenny@buildwithbpp.com,eli@buildwithbpp.com"
+
+# Secrets (set via `wrangler secret put` — DO NOT commit values):
+#   GITHUB_TOKEN          - fine-grained PAT with Contents: read+write on bpp-tools repo
+#   GRAPH_TENANT_ID       - Azure tenant ID for Microsoft 365
+#   GRAPH_CLIENT_ID       - App registration client ID
+#   GRAPH_CLIENT_SECRET   - App registration client secret (Mail.Send Application permission, admin-consented)
+#   GRAPH_SENDER_UPN      - Mailbox to send from (default: daunte@buildwithbpp.com)
+#   SHARED_SECRET         - Bearer token the browser presents; rotate quarterly
