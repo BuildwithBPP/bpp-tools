@@ -82,6 +82,13 @@
           </div>
           <div class="norms-mini" id="brief-norms"></div>
           <div style="font-size:11px;color:var(--muted);margin-top:6px;"><strong style="color:var(--text2);">Out of scope today:</strong> <span id="brief-out-of-scope">_loading_</span></div>
+
+          <!-- Voice Update (mid-meeting corrections) -->
+          <div style="margin-top:14px;padding:12px 14px;background:var(--bg);border-left:3px solid var(--steel);border-radius:6px;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--steel);margin-bottom:6px;">Voice Update / Corrections</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">If the brief got something wrong (data shifted Sunday → Monday, person not in fact OOO, sprint goal changed), capture it here. Saved with the recap and rolled into next week's brief.</div>
+            <textarea id="voice-update-text" class="textarea" rows="2" placeholder="e.g., Lois milestone $1,800 actually paid Friday — strike from AR. Eli OOO Wednesday. Sprint goal updated to..." oninput="ar(this)"></textarea>
+          </div>
         </div>
       </div>
 
@@ -635,6 +642,12 @@ function sendRecap() {
   lines.push('## North Star this week');
   lines.push((BRIEF_DATA && BRIEF_DATA.north_star) || '--');
   lines.push('');
+  var voiceUpdate = document.getElementById('voice-update-text');
+  if (voiceUpdate && voiceUpdate.value.trim()) {
+    lines.push('## Voice updates / corrections');
+    lines.push(voiceUpdate.value.trim());
+    lines.push('');
+  }
   lines.push('## Decisions made today');
   var anyDec = false;
   document.querySelectorAll('#dec-list .dec-row').forEach(function(row, i) {
