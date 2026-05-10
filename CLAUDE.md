@@ -1,5 +1,7 @@
 # BPP Tools - Claude Code Instructions
 
+> **Inherits from the BuildwithBPP org base.** Org-wide rules (brand voice, lane rule, secrets, code conventions, how to work with Claude in BPP repos) live in [`BuildwithBPP/.github/CLAUDE.md`](https://github.com/BuildwithBPP/.github/blob/main/CLAUDE.md). When the org base changes, propagate the relevant section into this file. Repo-specific rules are below.
+
 This is the BPP team hub repo. Shared context, onboarding docs, and cross-project utilities for the Business Plans Plus development team.
 
 ## Who We Are
