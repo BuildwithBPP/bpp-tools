@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
   --navy:#044771;
@@ -25,7 +27,7 @@
   --yellow-bg:rgba(217,119,6,0.08);
   --red:#dc2626;
   --red-bg:rgba(220,38,38,0.08);
-  --sans:'Inter',sans-serif;
+  --sans:'Poppins','Inter',sans-serif;
   --head:'Montserrat',sans-serif;
   --serif:'Merriweather',serif;
 }

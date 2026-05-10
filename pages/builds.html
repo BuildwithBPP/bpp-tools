@@ -138,7 +138,7 @@
     </div>
     <div class="stat-card">
       <div class="stat-label">Last 30 Days</div>
-      <div class="stat-val builds">34</div>
+      <div class="stat-val builds">38</div>
       <div class="stat-sub">Commits across the stack</div>
     </div>
   </div>
@@ -150,12 +150,45 @@
         <div class="velo-title">Shipping Velocity</div>
         <div class="velo-meta" style="margin-top:3px;">Commits per week, last 6 weeks. Combined across bpp-tools + bpp-plugins.</div>
       </div>
-      <div class="velo-meta"><strong style="color:var(--navy);">45</strong> total commits in the period</div>
+      <div class="velo-meta"><strong style="color:var(--navy);">49</strong> total commits in the period</div>
     </div>
     <div class="velo-grid" id="velo-chart">
       <!-- Bars rendered via JS for clean math -->
     </div>
-    <div style="margin-top:16px;font-size:11px;color:var(--muted);text-align:center;">Last week was the biggest in 6 weeks. Org chart ratification + Cloudflare Worker + monday-prep buildout drove the spike.</div>
+    <div style="margin-top:16px;font-size:11px;color:var(--muted);text-align:center;">This week was the biggest in 6 weeks. Org chart ratification + Cloudflare Worker + monday-prep buildout + builds page + brand alignment drove the spike.</div>
+  </div>
+
+  <!-- WHAT JUST SHIPPED -->
+  <div class="sec-label">What Just Shipped &middot; 2026-05-10</div>
+  <div style="background:linear-gradient(135deg, var(--gold-glow) 0%, rgba(89,135,165,0.06) 100%);border:1.5px solid var(--gold-border);border-radius:12px;padding:24px 28px;margin-bottom:28px;">
+    <div style="font-family:var(--head);font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;">Today&rsquo;s install + alignment session</div>
+    <div style="font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:16px;">Daunte stood up the local dev environment so future UI work can be screenshot-verified before shipping (Boris Cherny&rsquo;s feedback-loop principle). Plus a brand-alignment pass on the hub.</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));gap:12px;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;">
+        <div style="font-family:var(--head);font-size:10px;font-weight:700;color:var(--gold-dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;">Claude Code CLI</div>
+        <div style="font-size:12px;color:var(--text);line-height:1.4;">Installed globally via npm. Run <code style="font-family:monospace;font-size:11px;background:var(--bg);padding:1px 5px;border-radius:3px;">claude</code> from any terminal.</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;">
+        <div style="font-family:var(--head);font-size:10px;font-weight:700;color:var(--gold-dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;">3 community plugins</div>
+        <div style="font-size:12px;color:var(--text);line-height:1.4;">SuperPowers, Frontend Design, Code Review installed at user scope. Available in every session.</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;">
+        <div style="font-family:var(--head);font-size:10px;font-weight:700;color:var(--gold-dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;">Playwright + Chromium</div>
+        <div style="font-size:12px;color:var(--text);line-height:1.4;">Headless browser automation. Lets Claude screenshot UI work and verify visually before reporting done.</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;">
+        <div style="font-family:var(--head);font-size:10px;font-weight:700;color:var(--gold-dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;">Org-wide CLAUDE.md</div>
+        <div style="font-size:12px;color:var(--text);line-height:1.4;">New <a href="https://github.com/BuildwithBPP/.github" target="_blank" style="color:var(--navy);">BuildwithBPP/.github</a> repo. Brand voice + lane rules every BPP repo inherits.</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;">
+        <div style="font-family:var(--head);font-size:10px;font-weight:700;color:var(--gold-dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;">Brand alignment</div>
+        <div style="font-size:12px;color:var(--text);line-height:1.4;">Body font swapped Inter &rarr; Poppins to match the official BPP Brand Guidelines spec. Every page.</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;">
+        <div style="font-family:var(--head);font-size:10px;font-weight:700;color:var(--gold-dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;">Day 1 Q&amp;A doc</div>
+        <div style="font-size:12px;color:var(--text);line-height:1.4;">20 starter prompts in 5 tiers for any teammate opening Claude Code in the workspace for the first time.</div>
+      </div>
+    </div>
   </div>
 
   <!-- BPP PLUGINS -->
@@ -311,6 +344,26 @@
     <ul class="timeline-list">
       <li class="timeline-item">
         <div class="timeline-date">May 10</div>
+        <div class="timeline-msg">Brand-align body font (Inter &rarr; Poppins) + builds page session update<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 10</div>
+        <div class="timeline-msg">Fix builds page: chart bar positioning + ratified org chart depts<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 10</div>
+        <div class="timeline-msg">Add Builds page (What We&rsquo;ve Built)<span class="timeline-repo">bpp-tools</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 10</div>
+        <div class="timeline-msg">Add CLAUDE.md following org-wide template<span class="timeline-repo">bpp-plugins</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 10</div>
+        <div class="timeline-msg">Add org-wide CLAUDE.md base + profile README<span class="timeline-repo">.github</span></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">May 10</div>
         <div class="timeline-msg">Re-enable Worker integration; fresh PAT works end-to-end<span class="timeline-repo">bpp-tools</span></div>
       </li>
       <li class="timeline-item">
@@ -438,7 +491,7 @@
       {label: "Apr 13-19", count: 1, peak: false},
       {label: "Apr 20-26", count: 0, peak: false},
       {label: "Apr 27-May 3", count: 5, peak: false},
-      {label: "May 4-10", count: 23, peak: true},
+      {label: "May 4-10", count: 27, peak: true},
       {label: "May 11-17", count: 0, peak: false}
     ];
     const max = Math.max(...weeks.map(w => w.count), 1);
