@@ -424,12 +424,9 @@ function selFocus(el) {
   el.classList.add('on');
 }
 
-// -- Recap Worker config --
-// Worker is deployed but GitHub PAT needs replacement (see worker/RESUME-HERE.md).
-// Temporarily disabled so buttons fall back to Claude Code paste flow without
-// showing a "Worker call failed" alert on every click.
-var RECAP_WORKER_URL = "";    // re-enable after token fix: "https://bpp-recap-worker.buildwithbpp.workers.dev"
-var RECAP_WORKER_SECRET = ""; // re-enable after token fix: "N8QzVxMUEbBy0pYuLlv9kOh7mAcgnqJIfowiSesr"
+// -- Recap Worker config (live as of 2026-05-10) --
+var RECAP_WORKER_URL = "https://bpp-recap-worker.buildwithbpp.workers.dev";
+var RECAP_WORKER_SECRET = "N8QzVxMUEbBy0pYuLlv9kOh7mAcgnqJIfowiSesr";
 
 // -- Brief loader --
 var BRIEF_DATA = null;
