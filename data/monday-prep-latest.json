@@ -1,18 +1,22 @@
 {
   "week_of": "2026-05-11",
-  "generated_at": "2026-05-09T20:00:00",
-  "generation_mode": "hand-seeded-v1",
+  "generated_at": "2026-05-10T18:05:00",
+  "generation_mode": "live-mcp-v1-test",
+  "test_mode": true,
   "sources_status": {
-    "QB": "OK",
-    "HubSpot": "PENDING",
-    "Monday": "PENDING",
+    "QB": "PARTIAL",
+    "HubSpot": "OK",
+    "Monday": "OK",
     "Forecast": "OK",
-    "Git": "OK"
+    "Git": "OK",
+    "Outlook": "OK"
   },
   "stale_flags": [
-    "HubSpot and Monday MCP wire-up pending; brief uses placeholders for those fields"
+    "QB Transaction Report parsed (62KB), but net-open AR computation falls back to May 1 forecast (Payment-row layering not yet wired)",
+    "Operations board has 0 items assigned to any Sprint — first sprint planning hasn't happened",
+    "First week of monday-prep chain; no prior recap or decisions file to carry forward"
   ],
-  "north_star": "Lock in May AR. Operating is $321 below 2-month buffer; four high-likelihood receivables ($4,260) cover the gap. If those land, Phase 2 activates in June.",
+  "north_star": "Lock in May AR, run Sprint 2 planning today. Operating is $321 below the 2-month buffer; four high-likelihood receivables ($4,260) close the gap and trigger Phase 2 in June. Operations sprint has zero items assigned.",
   "operating_norms": [
     "$2K rule: below = DRI calls it. Above = team debate.",
     "Iron sharpens iron: defend with rationale, don't defer for harmony.",
@@ -20,30 +24,38 @@
   ],
   "out_of_scope": [
     "Project deep-dives (delivery sync, not here)",
+    "Sprint backlog grooming (mid-sprint Wednesday)",
     "Compensation / exit / strategic shifts (separate sessions)"
   ],
   "sprint": {
-    "number": 2,
+    "number": null,
     "total": null,
     "day": null,
-    "pct_done": null,
-    "goal": "Pending Monday MCP — currently inferred: ship LinkedIn engagement push + Marketing transition kit"
+    "pct_done": 0,
+    "goal": "TBD — set during today's meeting. Suggested carry: ship LinkedIn engagement push + Marketing transition kit.",
+    "items_assigned": 0,
+    "board_total": 7
   },
   "top_three": [
-    {"title": "Package Kenny's Marketing transition kit", "owner": "Daunte", "status": "In Progress"},
-    {"title": "AR follow-ups for Lois milestone $1,800 + Maxine $1,000", "owner": "Eli/Daunte", "status": "In Progress"},
-    {"title": "Wedelia + SEEDFOLKids next-milestone confirmations", "owner": "Eli", "status": "Open"}
+    {"title": "Lock May AR: confirm Lois milestone $1,800 + Maxine $1,000 timing", "owner": "Eli/Daunte", "status": "In Flight"},
+    {"title": "Curbology HOT close (closedate 2026-05-13)", "owner": "Eli", "status": "In Flight"},
+    {"title": "SEEDFOLKids MS 1 — Branding & Foundation (overdue 1 day)", "owner": "Eli/Daunte", "status": "In Progress"}
   ],
   "suggested_move": {
-    "headline": "Lock in this week's high-likelihood AR collections.",
-    "reasoning": "Operating is $321 below the 2-month buffer. The four high-likelihood receivables in flight cover the gap. Eli + Daunte to confirm Lois milestone timing and Maxine milestone trigger this week. If Lois closeout ($1,350) lands too, Stretch scenario activates and we get within striking distance of Phase 3."
+    "headline": "Lock in this week's high-likelihood AR collections + plan Sprint 2 before the meeting ends.",
+    "reasoning": "Operating is $321 below the 2-month buffer. Four high-likelihood receivables sit at $4,260. Concurrent risk: Operations sprint has 0 items tagged — without a sprint, the brief's capacity/overdue/top-3 fields lose teeth. 15 min of planning today fixes it."
   },
-  "overdue": [],
-  "clients_at_risk": [
-    {"name": "Bellido", "flag_reason": "Event date pressure; mid-engagement pivot from biz plan + QB to event services connect", "owner": "Daunte"},
-    {"name": "HALO Commons", "flag_reason": "Project may not finish in May (per 4/28 transcript); flag for May 15 check", "owner": "Eli"}
+  "overdue": [
+    {"title": "MS 1 — Branding + Foundation (SEEDFOLKids)", "owner": "Eli/Daunte", "due_date": "2026-05-09", "days_overdue": 1}
   ],
-  "cold_deals": [],
+  "clients_at_risk": [
+    {"name": "SEEDFOLKids", "flag_reason": "MS 1 last update 2026-04-28 (12 days, stale) + MS 1 overdue 1 day; Eli replied 4/28 saying he'd take a look", "owner": "Eli"},
+    {"name": "HALO Commons", "flag_reason": "Project may not finish in May (per 4/28 transcript); flag for May 15 check", "owner": "Eli"},
+    {"name": "Bellido", "flag_reason": "Event date pressure; mid-engagement pivot from biz plan + QB to event services connect", "owner": "Daunte"}
+  ],
+  "cold_deals": [
+    {"name": "Zing Juice Bar - QB & CONSULTING", "amount": 2000, "last_activity": "2026-04-26", "days_since": 14}
+  ],
   "wip_violations": [],
   "cash": {
     "operating": 3328,
@@ -52,7 +64,16 @@
     "total": 6496,
     "buffer_target": 3649,
     "buffer_gap": -321,
-    "savings_pct_to_phase2": 93
+    "savings_pct_to_phase2": 93,
+    "as_of_date": "2026-05-01",
+    "source": "forecast (QB report parsed; AR computation falls back to forecast)"
+  },
+  "ar_total": {
+    "issued": null,
+    "drafts": null,
+    "total": null,
+    "qb_lifetime_invoiced": 23958,
+    "note": "Current net-open AR not computed from this CSV; Payment-row reconciliation pending."
   },
   "ar_scenarios": [
     {
@@ -87,13 +108,20 @@
     }
   ],
   "pipeline": {
-    "total": 12000,
+    "total": 5000,
     "count": 5,
-    "hot_count": null,
-    "hot_value": null,
-    "cold_count": null,
-    "cold_value": null,
-    "verified_date": "2026-05-04"
+    "hot_count": 1,
+    "hot_value": 0,
+    "cold_count": 1,
+    "cold_value": 2000,
+    "verified_date": "2026-05-10",
+    "deals": [
+      {"name": "Xtremely Clean - Proposal Development", "amount": 500, "stage": "Proposal Sent", "last_activity": "2026-05-07", "closedate": "2026-04-27", "closedate_status": "past"},
+      {"name": "Curbology", "amount": null, "stage": "Qualified & Working", "last_activity": "2026-05-06", "closedate": "2026-05-13", "closedate_status": "future-hot"},
+      {"name": "Cape to the Bay — Cowork Setup", "amount": 1000, "stage": "Discovery Scheduled", "last_activity": "2026-05-09", "closedate": null, "closedate_status": "unset"},
+      {"name": "Legacy B. Studio - Website", "amount": 1500, "stage": "Qualified & Working", "last_activity": "2026-05-06", "closedate": "2026-04-06", "closedate_status": "past"},
+      {"name": "Zing Juice Bar - QB & CONSULTING", "amount": 2000, "stage": "Qualified & Working", "last_activity": "2026-04-26", "closedate": "2026-02-20", "closedate_status": "past"}
+    ]
   },
   "phase": {
     "current": "Phase 1",
@@ -101,21 +129,51 @@
     "transitioning_to": "Phase 2"
   },
   "capacity_per_owner": {
-    "Daunte": {"in_flight": null, "overdue": null, "points": null, "day_job_flag": "RS&H bandwidth limited"},
-    "Kenny": {"in_flight": null, "overdue": null, "points": null, "day_job_flag": "Recovery context (3/17 ongoing)"},
-    "Eli": {"in_flight": null, "overdue": null, "points": null, "day_job_flag": "Most BPP time of any owner"}
+    "Daunte": {"in_flight": 0, "overdue": 0, "points": 0, "day_job_flag": "RS&H bandwidth limited"},
+    "Kenny": {"in_flight": 0, "overdue": 0, "points": 0, "day_job_flag": "Recovery context (3/17 ongoing)"},
+    "Eli": {"in_flight": 1, "overdue": 1, "points": 0, "day_job_flag": "Most BPP time of any owner"}
   },
-  "capacity_alert": "Per April 28 transcript: team was already over-leveraged with Curbology and Halo approaching. Don't pile on without resource planning.",
+  "capacity_alert": "Operations board has zero items in any sprint. Brief can't compute meaningful sprint capacity until planning runs. Recommended: 15 min during Block 7 to tag items to Sprint 2 (May 11-22).",
   "shipped_last_week": [
-    {"repo": "bpp-tools", "commit_summary": "590a9cc Survey Responses page + Conversations We Owe Each Other section", "author": "Daunte"},
+    {"repo": "bpp-tools", "commit_summary": "cf2e479 Re-enable Worker integration — fresh PAT works end-to-end", "author": "Daunte"},
+    {"repo": "bpp-tools", "commit_summary": "c5e9501 Save Monday recap for week of 2026-05-11", "author": "bpp-admin"},
+    {"repo": "bpp-tools", "commit_summary": "ce788e3 Save Monday decisions for week of 2026-05-11", "author": "bpp-admin"},
+    {"repo": "bpp-tools", "commit_summary": "37880cd Wire ops.html to deployed Cloudflare Worker", "author": "Daunte"},
+    {"repo": "bpp-tools", "commit_summary": "86e51c5 Cloudflare Worker for one-click recap + auto-refresh home page", "author": "Daunte"},
+    {"repo": "bpp-tools", "commit_summary": "6211ff4 Add Voice Update section to Monday CEO meeting agenda", "author": "Daunte"},
+    {"repo": "bpp-tools", "commit_summary": "f2f5c4b Wire Monday meeting buttons to Claude Code skills", "author": "Daunte"},
+    {"repo": "bpp-tools", "commit_summary": "ac0fcb8 Rebuild Monday CEO meeting around auto-generated brief", "author": "Daunte"},
     {"repo": "bpp-tools", "commit_summary": "b914129 Ratify org chart from 2026-05-06 mid-week session", "author": "Daunte"},
-    {"repo": "bpp-tools", "commit_summary": "6562cb8 Redesign hub home page for daily operating use", "author": "Daunte"}
+    {"repo": "bpp-plugins", "commit_summary": "603b7c2 Add CLAUDE.md following org-wide template", "author": "Daunte"}
   ],
+  "carry_forward": {
+    "open_decisions": [],
+    "incomplete_commits": [],
+    "deferred_parking_lot": [],
+    "note": "No prior recap file — first week of the recap chain."
+  },
   "prior_decisions": [],
+  "inbox_digest": {
+    "Daunte": {
+      "vip_count": 1,
+      "batch_count": 2,
+      "auto_archive_count": 7,
+      "vip_items": [
+        {"from": "eli@buildwithbpp.com", "subject": "Recap & Next Steps – Curbology Discovery Call + Referral Agreement", "received": "2026-05-05", "snippet": "Discovery call recap for Curbology — currently the only HOT deal closing 5/13"}
+      ]
+    },
+    "Kenny": {"note": "mailbox not accessible from Daunte session — needs delegated access"},
+    "Eli": {"note": "mailbox not accessible from Daunte session — needs delegated access"},
+    "shared": {"note": "admin/info shared inboxes not yet set up or not accessible"}
+  },
   "drift_signals": [
-    "Forecast is 9 days old (fresh enough; watch for next monthly close first week of June)",
+    "Operations sprint never planned — 7 items on board, 0 assigned to any sprint",
+    "HubSpot closedates are stale — 4 of 5 open deals have past closedates (Xtremely Clean 4/27, Cape to Bay 4/7, Legacy B 4/6, Zing Juice 2/20)",
+    "Curbology has no `amount` set in HubSpot — hot deal closing 5/13",
+    "QB AR parser incomplete — Transaction Report extract works, but AR-aging logic falls back to forecast file",
+    "Forecast is 9 days old — fresh enough; next monthly close due first week of June",
     "Marketing transition kit not yet packaged — blocks Kenny KT sessions",
-    "Friday survey (Cellstaff/15Five) not yet built — agreed in 5/6 ratification"
+    "Friday survey (Cellstaff/15Five) not yet built — agreed in 2026-05-06 ratification"
   ],
   "qc_schedule": {
     "next_qb_qc": "TBD",
@@ -126,6 +184,8 @@
     "Two-board friction (Operations vs. Client Projects)",
     "Compensation framework conversation",
     "Cellstaff Friday survey build",
-    "AI workforce top 3 confirmation"
+    "AI workforce top 3 confirmation",
+    "QB AR parser improvement (add Payment-row layering)",
+    "HubSpot owner attribution for Kenny + Eli (only Daunte=158829628 verified)"
   ]
 }

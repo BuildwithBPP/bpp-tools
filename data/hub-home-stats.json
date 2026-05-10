@@ -1,7 +1,8 @@
 {
-  "_format": "Auto-refreshed every Sunday 8pm by bpp-monday-prep skill (Step 11.5). Hand-seeded v1 from May 1 forecast + 2026-05-06 ratification. index.html fetches this on load.",
-  "generated_at": "2026-05-10T20:00:00",
-  "generation_mode": "hand-seeded-v1",
+  "_format": "Auto-refreshed every Sunday 8pm by bpp-monday-prep skill (Step 11.5). First live MCP-driven run 2026-05-10 (TEST mode). index.html fetches this on load.",
+  "generated_at": "2026-05-10T18:05:00",
+  "generation_mode": "live-mcp-v1-test",
+  "test_mode": true,
   "as_of_date": "2026-05-01",
   "stats": {
     "cash_on_hand": 6496,
@@ -26,9 +27,11 @@
     "expected_may_ar_high": 4260,
     "active_clients_count": 4,
     "active_clients_names": ["SEEDFOLKids", "Financial Acuity", "Lois Marketing", "Wedelia Wellness"],
-    "pipeline_total": 12000,
+    "pipeline_total": 5000,
     "pipeline_count": 5,
-    "pipeline_verified_date": "2026-05-04"
+    "pipeline_hot_count": 1,
+    "pipeline_cold_count": 1,
+    "pipeline_verified_date": "2026-05-10"
   },
   "ar_scenarios": [
     {
@@ -84,11 +87,12 @@
     },
     {
       "name": "SEEDFOLKids",
-      "subtitle": "",
+      "subtitle": "MS 1 overdue 1 day; last update 12 days ago",
       "owner": "Eli",
       "owner_color": "eli",
       "phase": "Build",
-      "next_milestone": "TBD — verify"
+      "next_milestone": "MS 1 Branding + Foundation (due 2026-05-09 — late)",
+      "at_risk": true
     },
     {
       "name": "Wedelia Wellness",
@@ -108,5 +112,11 @@
       {"label": "Iron sharpens iron", "text": "For big decisions, defending a position with rationale beats deferring to keep peace."},
       {"label": "AI agents per dept", "text": "AI Workforce provides the framework. Each dept builds and owns its own agents."}
     ]
-  }
+  },
+  "what_changed_recent": [
+    "First live MCP-driven brief run — HubSpot pipeline pulled live ($5K across 5 open deals, was $12K placeholder)",
+    "Pipeline cleanup needed: 4 of 5 deals have past closedates",
+    "SEEDFOLKids MS 1 went overdue (1 day) — last update 12 days ago",
+    "Operations sprint not yet planned — 0 items tagged to any sprint"
+  ]
 }
