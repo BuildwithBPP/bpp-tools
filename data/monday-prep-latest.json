@@ -17,7 +17,9 @@
     "Operations board has 0 items in any sprint",
     "First week of monday-prep chain; no prior recap or decisions"
   ],
-  "north_star": "Lock in May AR + cut the missing QB drafts + plan Sprint 2. Operating is $321 below buffer, 6+ closed-won deals have un-invoiced milestones invisible to AR reports, and Operations sprint has zero items tagged.",
+  "theme": "Close the Loop",
+  "theme_rationale": "Per Daunte 2026-05-10: too many things are 50-60% finished and parked. Sprint 1 didn't close, automations are right on the edge of working, follow-ups slip, marketing handoffs sit half-packaged. This week is about finishing what we started, not starting new things.",
+  "north_star": "Close the loops we already opened. Sprint 1 never closed (Kenny's HubSpot Pipelines + 2 subitems still In Progress 9 days after sprint end). QB drafts uncut on ~6 closed-won deals = $8-13K of invisible AR. Operating is $321 below buffer; the 4 high-likelihood receivables that fix it are also half-loops waiting to be closed. Plan Sprint 2 around closing, not launching.",
   "operating_norms": [
     "$2K rule: below = DRI calls it. Above = team debate.",
     "Iron sharpens iron: defend with rationale, don't defer for harmony.",
@@ -43,8 +45,41 @@
     {"title": "SEEDFOLKids MS 1 — Branding & Foundation (overdue 1 day)", "owner": "Eli/Daunte", "status": "In Progress"}
   ],
   "suggested_move": {
-    "headline": "Cut QB draft invoices for the 6 closed-won deals missing them — that's where the invisible AR lives.",
-    "reasoning": "Operating is $321 below buffer. $4,260 in high-likelihood receivables closes the gap. Separately, ~$8-13K of closed-won milestones sit un-invoiced on Halo, Financial Acuity, SEEDFOLkids Strategic, Wedelia, Xtremely Clean Auto, and Lois. They're invisible to any AR report until drafts are cut. 30 min of QB work fixes the brief's AR layer permanently."
+    "headline": "Pick 5 open loops and close them by Friday. Don't start anything new until those are shut.",
+    "reasoning": "We have so much half-finished work (Sprint 1 stragglers, missing QB drafts, Marketing transition kit, Friday survey, Curbology close, SEEDFOLKids MS 1) that adding a new initiative this week deepens the debt. Daunte + Eli shipped 9 + 8 last week — capacity to close is there. Kenny shipped 0 with 3 overdue — his open loops are most urgent. Pick 5, close 5."
+  },
+  "open_loops": {
+    "sprint_1_stragglers": [
+      "Update HubSpot Pipelines parent (Kenny, Critical 5pt, overdue 9d)",
+      "Referral view on HubSpot subitem (Kenny, overdue 9d)",
+      "Deal Pipeline subitem (Kenny, overdue 9d)",
+      "Automation Items subitem (Daunte, overdue 9d)"
+    ],
+    "ar_loops_uninvoiced": [
+      "Lois Marketing: cut drafts for $1,800 + $1,350 milestones (Daunte)",
+      "Financial Acuity: cut draft for Maxine's $1,000 next milestone (Daunte)",
+      "Xtremely Clean Auto/CRM: cut draft for Wanda's $500 owed (Daunte)",
+      "Halo Commons: cut draft for $824 closeout (Eli)",
+      "SEEDFOLkids Strategic Planning: cut draft for remaining (TBD)",
+      "Wedelia P1: cut draft for remaining (TBD)"
+    ],
+    "automations_50_60_done": [
+      "HubSpot owner attribution: Kenny + Eli in HS but old deals not re-tagged",
+      "Friday survey (Cellstaff/15Five): never built, agreed 2026-05-06",
+      "QB AR Aging Detail: scheduled today, first delivery next Sunday (verify)"
+    ],
+    "follow_up_loops": [
+      "Eli replied 4/28 on SEEDFOLKids MS 1 'I'll take a look today' — no follow-through",
+      "Marketing transition kit not packaged — blocks Kenny KT sessions",
+      "HubSpot closedate refresh: 4 of 5 open deals have past closedates",
+      "Curbology close (5/13, 3 days out) — Eli",
+      "present the Guidelines subitem (Daunte) on SEEDFOLKids MS 1"
+    ],
+    "pipeline_loops": [
+      "Zing Juice Bar $2,000 — last touched 14d ago — keep/kill/nudge",
+      "Cape to the Bay — no closedate set",
+      "Curbology — no amount set on the deal"
+    ]
   },
   "overdue": [
     {"title": "MS 1 — Branding + Foundation (SEEDFOLKids)", "owner": "Eli/Daunte", "due_date": "2026-05-09", "days_overdue": 1}
