@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Claude workspace setup guide for Khaleel Thorbourne, Cape to the Bay. Private client deliverable from Business Plans Plus.">
+<link rel="canonical" href="https://buildwithbpp.github.io/bpp-tools/client-guides/khaleel/">
+<title>Workspace Setup Guide &middot; Cape to the Bay &middot; Business Plans Plus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #044771;
+    --navy-2: #033158;
+    --gold: #F1BE5C;
+    --gold-soft: #fdf0d4;
+    --blue: #5987A5;
+    --cream: #edf1f5;
+    --paper: #ffffff;
+    --ink: #1a1a1a;
+    --ink-soft: #4a5567;
+    --line: #d8dfe6;
+    --code-bg: #022d4a;
+    --code-text: #f6e7c2;
+    --success: #1a9e5c;
+    --warn: #d4920a;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  h1, h2, h3, h4, .eyebrow, .badge, .callout-title, footer h4 {
+    font-family: "Montserrat", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  header.hero {
+    background: var(--navy);
+    color: var(--paper);
+    padding: 56px 56px 48px;
+    border-bottom: 4px solid var(--gold);
+  }
+  header.hero .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  header.hero h1 {
+    margin: 12px 0 12px;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+  }
+  header.hero .sub {
+    font-size: 16.5px;
+    color: #c8d4e3;
+    margin: 0 0 22px;
+    max-width: 640px;
+    line-height: 1.55;
+  }
+  header.hero .meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 14px;
+    font-size: 12.5px;
+    color: #c8d4e3;
+  }
+  header.hero .meta strong { color: var(--gold); display: block; margin-bottom: 2px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; font-size: 11px;}
+  main { padding: 48px 56px; }
+  section { margin-bottom: 56px; }
+  section:last-of-type { margin-bottom: 0; }
+  h2 {
+    font-size: 26px;
+    color: var(--navy);
+    margin: 0 0 8px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  h2 .num {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: 700;
+    margin-right: 14px;
+    vertical-align: 2px;
+  }
+  h2 .step-meta {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin: 6px 0 0 50px;
+  }
+  h3 {
+    font-size: 18px;
+    color: var(--navy);
+    margin: 28px 0 10px;
+    font-weight: 600;
+  }
+  p { margin: 0 0 14px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--ink); }
+  main a {
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    font-weight: 600;
+    transition: color 120ms ease, border-color 120ms ease;
+  }
+  main a:hover { color: var(--gold); border-bottom-color: var(--navy); }
+  main a code {
+    background: var(--gold-soft);
+    color: var(--navy);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+
+  .callout {
+    background: var(--gold-soft);
+    border-left: 4px solid var(--gold);
+    padding: 18px 22px;
+    margin: 18px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .callout-title {
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 20px 0;
+  }
+  .card {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px;
+  }
+  .card .badge {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .card h4 {
+    margin: 0 0 8px;
+    font-size: 17px;
+    color: var(--navy);
+  }
+  .card p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  code, .code-inline {
+    font-family: "SF Mono", Consolas, Monaco, "Courier New", monospace;
+    background: var(--gold-soft);
+    color: var(--navy);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13.5px;
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 18px 22px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: "SF Mono", Consolas, Monaco, "Courier New", monospace;
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 14px 0;
+    border-left: 4px solid var(--gold);
+  }
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+  }
+  .tree {
+    background: var(--code-bg);
+    color: var(--cream);
+    padding: 22px 28px;
+    border-radius: 8px;
+    font-family: "SF Mono", Consolas, Monaco, "Courier New", monospace;
+    font-size: 12.5px;
+    line-height: 1.7;
+    margin: 16px 0;
+    border-left: 4px solid var(--gold);
+    overflow-x: auto;
+  }
+  .tree .folder { color: var(--gold); font-weight: 600; }
+  .tree .file { color: #d8d1bd; }
+  .tree .comment { color: #7a8aa0; font-style: italic; }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 18px 0;
+    font-size: 14.5px;
+  }
+  th, td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  th {
+    background: var(--cream);
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  td:first-child { font-weight: 600; color: var(--navy); width: 38%; }
+
+  .timeline {
+    margin: 24px 0;
+    padding-left: 28px;
+    border-left: 3px solid var(--gold-soft);
+  }
+  .timeline .ti { position: relative; margin-bottom: 18px; }
+  .timeline .ti:before {
+    content: "";
+    position: absolute;
+    left: -36px;
+    top: 8px;
+    width: 14px;
+    height: 14px;
+    background: var(--gold);
+    border-radius: 50%;
+    border: 3px solid var(--paper);
+    box-shadow: 0 0 0 2px var(--gold-soft);
+  }
+  .timeline .when {
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .timeline .what {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  .workflow-list { padding-left: 0; list-style: none; }
+  .workflow-list li {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 12px;
+  }
+  .wf-title {
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+    font-size: 15.5px;
+  }
+  .wf-prompt {
+    background: var(--paper);
+    border: 1px dashed var(--gold);
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 10px 0 6px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .wf-result {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+
+  /* Analogy block */
+  .analogy {
+    background: #f5fbf7;
+    border-left: 4px solid var(--success);
+    padding: 14px 20px;
+    margin: 14px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+  .analogy strong { color: var(--success); display: block; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+
+  /* Folder tree with labeled pills */
+  .pill-tree {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 18px 0;
+    background: var(--paper);
+  }
+  .pill-row {
+    display: grid;
+    grid-template-columns: minmax(220px, 38%) 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 9px 18px;
+    border-bottom: 1px solid var(--line);
+    font-family: "SF Mono", Consolas, Monaco, "Courier New", monospace;
+    font-size: 13px;
+  }
+  .pill-row:last-child { border-bottom: none; }
+  .pill-row.header {
+    background: var(--cream);
+    font-family: "Montserrat", "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 12px 18px;
+  }
+  .pill-row .name { color: var(--ink); }
+  .pill-row .name.folder { color: var(--navy); font-weight: 700; }
+  .pill-row .name.indent-1 { padding-left: 16px; }
+  .pill-row .name.indent-2 { padding-left: 32px; }
+  .pill-row .name.indent-3 { padding-left: 48px; }
+  .pill {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    color: var(--navy);
+    letter-spacing: 0.1px;
+  }
+  .pill.brain { background: #dff3e6; color: #1a6e3d; }
+  .pill.context { background: #dbe9f5; color: #1d4f7d; }
+  .pill.skill { background: #fdf0d4; color: #8a6018; }
+  .pill.bucket { background: #f9dde3; color: #8a2440; }
+  .pill.note { background: #ececec; color: #555; }
+
+  /* Layered loading flow */
+  .flow {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .flow-step {
+    width: 100%;
+    max-width: 620px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-align: left;
+  }
+  .flow-step.start { background: #ececec; border-color: #c8c8c8; text-align: center; font-family: "Montserrat", sans-serif; font-weight: 700; color: var(--ink); font-size: 14px; }
+  .flow-step.layer-1 { background: #dbe9f5; border-color: #aac6dd; }
+  .flow-step.layer-2 { background: #dff3e6; border-color: #a5d6b5; }
+  .flow-step.layer-3 { background: #f9dde3; border-color: #e8b5bf; }
+  .flow-step.layer-4 { background: #fdf0d4; border-color: #e8c878; }
+  .flow-step.end { background: #d9efe1; border-color: #7fb893; text-align: center; font-family: "Montserrat", sans-serif; font-weight: 700; color: #1a6e3d; font-size: 14px; }
+  .flow-step .step-label {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    color: var(--navy);
+    margin-bottom: 2px;
+    letter-spacing: 0.1px;
+  }
+  .flow-step .step-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .flow-arrow {
+    color: var(--ink-soft);
+    font-size: 18px;
+    line-height: 1;
+    margin: 0;
+  }
+
+  footer {
+    background: var(--navy);
+    color: #d8d1bd;
+    padding: 36px 56px 40px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    border-top: 4px solid var(--gold);
+  }
+  footer h4 { color: var(--gold); margin: 0 0 8px; letter-spacing: 1px; text-transform: uppercase; font-size: 12px; }
+  footer a { color: var(--gold); text-decoration: none; }
+  footer .sig { margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.12); color: #908676; font-size: 12px; }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; max-width: none; }
+    header.hero, footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    section { page-break-inside: avoid; }
+  }
+  @media (max-width: 720px) {
+    header.hero, main, footer { padding-left: 24px; padding-right: 24px; }
+    header.hero h1 { font-size: 28px; }
+    .two-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <div class="eyebrow">BPP &times; Cape to the Bay</div>
+    <h1>Your Claude Workspace, Built for Sales</h1>
+    <p class="sub">A pre-loaded workspace + five skills tailored to how Cape to the Bay actually runs: BNI, walkthroughs, referrals, and proposals. This is the next step after the April Cowork setup guide. Built so you can spend the hour you save on finding work, not learning software.</p>
+    <div class="meta">
+      <div><strong>For</strong>Khaleel Thorbourne</div>
+      <div><strong>From</strong>Daunte Benjamin / BPP</div>
+      <div><strong>Issued</strong>May 15, 2026</div>
+      <div><strong>Status</strong>Advisor follow-up</div>
+    </div>
+  </header>
+
+  <main>
+
+    <section>
+      <h2>Why This Guide Exists</h2>
+      <p>We talked sales. You said the bottleneck right now isn't doing the work, it's running the funnel from BNI, Star Assoc, and Simple Happenings into signed jobs. I built you a Claude workspace that's pointed directly at that bottleneck.</p>
+      <p>This isn't a paid engagement. It's the same operating system BPP runs internally, written down for you, with five workflows tuned to a residential rehab contractor in Florida. Get it set up once and Claude walks in knowing your business, your voice, and your priorities, without you re-explaining them every session.</p>
+      <div class="analogy">
+        <strong>The big idea</strong>
+        Right now, every time you open ChatGPT, you start a new conversation cold. You re-explain your business. You re-explain how you talk. You re-tell it the rules. This workspace is a one-time setup that fixes that. Claude walks onto the jobsite already knowing the scope.
+      </div>
+      <div class="callout">
+        <div class="callout-title">If you only do one thing</div>
+        <p>Install Google Drive on your laptop, install Claude Desktop, drop the workspace folder into Drive, and open Cowork. That's the whole setup. Everything below is the deeper walkthrough.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>The Big Picture</h2>
+      <p>Before any setup, two ideas worth a minute. Get these and the rest is just clicks.</p>
+
+      <h3>Idea 1: One app, two modes</h3>
+      <p>You install <strong>one thing: Claude Desktop</strong>. Inside it you'll use two modes that share the same workspace folder.</p>
+      <div class="two-col">
+        <div class="card">
+          <span class="badge">Mode 1 &middot; Chat</span>
+          <h4>Daily Driver</h4>
+          <p>Talk to Claude in a window. Attach files, think out loud, draft emails. Same shape as ChatGPT, just sharper memory.</p>
+        </div>
+        <div class="card">
+          <span class="badge">Mode 2 &middot; Cowork</span>
+          <h4>Heavy Lifter</h4>
+          <p>Same app. Point it at your workspace folder and Claude can read your files, write back to them, and run the five workflows.</p>
+        </div>
+      </div>
+      <div class="analogy">
+        <strong>Think of it like</strong>
+        Your truck has a daily-driver gear and a tow mode. Same truck, different jobs. You don't install a second truck. Same with Claude Desktop: Chat mode and Cowork mode are two views of the one app.
+      </div>
+
+      <h3>Idea 2: Three pieces inside the workspace folder</h3>
+      <p>Three things sit inside the folder. They're the difference between a smart chatbot and a real operator.</p>
+
+      <p><strong>CLAUDE.md (the brain).</strong> One file at the top of your workspace. Tells Claude who you are, how you talk, what Cape to the Bay does, and what you don't want.</p>
+      <div class="analogy">
+        <strong>Think of it like</strong>
+        The scope of work you'd hand a new crew member on day one. Who runs this job, what the rules are, what's in bounds, what's out. They read it once and they know.
+      </div>
+
+      <p><strong>The <code>_claude/context/</code> folder (the SOP binder).</strong> Companion files: your business model, your brand voice, your writing style, your operating norms. Claude reads them every session too.</p>
+      <div class="analogy">
+        <strong>Think of it like</strong>
+        Your standard-operating-procedures binder on the office shelf. The crew references it when they need to know how you spec a tile install or how you handle a change order. Claude does the same.
+      </div>
+
+      <p><strong>The <code>_claude/skills/</code> folder (your templates).</strong> Five saved workflows. Each one runs the same job the same way every time, off a trigger phrase.</p>
+      <div class="analogy">
+        <strong>Think of it like</strong>
+        Your favorite scope template. You don't draft a new walkthrough doc from scratch every job. You start from the template, swap in the details. A skill is that template, except Claude executes it for you.
+      </div>
+
+      <h3>What happens when you open the workspace</h3>
+      <p>When you open Cowork at your workspace folder, every layer of context loads automatically. You don't push five buttons. You don't re-introduce yourself. You just type your first question.</p>
+
+      <div class="flow">
+        <div class="flow-step start">You open Cowork at <code style="background:rgba(0,0,0,0.06);color:var(--navy);padding:1px 6px;border-radius:4px;">G:\My Drive\CapeToBay-Workspace</code></div>
+        <div class="flow-arrow">&darr;</div>
+        <div class="flow-step layer-1">
+          <div class="step-label">1. CLAUDE.md loads</div>
+          <div class="step-desc">Who you are, how you talk, sales-first priority, the rules.</div>
+        </div>
+        <div class="flow-arrow">&darr;</div>
+        <div class="flow-step layer-2">
+          <div class="step-label">2. Context files load</div>
+          <div class="step-desc">Business model, brand voice, writing style, operating norms.</div>
+        </div>
+        <div class="flow-arrow">&darr;</div>
+        <div class="flow-step layer-3">
+          <div class="step-label">3. Memory loads</div>
+          <div class="step-desc">Decisions and learnings from every prior session.</div>
+        </div>
+        <div class="flow-arrow">&darr;</div>
+        <div class="flow-step layer-4">
+          <div class="step-label">4. Skills stand by</div>
+          <div class="step-desc">Five workflows ready to run on a trigger phrase ("scan this card," "morning brief").</div>
+        </div>
+        <div class="flow-arrow">&darr;</div>
+        <div class="flow-step end">You type one question. Claude already knows the context.</div>
+      </div>
+
+      <div class="analogy">
+        <strong>Think of it like</strong>
+        When you start the truck in the morning, the radio comes on, the GPS loads, the fuel gauge wakes up. You don't push five buttons. You turn the key. Same here: open Cowork at the folder and the workspace boots itself.
+      </div>
+    </section>
+
+    <section>
+      <h2>The Setup, In Order</h2>
+      <p>Five steps. About 30 minutes total. Do them in this order and nothing else needs explaining.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">1</span> Get Google Drive On Your Laptop<span class="step-meta">10 minutes. The filing cabinet.</span></h2>
+      <p>Your business files already live in Google Drive: photos, scopes, sheets. We need them to also show up on your laptop like a regular folder so Claude can read them. Google has a free app that does this.</p>
+      <div class="analogy">
+        <strong>Think of it like</strong>
+        Drive is your office filing cabinet. The app puts a remote to that cabinet on your laptop. The files stay in Drive. You just get to open them like they're on your desk.
+      </div>
+
+      <ol>
+        <li>Go to <a href="https://www.google.com/drive/download/" target="_blank" rel="noopener"><code>google.com/drive/download</code></a></li>
+        <li>Click "Download Drive for desktop." Run the installer.</li>
+        <li>Sign in with the same Google account that has your business Drive (probably <code>khaleel@capetobay.com</code>).</li>
+        <li>When it asks how to store files, pick <strong>"Stream files"</strong>. Files pull down only when you open them. Saves laptop space.</li>
+      </ol>
+
+      <h3>Did it work?</h3>
+      <p>Open Windows File Explorer. You should see a new drive letter (usually <code>G:</code> or <code>H:</code>) labeled "Google Drive." Click into it and you'll see "My Drive" with everything from your Drive inside.</p>
+      <p>If you don't see it, check the bottom-right corner of Windows for the Drive icon. Click it, and it'll tell you what's wrong.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">2</span> Drop The Workspace Folder Into Drive<span class="step-meta">5 minutes. Where Claude reads from.</span></h2>
+      <p>I sent you a zip file called <code>capetobay-workspace-template.zip</code>. Unzip it and drop the folder inside your Google Drive (anywhere under <code>G:\My Drive\</code> works). I'll call its new home <code>G:\My Drive\CapeToBay-Workspace</code> from here on.</p>
+
+      <div class="analogy">
+        <strong>Think of it like</strong>
+        I built you a new drawer for the filing cabinet, pre-labeled and pre-filled. You're just sliding it into the cabinet.
+      </div>
+
+      <h3>What's inside the drawer</h3>
+      <p>Every line has a label so you know what it's for. You don't need to memorize this. Claude does.</p>
+
+      <div class="pill-tree">
+        <div class="pill-row header"><div>File or folder</div><div>What it is</div></div>
+
+        <div class="pill-row"><div class="name folder">CapeToBay-Workspace/</div><div><span class="pill note">The whole drawer (lives in your Google Drive)</span></div></div>
+        <div class="pill-row"><div class="name indent-1">CLAUDE.md</div><div><span class="pill brain">The brain. Claude reads this first, every time.</span></div></div>
+        <div class="pill-row"><div class="name indent-1">README.md</div><div><span class="pill note">Quick-start for you</span></div></div>
+
+        <div class="pill-row"><div class="name folder indent-1">_claude/</div><div><span class="pill brain">Where Claude looks for context, templates, memory</span></div></div>
+        <div class="pill-row"><div class="name folder indent-2">context/</div><div><span class="pill context">Your SOP binder (read every session)</span></div></div>
+        <div class="pill-row"><div class="name indent-3">about-capetobay.md</div><div><span class="pill context">Business model, services, lead channels</span></div></div>
+        <div class="pill-row"><div class="name indent-3">brand-voice.md</div><div><span class="pill context">How you talk to property managers and procurement</span></div></div>
+        <div class="pill-row"><div class="name indent-3">writing-style.md</div><div><span class="pill context">Voice for internal memos and briefs</span></div></div>
+        <div class="pill-row"><div class="name indent-3">operating-norms.md</div><div><span class="pill context">10 rules: sales-first, referral discipline, pricing</span></div></div>
+
+        <div class="pill-row"><div class="name folder indent-2">skills/</div><div><span class="pill skill">Your templates. Five pre-built workflows.</span></div></div>
+        <div class="pill-row"><div class="name folder indent-3">business-card-scanner/</div><div><span class="pill skill">Card photo &rarr; saved contact &rarr; ready for House Pro</span></div></div>
+        <div class="pill-row"><div class="name folder indent-3">lead-followup/</div><div><span class="pill skill">Stale leads &rarr; personalized followups in batches</span></div></div>
+        <div class="pill-row"><div class="name folder indent-3">walkthrough-to-proposal/</div><div><span class="pill skill">Voice notes + photos &rarr; scope of work</span></div></div>
+        <div class="pill-row"><div class="name folder indent-3">meeting-notes/</div><div><span class="pill skill">BNI / prospect / partner call &rarr; clean artifact</span></div></div>
+        <div class="pill-row"><div class="name folder indent-3">morning-brief/</div><div><span class="pill skill">Today's anchor + calendar + top 3</span></div></div>
+
+        <div class="pill-row"><div class="name folder indent-2">memory/</div><div><span class="pill context">Claude's running notepad. Updates itself over time.</span></div></div>
+
+        <div class="pill-row"><div class="name folder indent-1">1. Operations/</div><div><span class="pill bucket">Internal: finance, admin, marketing</span></div></div>
+        <div class="pill-row"><div class="name folder indent-1">2. Clients/</div><div><span class="pill bucket">One drawer per active client</span></div></div>
+        <div class="pill-row"><div class="name folder indent-1">3. Networking &amp; Pipeline/</div><div><span class="pill bucket">BNI, Star, Simple Happenings + business cards</span></div></div>
+        <div class="pill-row"><div class="name folder indent-1">4. RFPs/</div><div><span class="pill bucket">Government bids and scope analysis</span></div></div>
+      </div>
+
+      <div class="analogy">
+        <strong>Color guide</strong>
+        Green = Claude's brain. Blue = the binder Claude reads. Gold = your templates (skills). Pink = your business buckets where actual work lives.
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">About the four buckets</div>
+        <p>Every job, every contact, every dollar fits somewhere in those four pink folders: Operations (your back office), Clients (active jobs), Networking &amp; Pipeline (warm leads before they sign), RFPs (government). Claude can find anything because the rules for one folder match the rules for all of them.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="num">3</span> Install Claude Desktop<span class="step-meta">10 minutes. The only software install.</span></h2>
+      <p>One app. Two modes (Chat and Cowork). Both live inside Claude Desktop.</p>
+      <ol>
+        <li>Go to <a href="https://claude.ai/download" target="_blank" rel="noopener"><code>claude.ai/download</code></a>. Get the Windows installer.</li>
+        <li>Sign in with <code>khaleel@capetobay.com</code>, not a personal Gmail. Keep this business.</li>
+        <li>Upgrade to the <strong>Pro plan</strong> ($20/month). You'll hit the free tier cap in your first day of real use. <a href="https://claude.com/pricing" target="_blank" rel="noopener">Pricing here</a>.</li>
+      </ol>
+      <div class="analogy">
+        <strong>Think of it like</strong>
+        Installing Microsoft Office. Word and Excel are two views of one product. Same here: Chat mode and Cowork mode are two views of Claude Desktop.
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="num">4</span> Turn On Cowork, Point It At Your Workspace<span class="step-meta">5 minutes. The whole reason we did the first three steps.</span></h2>
+      <ol>
+        <li>Open <strong>Claude Desktop</strong>.</li>
+        <li>Find the <strong>Cowork</strong> view (also sometimes called "Claude Code"). It's a button or menu item in the app.</li>
+        <li>When it asks you to pick a folder, choose:<br><code>G:\My Drive\CapeToBay-Workspace</code></li>
+      </ol>
+      <p>That's it. Claude reads CLAUDE.md, the context files, and your memory all by itself.</p>
+      <div class="analogy">
+        <strong>Think of it like</strong>
+        When you start the truck in the morning, the radio kicks on, the GPS loads, the fuel gauge wakes up. You don't push five buttons. Same here: open Cowork at your workspace and everything boots itself.
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="num">5</span> Test It<span class="step-meta">30 seconds. Prove it works.</span></h2>
+      <p>First thing to type into Cowork:</p>
+      <div class="callout">
+        <div class="callout-title">Type this in</div>
+        <p><em>"Read CLAUDE.md and the files in the context folder. Then tell me back: who am I, what does Cape to the Bay do, and what's my top priority right now?"</em></p>
+      </div>
+      <p>If Claude answers correctly (sales-first, BNI + Star + Simple Happenings, residential rehab, Housecall Pro), you're live. The setup is done.</p>
+      <p>If Claude says anything generic or wrong, hit me. Something didn't load.</p>
+    </section>
+
+    <section>
+      <h2>The Five Workflows In Your Workspace<span class="step-meta">Pre-built. Just say the trigger phrase.</span></h2>
+      <p>Each skill has a trigger phrase, a script Claude follows, and a known output location. Full details at <code>_claude/skills/[skill-name]/SKILL.md</code>. Index at <code>_claude/skills/SKILL-DICTIONARY.md</code>.</p>
+      <ol class="workflow-list">
+
+        <li>
+          <div class="wf-title">1. Business card scanner</div>
+          <p style="margin:0;font-size:14px;color:var(--ink-soft);">The new one. Snap a card photo at BNI / Star Assoc / Simple Happenings. Claude extracts the contact, saves it to your pipeline, and preps it for Housecall Pro import. No more cards in your truck console.</p>
+          <div class="wf-prompt">Trigger: <em>"scan this card"</em> or <em>"new business card from [event]"</em><br>Paste or upload the card image. Claude extracts name, company, phone, email, where you met, and your notes. Appends a row to <code>contacts.csv</code> and logs the contact to memory.</div>
+          <div class="wf-result"><strong>Result:</strong> Card saved, ready for Housecall Pro bulk import. Next-action suggestion included.</div>
+        </li>
+
+        <li>
+          <div class="wf-title">2. Lead followup</div>
+          <p style="margin:0;font-size:14px;color:var(--ink-soft);">Drafts personalized followups in batches for warm leads and stale referrals. Per your operating norms: referrals get a real reply, fast. Silence kills future referrals.</p>
+          <div class="wf-prompt">Trigger: <em>"lead followup"</em> or <em>"let's work the warm leads"</em><br>Paste a list of leads or describe who to work. Claude drafts in your voice, references the referrer by name, gives one clear ask per message.</div>
+          <div class="wf-result"><strong>Result:</strong> 10-20 personalized drafts in 5 minutes. You review and send.</div>
+        </li>
+
+        <li>
+          <div class="wf-title">3. Walkthrough to proposal</div>
+          <p style="margin:0;font-size:14px;color:var(--ink-soft);">Same workflow you do with ChatGPT today, just sharper and the file lands in the right client folder automatically. Voice notes plus photos become a scope-of-work Word doc.</p>
+          <div class="wf-prompt">Trigger: <em>"walkthrough to proposal"</em> or <em>"scope this job"</em><br>Provide voice notes (transcript or audio) + photos. Claude builds the project summary, scope by area, pricing draft, timeline, and assumptions. Outputs to <code>2. Clients/{name}/Project/</code>.</div>
+          <div class="wf-result"><strong>Result:</strong> Draft scope within 24 hours of the walkthrough. Polish window: 48 hours.</div>
+        </li>
+
+        <li>
+          <div class="wf-title">4. Meeting notes</div>
+          <p style="margin:0;font-size:14px;color:var(--ink-soft);">After any BNI weekly, prospect call, partner call, or walkthrough debrief. Decisions, action items with owners and dates, referrals exchanged, money discussed.</p>
+          <div class="wf-prompt">Trigger: <em>"meeting notes"</em> or <em>"write up that call"</em><br>Paste a transcript or just tell Claude what happened. File goes to the right folder automatically (BNI &rarr; networking, client &rarr; client comms, etc.).</div>
+          <div class="wf-result"><strong>Result:</strong> Nothing lives only in your head 24 hours after a call.</div>
+        </li>
+
+        <li>
+          <div class="wf-title">5. Morning brief</div>
+          <p style="margin:0;font-size:14px;color:var(--ink-soft);">Your daily orientation. Pulls Google Calendar and Gmail, surfaces yesterday's open loops, shows the day's anchor + top 3 focus items + stale-lead watch. One page.</p>
+          <div class="wf-prompt">Trigger: <em>"morning brief"</em> or <em>"what's today"</em><br>Claude pulls everything and writes to <code>_planning/daily/{date}-morning.md</code>.</div>
+          <div class="wf-result"><strong>Result:</strong> Two minutes to know what matters today. The simplified version of the daily brief Daunte runs at BPP.</div>
+        </li>
+
+      </ol>
+      <div class="callout">
+        <div class="callout-title">More skills can be built as patterns surface</div>
+        <p>These five are the foundation pointed at your sales priority. When you find yourself doing the same task three times in a row, ask Claude to "save this as a skill" and it becomes reusable. Daunte and BPP can help you sharpen them over time.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Your First Two Weeks<span class="step-meta">A pace that gets you running without burning out.</span></h2>
+      <div class="timeline">
+        <div class="ti">
+          <div class="when">Day 1</div>
+          <div class="what">Install Google Drive for Desktop. Install Claude Desktop. Unzip the workspace template into <code>G:\My Drive\</code>. Open <code>CLAUDE.md</code> and edit anything that doesn't sound like you. First draft is fine.</div>
+        </div>
+        <div class="ti">
+          <div class="when">Days 2&ndash;3</div>
+          <div class="what">Turn on Cowork inside Claude Desktop and point it at your workspace folder. Ask Claude to read your business and tell you what it doesn't understand. Use the gaps to improve <code>CLAUDE.md</code>.</div>
+        </div>
+        <div class="ti">
+          <div class="when">Week 1</div>
+          <div class="what">Run <code>business-card-scanner</code> on every card from your next BNI meeting. Confirm the workflow feels natural. Move two existing active clients into <code>2. Clients/</code> using the template.</div>
+        </div>
+        <div class="ti">
+          <div class="when">Week 2</div>
+          <div class="what">Run <code>walkthrough-to-proposal</code> on your next real walkthrough. Compare the output to what you'd get from ChatGPT. Run <code>morning-brief</code> three mornings in a row to feel the difference.</div>
+        </div>
+        <div class="ti">
+          <div class="when">Week 3+</div>
+          <div class="what">By now you've found the rough edges. Loop Daunte in for a 30-minute working session to sharpen the skills, adjust <code>CLAUDE.md</code>, or add a new skill that fits a pattern you've spotted.</div>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="callout-title">The honest pace</div>
+        <p>Week one is investment. By week two you're moving faster than you were before. The gap widens every week. Don't try to install and master everything in one sitting. That's how people quit.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>What's Yours, What's BPP's<span class="step-meta">Clear scope, no confusion.</span></h2>
+      <p>This setup is yours to keep. The workspace, the skills, the context files, all of it. You don't need BPP to operate it day-to-day. Daunte's advice from the April session still stands: focus on the proposal workflow and the followup system before anything else.</p>
+      <p>BPP is happy to keep advising. If you find a sales-related pattern you want turned into a skill, or you want to sit down for a working session on the next phase (RFP volume, social media when it makes sense, formal engagement), text Daunte.</p>
+      <table>
+        <thead><tr><th>Who builds it</th><th>What gets built</th></tr></thead>
+        <tbody>
+          <tr><td>You</td><td>Daily use. Adding context. Running the five skills. Bringing new patterns to BPP.</td></tr>
+          <tr><td>BPP (advisor)</td><td>Sharpening skills, troubleshooting, and helping you size up a paid engagement when it makes sense.</td></tr>
+          <tr><td>Together</td><td>Anything that gets built lives in your workspace forever. Yours to keep regardless of how the relationship evolves.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>When You Get Stuck<span class="step-meta">Don't spin for an hour on a 90-second answer.</span></h2>
+      <p>Text or call Daunte. Most "stuck" moments are a tiny setting or a missing step. Faster to ask than to dig. Save your patience for the business problems Claude is meant to solve, not the install.</p>
+      <p>Email: <a href="mailto:daunte@buildwithbpp.com">daunte@buildwithbpp.com</a>. Or just text the number you have on file.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <h4>Business Plans Plus</h4>
+    <p>Daunte Benjamin &middot; Co-Owner, Data &amp; Operations<br>
+    <a href="mailto:daunte@buildwithbpp.com">daunte@buildwithbpp.com</a> &middot; <a href="https://buildwithbpp.com" target="_blank" rel="noopener">buildwithbpp.com</a></p>
+    <p style="margin-top:14px;color:#a8b3c4;font-size:12.5px;">Helping growth-stage entrepreneurs build the operating systems that make their business easier to run.</p>
+    <div class="sig">Built for Khaleel Thorbourne / Cape to the Bay. Advisor follow-up. May 15, 2026.</div>
+  </footer>
+
+</div>
+</body>
+</html>
