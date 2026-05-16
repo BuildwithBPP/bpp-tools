@@ -56,7 +56,7 @@
   .ph-eyebrow { text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; font-weight: 700; color: var(--plan-gold); margin-bottom: 12px; }
   .plan-hero h1 { color: white; max-width: 950px; margin-bottom: 16px; }
   .plan-hero h1 .accent { color: var(--plan-gold); }
-  .ph-lede { color: rgba(255,255,255,0.88); font-size: 16.5px; max-width: 820px; line-height: 1.65; }
+  .ph-lede { color: #ffffff; font-size: 16.5px; max-width: 820px; line-height: 1.7; font-weight: 400; }
 
   /* HERO STAT CARDS (bigger, more visual) */
   .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 30px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.18); }
@@ -234,11 +234,12 @@
   .picture-banner h2 { color: white; margin-bottom: 14px; font-size: 24px; }
   .picture-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
   @media (max-width: 900px) { .picture-grid { grid-template-columns: repeat(2, 1fr); } }
-  .pic-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; padding: 14px 16px; }
-  .pic-num { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 22px; color: var(--plan-gold); }
-  .pic-label { font-size: 11px; color: rgba(255,255,255,0.75); margin-top: 4px; line-height: 1.45; }
-  .picture-narrative { color: rgba(255,255,255,0.92); font-size: 14.5px; line-height: 1.7; margin-top: 22px; max-width: 900px; }
+  .pic-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 16px 18px; }
+  .pic-num { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 24px; color: var(--plan-gold); line-height: 1.1; }
+  .pic-label { font-size: 12px; color: #ffffff; margin-top: 6px; line-height: 1.45; font-weight: 400; }
+  .picture-narrative { color: #ffffff; font-size: 14.5px; line-height: 1.75; margin-top: 22px; max-width: 900px; font-weight: 400; }
   .picture-narrative em { color: var(--plan-gold); font-style: italic; font-family: 'Merriweather', serif; }
+  .picture-narrative strong { color: var(--plan-gold); font-weight: 700; }
 
   /* RISKS */
   .risk-card { background: white; border: 1px solid var(--plan-line); border-radius: 10px; padding: 20px 24px; border-left: 4px solid var(--plan-red); margin-bottom: 12px; display: grid; grid-template-columns: 50px 1fr; gap: 16px; }
@@ -353,6 +354,7 @@
     <a href="#ladder">Revenue Ladder</a>
     <a href="#cac">CAC / LTV</a>
     <a href="#vision">36-Mo Vision</a>
+    <a href="#comp">Comp Framework</a>
     <a href="#picture">Picture in 24mo</a>
     <a href="#risks">Risks</a>
     <a href="#status">Status</a>
@@ -407,33 +409,43 @@
       <div class="engine-name">Time-Based</div>
       <div class="engine-desc">Project work that sells hours. Operator System, Scale System, Launch Pad. Wins the relationship, generates the case study, funds Engines 2 and 3.</div>
       <div class="engine-stats">
-        <div class="engine-stat-row"><span>2025 reality</span><strong>$60/hr · 16.7% margin</strong></div>
-        <div class="engine-stat-row"><span>Marginal scale</span><strong>Linear, capped</strong></div>
+        <div class="engine-stat-row"><span>2025 margin</span><strong>Old service mix</strong></div>
+        <div class="engine-stat-row"><span>Time tracking</span><strong>Started Apr 2026</strong></div>
         <div class="engine-stat-row"><span>Going forward</span><strong>Front door, not destination</strong></div>
+      </div>
+      <div style="margin-top: 14px; padding: 10px 12px; background: rgba(212,146,10,0.08); border-left: 3px solid var(--plan-amber); border-radius: 4px; font-size: 12px; color: var(--plan-ink-soft); line-height: 1.55;">
+        <strong style="color: var(--plan-amber);">Honest note:</strong> 2025's 16.7% margin / $60/hr was on the OLD service mix (Starter/Growth/Scale + custom hourly), before the new Operator System framework existed. Time tracking is also new. New-package margins aren't validated yet — assumption: 30-40% under new model, but Q2-Q3 deliveries are the proof.
       </div>
     </div>
     <div class="engine-card e2">
       <div class="engine-icon">&#128230;</div>
       <div class="engine-num">Engine 2</div>
       <div class="engine-name">Productized</div>
-      <div class="engine-desc">AI Employee Installs ($3-8K), AI Operations Care retainer ($1.5-2.5K/mo), done-with-you templates. Earns from packaging, scales with sales not hours.</div>
-      <div class="engine-stats">
-        <div class="engine-stat-row"><span>Margin profile</span><strong>60-80% gross</strong></div>
-        <div class="engine-stat-row"><span>Marginal cost</span><strong>Install + onboarding</strong></div>
-        <div class="engine-stat-row"><span>Going forward</span><strong>The MRR engine</strong></div>
+      <div class="engine-desc">Two sub-tiers monetize the same AI Employees. Not every prospect will pay full retainer (Wanda probably won't); some need just the tool.</div>
+      <div style="margin-top: 14px; padding: 12px 14px; background: rgba(241,190,92,0.1); border-radius: 6px; border: 1px solid rgba(241,190,92,0.3);">
+        <div style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 11px; color: var(--plan-gold-dark); margin-bottom: 6px; letter-spacing: 0.5px;">TIER 2A · HIGH-TOUCH</div>
+        <div style="font-size: 12.5px; color: var(--plan-ink); line-height: 1.55;">Install ($3-8K one-time) + AI Operations Care retainer ($1.5-2.5K/mo). Includes monthly tuning, on-call hours, plugin updates. <strong style="color: var(--plan-navy);">60-80% gross margin.</strong> Best fit: Operator System graduates.</div>
+      </div>
+      <div style="margin-top: 8px; padding: 12px 14px; background: rgba(26,158,92,0.08); border-radius: 6px; border: 1px solid rgba(26,158,92,0.3);">
+        <div style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 11px; color: var(--plan-green); margin-bottom: 6px; letter-spacing: 0.5px;">TIER 2B · TOOL-ONLY SaaS</div>
+        <div style="font-size: 12.5px; color: var(--plan-ink); line-height: 1.55;">Monthly tool access ($99-499/mo). AI Proposal Agent at $99-499/mo (Wanda fits here). Monthly Close Co-Pilot at $99-199/mo. <strong style="color: var(--plan-navy);">80-90% gross margin.</strong> Best fit: tools-not-services buyers.</div>
       </div>
     </div>
     <div class="engine-card e3">
       <div class="engine-icon">&#127757;</div>
       <div class="engine-num">Engine 3</div>
       <div class="engine-name">Free-Forever</div>
-      <div class="engine-desc">Open-source plugins, Free Resource Library, public dashboards, content. Marginal cost ~$0. Indirect revenue: every download is a lead, every install is a conversation.</div>
+      <div class="engine-desc">Open-source plugins, Free Resource Library (12 by EOY 2026), public dashboards, content across all channels. Marginal cost ~$0. Indirect revenue: every download is a lead, every install is a conversation.</div>
       <div class="engine-stats">
         <div class="engine-stat-row"><span>Direct revenue</span><strong>$0</strong></div>
-        <div class="engine-stat-row"><span>Indirect revenue</span><strong>Compounds 6-12 months</strong></div>
+        <div class="engine-stat-row"><span>Indirect revenue</span><strong>Compounds 6-12 mo</strong></div>
         <div class="engine-stat-row"><span>Going forward</span><strong>24/7 sales asset</strong></div>
       </div>
     </div>
+  </div>
+
+  <div class="plan-callout" style="margin-top: 28px;">
+    <p><strong>More than 6 AI Employees planned.</strong> The current framework names 6 (Marketing Coordinator, Content Producer, Executive Assistant, Finance Manager, Client Delivery Specialist, Operations Coordinator) but the roster is open-ended. Each new validated internal workflow earns a seat. <em>Realistic count by EOY 2027: 10-15 AI Employees, at least 5 productized as paid Tier 2B SaaS tools.</em></p>
   </div>
 </section>
 
@@ -786,49 +798,76 @@
 
   <div class="funnel-wrap">
     <div class="funnel-svg-wrap">
-      <svg viewBox="0 0 460 380" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="fg1" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stop-color="#5987A5"/>
-            <stop offset="1" stop-color="#3a6d8f"/>
-          </linearGradient>
-        </defs>
+      <svg viewBox="0 0 460 440" xmlns="http://www.w3.org/2000/svg">
         <!-- 7 funnel stages, decreasing width -->
         <g font-family="Poppins, sans-serif" font-size="11">
-          <rect x="0" y="0" width="460" height="42" rx="6" fill="#5987A5"/>
-          <text x="230" y="20" text-anchor="middle" fill="white" font-weight="700">AWARENESS</text>
-          <text x="230" y="34" text-anchor="middle" fill="white" font-size="9.5">LinkedIn · Newsletter · IG · Plugin marketplace</text>
+          <!-- Awareness with channel chips -->
+          <rect x="0" y="0" width="460" height="86" rx="6" fill="#5987A5"/>
+          <text x="230" y="18" text-anchor="middle" fill="white" font-weight="700">AWARENESS</text>
+          <!-- Channel chips inside awareness -->
+          <g font-size="9" font-weight="600">
+            <rect x="14" y="26" width="62" height="18" rx="9" fill="#F1BE5C"/>
+            <text x="45" y="38" text-anchor="middle" fill="#044771">YouTube ~3K</text>
 
-          <rect x="28" y="50" width="404" height="42" rx="6" fill="#5180A0"/>
-          <text x="230" y="70" text-anchor="middle" fill="white" font-weight="700">CAPTURE</text>
-          <text x="230" y="84" text-anchor="middle" fill="white" font-size="9.5">Resource Page (12 magnets) &larr; ManyChat IG / WhatsApp</text>
+            <rect x="82" y="26" width="48" height="18" rx="9" fill="rgba(255,255,255,0.18)"/>
+            <text x="106" y="38" text-anchor="middle" fill="white">LinkedIn</text>
 
-          <rect x="60" y="100" width="340" height="42" rx="6" fill="#4a7895"/>
-          <text x="230" y="120" text-anchor="middle" fill="white" font-weight="700">QUALIFY</text>
-          <text x="230" y="134" text-anchor="middle" fill="white" font-size="9.5">Foundation Readiness Score (10-question)</text>
+            <rect x="136" y="26" width="76" height="18" rx="9" fill="rgba(255,255,255,0.18)"/>
+            <text x="174" y="38" text-anchor="middle" fill="white">LI Newsletter</text>
 
-          <rect x="92" y="150" width="276" height="42" rx="6" fill="#3a6d8f"/>
-          <text x="230" y="170" text-anchor="middle" fill="white" font-weight="700">CONVERT</text>
-          <text x="230" y="184" text-anchor="middle" fill="white" font-size="9.5">Discovery Call · Q&amp;A Qualifier · Package-Fit Tree</text>
+            <rect x="218" y="26" width="44" height="18" rx="9" fill="rgba(255,255,255,0.18)"/>
+            <text x="240" y="38" text-anchor="middle" fill="white">Email</text>
 
-          <rect x="124" y="200" width="212" height="42" rx="6" fill="#2c5d80"/>
-          <text x="230" y="220" text-anchor="middle" fill="white" font-weight="700">CLOSE</text>
-          <text x="230" y="234" text-anchor="middle" fill="white" font-size="9.5">Operator · Scale · AI Employee Install</text>
+            <rect x="268" y="26" width="34" height="18" rx="9" fill="rgba(255,255,255,0.18)"/>
+            <text x="285" y="38" text-anchor="middle" fill="white">IG</text>
 
-          <rect x="156" y="250" width="148" height="42" rx="6" fill="#F1BE5C"/>
-          <text x="230" y="270" text-anchor="middle" fill="#044771" font-weight="700">EXPAND</text>
-          <text x="230" y="284" text-anchor="middle" fill="#044771" font-size="9.5">AI Operations Care</text>
+            <rect x="308" y="26" width="34" height="18" rx="9" fill="rgba(255,255,255,0.18)"/>
+            <text x="325" y="38" text-anchor="middle" fill="white">FB</text>
 
-          <rect x="0" y="310" width="460" height="48" rx="6" fill="#1a9e5c"/>
-          <text x="230" y="332" text-anchor="middle" fill="white" font-weight="700" font-size="13">COMPOUND</text>
-          <text x="230" y="348" text-anchor="middle" fill="white" font-size="10">Case study &rarr; next round of awareness</text>
+            <rect x="348" y="26" width="44" height="18" rx="9" fill="rgba(255,255,255,0.18)"/>
+            <text x="370" y="38" text-anchor="middle" fill="white">TikTok</text>
+
+            <rect x="398" y="26" width="50" height="18" rx="9" fill="rgba(255,255,255,0.18)"/>
+            <text x="423" y="38" text-anchor="middle" fill="white">Plugins</text>
+
+            <text x="230" y="62" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="9.5">YouTube is biggest current channel — gold star</text>
+            <text x="230" y="76" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="9.5">Plugin marketplace = top-of-funnel asset once landing page ships</text>
+          </g>
+
+          <rect x="28" y="94" width="404" height="44" rx="6" fill="#5180A0"/>
+          <text x="230" y="114" text-anchor="middle" fill="white" font-weight="700">CAPTURE</text>
+          <text x="230" y="128" text-anchor="middle" fill="white" font-size="9.5">Resource Page (12 magnets) ← ManyChat IG/WhatsApp/FB ← YouTube descriptions</text>
+
+          <rect x="60" y="146" width="340" height="42" rx="6" fill="#4a7895"/>
+          <text x="230" y="166" text-anchor="middle" fill="white" font-weight="700">QUALIFY</text>
+          <text x="230" y="180" text-anchor="middle" fill="white" font-size="9.5">Foundation Readiness Score · AI Employee Readiness</text>
+
+          <rect x="92" y="196" width="276" height="42" rx="6" fill="#3a6d8f"/>
+          <text x="230" y="216" text-anchor="middle" fill="white" font-weight="700">CONVERT</text>
+          <text x="230" y="230" text-anchor="middle" fill="white" font-size="9.5">Discovery Call · Q&amp;A Qualifier · Package-Fit Tree</text>
+
+          <rect x="124" y="246" width="212" height="58" rx="6" fill="#2c5d80"/>
+          <text x="230" y="266" text-anchor="middle" fill="white" font-weight="700">CLOSE</text>
+          <text x="230" y="282" text-anchor="middle" fill="white" font-size="9.5">Operator · Scale · AI Employee Install</text>
+          <text x="230" y="296" text-anchor="middle" fill="#F1BE5C" font-size="9" font-style="italic">OR Tier 2B tool subscription ($99-499/mo)</text>
+
+          <rect x="156" y="312" width="148" height="58" rx="6" fill="#F1BE5C"/>
+          <text x="230" y="332" text-anchor="middle" fill="#044771" font-weight="700">EXPAND</text>
+          <text x="230" y="348" text-anchor="middle" fill="#044771" font-size="9.5">AI Operations Care</text>
+          <text x="230" y="362" text-anchor="middle" fill="#044771" font-size="9" font-style="italic">or upgrade tool → install</text>
+
+          <rect x="0" y="378" width="460" height="50" rx="6" fill="#1a9e5c"/>
+          <text x="230" y="400" text-anchor="middle" fill="white" font-weight="700" font-size="13">COMPOUND</text>
+          <text x="230" y="416" text-anchor="middle" fill="white" font-size="10">Case study → next round of awareness</text>
         </g>
       </svg>
     </div>
     <div class="funnel-side">
       <h3>Where the leverage is</h3>
-      <p style="font-size: 14px; line-height: 1.7;">The middle of the funnel (Capture &rarr; Qualify &rarr; Convert) is where most service businesses leak. The Foundation Readiness Score does double duty &mdash; it's both a top-of-funnel email magnet AND a sales qualifier that pre-screens leads before they hit the discovery call.</p>
-      <p style="font-size: 14px; line-height: 1.7; margin-top: 12px;"><strong>The Compound stage is where this stops being a treadmill.</strong> Each Wanda-grade case study reduces CAC for the next cohort by 30-50%, because trust is downstream of proof.</p>
+      <p style="font-size: 14px; line-height: 1.7;"><strong style="color:var(--plan-gold-dark);">YouTube is the biggest channel BPP currently has — almost 3,000 subscribers.</strong> Massively under-leveraged. Every pillar long-form should ship with a YouTube cut. Lead magnets in every video description. This is where 2026 funnel volume comes from.</p>
+      <p style="font-size: 14px; line-height: 1.7; margin-top: 12px;">The middle of the funnel (Capture → Qualify → Convert) is where service businesses leak. Foundation Readiness Score does double duty — top-of-funnel magnet AND sales qualifier.</p>
+      <p style="font-size: 14px; line-height: 1.7; margin-top: 12px;"><strong>Two close paths:</strong> high-touch (Operator/Scale + Care retainer) for clients who want hands-off, OR Tier 2B tool subscription for owners who just want the AI Employee. Wanda fits the second path at $99-499/mo for the Proposal Agent — not the $2K/mo retainer.</p>
+      <p style="font-size: 14px; line-height: 1.7; margin-top: 12px;"><strong>The Compound stage is where this stops being a treadmill.</strong> Each Wanda-grade case study reduces CAC for the next cohort by 30-50%.</p>
     </div>
   </div>
 
@@ -928,8 +967,58 @@
   </div>
 
   <div class="plan-callout" style="margin-top: 24px;">
-    <p><strong>Total 2026: ~$180K</strong> (vs old LivePlan projection $82.5K and current budget $60K — both wrong directions). <strong>End-of-2026 annualized run rate: ~$280K</strong>, inside the Q4 2025 internal report's $200-300K target.</p>
-    <p><em>The revenue assumes Wanda lands.</em> If Wanda closes at $15K Scale + $2K/mo retainer in Q2, the rest of the ladder follows. If she stalls, Q2 lands at ~$25K (without Wanda) and Phase 3 slips to Q4.</p>
+    <p><strong>Total 2026: ~$170-180K</strong> (vs old LivePlan projection $82.5K and current budget $60K — both wrong directions). <strong>End-of-2026 annualized run rate: ~$280K</strong>, inside the Q4 2025 internal report's $200-300K target.</p>
+    <p><em>The revenue assumes Wanda lands.</em> If Wanda closes at $15K Scale + $2K/mo retainer in Q2, the rest of the ladder follows. <strong>Wanda's likely retainer reality:</strong> she probably won't pay $2K/mo full-service Care; more likely a Tier 2B tool subscription at $99-499/mo. Plan for that — replace one of the high-touch retainer slots in Q3-Q4 with a different prospect.</p>
+  </div>
+
+  <h3 style="margin-top: 36px; font-size: 17px;">Show the math — how each quarter's number is built</h3>
+  <p style="font-size: 13.5px; color: var(--plan-ink-soft); margin-top: 6px; margin-bottom: 16px;">Each quarter has a specific deal count × pricing assumption. Adjust upward or downward based on actual close rate.</p>
+
+  <div class="cac-grid" style="margin-top: 16px;">
+    <div class="cac-card now" style="border-top-color: var(--plan-blue);">
+      <div class="cac-tag" style="color: var(--plan-blue);">Q2 2026 — TARGET ~$31-40K</div>
+      <div class="cac-title">What we have to do</div>
+      <div class="cac-row"><span><strong>Project revenue: $25K</strong></span><span></span></div>
+      <div style="font-size: 11.5px; color: var(--plan-ink-soft); padding: 0 0 6px;">Wanda Scale × $15K + 2-3 pipeline closes × $4K avg (Replace It $4.5K is most likely)</div>
+      <div class="cac-row"><span><strong>AI Install: $3K</strong></span><span></span></div>
+      <div style="font-size: 11.5px; color: var(--plan-ink-soft); padding: 0 0 6px;">1 Finance Manager pilot with Financial Acuity, OR included in Wanda's package</div>
+      <div class="cac-row"><span><strong>MRR captured Q2: ~$3K</strong></span><span></span></div>
+      <div style="font-size: 11.5px; color: var(--plan-ink-soft); padding: 0 0 8px;">2 retainer clients (Lois closeout + Wanda) × $2K avg × 1.5mo billed = ~$6K, half hits Q2</div>
+      <div class="cac-row"><span style="color: var(--plan-navy); font-weight: 700;">Activity ask</span><span style="color: var(--plan-navy);">3-4 deals + 2 retainers</span></div>
+    </div>
+    <div class="cac-card now" style="border-top-color: var(--plan-amber);">
+      <div class="cac-tag" style="color: var(--plan-amber);">Q3 2026 — TARGET ~$55K</div>
+      <div class="cac-title">What we have to do</div>
+      <div class="cac-row"><span><strong>Project revenue: $25K</strong></span><span></span></div>
+      <div style="font-size: 11.5px; color: var(--plan-ink-soft); padding: 0 0 6px;">5 deals × $5K avg (3 Operators + 1 Launch Pad + 1 small/hourly)</div>
+      <div class="cac-row"><span><strong>AI Install: $13K</strong></span><span></span></div>
+      <div style="font-size: 11.5px; color: var(--plan-ink-soft); padding: 0 0 6px;">2 installs (AI Proposal Agent #1 external @ $5-8K + 1 Finance Manager @ $5K)</div>
+      <div class="cac-row"><span><strong>MRR captured Q3: ~$17K</strong></span><span></span></div>
+      <div style="font-size: 11.5px; color: var(--plan-ink-soft); padding: 0 0 8px;">4 retainer clients × $1.5K avg × 3 months ≈ $18K</div>
+      <div class="cac-row"><span style="color: var(--plan-navy); font-weight: 700;">Activity ask</span><span style="color: var(--plan-navy);">5 deals + 2 installs + 2 net new retainers</span></div>
+    </div>
+    <div class="cac-card target" style="border-top-color: var(--plan-green);">
+      <div class="cac-tag" style="color: var(--plan-green);">Q4 2026 — TARGET ~$80K</div>
+      <div class="cac-title">What we have to do</div>
+      <div class="cac-row"><span><strong>Project revenue: $30K</strong></span><span></span></div>
+      <div style="font-size: 11.5px; color: var(--plan-ink-soft); padding: 0 0 6px;">4 deals (3 Operators + 1 Scale opportunistic close)</div>
+      <div class="cac-row"><span><strong>AI Install: $20K</strong></span><span></span></div>
+      <div style="font-size: 11.5px; color: var(--plan-ink-soft); padding: 0 0 6px;">3-4 installs (mix of Proposal Agent + Finance Manager + Content Producer)</div>
+      <div class="cac-row"><span><strong>MRR captured Q4: ~$30K</strong></span><span></span></div>
+      <div style="font-size: 11.5px; color: var(--plan-ink-soft); padding: 0 0 8px;">6 retainer clients × $1.6K avg × 3 months ≈ $29K</div>
+      <div class="cac-row"><span style="color: var(--plan-navy); font-weight: 700;">Activity ask</span><span style="color: var(--plan-navy);">4 deals + 3-4 installs + 2 net new retainers</span></div>
+    </div>
+    <div class="cac-card target">
+      <div class="cac-tag">Q1 2027 — TARGET ~$100K</div>
+      <div class="cac-title">What we have to do</div>
+      <div class="cac-row"><span><strong>Project revenue: $35K</strong></span><span></span></div>
+      <div style="font-size: 11.5px; color: var(--plan-ink-soft); padding: 0 0 6px;">5 deals (4 Operators @ $5K avg + 1 Scale)</div>
+      <div class="cac-row"><span><strong>AI Install: $25K</strong></span><span></span></div>
+      <div style="font-size: 11.5px; color: var(--plan-ink-soft); padding: 0 0 6px;">4 installs averaging $6K</div>
+      <div class="cac-row"><span><strong>MRR captured Q1: ~$42K</strong></span><span></span></div>
+      <div style="font-size: 11.5px; color: var(--plan-ink-soft); padding: 0 0 8px;">8 retainer clients × $1.75K avg × 3 months ≈ $42K</div>
+      <div class="cac-row"><span style="color: var(--plan-navy); font-weight: 700;">Activity ask</span><span style="color: var(--plan-navy);">5 deals + 4 installs + 2 net new retainers</span></div>
+    </div>
   </div>
 </section>
 
@@ -942,23 +1031,33 @@
   <div class="cac-grid">
     <div class="cac-card now">
       <div class="cac-tag">Q1 2026 Baseline</div>
-      <div class="cac-title">Where we are today</div>
-      <div class="cac-row"><span>CPA (cost per acquisition)</span><span>$277</span></div>
+      <div class="cac-title">Where we are today (with the math)</div>
+      <div class="cac-row"><span>CPA</span><span>$277</span></div>
+      <div style="font-size: 11px; color: var(--plan-ink-soft); padding: 0 0 8px; font-style: italic;">$1,659 paid ad spend ÷ 6 deals closed</div>
       <div class="cac-row"><span>Avg deal size (packages)</span><span>$2,517</span></div>
+      <div style="font-size: 11px; color: var(--plan-ink-soft); padding: 0 0 8px; font-style: italic;">$7,550 from 3 package deals ÷ 3 (excludes 3 hourly @ $500)</div>
       <div class="cac-row"><span>Conversion rate</span><span>32%</span></div>
+      <div style="font-size: 11px; color: var(--plan-ink-soft); padding: 0 0 8px; font-style: italic;">6 won ÷ 19 total deals (won + lost + open)</div>
       <div class="cac-row"><span>LTV (project-only)</span><span>~$2,517</span></div>
-      <div class="cac-row"><span>LTV : CAC ratio</span><span>~9 : 1</span></div>
-      <div class="cac-row"><span>Capped at deal size</span><span style="color:var(--plan-red)">Yes</span></div>
+      <div style="font-size: 11px; color: var(--plan-ink-soft); padding: 0 0 8px; font-style: italic;">Same as deal size — no recurring revenue exists yet</div>
+      <div class="cac-row"><span>LTV : CAC ratio</span><span style="color:var(--plan-amber)">~9 : 1</span></div>
+      <div style="font-size: 11px; color: var(--plan-ink-soft); padding: 0 0 4px; font-style: italic;">$2,517 ÷ $277 = 9.1× — healthy but capped at deal size</div>
     </div>
     <div class="cac-card target">
       <div class="cac-tag">Target End-of-2026</div>
-      <div class="cac-title">After retainer layer fires</div>
-      <div class="cac-row"><span>CPA (organic compounds)</span><span>$150-250</span></div>
+      <div class="cac-title">After retainer layer fires (with the math)</div>
+      <div class="cac-row"><span>CPA target</span><span>$150-250</span></div>
+      <div style="font-size: 11px; color: var(--plan-ink-soft); padding: 0 0 8px; font-style: italic;">Free Resource Library + plugin marketplace + YouTube → 50% organic. $277 → ~$150 if half come free.</div>
       <div class="cac-row"><span>Avg first transaction</span><span>$4,500</span></div>
-      <div class="cac-row"><span>Operator Care attach rate</span><span>50%</span></div>
-      <div class="cac-row"><span>Retainer LTV (12mo &times; $2K)</span><span>$24,000</span></div>
+      <div style="font-size: 11px; color: var(--plan-ink-soft); padding: 0 0 8px; font-style: italic;">Operator System priced at $4,500 (rising to $5,500 after 3 case studies)</div>
+      <div class="cac-row"><span>Care attach rate</span><span>50%</span></div>
+      <div style="font-size: 11px; color: var(--plan-ink-soft); padding: 0 0 8px; font-style: italic;">Half of Operator graduates sign retainer at closeout — conservative target</div>
+      <div class="cac-row"><span>Retainer LTV</span><span>$24,000</span></div>
+      <div style="font-size: 11px; color: var(--plan-ink-soft); padding: 0 0 8px; font-style: italic;">$2,000/mo × 12-mo avg tenure (SMB B2B retainers typically run 18-24mo)</div>
       <div class="cac-row"><span>Blended LTV : CAC</span><span style="color:var(--plan-green)">30 : 1+</span></div>
+      <div style="font-size: 11px; color: var(--plan-ink-soft); padding: 0 0 8px; font-style: italic;">Blended LTV: $4,500 + (50% × $24K) = $16,500. ÷ $200 CPA midpoint = 82×. Even at $500 CPA = 33×. <strong>30:1 is a floor.</strong></div>
       <div class="cac-row"><span>Retainer payback</span><span style="color:var(--plan-green)">~1 month</span></div>
+      <div style="font-size: 11px; color: var(--plan-ink-soft); padding: 0 0 4px; font-style: italic;">$250 CPA ÷ $2,000/mo = 0.13 months gross, ~1 month after delivery cost</div>
     </div>
   </div>
 
@@ -1050,6 +1149,44 @@
       <div class="trigger-hire">CEO-track hire</div>
       <div class="trigger-cost">$120K+/yr</div>
     </div>
+  </div>
+</section>
+
+<!-- COMPENSATION FRAMEWORK -->
+<section id="comp">
+  <div class="section-eyebrow">Owner Compensation</div>
+  <h2>Revised 4-Phase framework — % per deal + faster profit share</h2>
+  <p class="section-desc">The original framework (flat $50/deal, $300-400 monthly draws) was too thin to motivate. Per Daunte: "we're going to need a better way of compensating owners. I know that we have to comp per deal. Maybe that could be higher or a certain percentage, and then we can start hitting our profit-sharing goals." This is the revised version. <em>Needs all-three sign-off in a dedicated session.</em></p>
+
+  <div class="vision-timeline">
+    <div class="vision-block">
+      <div class="vision-stage">Phase 1 · Now</div>
+      <div class="vision-title">Build Base — no comp</div>
+      <div class="vision-trigger">Trigger: Savings &lt; $3K</div>
+      <div class="vision-desc">All revenue reinvested. Partners alongside day jobs. Burnout-fighter is intrinsic motivation + sweat equity.</div>
+    </div>
+    <div class="vision-block">
+      <div class="vision-stage">Phase 2 · ~Q2 close 2026</div>
+      <div class="vision-title">Per-Deal Commission</div>
+      <div class="vision-trigger">Trigger: Savings ≥ $3K</div>
+      <div class="vision-desc"><strong>5% of net deal value to the closer</strong>, capped at $750/deal. Plus <strong>5% of first month's MRR</strong> to closer when a Care contract or Tier 2B subscription signs.<br><br><em>Examples:</em> $4,500 Operator deal × 5% = <strong style="color: var(--plan-gold-dark);">$225 to closer</strong> (vs. old flat $50). Wanda's $15K Scale × 5% = <strong style="color: var(--plan-gold-dark);">$750 to Eli</strong> (capped). $2K/mo retainer signed = $100 to closer.</div>
+    </div>
+    <div class="vision-block">
+      <div class="vision-stage">Phase 3 · ~Q3-Q4 2026</div>
+      <div class="vision-title">Per-Deal + Quarterly Profit Share</div>
+      <div class="vision-trigger">Trigger: $5K+ quarterly profit sustained (1 quarter)</div>
+      <div class="vision-desc">Per-deal commission stays. <strong>25% of net quarterly profit split equally</strong> among 3 partners (raised from 20%).<br><br><em>Example:</em> $11K Q3 profit × 25% = $2,750 split = <strong style="color: var(--plan-gold-dark);">$917/partner/Q</strong>. Plus accumulated commissions ~$500-1K/Q = <strong>~$1,400-2,000/partner/Q</strong> total.</div>
+    </div>
+    <div class="vision-block">
+      <div class="vision-stage">Phase 4 · ~Q1 2027</div>
+      <div class="vision-title">Per-Deal + 30% Profit Share + Monthly Draws</div>
+      <div class="vision-trigger">Trigger: Savings ≥ $10K + $10K sustained quarterly profit</div>
+      <div class="vision-desc">Per-deal stays. Profit share rises to <strong>30%</strong>. <strong>Monthly draws raised to $500-1,000/partner</strong> (from $300-400).<br><br><em>Example with $20K Q4 profit:</em> $20K × 30% = $6K split = <strong style="color: var(--plan-gold-dark);">$2K/partner profit share</strong> + $750/mo draw + commissions ≈ <strong style="color: var(--plan-gold-dark);">~$3,500/mo per partner</strong>. <em>This is the threshold where one partner can credibly reduce day-job hours.</em></div>
+    </div>
+  </div>
+
+  <div class="plan-callout">
+    <p><strong>Why this works better than the original framework:</strong> Per-deal % rewards big closes (Wanda's $15K is meaningful at 5%, not $50 flat). Faster ramp on profit share unlock — Phase 3 hits at end of Q3 with the new revenue ladder. Monthly draws at Phase 4 land at burnout-prevention threshold ($500-1K, not $300-400). All partners benefit from the shift even if one partner closes most deals — per-deal goes to closer; profit share is shared equally.</p>
   </div>
 </section>
 
@@ -1223,64 +1360,71 @@
 <!-- OPEN ITEMS -->
 <section id="open">
   <div class="section-eyebrow">Decisions Needed</div>
-  <h2>Open items needing Daunte's call</h2>
-  <p class="section-desc">These don't change the plan, sharpen execution.</p>
+  <h2>Open items needing the team's call</h2>
+  <p class="section-desc">These belong on a team agenda — none should sit with one owner alone. Per the 2026-05-06 ratified $2K decision threshold and "iron sharpens iron" norm, Daunte/Kenny/Eli decide together. Each item names which DRI(s) lead the conversation.</p>
 
   <div class="open-list">
     <div class="open-row">
       <div class="open-num">01</div>
       <div>
-        <div class="open-title">Wanda pricing &mdash; $15K Scale or $20K Scale stretch?</div>
-        <div class="open-desc">Floor vs stretch. Your read on her current trust level matters more than the math.</div>
+        <div class="open-title">Wanda pricing — $15K Scale or $20K Scale stretch?</div>
+        <div class="open-desc">Floor vs stretch. <strong>Eli (deal owner) + Kenny (Sales DRI) + Daunte weigh in together.</strong> Decision before next discovery touch.</div>
       </div>
     </div>
     <div class="open-row">
       <div class="open-num">02</div>
       <div>
         <div class="open-title">Proposal Builder UI tech stack</div>
-        <div class="open-desc">Single-file HTML (2-3 weeks, ships fastest) or Next.js/Vercel app (4-6 weeks, more polish). MVP test is "can Wanda use it without help" — both pass.</div>
+        <div class="open-desc">Single-file HTML (2-3 weeks, ships fastest) or Next.js/Vercel app (4-6 weeks, more polish). MVP test: can Wanda use it without help — both pass. <strong>Daunte (AI Workforce DRI) leads the call, team aligns.</strong></div>
       </div>
     </div>
     <div class="open-row">
       <div class="open-num">03</div>
       <div>
         <div class="open-title">HubSpot abstraction approach</div>
-        <div class="open-desc">Make.com (already in tool stack, no new auth) vs direct HubSpot API call vs n8n. Probably Make.com for Phase 0.</div>
+        <div class="open-desc">Make.com (already in tool stack, no new auth) vs direct HubSpot API call vs n8n. Probably Make.com for Phase 0. <strong>Daunte + Eli decide together (HubSpot CMS-adjacent).</strong></div>
       </div>
     </div>
     <div class="open-row">
       <div class="open-num">04</div>
       <div>
         <div class="open-title">AI Finance Manager Install pilot client #2</div>
-        <div class="open-desc">Financial Acuity is the recommendation (warm, has QB, on Growth Package). Backups: Wedelia or Xtremely Clean.</div>
+        <div class="open-desc">Financial Acuity is the recommendation (warm, has QB, on Growth Package). Backups: Wedelia or Xtremely Clean. <strong>Eli (Client Delivery DRI) calls it.</strong></div>
       </div>
     </div>
     <div class="open-row">
       <div class="open-num">05</div>
       <div>
         <div class="open-title">Heritage client list source</div>
-        <div class="open-desc">Rodney's records / QB historical / HubSpot import / combination? Affects Workstream 2 timeline.</div>
+        <div class="open-desc">Rodney's records / QB historical / HubSpot import / combination? Affects Workstream 2 timeline. <strong>Kenny (Sales DRI) leads, Daunte pulls the data.</strong></div>
       </div>
     </div>
     <div class="open-row">
       <div class="open-num">06</div>
       <div>
         <div class="open-title">Phase 0 sequencing</div>
-        <div class="open-desc">All 3 workstreams in parallel (faster, burnout risk) or stagger (Wanda Builder first, lead-gen second, plugins third)?</div>
+        <div class="open-desc">All 3 workstreams in parallel (faster, burnout risk) or stagger (Wanda Builder first, lead-gen second, plugins third)? <strong>Team's calendar realities should drive — needs a sit-down.</strong></div>
       </div>
     </div>
     <div class="open-row">
       <div class="open-num">07</div>
       <div>
         <div class="open-title">Tools Hub stale-data fix priority</div>
-        <div class="open-desc">bpp-ops-hub-navy-final.html (OneDrive copy) pre-dates 2026-05-06 ratification. Update now or fold into a future sprint?</div>
+        <div class="open-desc">bpp-ops-hub-navy-final.html (OneDrive copy) pre-dates 2026-05-06 ratification. Update now or fold into a future sprint? <strong>Eli (visual lane) decides.</strong></div>
       </div>
     </div>
     <div class="open-row">
       <div class="open-num">08</div>
       <div>
         <div class="open-title">Confirm $200K-$300K target still shared</div>
-        <div class="open-desc">From Q4 2025 internal report. Plan assumes yes. Worth confirming at Q2 quarterly review.</div>
+        <div class="open-desc">From Q4 2025 internal report. Plan assumes yes. <strong>All 3 owners confirm at Q2 quarterly review.</strong></div>
+      </div>
+    </div>
+    <div class="open-row">
+      <div class="open-num">09</div>
+      <div>
+        <div class="open-title">Comp framework ratification</div>
+        <div class="open-desc">The revised 4-Phase framework above (5% per-deal commission capped at $750, 25%/30% profit shares, $500-1K monthly draws at Phase 4) needs <strong>all-three sign-off in a dedicated session.</strong> Connects to the deferred compensation conversation from 2026-05-06.</div>
       </div>
     </div>
   </div>
