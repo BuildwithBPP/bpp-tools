@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP Strategic Plan · 2026-2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  :root {
+    --plan-navy: #044771;
+    --plan-navy-dark: #023154;
+    --plan-navy-deep: #032f4d;
+    --plan-navy-light: #e8f0f7;
+    --plan-gold: #F1BE5C;
+    --plan-gold-dark: #d6a648;
+    --plan-gold-light: #fdf0d0;
+    --plan-blue: #5987A5;
+    --plan-blue-mid: #3a6d8f;
+    --plan-green: #1a9e5c;
+    --plan-green-light: #d4f0e1;
+    --plan-amber: #d4920a;
+    --plan-amber-light: #fdf0d0;
+    --plan-red: #c0392b;
+    --plan-red-light: #f5d5d1;
+    --plan-cream: #FAF6EE;
+    --plan-ink: #1a2436;
+    --plan-ink-soft: #4a5568;
+    --plan-line: #e2e8f0;
+    --daunte: #5987A5;
+    --kenny: #1a9e5c;
+    --eli: #c2912f;
+  }
+
+  /* PAGE NAV (sub-nav under hub-nav) */
+  .page-subnav { background: var(--plan-navy-dark); padding: 10px 28px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; box-shadow: inset 0 -1px 0 rgba(255,255,255,0.05); position: sticky; top: 56px; z-index: 99; }
+  .subnav-back { color: rgba(255,255,255,0.65); font-size: 11.5px; font-weight: 600; padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15); text-decoration: none; transition: all 0.15s; white-space: nowrap; }
+  .subnav-back:hover { background: rgba(255,255,255,0.08); color: white; }
+  .subnav-tabs { display: flex; gap: 2px; flex: 1; overflow-x: auto; }
+  .subnav-tabs a { color: rgba(255,255,255,0.6); font-size: 11px; font-weight: 500; padding: 5px 10px; border-radius: 4px; transition: all 0.15s; text-decoration: none; white-space: nowrap; }
+  .subnav-tabs a:hover { background: rgba(255,255,255,0.1); color: white; }
+
+  /* PAGE BASE */
+  .plan-body { background: #edf1f5; color: var(--plan-ink); font-family: 'Poppins', sans-serif; font-size: 15px; line-height: 1.65; }
+  .plan-body h1, .plan-body h2, .plan-body h3, .plan-body h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--plan-navy); }
+  .plan-body h1 { font-size: 40px; line-height: 1.12; letter-spacing: -0.5px; }
+  .plan-body h2 { font-size: 26px; margin-bottom: 10px; }
+  .plan-body h3 { font-size: 18px; margin-bottom: 6px; }
+  .plan-body p { color: var(--plan-ink-soft); margin-bottom: 10px; }
+  .plan-body strong { color: var(--plan-ink); font-weight: 600; }
+  .plan-body em { color: var(--plan-navy); font-style: italic; font-family: 'Merriweather', serif; }
+
+  /* HERO */
+  .plan-hero { background: linear-gradient(135deg, var(--plan-navy) 0%, var(--plan-navy-dark) 100%); color: white; padding: 60px 32px 56px; }
+  .plan-hero-inner { max-width: 1280px; margin: 0 auto; }
+  .ph-eyebrow { text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; font-weight: 700; color: var(--plan-gold); margin-bottom: 12px; }
+  .plan-hero h1 { color: white; max-width: 950px; margin-bottom: 16px; }
+  .plan-hero h1 .accent { color: var(--plan-gold); }
+  .ph-lede { color: rgba(255,255,255,0.88); font-size: 16.5px; max-width: 820px; line-height: 1.65; }
+
+  /* HERO STAT CARDS (bigger, more visual) */
+  .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 30px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.18); }
+  @media (max-width: 900px) { .hero-stats { grid-template-columns: repeat(2, 1fr); } }
+  .hs-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 16px 18px; backdrop-filter: blur(2px); }
+  .hs-label { text-transform: uppercase; letter-spacing: 1px; font-size: 10px; color: var(--plan-gold); margin-bottom: 6px; font-weight: 600; }
+  .hs-value { color: white; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 24px; line-height: 1.1; margin-bottom: 4px; }
+  .hs-detail { color: rgba(255,255,255,0.7); font-size: 11px; }
+
+  /* MAIN */
+  .plan-main { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  .plan-main section { padding: 56px 0; border-bottom: 1px solid var(--plan-line); }
+  .plan-main section:last-of-type { border-bottom: none; }
+  .section-eyebrow { text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; font-weight: 700; color: var(--plan-gold-dark); margin-bottom: 8px; }
+  .section-desc { font-size: 15.5px; color: var(--plan-ink-soft); max-width: 820px; margin-bottom: 28px; line-height: 1.7; }
+
+  /* THE 3 ENGINES */
+  .engine-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .engine-grid { grid-template-columns: 1fr; } }
+  .engine-card { background: white; border-radius: 14px; padding: 28px; border: 1px solid var(--plan-line); position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+  .engine-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(4,71,113,0.1); }
+  .engine-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; }
+  .engine-card.e1::before { background: var(--plan-blue); }
+  .engine-card.e2::before { background: var(--plan-gold); }
+  .engine-card.e3::before { background: var(--plan-green); }
+  .engine-icon { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 14px; }
+  .engine-card.e1 .engine-icon { background: rgba(89,135,165,0.12); color: var(--plan-blue); }
+  .engine-card.e2 .engine-icon { background: rgba(241,190,92,0.18); color: var(--plan-gold-dark); }
+  .engine-card.e3 .engine-icon { background: rgba(26,158,92,0.12); color: var(--plan-green); }
+  .engine-num { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 10.5px; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 4px; }
+  .engine-card.e1 .engine-num { color: var(--plan-blue); }
+  .engine-card.e2 .engine-num { color: var(--plan-gold-dark); }
+  .engine-card.e3 .engine-num { color: var(--plan-green); }
+  .engine-name { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 22px; color: var(--plan-navy); margin-bottom: 12px; }
+  .engine-desc { font-size: 13.5px; color: var(--plan-ink-soft); margin-bottom: 16px; line-height: 1.65; }
+  .engine-stats { padding-top: 14px; border-top: 1px dashed var(--plan-line); }
+  .engine-stat-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 12.5px; }
+  .engine-stat-row strong { color: var(--plan-navy); }
+  .engine-stat-row span { color: var(--plan-ink-soft); }
+
+  /* VISUAL FLYWHEEL */
+  .flywheel-wrap { background: linear-gradient(135deg, var(--plan-navy-light) 0%, #f7f9fb 100%); border-radius: 14px; padding: 36px; border: 1px solid var(--plan-line); display: flex; align-items: center; gap: 32px; }
+  @media (max-width: 900px) { .flywheel-wrap { flex-direction: column; } }
+  .flywheel-svg-wrap { flex: 0 0 380px; max-width: 380px; }
+  @media (max-width: 900px) { .flywheel-svg-wrap { flex: 0 0 auto; } }
+  .flywheel-svg { width: 100%; height: auto; }
+  .flywheel-text { flex: 1; }
+  .flywheel-text h3 { font-size: 22px; margin-bottom: 12px; }
+  .flywheel-text p { font-size: 14.5px; line-height: 1.7; }
+
+  /* FUNNEL SVG */
+  .funnel-wrap { display: flex; gap: 32px; align-items: center; margin-top: 20px; }
+  @media (max-width: 900px) { .funnel-wrap { flex-direction: column; } }
+  .funnel-svg-wrap { flex: 0 0 460px; max-width: 460px; }
+  @media (max-width: 900px) { .funnel-svg-wrap { width: 100%; } }
+  .funnel-side { flex: 1; }
+
+  /* CHANNEL STATUS */
+  .channel-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; border: 1px solid var(--plan-line); margin-top: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .channel-table th { background: var(--plan-navy); color: white; padding: 12px 14px; text-align: left; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; }
+  .channel-table td { padding: 12px 14px; border-bottom: 1px solid var(--plan-line); font-size: 13px; vertical-align: middle; }
+  .channel-table tr:last-child td { border-bottom: none; }
+  .status-pill { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+  .status-pill.live { background: var(--plan-green-light); color: var(--plan-green); }
+  .status-pill.flight { background: var(--plan-amber-light); color: var(--plan-amber); }
+  .status-pill.zero { background: var(--plan-red-light); color: var(--plan-red); }
+
+  /* WORKSTREAM CARDS */
+  .ws-card { background: white; border-radius: 12px; padding: 28px 30px; border: 1px solid var(--plan-line); border-left: 5px solid var(--plan-navy); margin-bottom: 16px; transition: box-shadow 0.15s; }
+  .ws-card:hover { box-shadow: 0 4px 16px rgba(4,71,113,0.08); }
+  .ws-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .ws-badge { width: 44px; height: 44px; background: var(--plan-navy); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 18px; flex-shrink: 0; }
+  .ws-titles { flex: 1; }
+  .ws-num { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--plan-gold-dark); font-size: 10.5px; letter-spacing: 1px; text-transform: uppercase; }
+  .ws-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; color: var(--plan-navy); margin-top: 2px; }
+  .ws-body { font-size: 14px; color: var(--plan-ink-soft); margin-bottom: 14px; line-height: 1.65; }
+  .ws-steps { background: var(--plan-cream); border-radius: 8px; padding: 16px 22px; margin-top: 14px; }
+  .ws-steps ol { padding-left: 24px; font-size: 13.5px; color: var(--plan-ink); line-height: 1.85; }
+  .ws-steps ol li { padding: 3px 0; }
+  .ws-steps ol li::marker { color: var(--plan-gold-dark); font-weight: 700; }
+  .ws-steps strong { color: var(--plan-navy); }
+  .ws-extra { font-size: 12.5px; color: var(--plan-ink-soft); margin-top: 14px; padding: 10px 14px; background: rgba(89,135,165,0.06); border-radius: 6px; border-left: 3px solid var(--plan-blue); }
+  .ws-extra code { background: rgba(0,0,0,0.04); padding: 1px 6px; border-radius: 3px; font-size: 11.5px; }
+
+  /* BANNER (gold) */
+  .gold-banner { background: linear-gradient(135deg, var(--plan-gold) 0%, var(--plan-gold-dark) 100%); color: var(--plan-navy-dark); padding: 28px 32px; border-radius: 12px; margin: 24px 0; box-shadow: 0 4px 16px rgba(241,190,92,0.25); }
+  .gold-banner .gb-eyebrow { text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; font-weight: 700; color: var(--plan-navy-dark); margin-bottom: 8px; opacity: 0.85; }
+  .gold-banner h2 { color: var(--plan-navy-dark); margin-bottom: 10px; font-size: 22px; }
+  .gold-banner p { color: var(--plan-navy-dark); font-size: 14.5px; max-width: 820px; line-height: 1.65; }
+  .gold-banner strong { color: var(--plan-navy-dark); }
+  .gold-banner em { color: var(--plan-navy-dark); }
+
+  /* WANDA SPOTLIGHT */
+  .wanda-card { background: linear-gradient(135deg, #fdf6e3 0%, #ffffff 100%); border: 2px solid var(--plan-gold); border-radius: 14px; padding: 32px; }
+  .wanda-tag { display: inline-block; background: var(--plan-gold); color: var(--plan-navy-dark); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px; padding: 5px 14px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+  .wanda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 22px; }
+  @media (max-width: 720px) { .wanda-grid { grid-template-columns: 1fr; } }
+  .wanda-grid h4 { color: var(--plan-navy); margin-bottom: 12px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; padding-bottom: 6px; border-bottom: 1px solid var(--plan-gold); }
+  .wanda-grid ul { list-style: none; padding: 0; font-size: 13.5px; color: var(--plan-ink-soft); }
+  .wanda-grid ul li { padding: 7px 0; border-bottom: 1px solid var(--plan-line); display: flex; gap: 10px; }
+  .wanda-grid ul li:last-child { border-bottom: none; }
+  .wanda-grid ul li strong { color: var(--plan-navy); flex-shrink: 0; min-width: 130px; }
+  .wanda-arrow { font-size: 18px; color: var(--plan-gold-dark); font-weight: 700; }
+
+  /* RESOURCE LIBRARY */
+  .res-tabs { display: flex; gap: 8px; margin: 24px 0 16px; }
+  .res-tab { background: white; border: 1px solid var(--plan-line); padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; color: var(--plan-ink-soft); cursor: pointer; transition: all 0.15s; }
+  .res-tab.active { background: var(--plan-navy); color: white; border-color: var(--plan-navy); }
+  .res-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-top: 16px; }
+  .res-card { background: white; border: 1px solid var(--plan-line); border-radius: 10px; padding: 18px 20px; transition: all 0.15s; }
+  .res-card:hover { border-color: var(--plan-gold); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(241,190,92,0.15); }
+  .res-tier-tag { display: inline-block; font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+  .res-tier-tag.t1 { background: var(--plan-navy-light); color: var(--plan-navy); }
+  .res-tier-tag.t2 { background: var(--plan-gold-light); color: var(--plan-gold-dark); }
+  .res-q { display: inline-block; font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 3px; margin-left: 4px; background: rgba(0,0,0,0.05); color: var(--plan-ink-soft); }
+  .res-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px; color: var(--plan-navy); margin-bottom: 6px; }
+  .res-desc { font-size: 12px; color: var(--plan-ink-soft); line-height: 1.6; margin-bottom: 8px; }
+  .res-source { font-size: 10.5px; color: var(--plan-gold-dark); font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+
+  /* REVENUE CHART (bar visualization) */
+  .revchart { background: white; border: 1px solid var(--plan-line); border-radius: 12px; padding: 32px; margin-top: 20px; }
+  .revchart-bars { display: flex; align-items: flex-end; gap: 14px; height: 280px; padding: 0 20px; border-bottom: 2px solid var(--plan-line); position: relative; }
+  .revbar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+  .revbar-stack { width: 100%; max-width: 100px; display: flex; flex-direction: column-reverse; }
+  .revbar-seg { width: 100%; min-height: 3px; position: relative; }
+  .revbar-seg.project { background: var(--plan-blue); }
+  .revbar-seg.install { background: var(--plan-gold); }
+  .revbar-seg.mrr { background: var(--plan-green); }
+  .revbar-total { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 14px; color: var(--plan-navy); margin-bottom: 4px; }
+  .revbar-label { font-size: 11.5px; color: var(--plan-ink-soft); text-align: center; margin-top: 8px; padding-top: 8px; }
+  .revbar-quarter { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; color: var(--plan-navy); }
+  .revbar-phase { font-size: 9.5px; color: var(--plan-gold-dark); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+  .revchart-legend { display: flex; gap: 20px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--plan-line); flex-wrap: wrap; justify-content: center; }
+  .revleg-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--plan-ink-soft); }
+  .revleg-swatch { width: 14px; height: 14px; border-radius: 3px; }
+
+  /* CAC LTV CARDS */
+  .cac-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+  @media (max-width: 720px) { .cac-grid { grid-template-columns: 1fr; } }
+  .cac-card { background: white; border: 1px solid var(--plan-line); border-radius: 10px; padding: 22px 24px; }
+  .cac-card.now { border-top: 5px solid var(--plan-blue); }
+  .cac-card.target { border-top: 5px solid var(--plan-green); }
+  .cac-tag { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .cac-card.now .cac-tag { color: var(--plan-blue); }
+  .cac-card.target .cac-tag { color: var(--plan-green); }
+  .cac-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 16px; color: var(--plan-navy); margin-bottom: 14px; }
+  .cac-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--plan-line); font-size: 13px; }
+  .cac-row:last-child { border-bottom: none; }
+  .cac-row span:first-child { color: var(--plan-ink-soft); }
+  .cac-row span:last-child { color: var(--plan-navy); font-weight: 700; }
+
+  /* VISION TIMELINE */
+  .vision-timeline { margin-top: 24px; position: relative; padding-left: 28px; border-left: 3px solid var(--plan-gold); }
+  .vision-block { background: white; border: 1px solid var(--plan-line); border-radius: 10px; padding: 18px 22px; margin-bottom: 16px; position: relative; transition: transform 0.15s; }
+  .vision-block:hover { transform: translateX(3px); box-shadow: 0 3px 12px rgba(241,190,92,0.12); }
+  .vision-block::before { content: ''; position: absolute; left: -38px; top: 22px; width: 16px; height: 16px; border-radius: 50%; background: var(--plan-gold); border: 4px solid white; box-shadow: 0 0 0 1px var(--plan-gold); }
+  .vision-stage { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--plan-gold-dark); font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .vision-title { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--plan-navy); font-size: 16px; margin-bottom: 6px; }
+  .vision-trigger { font-size: 12px; color: var(--plan-gold-dark); font-weight: 600; margin-bottom: 6px; padding: 4px 10px; background: var(--plan-gold-light); border-radius: 4px; display: inline-block; }
+  .vision-desc { font-size: 13px; color: var(--plan-ink-soft); line-height: 1.65; margin-top: 6px; }
+
+  /* HIRING TRIGGER STAGES */
+  .trigger-flow { display: flex; gap: 8px; margin-top: 20px; overflow-x: auto; padding-bottom: 8px; }
+  .trigger-step { flex: 1; min-width: 170px; background: white; border: 1px solid var(--plan-line); border-radius: 10px; padding: 18px; position: relative; }
+  .trigger-step::after { content: '→'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); font-size: 22px; color: var(--plan-gold); font-weight: 700; }
+  .trigger-step:last-child::after { display: none; }
+  .trigger-mrr { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 22px; color: var(--plan-gold-dark); }
+  .trigger-mrr-label { font-size: 10px; color: var(--plan-ink-soft); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; margin-bottom: 12px; }
+  .trigger-hire { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; color: var(--plan-navy); margin-bottom: 6px; }
+  .trigger-cost { font-size: 11.5px; color: var(--plan-blue); font-weight: 600; }
+
+  /* PICTURE-IN-24 */
+  .picture-banner { background: linear-gradient(135deg, var(--plan-navy) 0%, var(--plan-navy-dark) 100%); border-radius: 14px; padding: 36px; margin-top: 32px; color: white; box-shadow: 0 6px 20px rgba(4,71,113,0.18); }
+  .picture-banner .gb-eyebrow { color: var(--plan-gold); }
+  .picture-banner h2 { color: white; margin-bottom: 14px; font-size: 24px; }
+  .picture-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+  @media (max-width: 900px) { .picture-grid { grid-template-columns: repeat(2, 1fr); } }
+  .pic-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; padding: 14px 16px; }
+  .pic-num { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 22px; color: var(--plan-gold); }
+  .pic-label { font-size: 11px; color: rgba(255,255,255,0.75); margin-top: 4px; line-height: 1.45; }
+  .picture-narrative { color: rgba(255,255,255,0.92); font-size: 14.5px; line-height: 1.7; margin-top: 22px; max-width: 900px; }
+  .picture-narrative em { color: var(--plan-gold); font-style: italic; font-family: 'Merriweather', serif; }
+
+  /* RISKS */
+  .risk-card { background: white; border: 1px solid var(--plan-line); border-radius: 10px; padding: 20px 24px; border-left: 4px solid var(--plan-red); margin-bottom: 12px; display: grid; grid-template-columns: 50px 1fr; gap: 16px; }
+  .risk-num { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--plan-red); font-size: 28px; opacity: 0.4; line-height: 1; }
+  .risk-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px; color: var(--plan-navy); margin-bottom: 6px; }
+  .risk-desc { font-size: 13px; color: var(--plan-ink-soft); margin-bottom: 8px; line-height: 1.55; }
+  .risk-trigger { font-size: 12.5px; padding: 9px 13px; background: var(--plan-cream); border-radius: 5px; color: var(--plan-ink); line-height: 1.55; }
+  .risk-trigger strong { color: var(--plan-red); }
+
+  /* STATUS DASHBOARD */
+  .status-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .status-grid { grid-template-columns: 1fr; } }
+  .status-card { background: white; border: 1px solid var(--plan-line); border-radius: 10px; padding: 22px 24px; }
+  .status-card.done { border-top: 5px solid var(--plan-green); }
+  .status-card.flight { border-top: 5px solid var(--plan-amber); }
+  .status-card.next { border-top: 5px solid var(--plan-blue); }
+  .status-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .status-pill-big { display: inline-flex; align-items: center; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.7px; color: white; }
+  .status-pill-big.done { background: var(--plan-green); }
+  .status-pill-big.flight { background: var(--plan-amber); }
+  .status-pill-big.next { background: var(--plan-blue); }
+  .status-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px; color: var(--plan-navy); }
+  .status-list { font-size: 13px; color: var(--plan-ink-soft); list-style: none; }
+  .status-list li { padding: 5px 0; line-height: 1.5; padding-left: 18px; position: relative; }
+  .status-list li::before { content: ''; position: absolute; left: 0; top: 12px; width: 6px; height: 6px; border-radius: 50%; }
+  .status-card.done .status-list li::before { background: var(--plan-green); }
+  .status-card.flight .status-list li::before { background: var(--plan-amber); }
+  .status-card.next .status-list li::before { background: var(--plan-blue); }
+
+  /* PHASE 0 PROGRESS BAR */
+  .phase-progress { background: white; border: 1px solid var(--plan-line); border-radius: 12px; padding: 24px 28px; margin-bottom: 28px; }
+  .pp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+  .pp-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px; color: var(--plan-navy); }
+  .pp-pct { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 22px; color: var(--plan-gold-dark); }
+  .pp-bars { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  @media (max-width: 720px) { .pp-bars { grid-template-columns: 1fr; } }
+  .pp-bar-card { padding: 14px 16px; background: var(--plan-cream); border-radius: 8px; }
+  .pp-bar-name { font-size: 12px; color: var(--plan-navy); font-weight: 600; margin-bottom: 8px; }
+  .pp-bar-track { background: var(--plan-line); border-radius: 4px; height: 8px; overflow: hidden; margin-bottom: 6px; }
+  .pp-bar-fill { background: var(--plan-gold); height: 100%; border-radius: 4px; transition: width 0.4s; }
+  .pp-bar-fill.green { background: var(--plan-green); }
+  .pp-bar-detail { font-size: 11px; color: var(--plan-ink-soft); }
+
+  /* COMPETITIVE TABLE */
+  .comp-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; border: 1px solid var(--plan-line); margin-top: 16px; font-size: 13px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .comp-table th { background: var(--plan-navy); color: white; padding: 12px 14px; text-align: left; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; }
+  .comp-table td { padding: 12px 14px; border-bottom: 1px solid var(--plan-line); vertical-align: top; color: var(--plan-ink); }
+  .comp-table td:first-child { font-weight: 600; color: var(--plan-navy); width: 22%; }
+  .comp-table .win { color: var(--plan-green); font-weight: 600; }
+  .comp-table tr:nth-child(even) td { background: #fafbfc; }
+
+  /* OPEN ITEMS */
+  .open-list { background: white; border-radius: 10px; border: 1px solid var(--plan-line); padding: 6px 0; }
+  .open-row { padding: 16px 24px; border-bottom: 1px solid var(--plan-line); display: grid; grid-template-columns: 36px 1fr; gap: 12px; }
+  .open-row:last-child { border-bottom: none; }
+  .open-num { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--plan-gold-dark); font-size: 18px; }
+  .open-title { font-weight: 600; color: var(--plan-ink); margin-bottom: 4px; font-size: 14px; }
+  .open-desc { color: var(--plan-ink-soft); font-size: 12.5px; line-height: 1.6; }
+
+  /* CALLOUT */
+  .plan-callout { background: var(--plan-navy-light); border-left: 4px solid var(--plan-navy); border-radius: 0 8px 8px 0; padding: 16px 22px; margin: 16px 0; }
+  .plan-callout p { color: var(--plan-navy); font-size: 14px; line-height: 1.7; margin: 0; }
+  .plan-callout p strong { color: var(--plan-navy-dark); }
+  .plan-callout em { font-family: 'Merriweather', serif; color: var(--plan-navy-dark); }
+  .plan-callout p + p { margin-top: 8px; }
+
+  /* FOOTER */
+  .plan-footer { background: var(--plan-navy-dark); color: rgba(255,255,255,0.75); padding: 36px 32px; text-align: center; font-size: 12px; }
+  .plan-footer .ft-brand { color: white; font-weight: 700; font-family: 'Montserrat', sans-serif; font-size: 14px; }
+  .plan-footer .ft-brand span { color: var(--plan-gold); }
+  .plan-footer code { background: rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 4px; font-size: 11px; color: rgba(255,255,255,0.85); }
+
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body class="plan-body">
+
+<!-- HUB NAV (matches index.html pattern) -->
+<nav class="hub-nav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">B</div>
+    <div class="nav-brand">BPP <span>Tools</span></div>
+  </div>
+  <div class="nav-tabs">
+    <a class="hub-tab" href="../index.html"><span class="tab-emoji">&#127968;</span> Home</a>
+    <a class="hub-tab" href="pre-call.html"><span class="tab-emoji">&#128222;</span> Pre-Call</a>
+    <a class="hub-tab" href="kickoff.html"><span class="tab-emoji">&#128640;</span> Kickoff</a>
+    <a class="hub-tab" href="ops.html"><span class="tab-emoji">&#128202;</span> Ops</a>
+    <a class="hub-tab" href="finance.html"><span class="tab-emoji">&#128176;</span> Finance</a>
+    <a class="hub-tab" href="marketing.html"><span class="tab-emoji">&#128227;</span> Marketing</a>
+    <a class="hub-tab" href="systems.html"><span class="tab-emoji">&#9881;</span> Systems</a>
+    <a class="hub-tab" href="builds.html"><span class="tab-emoji">&#128296;</span> Builds</a>
+    <a class="hub-tab" href="reviews.html"><span class="tab-emoji">&#128200;</span> Reviews</a>
+    <a class="hub-tab on" href="strategic-plan.html"><span class="tab-emoji">&#127919;</span> Strategic Plan</a>
+  </div>
+</nav>
+
+<!-- PAGE SUB-NAV (anchor jumps within plan) -->
+<div class="page-subnav">
+  <a class="subnav-back" href="../index.html">&larr; Hub</a>
+  <div class="subnav-tabs">
+    <a href="#read">Read</a>
+    <a href="#engines">3 Engines</a>
+    <a href="#flywheel">Flywheel</a>
+    <a href="#competitive">Why We Win</a>
+    <a href="#phase0">Phase 0</a>
+    <a href="#wanda">Wanda Anchor</a>
+    <a href="#resources">Free Library</a>
+    <a href="#leadgen">Lead Gen</a>
+    <a href="#ladder">Revenue Ladder</a>
+    <a href="#cac">CAC / LTV</a>
+    <a href="#vision">36-Mo Vision</a>
+    <a href="#picture">Picture in 24mo</a>
+    <a href="#risks">Risks</a>
+    <a href="#status">Status</a>
+    <a href="#open">Open Items</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="plan-hero" id="read">
+  <div class="plan-hero-inner">
+    <div class="ph-eyebrow">Strategic Plan · 2026–2027 · Living Document · Updated 2026-05-15</div>
+    <h1>From a 3-person services firm to a productized <span class="accent">AI-operated business.</span></h1>
+    <p class="ph-lede">BPP doesn't need to lean into AI — that's already happened. The strategic question is how to package what we already run internally into things we can sell, give away, and compound on. This plan is how we make money <em style="color:var(--plan-gold);font-style:italic;">without always selling our time</em>, anchored on a real case study (Wanda), executed against a real org chart, and paced by a real compensation framework.</p>
+
+    <div class="hero-stats">
+      <div class="hs-card">
+        <div class="hs-label">Q1 2026 Actual</div>
+        <div class="hs-value">$7,259</div>
+        <div class="hs-detail">Net revenue · 23% margin · $1,422 net profit</div>
+      </div>
+      <div class="hs-card">
+        <div class="hs-label">2026 Target</div>
+        <div class="hs-value">~$180K</div>
+        <div class="hs-detail">Wanda dependent · 24x Q1</div>
+      </div>
+      <div class="hs-card">
+        <div class="hs-label">EOY 2026 Run Rate</div>
+        <div class="hs-value">~$280K</div>
+        <div class="hs-detail">Inside Q4 2025 internal report's $200-300K</div>
+      </div>
+      <div class="hs-card">
+        <div class="hs-label">Status</div>
+        <div class="hs-value">Phase 0</div>
+        <div class="hs-detail">House cleaning + lead-gen foundation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="plan-main">
+
+<!-- THE 3 ENGINES -->
+<section id="engines">
+  <div class="section-eyebrow">The Core Operating Thesis</div>
+  <h2>Three engines. The strategic shift is rebalancing toward Engines 2 and 3.</h2>
+  <p class="section-desc">BPP today is 95% time-for-money. That engine funds everything else but doesn't scale. The plan rebalances revenue toward productized SKUs and free-forever assets that compound while partners sleep — without abandoning the project work that wins relationships.</p>
+
+  <div class="engine-grid">
+    <div class="engine-card e1">
+      <div class="engine-icon">&#9201;</div>
+      <div class="engine-num">Engine 1</div>
+      <div class="engine-name">Time-Based</div>
+      <div class="engine-desc">Project work that sells hours. Operator System, Scale System, Launch Pad. Wins the relationship, generates the case study, funds Engines 2 and 3.</div>
+      <div class="engine-stats">
+        <div class="engine-stat-row"><span>2025 reality</span><strong>$60/hr · 16.7% margin</strong></div>
+        <div class="engine-stat-row"><span>Marginal scale</span><strong>Linear, capped</strong></div>
+        <div class="engine-stat-row"><span>Going forward</span><strong>Front door, not destination</strong></div>
+      </div>
+    </div>
+    <div class="engine-card e2">
+      <div class="engine-icon">&#128230;</div>
+      <div class="engine-num">Engine 2</div>
+      <div class="engine-name">Productized</div>
+      <div class="engine-desc">AI Employee Installs ($3-8K), AI Operations Care retainer ($1.5-2.5K/mo), done-with-you templates. Earns from packaging, scales with sales not hours.</div>
+      <div class="engine-stats">
+        <div class="engine-stat-row"><span>Margin profile</span><strong>60-80% gross</strong></div>
+        <div class="engine-stat-row"><span>Marginal cost</span><strong>Install + onboarding</strong></div>
+        <div class="engine-stat-row"><span>Going forward</span><strong>The MRR engine</strong></div>
+      </div>
+    </div>
+    <div class="engine-card e3">
+      <div class="engine-icon">&#127757;</div>
+      <div class="engine-num">Engine 3</div>
+      <div class="engine-name">Free-Forever</div>
+      <div class="engine-desc">Open-source plugins, Free Resource Library, public dashboards, content. Marginal cost ~$0. Indirect revenue: every download is a lead, every install is a conversation.</div>
+      <div class="engine-stats">
+        <div class="engine-stat-row"><span>Direct revenue</span><strong>$0</strong></div>
+        <div class="engine-stat-row"><span>Indirect revenue</span><strong>Compounds 6-12 months</strong></div>
+        <div class="engine-stat-row"><span>Going forward</span><strong>24/7 sales asset</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLYWHEEL -->
+<section id="flywheel">
+  <div class="section-eyebrow">The Flywheel</div>
+  <h2>How the engines feed each other</h2>
+  <p class="section-desc">No single engine is the destination — the mix is. Internal builds become productized SKUs. SKUs throw off free-resource fragments. Free resources generate leads. Leads become case studies. Case studies fund the next internal build.</p>
+
+  <div class="flywheel-wrap">
+    <div class="flywheel-svg-wrap">
+      <svg class="flywheel-svg" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer guides -->
+        <circle cx="190" cy="190" r="170" fill="none" stroke="#dde4ea" stroke-width="1" stroke-dasharray="3 5"/>
+        <!-- Center hub -->
+        <circle cx="190" cy="190" r="48" fill="#044771"/>
+        <text x="190" y="184" text-anchor="middle" fill="#F1BE5C" font-family="Montserrat, sans-serif" font-weight="800" font-size="11" letter-spacing="1">BPP</text>
+        <text x="190" y="200" text-anchor="middle" fill="#FFFFFF" font-family="Montserrat, sans-serif" font-weight="700" font-size="9">FLYWHEEL</text>
+
+        <!-- 6 step circles around the hub -->
+        <!-- Step 1 - top -->
+        <g>
+          <circle cx="190" cy="50" r="36" fill="#F1BE5C"/>
+          <text x="190" y="46" text-anchor="middle" fill="#044771" font-family="Montserrat, sans-serif" font-weight="800" font-size="9">1</text>
+          <text x="190" y="58" text-anchor="middle" fill="#044771" font-family="Poppins, sans-serif" font-weight="700" font-size="9">BUILD</text>
+          <text x="190" y="70" text-anchor="middle" fill="#044771" font-family="Poppins, sans-serif" font-weight="600" font-size="8">internal</text>
+        </g>
+
+        <!-- Step 2 - top right -->
+        <g>
+          <circle cx="311" cy="120" r="36" fill="#5987A5"/>
+          <text x="311" y="116" text-anchor="middle" fill="white" font-family="Montserrat, sans-serif" font-weight="800" font-size="9">2</text>
+          <text x="311" y="128" text-anchor="middle" fill="white" font-family="Poppins, sans-serif" font-weight="700" font-size="9">PRODUCTIZE</text>
+          <text x="311" y="140" text-anchor="middle" fill="white" font-family="Poppins, sans-serif" font-weight="600" font-size="8">install + care</text>
+        </g>
+
+        <!-- Step 3 - bottom right -->
+        <g>
+          <circle cx="311" cy="260" r="36" fill="#1a9e5c"/>
+          <text x="311" y="256" text-anchor="middle" fill="white" font-family="Montserrat, sans-serif" font-weight="800" font-size="9">3</text>
+          <text x="311" y="268" text-anchor="middle" fill="white" font-family="Poppins, sans-serif" font-weight="700" font-size="9">FREE</text>
+          <text x="311" y="280" text-anchor="middle" fill="white" font-family="Poppins, sans-serif" font-weight="600" font-size="8">fragments</text>
+        </g>
+
+        <!-- Step 4 - bottom -->
+        <g>
+          <circle cx="190" cy="330" r="36" fill="#F1BE5C"/>
+          <text x="190" y="326" text-anchor="middle" fill="#044771" font-family="Montserrat, sans-serif" font-weight="800" font-size="9">4</text>
+          <text x="190" y="338" text-anchor="middle" fill="#044771" font-family="Poppins, sans-serif" font-weight="700" font-size="9">LEADS</text>
+          <text x="190" y="350" text-anchor="middle" fill="#044771" font-family="Poppins, sans-serif" font-weight="600" font-size="8">funnel + DMs</text>
+        </g>
+
+        <!-- Step 5 - bottom left -->
+        <g>
+          <circle cx="69" cy="260" r="36" fill="#5987A5"/>
+          <text x="69" y="256" text-anchor="middle" fill="white" font-family="Montserrat, sans-serif" font-weight="800" font-size="9">5</text>
+          <text x="69" y="268" text-anchor="middle" fill="white" font-family="Poppins, sans-serif" font-weight="700" font-size="9">CASES</text>
+          <text x="69" y="280" text-anchor="middle" fill="white" font-family="Poppins, sans-serif" font-weight="600" font-size="8">Wanda first</text>
+        </g>
+
+        <!-- Step 6 - top left -->
+        <g>
+          <circle cx="69" cy="120" r="36" fill="#1a9e5c"/>
+          <text x="69" y="116" text-anchor="middle" fill="white" font-family="Montserrat, sans-serif" font-weight="800" font-size="9">6</text>
+          <text x="69" y="128" text-anchor="middle" fill="white" font-family="Poppins, sans-serif" font-weight="700" font-size="9">FUND</text>
+          <text x="69" y="140" text-anchor="middle" fill="white" font-family="Poppins, sans-serif" font-weight="600" font-size="8">next build</text>
+        </g>
+
+        <!-- Arrows between steps (rotational) -->
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#F1BE5C"/>
+          </marker>
+        </defs>
+        <path d="M 226 60 A 145 145 0 0 1 295 100" fill="none" stroke="#F1BE5C" stroke-width="2" marker-end="url(#arr)"/>
+        <path d="M 320 156 A 145 145 0 0 1 320 224" fill="none" stroke="#F1BE5C" stroke-width="2" marker-end="url(#arr)"/>
+        <path d="M 295 280 A 145 145 0 0 1 226 320" fill="none" stroke="#F1BE5C" stroke-width="2" marker-end="url(#arr)"/>
+        <path d="M 154 320 A 145 145 0 0 1 85 280" fill="none" stroke="#F1BE5C" stroke-width="2" marker-end="url(#arr)"/>
+        <path d="M 60 224 A 145 145 0 0 1 60 156" fill="none" stroke="#F1BE5C" stroke-width="2" marker-end="url(#arr)"/>
+        <path d="M 85 100 A 145 145 0 0 1 154 60" fill="none" stroke="#F1BE5C" stroke-width="2" marker-end="url(#arr)"/>
+      </svg>
+    </div>
+    <div class="flywheel-text">
+      <h3>The compounding loop</h3>
+      <p><strong>1. Build for ourselves.</strong> Internal AI Workforce — the 6 AI Employees, the plugins, the Cowork stack.</p>
+      <p><strong>2. Productize.</strong> The same workflows become Install + Care SKUs ($3-8K + $1.5-2.5K/mo).</p>
+      <p><strong>3. Free fragments.</strong> Pieces of the productized stack become free templates and downloadable kits — Cowork Starter Kit, KPI Dashboard Template, Monthly Close Checklist.</p>
+      <p><strong>4. Leads.</strong> Free resources + ManyChat + plugin marketplace + content compound into qualified inbound.</p>
+      <p><strong>5. Case studies.</strong> Wanda first, then Financial Acuity. Proof becomes the moat.</p>
+      <p><strong>6. Fund the next build.</strong> Cash from cases pays for the next internal AI Workforce iteration. Loop tightens.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETITIVE -->
+<section id="competitive">
+  <div class="section-eyebrow">Why BPP Wins</div>
+  <h2>The defensible wedge: we run on the AI workforce we install.</h2>
+  <p class="section-desc">Few competitors can show their own monthly close, their own dashboard, their own proposal builder running in production. Proof is the moat. The differentiator isn't AI tech depth — it's the operating-system framework + a real SMB case study + a multi-disciplinary team.</p>
+
+  <table class="comp-table">
+    <thead>
+      <tr><th>Competitor type</th><th>What they have</th><th>What we have</th><th>We win because</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Big consulting (BCG, Accenture)</td><td>Brand, scale, balance sheet</td><td>Agility, founder-direct, 10x lower price</td><td class="win">SMBs can't afford them; we talk to the owner same day</td></tr>
+      <tr><td>AI agencies (Lindy, Relevance AI)</td><td>AI tech depth</td><td>Operator System framework + Wanda case study + multi-year SMB ops</td><td class="win">We sell outcomes (less owner bottleneck), not AI tech</td></tr>
+      <tr><td>DIY tools (Make, Zapier, generic Claude)</td><td>Lowest price ($20-200/mo)</td><td>We do the wiring, the maintenance, the strategy, the integration</td><td class="win">SMB owners don't have time to learn syntax. We deliver, they use.</td></tr>
+      <tr><td>Boutique AI consultants (1-2 person)</td><td>Specialist depth in one niche</td><td>Productized packages, open plugin marketplace, multi-disciplinary team</td><td class="win">We're a firm, not a freelancer. Less dependency risk.</td></tr>
+      <tr><td>Local Tampa consultants (SBA, Black &amp; White)</td><td>Local presence, government affiliations</td><td>AI-native delivery, modern stack, productized pricing</td><td class="win">We're not a 1996 SBA workshop. We ship code.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="plan-callout">
+    <p><strong>Where we don't compete (intentional):</strong> Enterprise ($10M+ clients), pre-revenue grant-chasers, generic "AI consulting" RFPs, custom software builds without a recurring layer. <em>Pick the lane.</em></p>
+  </div>
+</section>
+
+<!-- PHASE 0 -->
+<section id="phase0">
+  <div class="section-eyebrow">Phase 0 · Now Through End of Q2 2026</div>
+  <h2>Internal house cleaning + lead-gen foundation. Three parallel workstreams.</h2>
+  <p class="section-desc">Don't sell AI Employees externally before they run cleanly internally. This is what Daunte called out: "we're still building out our workforce and house cleaning and really making it good so that it has value." Six weeks of focused build sets up Q3 and Q4 to scale.</p>
+
+  <div class="phase-progress">
+    <div class="pp-header">
+      <div class="pp-title">Phase 0 progress</div>
+      <div class="pp-pct">~15%</div>
+    </div>
+    <div class="pp-bars">
+      <div class="pp-bar-card">
+        <div class="pp-bar-name">Workstream 1 · AI Workforce + Proposal Builder</div>
+        <div class="pp-bar-track"><div class="pp-bar-fill" style="width:25%"></div></div>
+        <div class="pp-bar-detail">Skill exists, needs update + UI + HubSpot abstraction</div>
+      </div>
+      <div class="pp-bar-card">
+        <div class="pp-bar-name">Workstream 2 · Lead-gen foundation</div>
+        <div class="pp-bar-track"><div class="pp-bar-fill" style="width:10%"></div></div>
+        <div class="pp-bar-detail">Plan exists (Justin May 2). Newsletter live, rest 0</div>
+      </div>
+      <div class="pp-bar-card">
+        <div class="pp-bar-name">Workstream 3 · Wanda anchor</div>
+        <div class="pp-bar-track"><div class="pp-bar-fill green" style="width:40%"></div></div>
+        <div class="pp-bar-detail">Value Map v2 built, not yet presented</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ws-card">
+    <div class="ws-header">
+      <div class="ws-badge">1</div>
+      <div class="ws-titles">
+        <div class="ws-num">Workstream 1 · The Centerpiece</div>
+        <div class="ws-name">AI Workforce hardening + Proposal Builder for Wanda</div>
+      </div>
+    </div>
+    <div class="ws-body">The Proposal Builder is the centerpiece. Built a while ago, works but needs updating, end-to-end testing, and a real UI since Wanda is not tech-savvy. The product Wanda buys isn't a Claude skill — it's a simple web form that hides HubSpot entirely.</div>
+    <div class="ws-steps">
+      <ol>
+        <li><strong>Update + retest the existing skill</strong> on a current RFP. Verify all 6 phases still work end-to-end.</li>
+        <li><strong>Build the user interface.</strong> Single-file HTML web app (use html-page-builder plugin). Wanda's view: upload RFP PDF, fill 5 fields, click Generate.</li>
+        <li><strong>Build the HubSpot abstraction.</strong> Form submission &rarr; deal auto-created in right pipeline, artifacts attached, custom properties populated, stage advanced. Wanda never opens HubSpot.</li>
+        <li><strong>End-to-end run inside BPP</strong> on a real recent XCJS RFP. Capture Loom walkthrough.</li>
+        <li><strong>Demo to Wanda as the value-show.</strong> Then quote $15-20K Scale System + $2K/mo Operations Care.</li>
+      </ol>
+    </div>
+    <div class="ws-extra">Also in flight: ship <code>bpp-finance-manager</code> plugin, run BPP's own monthly close on it, Daunte&rarr;Kenny knowledge transfer (Friday 5/8), audit 6 AI Employees for "client-ready" status.</div>
+  </div>
+
+  <div class="ws-card">
+    <div class="ws-header">
+      <div class="ws-badge">2</div>
+      <div class="ws-titles">
+        <div class="ws-num">Workstream 2 · Lead-gen Foundation</div>
+        <div class="ws-name">Execute Justin's May 2 plan — channels mostly at zero</div>
+      </div>
+    </div>
+    <div class="ws-body">Architecture designed in the May 2 doc. Reality check: newsletter is running, but Resource Page is skeleton only, LinkedIn skill is untested, ManyChat isn't set up, plugin marketplace has no public landing page.</div>
+    <div class="ws-steps">
+      <ol>
+        <li><strong>Long-form Pillar A</strong> &mdash; "Foundation Before The Fancy Stuff" &mdash; for the May 22 newsletter.</li>
+        <li><strong>Ship 4 Q2 lead magnets:</strong> Foundation Checklist, BPP Cowork Starter Kit (ZIP from existing skill), Foundation Readiness Score, AI Employee Readiness Assessment.</li>
+        <li><strong>Webflow Resource Page build-out</strong> (Eli) &mdash; populate the skeleton with the magnets.</li>
+        <li><strong>Webflow &rarr; HubSpot lead capture</strong> wiring (Kenny + Daunte).</li>
+        <li><strong>Plugin Marketplace landing page</strong> at <code>bpp-tools/pages/plugins.html</code> &mdash; public-facing showcase.</li>
+        <li><strong>Content Cascade visualization</strong> at <code>bpp-tools/pages/content-cascade.html</code> &mdash; long-form &rarr; YouTube &rarr; social shorts &rarr; email, visible so the cascade plan stays alive.</li>
+        <li><strong>LinkedIn engagement skill</strong> &mdash; Daunte tests on his profile for 7 days before team rollout.</li>
+        <li><strong>ManyChat &rarr; Resource Page funnel.</strong> Free plan to start, WhatsApp Coexistence (1,000 free conversations/mo) when validated.</li>
+        <li><strong>Heritage Client Touchpoint Program</strong> &mdash; pull the 300+ list, personalized warm-cold outreach (not mass blast).</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="ws-card">
+    <div class="ws-header">
+      <div class="ws-badge">3</div>
+      <div class="ws-titles">
+        <div class="ws-num">Workstream 3 · Wanda Anchor</div>
+        <div class="ws-name">Present Value Map v2, demo the Proposal Builder, close at Scale, document everything</div>
+      </div>
+    </div>
+    <div class="ws-body">Wanda's engagement is the single most important variable in 2026. If she lands at Scale, the rest of the revenue ladder works. If she stalls, Q2 lands at ~$25K without her and Phase 3 comp slips to Q4.</div>
+    <div class="ws-steps">
+      <ol>
+        <li><strong>Present the Value Map v2</strong> this month. Built but not yet shown.</li>
+        <li><strong>Lead the close with the Proposal Builder demo</strong>, not the deck.</li>
+        <li><strong>Pitch custom Scale System ($15-20K)</strong> + $2,000/mo Operations Care retainer.</li>
+        <li><strong>Make HubSpot easier, not her job.</strong> The Proposal Builder is example 1 of the "hide HubSpot, simple form, auto-update" pattern.</li>
+        <li><strong>Document everything as the case study.</strong> Every deliverable, every win, every dollar saved. This becomes the proof asset for Q3 external sales.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- WANDA SPOTLIGHT -->
+<section id="wanda">
+  <div class="section-eyebrow">Anchor Case Study</div>
+  <h2>Xtremely Clean Janitorial &mdash; Wanda Barton</h2>
+  <p class="section-desc">$2M+ revenue, 4 named gaps that map directly to 4 AI Employees. The keystone of the 2026 revenue ladder. Existing BPP Package B at $8,500 is likely 2x underpriced for the actual scope.</p>
+
+  <div class="wanda-card">
+    <div class="wanda-tag">Scale System Target · $15-20K + $2K/mo Care</div>
+    <h3>4 named gaps, mapped to 4 AI Employees</h3>
+    <div class="wanda-grid">
+      <div>
+        <h4>What's broken today</h4>
+        <ul>
+          <li><strong>Job Costing</strong> bids based on competitor invoices, not real XCJS costs</li>
+          <li><strong>HubSpot Blind</strong> pipelines exist, sales team doesn't use them</li>
+          <li><strong>Proposals from Scratch</strong> 2-4 hours each, no rate card, no templates</li>
+          <li><strong>Profit Invisible</strong> QB + timesheets have data, nobody connects them</li>
+        </ul>
+      </div>
+      <div>
+        <h4>What we install</h4>
+        <ul>
+          <li><strong>AI Finance Mgr</strong> Job costing dashboard from QB + timesheets</li>
+          <li><strong>Sales Ops AI</strong> HubSpot full build + abstraction (simple forms, auto-update)</li>
+          <li><strong>AI Proposal Agent</strong> the xcjs-proposal-builder, productized with UI</li>
+          <li><strong>Profitability BI</strong> margin-by-service dashboard layer</li>
+        </ul>
+      </div>
+    </div>
+    <div class="plan-callout" style="margin-top: 22px; background: white; border-left-color: var(--plan-gold);">
+      <p><strong>The close mechanism:</strong> demo the new Proposal Builder UI live in Wanda's office. Show her one of her recent RFPs run through it. Show the HubSpot deal materializing without her clicking anything. Then quote the package. <em>Don't pitch &mdash; prove.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- FREE RESOURCE LIBRARY -->
+<section id="resources">
+  <div class="section-eyebrow">Engine 3 · The Compounding Asset</div>
+  <h2>Free Resource Library &mdash; 12 resources by end of 2026</h2>
+  <p class="section-desc">Two tiers. Tier 1 is Justin's pillar-based magnets (broad, short-form). Tier 2 is the real differentiator: productized fragments of BPP's actual AI Workforce. <em>"Here's the same thing we use to run BPP &mdash; yours free."</em> Conversion from free to paid is natural: loved the Cowork Starter Kit? We'll install the full operating system for $4,500.</p>
+
+  <h3 style="margin-top: 24px; font-size: 16px; color: var(--plan-navy);">Q2 2026 ship · 4 magnets</h3>
+  <div class="res-grid">
+    <div class="res-card">
+      <span class="res-tier-tag t2">Tier 2 · Productized</span><span class="res-q">Q2</span>
+      <div class="res-name">BPP Cowork Starter Kit</div>
+      <div class="res-desc">ZIP download &mdash; folder architecture + HTML Cowork work instructions, generalized from BPP's existing setup-cowork skill. Set up your business the way BPP set up ours.</div>
+      <div class="res-source">From: setup-cowork skill</div>
+    </div>
+    <div class="res-card">
+      <span class="res-tier-tag t1">Tier 1 · Pillar-based</span><span class="res-q">Q2</span>
+      <div class="res-name">Foundation Checklist</div>
+      <div class="res-desc">PDF &mdash; the 30-day foundation sprint from Pillar A. LLC + EIN + business email + books + plan + brand.</div>
+      <div class="res-source">From: Justin May 2 Pillar A</div>
+    </div>
+    <div class="res-card">
+      <span class="res-tier-tag t1">Tier 1 · Pillar-based</span><span class="res-q">Q2</span>
+      <div class="res-name">Foundation Readiness Score</div>
+      <div class="res-desc">10-question interactive scorecard. Doubles as lead magnet AND pre-call sales qualifier. Lives on Resource + Consultation pages.</div>
+      <div class="res-source">From: Justin May 2 Op B</div>
+    </div>
+    <div class="res-card">
+      <span class="res-tier-tag t2">Tier 2 · Productized</span><span class="res-q">Q2</span>
+      <div class="res-name">AI Employee Readiness Assessment</div>
+      <div class="res-desc">Interactive HTML &mdash; diagnostic that recommends which AI Employee a business needs first. Branded as the lead-in to AI Employee Install SKUs.</div>
+      <div class="res-source">From: new artifact</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 28px; font-size: 16px; color: var(--plan-navy);">Q3 2026 ship · 4 more</h3>
+  <div class="res-grid">
+    <div class="res-card">
+      <span class="res-tier-tag t1">Tier 1 · Pillar-based</span><span class="res-q">Q3</span>
+      <div class="res-name">Legitimacy Stack Scorecard</div>
+      <div class="res-desc">Rate yourself out of 6: LLC, EIN, business email, branded domain, clean books, signed contracts.</div>
+      <div class="res-source">From: Justin May 2 Pillar C</div>
+    </div>
+    <div class="res-card">
+      <span class="res-tier-tag t1">Tier 1 · Pillar-based</span><span class="res-q">Q3</span>
+      <div class="res-name">Blueprint Worksheet</div>
+      <div class="res-desc">One-page operating-system plan template. Revenue model + ICP + ops cadence + decision rules.</div>
+      <div class="res-source">From: Justin May 2 Pillar B</div>
+    </div>
+    <div class="res-card">
+      <span class="res-tier-tag t1">Tier 1 · Pillar-based</span><span class="res-q">Q3</span>
+      <div class="res-name">Time Audit + Outsourcing Matrix</div>
+      <div class="res-desc">XLSX &mdash; 1-week time audit template + 4-quadrant outsourcing decision matrix.</div>
+      <div class="res-source">From: Justin May 2 Pillar D</div>
+    </div>
+    <div class="res-card">
+      <span class="res-tier-tag t2">Tier 2 · Productized</span><span class="res-q">Q3</span>
+      <div class="res-name">BPP KPI Dashboard Template</div>
+      <div class="res-desc">Single-file HTML dashboard. Plug in your numbers. Derived from the Q1 2026 dashboard BPP uses internally.</div>
+      <div class="res-source">From: q1-2026-dashboard</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 28px; font-size: 16px; color: var(--plan-navy);">Q4 2026 ship · 4 more</h3>
+  <div class="res-grid">
+    <div class="res-card">
+      <span class="res-tier-tag t2">Tier 2 · Productized</span><span class="res-q">Q4</span>
+      <div class="res-name">BPP New Client Onboarding Template</div>
+      <div class="res-desc">Folder structure + brief template + checklist. The same flow BPP uses for every new client.</div>
+      <div class="res-source">From: client-onboarding skill</div>
+    </div>
+    <div class="res-card">
+      <span class="res-tier-tag t2">Tier 2 · Productized</span><span class="res-q">Q4</span>
+      <div class="res-name">BPP Monthly Close Checklist</div>
+      <div class="res-desc">PDF + Excel &mdash; the same QC checks Daunte runs every month on BPP's QB, generalized for any service business.</div>
+      <div class="res-source">From: bpp-monthly-close skill</div>
+    </div>
+    <div class="res-card">
+      <span class="res-tier-tag t2">Tier 2 · Productized</span><span class="res-q">Q4</span>
+      <div class="res-name">BPP Discovery Call Deck Template</div>
+      <div class="res-desc">PowerPoint &mdash; the BPP discovery deck structure, generalized. Anchor the next sales conversation.</div>
+      <div class="res-source">From: bpp-discovery-deck skill</div>
+    </div>
+    <div class="res-card">
+      <span class="res-tier-tag t2">Tier 2 · Productized</span><span class="res-q">Q4</span>
+      <div class="res-name">BPP Meeting Notes Framework</div>
+      <div class="res-desc">Template + Claude prompt &mdash; turn any meeting transcript into structured notes + action items.</div>
+      <div class="res-source">From: meeting-notes skill</div>
+    </div>
+  </div>
+
+  <div class="plan-callout" style="margin-top: 28px;">
+    <p><strong>The plugin marketplace is itself a magnet.</strong> Every <code>claude plugin install BuildwithBPP/bpp-plugins</code> is a top-of-funnel touch. Add a "Want this installed in your business?" CTA to each plugin README pointing to the AI Employee Install sales page when it ships.</p>
+  </div>
+</section>
+
+<!-- LEAD GEN ARCHITECTURE -->
+<section id="leadgen">
+  <div class="section-eyebrow">The Funnel</div>
+  <h2>Lead-gen architecture &mdash; designed by Justin May 2, ready to execute</h2>
+  <p class="section-desc">The strategy exists. The reality is the channels are at various stages of build: newsletter is running, everything else is at zero or close to it. Phase 0 ships the foundation.</p>
+
+  <div class="funnel-wrap">
+    <div class="funnel-svg-wrap">
+      <svg viewBox="0 0 460 380" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="fg1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#5987A5"/>
+            <stop offset="1" stop-color="#3a6d8f"/>
+          </linearGradient>
+        </defs>
+        <!-- 7 funnel stages, decreasing width -->
+        <g font-family="Poppins, sans-serif" font-size="11">
+          <rect x="0" y="0" width="460" height="42" rx="6" fill="#5987A5"/>
+          <text x="230" y="20" text-anchor="middle" fill="white" font-weight="700">AWARENESS</text>
+          <text x="230" y="34" text-anchor="middle" fill="white" font-size="9.5">LinkedIn · Newsletter · IG · Plugin marketplace</text>
+
+          <rect x="28" y="50" width="404" height="42" rx="6" fill="#5180A0"/>
+          <text x="230" y="70" text-anchor="middle" fill="white" font-weight="700">CAPTURE</text>
+          <text x="230" y="84" text-anchor="middle" fill="white" font-size="9.5">Resource Page (12 magnets) &larr; ManyChat IG / WhatsApp</text>
+
+          <rect x="60" y="100" width="340" height="42" rx="6" fill="#4a7895"/>
+          <text x="230" y="120" text-anchor="middle" fill="white" font-weight="700">QUALIFY</text>
+          <text x="230" y="134" text-anchor="middle" fill="white" font-size="9.5">Foundation Readiness Score (10-question)</text>
+
+          <rect x="92" y="150" width="276" height="42" rx="6" fill="#3a6d8f"/>
+          <text x="230" y="170" text-anchor="middle" fill="white" font-weight="700">CONVERT</text>
+          <text x="230" y="184" text-anchor="middle" fill="white" font-size="9.5">Discovery Call · Q&amp;A Qualifier · Package-Fit Tree</text>
+
+          <rect x="124" y="200" width="212" height="42" rx="6" fill="#2c5d80"/>
+          <text x="230" y="220" text-anchor="middle" fill="white" font-weight="700">CLOSE</text>
+          <text x="230" y="234" text-anchor="middle" fill="white" font-size="9.5">Operator · Scale · AI Employee Install</text>
+
+          <rect x="156" y="250" width="148" height="42" rx="6" fill="#F1BE5C"/>
+          <text x="230" y="270" text-anchor="middle" fill="#044771" font-weight="700">EXPAND</text>
+          <text x="230" y="284" text-anchor="middle" fill="#044771" font-size="9.5">AI Operations Care</text>
+
+          <rect x="0" y="310" width="460" height="48" rx="6" fill="#1a9e5c"/>
+          <text x="230" y="332" text-anchor="middle" fill="white" font-weight="700" font-size="13">COMPOUND</text>
+          <text x="230" y="348" text-anchor="middle" fill="white" font-size="10">Case study &rarr; next round of awareness</text>
+        </g>
+      </svg>
+    </div>
+    <div class="funnel-side">
+      <h3>Where the leverage is</h3>
+      <p style="font-size: 14px; line-height: 1.7;">The middle of the funnel (Capture &rarr; Qualify &rarr; Convert) is where most service businesses leak. The Foundation Readiness Score does double duty &mdash; it's both a top-of-funnel email magnet AND a sales qualifier that pre-screens leads before they hit the discovery call.</p>
+      <p style="font-size: 14px; line-height: 1.7; margin-top: 12px;"><strong>The Compound stage is where this stops being a treadmill.</strong> Each Wanda-grade case study reduces CAC for the next cohort by 30-50%, because trust is downstream of proof.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 36px; font-size: 17px;">Status of the channels (honest)</h3>
+  <table class="channel-table">
+    <thead><tr><th>Channel</th><th>Status</th><th>Next step</th></tr></thead>
+    <tbody>
+      <tr><td>Newsletter</td><td><span class="status-pill live">&#9679; Running</span></td><td>Pillar A on May 22</td></tr>
+      <tr><td>Resource Page</td><td><span class="status-pill flight">&#9679; Skeleton only</span></td><td>Eli builds out with 4 Q2 magnets</td></tr>
+      <tr><td>Webflow &rarr; HubSpot capture</td><td><span class="status-pill flight">&#9679; In progress</span></td><td>Kenny + Daunte finish wiring</td></tr>
+      <tr><td>LinkedIn engagement skill</td><td><span class="status-pill zero">&#9679; Built, untested</span></td><td>Daunte tests on own profile 7 days</td></tr>
+      <tr><td>Plugin marketplace landing</td><td><span class="status-pill zero">&#9679; Not built</span></td><td>Ship bpp-tools/pages/plugins.html</td></tr>
+      <tr><td>ManyChat IG / WhatsApp</td><td><span class="status-pill zero">&#9679; Not set up</span></td><td>Build from scratch, ~30 min initial setup</td></tr>
+      <tr><td>Heritage Client Touchpoint</td><td><span class="status-pill zero">&#9679; Not started</span></td><td>Pull the 300+ list, categorize</td></tr>
+      <tr><td>Content Cascade page</td><td><span class="status-pill zero">&#9679; Not built</span></td><td>Ship bpp-tools/pages/content-cascade.html</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- REVENUE LADDER -->
+<section id="ladder">
+  <div class="section-eyebrow">The Revenue Ladder</div>
+  <h2>12-month revenue, tied to compensation phase unlocks</h2>
+  <p class="section-desc">Each comp phase lifts a real constraint. Phase 2 puts first dollars in partner pockets. Phase 3 unlocks profit share. Phase 4 begins monthly partner draws. The plan must be sustainable, not heroic — the comp framework is the self-pacing mechanism.</p>
+
+  <div class="revchart">
+    <div class="revchart-bars">
+      <!-- Q1 2026 actual: $7K total, all project -->
+      <div class="revbar-col">
+        <div class="revbar-total">$7K</div>
+        <div class="revbar-stack" style="height: 7%">
+          <div class="revbar-seg project" style="height: 100%"></div>
+        </div>
+        <div class="revbar-label">
+          <div class="revbar-quarter">Q1 2026</div>
+          <div class="revbar-phase">Phase 1 (actual)</div>
+        </div>
+      </div>
+      <!-- Q2 2026: $40K (25 project + 3 install + 12 retainer-equiv-quarterly) -->
+      <div class="revbar-col">
+        <div class="revbar-total">$40K</div>
+        <div class="revbar-stack" style="height: 40%">
+          <div class="revbar-seg project" style="height: 62%"></div>
+          <div class="revbar-seg install" style="height: 8%"></div>
+          <div class="revbar-seg mrr" style="height: 30%"></div>
+        </div>
+        <div class="revbar-label">
+          <div class="revbar-quarter">Q2 2026</div>
+          <div class="revbar-phase">Phase 2 unlocks</div>
+        </div>
+      </div>
+      <!-- Q3 2026: $55K (25 project + 13 install + ~17 retainer (4 clients × 3mo × 1.5K avg)) -->
+      <div class="revbar-col">
+        <div class="revbar-total">$55K</div>
+        <div class="revbar-stack" style="height: 55%">
+          <div class="revbar-seg project" style="height: 45%"></div>
+          <div class="revbar-seg install" style="height: 24%"></div>
+          <div class="revbar-seg mrr" style="height: 31%"></div>
+        </div>
+        <div class="revbar-label">
+          <div class="revbar-quarter">Q3 2026</div>
+          <div class="revbar-phase">Phase 3 unlocks</div>
+        </div>
+      </div>
+      <!-- Q4 2026: $80K (30 project + 20 install + ~30 retainer) -->
+      <div class="revbar-col">
+        <div class="revbar-total">$80K</div>
+        <div class="revbar-stack" style="height: 80%">
+          <div class="revbar-seg project" style="height: 38%"></div>
+          <div class="revbar-seg install" style="height: 25%"></div>
+          <div class="revbar-seg mrr" style="height: 37%"></div>
+        </div>
+        <div class="revbar-label">
+          <div class="revbar-quarter">Q4 2026</div>
+          <div class="revbar-phase">Phase 4 prep</div>
+        </div>
+      </div>
+      <!-- Q1 2027: $100K (35 project + 25 install + ~42 retainer) -->
+      <div class="revbar-col">
+        <div class="revbar-total">$100K</div>
+        <div class="revbar-stack" style="height: 100%">
+          <div class="revbar-seg project" style="height: 35%"></div>
+          <div class="revbar-seg install" style="height: 25%"></div>
+          <div class="revbar-seg mrr" style="height: 40%"></div>
+        </div>
+        <div class="revbar-label">
+          <div class="revbar-quarter">Q1 2027</div>
+          <div class="revbar-phase">Phase 4 active</div>
+        </div>
+      </div>
+    </div>
+    <div class="revchart-legend">
+      <div class="revleg-item"><div class="revleg-swatch" style="background:var(--plan-blue)"></div> Project Revenue (Engine 1)</div>
+      <div class="revleg-item"><div class="revleg-swatch" style="background:var(--plan-gold)"></div> AI Install (Engine 2 one-time)</div>
+      <div class="revleg-item"><div class="revleg-swatch" style="background:var(--plan-green)"></div> AI Operations Care MRR (Engine 2 recurring)</div>
+    </div>
+  </div>
+
+  <div class="plan-callout" style="margin-top: 24px;">
+    <p><strong>Total 2026: ~$180K</strong> (vs old LivePlan projection $82.5K and current budget $60K — both wrong directions). <strong>End-of-2026 annualized run rate: ~$280K</strong>, inside the Q4 2025 internal report's $200-300K target.</p>
+    <p><em>The revenue assumes Wanda lands.</em> If Wanda closes at $15K Scale + $2K/mo retainer in Q2, the rest of the ladder follows. If she stalls, Q2 lands at ~$25K (without Wanda) and Phase 3 slips to Q4.</p>
+  </div>
+</section>
+
+<!-- CAC LTV -->
+<section id="cac">
+  <div class="section-eyebrow">Unit Economics</div>
+  <h2>CAC, LTV, payback &mdash; the math that matters</h2>
+  <p class="section-desc">The retainer layer is the difference between a sustainable consultancy and a treadmill. The plugin marketplace + Free Resource Library is the long-term CAC reduction play. It takes 6-12 months to compound — start now.</p>
+
+  <div class="cac-grid">
+    <div class="cac-card now">
+      <div class="cac-tag">Q1 2026 Baseline</div>
+      <div class="cac-title">Where we are today</div>
+      <div class="cac-row"><span>CPA (cost per acquisition)</span><span>$277</span></div>
+      <div class="cac-row"><span>Avg deal size (packages)</span><span>$2,517</span></div>
+      <div class="cac-row"><span>Conversion rate</span><span>32%</span></div>
+      <div class="cac-row"><span>LTV (project-only)</span><span>~$2,517</span></div>
+      <div class="cac-row"><span>LTV : CAC ratio</span><span>~9 : 1</span></div>
+      <div class="cac-row"><span>Capped at deal size</span><span style="color:var(--plan-red)">Yes</span></div>
+    </div>
+    <div class="cac-card target">
+      <div class="cac-tag">Target End-of-2026</div>
+      <div class="cac-title">After retainer layer fires</div>
+      <div class="cac-row"><span>CPA (organic compounds)</span><span>$150-250</span></div>
+      <div class="cac-row"><span>Avg first transaction</span><span>$4,500</span></div>
+      <div class="cac-row"><span>Operator Care attach rate</span><span>50%</span></div>
+      <div class="cac-row"><span>Retainer LTV (12mo &times; $2K)</span><span>$24,000</span></div>
+      <div class="cac-row"><span>Blended LTV : CAC</span><span style="color:var(--plan-green)">30 : 1+</span></div>
+      <div class="cac-row"><span>Retainer payback</span><span style="color:var(--plan-green)">~1 month</span></div>
+    </div>
+  </div>
+
+  <div class="plan-callout">
+    <p><strong>What this means:</strong> Without a retainer layer, BPP needs to close ~80 projects/year at the 2026 target. With it, ~30 projects + 15 retainers gets to $200K+. <em>Same revenue, half the customer-acquisition load.</em></p>
+  </div>
+</section>
+
+<!-- VISION -->
+<section id="vision">
+  <div class="section-eyebrow">The Destination</div>
+  <h2>36-month vision &mdash; milestone-driven, not date-driven</h2>
+  <p class="section-desc">Eli's 2026-05-06 framing: <em>"My vision for BPP is to get it to the place where we're playing the role of Board of Directors and the company has a CEO and functional managers."</em> The path is milestone-driven. The milestones drive the dates.</p>
+
+  <div class="vision-timeline">
+    <div class="vision-block">
+      <div class="vision-stage">Stage 1 · Now (May-Jun 2026)</div>
+      <div class="vision-title">Build base</div>
+      <div class="vision-trigger">Trigger: starting point</div>
+      <div class="vision-desc">Partners alongside day jobs. Phase 1 comp. Focus: Wanda + first install pilots + Free Resource Library Tier 1.</div>
+    </div>
+    <div class="vision-block">
+      <div class="vision-stage">Stage 2 · Q2 close 2026</div>
+      <div class="vision-title">First retainer cash</div>
+      <div class="vision-trigger">Trigger: Savings &ge; $3K</div>
+      <div class="vision-desc">Phase 2 comp ($50/partner per deal). First BPP dollars in partner pockets. Burnout-fighter.</div>
+    </div>
+    <div class="vision-block">
+      <div class="vision-stage">Stage 3 · Q4 2026</div>
+      <div class="vision-title">Sustainable profit</div>
+      <div class="vision-trigger">Trigger: $5K+ quarterly profit sustained</div>
+      <div class="vision-desc">Phase 3 comp (20% quarterly profit share). First VA contractor hire (~$500-1K/mo) for admin tasks freeing Eli's calendar.</div>
+    </div>
+    <div class="vision-block">
+      <div class="vision-stage">Stage 4 · Q1 2027</div>
+      <div class="vision-title">Predictable income</div>
+      <div class="vision-trigger">Trigger: $10K savings + $10K sustained quarterly profit</div>
+      <div class="vision-desc">Phase 4 comp (monthly partner draws $300-400). One partner reduces day-job hours 20-30%.</div>
+    </div>
+    <div class="vision-block">
+      <div class="vision-stage">Stage 5 · Q3-Q4 2027</div>
+      <div class="vision-title">Half-time partner</div>
+      <div class="vision-trigger">Trigger: Run rate &ge; $300K + 18mo retainer stability</div>
+      <div class="vision-desc">Eli or Daunte goes half-time on BPP. First full-time hire (junior developer or ops manager, $50-65K).</div>
+    </div>
+    <div class="vision-block">
+      <div class="vision-stage">Stage 6 · 2028</div>
+      <div class="vision-title">First full-time partner</div>
+      <div class="vision-trigger">Trigger: Run rate &ge; $500K + first FT hire ramped</div>
+      <div class="vision-desc">Daunte leaves RS&amp;H. Eli or Kenny goes full-time. Second contractor or hire.</div>
+    </div>
+    <div class="vision-block">
+      <div class="vision-stage">Stage 7 · 2029-2030</div>
+      <div class="vision-title">Board-of-Directors structure</div>
+      <div class="vision-trigger">Trigger: Run rate &ge; $1M + 2 FT hires + CEO-track manager</div>
+      <div class="vision-desc">Partners shift to oversight + strategic roles. CEO-track hire runs operations. Eli's vision realized.</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 40px; font-size: 17px;">Hiring trigger map &mdash; what MRR unlocks each first hire</h3>
+  <div class="trigger-flow">
+    <div class="trigger-step">
+      <div class="trigger-mrr">$5K</div>
+      <div class="trigger-mrr-label">MRR</div>
+      <div class="trigger-hire">VA contractor (PT)</div>
+      <div class="trigger-cost">$600-800/mo · 10 hrs/wk</div>
+    </div>
+    <div class="trigger-step">
+      <div class="trigger-mrr">$10K</div>
+      <div class="trigger-mrr-label">MRR</div>
+      <div class="trigger-hire">Junior content producer</div>
+      <div class="trigger-cost">$800-1.5K/mo · extend Justin</div>
+    </div>
+    <div class="trigger-step">
+      <div class="trigger-mrr">$15K</div>
+      <div class="trigger-mrr-label">MRR</div>
+      <div class="trigger-hire">Junior dev / install tech</div>
+      <div class="trigger-cost">$3-4K/mo PT · $50-65K FT</div>
+    </div>
+    <div class="trigger-step">
+      <div class="trigger-mrr">$25K</div>
+      <div class="trigger-mrr-label">MRR</div>
+      <div class="trigger-hire">Ops manager / CSM</div>
+      <div class="trigger-cost">$60-80K/yr</div>
+    </div>
+    <div class="trigger-step">
+      <div class="trigger-mrr">$40K</div>
+      <div class="trigger-mrr-label">MRR</div>
+      <div class="trigger-hire">CEO-track hire</div>
+      <div class="trigger-cost">$120K+/yr</div>
+    </div>
+  </div>
+</section>
+
+<!-- PICTURE IN 24 MONTHS -->
+<section id="picture">
+  <div class="picture-banner">
+    <div class="gb-eyebrow" style="color: var(--plan-gold);">The Rallying Image · End of Q1 2028</div>
+    <h2>Picture in 24 months</h2>
+    <div class="picture-grid">
+      <div class="pic-card">
+        <div class="pic-num">$400K</div>
+        <div class="pic-label">annual run rate ($33K/mo)</div>
+      </div>
+      <div class="pic-card">
+        <div class="pic-num">15</div>
+        <div class="pic-label">retainer clients on Operations Care</div>
+      </div>
+      <div class="pic-card">
+        <div class="pic-num">$15K</div>
+        <div class="pic-label">monthly recurring revenue</div>
+      </div>
+      <div class="pic-card">
+        <div class="pic-num">3+5</div>
+        <div class="pic-label">named + anonymous case studies</div>
+      </div>
+      <div class="pic-card">
+        <div class="pic-num">18+</div>
+        <div class="pic-label">Free Resource Library downloads</div>
+      </div>
+      <div class="pic-card">
+        <div class="pic-num">~3K</div>
+        <div class="pic-label">emails captured</div>
+      </div>
+      <div class="pic-card">
+        <div class="pic-num">200+</div>
+        <div class="pic-label">plugin marketplace installs</div>
+      </div>
+      <div class="pic-card">
+        <div class="pic-num">Phase 4</div>
+        <div class="pic-label">monthly partner draws active</div>
+      </div>
+    </div>
+    <p class="picture-narrative">Team: 3 partners + Justin (Marketing Lead, full-time-ish) + KJ + 1 PT junior developer + 1 PT VA. <strong>Daunte at 60% RS&amp;H / 40% BPP. Eli and Kenny full-time on BPP.</strong> Each partner taking $3-5K/mo in draws plus quarterly profit shares. 30-50% of day-job income replaced, on the way to full replacement by end of 2028. <em>BPP runs itself enough that the partners can talk about exit options instead of survival.</em></p>
+  </div>
+</section>
+
+<!-- RISKS -->
+<section id="risks">
+  <div class="section-eyebrow">Decision Gates</div>
+  <h2>Six risks with kill criteria</h2>
+  <p class="section-desc">Each risk names the threshold at which we change course rather than working harder at a broken model.</p>
+
+  <div class="risk-card">
+    <div class="risk-num">01</div>
+    <div>
+      <div class="risk-name">Wanda doesn't close at Scale System pricing</div>
+      <div class="risk-desc">Highest-impact risk. She's the keystone of the 2026 revenue ladder.</div>
+      <div class="risk-trigger"><strong>Trigger:</strong> If by end of June she's at Package B pricing ($8,500) or lower, accept the smaller engagement, deliver the AI Proposal Agent install only as a $5K add-on, defer dashboard + HubSpot to Phase 2. Don't lose the case study by overpricing.</div>
+    </div>
+  </div>
+
+  <div class="risk-card">
+    <div class="risk-num">02</div>
+    <div>
+      <div class="risk-name">AI Install demand fails to materialize</div>
+      <div class="risk-desc">External demand for productized installs may take time to build.</div>
+      <div class="risk-trigger"><strong>Trigger:</strong> If by end of Q3 2026 we haven't sold &ge; 2 paid AI Employee Installs at full price (no discounts beyond pay-in-full), kill the standalone install offering. Fold AI workflows back into Operator System milestones only.</div>
+    </div>
+  </div>
+
+  <div class="risk-card">
+    <div class="risk-num">03</div>
+    <div>
+      <div class="risk-name">AI Operations Care churn above 20% in first 6 months</div>
+      <div class="risk-desc">Indicates retainer scope isn't valued.</div>
+      <div class="risk-trigger"><strong>Trigger:</strong> Re-scope the retainer (probably increase included hours) and re-price.</div>
+    </div>
+  </div>
+
+  <div class="risk-card">
+    <div class="risk-num">04</div>
+    <div>
+      <div class="risk-name">Lead magnet conversion below 1% (visitor &rarr; email)</div>
+      <div class="risk-desc">The magnets aren't pulling. The funnel premise breaks.</div>
+      <div class="risk-trigger"><strong>Trigger:</strong> After 60 days of running the funnel, revisit pillars with Justin, A/B the offers, consider video walkthroughs of the AI Employees as the new magnet.</div>
+    </div>
+  </div>
+
+  <div class="risk-card">
+    <div class="risk-num">05</div>
+    <div>
+      <div class="risk-name">Founder delivery trap</div>
+      <div class="risk-desc">If a partner is spending &gt; 50% of BPP hours on bespoke install work, productization has failed.</div>
+      <div class="risk-trigger"><strong>Trigger:</strong> Pause new install sales, codify the install playbook to a tighter scope, ensure Eli or another team member can lead install delivery.</div>
+    </div>
+  </div>
+
+  <div class="risk-card">
+    <div class="risk-num">06</div>
+    <div>
+      <div class="risk-name">Wellness floor breach</div>
+      <div class="risk-desc">Per Theme 4 of the synthesis. Eli's financial pressure + Kenny's recovery context are real.</div>
+      <div class="risk-trigger"><strong>Trigger:</strong> If Eli reports zero days off in a month again, or Kenny's recovery flags red on a Friday survey, pause new sales targets. Close existing pipeline. Don't add load to a fragile system.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATUS -->
+<section id="status">
+  <div class="section-eyebrow">Live Status as of 2026-05-15</div>
+  <h2>Where we are right now</h2>
+  <p class="section-desc">Rolling scorecard. Update weekly during the Monday CEO Meeting.</p>
+
+  <div class="status-grid">
+    <div class="status-card done">
+      <div class="status-header">
+        <span class="status-pill-big done">&#10003; Done</span>
+        <span class="status-title">Shipped</span>
+      </div>
+      <ul class="status-list">
+        <li>Ratified 6-dept org chart (2026-05-06)</li>
+        <li>4-Phase comp framework codified</li>
+        <li>3 plugins live (content-producer, marketing-coordinator, html-page-builder)</li>
+        <li>Plugin marketplace at github.com/BuildwithBPP/bpp-plugins</li>
+        <li>Newsletter rotation running (May 8 first publish)</li>
+        <li>Wanda Value Map v2 built</li>
+        <li>xcjs-proposal-builder skill (functional, needs UI)</li>
+        <li>Justin's May 2 content + ops plan documented</li>
+        <li>BPP Tools Hub deployed</li>
+        <li>Q1 2026 books closed ($7,259 net rev, $1,422 net profit)</li>
+        <li>This strategic plan (v5 with HTML)</li>
+      </ul>
+    </div>
+    <div class="status-card flight">
+      <div class="status-header">
+        <span class="status-pill-big flight">&#9729; In flight</span>
+        <span class="status-title">Building now</span>
+      </div>
+      <ul class="status-list">
+        <li>Daunte&rarr;Kenny Friday knowledge transfer (5/8 first session)</li>
+        <li>Webflow &rarr; HubSpot lead capture wiring</li>
+        <li>Pipeline closes (Replace It, StudentCrowd, Twanda)</li>
+        <li>HALO Commons Launch Pad delivery</li>
+        <li>Lois Marketing Operator System delivery</li>
+        <li>bpp-finance-manager plugin (Daunte's queue)</li>
+      </ul>
+    </div>
+    <div class="status-card next">
+      <div class="status-header">
+        <span class="status-pill-big next">&#9654; Next</span>
+        <span class="status-title">Phase 0 priorities</span>
+      </div>
+      <ul class="status-list">
+        <li>Update + test xcjs-proposal-builder on a current RFP</li>
+        <li>Build Proposal Builder web UI</li>
+        <li>Build HubSpot abstraction layer</li>
+        <li>Present Value Map v2 to Wanda</li>
+        <li>Demo Proposal Builder &rarr; quote Scale</li>
+        <li>Ship 4 Q2 lead magnets (Cowork Starter Kit first)</li>
+        <li>Build Webflow Resource Page</li>
+        <li>Build plugins.html marketplace landing</li>
+        <li>Build content-cascade.html visualization</li>
+        <li>Test LinkedIn engagement skill (7 days)</li>
+        <li>Set up ManyChat IG funnel</li>
+        <li>Pull Heritage Client list, batch outreach</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN ITEMS -->
+<section id="open">
+  <div class="section-eyebrow">Decisions Needed</div>
+  <h2>Open items needing Daunte's call</h2>
+  <p class="section-desc">These don't change the plan, sharpen execution.</p>
+
+  <div class="open-list">
+    <div class="open-row">
+      <div class="open-num">01</div>
+      <div>
+        <div class="open-title">Wanda pricing &mdash; $15K Scale or $20K Scale stretch?</div>
+        <div class="open-desc">Floor vs stretch. Your read on her current trust level matters more than the math.</div>
+      </div>
+    </div>
+    <div class="open-row">
+      <div class="open-num">02</div>
+      <div>
+        <div class="open-title">Proposal Builder UI tech stack</div>
+        <div class="open-desc">Single-file HTML (2-3 weeks, ships fastest) or Next.js/Vercel app (4-6 weeks, more polish). MVP test is "can Wanda use it without help" — both pass.</div>
+      </div>
+    </div>
+    <div class="open-row">
+      <div class="open-num">03</div>
+      <div>
+        <div class="open-title">HubSpot abstraction approach</div>
+        <div class="open-desc">Make.com (already in tool stack, no new auth) vs direct HubSpot API call vs n8n. Probably Make.com for Phase 0.</div>
+      </div>
+    </div>
+    <div class="open-row">
+      <div class="open-num">04</div>
+      <div>
+        <div class="open-title">AI Finance Manager Install pilot client #2</div>
+        <div class="open-desc">Financial Acuity is the recommendation (warm, has QB, on Growth Package). Backups: Wedelia or Xtremely Clean.</div>
+      </div>
+    </div>
+    <div class="open-row">
+      <div class="open-num">05</div>
+      <div>
+        <div class="open-title">Heritage client list source</div>
+        <div class="open-desc">Rodney's records / QB historical / HubSpot import / combination? Affects Workstream 2 timeline.</div>
+      </div>
+    </div>
+    <div class="open-row">
+      <div class="open-num">06</div>
+      <div>
+        <div class="open-title">Phase 0 sequencing</div>
+        <div class="open-desc">All 3 workstreams in parallel (faster, burnout risk) or stagger (Wanda Builder first, lead-gen second, plugins third)?</div>
+      </div>
+    </div>
+    <div class="open-row">
+      <div class="open-num">07</div>
+      <div>
+        <div class="open-title">Tools Hub stale-data fix priority</div>
+        <div class="open-desc">bpp-ops-hub-navy-final.html (OneDrive copy) pre-dates 2026-05-06 ratification. Update now or fold into a future sprint?</div>
+      </div>
+    </div>
+    <div class="open-row">
+      <div class="open-num">08</div>
+      <div>
+        <div class="open-title">Confirm $200K-$300K target still shared</div>
+        <div class="open-desc">From Q4 2025 internal report. Plan assumes yes. Worth confirming at Q2 quarterly review.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="plan-footer">
+  <div class="ft-brand">Business Plans <span>Plus</span></div>
+  <div style="margin-top: 10px;">2026-2027 Strategic Plan &middot; Living Document &middot; v5 &middot; Last Updated 2026-05-15</div>
+  <div style="margin-top: 6px; font-size: 11px;">Source plan file: <code>C:/Users/dtben/.claude/plans/refactored-dreaming-milner.md</code></div>
+  <div style="margin-top: 4px; font-size: 11px;">Companion docs: <a href="synthesis.html" style="color:var(--plan-gold);">synthesis.html</a> &middot; <a href="service-packages.html" style="color:var(--plan-gold);">service-packages.html</a> &middot; <a href="icp-profiles.html" style="color:var(--plan-gold);">icp-profiles.html</a> &middot; <a href="q1-2026-dashboard.html" style="color:var(--plan-gold);">q1-2026-dashboard.html</a></div>
+</div>
+
+</body>
+</html>
