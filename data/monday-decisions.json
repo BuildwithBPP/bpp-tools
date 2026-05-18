@@ -22,10 +22,60 @@
           "decision": "Add a Wanda Plan B (1-pager) to the strategic plan before Eli's review session. Cover three scenarios: closes at Package B ($8.5K) instead of Scale, signs but ghosts on delivery, walks entirely. Each scenario gets a Q2-Q3 revenue revision.",
           "owner": "Daunte (drafts) + Eli (deal owner) reviews",
           "due_date": "2026-05-22",
-          "status": "OPEN",
+          "status": "DONE",
           "set_date": "2026-05-15",
           "source": "virtual-board",
-          "session_minutes": "_claude/data/virtual-board/2026-05-15-strategic-plan-v6-review.md"
+          "session_minutes": "_claude/data/virtual-board/2026-05-15-strategic-plan-v6-review.md",
+          "notes": "Resolved structurally in plan v7 (2026-05-16). Wanda de-keystoned entirely: Workstream 3 now runs 3 case-study candidates in parallel, revenue ladder no longer depends on any single client. The de-keystoning IS the Plan B."
+        },
+        {
+          "decision": "Schedule a 3-owner plan-ratification session: Kenny and Eli red-line the live v7 strategic plan, and the team ratifies the revised comp framework. Plan is not 'adopted' until all three have shaped it and the comp framework is signed.",
+          "owner": "All three (Daunte schedules)",
+          "due_date": "2026-05-23",
+          "status": "DONE",
+          "set_date": "2026-05-16",
+          "source": "virtual-board",
+          "session_minutes": "_claude/data/virtual-board/2026-05-16-strategic-plan-v7-reconvene.md",
+          "notes": "Happened at the 2026-05-17 Weekly Business Meeting. All three owners present (Eli in-person at Daunte's, not logged into Teams separately). Daunte presented the plan, Kenny gave feedback and aligned. Comp framework ratified (see 2026-05-18 entry)."
+        }
+      ]
+    },
+    {
+      "week_of": "2026-05-18",
+      "note": "From the 2026-05-17 Weekly Business Meeting (Daunte, Kenny, Eli). Sprint 2 planning + business plan review + comp ratification.",
+      "decisions": [
+        {
+          "decision": "Comp framework RATIFIED. (1) 5% sales commission per closed deal to the lead source/closer, a cap applies (default $750/deal). (2) $150/month guaranteed payment per partner, effective immediately, mid-month cadence. Kenny and Eli take cash; Daunte defers his and books it as a balance-sheet liability until cash supports it. Each owner personally sets aside 30% for taxes. (3) Real/larger profit sharing deferred until savings clears ~3 months of runway; eventual aspiration ~$1K/mo per partner.",
+          "owner": "Daunte (implements via QuickBooks + monthly close)",
+          "due_date": "2026-06-15",
+          "status": "IN_FLIGHT",
+          "set_date": "2026-05-17",
+          "source": "weekly-business-meeting",
+          "notes": "Replaces the proposed 4-Phase framework from plan v7. Team simplified it. First $150 payments already sent to Eli during the meeting."
+        },
+        {
+          "decision": "Retainer / AI Operations Care pricing is an OPEN RESEARCH item. Team aligned on outcome-based over time-based pricing (time-based acceptable only as fallback). Numbers floated: $250/mo digestible for current clients, $150-500/mo range, larger retainers for bigger ICPs. Not finalized — needs benchmarking research before it goes in a client proposal.",
+          "owner": "Daunte + Kenny",
+          "due_date": "2026-06-06",
+          "status": "OPEN",
+          "set_date": "2026-05-17",
+          "source": "weekly-business-meeting"
+        },
+        {
+          "decision": "Sprint 2 scope set (3-week sprint starting week of 2026-05-19): outreach campaign + lead list, publish resource page, HubSpot pipeline cleanup + automations, client newsletter, client survey distribution, client delivery plugin. Goal: be ready to start outreach by week 3.",
+          "owner": "Daunte + Kenny (Eli collaborating)",
+          "due_date": "2026-06-06",
+          "status": "IN_FLIGHT",
+          "set_date": "2026-05-17",
+          "source": "weekly-business-meeting"
+        },
+        {
+          "decision": "BPP funds a new laptop for Kenny (MacBook, M5 chip) as a business expense / write-off. Kenny to confirm specs and pull the trigger.",
+          "owner": "Kenny + Daunte",
+          "due_date": "2026-05-30",
+          "status": "OPEN",
+          "set_date": "2026-05-17",
+          "source": "weekly-business-meeting"
         }
       ]
     },
