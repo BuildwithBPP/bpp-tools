@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BPP Content Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--navy:#044771;--gold:#F1BE5C;--steel:#5987A5;--bg:#F4F6F8;--card:#FFF;--border:#E2E8F0;--text:#1A2B3C;--muted:#64748B;--ln:rgba(4,71,113,0.06);--lg:rgba(241,190,92,0.12)}
@@ -118,6 +119,7 @@ td{padding:8px;border-bottom:1px solid var(--border)}tr:hover td{background:var(
 </style>
 </head>
 <body>
+<div id="hub-nav"></div>
 <div style="background:#022a45; padding:8px 48px;"><a href="marketing.html" style="color:#F1BE5C; text-decoration:none; font-family:Montserrat,sans-serif; font-size:12px; font-weight:600;">&larr; Back to Marketing</a></div>
 <div class="db">
 <header>
@@ -630,5 +632,6 @@ bkpi(igData,'ig-kpis','ig');bfc(igData,'ig-fc');btc(igData,'ig-tc');bef(igData,'
 bkpi(fbData,'fb-kpis','fb');bfc(fbData,'fb-fc');bfx();bfl(fbData,'fb-fl','fb');btbl(fbData,'fb-tb','fb','All',fbS);
 bkpi(tkData,'tk-kpis','tk');btbl(tkData,'tk-tb','tk','All',tkS);
 </script>
+<script src="../js/nav.js" data-page="library"></script>
 </body>
 </html>
