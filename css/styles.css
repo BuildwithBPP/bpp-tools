@@ -343,6 +343,7 @@ body[data-person="eli"] .link-card[data-person*="eli"]{border-color:var(--eli);b
   main{padding:16px 12px 40px;}
   .scenario-grid{grid-template-columns:1fr;}
   .client-grid{grid-template-columns:1fr;}
+  .quick-actions,.dept-tiles{grid-template-columns:1fr;}
 }
 
 /* ===== HUB RESTRUCTURE COMPONENTS ===== */
@@ -359,15 +360,16 @@ body[data-person="eli"] .link-card[data-person*="eli"]{border-color:var(--eli);b
 .dept-tile{background:var(--card);border:1px solid var(--border);border-top:4px solid var(--gold);border-radius:10px;padding:20px;text-decoration:none;transition:all .15s;}
 .dept-tile:hover{border-color:var(--gold);box-shadow:0 6px 18px rgba(0,0,0,.08);transform:translateY(-2px);}
 .dept-tile.parked{opacity:.7;border-top-color:var(--muted);}
+.dept-tile.parked:hover{transform:none;box-shadow:none;border-color:var(--border);}
 .dept-tile-name{font-family:var(--head);font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px;}
 .dept-tile-dri{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:10px;}
 .dept-tile-owns{font-size:13px;color:var(--text2);line-height:1.5;}
 
 /* Department page sections */
-.dept-head{background:var(--navy);color:#fff;border-radius:10px;padding:24px 28px;margin-bottom:24px;}
-.dept-head h1{font-family:var(--head);font-size:24px;margin-bottom:6px;}
-.dept-head .dept-dri{color:var(--gold);font-size:13px;font-weight:600;}
-.dept-head .dept-owns{margin-top:10px;font-size:14px;color:rgba(255,255,255,.85);}
+.dept-page-head{background:var(--navy);color:#fff;border-radius:10px;padding:24px 28px;margin-bottom:24px;}
+.dept-page-head h1{font-family:var(--head);font-size:24px;margin-bottom:6px;}
+.dept-page-head .dept-dri{color:var(--gold);font-size:13px;font-weight:600;}
+.dept-page-head .dept-owns{margin-top:10px;font-size:14px;color:rgba(255,255,255,.85);}
 .dept-section{margin-bottom:28px;}
 .dept-section-label{font-family:var(--head);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--navy);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--gold);}
 .dept-section-empty{font-size:13px;color:var(--muted);font-style:italic;}
