@@ -9,29 +9,7 @@
 </head>
 <body>
 
-<nav class="hub-nav">
-  <div class="nav-logo">
-    <div class="nav-logo-mark">B</div>
-    <div class="nav-brand">BPP <span>Tools</span></div>
-  </div>
-  <div class="nav-tabs">
-    <a class="hub-tab on" href="index.html"><span class="tab-emoji">&#127968;</span> Home</a>
-    <a class="hub-tab" href="pages/pre-call.html"><span class="tab-emoji">&#128222;</span> Pre-Call</a>
-    <a class="hub-tab" href="pages/kickoff.html"><span class="tab-emoji">&#128640;</span> Kickoff</a>
-    <a class="hub-tab" href="pages/ops.html"><span class="tab-emoji">&#128202;</span> Ops</a>
-    <a class="hub-tab" href="pages/finance.html"><span class="tab-emoji">&#128176;</span> Finance</a>
-    <a class="hub-tab" href="pages/marketing.html"><span class="tab-emoji">&#128227;</span> Marketing</a>
-    <a class="hub-tab" href="pages/systems.html"><span class="tab-emoji">&#9881;</span> Systems</a>
-    <a class="hub-tab" href="pages/builds.html"><span class="tab-emoji">&#128296;</span> Builds</a>
-    <a class="hub-tab" href="pages/reviews.html"><span class="tab-emoji">&#128200;</span> Reviews</a>
-    <a class="hub-tab" href="pages/strategic-plan.html"><span class="tab-emoji">&#127919;</span> Strategic Plan</a>
-  </div>
-  <div class="nav-people">
-    <button class="person-btn" onclick="togglePerson('daunte',this)">Daunte</button>
-    <button class="person-btn" onclick="togglePerson('kenny',this)">Kenny</button>
-    <button class="person-btn" onclick="togglePerson('eli',this)">Eli</button>
-  </div>
-</nav>
+<div id="hub-nav"></div>
 
 <main>
 
@@ -39,6 +17,13 @@
     <div class="sec-eyebrow" id="home-date">Loading date...</div>
     <div class="sec-title">BPP Tools <span>Hub</span></div>
     <div class="sec-desc">Everything BPP needs to run, in one place. Pick a tab or start here.</div>
+  </div>
+
+  <div class="quick-actions">
+    <a class="qa-card" href="pages/pre-call.html"><span class="qa-emoji">&#128222;</span><span class="qa-text">Prep a discovery call</span></a>
+    <a class="qa-card" href="pages/icp-profiles.html"><span class="qa-emoji">&#127919;</span><span class="qa-text">Qualify a lead</span></a>
+    <a class="qa-card" href="pages/kickoff.html"><span class="qa-emoji">&#128640;</span><span class="qa-text">Onboard a client</span></a>
+    <a class="qa-card" href="pages/reviews.html"><span class="qa-emoji">&#128200;</span><span class="qa-text">Run the monthly review</span></a>
   </div>
 
   <!-- WHAT'S NEW BANNER (auto-refreshed Sunday 8pm from data/hub-home-stats.json) -->
@@ -229,56 +214,6 @@
       <div class="lc-body"><div class="lc-title">Operating Model Synthesis</div><div class="lc-desc">Ratified accountability chart + 2026-05-06 decisions</div></div>
       <div class="lc-arrow">&rarr;</div>
     </a>
-    <a class="link-card" href="pages/pre-call.html" data-person="kenny eli">
-      <div class="lc-icon">&#128222;</div>
-      <div class="lc-body"><div class="lc-title">Pre-Call Prep</div><div class="lc-desc">Discovery call prep, ICP, prospect research</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="pages/kickoff.html" data-person="eli">
-      <div class="lc-icon">&#128640;</div>
-      <div class="lc-body"><div class="lc-title">Kickoff</div><div class="lc-desc">Onboarding flow, kickoff deck, first 2-week plan</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="pages/finance.html" data-person="daunte">
-      <div class="lc-icon">&#128176;</div>
-      <div class="lc-body"><div class="lc-title">Finance</div><div class="lc-desc">QB workflows, AR, cost discipline, monthly close</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="pages/marketing.html" data-person="kenny">
-      <div class="lc-icon">&#128227;</div>
-      <div class="lc-body"><div class="lc-title">Marketing</div><div class="lc-desc">Content calendar, newsletter, social, idea bank</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="pages/ops.html" data-person="daunte eli">
-      <div class="lc-icon">&#128202;</div>
-      <div class="lc-body"><div class="lc-title">Ops</div><div class="lc-desc">Sprint cadence, Monday board structure, SOPs</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="pages/systems.html" data-person="daunte">
-      <div class="lc-icon">&#9881;</div>
-      <div class="lc-body"><div class="lc-title">Systems</div><div class="lc-desc">Tool stack, integrations, MCP setup</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="pages/reviews.html" data-person="daunte kenny eli">
-      <div class="lc-icon">&#128200;</div>
-      <div class="lc-body"><div class="lc-title">Reviews &amp; KPIs</div><div class="lc-desc">Q1 dashboard, monthly reviews, sprint retros</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="pages/skill-dictionary.html" data-person="daunte eli">
-      <div class="lc-icon">&#129302;</div>
-      <div class="lc-body"><div class="lc-title">Skill Dictionary</div><div class="lc-desc">All BPP Claude skills + plugins, reference + commands</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="pages/service-packages.html" data-person="kenny eli">
-      <div class="lc-icon">&#128230;</div>
-      <div class="lc-body"><div class="lc-title">Service Packages</div><div class="lc-desc">Operator System, Discovery, Growth Engine pricing</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="pages/icp-profiles.html" data-person="kenny eli">
-      <div class="lc-icon">&#127919;</div>
-      <div class="lc-body"><div class="lc-title">ICP Profiles</div><div class="lc-desc">Ideal client profiles for outreach + discovery</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
   </div>
 
 </main>
@@ -288,21 +223,9 @@
   <div class="footer-note">Internal Tools Hub &middot; Tampa Bay &middot; 2026</div>
 </div>
 
-<script>
-// -- Person switcher --
-function togglePerson(name, el) {
-  var body = document.body;
-  var btns = document.querySelectorAll('.person-btn');
-  if (body.getAttribute('data-person') === name) {
-    body.removeAttribute('data-person');
-    btns.forEach(function(b) { b.className = 'person-btn'; });
-  } else {
-    body.setAttribute('data-person', name);
-    btns.forEach(function(b) { b.className = 'person-btn'; });
-    el.classList.add('active-' + name);
-  }
-}
+<script src="js/nav.js" data-page="home"></script>
 
+<script>
 // -- Date display --
 function setDates() {
   var d = new Date();
