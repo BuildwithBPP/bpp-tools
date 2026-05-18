@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operating Routines · BPP Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  /* Routines page */
+  .rt-hero{background:linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);color:#fff;border-radius:14px;padding:32px 32px 28px;margin-bottom:24px;position:relative;overflow:hidden;}
+  .rt-hero::before{content:"";position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:var(--gold);opacity:0.08;border-radius:50%;}
+  .rt-eyebrow{font-family:var(--head);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;position:relative;z-index:1;}
+  .rt-headline{font-family:var(--head);font-size:30px;font-weight:800;line-height:1.15;margin-bottom:8px;position:relative;z-index:1;}
+  .rt-headline span{color:var(--gold);}
+  .rt-sub{font-size:13px;font-weight:400;color:rgba(255,255,255,0.75);max-width:640px;line-height:1.6;position:relative;z-index:1;}
+  .rt-today{margin-top:16px;font-size:12px;color:#fff;position:relative;z-index:1;font-weight:500;}
+  .rt-today b{color:var(--gold);}
+
+  .cadence{display:flex;align-items:baseline;gap:10px;margin:26px 0 12px;}
+  .cadence-name{font-family:var(--head);font-size:15px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.06em;}
+  .cadence-note{font-size:11px;color:var(--muted);}
+  .cadence-rule{flex:1;height:1px;background:var(--border);}
+
+  .routine{display:grid;grid-template-columns:128px 1fr 220px;gap:18px;align-items:center;background:var(--card);border:1.5px solid var(--border);border-left:4px solid var(--gold);border-radius:10px;padding:15px 18px;margin-bottom:9px;transition:transform .15s,box-shadow .15s;}
+  .routine:hover{transform:translateY(-1px);box-shadow:0 3px 12px rgba(4,71,113,0.07);}
+  .routine.today{border-left-color:var(--navy);background:var(--gold-glow);}
+
+  .rt-when{font-family:var(--head);font-weight:700;color:var(--navy);font-size:12.5px;line-height:1.35;}
+  .rt-when .rt-time{display:block;font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.03em;margin-top:2px;}
+  .rt-today-pill{display:inline-block;background:var(--navy);color:#fff;font-family:var(--head);font-size:8px;font-weight:800;letter-spacing:.1em;padding:2px 6px;border-radius:3px;margin-top:4px;}
+
+  .rt-name{font-family:var(--head);font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .rt-desc{font-size:11.5px;color:var(--text2);line-height:1.5;}
+
+  .rt-meta{display:flex;flex-direction:column;gap:6px;align-items:flex-start;}
+  .rt-owners{display:flex;flex-wrap:wrap;gap:4px;}
+  .rt-owner{font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:11px;background:var(--bg);border:1px solid var(--border);color:var(--text2);}
+  .rt-owner.all{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .rt-owner.auto{background:var(--steel-glow);color:var(--steel);border-color:var(--steel-glow);}
+  .rt-skill{font-family:monospace;font-size:10px;background:var(--gold-glow);border:1px solid var(--gold-border);color:var(--gold-dim);padding:2px 7px;border-radius:4px;font-weight:600;}
+  .rt-skill.none{background:transparent;border-color:var(--border);color:var(--muted);font-family:var(--head);font-style:italic;}
+
+  @media (max-width:720px){
+    .routine{grid-template-columns:1fr;gap:8px;}
+    .rt-meta{flex-direction:row;flex-wrap:wrap;align-items:center;}
+  }
+</style>
+</head>
+<body>
+
+<div id="hub-nav"></div>
+
+<main>
+
+  <!-- HERO -->
+  <div class="rt-hero">
+    <div class="rt-eyebrow">Operating Cadence</div>
+    <div class="rt-headline">Operating <span>Routines</span></div>
+    <div class="rt-sub">The recurring rhythms that keep BPP running &mdash; daily, weekly, bi-weekly, monthly, quarterly. Every routine, who owns it, when it happens, and the skill that runs it. If it&rsquo;s not on this page, it isn&rsquo;t a routine yet.</div>
+    <div class="rt-today" id="rt-today-line"></div>
+  </div>
+
+  <!-- DAILY -->
+  <div class="cadence">
+    <div class="cadence-name">Daily</div>
+    <div class="cadence-note">Every working day</div>
+    <div class="cadence-rule"></div>
+  </div>
+
+  <div class="routine" data-day="weekday">
+    <div class="rt-when">Weekdays</div>
+    <div>
+      <div class="rt-name">LinkedIn engagement</div>
+      <div class="rt-desc">1&ndash;5 BPP-voice brand interactions on LinkedIn &mdash; the daily engagement goal set with Justin.</div>
+    </div>
+    <div class="rt-meta">
+      <div class="rt-owners"><span class="rt-owner all">All owners</span></div>
+      <span class="rt-skill">bpp-linkedin-engagement</span>
+    </div>
+  </div>
+
+  <div class="routine">
+    <div class="rt-when">After each call</div>
+    <div>
+      <div class="rt-name">Meeting sync</div>
+      <div class="rt-desc">Pull the Teams transcript, file a BPP-format summary to the right folder, surface action items. Run it after a meeting; a weekly sweep catches any misses.</div>
+    </div>
+    <div class="rt-meta">
+      <div class="rt-owners"><span class="rt-owner all">All owners</span></div>
+      <span class="rt-skill">bpp-meeting-sync</span>
+    </div>
+  </div>
+
+  <!-- WEEKLY -->
+  <div class="cadence">
+    <div class="cadence-name">Weekly</div>
+    <div class="cadence-note">The sprint rhythm</div>
+    <div class="cadence-rule"></div>
+  </div>
+
+  <div class="routine" data-day="Sunday">
+    <div class="rt-when">Sunday<span class="rt-time">~8:00 PM</span></div>
+    <div>
+      <div class="rt-name">Monday brief generated</div>
+      <div class="rt-desc">Auto-pulls Monday.com, QuickBooks, and HubSpot into the pre-computed CEO meeting brief. Ready on the Hub before Monday morning.</div>
+    </div>
+    <div class="rt-meta">
+      <div class="rt-owners"><span class="rt-owner auto">Automated</span></div>
+      <span class="rt-skill">bpp-monday-prep</span>
+    </div>
+  </div>
+
+  <div class="routine" data-day="Monday">
+    <div class="rt-when">Monday<span class="rt-time">8:00 AM</span></div>
+    <div>
+      <div class="rt-name">Monday CEO meeting</div>
+      <div class="rt-desc">30-minute decision-first meeting off the brief. The first Monday of each sprint doubles as sprint planning. Recap emails after.</div>
+    </div>
+    <div class="rt-meta">
+      <div class="rt-owners"><span class="rt-owner all">All 3</span></div>
+      <span class="rt-skill">bpp-monday-recap</span>
+    </div>
+  </div>
+
+  <div class="routine" data-day="Wednesday">
+    <div class="rt-when">Wednesday</div>
+    <div>
+      <div class="rt-name">Mid-sprint check</div>
+      <div class="rt-desc">Blockers, priority shifts, on-track check. Runs both Wednesdays of the sprint.</div>
+    </div>
+    <div class="rt-meta">
+      <div class="rt-owners"><span class="rt-owner all">All 3</span></div>
+      <span class="rt-skill none">async / live</span>
+    </div>
+  </div>
+
+  <div class="routine" data-day="Saturday">
+    <div class="rt-when">Saturday<span class="rt-time">End of sprint</span></div>
+    <div>
+      <div class="rt-name">Sprint review</div>
+      <div class="rt-desc">Archive what&rsquo;s Done, capture one keep and one change. Closes the two-week sprint.</div>
+    </div>
+    <div class="rt-meta">
+      <div class="rt-owners"><span class="rt-owner all">All 3</span></div>
+      <span class="rt-skill none">Monday board</span>
+    </div>
+  </div>
+
+  <!-- BI-WEEKLY -->
+  <div class="cadence">
+    <div class="cadence-name">Bi-Weekly</div>
+    <div class="cadence-note">Every two weeks</div>
+    <div class="cadence-rule"></div>
+  </div>
+
+  <div class="routine">
+    <div class="rt-when">Draft Wed<span class="rt-time">Publishes Friday</span></div>
+    <div>
+      <div class="rt-name">LinkedIn newsletter</div>
+      <div class="rt-desc">The bi-weekly BPP LinkedIn newsletter. Authorship rotates Daunte &rarr; Kenny &rarr; Eli; draft due Wednesday, publishes Friday.</div>
+    </div>
+    <div class="rt-meta">
+      <div class="rt-owners"><span class="rt-owner">Rotating</span></div>
+      <span class="rt-skill">bpp-newsletter-rotation</span>
+    </div>
+  </div>
+
+  <div class="routine">
+    <div class="rt-when">Every 2 weeks<span class="rt-time">Mon&ndash;Fri &times;2</span></div>
+    <div>
+      <div class="rt-name">Sprint cycle</div>
+      <div class="rt-desc">Two-week sprint: plan on the first Monday, review on the closing Saturday. ~25&ndash;35 story points per person.</div>
+    </div>
+    <div class="rt-meta">
+      <div class="rt-owners"><span class="rt-owner all">All 3</span></div>
+      <span class="rt-skill none">Monday Ops board</span>
+    </div>
+  </div>
+
+  <!-- MONTHLY -->
+  <div class="cadence">
+    <div class="cadence-name">Monthly</div>
+    <div class="cadence-note">Once a month</div>
+    <div class="cadence-rule"></div>
+  </div>
+
+  <div class="routine">
+    <div class="rt-when">First week<span class="rt-time">of the month</span></div>
+    <div>
+      <div class="rt-name">Monthly close</div>
+      <div class="rt-desc">P&amp;L close, Rodney rev-share calculation, and financial data-quality checks for the prior month.</div>
+    </div>
+    <div class="rt-meta">
+      <div class="rt-owners"><span class="rt-owner">Daunte</span></div>
+      <span class="rt-skill">bpp-monthly-close</span>
+    </div>
+  </div>
+
+  <div class="routine">
+    <div class="rt-when">Monthly</div>
+    <div>
+      <div class="rt-name">Data QC sweep</div>
+      <div class="rt-desc">Quality checks across QuickBooks, HubSpot, and Google Drive &mdash; catch drift before it compounds.</div>
+    </div>
+    <div class="rt-meta">
+      <div class="rt-owners"><span class="rt-owner">Daunte</span><span class="rt-owner">Kenny</span></div>
+      <span class="rt-skill none">checklist</span>
+    </div>
+  </div>
+
+  <!-- QUARTERLY -->
+  <div class="cadence">
+    <div class="cadence-name">Quarterly</div>
+    <div class="cadence-note">Every quarter</div>
+    <div class="cadence-rule"></div>
+  </div>
+
+  <div class="routine">
+    <div class="rt-when">End of quarter</div>
+    <div>
+      <div class="rt-name">Quarterly review</div>
+      <div class="rt-desc">KPI review, strategy reset, and the six standing board questions. The zoom-out that resets the next quarter&rsquo;s sprints.</div>
+    </div>
+    <div class="rt-meta">
+      <div class="rt-owners"><span class="rt-owner all">All 3</span></div>
+      <span class="rt-skill">bpp-virtual-board --quarterly</span>
+    </div>
+  </div>
+
+  <!-- FOOTNOTE -->
+  <div style="text-align:center;font-size:11px;color:var(--muted);margin-top:30px;padding-top:20px;border-top:1px solid var(--border);">
+    Cadence per <code style="font-family:monospace;font-size:10px;background:var(--bg);padding:1px 5px;border-radius:3px;">CLAUDE.md</code> and the ratified operating model. A routine missed two cycles running isn&rsquo;t a routine &mdash; review it at the next sprint retro.
+  </div>
+
+</main>
+
+<script src="../js/nav.js" data-page="departments"></script>
+<script>
+  // Highlight today's routines and set the hero line.
+  (function () {
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var today = days[new Date().getDay()];
+    var isWeekday = today !== 'Saturday' && today !== 'Sunday';
+    var line = document.getElementById('rt-today-line');
+
+    var hits = [];
+    document.querySelectorAll('.routine[data-day]').forEach(function (row) {
+      var d = row.getAttribute('data-day');
+      var match = (d === today) || (d === 'weekday' && isWeekday);
+      if (match) {
+        row.classList.add('today');
+        var when = row.querySelector('.rt-when');
+        if (when && !when.querySelector('.rt-today-pill')) {
+          when.insertAdjacentHTML('beforeend', '<span class="rt-today-pill">Today</span>');
+        }
+        hits.push(row.querySelector('.rt-name').textContent);
+      }
+    });
+
+    if (line) {
+      line.innerHTML = hits.length
+        ? 'Today is <b>' + today + '</b> &mdash; on deck: ' + hits.join(', ') + '.'
+        : 'Today is <b>' + today + '</b> &mdash; no fixed routine. Good day for deep work.';
+    }
+  })();
+</script>
+
+</body>
+</html>
