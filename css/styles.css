@@ -344,3 +344,34 @@ body[data-person="eli"] .link-card[data-person*="eli"]{border-color:var(--eli);b
   .scenario-grid{grid-template-columns:1fr;}
   .client-grid{grid-template-columns:1fr;}
 }
+
+/* ===== HUB RESTRUCTURE COMPONENTS ===== */
+
+/* Quick Actions strip (Home) */
+.quick-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:20px 0 28px;}
+.qa-card{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:8px;padding:14px 16px;text-decoration:none;transition:all .15s;}
+.qa-card:hover{border-color:var(--gold);box-shadow:0 4px 14px rgba(0,0,0,.07);transform:translateY(-1px);}
+.qa-emoji{font-size:20px;flex:0 0 auto;}
+.qa-text{font-family:var(--head);font-size:13px;font-weight:600;color:var(--navy);}
+
+/* Department tiles (Departments landing) */
+.dept-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:8px 0 32px;}
+.dept-tile{background:var(--card);border:1px solid var(--border);border-top:4px solid var(--gold);border-radius:10px;padding:20px;text-decoration:none;transition:all .15s;}
+.dept-tile:hover{border-color:var(--gold);box-shadow:0 6px 18px rgba(0,0,0,.08);transform:translateY(-2px);}
+.dept-tile.parked{opacity:.7;border-top-color:var(--muted);}
+.dept-tile-name{font-family:var(--head);font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.dept-tile-dri{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:10px;}
+.dept-tile-owns{font-size:13px;color:var(--text2);line-height:1.5;}
+
+/* Department page sections */
+.dept-head{background:var(--navy);color:#fff;border-radius:10px;padding:24px 28px;margin-bottom:24px;}
+.dept-head h1{font-family:var(--head);font-size:24px;margin-bottom:6px;}
+.dept-head .dept-dri{color:var(--gold);font-size:13px;font-weight:600;}
+.dept-head .dept-owns{margin-top:10px;font-size:14px;color:rgba(255,255,255,.85);}
+.dept-section{margin-bottom:28px;}
+.dept-section-label{font-family:var(--head);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--navy);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--gold);}
+.dept-section-empty{font-size:13px;color:var(--muted);font-style:italic;}
+
+/* Library index */
+.lib-group{margin-bottom:26px;}
+.lib-group-label{font-family:var(--head);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--navy);margin-bottom:10px;}
