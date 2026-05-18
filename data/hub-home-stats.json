@@ -1,9 +1,10 @@
 {
-  "_format": "Auto-refreshed every Sunday 8pm by bpp-monday-prep skill (Step 11.5). First live MCP-driven run 2026-05-10 (TEST mode). index.html fetches this on load.",
-  "generated_at": "2026-05-10T18:05:00",
-  "generation_mode": "live-mcp-v1-test",
-  "test_mode": true,
+  "_format": "Auto-refreshed every Sunday by bpp-monday-prep skill (Step 11.5). index.html fetches this on load. Falls back to hardcoded values if stale.",
+  "generated_at": "2026-05-17T20:00:00",
+  "generation_mode": "auto",
+  "test_mode": false,
   "as_of_date": "2026-05-01",
+  "as_of_note": "Cash/AR are from the May 1 forecast — the QB recurring report is the wrong type to refresh them. Pipeline/clients are live as of 2026-05-17.",
   "stats": {
     "cash_on_hand": 6496,
     "cash_breakdown": {
@@ -27,11 +28,11 @@
     "expected_may_ar_high": 4260,
     "active_clients_count": 4,
     "active_clients_names": ["SEEDFOLKids", "Financial Acuity", "Lois Marketing", "Wedelia Wellness"],
-    "pipeline_total": 5000,
-    "pipeline_count": 5,
+    "pipeline_total": 7000,
+    "pipeline_count": 4,
     "pipeline_hot_count": 1,
-    "pipeline_cold_count": 1,
-    "pipeline_verified_date": "2026-05-10"
+    "pipeline_cold_count": 0,
+    "pipeline_verified_date": "2026-05-17"
   },
   "ar_scenarios": [
     {
@@ -50,7 +51,7 @@
       "savings_after": 3700,
       "hits_phase2": true,
       "highlight": true,
-      "detail": "+ HALO Commons $824."
+      "detail": "+ HALO Commons $824.50."
     },
     {
       "name": "Stretch",
@@ -74,49 +75,59 @@
       "owner": "Eli",
       "owner_color": "eli",
       "phase": "Build",
-      "next_milestone": "40% payment $1,800 (May)",
-      "closeout": "30% $1,350 (later)"
+      "next_milestone": "Halfway milestone meeting + invoice (dated 5/19); 40% $1,800 + 30% $1,350 scheduled",
+      "at_risk": true,
+      "risk_note": "3 milestones Blocked (MS-2 Playbook, MS-3 CRM, MS-1 sign-off)"
     },
     {
       "name": "Financial Acuity",
-      "subtitle": "Maxine",
+      "subtitle": "Maxine · Growth Package ($3,350)",
       "owner": "Daunte/Eli",
       "owner_color": "daunte",
       "phase": "Build",
-      "next_milestone": "$1,000 (May, high likelihood)"
+      "next_milestone": "$1,000 milestone (May, high); website review + HubSpot walkthrough accepted this week",
+      "at_risk": true,
+      "risk_note": "MS-2 Website Build stalled — 4/5 pages Not Started"
     },
     {
       "name": "SEEDFOLKids",
-      "subtitle": "MS 1 overdue 1 day; last update 12 days ago",
-      "owner": "Eli",
+      "subtitle": "Strategic Planning ($3,200)",
+      "owner": "Eli/Daunte",
       "owner_color": "eli",
       "phase": "Build",
-      "next_milestone": "MS 1 Branding + Foundation (due 2026-05-09 — late)",
-      "at_risk": true
+      "next_milestone": "MS-1 Branding + Foundation (due 2026-05-09 — 8 days overdue)",
+      "at_risk": true,
+      "risk_note": "MS-1 8 days overdue; logo + client-review subitems still In Progress"
     },
     {
       "name": "Wedelia Wellness",
-      "subtitle": "Whol-Sum Juice / Root to Radiance",
+      "subtitle": "Whol-Sum Juice / Root to Radiance ($1,248 P1)",
       "owner": "Eli",
       "owner_color": "eli",
       "phase": "Build",
-      "next_milestone": "TBD — verify"
+      "next_milestone": "P1 in progress; Moffitt grant invoice justification thread active"
     }
+  ],
+  "operating_norms_compact": [
+    "$2K rule: below = DRI calls it; above = team debate",
+    "Iron sharpens iron: defend with rationale",
+    "AI per dept: framework central, ownership distributed"
   ],
   "whats_new": {
     "ratified_date": "2026-05-06",
-    "headline": "The chart is the chart. 5 of 6 dept owners locked in.",
+    "headline": "Sprint 2 is planned — 17 items, all 3 owners loaded. The risk now: it's overcommitted.",
     "items": [
-      {"label": "Marketing flipped", "text": "Kenny took DRI from Daunte. Justin still executes. Transition kit packaging in flight before KT sessions."},
-      {"label": "$2K decision rule", "text": "Below $2K with time pressure: dept DRI calls it. Above $2K: full team debate."},
-      {"label": "Iron sharpens iron", "text": "For big decisions, defending a position with rationale beats deferring to keep peace."},
-      {"label": "AI agents per dept", "text": "AI Workforce provides the framework. Each dept builds and owns its own agents."}
+      {"label": "Sprint 2 planned", "text": "17 items, May 18 - Jun 5. ~147 story points across 3 people — Daunte 71, Eli 45, Kenny 31. Needs trimming on Day 1."},
+      {"label": "TwentyTen Motors", "text": "New $4,500 deal at Verbal Commitment, closing 5/24 — biggest open deal in the pipeline."},
+      {"label": "QB report mis-configured", "text": "The recurring QB report emits the income-grouped P&L, not A/R Aging Detail — net-open AR still can't be computed."},
+      {"label": "Lois delivery stalled", "text": "3 of Lois Marketing's milestones are Blocked. Biggest delivery risk on the board."}
     ]
   },
   "what_changed_recent": [
-    "First live MCP-driven brief run — HubSpot pipeline pulled live ($5K across 5 open deals, was $12K placeholder)",
-    "Pipeline cleanup needed: 4 of 5 deals have past closedates",
-    "SEEDFOLKids MS 1 went overdue (1 day) — last update 12 days ago",
-    "Operations sprint not yet planned — 0 items tagged to any sprint"
+    "Sprint 2 planned and populated (17 items) — was 0 sprint-tagged items in the 5/11 brief",
+    "TwentyTen Motors added — $4,500 deal at Verbal Commitment, closes 5/24",
+    "Pipeline cleaned up — all 4 open deals touched within ~3 days; no cold deals (Zing Juice Bar no longer open)",
+    "Lois Marketing has 3 Blocked milestones — delivery risk escalated",
+    "All three owners are over the 2-item WIP limit"
   ]
 }

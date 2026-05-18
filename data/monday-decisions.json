@@ -17,6 +17,15 @@
           "due_date": "2026-05-18",
           "status": "OPEN",
           "set_date": "2026-05-11"
+        },
+        {
+          "decision": "Add a Wanda Plan B (1-pager) to the strategic plan before Eli's review session. Cover three scenarios: closes at Package B ($8.5K) instead of Scale, signs but ghosts on delivery, walks entirely. Each scenario gets a Q2-Q3 revenue revision.",
+          "owner": "Daunte (drafts) + Eli (deal owner) reviews",
+          "due_date": "2026-05-22",
+          "status": "OPEN",
+          "set_date": "2026-05-15",
+          "source": "virtual-board",
+          "session_minutes": "_claude/data/virtual-board/2026-05-15-strategic-plan-v6-review.md"
         }
       ]
     },
