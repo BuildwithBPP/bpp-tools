@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BPP Operating Model · Synthesis</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
 <style>
   :root {
     --navy: #044771;
@@ -35,17 +36,6 @@
   p { margin-bottom: 10px; color: var(--ink-soft); }
   a { color: var(--navy); }
   a:hover { text-decoration: underline; }
-
-  nav.top { position: sticky; top: 0; background: var(--navy); color: var(--white); z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
-  nav.top .nav-inner { max-width: 1280px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .nav-left { display: flex; align-items: center; gap: 16px; }
-  .nav-back { color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: 6px; text-decoration: none; transition: background 0.15s, color 0.15s; border: 1px solid rgba(255,255,255,0.2); }
-  .nav-back:hover { background: rgba(255,255,255,0.1); color: var(--white); text-decoration: none; }
-  .nav-brand { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: 0.5px; color: var(--white); }
-  .nav-brand .accent { color: var(--gold); }
-  .nav-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
-  .nav-tabs a { color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: background 0.15s; text-decoration: none; }
-  .nav-tabs a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
 
   .ratified-banner { background: linear-gradient(135deg, #1a9e5c 0%, #14804a 100%); color: var(--white); padding: 36px 32px; border-radius: 12px; margin: 32px 0; box-shadow: 0 4px 16px rgba(26,158,92,0.18); }
   .ratified-banner .rb-eyebrow { text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.85); margin-bottom: 8px; }
@@ -248,35 +238,13 @@
     .hero h1 { font-size: 30px; }
     h1 { font-size: 28px; }
     h2 { font-size: 22px; }
-    nav.top .nav-inner { flex-direction: column; gap: 10px; padding: 12px 16px; }
-    .nav-tabs { justify-content: center; }
     .transition-row { grid-template-columns: 1fr; gap: 4px; text-align: left; }
     .transition-arrow { display: none; }
   }
 </style>
 </head>
 <body>
-
-<nav class="top">
-  <div class="nav-inner">
-    <div class="nav-left">
-      <a href="../index.html" class="nav-back">&larr; Hub</a>
-      <div class="nav-brand">BPP <span class="accent">Synthesis</span></div>
-    </div>
-    <div class="nav-tabs">
-      <a href="#read">Executive</a>
-      <a href="#ratified">Ratified</a>
-      <a href="#session">Agenda</a>
-      <a href="#wins">Wins</a>
-      <a href="#voices">Voices</a>
-      <a href="#conversations">Conversations</a>
-      <a href="#themes">Themes</a>
-      <a href="#chart">Chart</a>
-      <a href="#ai">AI Workforce</a>
-      <a href="#questions">Questions</a>
-    </div>
-  </div>
-</nav>
+<div id="hub-nav"></div>
 
 <section class="hero" id="read">
   <div class="hero-inner">
@@ -1077,5 +1045,6 @@
   <div style="margin-top: 4px; font-size: 11px;">Source for ratified state: meeting-decisions-2026-05-06.md (in /Synthesis/).</div>
 </footer>
 
+<script src="../js/nav.js" data-page="strategy"></script>
 </body>
 </html>

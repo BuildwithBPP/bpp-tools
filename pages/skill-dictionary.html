@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BPP Skill Dictionary</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{--navy:#044771;--gold:#F1BE5C;--gold-dim:#D4A63E;--steel:#5987A5;--bg:#F4F6F8;--card:#FFFFFF;--border:#E2E8F0;--text:#1A2B3C;--text2:#334155;--muted:#64748B;--green:#16a34a;--sans:'Inter',sans-serif;--head:'Montserrat',sans-serif;}
@@ -60,7 +61,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);padding:0;ma
 </style>
 </head>
 <body>
-<div style="background:#022a45; padding:8px 48px;"><a href="../index.html" style="color:#F1BE5C; text-decoration:none; font-family:Montserrat,sans-serif; font-size:12px; font-weight:600;">&larr; Back to BPP Tools Hub</a></div>
+<div id="hub-nav"></div>
 
 <div class="header">
   <div style="display:flex;align-items:center;justify-content:space-between;">
@@ -236,5 +237,6 @@ function filterCat(cat, el) {
 }
 </script>
 
+<script src="../js/nav.js" data-page="library"></script>
 </body>
 </html>

@@ -8,30 +8,7 @@
 <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-<div style="background:#022a45; padding:8px 48px;"><a href="../index.html" style="color:#F1BE5C; text-decoration:none; font-family:Montserrat,sans-serif; font-size:12px; font-weight:600;">&larr; Back to BPP Tools Hub</a></div>
-
-<nav class="hub-nav">
-  <div class="nav-logo">
-    <div class="nav-logo-mark">B</div>
-    <div class="nav-brand">BPP <span>Tools</span></div>
-  </div>
-  <div class="nav-tabs">
-    <a class="hub-tab" href="../index.html"><span class="tab-emoji">&#127968;</span> Home</a>
-    <a class="hub-tab" href="pre-call.html"><span class="tab-emoji">&#128222;</span> Pre-Call</a>
-    <a class="hub-tab" href="kickoff.html"><span class="tab-emoji">&#128640;</span> Kickoff</a>
-    <a class="hub-tab" href="ops.html"><span class="tab-emoji">&#128202;</span> Ops</a>
-    <a class="hub-tab" href="finance.html"><span class="tab-emoji">&#128176;</span> Finance</a>
-    <a class="hub-tab on" href="marketing.html"><span class="tab-emoji">&#128227;</span> Marketing</a>
-    <a class="hub-tab" href="systems.html"><span class="tab-emoji">&#9881;</span> Systems</a>
-    <a class="hub-tab" href="builds.html"><span class="tab-emoji">&#128296;</span> Builds</a>
-    <a class="hub-tab" href="reviews.html"><span class="tab-emoji">&#128200;</span> Reviews</a>
-  </div>
-  <div class="nav-people">
-    <button class="person-btn" onclick="togglePerson('daunte',this)">Daunte</button>
-    <button class="person-btn" onclick="togglePerson('kenny',this)">Kenny</button>
-    <button class="person-btn" onclick="togglePerson('eli',this)">Eli</button>
-  </div>
-</nav>
+<div id="hub-nav"></div>
 
 <main>
 
@@ -91,21 +68,8 @@
   <div class="footer-note">Internal Tools Hub &middot; Tampa Bay &middot; 2026</div>
 </div>
 
+<script src="../js/nav.js" data-page="departments"></script>
 <script>
-// -- Person switcher --
-function togglePerson(name, el) {
-  var body = document.body;
-  var btns = document.querySelectorAll('.person-btn');
-  if (body.getAttribute('data-person') === name) {
-    body.removeAttribute('data-person');
-    btns.forEach(function(b) { b.className = 'person-btn'; });
-  } else {
-    body.setAttribute('data-person', name);
-    btns.forEach(function(b) { b.className = 'person-btn'; });
-    el.classList.add('active-' + name);
-  }
-}
-
 // -- Date display --
 function setDates() {
   var d = new Date();
