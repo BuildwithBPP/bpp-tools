@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Virtual Board · BPP Tools Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  /* Virtual Board explainer — page-specific styling on top of styles.css */
+  .vb-hero{background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 100%);color:#fff;border-radius:12px;padding:38px 40px;margin-bottom:8px;}
+  .vb-hero-eyebrow{font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .vb-hero h1{font-family:var(--head);font-size:32px;font-weight:800;line-height:1.18;margin-bottom:12px;}
+  .vb-hero-lead{font-size:15px;line-height:1.65;color:rgba(255,255,255,.85);max-width:700px;}
+  .vb-triggers{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px;}
+  .vb-trigger{background:rgba(255,255,255,.08);border:1px solid var(--gold-border);border-radius:6px;padding:6px 11px;font-size:12px;color:rgba(255,255,255,.92);}
+  .vb-trigger code{font-family:'Inter',monospace;color:var(--gold);font-weight:600;}
+
+  h2.vb-label{font-family:var(--head);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--navy);margin:34px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--gold);}
+  .vb-lead{font-size:14.5px;line-height:1.7;color:var(--text2);max-width:740px;}
+  .vb-lead strong{color:var(--navy);}
+
+  .vb-voices{display:grid;grid-template-columns:repeat(auto-fit,minmax(244px,1fr));gap:14px;margin-top:14px;}
+  .vb-voice{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--steel);border-radius:9px;padding:16px 18px;}
+  .vb-voice-name{font-family:var(--head);font-size:15px;font-weight:700;color:var(--navy);}
+  .vb-voice-lens{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:600;margin:4px 0 9px;}
+  .vb-voice-line{font-size:13px;line-height:1.55;color:var(--text2);}
+
+  .vb-usecases{display:grid;grid-template-columns:repeat(auto-fit,minmax(218px,1fr));gap:12px;margin-top:14px;}
+  .vb-usecase{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:8px;padding:14px 16px;}
+  .vb-usecase strong{display:block;font-family:var(--head);color:var(--navy);font-size:13px;margin-bottom:4px;}
+  .vb-usecase span{font-size:12.5px;line-height:1.5;color:var(--text2);}
+
+  .vb-modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(266px,1fr));gap:14px;margin-top:14px;}
+  .vb-mode{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:18px;}
+  .vb-mode-cmd{display:inline-block;font-family:'Inter',monospace;font-size:12px;font-weight:600;color:var(--navy);background:var(--gold-glow);border:1px solid var(--gold-border);border-radius:5px;padding:3px 9px;margin-bottom:9px;}
+  .vb-mode h3{font-family:var(--head);font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+  .vb-mode p{font-size:13px;line-height:1.6;color:var(--text2);}
+
+  .vb-flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px;}
+  .vb-flow-step{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:9px 13px;font-size:12.5px;font-weight:500;color:var(--text);}
+  .vb-flow-arrow{color:var(--gold-dim);font-weight:700;}
+
+  .vb-callout{background:var(--gold-glow);border:1px solid var(--gold-border);border-left:4px solid var(--gold);border-radius:8px;padding:16px 20px;margin-top:20px;font-size:13.5px;line-height:1.65;color:var(--text);}
+  .vb-callout strong{font-family:var(--head);color:var(--navy);}
+  .vb-callout code{font-family:'Inter',monospace;font-size:12px;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1px 5px;}
+
+  @media (max-width:560px){
+    .vb-hero{padding:28px 22px;}
+    .vb-hero h1{font-size:25px;}
+  }
+  @media print{
+    #hub-nav,.hub-footer{display:none;}
+    .vb-voice,.vb-mode,.vb-usecase{break-inside:avoid;}
+    .vb-hero{background:var(--navy);}
+  }
+</style>
+</head>
+<body>
+<div id="hub-nav"></div>
+
+<main>
+
+  <div class="vb-hero">
+    <div class="vb-hero-eyebrow">Decision Sparring</div>
+    <h1>The BPP Virtual Board</h1>
+    <p class="vb-hero-lead">An 8-voice sparring panel that pressure-tests the calls that matter. It routes 2 to 3 voices to your topic and hands back disagreement, not consensus. The board does not decide. It makes the owners defend their thinking against people who are not them.</p>
+    <div class="vb-triggers">
+      <span class="vb-trigger">"convene the board"</span>
+      <span class="vb-trigger">"run this past the board"</span>
+      <span class="vb-trigger">"what would the board say"</span>
+      <span class="vb-trigger"><code>/virtual-board</code></span>
+    </div>
+  </div>
+
+  <h2 class="vb-label">What it is</h2>
+  <p class="vb-lead">The Virtual Board is a sparring tool, not a decision-maker. The three owners still decide together. The board's job is to <strong>stress-test a decision before the team commits</strong>: route it to a small panel of distinct thinkers, each with a sharp and consistent lens, and get back the strongest version of the case against your plan. Where the panel disagrees is usually where the real risk sits.</p>
+
+  <h2 class="vb-label">The 8 voices</h2>
+  <p class="vb-lead">Every session routes 2 to 3 of these voices, picked to fit the topic. You never get all eight at once. You get the ones that will push hardest on this specific call.</p>
+  <div class="vb-voices">
+    <div class="vb-voice">
+      <div class="vb-voice-name">Charlie Munger</div>
+      <div class="vb-voice-lens">Investor · Mental models</div>
+      <div class="vb-voice-line">Invert the problem. What would guarantee this fails? Avoid stupidity before chasing brilliance.</div>
+    </div>
+    <div class="vb-voice">
+      <div class="vb-voice-name">Warren Buffett</div>
+      <div class="vb-voice-lens">Investor · Moats</div>
+      <div class="vb-voice-line">Where is the durable advantage? Think in decades, and stay inside the circle of competence.</div>
+    </div>
+    <div class="vb-voice">
+      <div class="vb-voice-name">Andy Grove</div>
+      <div class="vb-voice-lens">Operator · Strategy</div>
+      <div class="vb-voice-line">Only the paranoid survive. Is this an ordinary call, or a strategic inflection point?</div>
+    </div>
+    <div class="vb-voice">
+      <div class="vb-voice-name">Bill Campbell</div>
+      <div class="vb-voice-lens">Coach · People</div>
+      <div class="vb-voice-line">What does this do to the team and the trust? The hard part is usually the people, not the plan.</div>
+    </div>
+    <div class="vb-voice">
+      <div class="vb-voice-name">Clayton Christensen</div>
+      <div class="vb-voice-lens">Theorist · Disruption</div>
+      <div class="vb-voice-line">What job is the client hiring us to do? Watch for the disruption you are not pricing in.</div>
+    </div>
+    <div class="vb-voice">
+      <div class="vb-voice-name">Ben Horowitz</div>
+      <div class="vb-voice-lens">Operator · Hard calls</div>
+      <div class="vb-voice-line">There is no recipe for the hard things. Make the tough call cleanly and own the consequences.</div>
+    </div>
+    <div class="vb-voice">
+      <div class="vb-voice-name">Naval Ravikant</div>
+      <div class="vb-voice-lens">Investor · Leverage</div>
+      <div class="vb-voice-line">Where is the leverage? Play long-term games with long-term people, and reason from first principles.</div>
+    </div>
+    <div class="vb-voice">
+      <div class="vb-voice-name">Alex Hormozi</div>
+      <div class="vb-voice-lens">Operator · Offers & growth</div>
+      <div class="vb-voice-line">Is the offer good enough that saying no feels stupid? Pressure on pricing, sales, and volume.</div>
+    </div>
+  </div>
+
+  <h2 class="vb-label">When to convene it</h2>
+  <p class="vb-lead">Offer the board before the team debates, any time a decision clears one of these bars:</p>
+  <div class="vb-usecases">
+    <div class="vb-usecase"><strong>Over the $2K line</strong><span>Any spend or commitment above the $2K threshold.</span></div>
+    <div class="vb-usecase"><strong>Pricing or packages</strong><span>Changing pricing, packages, or the ideal client profile.</span></div>
+    <div class="vb-usecase"><strong>Hiring or firing</strong><span>Adding a person to the team, or letting one go.</span></div>
+    <div class="vb-usecase"><strong>Off-ICP client</strong><span>Taking on a client outside the ideal profile.</span></div>
+    <div class="vb-usecase"><strong>Operating-system shifts</strong><span>Changing how BPP itself runs.</span></div>
+  </div>
+
+  <h2 class="vb-label">Three ways to run it</h2>
+  <div class="vb-modes">
+    <div class="vb-mode">
+      <span class="vb-mode-cmd">default</span>
+      <h3>Sparring</h3>
+      <p>Bring a live decision. The board routes the 2 to 3 voices that fit and spars until the disagreement is clear. The standard mode.</p>
+    </div>
+    <div class="vb-mode">
+      <span class="vb-mode-cmd">--quarterly</span>
+      <h3>Quarterly review</h3>
+      <p>Runs the six standing board questions. A scheduled health check on the business, not tied to a single decision.</p>
+    </div>
+    <div class="vb-mode">
+      <span class="vb-mode-cmd">--premortem</span>
+      <h3>Premortem drill</h3>
+      <p>The failure drill. Assume the decision already failed, then work backward to the story of how. Surfaces risks a forward look misses.</p>
+    </div>
+  </div>
+
+  <h2 class="vb-label">How a session flows</h2>
+  <div class="vb-flow">
+    <span class="vb-flow-step">Bring a decision</span>
+    <span class="vb-flow-arrow">&rarr;</span>
+    <span class="vb-flow-step">Board routes 2-3 voices</span>
+    <span class="vb-flow-arrow">&rarr;</span>
+    <span class="vb-flow-step">They spar, you get disagreement</span>
+    <span class="vb-flow-arrow">&rarr;</span>
+    <span class="vb-flow-step">Owners decide together</span>
+    <span class="vb-flow-arrow">&rarr;</span>
+    <span class="vb-flow-step">Decision logged</span>
+  </div>
+  <div class="vb-callout"><strong>It closes the loop.</strong> Decisions logged in a board session feed <code>monday-decisions.json</code> and surface automatically in the next Monday CEO brief. Nothing decided in a session gets lost, and nothing skips the owners. The board sharpens the thinking. The three owners still make the call.</div>
+
+</main>
+
+<div class="hub-footer">
+  <div class="footer-brand">Business Plans <span>Plus</span></div>
+  <div class="footer-note">Internal Tools Hub &middot; Tampa Bay &middot; 2026</div>
+</div>
+
+<script src="../js/nav.js" data-page="library"></script>
+
+</body>
+</html>
