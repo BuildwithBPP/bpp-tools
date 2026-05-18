@@ -87,28 +87,7 @@
 </head>
 <body>
 
-<nav class="hub-nav">
-  <div class="nav-logo">
-    <div class="nav-logo-mark">B</div>
-    <div class="nav-brand">BPP <span>Tools</span></div>
-  </div>
-  <div class="nav-tabs">
-    <a class="hub-tab" href="../index.html"><span class="tab-emoji">&#127968;</span> Home</a>
-    <a class="hub-tab" href="pre-call.html"><span class="tab-emoji">&#128222;</span> Pre-Call</a>
-    <a class="hub-tab" href="kickoff.html"><span class="tab-emoji">&#128640;</span> Kickoff</a>
-    <a class="hub-tab" href="ops.html"><span class="tab-emoji">&#128202;</span> Ops</a>
-    <a class="hub-tab" href="finance.html"><span class="tab-emoji">&#128176;</span> Finance</a>
-    <a class="hub-tab" href="marketing.html"><span class="tab-emoji">&#128227;</span> Marketing</a>
-    <a class="hub-tab" href="systems.html"><span class="tab-emoji">&#9881;</span> Systems</a>
-    <a class="hub-tab on" href="builds.html"><span class="tab-emoji">&#128296;</span> Builds</a>
-    <a class="hub-tab" href="reviews.html"><span class="tab-emoji">&#128200;</span> Reviews</a>
-  </div>
-  <div class="nav-people">
-    <button class="person-btn" onclick="togglePerson('daunte',this)">Daunte</button>
-    <button class="person-btn" onclick="togglePerson('kenny',this)">Kenny</button>
-    <button class="person-btn" onclick="togglePerson('eli',this)">Eli</button>
-  </div>
-</nav>
+<div id="hub-nav"></div>
 
 <main>
 
@@ -508,6 +487,7 @@
 
 </main>
 
+<script src="../js/nav.js" data-page="departments"></script>
 <script>
   // Render velocity chart bars
   (function(){
@@ -551,31 +531,6 @@
     });
   })();
 
-  // Person switcher (matches existing hub pages)
-  function togglePerson(name, btn){
-    const body = document.body;
-    const cur = body.getAttribute('data-person');
-    document.querySelectorAll('.person-btn').forEach(b => {
-      b.classList.remove('active-daunte','active-kenny','active-eli');
-    });
-    if(cur === name){
-      body.removeAttribute('data-person');
-      localStorage.removeItem('bpp-person');
-    } else {
-      body.setAttribute('data-person', name);
-      btn.classList.add('active-' + name);
-      localStorage.setItem('bpp-person', name);
-    }
-  }
-  // Restore saved selection
-  (function(){
-    const saved = localStorage.getItem('bpp-person');
-    if(saved){
-      document.body.setAttribute('data-person', saved);
-      const b = document.querySelector('.person-btn[onclick*="' + saved + '"]');
-      if(b) b.classList.add('active-' + saved);
-    }
-  })();
 </script>
 
 </body>
