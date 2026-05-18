@@ -3,6 +3,7 @@
   var script = document.currentScript;
   var page = (script && script.getAttribute('data-page')) || '';
   // Depth: pages in /pages/ need '../' to reach root; index.html is at root.
+  // Assumes exactly two depth levels: root and /pages/. Does not support /pages/subdir/.
   var atRoot = !/\/pages\//.test(location.pathname);
   var base = atRoot ? '' : '../';
   var tabs = [
