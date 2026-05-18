@@ -2,7 +2,8 @@
 
 **Date:** 2026-05-17
 **Author:** Daunte (with Claude)
-**Status:** Draft — pending in-flight content inputs before finalize
+**Status:** Draft — structure locked, content map complete. Both in-flight pieces
+have confirmed homes (Section 10). Production push pending Daunte's go.
 **Repo:** `BuildwithBPP/bpp-tools` (deploys via GitHub Pages from `main`)
 
 ---
@@ -127,6 +128,7 @@ anything in the Hub.
 
 Holds the forward-looking and operating-model content:
 - Strategic Plan 2026–2027
+- **Business Plan** — new page (in progress; see Section 10)
 - Operating Model Synthesis (ratified accountability chart + decisions)
 - Org chart / Team & AI Workforce
 - Reviews & KPIs (monthly + quarterly, incl. Q1 dashboards)
@@ -162,18 +164,29 @@ content is ready.
 Every reference doc also appears in the Library index regardless of its canonical
 home.
 
-## 10. Pending Inputs — flagged gaps
+## 10. In-Flight Content — confirmed homes
 
-Daunte is building additional content. These slots are open and must be filled
-before the restructure is finalized and pushed to production:
+Two pieces are still being built. Both now have a confirmed home, so the
+restructure can build the slots for them; the content drops in when ready.
 
-- **Business plan** — likely a new page under Strategy. *(Daunte to confirm scope
-  and final placement.)*
-- **Other in-flight builds** — not yet named. *(Daunte to enumerate and place.)*
+**Business plan**
+- Home: a new page under **Strategy**.
+- Status: Daunte finishing the document. The Hub creates the Strategy page slot
+  now; content fills in on completion.
 
-> **This spec is not final until this section is resolved.** The structure
-> (Sections 4–8) is locked; the content map (Section 9) is provisional pending
-> these inputs.
+**BPP meeting-summary AI skill / plugin**
+- What it does: summarizes BPP meetings and files the summaries into the proper
+  folders automatically.
+- Home: **AI Workforce & Tech** department page (AI agents section) + an entry in
+  the **Skill Dictionary**.
+- Status: in progress. Daunte is evaluating whether a private license is needed
+  for the meeting tool. The Hub references the skill once it ships; no Hub work
+  blocks on the licensing decision.
+
+> The structure (Sections 4–8) is locked and the content map (Section 9) is now
+> complete. Build proceeds on the `hub-restructure` branch. **Production (merge to
+> `main`) waits for Daunte's explicit go** once the business plan is in and the
+> meeting skill's path is settled.
 
 ## 11. Design & Build Approach
 
@@ -188,7 +201,7 @@ before the restructure is finalized and pushed to production:
   layouts.
 - **Build on a branch:** all restructure work happens on a feature branch. Because
   GitHub Pages auto-deploys from `main`, nothing reaches production until the
-  branch is merged — which does not happen until Section 10 is resolved.
+  branch is merged — held until Daunte's explicit go (Section 10).
 
 ## 12. Out of Scope (this pass)
 
