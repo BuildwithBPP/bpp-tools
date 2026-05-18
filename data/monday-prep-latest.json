@@ -3,8 +3,10 @@
   "generated_at": "2026-05-17T20:00:00",
   "generation_mode": "auto",
   "test_mode": false,
+  "corrected_at": "2026-05-17T22:15:00",
+  "correction_note": "Sprint 2 re-verified against the 'Sprint 2 Backlog' GROUP on the Ops board (not the Sprint dropdown column, which had stale tags). True Sprint 2 = 8 items, 50 story points (Daunte 18 / Eli 19 / Kenny 13). North Star and suggested move reframed: the sprint is lean, the risk is WIP sprawl outside the sprint. AR framing corrected: HubSpot is the AR source of record.",
   "sources_status": {
-    "QB": "PENDING",
+    "QB": "OK",
     "HubSpot": "OK",
     "Monday": "OK",
     "Forecast": "OK",
@@ -12,14 +14,14 @@
     "Outlook": "PARTIAL"
   },
   "stale_flags": [
-    "QB recurring report is the income-grouped P&L Transaction Report, not A/R Aging Detail — net-open AR and cash cannot be computed; cash/AR fall back to May 1 forecast",
-    "Forecast file is 16 days old (dated 2026-05-01); refresh at June monthly close",
+    "Cash position is from the May 1 forecast (16 days old) — the QB transaction report carries P&L/spend detail but no bank balances, so cash refreshes at monthly close, not weekly",
+    "AR is tracked in HubSpot by design (closed-won deals + milestone schedule); QB reflects only activated invoices — this is the intended model, not a broken pipeline",
     "Outlook digest covers Daunte's mailbox only — Kenny, Eli, and shared inboxes not granted to this session",
     "5/11 meeting recap + decisions file were never filled in; carry-forward reconstructed from open decisions"
   ],
   "theme": "Close the Loop",
-  "theme_rationale": "Per Daunte 2026-05-10: too many things sit 50-60% finished and parked. Sprint 2 is now planned but overcommitted on Day 1; closing loops this week means protecting the sprint from sprawl, not just finishing stragglers.",
-  "north_star": "Sprint 2 starts today overcommitted — right-size it before Day 1 ends. 17 items, ~147 story points across 3 people (Daunte 71 / Eli 45 / Kenny 31) against a 75-105 healthy ceiling. Two Critical Lois milestones are Blocked and SEEDFOLKids MS-1 is 8 days overdue. Cut the sprint to what 3 people can finish, unblock Lois, and close SEEDFOLKids MS-1.",
+  "theme_rationale": "Per Daunte 2026-05-10: too many things sit 50-60% finished and parked. Sprint 2 is planned and deliberately lean (8 items, 50 pts) — so closing loops this week means finishing those 8 and unsticking blocked client work, not starting more.",
+  "north_star": "Sprint 2 is small and focused — 8 items, 50 story points (Daunte 18 / Eli 19 / Kenny 13). It is not overcommitted; it's a lean, finishable sprint. The real risk is everything around it: all three owners are over the 2-item WIP limit on non-sprint work, Lois has 3 Blocked milestones, and SEEDFOLKids MS-1 is 8 days overdue. Commit to finishing the 8, hold WIP at 2, unblock Lois, and close SEEDFOLKids MS-1.",
   "operating_norms": [
     "$2K rule: below = DRI calls it. Above = team debate.",
     "Iron sharpens iron: defend with rationale, don't defer for harmony.",
@@ -34,20 +36,33 @@
     "number": 2,
     "total": 2,
     "day": 1,
-    "pct_done": 12,
-    "goal": "Not explicitly set on the board. Inferred: ship client-facing web assets (Resource Page, Proposal Generator, financial-projections tool, case studies), finish HubSpot pipeline cleanup, stand up the BPP Business Plan + newsletter. Recommend the team state the one-line sprint goal and trim to fit it.",
-    "items_assigned": 17,
-    "board_total": 85,
-    "dates": "2026-05-18 to 2026-06-05"
+    "pct_done": 0,
+    "goal": "Not explicitly set on the board. Inferred from the 8 Sprint 2 items: ship the client-facing web assets (Resource Page, Free Resources, Survey Page), finish HubSpot pipeline cleanup, stand up the BPP Business Plan + client newsletter, and build the bpp-client-delivery plugin. Recommend the team state the one-line sprint goal out loud.",
+    "items_assigned": 8,
+    "items_in_progress": 1,
+    "items_done": 0,
+    "points_total": 50,
+    "group": "Sprint 2 Backlog — (May 18 - Jun 5)",
+    "dates": "2026-05-18 to 2026-06-05",
+    "items": [
+      {"name": "LinkedIn Outreach Campaign", "owner": "Kenny", "status": "Not Started", "priority": "Critical", "points": 8},
+      {"name": "Publish Resource Page", "owner": "Eli", "status": "Not Started", "priority": "Critical", "points": 8},
+      {"name": "Update HubSpot Pipelines", "owner": "Kenny", "status": "In Progress", "priority": "Critical", "points": 5},
+      {"name": "Start a newsletter to all our clients", "owner": "Daunte", "status": "Not Started", "priority": "High", "points": 5},
+      {"name": "Finish BPP Business Plan", "owner": "Daunte", "status": "Not Started", "priority": "Critical", "points": 5},
+      {"name": "Build bpp-client-delivery plugin", "owner": "Eli", "status": "Not Started", "priority": "High", "points": 8},
+      {"name": "Develop Free Resources", "owner": "Daunte", "status": "Not Started", "priority": "High", "points": 8},
+      {"name": "Create Survey Page", "owner": "Eli", "status": "Not Started", "priority": "High", "points": 3}
+    ]
   },
   "top_three": [
     {"title": "LinkedIn Outreach Campaign", "owner": "Kenny", "status": "Not Started", "points": 8},
     {"title": "Publish Resource Page", "owner": "Eli", "status": "Not Started", "points": 8},
-    {"title": "Update HubSpot Pipelines (Sprint 1 carryover, 10 subitems)", "owner": "Kenny", "status": "In Progress", "points": 5}
+    {"title": "Update HubSpot Pipelines (carryover, 10 subitems)", "owner": "Kenny", "status": "In Progress", "points": 5}
   ],
   "suggested_move": {
-    "headline": "Re-scope Sprint 2 before Day 1 ends. Cut it to ~25-35 points per person and explicitly defer the rest to Sprint 3.",
-    "reasoning": "Sprint 2 carries ~147 points across 3 people — Daunte alone is at 71 (target 25-35), Eli 45, Kenny 31. Every item shares the same 2026-06-05 due date, so nothing is actually prioritized. Two Critical Lois milestones are Blocked and SEEDFOLKids MS-1 is 8 days overdue — those must land before new web-app builds start. An overcommitted sprint that misses is exactly the 'close the loop' failure mode the theme exists to kill."
+    "headline": "Close the loops around Sprint 2 — don't add to it. Commit to the 8 sprint items, hold WIP at 2, and unblock Lois + SEEDFOLKids before they slip further.",
+    "reasoning": "Sprint 2 is deliberately lean — 8 items, 50 points (Daunte 18 / Eli 19 / Kenny 13), well under the team's ~75-105 ceiling. The sprint isn't the problem. The problem is everything around it: all three owners are over the 2-item WIP limit on in-progress work that isn't even in the sprint, Lois has 3 Blocked milestones, and SEEDFOLKids MS-1 is 8 days overdue. The move is discipline, not scope — finish the 8, stop starting non-sprint items, and clear the client blockers. A lean sprint that actually closes beats a busy week with nothing finished."
   },
   "overdue": [
     {"title": "SEEDFOLKids MS-1 — Branding + Foundation", "owner": "Daunte/Eli", "days_overdue": 8},
@@ -75,21 +90,18 @@
     "buffer_gap": -321,
     "savings_pct_to_phase2": 93,
     "as_of_date": "2026-05-01",
-    "source": "May 1 forecast — QB recurring report is wrong type, cannot refresh cash/AR"
+    "source": "May 1 forecast — QB transaction report carries P&L/spend detail but no bank balances; cash refreshes at monthly close"
   },
   "ar_layers": {
-    "layer_1_qb_issued": {
-      "status": "PENDING",
-      "note": "Transaction Report is income-grouped P&L; lifetime gross invoiced ~$24,458, not net-open AR. A/R Aging Detail report still not configured/delivered."
+    "source_of_record": "HubSpot",
+    "model": "Each closed-won deal carries a quote with up to 3 milestone invoices. Invoice 1 is activated when the client signs and flows to QuickBooks. Invoices 2 and 3 stay in draft (not activated) and do NOT appear in QuickBooks — they live in HubSpot. So HubSpot holds the full committed-AR picture; QB shows only what's been activated.",
+    "layer_qb_activated": {
+      "note": "QuickBooks reflects only activated invoices — the smallest true number. Recent: INV-1029 Wanda $500, INV-1027 HALO Commons $824.50, INV-1028 Wanda $449.25, INV-1026 Lois $1,350."
     },
-    "layer_2_qb_drafts": {
-      "status": "PENDING",
-      "note": "Not separable from current report; pending correct Aging Detail report"
-    },
-    "layer_3_hubspot_closed_won_uninvoiced": {
+    "layer_hubspot_committed": {
       "status": "OK",
       "deals": [
-        {"name": "Lois Marketing — Operator System", "amount": 4500, "payment_status": "(blank)", "estimated_remaining": 3150, "note": "30/40/30; $1,350 deposit invoiced INV-1026; $1,800 + $1,350 scheduled; halfway milestone meeting/invoice dated 5/19"},
+        {"name": "Lois Marketing — Operator System", "amount": 4500, "payment_status": "(blank)", "estimated_remaining": 3150, "note": "30/40/30; $1,350 deposit invoiced INV-1026; $1,800 + $1,350 still in draft; halfway milestone meeting/invoice dated 5/19"},
         {"name": "Financial Acuity — Growth Package", "amount": 3350, "payment_status": "Deposit Received", "estimated_remaining": 1000, "note": "Maxine; $1,000 next milestone (high)"},
         {"name": "Xtremely Clean — Automation/CRM", "amount": 3315, "payment_status": "Deposit Received", "estimated_remaining": 500, "note": "Wanda; $500 owed (high)"},
         {"name": "SEEDFOLkids — Strategic Planning", "amount": 3200, "payment_status": "Deposit Received", "estimated_remaining": null, "note": "Remaining split unknown"},
@@ -97,17 +109,9 @@
         {"name": "Wedelia Wellness — P1", "amount": 1248, "payment_status": "Deposit Received", "estimated_remaining": null},
         {"name": "Xtremely Clean — Hourly (10 hrs)", "amount": 500, "payment_status": "Pending", "estimated_remaining": 500, "note": "Fully owed"}
       ],
-      "total_contract_value_uninvoiced": 17762,
       "estimated_remaining_known": 5974.5,
-      "note": "Can't compute exact per-deal remaining from HubSpot; tier-1 fix = cut QB drafts at deal close + fix the QB Aging report"
+      "note": "HubSpot has contract amounts and milestone schedules but no amount_paid / remaining field, so per-deal remaining is an estimate. ~$6K of known remaining milestones across closed-won deals."
     }
-  },
-  "ar_total": {
-    "issued": null,
-    "drafts": null,
-    "total": null,
-    "qb_lifetime_invoiced": 24458,
-    "note": "Net-open AR pending a correctly-configured QB A/R Aging Detail report"
   },
   "ar_scenarios": [
     {"name": "Conservative", "receivables_in": 4260, "expenses_out": -2100, "ending_operating": 5488, "savings_after": 3453, "hits_phase2": true, "highlight": false, "detail": "Highs only: Wanda $500, Lois milestone $1,800, Jeannette $960, Maxine $1,000."},
@@ -136,21 +140,24 @@
       "in_flight": 11,
       "overdue": 4,
       "shipped_last_wk": 2,
-      "parent_points": 71,
+      "sprint2_points": 18,
+      "sprint2_items": 3,
       "commits_last_7d": 5,
       "day_job_flag": "RS&H bandwidth limited",
-      "parents_in_progress": ["Build BPP Internal Home Hub (8pt)", "Install design MCPs / UI-UX Pro Max (5pt, Sprint 2)", "Create rollout plan for website (3pt)"],
+      "parents_in_progress": ["Build BPP Internal Home Hub (8pt)", "Install design MCPs / UI-UX Pro Max (5pt)", "Create rollout plan for website (3pt)"],
       "subitems_in_progress": ["BPP Operations Hub", "Packages and ICP", "BPP Delivery System", "Automation Items", "SEEDFOLKids MS-1 (shared)", "Financial Acuity MS-1 / CFO QuickBooks Deliverable", "Create SEEDFOLKids logo", "Review Draft with Client", "present the Guidelines"],
+      "note": "Almost none of Daunte's in-flight work is in Sprint 2 — it's non-sprint WIP sprawl.",
       "shipped_last_wk_items": ["Publish first BPP LinkedIn newsletter", "Ops cleanup items re-stamped Done 5/17"]
     },
     "Kenny": {
       "in_flight": 4,
       "overdue": 1,
       "shipped_last_wk": 1,
-      "parent_points": 31,
+      "sprint2_points": 13,
+      "sprint2_items": 2,
       "commits_last_7d": 0,
       "day_job_flag": "Recovery context (ongoing)",
-      "parents_in_progress": ["Update HubSpot Pipelines (Critical 5pt)"],
+      "parents_in_progress": ["Update HubSpot Pipelines (Critical 5pt, Sprint 2)"],
       "subitems_in_progress": ["Deal Pipeline", "Schedule Training For Review (SEEDFOLKids MS-3)", "Schedule Intake Form Review Training (Financial Acuity MS-3)"],
       "shipped_last_wk_items": ["Draft email template + LinkedIn template (Lois MS-2)"]
     },
@@ -158,7 +165,8 @@
       "in_flight": 3,
       "overdue": 3,
       "shipped_last_wk": 2,
-      "parent_points": 45,
+      "sprint2_points": 19,
+      "sprint2_items": 3,
       "commits_last_7d": 0,
       "day_job_flag": "Most BPP time of any owner",
       "parents_in_progress": ["SEEDFOLKids MS-1 Branding (shared, overdue)", "Financial Acuity MS-2 Website Build", "4th-client Project Kickoff"],
@@ -166,8 +174,8 @@
       "shipped_last_wk_items": ["Add favicon to Webflow site", "Cancel Todoist"]
     }
   },
-  "capacity_method": "Union of parent items + subitems across Operations (18406003425 + subitems 18406003431) and Client Delivery (18406004595 + inline subitems). In Progress only. Every named owner on a shared item gets full credit. Sprint 2 commit points = Story Points on Sprint-2-dropdown parent items per owner (Ops Story Points; not the whole backlog). Commits/wk from git last 7d across bpp-tools + bpp-plugins + workspace. WIP violation = in_flight > 2.",
-  "capacity_alert": "Sprint 2 is overcommitted on Day 1. Healthy ceiling ~25-35 pts/person. Daunte at 71 is ~2x over; Eli 45 and Kenny 31 are at/above the line. Combined ~147 pts vs ~75-105 healthy team total. All three owners also exceed the 2-item WIP limit. Cut the sprint before work starts.",
+  "capacity_method": "Sprint 2 = the 8 items in the 'Sprint 2 Backlog — (May 18 - Jun 5)' GROUP on the Ops board (18406003425), verified by direct board pull 2026-05-17. The Sprint dropdown column is NOT used as the signal — it had stale 'Sprint 2' tags on items moved back to Product Backlog. Points = color_mm267yph. in_flight = items In Progress (parents + subitems) across Ops + Client Delivery; every named owner on a shared item gets full credit. WIP violation = in_flight > 2.",
+  "capacity_alert": "Sprint 2 is small — 8 items, 50 points across 3 people (Daunte 18, Eli 19, Kenny 13), well under the ~75-105 healthy team range. The sprint is not the capacity risk. The risk is WIP: all three owners have more in progress (Daunte ~11, Kenny ~4, Eli ~3) than the 2-item limit allows, and most of that in-progress work isn't even in Sprint 2. The fix is finishing and closing, not loading.",
   "shipped_last_week": [
     {"repo": "bpp-tools", "commit_summary": "8765712 Strategic Plan v6 — team feedback updates for board review", "author": "Daunte"},
     {"repo": "bpp-tools", "commit_summary": "65c7efc Add 2026-2027 Strategic Plan page to Hub", "author": "Daunte"},
@@ -211,10 +219,9 @@
   },
   "inbox_rollup": "1 VIP + ~4 batch + ~16 auto-archive in Daunte's mailbox (Kenny/Eli/shared not reachable). Most volume is Monday.com assignment notifications from Sprint 2 planning.",
   "drift_signals": [
-    "QB recurring report is the wrong type — income-grouped P&L, cannot produce net-open AR or cash; A/R Aging Detail still not configured",
-    "Forecast file is 16 days old",
-    "Sprint 2 overcommitted — ~147 pts across 3 people, all due the same date",
-    "All three owners exceed the 2-item WIP limit (Daunte ~11)",
+    "All three owners over the 2-item WIP limit — Daunte ~11 in flight, much of it outside Sprint 2. The real capacity story; the 8-item sprint itself is lean",
+    "Sprint 2 is small (8 items, 50 pts) — the question is whether the team finishes it while also clearing client blockers",
+    "Forecast file is 16 days old — cash refreshes at June monthly close",
     "Lois Marketing has 3 Blocked milestones — delivery stalled",
     "Curbology has no amount set and a 4-day-past closedate",
     "Client Delivery subitem dates are stale (April timelines never re-baselined) — inflates overdue counts",
@@ -226,7 +233,6 @@
     "Two-board friction (Operations vs. Client Projects)",
     "Compensation framework conversation",
     "AI workforce top 3 confirmation",
-    "HubSpot AR-tracking schema decision (Tier 2-5 from feedback_hubspot_ar_tracking.md)",
     "Client Delivery subitem date re-baselining",
     "HR / contractor / procurement role research"
   ]
