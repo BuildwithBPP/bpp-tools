@@ -377,3 +377,6 @@ body[data-person="eli"] .link-card[data-person*="eli"]{border-color:var(--eli);b
 /* Library index */
 .lib-group{margin-bottom:26px;}
 .lib-group-label{font-family:var(--head);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--navy);margin-bottom:10px;}
+
+/* Sensitive-financials gate — a future contractor view sets data-hide-financials on <body> */
+body[data-hide-financials] [data-owners-only]{display:none;}
