@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP Internal Board: How We Run Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771;
+    --navy-dark: #033959;
+    --blue: #5987A5;
+    --blue-light: #eaf0f5;
+    --gold: #F1BE5C;
+    --gold-light: #fdf6e3;
+    --gold-deep: #c89943;
+    --white: #FCFCFC;
+    --page: #f7f9fb;
+    --black: #1a1a1a;
+    --gray: #6B6B6B;
+    --gray-light: #9aa3ad;
+    --navy-light: #e8f0f7;
+    --rule: #dde4ea;
+    --rule-light: #eef2f5;
+    --green: #2e9b6e;
+    --green-bg: #e6f5ee;
+    --amber: #b97d12;
+    --amber-bg: #fbf2dc;
+  }
+  body { font-family: 'Poppins', sans-serif; background: var(--page); color: var(--black); min-height: 100vh; padding: 0; }
+
+  /* HEADER */
+  .doc-header {
+    background: var(--navy);
+    padding: 28px 48px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .logo-area { display: flex; align-items: center; gap: 14px; }
+  .logo-mark {
+    width: 44px; height: 44px; border-radius: 6px;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800;
+    color: var(--navy);
+  }
+  .brand-text { color: white; }
+  .brand-name { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.02em; }
+  .brand-tag { font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 300; opacity: 0.7; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 1px; }
+  .doc-meta { text-align: right; color: white; }
+  .doc-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; color: var(--gold); letter-spacing: 0.04em; }
+  .doc-sub { font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 2px; font-weight: 300; }
+
+  /* PAGE */
+  .page { max-width: 920px; margin: 0 auto; padding: 48px 32px 72px; }
+
+  /* HERO */
+  .hero { margin-bottom: 40px; }
+  .hero-eye { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+  .hero-title { font-family: 'Montserrat', sans-serif; font-size: 34px; font-weight: 800; color: var(--navy); line-height: 1.12; letter-spacing: -0.5px; margin-bottom: 12px; }
+  .hero-title span { color: var(--gold-deep); }
+  .hero-sub { font-size: 14px; color: var(--gray); line-height: 1.7; max-width: 640px; font-weight: 300; }
+
+  /* SECTION LABEL */
+  .sec-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
+  .sec-title { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 18px; letter-spacing: -0.2px; }
+
+  /* SPINE: the four groups */
+  .spine-wrap { margin-bottom: 44px; }
+  .spine { background: var(--navy); border-radius: 8px; padding: 14px 20px; display: flex; align-items: center; gap: 8px; }
+  .spine-label { font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); white-space: nowrap; margin-right: 8px; }
+  .spine-steps { display: flex; flex: 1; gap: 4px; }
+  .spine-step { flex: 1; text-align: center; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; color: white; padding: 8px 6px; position: relative; letter-spacing: 0.02em; }
+  .spine-step.lane-ops { color: var(--gold); }
+  .spine-step::after {
+    content: '→'; position: absolute; right: -6px; top: 50%; transform: translateY(-50%);
+    opacity: 0.4; font-size: 13px; color: white;
+  }
+  .spine-step:last-child::after { display: none; }
+  .spine-caption {
+    font-size: 11px; color: var(--gray); font-weight: 300; margin-top: 10px; line-height: 1.55;
+    padding: 0 4px;
+  }
+
+  /* TWO-CARD WORK TYPES */
+  .types-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 44px;
+  }
+  .type-card {
+    background: white; border-radius: 10px; border: 1px solid var(--rule); padding: 22px 24px;
+    border-top: 4px solid var(--rule);
+  }
+  .type-card.sprint { border-top-color: var(--gold); }
+  .type-card.ops { border-top-color: var(--blue); }
+  .type-eye { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+  .type-eye.sprint { color: var(--gold-deep); }
+  .type-eye.ops { color: var(--blue); }
+  .type-name { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .type-def { font-size: 13px; color: var(--black); line-height: 1.6; margin-bottom: 14px; font-weight: 400; }
+  .type-examples {
+    background: var(--page); border-radius: 6px; padding: 12px 14px; margin-bottom: 14px;
+    font-size: 12px; color: var(--gray); line-height: 1.6; font-weight: 300;
+  }
+  .type-examples strong { color: var(--black); font-weight: 600; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+  .type-lives {
+    font-size: 11px; color: var(--gray); font-weight: 400;
+    border-top: 1px solid var(--rule-light); padding-top: 12px;
+  }
+  .type-lives strong { color: var(--navy); font-weight: 600; }
+
+  /* DECISION FLOW */
+  .decision-wrap { margin-bottom: 44px; }
+  .decision-list { display: flex; flex-direction: column; gap: 10px; }
+  .decision-row {
+    background: white; border: 1px solid var(--rule); border-radius: 8px;
+    padding: 14px 18px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .decision-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--navy); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .decision-q { flex: 1; font-size: 13px; color: var(--black); font-weight: 400; line-height: 1.5; }
+  .decision-arrow { color: var(--gray-light); font-size: 16px; flex-shrink: 0; }
+  .chip {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+    padding: 5px 12px; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+  }
+  .chip.recurring { background: var(--gold-light); color: var(--gold-deep); }
+  .chip.adhoc { background: var(--blue-light); color: var(--navy); }
+  .chip.sprint { background: var(--navy); color: white; }
+
+  /* RULES GRID */
+  .rules-wrap { margin-bottom: 44px; }
+  .rules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .rule-card { background: white; border: 1px solid var(--rule); border-radius: 8px; padding: 16px 18px; }
+  .rule-num { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.08em; margin-bottom: 8px; }
+  .rule-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; line-height: 1.3; }
+  .rule-body { font-size: 11.5px; color: var(--gray); line-height: 1.55; font-weight: 400; }
+
+  /* DONE FLOW TABLE */
+  .done-wrap { margin-bottom: 44px; }
+  .done-table { width: 100%; border-collapse: separate; border-spacing: 0; background: white; border-radius: 8px; overflow: hidden; border: 1px solid var(--rule); }
+  .done-table thead th {
+    background: var(--navy); color: white;
+    font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 12px 16px; text-align: left;
+  }
+  .done-table tbody td {
+    padding: 14px 16px; font-size: 12.5px; color: var(--black); font-weight: 400;
+    line-height: 1.55; vertical-align: top;
+    border-top: 1px solid var(--rule-light);
+  }
+  .done-table tbody tr:first-child td { border-top: none; }
+  .done-table .col-type { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--navy); font-size: 12px; white-space: nowrap; }
+  .done-note {
+    background: var(--blue-light); border-left: 4px solid var(--blue);
+    border-radius: 0 6px 6px 0; padding: 12px 18px; margin-top: 12px;
+    font-size: 12px; color: var(--navy); line-height: 1.6; font-weight: 400;
+  }
+  .done-note strong { font-weight: 600; }
+
+  /* ROLE CARDS */
+  .roles-wrap { margin-bottom: 44px; }
+  .roles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .role-card { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 18px 20px; border-top: 3px solid var(--rule); }
+  .role-card.daunte { border-top-color: var(--gold); }
+  .role-card.kenny { border-top-color: var(--blue); }
+  .role-card.eli { border-top-color: var(--navy); }
+  .role-name { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+  .role-title { font-size: 10px; font-weight: 400; color: var(--gray-light); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
+  .role-body { font-size: 12px; color: var(--black); line-height: 1.6; font-weight: 400; }
+  .role-body strong { color: var(--navy); font-weight: 600; }
+
+  /* RE-EVAL CALLOUT */
+  .reeval {
+    background: var(--navy-light); border-left: 4px solid var(--navy);
+    border-radius: 0 8px 8px 0; padding: 18px 22px;
+    margin-bottom: 28px;
+  }
+  .reeval-eye { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; }
+  .reeval-title { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .reeval-body { font-size: 12.5px; color: var(--navy-dark); line-height: 1.65; font-weight: 400; }
+  .reeval-body ul { margin: 8px 0 0 20px; padding: 0; }
+  .reeval-body li { margin-bottom: 4px; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--rule);
+    font-size: 11px; color: var(--gray-light); font-weight: 300; line-height: 1.7;
+  }
+  .footer code { font-family: 'Menlo', monospace; font-size: 10.5px; background: var(--rule-light); padding: 2px 6px; border-radius: 3px; color: var(--gray); }
+  .footer a { color: var(--blue); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 720px) {
+    .doc-header { padding: 20px 24px; flex-direction: column; align-items: flex-start; gap: 12px; }
+    .doc-meta { text-align: left; }
+    .page { padding: 32px 20px 56px; }
+    .hero-title { font-size: 26px; }
+    .types-grid, .rules-grid, .roles-grid { grid-template-columns: 1fr; }
+    .spine { flex-direction: column; align-items: stretch; gap: 6px; }
+    .spine-steps { flex-direction: column; }
+    .spine-step::after { display: none; }
+    .decision-row { flex-wrap: wrap; }
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: white; }
+    .doc-header { padding: 20px 32px; }
+    .page { padding: 24px 32px; max-width: 100%; }
+    .type-card, .rule-card, .role-card, .decision-row, .done-table, .reeval { page-break-inside: avoid; }
+    .hero, .spine-wrap, .types-grid, .decision-wrap, .rules-wrap, .done-wrap, .roles-wrap { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="doc-header">
+  <div class="logo-area">
+    <div class="logo-mark">B</div>
+    <div class="brand-text">
+      <div class="brand-name">Business Plans Plus</div>
+      <div class="brand-tag">Internal Operating Model</div>
+    </div>
+  </div>
+  <div class="doc-meta">
+    <div class="doc-title">BPP INTERNAL BOARD</div>
+    <div class="doc-sub">v1.1 · May 18, 2026 · Owner: Eli</div>
+  </div>
+</header>
+
+<main class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eye">Operating Model</div>
+    <h1 class="hero-title">Two Types of Work. <span>One Board.</span></h1>
+    <p class="hero-sub">
+      We run our internal work as a Scrumban hybrid. Project work moves on a 3-week sprint cadence.
+      Run-the-business work flows continuously in its own lane. Same board, two rhythms, no mixed signals.
+      This is the operating model for the BPP Internal board going forward.
+    </p>
+  </section>
+
+  <!-- SPINE -->
+  <section class="spine-wrap">
+    <div class="sec-label">Board Layout</div>
+    <div class="spine">
+      <span class="spine-label">Groups</span>
+      <div class="spine-steps">
+        <div class="spine-step lane-ops">Operations</div>
+        <div class="spine-step">Product Backlog</div>
+        <div class="spine-step">Sprint Backlog</div>
+        <div class="spine-step">Done</div>
+      </div>
+    </div>
+    <p class="spine-caption">
+      Read top to bottom. The Operations lane (gold) is continuous flow. Product Backlog through Done is the sprint pipeline. Both end in the same Done group at completion; ops work that recurs never leaves the Operations lane.
+    </p>
+  </section>
+
+  <!-- TWO TYPES -->
+  <section>
+    <div class="sec-label">The Two Types of Work</div>
+    <div class="types-grid">
+      <div class="type-card sprint">
+        <div class="type-eye sprint">Sprint Work</div>
+        <div class="type-name">Project work, committed</div>
+        <p class="type-def">
+          Real project work the team commits to and ships inside a 3-week sprint. Sized in story points. Tracked for velocity over time.
+        </p>
+        <div class="type-examples">
+          <strong>Examples</strong>
+          Build a new service offering page. Draft a pricing deck. Set up a client onboarding template. Build the case study display page.
+        </div>
+        <p class="type-lives">
+          Lives in: <strong>Product Backlog</strong> until pulled into <strong>Sprint Backlog</strong>, then moves to <strong>Done</strong> at completion.
+        </p>
+      </div>
+
+      <div class="type-card ops">
+        <div class="type-eye ops">Operations Work</div>
+        <div class="type-name">Run-the-business, continuous</div>
+        <p class="type-def">
+          The day-to-day stuff that just needs to happen. No story points. Never pulled into sprints. Splits into Recurring (repeats on a cadence) and Ad-hoc (one-off requests).
+        </p>
+        <div class="type-examples">
+          <strong>Examples</strong>
+          Send Lois Marketing invoice. Weekly LinkedIn post. Renew Microsoft 365. Update Stripe payment method. Outreach follow-up.
+        </div>
+        <p class="type-lives">
+          Lives in: <strong>Operations</strong> lane. Recurring items stay there forever. Ad-hoc items move to <strong>Done</strong> on completion.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DECISION FLOW -->
+  <section class="decision-wrap">
+    <div class="sec-label">How to Know Which Lane</div>
+    <h2 class="sec-title">Three questions, in order.</h2>
+    <div class="decision-list">
+      <div class="decision-row">
+        <div class="decision-num">1</div>
+        <div class="decision-q">Does it repeat on a fixed cadence (weekly, monthly, quarterly)?</div>
+        <div class="decision-arrow">→</div>
+        <div class="chip recurring">Recurring Ops</div>
+      </div>
+      <div class="decision-row">
+        <div class="decision-num">2</div>
+        <div class="decision-q">Is it operational or admin work that just needs to get done? No project work attached?</div>
+        <div class="decision-arrow">→</div>
+        <div class="chip adhoc">Ad-hoc Ops</div>
+      </div>
+      <div class="decision-row">
+        <div class="decision-num">3</div>
+        <div class="decision-q">Otherwise: it's project work that earns story points and competes for sprint capacity.</div>
+        <div class="decision-arrow">→</div>
+        <div class="chip sprint">Sprint</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RULES -->
+  <section class="rules-wrap">
+    <div class="sec-label">The Five Rules</div>
+    <h2 class="sec-title">Non-negotiables for the board to actually work.</h2>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-num">RULE 01</div>
+        <div class="rule-title">No story points on Ops items</div>
+        <div class="rule-body">Story Points measure sprint capacity. Ops work does not consume that capacity. Leave the column blank for Recurring and Ad-hoc Ops.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">RULE 02</div>
+        <div class="rule-title">No Ops items in Sprint groups</div>
+        <div class="rule-body">If you find a Recurring or Ad-hoc Ops item in Product Backlog or Sprint Backlog, move it to the Operations lane. Sprint groups are for project work only.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">RULE 03</div>
+        <div class="rule-title">WIP limit covers both lanes</div>
+        <div class="rule-body">Two items In Progress per person, total. A sprint item plus an ops item counts as two. Finish things before starting more.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">RULE 04</div>
+        <div class="rule-title">Recurring lives as one card</div>
+        <div class="rule-body">The board auto-resets a recurring item when you mark it Done. Do not spawn a new card per occurrence. One card, forever.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">RULE 05</div>
+        <div class="rule-title">Every item has an owner</div>
+        <div class="rule-body">Both lanes. No orphan tasks. If nobody owns it, it does not belong on the board.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DONE FLOW -->
+  <section class="done-wrap">
+    <div class="sec-label">The Done Flow</div>
+    <h2 class="sec-title">What happens when you mark something Done.</h2>
+    <table class="done-table">
+      <thead>
+        <tr>
+          <th style="width: 22%;">Work Type</th>
+          <th>What happens at Done</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">Sprint</td>
+          <td>Automation moves the item to the Done group. Sits there until the Saturday sprint review, when the whole Done group is archived.</td>
+        </tr>
+        <tr>
+          <td class="col-type">Recurring Ops</td>
+          <td>Automation resets Status to Not Started and advances the Due Date by the Recurrence interval. The card never leaves the Operations lane.</td>
+        </tr>
+        <tr>
+          <td class="col-type">Ad-hoc Ops</td>
+          <td>Automation moves the item to the Done group (same place Sprint items go). Archived as part of the whole Done group at the Saturday sprint review.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="done-note">
+      <strong>Why one Done group, not "Done (Sprint X)":</strong>
+      the Sprint dropdown column already labels every item with its sprint, and Work Type distinguishes Sprint from Ops.
+      So sprint velocity is a filter on the Done group, not a property of the group name.
+      One generic Done group is simpler, and it gives Ad-hoc Ops a clean "disappears from the active lane" behavior.
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section class="roles-wrap">
+    <div class="sec-label">What This Changes For Each Person</div>
+    <h2 class="sec-title">Read your card, then the other two.</h2>
+    <div class="roles-grid">
+      <div class="role-card daunte">
+        <div class="role-name">Daunte</div>
+        <div class="role-title">Finance &amp; Operations · AI Workforce &amp; Tech</div>
+        <div class="role-body">
+          Most of your Finance &amp; Operations recurring work (bookkeeping, financial reports, statement reconciliation) becomes <strong>Recurring Ops</strong>. One card per task, with a Recurrence cadence set. The card resets itself when you mark it Done.
+        </div>
+      </div>
+      <div class="role-card kenny">
+        <div class="role-name">Kenny</div>
+        <div class="role-title">Sales &amp; Business Development · Marketing &amp; Content</div>
+        <div class="role-body">
+          Outreach lives in HubSpot, not Monday. The Operations lane on this board picks up your marketing recurring work (weekly LinkedIn post, monthly email) and pipeline admin (referral follow-ups, partnership renewal checks). Sprint work is building new playbooks, sales assets, and content pieces.
+        </div>
+      </div>
+      <div class="role-card eli">
+        <div class="role-name">Eli</div>
+        <div class="role-title">Client Delivery &amp; Design</div>
+        <div class="role-body">
+          Project-scale design and client delivery work goes to <strong>Sprint</strong> and gets story-pointed (a new service page, a deck redesign, a client deliverable revision). Recurring touches like brand asset upkeep or template maintenance go to the <strong>Operations</strong> lane.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RE-EVAL -->
+  <section>
+    <div class="reeval">
+      <div class="reeval-eye">When We Check Back In</div>
+      <div class="reeval-title">Sprint 3 retrospective.</div>
+      <div class="reeval-body">
+        What we look at:
+        <ul>
+          <li>Is sprint planning faster than it was in Sprint 1?</li>
+          <li>Does sprint velocity reflect only sprint work, no ops contamination?</li>
+          <li>Are people using the main board for daily flow, or still going to "By Department" first?</li>
+          <li>Is the Operations lane staying under about 25 active items?</li>
+        </ul>
+        If something is not working, flag it at the Saturday ops meeting and we adjust.
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    Full primer with all rules and setup notes: <code>1. Internal Operations / 9. Client Delivery and Design / 1. Service Playbooks / bpp-internal-board-sprint-vs-operations.md</code><br>
+    Board-side reference (Monday Doc): <a href="https://businessplansplus.monday.com/docs/18413774142">businessplansplus.monday.com/docs/18413774142</a><br>
+    Board: <a href="https://businessplansplus.monday.com/boards/18406003425">BPP Internal</a> · Active since 2026-05-18 · Last updated 2026-05-18
+  </footer>
+
+</main>
+
+</body>
+</html>
