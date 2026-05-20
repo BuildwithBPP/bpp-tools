@@ -40,6 +40,11 @@ body{background:var(--off);color:var(--text);font-family:var(--sans);min-height:
 .in-brand{font-size:11px;font-weight:700;color:var(--white);letter-spacing:.04em;}
 .in-brand .sm{display:block;font-size:9px;font-weight:400;color:rgba(255,255,255,.55);letter-spacing:.08em;margin-top:2px;}
 .in-badge{background:var(--gold);color:var(--deep);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 13px;border-radius:100px;}
+.in-top-right{display:flex;align-items:center;gap:10px;}
+.in-back{font-size:10.5px;font-weight:600;color:rgba(255,255,255,.85);text-decoration:none;letter-spacing:.04em;padding:6px 12px;border-radius:5px;border:1px solid rgba(255,255,255,.22);background:transparent;transition:all .15s;white-space:nowrap;}
+.in-back:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.5);color:var(--white);}
+.in-foot a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:500;}
+.in-foot a:hover{color:var(--gold);}
 .in-body{flex:1;padding:64px 48px 40px;max-width:900px;margin:0 auto;width:100%;}
 .in-eye{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
 .in-h{font-family:var(--serif);font-weight:800;font-size:46px;line-height:1.08;color:var(--white);margin-bottom:20px;}
@@ -98,7 +103,7 @@ body{background:var(--off);color:var(--text);font-family:var(--sans);min-height:
 .nav-tab .nt-num{font-size:9px;font-weight:700;color:rgba(255,255,255,.35);margin-right:8px;letter-spacing:.06em;}
 .nav-tab.on .nt-num{color:var(--gold);}
 .nav-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
-.nav-btn{font-size:11px;font-weight:600;padding:7px 14px;border-radius:5px;border:1px solid rgba(255,255,255,.22);background:transparent;color:var(--white);cursor:pointer;transition:all .15s;letter-spacing:.04em;}
+.nav-btn{font-size:11px;font-weight:600;padding:7px 14px;border-radius:5px;border:1px solid rgba(255,255,255,.22);background:transparent;color:var(--white);cursor:pointer;transition:all .15s;letter-spacing:.04em;font-family:var(--sans);text-decoration:none;display:inline-flex;align-items:center;}
 .nav-btn:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4);}
 .nav-btn.primary{background:var(--gold);border-color:var(--gold);color:var(--deep);font-weight:700;}
 .nav-btn.primary:hover{background:#ffb635;}
@@ -198,6 +203,8 @@ body{background:var(--off);color:var(--text);font-family:var(--sans);min-height:
 /* footer */
 .appfoot{background:var(--deep);padding:18px 36px;display:flex;justify-content:space-between;align-items:center;font-size:10.5px;color:rgba(255,255,255,.4);}
 .appfoot span{color:rgba(255,255,255,.6);}
+.appfoot a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:500;}
+.appfoot a:hover{color:var(--gold);}
 
 /* responsive */
 @media (max-width:768px){
@@ -221,7 +228,11 @@ body{background:var(--off);color:var(--text);font-family:var(--sans);min-height:
       <div class="in-mark">BPP</div>
       <div class="in-brand">BUSINESS PLANS PLUS<span class="sm">Strategy / Planning / Execution</span></div>
     </div>
-    <div class="in-badge">Working Session</div>
+    <div class="in-top-right">
+      <a class="in-back" href="../../">← BPP Tools Hub</a>
+      <a class="in-back" href="../../pages/dept-delivery.html">Client Delivery &amp; Design</a>
+      <div class="in-badge">Working Session</div>
+    </div>
   </div>
   <div class="in-body">
     <div class="in-eye">Business Plans Plus · Client Working Session</div>
@@ -279,8 +290,8 @@ body{background:var(--off);color:var(--text);font-family:var(--sans);min-height:
     </div>
   </div>
   <div class="in-foot">
-    <div>Business Plans Plus · Confidential</div>
-    <div>Working session · v1</div>
+    <div>Business Plans Plus · Confidential · Working session v1</div>
+    <div><a href="../../">← Back to BPP Tools Hub</a></div>
   </div>
 </div>
 
@@ -294,6 +305,7 @@ body{background:var(--off);color:var(--text);font-family:var(--sans);min-height:
       </div>
       <div class="nav-tabs" id="navTabs"></div>
       <div class="nav-actions">
+        <a class="nav-btn" href="../../" title="Back to BPP Tools Hub">← Hub</a>
         <button class="nav-btn" onclick="exitToCover()">Back to cover</button>
         <button class="nav-btn primary" onclick="openExport()">Save &amp; export</button>
       </div>
@@ -627,7 +639,7 @@ body{background:var(--off);color:var(--text);font-family:var(--sans);min-height:
   </section>
 
   <div class="appfoot">
-    <div>Business Plans Plus · Confidential · Client Working Session</div>
+    <div>Business Plans Plus · Confidential · Client Working Session · <a href="../../">BPP Tools Hub ↗</a></div>
     <div><span id="footStatus">Auto-saving</span></div>
   </div>
 </div>
