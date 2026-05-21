@@ -36,6 +36,9 @@ bpp-tools/
   css/
     styles.css                 # Shared CSS for all pages (design system, nav, cards, ops hub)
 
+  js/
+    nav.js                     # Shared top nav (logo, tabs, global search, person filter). Injected into <div id="hub-nav">.
+
   pages/
     pre-call.html              # Pre-Call toolkit (discovery, ICP, proposals)
     kickoff.html               # Kickoff toolkit (onboarding, playbook)
@@ -71,7 +74,8 @@ Read `context/brand-voice.md` for all written output. Key rules:
 
 - Each hub tab is a standalone HTML page in `pages/`. The Home page is `index.html` at the root.
 - All pages share `css/styles.css` for consistent styling. Change it once, every page updates.
-- Nav bar, person switcher, and footer are duplicated on each page (no framework, no build step).
+- The top nav is injected by `js/nav.js` on every page (each HTML file has `<div id="hub-nav"></div>` and a `<script src=".../js/nav.js" data-page="…">` tag). Edit the nav in one place, every page updates.
+- **Global search:** the search input in the nav builds its index at runtime by fetching `pages/library.html` and `pages/departments.html` and parsing their `.link-card` and `.dept-tile` elements. **There is no separate search-index file to maintain.** To add a page to search, add a card for it on the Library page (or a dept tile on Departments). If you significantly refactor the markup of those two pages (renaming `.link-card`, `.lc-title`, `.lc-desc`, `.dept-tile`, `.dept-tile-name`, `.dept-tile-owns`), update `js/nav.js` too.
 - The Ops page (`pages/ops.html`) has significant embedded JS: meeting agenda, scorecard calculations, quarterly review formulas. Edit carefully.
 - Reference pages (ICP profiles, service packages, etc.) are self-contained HTML files linked from the hub but not styled by `styles.css`.
 - The content dashboard is loaded via iframe in `pages/marketing.html`.

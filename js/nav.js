@@ -41,6 +41,8 @@
   if (mount) mount.outerHTML = html;
 
   // -- Search --
+  // The search index is BUILT AT RUNTIME from pages/library.html and pages/departments.html.
+  // To add a page to search, just add its card to one of those two pages — no JSON to maintain.
   var pages = [];
   var activeIdx = -1;
   var currentResults = [];
@@ -48,10 +50,77 @@
   var input = document.getElementById('nav-search-input');
   var dropdown = document.getElementById('nav-search-dropdown');
 
-  fetch(base + 'data/search-index.json?t=' + Date.now())
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (d) { if (d && Array.isArray(d.pages)) pages = d.pages; })
-    .catch(function () { /* silent — search just won't return results */ });
+  function isInternalHref(h) {
+    if (!h) return false;
+    return !/^(https?:|mailto:|tel:|#)/i.test(h);
+  }
+
+  function parseLinkCards(html) {
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    var out = [];
+    doc.querySelectorAll('.link-card').forEach(function (card) {
+      var href = card.getAttribute('href');
+      if (!isInternalHref(href)) return;
+      var titleEl = card.querySelector('.lc-title');
+      var descEl = card.querySelector('.lc-desc');
+      if (!titleEl) return;
+      out.push({
+        title: titleEl.textContent.replace(/\s+/g, ' ').trim(),
+        desc: descEl ? descEl.textContent.replace(/\s+/g, ' ').trim() : '',
+        href: 'pages/' + href.replace(/^\.\//, '')
+      });
+    });
+    return out;
+  }
+
+  function parseDeptTiles(html) {
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    var out = [];
+    doc.querySelectorAll('.dept-tile').forEach(function (tile) {
+      var href = tile.getAttribute('href');
+      if (!isInternalHref(href)) return;
+      var nameEl = tile.querySelector('.dept-tile-name');
+      var ownsEl = tile.querySelector('.dept-tile-owns');
+      var driEl = tile.querySelector('.dept-tile-dri');
+      if (!nameEl) return;
+      var desc = ownsEl ? ownsEl.textContent.replace(/\s+/g, ' ').trim() : '';
+      var dri = driEl ? driEl.textContent.replace(/\s+/g, ' ').trim() : '';
+      if (dri) desc = desc ? desc + ' · ' + dri : dri;
+      out.push({
+        title: nameEl.textContent.replace(/\s+/g, ' ').trim(),
+        desc: desc,
+        href: 'pages/' + href.replace(/^\.\//, '')
+      });
+    });
+    return out;
+  }
+
+  // Seed with the 4 top-level nav tabs so they're always searchable
+  // even if library.html / departments.html fail to load.
+  var navSeed = [
+    { title: 'Home',        desc: 'BPP Tools Hub — quick actions, cash, AR, active clients', href: 'index.html' },
+    { title: 'Departments', desc: 'All 6 departments and their DRIs',                        href: 'pages/departments.html' },
+    { title: 'Library',     desc: 'Every page in the Hub, grouped by what it is',            href: 'pages/library.html' },
+    { title: 'Strategy',    desc: 'Strategic plan, business plan, synthesis, KPIs',          href: 'pages/strategy.html' }
+  ];
+
+  function dedupe(list) {
+    var seen = {};
+    return list.filter(function (p) {
+      if (seen[p.href]) return false;
+      seen[p.href] = true;
+      return true;
+    });
+  }
+
+  Promise.all([
+    fetch(base + 'pages/library.html').then(function (r) { return r.ok ? r.text() : ''; }).catch(function () { return ''; }),
+    fetch(base + 'pages/departments.html').then(function (r) { return r.ok ? r.text() : ''; }).catch(function () { return ''; })
+  ]).then(function (texts) {
+    var fromLibrary = texts[0] ? parseLinkCards(texts[0]) : [];
+    var fromDepts = texts[1] ? parseDeptTiles(texts[1]) : [];
+    pages = dedupe(navSeed.concat(fromLibrary).concat(fromDepts));
+  });
 
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
