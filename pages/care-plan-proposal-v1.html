@@ -47,10 +47,15 @@
   .meta-pill.amber { background: var(--amber-bg); border-color: var(--amber); color: var(--amber); }
 
   /* TOC */
-  .toc { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 16px 22px; margin-bottom: 32px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-  .toc-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gray); margin-right: 8px; }
-  .toc a { font-size: 12px; color: var(--navy); text-decoration: none; padding: 4px 10px; border-radius: 5px; transition: background .15s; }
-  .toc a:hover { background: var(--navy-light); }
+  .toc { background: white; border: 1px solid var(--rule); border-radius: 12px; padding: 20px 22px 16px; margin-bottom: 40px; box-shadow: 0 2px 8px rgba(4,71,113,0.04); }
+  .toc-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--rule-light); }
+  .toc-eye { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--navy); }
+  .toc-hint { font-size: 10px; color: var(--gray); font-style: italic; }
+  .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 6px; }
+  .toc a { font-size: 12px; color: var(--navy); text-decoration: none; padding: 8px 10px; border-radius: 6px; transition: all .15s; display: flex; align-items: center; gap: 8px; border: 1px solid transparent; }
+  .toc a:hover { background: var(--gold-light); border-color: #e8d4a0; transform: translateX(2px); }
+  .toc-num { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; color: var(--gold); background: var(--gold-light); padding: 2px 6px; border-radius: 4px; min-width: 24px; text-align: center; }
+  .toc a:hover .toc-num { background: var(--gold); color: var(--navy); }
 
   /* Section blocks */
   .sec { margin-bottom: 36px; scroll-margin-top: 20px; }
@@ -90,15 +95,16 @@
   .pitfall-text strong { color: #c0392b; }
 
   /* TIER CARDS — hero of the page */
-  .tier-cards { display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 16px; margin-bottom: 16px; align-items: stretch; }
+  .tier-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 26px 0 16px; align-items: stretch; }
 
-  .tier-card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--rule); display: flex; flex-direction: column; }
+  .tier-card { background: white; border-radius: 12px; border: 1px solid var(--rule); display: flex; flex-direction: column; position: relative; }
   .tier-card.lite { border-color: var(--rule); }
-  .tier-card.standard { border-color: var(--navy); border-width: 2px; box-shadow: 0 6px 24px rgba(4,71,113,0.12); position: relative; }
-  .tier-card.standard::before { content: 'Recommended default'; position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--navy); font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 12px; white-space: nowrap; }
+  .tier-card.standard { border-color: var(--navy); border-width: 2px; box-shadow: 0 8px 28px rgba(4,71,113,0.14); transform: translateY(-6px); }
+  .tier-card.standard::before { content: 'Recommended default'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--navy); font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 5px 14px; border-radius: 12px; white-space: nowrap; box-shadow: 0 3px 10px rgba(241,190,92,0.4); z-index: 2; }
   .tier-card.plus { border-color: var(--rule); }
 
-  .tier-header { padding: 26px 24px 20px; text-align: center; }
+  .tier-header { padding: 28px 24px 22px; text-align: center; border-radius: 11px 11px 0 0; overflow: hidden; }
+  .tier-card.standard .tier-header { border-radius: 10px 10px 0 0; }
   .tier-card.lite .tier-header { background: #f5f7f9; }
   .tier-card.standard .tier-header { background: var(--navy-light); }
   .tier-card.plus .tier-header { background: var(--gold-light); }
@@ -253,17 +259,22 @@
   </div>
 
   <nav class="toc">
-    <span class="toc-label">Jump to</span>
-    <a href="#why">Why</a>
-    <a href="#research">Research</a>
-    <a href="#tiers">The three tiers</a>
-    <a href="#ladder">Commitment ladder</a>
-    <a href="#not">What it's NOT</a>
-    <a href="#plug">Plug-in</a>
-    <a href="#clients">Active clients</a>
-    <a href="#consensus">Consensus path</a>
-    <a href="#verify">Verification</a>
-    <a href="#oos">Out of scope</a>
+    <div class="toc-head">
+      <span class="toc-eye">Contents</span>
+      <span class="toc-hint">Click any section to jump</span>
+    </div>
+    <div class="toc-grid">
+      <a href="#why"><span class="toc-num">01</span>The Problem</a>
+      <a href="#research"><span class="toc-num">02</span>Research</a>
+      <a href="#tiers"><span class="toc-num">03</span>Three Tiers</a>
+      <a href="#ladder"><span class="toc-num">04</span>Commitment</a>
+      <a href="#not"><span class="toc-num">05</span>What It's NOT</a>
+      <a href="#plug"><span class="toc-num">06</span>How It Plugs In</a>
+      <a href="#clients"><span class="toc-num">07</span>Active Clients</a>
+      <a href="#consensus"><span class="toc-num">08</span>Consensus Path</a>
+      <a href="#verify"><span class="toc-num">09</span>Verification</a>
+      <a href="#oos"><span class="toc-num">10</span>Out of Scope</a>
+    </div>
   </nav>
 
   <!-- WHY -->
