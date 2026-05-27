@@ -142,6 +142,33 @@
   .tier-card.plus .tier-credit { background: var(--gold-light); color: #8a6a1a; }
   .tier-card.plus .tier-credit strong { color: var(--navy); }
 
+  /* Capability areas */
+  .cap-intro { background: var(--navy-light); border: 1px solid #b8d0e4; border-left: 4px solid var(--navy); border-radius: 8px; padding: 14px 18px; margin-bottom: 18px; font-size: 12.5px; color: var(--black); line-height: 1.6; }
+  .cap-intro strong { color: var(--navy); }
+  table.caps { width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; margin-bottom: 18px; }
+  table.caps th { background: var(--navy); color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 11px 14px; text-align: left; }
+  table.caps td { padding: 11px 14px; font-size: 12px; color: var(--black); border-top: 1px solid var(--rule-light); line-height: 1.55; vertical-align: top; }
+  table.caps td.area { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--navy); width: 26%; }
+  table.caps td.examples { color: var(--black); width: 56%; }
+  table.caps td.lead { width: 18%; }
+  table.caps td.lead .lead-pill { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 4px; letter-spacing: .04em; }
+  table.caps td.lead .lead-pill.daunte { background: rgba(89,135,165,0.18); color: var(--blue); }
+  table.caps td.lead .lead-pill.kenny { background: rgba(26,158,92,0.15); color: #1a9e5c; }
+  table.caps td.lead .lead-pill.eli { background: var(--gold-light); color: #8a6a1a; }
+  table.caps td.lead .lead-pill.team { background: var(--rule-light); color: var(--gray); }
+  .cap-tier-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .cap-tier-card { background: white; border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; }
+  .cap-tier-card.lite { border-left: 3px solid var(--gray); }
+  .cap-tier-card.standard { border-left: 3px solid var(--navy); }
+  .cap-tier-card.plus { border-left: 3px solid var(--gold); }
+  .cap-tier-name { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+  .cap-tier-card.lite .cap-tier-name { color: var(--gray); }
+  .cap-tier-card.standard .cap-tier-name { color: var(--navy); }
+  .cap-tier-card.plus .cap-tier-name { color: #8a6a1a; }
+  .cap-tier-text { font-size: 12px; color: var(--black); line-height: 1.5; }
+  .addon-note { background: #fff5e6; border: 1px solid #f1be5c; border-radius: 8px; padding: 14px 18px; font-size: 12.5px; color: var(--black); line-height: 1.6; }
+  .addon-note strong { color: #8a6a1a; }
+
   /* Commitment ladder */
   .ladder { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
   .ladder-card { background: white; border: 1px solid var(--rule); border-radius: 8px; padding: 14px; text-align: center; }
@@ -267,13 +294,14 @@
       <a href="#why"><span class="toc-num">01</span>The Problem</a>
       <a href="#research"><span class="toc-num">02</span>Research</a>
       <a href="#tiers"><span class="toc-num">03</span>Three Tiers</a>
-      <a href="#ladder"><span class="toc-num">04</span>Commitment</a>
-      <a href="#not"><span class="toc-num">05</span>What It's NOT</a>
-      <a href="#plug"><span class="toc-num">06</span>How It Plugs In</a>
-      <a href="#clients"><span class="toc-num">07</span>Active Clients</a>
-      <a href="#consensus"><span class="toc-num">08</span>Consensus Path</a>
-      <a href="#verify"><span class="toc-num">09</span>Verification</a>
-      <a href="#oos"><span class="toc-num">10</span>Out of Scope</a>
+      <a href="#capabilities"><span class="toc-num">04</span>Capability Areas</a>
+      <a href="#ladder"><span class="toc-num">05</span>Commitment</a>
+      <a href="#not"><span class="toc-num">06</span>What It's NOT</a>
+      <a href="#plug"><span class="toc-num">07</span>How It Plugs In</a>
+      <a href="#clients"><span class="toc-num">08</span>Active Clients</a>
+      <a href="#consensus"><span class="toc-num">09</span>Consensus Path</a>
+      <a href="#verify"><span class="toc-num">10</span>Verification</a>
+      <a href="#oos"><span class="toc-num">11</span>Out of Scope</a>
     </div>
   </nav>
 
@@ -352,15 +380,15 @@
           <div class="tier-eye">Tier 1</div>
           <div class="tier-name">Care Plan Lite</div>
           <div class="tier-price">$249<small>/mo</small></div>
-          <div class="tier-tagline">"Stay in the family without dropping us cold"</div>
+          <div class="tier-tagline">"Stay in the family with light hands-on support"</div>
         </div>
         <div class="tier-body">
           <div class="tier-section-label">Included</div>
           <ul class="tier-list">
             <li>Monthly website backup + hosting check</li>
             <li>Quarterly brand guidelines refresh (1 update)</li>
-            <li>Email/Slack access — async, <strong>48-hr SLA</strong></li>
-            <li>~30 min/month of attention (hard cap)</li>
+            <li><strong>1 hour/month of execution time</strong> — any capability area (see below)</li>
+            <li>Email + text — async, <strong>48-hr SLA</strong></li>
             <li>Month-to-month, 30-day cancel</li>
           </ul>
         </div>
@@ -381,10 +409,10 @@
           <div class="tier-section-label">Everything in Lite, plus</div>
           <ul class="tier-list">
             <li>Monthly 30-min strategy call (Daunte / Kenny / Eli rotate)</li>
-            <li><strong>2 hours/month</strong> of execution time</li>
+            <li><strong>3 hours/month</strong> of execution time (vs. 1 in Lite)</li>
             <li>Monthly 1-page snapshot of their KPIs</li>
-            <li><strong>24-hr SLA</strong> on Slack/email</li>
-            <li>Website / CRM / GBP / small AI tweaks covered</li>
+            <li><strong>24-hr SLA</strong> on email + text</li>
+            <li>Multi-step work across CRM, AI, QB, web, brand, data</li>
           </ul>
         </div>
         <div class="tier-footer">
@@ -403,10 +431,11 @@
         <div class="tier-body">
           <div class="tier-section-label">Everything in Standard, plus</div>
           <ul class="tier-list">
-            <li><strong>5 hours/month</strong> of execution (vs. 2)</li>
+            <li><strong>5 hours/month</strong> of execution (vs. 3)</li>
             <li>Bi-weekly strategy calls (vs. monthly)</li>
             <li>Quarterly executive review (Daunte attends, deck-format)</li>
             <li>One named AI workflow build per quarter</li>
+            <li>Light financial planning support included</li>
           </ul>
         </div>
         <div class="tier-footer">
@@ -414,6 +443,52 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- CAPABILITY AREAS -->
+  <section class="sec" id="capabilities">
+    <div class="sec-h">Capability Areas</div>
+    <h2 class="sec-title">What execution hours can be spent on</h2>
+    <p class="sec-lead">The Care Plan's execution time is channel-agnostic across BPP's full skillset. Clients can spend hours on CRM optimization, AI workflows, QuickBooks maintenance, web edits, brand assets, data work, light financial support, or training. The right BPP lead is assigned based on the work type.</p>
+
+    <div class="cap-intro">
+      <strong>Why this matters:</strong> the Care Plan isn't a website-only product. It's a maintenance + incremental-improvement layer on top of everything BPP delivers in Operator System and Scale System engagements.
+    </div>
+
+    <table class="caps">
+      <thead><tr><th>Area</th><th>Examples of what fits</th><th>Lead</th></tr></thead>
+      <tbody>
+        <tr><td class="area">CRM (HubSpot)</td><td class="examples">Workflow tweaks, list segmentation, lead-routing fixes, contact cleanup, dashboard pin, form edits, small report builds</td><td class="lead"><span class="lead-pill kenny">Kenny</span></td></tr>
+        <tr><td class="area">AI workflows / automation</td><td class="examples">Small Make/Zapier/n8n scenario fixes, prompt updates, error-handling tweaks, agent context refreshes, scheduled-task adjustments</td><td class="lead"><span class="lead-pill daunte">Daunte</span></td></tr>
+        <tr><td class="area">QuickBooks / financial maintenance</td><td class="examples">Category cleanup, vendor/customer record tidying, small reconciliation fixes, monthly report pull, P&amp;L sanity check, small dashboard refresh</td><td class="lead"><span class="lead-pill daunte">Daunte</span></td></tr>
+        <tr><td class="area">Website (Wix / Webflow / WP)</td><td class="examples">Copy edits, image swaps, link fixes, form fixes, page-speed nudges, small section adds</td><td class="lead"><span class="lead-pill eli">Eli</span></td></tr>
+        <tr><td class="area">Google Business Profile + local SEO</td><td class="examples">GBP edits, photo adds, post adds, review-response polish, hours/services updates</td><td class="lead"><span class="lead-pill eli">Eli</span></td></tr>
+        <tr><td class="area">Brand assets</td><td class="examples">Add a new asset variant to the kit, swap a logo treatment, update a template, small one-pager refresh</td><td class="lead"><span class="lead-pill eli">Eli</span></td></tr>
+        <tr><td class="area">Data / dashboards</td><td class="examples">Refresh a chart, fix a broken data source, small Looker/Google Sheets fix, KPI snapshot update</td><td class="lead"><span class="lead-pill daunte">Daunte</span></td></tr>
+        <tr><td class="area">Light financial planning <em>(Standard + Plus)</em></td><td class="examples">Margin-by-service spot-check, cashflow sanity check, small forecast tweak, runway snapshot &mdash; NOT full financial planning (that's a quote-based add-on)</td><td class="lead"><span class="lead-pill daunte">Daunte</span></td></tr>
+        <tr><td class="area">Training / enablement</td><td class="examples">Loom walkthroughs of changes, short refreshers on tools we built (HubSpot, dashboards), one-off Q&amp;A doc</td><td class="lead"><span class="lead-pill team">Builder</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--navy);margin:18px 0 10px;">Tier caps</h3>
+    <div class="cap-tier-grid">
+      <div class="cap-tier-card lite">
+        <div class="cap-tier-name">Lite &middot; 1 hr/mo</div>
+        <div class="cap-tier-text">Single small task per month, must fit in 60 min &mdash; any of the areas above.</div>
+      </div>
+      <div class="cap-tier-card standard">
+        <div class="cap-tier-name">Standard &middot; 3 hrs/mo</div>
+        <div class="cap-tier-text">Multi-step work, can span 1-2 areas per month.</div>
+      </div>
+      <div class="cap-tier-card plus">
+        <div class="cap-tier-name">Plus &middot; 5 hrs/mo</div>
+        <div class="cap-tier-text">Can span 2-3 areas per month, supports bigger single-area projects.</div>
+      </div>
+    </div>
+
+    <div class="addon-note">
+      <strong>What's still an add-on (quoted separately):</strong> Full new AI workflow build, QB setup/cleanup project, full Webflow site build, full brand identity refresh, financial planning engagement. The Care Plan keeps existing systems healthy and makes incremental improvements; add-ons handle net-new builds. Both can stack.
     </div>
   </section>
 
@@ -532,7 +607,7 @@
         <div class="verify-h">30-day check · first signed client</div>
         <ul class="verify-list">
           <li>Sign at Standard tier without price push-back?</li>
-          <li>Actual time spent inside the 2-hour cap?</li>
+          <li>Actual time spent inside the 3-hour cap?</li>
           <li>Monthly snapshot ship on time?</li>
         </ul>
       </div>
