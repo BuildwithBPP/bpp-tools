@@ -308,27 +308,42 @@
   <!-- DECISION FLOW -->
   <section class="decision-wrap">
     <div class="sec-label">How to Know Which Lane</div>
-    <h2 class="sec-title">Three questions, in order.</h2>
+    <h2 class="sec-title">Five gates, top to bottom. The first one that fires wins.</h2>
     <div class="decision-list">
       <div class="decision-row">
         <div class="decision-num">1</div>
-        <div class="decision-q">Does it repeat on a fixed cadence (weekly, monthly, quarterly)?</div>
+        <div class="decision-q">Under 2 minutes? Faster to finish than to write, point, and track a card?</div>
+        <div class="decision-arrow">→</div>
+        <div class="chip" style="background:#ecedf0;color:#555;">Just do it</div>
+      </div>
+      <div class="decision-row">
+        <div class="decision-num">2</div>
+        <div class="decision-q">Repeats on a rhythm (weekly, monthly, quarterly), or every time an event happens?</div>
         <div class="decision-arrow">→</div>
         <div class="chip recurring">Recurring Ops</div>
       </div>
       <div class="decision-row">
-        <div class="decision-num">2</div>
-        <div class="decision-q">Is it operational or admin work that just needs to get done? No project work attached?</div>
+        <div class="decision-num">3</div>
+        <div class="decision-q">Interrupt-driven, can't wait for planning, or just needs doing with nothing to hand off?</div>
         <div class="decision-arrow">→</div>
         <div class="chip adhoc">Ad-hoc Ops</div>
       </div>
       <div class="decision-row">
-        <div class="decision-num">3</div>
-        <div class="decision-q">Otherwise: it's project work that earns story points and competes for sprint capacity.</div>
+        <div class="decision-num">4</div>
+        <div class="decision-q">Plannable and it ships an artifact someone reviews (page, deck, tool, doc, system)?</div>
+        <div class="decision-arrow">→</div>
+        <div class="chip sprint">Sprint</div>
+      </div>
+      <div class="decision-row">
+        <div class="decision-num">5</div>
+        <div class="decision-q">Tie-breaker: moves the business forward is Sprint, keeps the lights on is Ops.</div>
         <div class="decision-arrow">→</div>
         <div class="chip sprint">Sprint</div>
       </div>
     </div>
+    <p style="margin-top:16px;font-size:12.5px;color:#555;line-height:1.6;">
+      <strong>Tests (skill, plugin, workflow):</strong> testing a build you are shipping rides along as part of its Definition of Done, not a separate card. A one-time standalone check is Ad-hoc Ops, a repeating health check is Recurring Ops. <strong>Compound items split:</strong> the one-time build goes to Sprint, the ongoing chore it creates becomes a Recurring Ops card. <strong>Anti-pattern:</strong> story points on an errand means it belongs in Ops, not the backlog.
+    </p>
   </section>
 
   <!-- RULES -->
