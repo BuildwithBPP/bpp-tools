@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 1 Review & Retrospective - BPP Internal</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771; --navy-dark: #033359; --blue: #5987A5; --blue-mid: #3a6d8f;
+    --gold: #F1BE5C; --gold-dark: #d4a43e; --bg: #edf1f5; --card-bg: #ffffff;
+    --card-border: #c8d3dc; --section-bg: #e2e9f0; --gray: #4a4a4a; --gray-light: #6B6B6B;
+    --green: #1a9e5c; --green-light: #d4f0e1; --red: #c0392b; --red-light: #f5d5d1;
+    --amber: #d4920a; --amber-light: #fdf0d0;
+    --daunte: #5987A5; --kenny: #1a9e5c; --eli: #d4a43e;
+  }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #14222f; min-height: 100vh; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(4,71,113,0.3); flex-wrap: wrap; gap: 14px; }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .header-logo { width: 44px; height: 44px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: var(--navy-dark); box-shadow: 0 2px 8px rgba(241,190,92,0.4); }
+  .header-text { color: white; }
+  .header-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+  .header-sub { font-size: 11px; font-weight: 300; opacity: 0.7; margin-top: 3px; }
+  .header-right { text-align: right; color: white; }
+  .header-period { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: var(--gold); }
+  .header-date { font-size: 10px; opacity: 0.55; margin-top: 3px; }
+
+  .page { max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px; }
+  .back-link { display: inline-block; font-size: 11px; color: var(--blue-mid); text-decoration: none; margin-bottom: 18px; font-weight: 600; }
+  .back-link:hover { color: var(--navy); }
+
+  /* SECTION HEADERS */
+  .section-bar { background: var(--navy); border-radius: 8px; padding: 14px 24px; margin: 38px 0 8px; display: flex; align-items: center; justify-content: space-between; }
+  .section-bar-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.1em; }
+  .section-bar-sub { font-size: 10px; color: rgba(255,255,255,0.65); }
+  .section-note { font-size: 10px; color: var(--gray-light); margin: 4px 4px 16px; }
+
+  /* KPI CARDS */
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .kpi-card { background: var(--card-bg); border-radius: 10px; padding: 18px; border: 1px solid var(--card-border); text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .kpi-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-light); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; color: var(--navy); }
+  .kpi-sub { font-size: 11px; color: var(--gray-light); margin-top: 4px; }
+  .kpi-source { font-size: 8px; color: var(--blue-mid); margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.75; }
+  .kpi-card.gold { border-left: 5px solid var(--gold); }
+  .kpi-card.green { border-left: 5px solid var(--green); }
+  .kpi-card.red { border-left: 5px solid var(--red); }
+  .kpi-card.amber { border-left: 5px solid var(--amber); }
+
+  /* PROGRESS */
+  .progress-bar { height: 12px; background: #dde4ea; border-radius: 6px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 6px; }
+  .progress-row { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 18px 22px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .progress-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .progress-top .lbl { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--navy); }
+  .progress-top .num { font-size: 12px; color: var(--gray-light); font-weight: 500; }
+
+  /* VELOCITY CARDS */
+  .vel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .vel-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-top: 4px solid var(--blue); }
+  .vel-card.daunte { border-top-color: var(--daunte); }
+  .vel-card.kenny { border-top-color: var(--kenny); }
+  .vel-card.eli { border-top-color: var(--eli); }
+  .vel-name { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); }
+  .vel-role { font-size: 10px; color: var(--gray-light); margin-bottom: 12px; }
+  .vel-stat { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; color: var(--gray); }
+  .vel-stat b { color: var(--navy); font-weight: 700; }
+  .vel-pct { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; margin: 8px 0 6px; }
+
+  /* SHIPPED LIST */
+  .ship-group { margin-bottom: 18px; }
+  .ship-group-head { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--blue-mid); margin: 0 2px 8px; }
+  .ship-item { background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--green); border-radius: 8px; padding: 13px 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .ship-pts { flex-shrink: 0; width: 40px; height: 40px; border-radius: 8px; background: var(--green-light); color: var(--green); font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+  .ship-body { flex: 1; }
+  .ship-title { font-size: 13px; font-weight: 600; color: #14222f; }
+  .ship-desc { font-size: 11px; color: var(--gray-light); margin-top: 2px; }
+  .ship-owner { flex-shrink: 0; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 12px; }
+  .owner-daunte { background: rgba(89,135,165,0.15); color: var(--daunte); }
+  .owner-kenny { background: var(--green-light); color: var(--kenny); }
+  .owner-eli { background: var(--amber-light); color: var(--gold-dark); }
+  .ship-crit { font-size: 9px; font-weight: 700; color: var(--red); background: var(--red-light); padding: 2px 7px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+
+  /* DEPT BARS */
+  .dept-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .dept-name { flex-shrink: 0; width: 180px; font-size: 12px; font-weight: 600; color: var(--navy); }
+  .dept-track { flex: 1; height: 22px; background: #dde4ea; border-radius: 5px; overflow: hidden; position: relative; }
+  .dept-done { height: 100%; background: var(--green); border-radius: 5px 0 0 5px; }
+  .dept-count { flex-shrink: 0; width: 130px; font-size: 11px; color: var(--gray-light); text-align: right; }
+
+  /* RETRO */
+  .retro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .retro-col { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 0 0 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden; }
+  .retro-head { padding: 14px 18px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; }
+  .retro-head.good { background: var(--green); }
+  .retro-head.bad { background: var(--amber); }
+  .retro-head.act { background: var(--navy); }
+  .retro-item { padding: 11px 18px; font-size: 12px; line-height: 1.5; color: var(--gray); border-bottom: 1px solid #eef2f5; }
+  .retro-item:last-child { border-bottom: none; }
+  .retro-item b { color: #14222f; font-weight: 700; }
+
+  .footer { background: var(--navy-dark); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; margin-top: 40px; flex-wrap: wrap; gap: 8px; }
+  .footer-text { color: rgba(255,255,255,0.6); font-size: 10px; }
+  .footer-gold { color: var(--gold); font-size: 12px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+
+  @media (max-width: 820px) {
+    .kpi-row, .vel-grid, .retro-grid { grid-template-columns: 1fr; }
+    .dept-name { width: 120px; }
+  }
+</style>
+</head>
+<body>
+<div id="hub-nav"></div>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">BPP</div>
+    <div class="header-text">
+      <div class="header-title">Sprint 1 Review &amp; Retrospective</div>
+      <div class="header-sub">Internal Board &middot; Foundation sprint: stand up the operating system</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-period">Apr 7 &ndash; May 4, 2026</div>
+    <div class="header-date">Source: Monday.com BPP Internal board &middot; backfilled Jun 8, 2026</div>
+  </div>
+</div>
+
+<div class="page">
+  <a class="back-link" href="reviews.html">&larr; Back to Reviews</a>
+
+  <!-- SNAPSHOT -->
+  <div class="section-bar">
+    <div class="section-bar-title">Sprint Snapshot</div>
+    <div class="section-bar-sub">19 items committed &middot; 54 story points</div>
+  </div>
+  <div class="section-note">Source: Monday.com BPP Internal board (Sprint 1 dropdown + 1 carried item) &middot; Timeframe: Apr 7 &ndash; May 4, 2026</div>
+  <div class="kpi-row">
+    <div class="kpi-card green">
+      <div class="kpi-label">Completed</div>
+      <div class="kpi-value">18<span style="font-size:16px;color:var(--gray-light);"> / 19</span></div>
+      <div class="kpi-sub">95% of committed items</div>
+      <div class="kpi-source">Status = Done</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Points Delivered</div>
+      <div class="kpi-value">49<span style="font-size:16px;color:var(--gray-light);"> / 54</span></div>
+      <div class="kpi-sub">91% of committed points</div>
+      <div class="kpi-source">Story Points column</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Carried to Sprint 2</div>
+      <div class="kpi-value">1</div>
+      <div class="kpi-sub">5 points unfinished</div>
+      <div class="kpi-source">Kenny &middot; HubSpot Pipelines</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Criticals Shipped</div>
+      <div class="kpi-value">4<span style="font-size:16px;color:var(--gray-light);"> / 5</span></div>
+      <div class="kpi-sub">1 Critical carried over</div>
+      <div class="kpi-source">Priority = Critical</div>
+    </div>
+  </div>
+  <div style="background:#fdf0d0;border:1px solid #e8cf90;border-left:4px solid var(--amber);border-radius:8px;padding:14px 18px;margin:14px 0 4px;font-size:12px;line-height:1.6;color:#6b5618;"><b>Read this as a backfilled review.</b> Sprint 1 predates our review ritual, so it was reconstructed from the board's Sprint 1 tags after the fact. The window is inferred from item completion dates (Apr 8 &ndash; May 4); the board does not stamp Sprint 1 start and end, and a few items carry no completion date. The team closed 18 of 19. The one item that did not finish, Kenny's Critical Update HubSpot Pipelines, was pushed to Sprint 2. Remember too that Sprint 1 was internal foundation work, far more controllable than the outward client and sales push that defined Sprint 2.</div>
+
+  <!-- VELOCITY -->
+  <div class="section-bar">
+    <div class="section-bar-title">Velocity</div>
+    <div class="section-bar-sub">Story points committed vs delivered</div>
+  </div>
+  <div class="section-note">Source: Monday.com Story Points + Owner columns &middot; Timeframe: Apr 7 &ndash; May 4, 2026</div>
+  <div class="progress-row" style="margin-bottom:14px;">
+    <div class="progress-top">
+      <div class="lbl">Team velocity</div>
+      <div class="num">49 of 54 points delivered &middot; 18 of 19 items done</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:91%;background:var(--green);"></div></div>
+  </div>
+  <div class="vel-grid">
+    <div class="vel-card daunte">
+      <div class="vel-name">Daunte Benjamin</div>
+      <div class="vel-role">AI &amp; Tech + Finance &amp; Ops</div>
+      <div class="vel-pct" style="color:var(--green);">100%</div>
+      <div class="vel-stat"><span>Items</span><b>12 / 12 done</b></div>
+      <div class="vel-stat"><span>Points</span><b>28 / 28 done</b></div>
+    </div>
+    <div class="vel-card eli">
+      <div class="vel-name">Eli Fisher</div>
+      <div class="vel-role">Client Delivery &amp; Design</div>
+      <div class="vel-pct" style="color:var(--green);">100%</div>
+      <div class="vel-stat"><span>Items</span><b>6 / 6 done</b></div>
+      <div class="vel-stat"><span>Points</span><b>21 / 21 done</b></div>
+    </div>
+    <div class="vel-card kenny">
+      <div class="vel-name">Kenny Hawkins</div>
+      <div class="vel-role">Sales &amp; BD</div>
+      <div class="vel-pct" style="color:var(--amber);">0%</div>
+      <div class="vel-stat"><span>Items</span><b>0 / 1 done</b></div>
+      <div class="vel-stat"><span>Points</span><b>0 / 5 carried</b></div>
+    </div>
+  </div>
+  <div class="section-note" style="margin-top:10px;">Daunte and Eli closed everything they took. Kenny's single item, the Critical Update HubSpot Pipelines (5 pts), did not finish and was pushed to Sprint 2, where it carried again and is still open as of Sprint 3. "Send invoices" was a joint Daunte and Eli item, counted once under Daunte. The bulk of the sprint resting on two owners is a strength here, but it also flags a single-point-of-failure risk that the team addressed by widening ownership in Sprint 2.</div>
+
+  <!-- WHAT SHIPPED -->
+  <div class="section-bar">
+    <div class="section-bar-title">What Shipped</div>
+    <div class="section-bar-sub">18 items done &middot; 49 points</div>
+  </div>
+  <div class="section-note">Source: Monday.com items with Status = Done &middot; grouped by Department</div>
+
+  <div class="ship-group">
+    <div class="ship-group-head">Client Delivery &amp; Design &middot; 3 shipped</div>
+    <div class="ship-item">
+      <div class="ship-pts">13</div>
+      <div class="ship-body"><div class="ship-title">Finished the ICP and service-delivery playbook<span class="ship-crit">Critical</span></div><div class="ship-desc">The biggest item of the sprint. Defined who BPP sells to and how every engagement gets delivered.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">3</div>
+      <div class="ship-body"><div class="ship-title">Standardized onboarding and project-closeout decks<span class="ship-crit">Critical</span></div><div class="ship-desc">Repeatable kickoff and closeout decks, so every client gets the same polished bookends.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">1</div>
+      <div class="ship-body"><div class="ship-title">Reviewed and finalized the BPP PM Playbook with the team</div><div class="ship-desc">The project-management playbook signed off by the whole team.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+  </div>
+
+  <div class="ship-group">
+    <div class="ship-group-head">AI &amp; Tech &middot; 4 shipped</div>
+    <div class="ship-item">
+      <div class="ship-pts">5</div>
+      <div class="ship-body"><div class="ship-title">Pushed the HTML dashboard to GitHub Pages</div><div class="ship-desc">The internal tools hub got a permanent live URL, the front door this very page lives behind.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">3</div>
+      <div class="ship-body"><div class="ship-title">Stood up the BPP GitHub repo</div><div class="ship-desc">Source of truth for the team's code and tools, with version history.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">3</div>
+      <div class="ship-body"><div class="ship-title">Updated Claude project memory and context files</div><div class="ship-desc">Gave the AI workforce its operating context, so the assistants know how BPP works.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">1</div>
+      <div class="ship-body"><div class="ship-title">Ran GitHub repo training for Kenny and Eli</div><div class="ship-desc">Brought the rest of the team onto the GitHub workflow.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+  </div>
+
+  <div class="ship-group">
+    <div class="ship-group-head">Finance &amp; Operations &middot; 8 shipped</div>
+    <div class="ship-item">
+      <div class="ship-pts">5</div>
+      <div class="ship-body"><div class="ship-title">Completed the Q1 2026 Quarterly Review</div><div class="ship-desc">First full quarterly review closed out, the baseline for the Q1 dashboard.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">3</div>
+      <div class="ship-body"><div class="ship-title">Sent invoices</div><div class="ship-desc">Outstanding client invoices issued. Joint Daunte and Eli item.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">5</div>
+      <div class="ship-body"><div class="ship-title">Held the Apr 8 Wednesday session: offer simplification + economies of scale</div><div class="ship-desc">Strategy session that simplified the BPP offer set.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">1</div>
+      <div class="ship-body"><div class="ship-title">Closed the Apr 9 Wednesday meeting follow-up actions</div><div class="ship-desc">Action items from the weekly sync cleared.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">1</div>
+      <div class="ship-body"><div class="ship-title">Canceled unnecessary Webflow subscriptions</div><div class="ship-desc">Cost discipline. Trimmed recurring software spend.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">1</div>
+      <div class="ship-body"><div class="ship-title">Calculated Rodney's rev-share for Feb and Mar</div><div class="ship-desc">$237 owed, reconciled and ready to pay.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">1</div>
+      <div class="ship-body"><div class="ship-title">Moved agreed mini-sprint items from Backlog to Sprint Backlog</div><div class="ship-desc">Set up the board's sprint flow for the first time.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">1</div>
+      <div class="ship-body"><div class="ship-title">Canceled Todoist</div><div class="ship-desc">Cost discipline. Retired a redundant tool.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+  </div>
+
+  <div class="ship-group">
+    <div class="ship-group-head">Marketing &amp; Content &middot; 3 shipped</div>
+    <div class="ship-item">
+      <div class="ship-pts">3</div>
+      <div class="ship-body"><div class="ship-title">Updated social presence for consistency<span class="ship-crit">Critical</span></div><div class="ship-desc">Aligned the brand across social channels.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">2</div>
+      <div class="ship-body"><div class="ship-title">Updated business cards<span class="ship-crit">Critical</span></div><div class="ship-desc">New cards reflecting the current brand, ready to print and hand out.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-pts">1</div>
+      <div class="ship-body"><div class="ship-title">Developed a content posting schedule</div><div class="ship-desc">The cadence that the Sprint 2 newsletter and content engine later ran on.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+  </div>
+
+  <!-- CARRIED -->
+  <div class="section-bar">
+    <div class="section-bar-title">Carried into Sprint 2</div>
+    <div class="section-bar-sub">1 item &middot; 5 points unfinished</div>
+  </div>
+  <div class="section-note">Source: Monday.com &middot; this item was committed in Sprint 1, did not finish, and was re-tagged to Sprint 2 &middot; red bar = Critical priority</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>Item</th><th>Owner</th><th>Dept</th><th>Priority</th><th>Where it went</th><th style="text-align:center;">Pts</th></tr>
+    </thead>
+    <tbody>
+      <tr class="carry-crit"><td>Update HubSpot Pipelines</td><td>Kenny</td><td>Sales &amp; BD</td><td><span class="pill pill-crit">Critical</span></td><td><span class="pill pill-prog">Pushed to Sprint 2</span></td><td style="text-align:center;font-weight:700;">5</td></tr>
+    </tbody>
+  </table>
+  <div class="section-note" style="margin-top:8px;">Worth flagging: this same Critical did not close in Sprint 2 either, and it carried again into Sprint 3. A top-priority item open across three sprints is the clearest argument for the Sprint 2 lesson, protect and sequence the Criticals first.</div>
+
+  <!-- BY DEPARTMENT -->
+  <div class="section-bar">
+    <div class="section-bar-title">By Department</div>
+    <div class="section-bar-sub">Items done of committed</div>
+  </div>
+  <div class="section-note">Source: Monday.com Department column &middot; green = items completed</div>
+  <div class="progress-row">
+    <div class="dept-row"><div class="dept-name">Finance &amp; Operations</div><div class="dept-track"><div class="dept-done" style="width:100%;"></div></div><div class="dept-count">8 of 8 done</div></div>
+    <div class="dept-row"><div class="dept-name">AI &amp; Tech</div><div class="dept-track"><div class="dept-done" style="width:100%;"></div></div><div class="dept-count">4 of 4 done</div></div>
+    <div class="dept-row"><div class="dept-name">Client Delivery &amp; Design</div><div class="dept-track"><div class="dept-done" style="width:100%;"></div></div><div class="dept-count">3 of 3 done</div></div>
+    <div class="dept-row"><div class="dept-name">Marketing &amp; Content</div><div class="dept-track"><div class="dept-done" style="width:100%;"></div></div><div class="dept-count">3 of 3 done</div></div>
+    <div class="dept-row"><div class="dept-name">Sales &amp; BD</div><div class="dept-track"><div class="dept-done" style="width:0%;"></div></div><div class="dept-count">0 of 1 done</div></div>
+  </div>
+
+  <!-- RETRO -->
+  <div class="section-bar">
+    <div class="section-bar-title">Retrospective</div>
+    <div class="section-bar-sub">What went well &middot; What slowed us down &middot; Action items</div>
+  </div>
+  <div class="section-note">Observations derived from the board data above, viewed with the benefit of hindsight from Sprint 2. Edit before the team retro adds its own voice.</div>
+  <div class="retro-grid">
+    <div class="retro-col">
+      <div class="retro-head good">What went well</div>
+      <div class="retro-item"><b>A near-complete close.</b> 18 of 19 committed items done, 49 of 54 points. The only miss was a single Critical that carried.</div>
+      <div class="retro-item"><b>The operating system got built.</b> GitHub repo + Pages dashboard + team training, Claude memory and context, the PM playbook, the ICP and service-delivery playbook, standardized onboarding and closeout decks. The infrastructure that made every later sprint faster.</div>
+      <div class="retro-item"><b>Finance hygiene landed.</b> Canceled redundant subscriptions (Webflow, Todoist), closed the Q1 review, reconciled rev-share, sent invoices.</div>
+      <div class="retro-item"><b>Granular items closed cleanly.</b> Most of the sprint was 1 to 3 point items, and all of them finished inside the window.</div>
+    </div>
+    <div class="retro-col">
+      <div class="retro-head bad">What slowed us down</div>
+      <div class="retro-item"><b>A Critical carried, and kept carrying.</b> Kenny's Update HubSpot Pipelines (5 pts) was the one miss. It pushed to Sprint 2, did not close there either, and is open into Sprint 3. The pipeline work has been the hardest item to land.</div>
+      <div class="retro-item"><b>The bulk sat on two people.</b> Daunte and Eli carried 18 of the 19 items. A strong result, but a single-point-of-failure risk, and Kenny's lone item is exactly the one that slipped.</div>
+      <div class="retro-item"><b>No review or board-hygiene ritual yet.</b> Sprint 1 had no formal retro and the board was not yet a live system, which is why this review is a backfill. That missing habit became Sprint 2's biggest lesson.</div>
+      <div class="retro-item"><b>The work was inward-facing.</b> Setup and internal foundation is far more controllable than client and sales work. The high completion rate set an expectation that the outward push of Sprint 2 could not match.</div>
+    </div>
+    <div class="retro-col">
+      <div class="retro-head act">Action items it taught us</div>
+      <div class="retro-item"><b>Keep estimates granular.</b> Small items closed clean here; the heavier items that slipped in Sprint 2 proved the point. Keep work small enough to finish in the sprint.</div>
+      <div class="retro-item"><b>Widen ownership.</b> Spread the sprint beyond two people so no one is a single point of failure. Acted on in Sprint 2 by bringing Kenny in.</div>
+      <div class="retro-item"><b>Stand up the review and board-hygiene ritual.</b> Make the retro a standing habit and keep the board current as work moves, so reviews never have to be reconstructed again.</div>
+      <div class="retro-item"><b>Plan to a realistic velocity when scope turns outward.</b> Do not treat a near-perfect setup sprint as the standard for client-facing sprints. Plan to demonstrated pace, not the foundation-sprint high.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-text">Business Plans Plus LLC &middot; Temple Terrace, FL &middot; Internal Use Only &middot; Source: Monday.com BPP Internal board, backfilled Jun 8, 2026</div>
+  <div class="footer-gold">buildwithbpp.com</div>
+</div>
+
+<script src="../js/nav.js" data-page="strategy"></script>
+</body>
+</html>
