@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Lessons Learned Log - BPP</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771; --navy-dark: #033359; --blue: #5987A5; --blue-mid: #3a6d8f;
+    --gold: #F1BE5C; --gold-dark: #d4a43e; --bg: #edf1f5; --card-bg: #ffffff;
+    --card-border: #c8d3dc; --gray: #4a4a4a; --gray-light: #6B6B6B;
+    --green: #1a9e5c; --amber: #d4920a; --red: #c0392b;
+  }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #14222f; min-height: 100vh; }
+
+  .header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(4,71,113,0.3); flex-wrap: wrap; gap: 14px; }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .header-logo { width: 44px; height: 44px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: var(--navy-dark); box-shadow: 0 2px 8px rgba(241,190,92,0.4); }
+  .header-text { color: white; }
+  .header-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; }
+  .header-sub { font-size: 11px; font-weight: 300; opacity: 0.7; margin-top: 3px; }
+
+  .page { max-width: 920px; margin: 0 auto; padding: 32px 24px 64px; }
+  .back-link { display: inline-block; font-size: 11px; color: var(--blue-mid); text-decoration: none; margin-bottom: 18px; font-weight: 600; }
+  .back-link:hover { color: var(--navy); }
+  .intro { font-size: 13px; color: var(--gray); line-height: 1.6; background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--gold); border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; }
+  .format-note { font-size: 11px; color: var(--gray-light); line-height: 1.55; margin: 0 4px 26px; }
+  .format-note b { color: var(--navy); }
+
+  .entry { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 22px 26px; margin-bottom: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .entry-head { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 1px solid #eef2f5; padding-bottom: 12px; margin-bottom: 14px; flex-wrap: wrap; gap: 6px; }
+  .entry-title { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: var(--navy); }
+  .entry-tag { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.05em; background: #fdf0d0; color: var(--gold-dark); }
+  .entry-meta { font-size: 11px; color: var(--gray-light); margin-bottom: 6px; }
+  .placeholder { opacity: 0.7; text-align: center; padding: 18px; font-size: 12px; color: var(--gray-light); font-style: italic; }
+  .lesson { display: flex; gap: 12px; margin-bottom: 12px; font-size: 13px; line-height: 1.55; color: var(--gray); }
+  .lesson-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 6px; background: var(--navy); color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+  .lesson b { color: #14222f; font-weight: 700; }
+
+  .footer { background: var(--navy-dark); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; margin-top: 40px; flex-wrap: wrap; gap: 8px; }
+  .footer-text { color: rgba(255,255,255,0.6); font-size: 10px; }
+  .footer-gold { color: var(--gold); font-size: 12px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+</style>
+</head>
+<body>
+<div id="hub-nav"></div>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">BPP</div>
+    <div class="header-text">
+      <div class="header-title">Lessons Learned Log &middot; Clients</div>
+      <div class="header-sub">What each client engagement taught us, so the next one goes smoother</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <a class="back-link" href="reviews.html">&larr; Back to Reviews</a>
+
+  <div class="intro">
+    A running log of what each client engagement taught us. One entry per client, added at project closeout or at the end of a client sprint. Internal sprint lessons live in their own log: <a href="lessons-learned.html" style="color:var(--blue-mid);font-weight:600;">Internal Lessons Learned &rarr;</a>
+  </div>
+  <div class="format-note">
+    <b>What goes in each entry:</b> what worked and should become standard, what created friction and how we will avoid it next time, anything client-specific worth remembering (decision-makers, preferences, pacing), and any scope or pricing learning. Keep it honest and forward-looking.
+  </div>
+
+  <!-- SEEDFOLKids -->
+  <div class="entry">
+    <div class="entry-head">
+      <div class="entry-title">SEEDFOLKids</div>
+      <div class="entry-tag">Client</div>
+    </div>
+    <div class="placeholder">No closeout retro on file yet. Add lessons here at engagement close (30-day iteration closes Jun 20).</div>
+  </div>
+
+  <!-- Lois Marketing -->
+  <div class="entry">
+    <div class="entry-head">
+      <div class="entry-title">Lois Marketing</div>
+      <div class="entry-tag">Client</div>
+    </div>
+    <div class="placeholder">No closeout retro on file yet. Add lessons here at the end of the current engagement.</div>
+  </div>
+
+  <!-- Halo Commons -->
+  <div class="entry">
+    <div class="entry-head">
+      <div class="entry-title">Halo Commons &middot; HACO Pathways</div>
+      <div class="entry-tag">Client</div>
+    </div>
+    <div class="placeholder">No closeout retro on file yet. Add lessons here at the end of the current engagement.</div>
+  </div>
+
+  <!-- Financial Acuity -->
+  <div class="entry">
+    <div class="entry-head">
+      <div class="entry-title">Financial Acuity</div>
+      <div class="entry-tag">Client</div>
+    </div>
+    <div class="placeholder">No closeout retro on file yet. Add lessons here at the end of the current engagement.</div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-text">Business Plans Plus LLC &middot; Temple Terrace, FL &middot; Internal Use Only</div>
+  <div class="footer-gold">buildwithbpp.com</div>
+</div>
+
+<script src="../js/nav.js" data-page="strategy"></script>
+</body>
+</html>
