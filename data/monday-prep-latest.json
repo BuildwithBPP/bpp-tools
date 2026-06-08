@@ -1,27 +1,25 @@
 {
-  "week_of": "2026-05-18",
-  "generated_at": "2026-05-17T20:00:00",
+  "week_of": "2026-06-08",
+  "generated_at": "2026-06-08T11:30:00",
   "generation_mode": "auto",
   "test_mode": false,
-  "corrected_at": "2026-05-17T22:15:00",
-  "correction_note": "Sprint 2 re-verified against the 'Sprint 2 Backlog' GROUP on the Ops board (not the Sprint dropdown column, which had stale tags). True Sprint 2 = 8 items, 50 story points (Daunte 18 / Eli 19 / Kenny 13). North Star and suggested move reframed: the sprint is lean, the risk is WIP sprawl outside the sprint. AR framing corrected: HubSpot is the AR source of record.",
   "sources_status": {
-    "QB": "OK",
+    "QB": "PENDING",
     "HubSpot": "OK",
     "Monday": "OK",
     "Forecast": "OK",
     "Git": "OK",
-    "Outlook": "PARTIAL"
+    "Outlook": "OK"
   },
   "stale_flags": [
-    "Cash position is from the May 1 forecast (16 days old) — the QB transaction report carries P&L/spend detail but no bank balances, so cash refreshes at monthly close, not weekly",
-    "AR is tracked in HubSpot by design (closed-won deals + milestone schedule); QB reflects only activated invoices — this is the intended model, not a broken pipeline",
-    "Outlook digest covers Daunte's mailbox only — Kenny, Eli, and shared inboxes not granted to this session",
-    "5/11 meeting recap + decisions file were never filled in; carry-forward reconstructed from open decisions"
+    "Cash is from the May 1 forecast (38 days old) and the JUNE forecast has not been built — the May-forecast 'revisit June 1' checklist (Phase 2 activation, savings >= $3K) was never completed. Treat cash as the strongest available estimate, not current.",
+    "Sprint 2 (May 18 - Jun 5) has ended; Sprint 3 is not yet planned (only 4 loose Medium backlog items, no dates). The number below reflects the transition.",
+    "Monday 'overdue' on the Ops board is inflated by Not-Started backlog items with stale due dates; the real overdue signal is in Client Delivery (Financial Acuity).",
+    "AR remaining is a HubSpot estimate (no amount_paid field); QB transaction CSV was not pulled this run (MS365 read-only on the runner)."
   ],
-  "theme": "Close the Loop",
-  "theme_rationale": "Per Daunte 2026-05-10: too many things sit 50-60% finished and parked. Sprint 2 is planned and deliberately lean (8 items, 50 pts) — so closing loops this week means finishing those 8 and unsticking blocked client work, not starting more.",
-  "north_star": "Sprint 2 is small and focused — 8 items, 50 story points (Daunte 18 / Eli 19 / Kenny 13). It is not overcommitted; it's a lean, finishable sprint. The real risk is everything around it: all three owners are over the 2-item WIP limit on non-sprint work, Lois has 3 Blocked milestones, and SEEDFOLKids MS-1 is 8 days overdue. Commit to finishing the 8, hold WIP at 2, unblock Lois, and close SEEDFOLKids MS-1.",
+  "theme": "Convert to Cash",
+  "theme_rationale": "Lead-gen is working — pipeline grew from $7K to $12.5K with three fresh deals. The constraint has moved downstream to closing and cash: TwentyTen's $4,500 has sat at Verbal Commitment 15 days past its close date, operating is $321 under buffer, and Sprint 2 closed at 58%. This week is about finishing what's at the goal line, not starting more.",
+  "north_star": "Lead-gen is working (pipeline up to $12,500, three new deals) but closing and cash are the constraint: TwentyTen's $4,500 has sat at Verbal Commitment 15 days past close, operating is $321 under buffer, and Sprint 2 closed at 58% with five items rolling into an unplanned Sprint 3. Close the deals at the goal line, recover Financial Acuity, and plan Sprint 3 before starting anything new.",
   "operating_norms": [
     "$2K rule: below = DRI calls it. Above = team debate.",
     "Iron sharpens iron: defend with rationale, don't defer for harmony.",
@@ -33,53 +31,51 @@
     "Compensation / exit / strategic shifts (separate sessions)"
   ],
   "sprint": {
-    "number": 2,
-    "total": 2,
+    "number": 3,
+    "total": null,
     "day": 1,
-    "pct_done": 0,
-    "goal": "Not explicitly set on the board. Inferred from the 8 Sprint 2 items: ship the client-facing web assets (Resource Page, Free Resources, Survey Page), finish HubSpot pipeline cleanup, stand up the BPP Business Plan + client newsletter, and build the bpp-client-delivery plugin. Recommend the team state the one-line sprint goal out loud.",
-    "items_assigned": 8,
-    "items_in_progress": 1,
-    "items_done": 0,
-    "points_total": 50,
-    "group": "Sprint 2 Backlog — (May 18 - Jun 5)",
-    "dates": "2026-05-18 to 2026-06-05",
-    "items": [
-      {"name": "LinkedIn Outreach Campaign", "owner": "Kenny", "status": "Not Started", "priority": "Critical", "points": 8},
-      {"name": "Publish Resource Page", "owner": "Eli", "status": "Not Started", "priority": "Critical", "points": 8},
+    "pct_done": 58,
+    "goal": "TRANSITION WEEK. Sprint 2 (May 18 - Jun 5) closed at 58% (7 of 12 items Done). Five items carry over (29 pts): Outreach Campaign, Update HubSpot Pipelines, Finish BPP Business Plan, Develop Free Resources, Create Survey Page. Sprint 3 is NOT yet planned — only 4 loose Medium backlog items with no dates. Recommend: plan Sprint 3 today around finishing the 5 carryovers + Financial Acuity recovery before adding new scope.",
+    "sprint2_done": 7,
+    "sprint2_total": 12,
+    "carryover_items": [
+      {"name": "Outreach Campaign", "owner": "Kenny/Eli", "status": "In Progress", "priority": "Critical", "points": 8},
       {"name": "Update HubSpot Pipelines", "owner": "Kenny", "status": "In Progress", "priority": "Critical", "points": 5},
-      {"name": "Start a newsletter to all our clients", "owner": "Daunte", "status": "Not Started", "priority": "High", "points": 5},
-      {"name": "Finish BPP Business Plan", "owner": "Daunte", "status": "Not Started", "priority": "Critical", "points": 5},
-      {"name": "Build bpp-client-delivery plugin", "owner": "Eli", "status": "Not Started", "priority": "High", "points": 8},
-      {"name": "Develop Free Resources", "owner": "Daunte", "status": "Not Started", "priority": "High", "points": 8},
-      {"name": "Create Survey Page", "owner": "Eli", "status": "Not Started", "priority": "High", "points": 3}
-    ]
+      {"name": "Finish BPP Business Plan", "owner": "Daunte/Eli/Kenny", "status": "In Progress", "priority": "Critical", "points": 5},
+      {"name": "Develop Free Resources", "owner": "Daunte", "status": "In Progress", "priority": "High", "points": 8},
+      {"name": "Create Survey Page", "owner": "Eli/Daunte", "status": "Not Started", "priority": "High", "points": 3}
+    ],
+    "sprint2_review_url": "https://buildwithbpp.github.io/bpp-tools/pages/sprint-2-internal-review.html"
   },
   "top_three": [
-    {"title": "LinkedIn Outreach Campaign", "owner": "Kenny", "status": "Not Started", "points": 8},
-    {"title": "Publish Resource Page", "owner": "Eli", "status": "Not Started", "points": 8},
-    {"title": "Update HubSpot Pipelines (carryover, 10 subitems)", "owner": "Kenny", "status": "In Progress", "points": 5}
+    {"title": "Outreach Campaign (lead-gen engine — on the sprint North Star)", "owner": "Kenny/Eli", "status": "In Progress"},
+    {"title": "Update HubSpot Pipelines (carryover — clean pipeline supports closing)", "owner": "Kenny", "status": "In Progress"},
+    {"title": "Finish BPP Business Plan (carryover, shared)", "owner": "Daunte/Eli/Kenny", "status": "In Progress"}
   ],
   "suggested_move": {
-    "headline": "Close the loops around Sprint 2 — don't add to it. Commit to the 8 sprint items, hold WIP at 2, and unblock Lois + SEEDFOLKids before they slip further.",
-    "reasoning": "Sprint 2 is deliberately lean — 8 items, 50 points (Daunte 18 / Eli 19 / Kenny 13), well under the team's ~75-105 ceiling. The sprint isn't the problem. The problem is everything around it: all three owners are over the 2-item WIP limit on in-progress work that isn't even in the sprint, Lois has 3 Blocked milestones, and SEEDFOLKids MS-1 is 8 days overdue. The move is discipline, not scope — finish the 8, stop starting non-sprint items, and clear the client blockers. A lean sprint that actually closes beats a busy week with nothing finished."
+    "headline": "Convert pipeline to cash: close TwentyTen Motors ($4,500, 15 days past its close date at Verbal Commitment) and push Merge Pro + Hyacinthe ($6,500 in fresh proposals) to signature. Closing is the bottleneck now, not lead-gen.",
+    "reasoning": "Pipeline grew from $7K to $12.5K with three new deals this period, so lead-gen is working — the sprint North Star's first job is done. The leak is at the close: TwentyTen has sat at Verbal Commitment 15 days past its 5/24 close date, and operating is $321 under the 2-month buffer. AR is already landing (Jeannette $960 collected 6/4, $927 payout 6/8), which proves the cash engine works when deals close. Spend this week converting the $11K at the goal line rather than sourcing more."
   },
   "overdue": [
-    {"title": "SEEDFOLKids MS-1 — Branding + Foundation", "owner": "Daunte/Eli", "days_overdue": 8},
-    {"title": "Financial Acuity — Internal Review / Client Review / Project Close Out", "owner": "Daunte", "days_overdue": 9},
-    {"title": "SEEDFOLKids — Internal Review / Client Review / Project Close Out", "owner": "Eli", "days_overdue": 6}
+    {"title": "Financial Acuity — MS-2 Website Build", "owner": "Eli", "days_overdue": 31},
+    {"title": "Financial Acuity — MS-3 Intake System (HubSpot)", "owner": "Kenny", "days_overdue": 54},
+    {"title": "Financial Acuity — MS-4 GBP Setup", "owner": "Kenny", "days_overdue": 54},
+    {"title": "Financial Acuity — Internal Review / Client Review / Close Out / Project Review", "owner": "Daunte", "days_overdue": 28},
+    {"title": "SEEDFOLKids — Project Close Out", "owner": "Eli", "days_overdue": 51}
   ],
+  "overdue_note": "Client Delivery only. Ops-board 'overdue' counts (10/6/5) are stale Not-Started backlog dates, excluded here.",
   "clients_at_risk": [
-    {"name": "Lois Marketing", "flag_reason": "MS-2 Marketing Playbook fully Blocked, MS-3 CRM Audit mostly Blocked, MS-1 sign-off Blocked — three milestones stuck", "owner": "Eli/Kenny"},
-    {"name": "SEEDFOLKids", "flag_reason": "MS-1 Branding 8 days overdue; logo + client-review subitems still In Progress", "owner": "Eli/Daunte"},
-    {"name": "Financial Acuity", "flag_reason": "MS-2 Website Build stalled (4/5 pages Not Started); Review/Closeout milestones overdue. Website-review meeting accepted by Maxine this week — momentum opportunity", "owner": "Daunte/Eli/Kenny"},
-    {"name": "HALO Commons", "flag_reason": "$824.50 closeout invoiced 4/27 (INV-1027); completion uncertain per prior transcript", "owner": "Eli"}
+    {"name": "Financial Acuity", "flag_reason": "7 milestones overdue (Website Build, Intake, GBP, all 4 review/closeout); Review Service Playbook + GBP verification Blocked. Offsetting momentum: Maxine actively reviewing the website and sending change requests, BUT the 6/6 website review meeting was CANCELED and needs a reschedule.", "owner": "Daunte/Eli/Kenny"},
+    {"name": "SEEDFOLKids", "flag_reason": "In closeout; Project Close Out overdue since 4/18; 1 Blocked subitem (Wix site-management guide). 30-day iteration window closes 6/20. MS-1 Branding is now Done (was 8 days overdue last brief).", "owner": "Eli/Daunte"},
+    {"name": "HALO Commons", "flag_reason": "$824.50 closeout still open (INV-1027). Felicia floating a new 'mobile camper / HALO Pathways' idea and wants to talk — relationship + possible upsell.", "owner": "Eli"},
+    {"name": "Lois Marketing", "flag_reason": "WATCH (improving): no longer Blocked (was 3 Blocked milestones last brief); MS-2 Playbook + MS-5 Website Audit In Progress; Website Design Review meeting scheduled. ~$3,150 of milestones still owed.", "owner": "Eli/Kenny"}
   ],
   "cold_deals": [],
+  "cold_deals_note": "No cold deals — all 5 open deals were touched in June.",
   "wip_violations": [
-    {"owner": "Daunte", "in_flight": 11, "limit": 2},
-    {"owner": "Kenny", "in_flight": 4, "limit": 2},
-    {"owner": "Eli", "in_flight": 3, "limit": 2}
+    {"owner": "Daunte", "in_flight": 14, "limit": 2},
+    {"owner": "Kenny", "in_flight": 10, "limit": 2},
+    {"owner": "Eli", "in_flight": 7, "limit": 2}
   ],
   "cash": {
     "operating": 3328,
@@ -90,145 +86,121 @@
     "buffer_gap": -321,
     "savings_pct_to_phase2": 93,
     "as_of_date": "2026-05-01",
-    "source": "May 1 forecast — QB transaction report carries P&L/spend detail but no bank balances; cash refreshes at monthly close"
+    "source": "May 1 forecast — June forecast not yet built; cash refreshes at monthly close",
+    "collections_since_note": "Confirmed collections since the forecast: Jeannette Bradley $960 (INV-1031, paid 6/4) and a $927.36 HubSpot payout landing 6/8. These likely push savings over the $3K Phase-2 trigger, but unconfirmed until the June close."
   },
   "ar_layers": {
     "source_of_record": "HubSpot",
-    "model": "Each closed-won deal carries a quote with up to 3 milestone invoices. Invoice 1 is activated when the client signs and flows to QuickBooks. Invoices 2 and 3 stay in draft (not activated) and do NOT appear in QuickBooks — they live in HubSpot. So HubSpot holds the full committed-AR picture; QB shows only what's been activated.",
+    "model": "Each closed-won deal carries up to 3 milestone invoices. Invoice 1 activates at signing and flows to QuickBooks; invoices 2-3 stay in draft and live only in HubSpot. HubSpot holds the full committed-AR picture; QB shows only activated invoices.",
     "layer_qb_activated": {
-      "note": "QuickBooks reflects only activated invoices — the smallest true number. Recent: INV-1029 Wanda $500, INV-1027 HALO Commons $824.50, INV-1028 Wanda $449.25, INV-1026 Lois $1,350."
+      "note": "QB transaction CSV not pulled this run (MS365 read-only). Most recent activated-invoice signal from email: INV-1031 paid 6/4 ($960, Jeannette Bradley)."
     },
     "layer_hubspot_committed": {
       "status": "OK",
       "deals": [
-        {"name": "Lois Marketing — Operator System", "amount": 4500, "payment_status": "(blank)", "estimated_remaining": 3150, "note": "30/40/30; $1,350 deposit invoiced INV-1026; $1,800 + $1,350 still in draft; halfway milestone meeting/invoice dated 5/19"},
-        {"name": "Financial Acuity — Growth Package", "amount": 3350, "payment_status": "Deposit Received", "estimated_remaining": 1000, "note": "Maxine; $1,000 next milestone (high)"},
-        {"name": "Xtremely Clean — Automation/CRM", "amount": 3315, "payment_status": "Deposit Received", "estimated_remaining": 500, "note": "Wanda; $500 owed (high)"},
-        {"name": "SEEDFOLkids — Strategic Planning", "amount": 3200, "payment_status": "Deposit Received", "estimated_remaining": null, "note": "Remaining split unknown"},
-        {"name": "Halo Commons — Launch Pad", "amount": 1649, "payment_status": "Deposit Received", "estimated_remaining": 824.5, "note": "Closeout invoiced 4/27 as INV-1027"},
-        {"name": "Wedelia Wellness — P1", "amount": 1248, "payment_status": "Deposit Received", "estimated_remaining": null},
-        {"name": "Xtremely Clean — Hourly (10 hrs)", "amount": 500, "payment_status": "Pending", "estimated_remaining": 500, "note": "Fully owed"}
+        {"name": "Lois Marketing LLC - Operator System", "amount": 4500, "payment_status": "(blank)", "estimated_remaining": 3150, "note": "30/40/30; $1,350 deposit in; $1,800 + $1,350 still owed"},
+        {"name": "Financial Acuity - Growth Package", "amount": 3350, "payment_status": "Deposit Received", "estimated_remaining": 1000, "note": "Maxine; next milestone ~$1,000"},
+        {"name": "Xtremely Clean - Automation/CRM", "amount": 3315, "payment_status": "Deposit Received", "estimated_remaining": 500, "note": "Wanda"},
+        {"name": "SEEDFOLkids - Strategic Planning", "amount": 3200, "payment_status": "Deposit Received", "estimated_remaining": null, "note": "Remaining split unknown"},
+        {"name": "Halo Commons - Launch Pad", "amount": 1649, "payment_status": "Deposit Received", "estimated_remaining": 824.5, "note": "Closeout INV-1027"},
+        {"name": "Wedelia Wellness - P1", "amount": 1248, "payment_status": "Deposit Received", "estimated_remaining": null},
+        {"name": "Xtremely Clean - 10 hrs consulting", "amount": 500, "payment_status": "Pending", "estimated_remaining": 500, "note": "Fully owed"}
       ],
       "estimated_remaining_known": 5974.5,
-      "note": "HubSpot has contract amounts and milestone schedules but no amount_paid / remaining field, so per-deal remaining is an estimate. ~$6K of known remaining milestones across closed-won deals."
+      "note": "~$6K of known remaining milestones across closed-won deals; HubSpot has no amount_paid field, so per-deal remaining is an estimate."
     }
   },
   "ar_scenarios": [
-    {"name": "Conservative", "receivables_in": 4260, "expenses_out": -2100, "ending_operating": 5488, "savings_after": 3453, "hits_phase2": true, "highlight": false, "detail": "Highs only: Wanda $500, Lois milestone $1,800, Jeannette $960, Maxine $1,000."},
+    {"name": "Conservative", "receivables_in": 4260, "expenses_out": -2100, "ending_operating": 5488, "savings_after": 3453, "hits_phase2": true, "highlight": false, "detail": "From May forecast (highs only): Wanda $500, Lois $1,800, Jeannette $960, Maxine $1,000. NOTE: Jeannette $960 already collected 6/4."},
     {"name": "Realistic", "receivables_in": 5085, "expenses_out": -2100, "ending_operating": 6313, "savings_after": 3700, "hits_phase2": true, "highlight": true, "detail": "+ HALO Commons $824.50."},
     {"name": "Stretch", "receivables_in": 6434, "expenses_out": -2100, "ending_operating": 7663, "savings_after": 4105, "hits_phase2": true, "highlight": false, "detail": "+ Lois closeout $1,350. Within reach of Phase 3."}
   ],
+  "ar_scenarios_note": "Carried from the May 1 forecast — the June forecast has not been built. Rebuild with June actuals (Jeannette $960 already in).",
   "pipeline": {
-    "total": 7000,
-    "count": 4,
-    "hot_count": 1,
-    "hot_value": 4500,
+    "total": 12500,
+    "count": 5,
+    "hot_count": 3,
+    "hot_value": 6500,
     "cold_count": 0,
     "cold_value": 0,
-    "verified_date": "2026-05-17",
-    "owner_attribution_note": "Curbology + Legacy B. Studio carry HubSpot owner-id 158851882 (Kenny or Eli, now attributed). Verify which.",
+    "verified_date": "2026-06-08",
+    "owner_attribution_note": "New June deals (R Ward, Hyacinthe, Merge Pro) carry HubSpot owner-id 158851883 (inferred Kenny — he is prepping the R Ward discovery call). 158851882 = inferred Eli; 158829628 = Daunte. Confirm Kenny/Eli are formally added as HubSpot owners.",
     "deals": [
-      {"name": "TwentyTen Motors", "amount": 4500, "stage": "Verbal Commitment", "owner": "Daunte", "last_activity": "2026-05-17", "closedate": "2026-05-24", "closedate_status": "future-hot"},
-      {"name": "Curbology", "amount": null, "stage": "Qualified & Working", "owner": "158851882", "last_activity": "2026-05-16", "closedate": "2026-05-13", "closedate_status": "past"},
-      {"name": "Cape to the Bay — Cowork Setup", "amount": 1000, "stage": "Qualified & Working", "owner": "Daunte", "last_activity": "2026-05-17", "closedate": null, "closedate_status": "unset"},
-      {"name": "Legacy B. Studio - Website", "amount": 1500, "stage": "Qualified & Working", "owner": "158851882", "last_activity": "2026-05-16", "closedate": "2026-04-06", "closedate_status": "past"}
+      {"name": "Merge Pro", "amount": 4500, "stage": "Proposal Sent", "owner": "Kenny?", "last_activity": "2026-06-07", "closedate": "2026-06-16", "closedate_status": "future-hot"},
+      {"name": "Hyacinthe Property Management", "amount": 2000, "stage": "Proposal Sent", "owner": "Kenny?", "last_activity": "2026-06-05", "closedate": "2026-06-22", "closedate_status": "future-hot"},
+      {"name": "TwentyTen Motors", "amount": 4500, "stage": "Verbal Commitment", "owner": "Daunte", "last_activity": "2026-06-06", "closedate": "2026-05-24", "closedate_status": "LAPSED 15 days — biggest deal stuck at the goal line"},
+      {"name": "R Ward Events", "amount": null, "stage": "Discovery Scheduled", "owner": "Kenny?", "last_activity": "2026-06-03", "closedate": "2026-06-22", "closedate_status": "future"},
+      {"name": "Legacy B. Studio - Website", "amount": 1500, "stage": "Qualified & Working", "owner": "Eli?", "last_activity": "2026-06-03", "closedate": "2026-04-06", "closedate_status": "closedate stale (no amount risk)"}
     ]
   },
-  "phase": {"current": "Phase 1", "next_trigger": "Savings >= $3K (93% there)", "transitioning_to": "Phase 2"},
+  "phase": {"current": "Phase 1", "next_trigger": "Savings >= $3K (93% there; likely crossed with June collections — confirm at June close)", "transitioning_to": "Phase 2"},
   "capacity_per_owner": {
-    "Daunte": {
-      "in_flight": 11,
-      "overdue": 4,
-      "shipped_last_wk": 2,
-      "sprint2_points": 18,
-      "sprint2_items": 3,
-      "commits_last_7d": 5,
-      "day_job_flag": "RS&H bandwidth limited",
-      "parents_in_progress": ["Build BPP Internal Home Hub (8pt)", "Install design MCPs / UI-UX Pro Max (5pt)", "Create rollout plan for website (3pt)"],
-      "subitems_in_progress": ["BPP Operations Hub", "Packages and ICP", "BPP Delivery System", "Automation Items", "SEEDFOLKids MS-1 (shared)", "Financial Acuity MS-1 / CFO QuickBooks Deliverable", "Create SEEDFOLKids logo", "Review Draft with Client", "present the Guidelines"],
-      "note": "Almost none of Daunte's in-flight work is in Sprint 2 — it's non-sprint WIP sprawl.",
-      "shipped_last_wk_items": ["Publish first BPP LinkedIn newsletter", "Ops cleanup items re-stamped Done 5/17"]
-    },
-    "Kenny": {
-      "in_flight": 4,
-      "overdue": 1,
-      "shipped_last_wk": 1,
-      "sprint2_points": 13,
-      "sprint2_items": 2,
-      "commits_last_7d": 0,
-      "day_job_flag": "Recovery context (ongoing)",
-      "parents_in_progress": ["Update HubSpot Pipelines (Critical 5pt, Sprint 2)"],
-      "subitems_in_progress": ["Deal Pipeline", "Schedule Training For Review (SEEDFOLKids MS-3)", "Schedule Intake Form Review Training (Financial Acuity MS-3)"],
-      "shipped_last_wk_items": ["Draft email template + LinkedIn template (Lois MS-2)"]
-    },
-    "Eli": {
-      "in_flight": 3,
-      "overdue": 3,
-      "shipped_last_wk": 2,
-      "sprint2_points": 19,
-      "sprint2_items": 3,
-      "commits_last_7d": 0,
-      "day_job_flag": "Most BPP time of any owner",
-      "parents_in_progress": ["SEEDFOLKids MS-1 Branding (shared, overdue)", "Financial Acuity MS-2 Website Build", "4th-client Project Kickoff"],
-      "subitems_in_progress": [],
-      "shipped_last_wk_items": ["Add favicon to Webflow site", "Cancel Todoist"]
-    }
+    "Daunte": {"in_flight": 14, "overdue": null, "points": 8, "day_job_flag": "RS&H bandwidth limited", "note": "in_flight = union of In-Progress across Ops parents (4) + Ops subitems (4) + Client Delivery (6). points = carryover sprint commit (Develop Free Resources 8, primary)."},
+    "Kenny": {"in_flight": 10, "overdue": null, "points": 13, "day_job_flag": "Recovery context (ongoing)", "note": "carryover: Outreach 8 (shared) + Update HubSpot Pipelines 5"},
+    "Eli": {"in_flight": 7, "overdue": null, "points": 3, "day_job_flag": "Most BPP time of any owner", "note": "carryover: Create Survey Page 3 (+ shared Outreach, Business Plan)"}
   },
-  "capacity_method": "Sprint 2 = the 8 items in the 'Sprint 2 Backlog — (May 18 - Jun 5)' GROUP on the Ops board (18406003425), verified by direct board pull 2026-05-17. The Sprint dropdown column is NOT used as the signal — it had stale 'Sprint 2' tags on items moved back to Product Backlog. Points = color_mm267yph. in_flight = items In Progress (parents + subitems) across Ops + Client Delivery; every named owner on a shared item gets full credit. WIP violation = in_flight > 2.",
-  "capacity_alert": "Sprint 2 is small — 8 items, 50 points across 3 people (Daunte 18, Eli 19, Kenny 13), well under the ~75-105 healthy team range. The sprint is not the capacity risk. The risk is WIP: all three owners have more in progress (Daunte ~11, Kenny ~4, Eli ~3) than the 2-item limit allows, and most of that in-progress work isn't even in Sprint 2. The fix is finishing and closing, not loading.",
+  "capacity_alert": "All three owners are far over the 2-item WIP limit (Daunte ~14, Kenny ~10, Eli ~7) — the same chronic pattern as the last two briefs. With Sprint 2 closed and Sprint 3 unplanned, this is the moment to drain WIP, not refill it: finish the 5 carryovers and the Financial Acuity recovery before committing new Sprint 3 scope.",
   "shipped_last_week": [
-    {"repo": "bpp-tools", "commit_summary": "8765712 Strategic Plan v6 — team feedback updates for board review", "author": "Daunte"},
-    {"repo": "bpp-tools", "commit_summary": "65c7efc Add 2026-2027 Strategic Plan page to Hub", "author": "Daunte"},
-    {"repo": "bpp-tools", "commit_summary": "e643500 Add Khaleel workspace setup guide", "author": "Daunte"},
-    {"repo": "bpp-tools", "commit_summary": "43740a6 Add bpp-workspace shipments + repo card to builds page", "author": "Daunte"},
-    {"repo": "BPP Workspace", "commit_summary": "0ead76f Add design spec for bpp-meeting-sync skill", "author": "Daunte"}
+    {"repo": "bpp-tools", "commit_summary": "3a1bc8e Add Sprint 2 review & retrospective + lessons-learned log to hub", "author": "Eli"},
+    {"repo": "bpp-tools", "commit_summary": "fca5cb2 Sync hub Skill Dictionary to current 62-skill workspace", "author": "Eli"},
+    {"repo": "Monday/Ops", "commit_summary": "Publish Resource Page (Done 6/1)", "author": "Eli"},
+    {"repo": "Monday/Ops", "commit_summary": "Build bpp-client-delivery plugin (Done 6/2)", "author": "Eli"},
+    {"repo": "Monday/Ops", "commit_summary": "Create rollout plan for website (Done 6/1)", "author": "Daunte"},
+    {"repo": "Monday/Ops", "commit_summary": "Start a newsletter to all our clients (Done 5/27)", "author": "Daunte"}
   ],
   "carry_forward": {
     "open_decisions": [
-      "Validate Worker pipeline end-to-end (Daunte, due 2026-05-18 today)",
-      "Wanda Plan B 1-pager — 3 scenarios (Daunte drafts, Eli reviews, due 2026-05-22)",
-      "Build dummy QB / HubSpot / LivePlan accounts for cross-training (Daunte, due 2026-05-20)",
-      "Friday feedback survey — owner was unassigned; now likely Eli via the Sprint 2 Create Survey Page item"
+      "Validate Worker pipeline end-to-end (Daunte, was due 5/18) — still OPEN",
+      "Wanda Plan B 1-pager, 3 scenarios (Daunte drafts / Eli reviews, was due 5/22) — still OPEN",
+      "Build dummy QB / HubSpot / LivePlan accounts for cross-training (Daunte, was due 5/20) — still OPEN",
+      "Friday feedback survey — now the Sprint 2 'Create Survey Page' carryover (Eli) — still Not Started",
+      "June-1 checkpoint never completed: Savings cross $3K? / Operating recover > $3,649? / Phase 3 in sight? / June forecast built? — the June forecast is NOT built"
     ],
     "incomplete_commits": [],
-    "deferred_parking_lot": [],
-    "note": "No 2026-05-11 recap file exists; carry-forward reconstructed from monday-decisions.json open items."
+    "deferred_parking_lot": [
+      "Client Delivery / Ops subitem date re-baselining (stale April timelines inflate overdue counts)",
+      "Two-board friction (Operations vs. Client Projects)"
+    ],
+    "note": "The 2026-06-01 decisions file was left as a template (the 6/1 meeting decisions were never filled in). Carry-forward reconstructed from its status-check section, which carried from 5/18."
   },
   "prior_decisions": [
     {"status": "OPEN", "decision": "Validate Worker pipeline end-to-end", "owner": "Daunte", "set_date": "2026-05-11", "due_date": "2026-05-18"},
-    {"status": "OPEN", "decision": "Add a Wanda Plan B 1-pager to the strategic plan before Eli's review session (3 scenarios: Package B $8.5K / signs-but-ghosts / walks)", "owner": "Daunte (drafts) + Eli (reviews)", "set_date": "2026-05-15", "due_date": "2026-05-22"},
+    {"status": "OPEN", "decision": "Wanda Plan B 1-pager (3 scenarios)", "owner": "Daunte + Eli", "set_date": "2026-05-15", "due_date": "2026-05-22"},
     {"status": "IN_FLIGHT", "decision": "Kenny takes Marketing & Content DRI; Daunte steps back as backup", "owner": "Kenny + Daunte", "set_date": "2026-05-06", "due_date": null},
     {"status": "OPEN", "decision": "Build dummy QB / HubSpot / LivePlan accounts for cross-training", "owner": "Daunte", "set_date": "2026-05-06", "due_date": "2026-05-20"},
-    {"status": "OPEN", "decision": "Set up Friday feedback survey (Cellstaff/15Five model)", "owner": "TBD", "set_date": "2026-05-06", "due_date": null},
-    {"status": "OPEN", "decision": "Daunte researches HR / contractor / procurement role shape before HR chair is named", "owner": "Daunte", "set_date": "2026-05-06", "due_date": null},
-    {"status": "OPEN", "decision": "Schedule compensation framework conversation (separate session)", "owner": "Daunte", "set_date": "2026-05-06", "due_date": null}
+    {"status": "OPEN", "decision": "Set up Friday feedback survey (now Sprint 2 Create Survey Page)", "owner": "Eli", "set_date": "2026-05-06", "due_date": null},
+    {"status": "OPEN", "decision": "Daunte researches HR / contractor / procurement role shape", "owner": "Daunte", "set_date": "2026-05-06", "due_date": null},
+    {"status": "OPEN", "decision": "Schedule compensation framework conversation (separate session)", "owner": "Daunte", "set_date": "2026-05-06", "due_date": null},
+    {"status": "OPEN", "decision": "June-1 checkpoint: build June forecast + confirm Phase 2 activation (savings >= $3K)", "owner": "Daunte", "set_date": "2026-06-01", "due_date": "2026-06-01"}
   ],
   "inbox_digest": {
-    "Daunte": {
-      "vip_count": 1,
-      "batch_count": 4,
-      "auto_archive_count": 16,
+    "Eli": {
+      "vip_count": 4,
       "vip_items": [
-        {"from": "daunte@buildwithbpp.com (thread)", "subject": "Re: FW: Moffitt grant — Root to Radiance Garden Wellness", "received": "2026-05-16", "snippet": "Grant justification thread for Wedelia Wellness (Root to Radiance) — client-tagged; align invoice justifications", "client_tagged": "Wedelia Wellness"}
+        {"from": "maxine289@outlook.com", "subject": "Re: Financial Acuity's Website is Ready for Review", "received": "2026-06-06", "snippet": "Active review + change requests (remove country selection from phone field). Momentum — but the 6/6 website review meeting was canceled; reschedule.", "client_tagged": "Financial Acuity"},
+        {"from": "felicia@halocommons.com", "subject": "Re: IDEA", "received": "2026-06-05", "snippet": "Mobile camper idea for HALO Pathways; wants to schedule a deeper talk — relationship/upsell.", "client_tagged": "HALO Commons"},
+        {"from": "admin@buildwithbpp.com", "subject": "Website Design Review | Lois Marketing x BPP", "received": "2026-06-06", "snippet": "Design review meeting scheduled with Lois.", "client_tagged": "Lois Marketing"},
+        {"from": "kenny@buildwithbpp.com", "subject": "Robin, Let's Prep For Our Call!", "received": "2026-06-03", "snippet": "Kenny prepping R Ward Events discovery call (new pipeline deal).", "client_tagged": "R Ward Events"}
       ],
-      "batch_items_note": "Maxine accepted the Financial Acuity website review meeting; Microsoft invoice; HubSpot password/email-confirm; Cape to the Bay deal-owner reassignment from HubSpot"
+      "money_signals": ["Jeannette Bradley $960 paid 6/4 (INV-1031)", "$927.36 HubSpot payout landing 6/8"],
+      "flags": ["'Weekly Business Meeting' invite canceled 6/6 (Daunte, high importance) — confirm today's CEO meeting is on", "Financial Acuity 'Website Update' meeting canceled 6/6 — reschedule"]
     },
-    "Kenny": {"note": "mailbox not accessible from this session"},
-    "Eli": {"note": "mailbox not accessible from this session"},
-    "shared": {"note": "admin/info shared inboxes not granted"}
+    "Kenny": {"note": "not separately pulled; Eli is CC'd on most shared client threads"},
+    "Daunte": {"note": "not separately pulled this run"},
+    "shared": {"note": "admin@ / info@ surfaced via Eli's inbox (meeting invites)"}
   },
-  "inbox_rollup": "1 VIP + ~4 batch + ~16 auto-archive in Daunte's mailbox (Kenny/Eli/shared not reachable). Most volume is Monday.com assignment notifications from Sprint 2 planning.",
+  "inbox_rollup": "4 VIP across client threads (Financial Acuity, HALO, Lois, R Ward) in Eli's mailbox; 74 messages in the last 7 days, most being HubSpot/SharePoint/newsletter notifications. Two money-in signals ($960 + $927 payout).",
   "drift_signals": [
-    "All three owners over the 2-item WIP limit — Daunte ~11 in flight, much of it outside Sprint 2. The real capacity story; the 8-item sprint itself is lean",
-    "Sprint 2 is small (8 items, 50 pts) — the question is whether the team finishes it while also clearing client blockers",
-    "Forecast file is 16 days old — cash refreshes at June monthly close",
-    "Lois Marketing has 3 Blocked milestones — delivery stalled",
-    "Curbology has no amount set and a 4-day-past closedate",
-    "Client Delivery subitem dates are stale (April timelines never re-baselined) — inflates overdue counts",
-    "5/11 meeting recap + decisions file never filled in — recap chain has a gap",
-    "Marketing transition kit / KT sessions show no visible progress"
+    "June forecast not built — running on May 1 cash (38 days old); the June-1 checkpoint (Phase 2 activation, savings >= $3K) was never completed",
+    "Sprint 2 closed at 58% (7/12) and Sprint 3 is unplanned — only 4 loose Medium backlog items, no dates",
+    "TwentyTen Motors $4,500 has been at Verbal Commitment 15 days past its 5/24 close date — biggest deal stuck at the goal line",
+    "Financial Acuity has 7 overdue milestones + 2 Blocked; the 6/6 website review meeting was canceled and needs a reschedule",
+    "All three owners far over WIP=2 (Daunte ~14, Kenny ~10, Eli ~7) — chronic",
+    "Weekly Business Meeting invite was canceled 6/6 — verify whether today's meeting is on",
+    "Client Delivery / Ops subitem due dates still stale (April timelines never re-baselined) — inflates overdue counts",
+    "HubSpot owner attribution still unresolved: new June deals under id 158851883 (inferred Kenny) — formally add Kenny + Eli as HubSpot owners"
   ],
-  "qc_schedule": {"next_qb_qc": "2026-06-01", "next_hubspot_qc": "TBD", "next_drive_qc": "TBD"},
+  "qc_schedule": {"next_qb_qc": "TBD", "next_hubspot_qc": "TBD", "next_drive_qc": "TBD"},
   "parking_lot": [
     "Two-board friction (Operations vs. Client Projects)",
     "Compensation framework conversation",
