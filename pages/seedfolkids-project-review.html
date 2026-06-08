@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEEDFOLKids Project Review &amp; Retrospective - BPP Internal</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771; --navy-dark: #033359; --blue: #5987A5; --blue-mid: #3a6d8f;
+    --gold: #F1BE5C; --gold-dark: #d4a43e; --bg: #edf1f5; --card-bg: #ffffff;
+    --card-border: #c8d3dc; --section-bg: #e2e9f0; --gray: #4a4a4a; --gray-light: #6B6B6B;
+    --green: #1a9e5c; --green-light: #d4f0e1; --red: #c0392b; --red-light: #f5d5d1;
+    --amber: #d4920a; --amber-light: #fdf0d0;
+    --daunte: #5987A5; --kenny: #1a9e5c; --eli: #d4a43e;
+  }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #14222f; min-height: 100vh; }
+
+  .header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(4,71,113,0.3); flex-wrap: wrap; gap: 14px; }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .header-logo { width: 44px; height: 44px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: var(--navy-dark); box-shadow: 0 2px 8px rgba(241,190,92,0.4); }
+  .header-text { color: white; }
+  .header-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+  .header-sub { font-size: 11px; font-weight: 300; opacity: 0.7; margin-top: 3px; }
+  .header-right { text-align: right; color: white; }
+  .header-period { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: var(--gold); }
+  .header-date { font-size: 10px; opacity: 0.55; margin-top: 3px; }
+
+  .page { max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px; }
+  .back-link { display: inline-block; font-size: 11px; color: var(--blue-mid); text-decoration: none; margin-bottom: 18px; font-weight: 600; }
+  .back-link:hover { color: var(--navy); }
+
+  .section-bar { background: var(--navy); border-radius: 8px; padding: 14px 24px; margin: 38px 0 8px; display: flex; align-items: center; justify-content: space-between; }
+  .section-bar-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.1em; }
+  .section-bar-sub { font-size: 10px; color: rgba(255,255,255,0.65); }
+  .section-note { font-size: 10px; color: var(--gray-light); margin: 4px 4px 16px; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .kpi-card { background: var(--card-bg); border-radius: 10px; padding: 18px; border: 1px solid var(--card-border); text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .kpi-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-light); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; color: var(--navy); }
+  .kpi-sub { font-size: 11px; color: var(--gray-light); margin-top: 4px; }
+  .kpi-card.gold { border-left: 5px solid var(--gold); }
+  .kpi-card.green { border-left: 5px solid var(--green); }
+  .kpi-card.red { border-left: 5px solid var(--red); }
+  .kpi-card.amber { border-left: 5px solid var(--amber); }
+
+  .ship-group { margin-bottom: 18px; }
+  .ship-item { background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--green); border-radius: 8px; padding: 13px 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .ship-item.wip { border-left-color: var(--amber); }
+  .ship-icon { flex-shrink: 0; width: 40px; height: 40px; border-radius: 8px; background: var(--green-light); color: var(--green); font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+  .ship-item.wip .ship-icon { background: var(--amber-light); color: var(--amber); }
+  .ship-body { flex: 1; }
+  .ship-title { font-size: 13px; font-weight: 600; color: #14222f; }
+  .ship-desc { font-size: 11px; color: var(--gray-light); margin-top: 2px; }
+  .ship-owner { flex-shrink: 0; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 12px; }
+  .owner-daunte { background: rgba(89,135,165,0.15); color: var(--daunte); }
+  .owner-kenny { background: var(--green-light); color: var(--kenny); }
+  .owner-eli { background: var(--amber-light); color: var(--gold-dark); }
+
+  .retro-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .retro-col { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 0 0 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden; }
+  .retro-head { padding: 14px 18px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; }
+  .retro-head.liked { background: var(--green); }
+  .retro-head.learned { background: var(--blue); }
+  .retro-head.lacked { background: var(--amber); }
+  .retro-head.longed { background: var(--navy); }
+  .retro-item { padding: 11px 18px; font-size: 12px; line-height: 1.5; color: var(--gray); border-bottom: 1px solid #eef2f5; }
+  .retro-item:last-child { border-bottom: none; }
+  .retro-item b { color: #14222f; font-weight: 700; }
+
+  .daki-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .daki-col { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 0 0 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden; }
+  .daki-head { padding: 13px 18px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: white; }
+  .daki-head.drop { background: var(--red); }
+  .daki-head.add { background: var(--green); }
+  .daki-head.keep { background: var(--blue); }
+  .daki-head.improve { background: var(--gold-dark); }
+  .daki-item { padding: 11px 18px; font-size: 12px; line-height: 1.5; color: var(--gray); border-bottom: 1px solid #eef2f5; }
+  .daki-item:last-child { border-bottom: none; }
+  .daki-item b { color: #14222f; font-weight: 700; }
+  .daki-owner { font-size: 10px; font-weight: 700; color: var(--blue-mid); }
+
+  .lesson { display: flex; gap: 12px; margin-bottom: 12px; font-size: 13px; line-height: 1.55; color: var(--gray); background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--gold); border-radius: 8px; padding: 14px 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .lesson-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 6px; background: var(--navy); color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+  .lesson b { color: #14222f; font-weight: 700; }
+
+  .footer { background: var(--navy-dark); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; margin-top: 40px; flex-wrap: wrap; gap: 8px; }
+  .footer-text { color: rgba(255,255,255,0.6); font-size: 10px; }
+  .footer-gold { color: var(--gold); font-size: 12px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+
+  @media (max-width: 820px) {
+    .kpi-row, .retro-grid, .daki-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div id="hub-nav"></div>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">BPP</div>
+    <div class="header-text">
+      <div class="header-title">SEEDFOLKids Project Review &amp; Retrospective</div>
+      <div class="header-sub">Internal closeout retro &middot; Brand, web, store, CRM and Google presence buildout</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-period">Mar 17 &ndash; Jun 20, 2026</div>
+    <div class="header-date">Source: Monday Client Delivery board + workspace files &middot; as of Jun 8, 2026</div>
+  </div>
+</div>
+
+<div class="page">
+  <a class="back-link" href="reviews.html">&larr; Back to Reviews</a>
+
+  <!-- ENGAGEMENT SNAPSHOT -->
+  <div class="section-bar">
+    <div class="section-bar-title">Engagement Snapshot</div>
+    <div class="section-bar-sub">What We Could Be Exchange, Inc. &middot; founder Jeannette Bradley</div>
+  </div>
+  <div class="section-note">Source: Monday Client Delivery board (SEEDFOLKids) + the SEEDFOLKids workspace folder &middot; as of Jun 8, 2026</div>
+  <div class="kpi-row">
+    <div class="kpi-card gold">
+      <div class="kpi-label">Engagement Value</div>
+      <div class="kpi-value">$4,200</div>
+      <div class="kpi-sub">Brand + Strategic Planning</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Milestones Done</div>
+      <div class="kpi-value">10<span style="font-size:16px;color:var(--gray-light);"> / 12</span></div>
+      <div class="kpi-sub">Closeout + CFO still in flight</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Timeline</div>
+      <div class="kpi-value" style="font-size:20px;">~13 wks</div>
+      <div class="kpi-sub">Kickoff Mar 17 &middot; closes Jun 20</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Website</div>
+      <div class="kpi-value" style="font-size:20px;">Live</div>
+      <div class="kpi-sub">Store + donations working</div>
+    </div>
+  </div>
+  <div style="background:#fdf0d0;border:1px solid #e8cf90;border-left:4px solid var(--amber);border-radius:8px;padding:14px 18px;margin:14px 0 4px;font-size:12px;line-height:1.6;color:#6b5618;"><b>Honest read.</b> SEEDFOLKids was contracted as a $4,200 brand and strategic-planning engagement, but the work delivered was a full brand-plus-systems buildout: brand kit, a live Wix site, an online store with working checkout, a donation flow, a HubSpot CRM, and a Google Business Profile, with QuickBooks/CFO cleanup running in parallel. The build shipped and the site is live. Two items remain in flight at closeout: the QuickBooks/CFO cleanup and the client-independence handoff. The gap between the contracted scope and what we actually delivered is the central lesson below.</div>
+
+  <!-- WHAT WE DELIVERED -->
+  <div class="section-bar">
+    <div class="section-bar-title">What We Delivered</div>
+    <div class="section-bar-sub">8 shipped &middot; 1 in flight</div>
+  </div>
+  <div class="section-note">Source: Monday milestones + subitems with Status = Done, grouped by deliverable</div>
+  <div class="ship-group">
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">Brand strategy + brand guidelines</div><div class="ship-desc">Strategy v1 to v2 and a guidelines deck iterated v1 to v4. Positioning, personality, palette, typography, word rules.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">Logo suite</div><div class="ship-desc">Final main logo, watermark, and wordmark. Leaf-as-i integration, palette-matched browns, balanced stroke weights.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">Wix website, live</div><div class="ship-desc">Figma to Wix build, image assets swapped, mobile responsiveness pass, custom domain connected. Published and accessible.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">Online store + checkout</div><div class="ship-desc">Wix Store built and final checkout tested on the live site.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">SEO foundation</div><div class="ship-desc">Meta titles and descriptions across all pages, plus an SEO audit (v2).</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">Google Business Profile</div><div class="ship-desc">Initial setup, finalized, and a final completeness check confirmed published.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">HubSpot CRM + intake form</div><div class="ship-desc">CRM stood up with a simple contact/volunteer capture form so outreach feeds a real database, not oblivion.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">Givebutter donation flow</div><div class="ship-desc">Donation embed added to the site with correct payout configuration shared to Jeannette.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item wip">
+      <div class="ship-icon">&#8987;</div>
+      <div class="ship-body"><div class="ship-title">QuickBooks / CFO consulting (in flight)</div><div class="ship-desc">10-hour CFO deliverable: transaction cleanup, duplicate removal, fiscal-year earnings, Diana W-2. In progress at closeout.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+  </div>
+
+  <!-- 4Ls RETROSPECTIVE -->
+  <div class="section-bar">
+    <div class="section-bar-title">Retrospective &middot; 4Ls</div>
+    <div class="section-bar-sub">Liked &middot; Learned &middot; Lacked &middot; Longed-for</div>
+  </div>
+  <div class="section-note">Internal team reflection. Honest read, not marketing copy.</div>
+  <div class="retro-grid">
+    <div class="retro-col">
+      <div class="retro-head liked">Liked</div>
+      <div class="retro-item"><b>One engagement, many disciplines.</b> Brand, web, store, SEO, GBP, CRM, and donations all shipped from a single project.</div>
+      <div class="retro-item"><b>The site went live and works.</b> Store checkout and the donation flow are functional on the live domain.</div>
+      <div class="retro-item"><b>The strategy was sharp.</b> "An identity program disguised as a garden program" gave every downstream choice a center. The client liked the direction.</div>
+      <div class="retro-item"><b>The logo iterated cleanly to a yes.</b> Leaf-as-i integration and palette fixes landed with the founder.</div>
+    </div>
+    <div class="retro-col">
+      <div class="retro-head learned">Learned</div>
+      <div class="retro-item"><b>This is a committee-decision client.</b> Jeannette defers operational calls (marketing format, honey flavors) to Diana.</div>
+      <div class="retro-item"><b>The client will not self-maintain the site.</b> Jeannette was firm she does not want to do weekly updates herself.</div>
+      <div class="retro-item"><b>A fluid product breaks the site.</b> Honey flavors change constantly, so the site and Google profile drift out of sync.</div>
+    </div>
+    <div class="retro-col">
+      <div class="retro-head lacked">Lacked</div>
+      <div class="retro-item"><b>A locked, itemized scope up front.</b> The work grew from brand into a full systems build with no matching change to the deal.</div>
+      <div class="retro-item"><b>A finished client-independence handoff.</b> The basic site-management guide stayed blocked through closeout.</div>
+      <div class="retro-item"><b>An early decision owner for operations.</b> Cards-vs-flyers and flavor calls sat deferred, and the business cards never started.</div>
+    </div>
+    <div class="retro-col">
+      <div class="retro-head longed">Longed-for</div>
+      <div class="retro-item"><b>A standing post-launch maintenance plan.</b> Something that keeps the site and GBP current without leaning on the client.</div>
+      <div class="retro-item"><b>Approvals routed to the real decision-maker.</b> Getting Diana into the loop earlier on operational calls.</div>
+      <div class="retro-item"><b>Scope priced to reality.</b> A buildout this broad should carry a number closer to the work.</div>
+    </div>
+  </div>
+
+  <!-- DAKI -->
+  <div class="section-bar">
+    <div class="section-bar-title">Action Plan &middot; DAKI</div>
+    <div class="section-bar-sub">Drop &middot; Add &middot; Keep &middot; Improve</div>
+  </div>
+  <div class="section-note">Each Add and Improve carries an owner and a "before the next engagement" trigger.</div>
+  <div class="daki-grid">
+    <div class="daki-col">
+      <div class="daki-head drop">Drop</div>
+      <div class="daki-item">Assuming the client will keep their own site updated. Build for low maintenance instead of handing over a site that needs weekly attention.</div>
+    </div>
+    <div class="daki-col">
+      <div class="daki-head add">Add</div>
+      <div class="daki-item">A gated client-independence handoff: a site-management guide plus a live training, required before any project closes. <span class="daki-owner">Owner: Eli + Kenny</span></div>
+    </div>
+    <div class="daki-col">
+      <div class="daki-head keep">Keep</div>
+      <div class="daki-item">Brand-strategy-first sequencing and the milestone structure. Strategy anchored every later decision and the milestones kept a broad build legible.</div>
+    </div>
+    <div class="daki-col">
+      <div class="daki-head improve">Improve</div>
+      <div class="daki-item">Keep the Monday board current during the project, not bulk-updated at closeout, and lock an itemized scope in the proposal. <span class="daki-owner">Owner: full team</span></div>
+    </div>
+  </div>
+
+  <!-- CLIENT RELATIONSHIP -->
+  <div class="section-bar">
+    <div class="section-bar-title">Client Relationship</div>
+    <div class="section-bar-sub">Sentiment &middot; handoff &middot; referral signal</div>
+  </div>
+  <div class="section-note">Internal read for retention and referral planning</div>
+  <div class="progress-row" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:18px 22px;box-shadow:0 1px 4px rgba(0,0,0,0.06);font-size:12px;line-height:1.6;color:var(--gray);">
+    <div style="margin-bottom:8px;"><b style="color:#14222f;">Sentiment: positive with caveats (6&ndash;7 / 10).</b> Happy with the brand direction and the delivered build. Caveats are pacing, deferred operational decisions, and worry about maintaining the site herself.</div>
+    <div style="margin-bottom:8px;"><b style="color:#14222f;">Handoff:</b> Final handoff meeting and credentials delivered. Open items at closeout: the site-management guide (blocked) and the HubSpot training (in progress).</div>
+    <div><b style="color:#14222f;">Referral / testimonial signal:</b> Strong. Two parents already agreed to video testimonials, targeted for the end-of-year ceremony. Natural opening for a testimonial and a referral ask on the closeout call.</div>
+  </div>
+
+  <!-- LESSONS LEARNED -->
+  <div class="section-bar">
+    <div class="section-bar-title">Lessons We Carry Forward</div>
+    <div class="section-bar-sub">Also logged in Client Lessons Learned</div>
+  </div>
+  <div class="section-note">These mirror SEEDFOLKids' entry in the cumulative <a href="lessons-learned-clients.html" style="color:var(--blue-mid);font-weight:600;">Client Lessons Learned log &rarr;</a></div>
+  <div class="lesson"><div class="lesson-num">1</div><div><b>Lock an itemized deliverable list in the proposal.</b> Scope grew from brand work into a full web, store, CRM, and CFO buildout with no change to the $4,200 value. Itemizing every deliverable up front keeps additions visible and billable.</div></div>
+  <div class="lesson"><div class="lesson-num">2</div><div><b>Design for client independence from day one.</b> This client will not self-update, and the site-management guide stayed blocked. Bake low-maintenance structure into the build and make a handoff guide plus training a gated closeout step.</div></div>
+  <div class="lesson"><div class="lesson-num">3</div><div><b>Map the real decision-makers early.</b> Jeannette defers operational calls to Diana. Route those approvals to Diana from the start so deferred decisions stop stalling deliverables like the business cards.</div></div>
+  <div class="lesson"><div class="lesson-num">4</div><div><b>Model fluid products as "core + seasonal."</b> The honey flavors changed constantly and broke the site and GBP sync. A fixed core list with seasonal callouts is the reusable pattern for any product-fluid client.</div></div>
+  <div class="lesson"><div class="lesson-num">5</div><div><b>Keep the board current as you go.</b> Closeout statuses were bulk-updated on May 29, so mid-project status was not trustworthy. Same lesson as the internal Sprint 2 retro: move status the moment work changes.</div></div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-text">Business Plans Plus LLC &middot; Temple Terrace, FL &middot; Internal Use Only &middot; Source: Monday Client Delivery board + SEEDFOLKids workspace, as of Jun 8, 2026</div>
+  <div class="footer-gold">buildwithbpp.com</div>
+</div>
+
+<script src="../js/nav.js" data-page="strategy"></script>
+</body>
+</html>
