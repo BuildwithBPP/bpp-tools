@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP Client Acquisition Strategy — June 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Merriweather:ital@1&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#044771; --gold:#F1BE5C; --blue:#5987A5; --bg:#edf1f5;
+    --green:#1a9e5c; --amber:#d4920a; --red:#c0392b;
+    --ink:#1c2b36; --muted:#5d6b76; --card:#ffffff; --line:#d8e0e8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-weight:300}
+  h1,h2,h3,h4{font-family:'Montserrat',sans-serif;font-weight:800;line-height:1.2;color:var(--navy)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:var(--navy);box-shadow:0 2px 12px rgba(0,0,0,.15)}
+  nav .wrap{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+  nav .brand{font-family:'Montserrat';font-weight:800;color:#fff;font-size:15px;margin-right:auto;letter-spacing:.3px}
+  nav .brand span{color:var(--gold)}
+  nav a{color:#cdd9e4;text-decoration:none;font-size:12px;font-weight:400;padding:5px 9px;border-radius:6px;transition:.15s;white-space:nowrap}
+  nav a:hover{background:rgba(255,255,255,.12);color:#fff}
+  nav .seg{color:var(--gold);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:5px 4px 5px 10px;opacity:.85}
+  /* HERO */
+  header.hero{background:linear-gradient(135deg,#033254 0%,#044771 55%,#0a5a8c 100%);color:#fff;padding:60px 0 52px}
+  header.hero h1{color:#fff;font-size:40px;max-width:860px}
+  header.hero .kick{color:var(--gold);font-weight:600;letter-spacing:2px;text-transform:uppercase;font-size:13px;margin-bottom:14px}
+  header.hero .lede{font-size:18px;color:#e4edf4;max-width:800px;margin-top:18px;font-weight:300}
+  header.hero .meta{margin-top:24px;font-size:13px;color:#9fc0d8}
+  /* SECTIONS */
+  section{padding:50px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:27px;margin-bottom:6px}
+  section h2 .num{color:var(--gold);font-size:17px;margin-right:10px;vertical-align:middle}
+  .sub{color:var(--muted);font-size:15px;margin-bottom:24px;max-width:780px}
+  h3{font-size:18px;margin:26px 0 12px;color:var(--navy)}
+  p{margin-bottom:12px}
+  .callout{font-family:'Merriweather',serif;font-style:italic;color:var(--navy);background:#fff;border-left:5px solid var(--gold);padding:16px 22px;border-radius:0 10px 10px 0;margin:18px 0;font-size:16px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+  /* METRIC CARDS */
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin:8px 0 6px}
+  .metric{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+  .metric .big{font-family:'Montserrat';font-weight:800;font-size:30px;color:var(--navy);line-height:1}
+  .metric .lab{font-size:13px;color:var(--ink);font-weight:500;margin-top:8px}
+  .metric .src{font-size:10.5px;color:var(--muted);margin-top:8px;letter-spacing:.2px}
+  .metric.warn .big{color:var(--red)} .metric.good .big{color:var(--green)} .metric.amber .big{color:var(--amber)}
+  /* CARDS GRID */
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+  .card h4{font-size:15px;margin-bottom:8px;color:var(--navy)}
+  .card.pill{border-top:4px solid var(--gold)}
+  .card p,.card li{font-size:13.5px;color:var(--ink)}
+  .card ul{margin-left:18px}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:#eaf1f7;color:var(--navy);margin-bottom:8px}
+  .tag.green{background:#e3f5ec;color:var(--green)} .tag.red{background:#fbe9e7;color:var(--red)} .tag.amber{background:#fbf1dd;color:var(--amber)}
+  /* DECISION CARDS */
+  .decide{background:#fff;border:1px solid var(--line);border-left:6px solid var(--gold);border-radius:10px;padding:18px 20px;box-shadow:0 1px 4px rgba(0,0,0,.03)}
+  .decide h4{font-size:15px;margin-bottom:6px}.decide p{font-size:13.5px;margin:0}
+  .decide .ask{display:block;margin-top:8px;font-size:12.5px;color:var(--navy);font-weight:600}
+  .decide .ask::before{content:"\2610  ";color:var(--gold);font-weight:800}
+  /* FILE REFERENCE CHIP */
+  .ref{display:inline-block;font-family:'Courier New',monospace;font-size:11px;background:#eef3f8;color:var(--navy);border:1px solid #cfddea;border-radius:5px;padding:1px 7px;margin:3px 4px 0 0;white-space:nowrap}
+  .ref::before{content:"\2192 ";color:var(--blue)}
+  .refline{margin-top:6px;line-height:1.9}
+  .refnote{font-size:11.5px;color:var(--muted);margin-top:4px}
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04);margin:14px 0;font-size:13.5px}
+  th{background:var(--navy);color:#fff;text-align:left;padding:11px 14px;font-family:'Montserrat';font-weight:600;font-size:12.5px}
+  td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tr:nth-child(even) td{background:#f7fafc}
+  /* PILLARS */
+  .pillar{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.03)}
+  .pillar .no{flex:0 0 42px;height:42px;border-radius:10px;background:var(--navy);color:var(--gold);font-family:'Montserrat';font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center}
+  .pillar h4{font-size:15px;margin-bottom:4px}.pillar p{font-size:13.5px;margin:0}
+  /* LADDER */
+  .ladder{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+  .rung{background:#fff;border:1px solid var(--line);border-left:6px solid var(--blue);border-radius:8px;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+  .rung .nm{font-weight:600;color:var(--navy);font-size:14px} .rung .pr{font-size:13px;color:var(--muted)}
+  .rung.free{border-left-color:#9fb6c9}.rung.core{border-left-color:var(--gold)}.rung.rec{border-left-color:var(--green)}
+  /* TIMELINE */
+  .week{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.03)}
+  .week h4{color:var(--navy);font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+  .week h4 .wk{background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;font-family:'Montserrat'}
+  .step{padding:10px 0;border-bottom:1px dashed var(--line)}
+  .step:last-child{border-bottom:none}
+  .step .act{font-size:13.5px;color:var(--ink)}
+  .owner{display:inline-block;font-size:10.5px;font-weight:600;padding:1px 7px;border-radius:10px;margin-left:4px}
+  .o-eli{background:#fbf1dd;color:#9a6b06}.o-kenny{background:#e3f5ec;color:#137a45}.o-all{background:#eaf1f7;color:var(--navy)}
+  .ownerfill{display:inline-block;font-size:10.5px;font-weight:600;padding:1px 10px;border-radius:10px;border:1px dashed var(--blue);color:var(--muted);margin-left:6px}
+  .ownerfill::before{content:"Owner: "}.ownerfill::after{content:"______"}
+  .gloss{font-size:11px;color:var(--muted);font-style:italic;display:block;margin-top:2px}
+  ul.clean{list-style:none;margin:0} ul.clean li{padding:6px 0 6px 24px;position:relative;font-size:14px}
+  ul.clean li::before{content:"";position:absolute;left:0;top:12px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+  .two-col{columns:2;column-gap:32px} @media(max-width:700px){.two-col{columns:1}}
+  /* PART DIVIDER */
+  .partband{background:linear-gradient(135deg,#033254,#055a8c);color:#fff;padding:34px 0;text-align:center}
+  .partband .kick{color:var(--gold);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:12px;margin-bottom:8px}
+  .partband h2{color:#fff;font-size:26px;margin:0}
+  .partband p{color:#cfe0ee;font-size:14px;margin:8px auto 0;max-width:620px}
+  .partlabel{font-family:'Montserrat';font-weight:800;color:var(--blue);font-size:12px;letter-spacing:2px;text-transform:uppercase;padding-top:34px}
+  footer{background:var(--navy);color:#cdd9e4;padding:36px 0;font-size:13px}
+  footer b{color:#fff}
+  .note{font-size:12.5px;color:var(--muted);font-style:italic;margin-top:10px}
+  @media print{nav{position:static}section{break-inside:avoid}.partband{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="brand">BPP <span>/</span> Client Acquisition</div>
+  <span class="seg">Plan</span>
+  <a href="#summary">Summary</a>
+  <a href="#decisions">Decisions</a>
+  <a href="#plan">30-Day Plan</a>
+  <a href="#scoreboard">Scoreboard</a>
+  <a href="#offers">Offers</a>
+  <a href="#tools">Tools</a>
+  <span class="seg">Why</span>
+  <a href="#diagnosis">Diagnosis</a>
+  <a href="#beachhead">Beachhead</a>
+  <a href="#compete">Competition</a>
+  <a href="#revenue">Revenue</a>
+  <a href="#scale">Scaling</a>
+  <a href="#foundations">Foundations</a>
+  <a href="#templates">Templates</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="kick">Sales Strategy &middot; June 2026</div>
+  <h1>What we do next to close more deals.</h1>
+  <p class="lede">This is built to run, not just to read. Part 1 is the plan: the decisions to make today, the 30-day calendar, the scoreboard, and the tools. Part 2 is the reasoning underneath it, there if you want it.</p>
+  <p class="meta">Built on the existing blueprint + live HubSpot data + market research. North star: $170K. Built around Eli + Kenny, Daunte light.</p>
+</div></header>
+
+<!-- ===================== PART 1: THE PLAN ===================== -->
+
+<!-- SUMMARY -->
+<section id="summary"><div class="wrap">
+  <p class="partlabel">Part 1 &middot; The Plan</p>
+  <h2><span class="num">01</span>The play, in 30 seconds</h2>
+  <p class="sub">We don't have a lead-volume problem. We have a deal-mix and lead-warmth problem. Here's the whole move on one screen.</p>
+  <div class="callout">Our close rate is healthy (~32%). We just close small, cold deals. The fix: point the funnel at warm leads, focus one vertical, add a paid front door and a recurring retainer, and raise the average deal. Same three packages, better economics.</div>
+  <div class="grid g3">
+    <div class="card"><span class="tag red">What's actually wrong</span><h4>Small &amp; cold</h4><p>Average won deal is $1,659 and only one Operator System has ever closed. The pipeline is fed by the coldest channels, so we work hard for low-value yeses.</p></div>
+    <div class="card"><span class="tag green">The move</span><h4>Warm, focused, recurring</h4><p>Referral/partner-first instead of cold-first. One beachhead vertical (cleaning). A paid diagnostic as the front door. An Operator Care retainer for predictable revenue.</p></div>
+    <div class="card pill"><span class="tag">What today is for</span><h4>Decide &amp; assign</h4><p>Ratify the five decisions in the next section, assign owners, and start the 30-day plan Wednesday. Foundations and warm cash run in parallel from day one.</p></div>
+  </div>
+  <p class="refnote">Deeper version of this whole argument: <span class="ref">client-acquisition-strategy.md</span></p>
+</div></section>
+
+<!-- DECISIONS -->
+<section id="decisions"><div class="wrap">
+  <h2><span class="num">02</span>Decisions to ratify today</h2>
+  <p class="sub">Five calls. Each one unblocks a chunk of the 30-day plan. Check them off in the meeting and assign a name to each.</p>
+  <div class="grid g2">
+    <div class="decide"><h4>1. Beachhead vertical</h4><p>Lead the 90-day sprint with <b>commercial cleaning / janitorial</b> — the one lane that's open (no dominant software, few competitors), warm-reachable, and where we already have proof (Xtremely Clean). <b>Commercial / HOA landscaping</b> as the second wave. Research-backed; see the beachhead section in Part 2.</p><span class="ask">Agree on the primary vertical</span></div>
+    <div class="decide"><h4>2. Paid front door + value ladder</h4><p>Add a paid <b>Business Systems Audit</b> ($750-1,500, credited to the Operator System within 30 days) as the new first yes. Free scorecard above it, Operator Care retainer below. The three packages don't change.</p><span class="ask">Approve the audit + ladder</span></div>
+    <div class="decide"><h4>3. Channel re-weighting</h4><p>Shift ~70% of outreach effort to <b>warm</b> (referrals, partners, owner communities). Keep Kenny's HubSpot funnel; demote cold to ~30%, warm-hook only.</p><span class="ask">Approve warm-first mix</span></div>
+    <div class="decide"><h4>4. Capacity ceiling</h4><p>Honor the Monday Kanban <b>2-items-in-progress</b> limit (~2-3 Operator-equivalent closes/mo). When full, sell start-dates, never discount.</p><span class="ask">Lock the WIP limit</span></div>
+    <div class="decide"><h4>5. Foundations floor before we scale</h4><p>Fix CRM, legal/handoff, and the qualified-lead gate before we turn on the volume switch. None of it blocks starting warm outreach Wednesday.</p><span class="ask">Commit to the Week-1 floor</span></div>
+  </div>
+  <p class="refnote">Full detail on each: <span class="ref">phase-0-launch-readiness.md</span> <span class="ref">recurring-revenue-and-paid-audit.md</span> <span class="ref">outreach-channels-and-events.md</span></p>
+</div></section>
+
+<!-- PLAN -->
+<section id="plan"><div class="wrap">
+  <h2><span class="num">03</span>The 30-day plan</h2>
+  <p class="sub">Each action has a doc to use and a proposed owner. <b>Owners are a starting point, not locked</b> — Eli and Kenny adjust them live. Foundations and warm cash run in parallel from day one; we do not flip the volume switch until the foundations hold. <span class="owner o-eli">Eli</span> <span class="owner o-kenny">Kenny</span> <span class="owner o-all">All</span></p>
+
+  <div class="week"><h4><span class="wk">Week 1</span> Foundations + fastest cash</h4>
+    <div class="step"><span class="act">Blueprint review; ratify the five decisions; assign owners <span class="owner o-all">All</span></span><div class="refline"><span class="ref">README.md</span></div></div>
+    <div class="step"><span class="act">Tighten HubSpot reporting going forward (Kenny likely has most of this already). The key fields mostly exist: source of business + specific referral source, and a closed-lost reason. The job is keeping them consistently filled and making a few required, not adding new ones. One real gap: the package isn't a single reportable field (it lives in the line items), so decide whether to add a simple Package dropdown (Launch Pad / Operator / Scale) so we can see our deal mix at a glance. Most past deals predate the three packages, so this is a clean baseline from here, not judging old deals <span class="owner o-kenny">Kenny</span></span><div class="refline"><span class="ref">phase-0-launch-readiness.md</span></div></div>
+    <div class="step"><span class="act">Pull our open deals + the lost deals that were a good fit for us; send the first 10 follow-up touches to re-open them <span class="owner o-eli">Eli</span></span><div class="refline"><span class="ref">templates/lost-deal-revival.md</span> <span class="ref">templates/open-pipeline-followup-cadence.md</span></div></div>
+    <div class="step"><span class="act">Confirm the existing 2-minute intake form on buildwithbpp.com fires an instant notification so no lead waits <span class="owner o-kenny">Kenny</span></span><div class="refline"><span class="ref">templates/qualified-lead-checklist.md</span></div></div>
+    <div class="step"><span class="act">Adopt the pre-call checklist before any discovery call (the real decision-maker must be on the call, non-negotiable) <span class="owner o-eli">Eli</span></span><div class="refline"><span class="ref">templates/qualified-lead-checklist.md</span></div></div>
+    <div class="step"><span class="act">We already have the service agreement and statement of work. Build only the two missing pieces: a change-order form (for paid scope changes) and a simple sign-off form that names who approves each deliverable. Book the attorney review and load e-signing into HubSpot <span class="owner o-eli">Eli</span></span><div class="refline"><span class="ref">phase-0-launch-readiness.md</span></div></div>
+    <div class="step"><span class="act">Register our business so we can legally text customers from our system. We text from inside the system (not personal phones) because texts get read fast, every message auto-saves to the client's record, and we can automate reminders. Carriers require the registration to cut down on spam; it takes ~10-15 days and our business tax-ID details must match our IRS records exactly, so start it early <span class="owner o-kenny">Kenny</span></span><div class="refline"><span class="ref">tooling-and-automation-roadmap.md</span></div></div>
+    <div class="step"><span class="act">Join the owner Facebook groups in our target vertical and start being genuinely helpful (diagnose, don't pitch) <span class="owner o-all">All</span></span><div class="refline"><span class="ref">templates/fb-group-value-post.md</span></div></div>
+  </div>
+
+  <div class="week"><h4><span class="wk">Week 2</span> Partners + proof + tooling</h4>
+    <div class="step"><span class="act">Bring Kenny's outreach skill (target-customer + referral outreach, currently running on his PC) into the BPP workspace and pilot it. This is the engine behind the Week 3 warm-touch volume <span class="owner o-kenny">Kenny</span> <span class="owner o-eli">Eli</span></span><div class="refline"><span class="ref">tooling-and-automation-roadmap.md</span></div></div>
+    <div class="step"><span class="act">List 15 referral partners (bookkeepers / accountants / insurance brokers first); send the first 5-10 outreach <span class="owner o-eli">Eli</span> <span class="owner o-kenny">Kenny</span></span><div class="refline"><span class="ref">templates/referral-partner-outreach.md</span></div></div>
+    <div class="step"><span class="act">Build the free "Is your business ready to run without you?" quiz. The design that matters: they answer the questions, then must enter their contact info to get the score, and we email them a clean branded results report for their score (and auto-enroll them in our HubSpot marketing sequence). That way we actually capture the lead instead of giving the value away for free. Eli builds it; Kenny wires it to HubSpot and decides whether it lives on buildwithbpp.com or its own landing page <span class="owner o-eli">Eli</span> <span class="owner o-kenny">Kenny</span></span><div class="refline"><span class="ref">templates/owner-dependency-scorecard.md</span></div></div>
+    <div class="step"><span class="act">Define what the Operator Care retainer includes and our response-time promise; pick the phone/texting tool (see Tools) and start moving the number over <span class="owner o-all">All</span></span><div class="refline"><span class="ref">recurring-revenue-and-paid-audit.md</span> <span class="ref">tooling-and-automation-roadmap.md</span></div></div>
+    <div class="step"><span class="act">Finalize the Xtremely Clean case study (one-page beachhead proof) <span class="owner o-eli">Eli</span></span><div class="refline"><span class="ref">products-and-resources-roadmap.md</span></div></div>
+  </div>
+
+  <div class="week"><h4><span class="wk">Week 3</span> Run the engine</h4>
+    <div class="step"><span class="act"><b>Put real volume in.</b> Send 40-60 warm touches this week (referral asks, partner intros, owner-group conversations). That volume is what produces 2-4 booked discovery calls; a handful of touches will not. <span class="owner o-all">All</span></span><div class="refline"><span class="ref">templates/open-pipeline-followup-cadence.md</span></div></div>
+    <div class="step"><span class="act"><b>Make the specific referral ask.</b> Ask every partner and past client one question: "Who's one owner you know whose business still runs entirely through them?" A warm intro from someone they trust closes far better than anything cold, so the real goal is getting them to hand us names. <span class="owner o-all">All</span></span><div class="refline"><span class="ref">templates/referral-partner-outreach.md</span></div></div>
+    <div class="step"><span class="act">Work the 8-12 touch follow-up on everyone in the pipeline; pitch the paid diagnostic on new inbound; first referral-partner intro meetings <span class="owner o-all">All</span></span><div class="refline"><span class="ref">templates/paid-audit-offer.md</span></div></div>
+    <div class="step"><span class="act">Founder posts on LinkedIn 2-3x/week + a few podcast pitches, to warm people up before we reach out <span class="owner o-eli">Eli</span></span><div class="refline"><span class="ref">website-and-seo-plan.md</span></div></div>
+    <div class="step"><span class="act"><b>Optional, later:</b> a paid Google Search ad campaign to the quiz. It costs money (pay-per-click, roughly $70-100+ per lead in our space) and it's cold traffic, so it's not the best dollar while we're warm-first and cash-tight. Revisit once the quiz + landing page are proven to convert and there's budget. <span class="owner o-all">All</span></span><div class="refline"><span class="ref">outreach-channels-and-events.md</span></div></div>
+  </div>
+
+  <div class="week"><h4><span class="wk">Week 4</span> Review + tune</h4>
+    <div class="step"><span class="act">30-min standup vs the scoreboard; check the deal mix across all three packages + average deal size <span class="owner o-all">All</span></span><div class="refline"><span class="ref">kpi-dashboard.md</span></div></div>
+    <div class="step"><span class="act">Convert the first Operator clients to Care at closeout <span class="owner o-all">All</span></span><div class="refline"><span class="ref">recurring-revenue-and-paid-audit.md</span></div></div>
+    <div class="step"><span class="act">Cut the channel spread back to what produced qualified, good-fit deals <span class="owner o-all">All</span></span><div class="refline"><span class="ref">outreach-channels-and-events.md</span></div></div>
+    <div class="step"><span class="act">Register minority procurement (City of Tampa small/minority business program, Hillsborough supplier diversity) <span class="owner o-kenny">Kenny</span></span><div class="refline"><span class="ref">competitive-positioning.md</span></div></div>
+  </div>
+</div></section>
+
+<!-- SCOREBOARD -->
+<section id="scoreboard"><div class="wrap">
+  <h2><span class="num">04</span>The scoreboard</h2>
+  <p class="sub">A 30-minute Monday standup. Tracking lives in one HubSpot sales dashboard (deals by stage, by package, and by source; close rate; revenue), pulled into the standup automatically by extending the existing bpp-monday-prep skill. So it's reporting we set up once, not hand-counting every week. <span class="ref">kpi-dashboard.md</span></p>
+  <div class="grid g2">
+    <div class="card"><h4>Leading (what we control)</h4>
+      <table style="box-shadow:none;margin:0"><tr><th>Metric</th><th>Target</th></tr>
+      <tr><td>Warm touches sent</td><td>40-60/wk</td></tr>
+      <tr><td>Discovery calls booked</td><td>2-4/wk</td></tr>
+      <tr><td>Speed-to-lead</td><td>&lt;5 min</td></tr>
+      <tr><td>Touches per prospect</td><td>8-12 / ~18 days</td></tr>
+      <tr><td>Reviews collected</td><td>1 per close</td></tr>
+      <tr><td>Active referral partners</td><td>ramp to 5-10</td></tr></table></div>
+    <div class="card"><h4>Lagging (the outcomes)</h4>
+      <table style="box-shadow:none;margin:0"><tr><th>Metric</th><th>Now &rarr; Target</th></tr>
+      <tr><td><b>Average deal size</b></td><td>$1,659 &rarr; $4,200+</td></tr>
+      <tr><td><b>Deals + revenue by package</b></td><td>Launch Pad / Operator / Scale</td></tr>
+      <tr><td>Package mix shift</td><td>more Operator + Scale over time</td></tr>
+      <tr><td>Close rate</td><td>hold 30-35%</td></tr>
+      <tr><td>Monthly revenue</td><td>$3.2K &rarr; $10-12K</td></tr>
+      <tr><td>Recurring (Care)</td><td>$0 &rarr; 6-10 clients</td></tr>
+      <tr><td>Audit &rarr; Operator</td><td>40%+</td></tr></table></div>
+  </div>
+  <div class="callout">Track all three packages so we see the whole picture, not just one. The two signals that matter most: average deal size, and the mix shifting toward the bigger packages (Operator + Scale). If those move up, the business is fixed.</div>
+</div></section>
+
+<!-- OFFERS -->
+<section id="offers"><div class="wrap">
+  <h2><span class="num">05</span>What we sell (quick reference)</h2>
+  <p class="sub">The three packages don't change. The scorecard, the paid audit, and the Care retainer wrap around them to fix the deal mix and add recurring revenue. <span class="ref">recurring-revenue-and-paid-audit.md</span></p>
+  <div class="ladder">
+    <div class="rung free"><span class="nm">Free lead magnets: the quiz + the cost calculator</span><span class="pr">FREE &middot; capture the lead, show the problem</span></div>
+    <div class="rung"><span class="nm">Business Systems Audit (paid front door)</span><span class="pr">$750-1,500 &middot; fee credited to Operator within 30 days</span></div>
+    <div class="rung core"><span class="nm">Operator System (the core, default ask)</span><span class="pr">$4,500</span></div>
+    <div class="rung"><span class="nm">Scale System (anchor above Operator)</span><span class="pr">$10-15K</span></div>
+    <div class="rung rec"><span class="nm">Operator Care (the recurring LTV engine)</span><span class="pr">$750-1,500 / month</span></div>
+  </div>
+  <div class="grid g3">
+    <div class="card"><span class="tag green">Primary magnet</span><h4>The quiz (gated for the lead)</h4><p>A short "Is your business ready to run without you?" quiz. They answer ~10 questions, <b>then enter their contact info to get the score</b>, and we email a clean branded results report for their score. So we capture the lead instead of giving the value away, and they land in our HubSpot marketing sequence automatically. Interactive quizzes convert far better than PDF downloads and are easy to share warm (a referral partner can just text the link). <b>Kenny's part:</b> wiring it to HubSpot + choosing buildwithbpp.com vs its own landing page. <span class="ref">templates/owner-dependency-scorecard.md</span></p></div>
+    <div class="card"><span class="tag green">Second magnet</span><h4>The "cost of owner-dependence" calculator</h4><p>Plug in owner hours + team size + average contract value, get a dollar figure: "you're losing about $X a year doing work someone else should own." That number is the why-now for the paid diagnostic. Best aimed at financial referral partners (bookkeepers, accountants, lenders) who think in dollars, and it pairs with the quiz on the results page. <span class="ref">products-and-resources-roadmap.md</span></p></div>
+    <div class="card"><h4>Paid audit, why it works</h4><p>Sell a roadmap, not an audit. Paid filters tire-kickers, generates cash, and turns a hard $4,500 cold yes into an easy first yes. Credit the fee 100% to the Operator System within 30 days. Model ~40% step up to the full build. <span class="ref">templates/paid-audit-offer.md</span></p></div>
+    <div class="card"><h4>Operator Care, don't launch it hollow</h4><p>Define what's included first: monthly automation tune-up + CRM cleanup + numbers review + 2 hours of changes + priority support. Pitch it as the default next step at every closeout. Target ~50% of Operator clients convert.</p></div>
+  </div>
+  <div class="callout"><b>The Xtremely Clean case study (our proof):</b> in warm/referral selling, proof closes. Use it at the decision moment, not first contact: after discovery when they're weighing it, inside the paid-diagnostic readout, in the proposal, and as a leave-behind a referral partner can forward. Put it ungated on buildwithbpp.com (a short "results" page), keep a one-page PDF for sales + partners, and pull snippets for LinkedIn/Facebook. <span class="ref">products-and-resources-roadmap.md</span></div>
+</div></section>
+
+<!-- TOOLS -->
+<section id="tools"><div class="wrap">
+  <h2><span class="num">06</span>Tools to stand up</h2>
+  <p class="sub">Replace Google Voice with a system that lives in HubSpot and scales with a sales team. <span class="ref">tooling-and-automation-roadmap.md</span></p>
+  <div class="grid g3">
+    <div class="card pill"><span class="tag amber">Eli + Kenny decide</span><h4>Phone + texting: pick one</h4><p>All three plug into HubSpot (auto-log texts + calls, send texts from workflows, click-to-call). The real choice is cheap-now vs build-for-a-sales-team. Costs are per user/month, plus about 1&cent;/text and the carrier registration:</p>
+      <table style="box-shadow:none;margin:8px 0 0"><tr><th>Tool</th><th>~Cost, 3-4 people</th><th>Best when</th></tr>
+      <tr><td>OpenPhone / Quo</td><td>$15-33/user ($45-130/mo)</td><td>cheapest solid option now (HubSpot on the $33 tier)</td></tr>
+      <tr><td>Salesmsg</td><td>$25/mo + $10/seat (~$55-65/mo)</td><td>simple two-way texting, native HubSpot</td></tr>
+      <tr><td>Kixie</td><td>$35-65/user ($105-260/mo)</td><td>once we add a dialing sales team (it has a power dialer); no switching later</td></tr></table>
+      <p class="note">My lean given the cash crunch: start cheap (OpenPhone/Quo or Salesmsg) now, move to Kixie when we actually build the dialer team. Kixie hides its pricing and locks you to annual terms, so get a quote first. HubSpot's own texting add-on is marketing-only, so it doesn't count.</p></div>
+    <div class="card"><span class="tag amber">Build this in</span><h4>Automated follow-up reminders</h4><p>The #1 reason deals die is forgotten follow-up. Set HubSpot to automatically create the next follow-up task, with a reminder/notification, every time we log a touch. That way the 8-12 touch sequence keeps running on its own and we never have to remember who's due. This is the cadence engine behind the Week 3 volume.</p></div>
+    <div class="card"><h4>Two setup must-dos</h4><ul><li><b>Register our business to text customers.</b> Carriers require every business to register before it can send texts from a system like this. It takes ~10-15 days to approve, and our business tax-ID info has to match the IRS records exactly, so start early. <span class="gloss">The formal name for this is "A2P 10DLC" registration.</span></li><li><b>Move our current business number over</b> (called a "port"): unlock it in Google Voice first, and keep Google Voice running until the move finishes so we never miss a call.</li></ul></div>
+  </div>
+  <h3>Automation: use what we already have, build only two new things</h3>
+  <p>We already have 63 skills (our pre-built tools). Use or extend the ones for contracts/proposals, revenue operations, customer success, the referral program, pricing, and competitor research, and extend the Monday-prep skill to pull the weekly scoreboard automatically. Build brand-new only two things: a simple <b>lost-deal revival</b> sequence and a <b>case-study builder</b> (folded into our existing closeout-deck skill). Set up the follow-up reminders and an overdue-invoice alert as automatic HubSpot workflows.</p>
+</div></section>
+
+<!-- ===================== PART 2: THE WHY ===================== -->
+<div class="partband"><div class="wrap">
+  <div class="kick">Part 2 &middot; Reference</div>
+  <h2>The reasoning underneath the plan</h2>
+  <p>Everything above is the what and the when. Below is the why: the data, the competition, the revenue math, and the foundations. Open it if you want to pressure-test a decision.</p>
+</div></div>
+
+<!-- DIAGNOSIS -->
+<section id="diagnosis"><div class="wrap">
+  <h2><span class="num">07</span>The diagnosis</h2>
+  <p class="sub">The numbers tell a clear story: we're positioned as a $4,500 Operator System firm but we sell like a sub-$1,700 business-plan shop. The fix is not more leads. <span class="ref">client-acquisition-strategy.md</span></p>
+  <div class="metrics">
+    <div class="metric"><div class="big">$33,173</div><div class="lab">Closed Won, all-time (20 deals)</div><div class="src">Source: HubSpot, Jun 2026</div></div>
+    <div class="metric warn"><div class="big">$1,659</div><div class="lab">Average won deal</div><div class="src">Source: HubSpot, Jun 2026</div></div>
+    <div class="metric warn"><div class="big">1</div><div class="lab">Operator Systems ever closed</div><div class="src">Source: HubSpot, Jun 2026</div></div>
+    <div class="metric good"><div class="big">~32%</div><div class="lab">Close rate (healthy)</div><div class="src">Source: Q1 2026 actuals</div></div>
+    <div class="metric amber"><div class="big">~$15K</div><div class="lab">Revivable lost deals (good-fit)</div><div class="src">Source: HubSpot lost-deal review, Jun 2026</div></div>
+    <div class="metric amber"><div class="big">~$14.3K</div><div class="lab">Open pipeline now</div><div class="src">Source: HubSpot, Jun 2026</div></div>
+  </div>
+  <div class="callout">The close rate isn't broken. The deal mix and the lead warmth are. We close well when we get a real conversation; the problem is the conversations are cold and the wins are small.</div>
+  <h3>Three revenue leaks to close now (zero cost)</h3>
+  <div class="grid g3">
+    <div class="card"><span class="tag red">Leak</span><h4>Verbal yes, no contract</h4><p>Deals won by voice that never get papered. Fix: same-day e-signed contract on every verbal yes.</p></div>
+    <div class="card"><span class="tag red">Leak</span><h4>Quotes take 1-2 days</h4><p>We lose momentum at peak intent. Fix: same-day quote after discovery.</p></div>
+    <div class="card"><span class="tag red">Leak</span><h4>Intake not enforced</h4><p>We walk into calls blind. Fix: no intake, no call. Qualify before the call.</p></div>
+  </div>
+  <h3>The seven pillars (the strategy in full)</h3>
+  <div class="pillar"><div class="no">1</div><div><h4>Flip the channel mix to warm-first</h4><p>~70% of effort to referral partners, owner communities, and the right rooms. Cold demoted to ~30% precision-only (a custom value gift, never spray). The $170K north star stays; the route changes from "800 cold touches/month" to fewer, warmer touches + bigger deals + a recurring base.</p></div></div>
+  <div class="pillar"><div class="no">2</div><div><h4>Pick one beachhead vertical</h4><p>Commercial cleaning/janitorial primary (an open lane, warm-reachable, and where our one real case study lives), commercial/HOA landscaping as the second wave. One message, one process, one case study, one partner list, 90 days. See the beachhead section above.</p></div></div>
+  <div class="pillar"><div class="no">3</div><div><h4>Lead with the outcome, anchor on the system</h4><p>Sell "everything stops running through you." The five components are the how, not the pitch. Anchor on Scale so the $4,500 Operator is the obvious middle. Protect price by dropping scope, not price.</p></div></div>
+  <div class="pillar"><div class="no">4</div><div><h4>Build the referral + partner engine</h4><p>Revive the ~$15K of good-fit lost deals + work the ~$14K of open deals first. Stand up 5-10 referral partners (bookkeepers/CFOs first). Going-forward referral + review asks at every closeout.</p></div></div>
+  <div class="pillar"><div class="no">5</div><div><h4>Manufacture proof at scale</h4><p>Draft-it-for-them testimonials (we write it, they approve). One cleaning case study fast. Systematize Google reviews into Clutch/UpCity/GBP.</p></div></div>
+  <div class="pillar"><div class="no">6</div><div><h4>Win the mechanics</h4><p>Speed-to-lead under 5 minutes (9x lift). An 8-12 touch cadence over ~18 days. Same-day contract, same-day quote.</p></div></div>
+  <div class="pillar"><div class="no">7</div><div><h4>Add recurring revenue + a paid front door</h4><p>The Operator Care retainer and the paid Business Systems Audit. They don't change the three packages; they change the economics.</p></div></div>
+</div></section>
+
+<!-- BEACHHEAD -->
+<section id="beachhead"><div class="wrap">
+  <h2><span class="num">08</span>The beachhead: where to point the spear</h2>
+  <p class="sub">Chasing every industry at once stops case studies and referrals from compounding. We picked one vertical to focus 90 days on, using research instead of guesswork. Full write-up + sources: <span class="ref">beachhead-vertical-research.md</span></p>
+
+  <div class="callout">Honest starting point: our own closed deals don't reveal a winning niche. They're scattered, mostly small business-plan work, and our one repeat "cleaning" client (Xtremely Clean) is a single exceptional relationship, not a pattern. We have zero closed automotive deals. So the pick has to come from the market, not our history.</div>
+
+  <h3>We scored every option on three questions</h3>
+  <div class="grid g3">
+    <div class="card"><span class="tag">1. Can they pay?</span><p>Does a typical 5-25 person owner have the cash and the pain to buy a $4,500+ build? Strongest: HVAC, pest control, med spas, plumbing.</p></div>
+    <div class="card"><span class="tag">2. Can we reach them warm?</span><p>Dense Tampa associations, owner Facebook groups, and referral partners (insurance brokers, bookkeepers). Strongest: the trades, roofing, cleaning.</p></div>
+    <div class="card"><span class="tag">3. Can we actually win?</span><p>Is the lane open, or already owned by big software plus a wall of agencies and coaches? Most open: cleaning, trucking, commercial landscaping.</p></div>
+  </div>
+
+  <div class="callout">The tension that decides it: the verticals that pay best (HVAC, roofing, med spas) are exactly the ones already locked up by dominant software (ServiceTitan, JobNimbus, Mindbody) and a wall of competing agencies and coaches. A two-person local generalist with no vertical proof gets crushed there. The open lanes pay a little less, but we can actually win them.</div>
+
+  <div class="grid g2">
+    <div class="card pill"><span class="tag green">Lead with this</span><h4>Commercial cleaning / janitorial</h4><p>It's the one option that is open, reachable, and where we already have proof. No dominant all-in-one software owns the 5-25 employee B2B cleaner, and almost no agencies compete there, so "we build the whole system" actually lands. We can reach these owners through active owner Facebook groups and bookkeeper / payroll referral partners, and Tampa's B2B cleaning market (offices, medical, hospitality) is thick. And our one real Operator-grade build lives here: <b>Xtremely Clean</b> ($3,315 CRM + automation + sales), with a warm reference. <b>Watch-out:</b> cleaning owners are price-sensitive, so target commercial / recurring-contract cleaners (not solo house cleaners) and anchor on the Operator System.</p></div>
+    <div class="card pill"><span class="tag amber">Second wave</span><h4>Commercial / HOA landscaping</h4><p>Adjacent and similar: crews, routes, recurring contracts, and the same insurance-broker and bookkeeper referral graph. Real white space at the 10-25 employee shop that has outgrown the cheap scheduling app but won't pay for enterprise software. Year-round in Tampa, decent margins. Open this once the cleaning proof is compounding.</p></div>
+  </div>
+
+  <p class="note">Don't lead with HVAC, roofing, or med spas right now: best-paying, but most saturated, and we'd be the unknown generalist in a crowded room. We still serve anyone who comes to us; we just point the <i>acquisition</i> spear at one open lane. Source: 3 market-research passes + HubSpot 59-deal review, Jun 2026.</p>
+</div></section>
+
+<!-- COMPETITION -->
+<section id="compete"><div class="wrap">
+  <h2><span class="num">09</span>Who we compete with &amp; our white space</h2>
+  <p class="sub">We don't have one competitor. Five adjacent categories each steal a slice. The real #1 competitor is "do nothing." <span class="ref">competitive-positioning.md</span></p>
+  <table>
+    <tr><th>Category</th><th>Examples</th><th>Their weakness</th></tr>
+    <tr><td>Local automation/CRM shops</td><td>FL Tech Adventures, TightSlice, Bold Thinkers</td><td>One slice only. No full system.</td></tr>
+    <tr><td>National fractional-COO / EOS</td><td>ScaleUpExec ($7-15K/mo), EOS (~$36K/yr)</td><td>Same promise at 5-10x our price; they advise, we build.</td></tr>
+    <tr><td>GoHighLevel / AI agencies</td><td>The Automators + many small shops</td><td>Point solutions; islands of tooling.</td></tr>
+    <tr><td>Vertical coaches</td><td>Grow My Cleaning Co., ATI, Tommy Mello</td><td>They teach, don't build; gate at higher revenue.</td></tr>
+    <tr><td>Free / DIY / "do nothing"</td><td>SBDC, software, staying in the chaos</td><td>The real #1 competitor. Tools rot unused.</td></tr>
+  </table>
+  <div class="callout">Our white space, provable and ownable: full-stack, done-for-you operations systems, productized under $5K, delivered locally, AI-native, Black-owned. Nobody else is in that lane.</div>
+  <h3>How we win each deal</h3>
+  <div class="grid g2">
+    <div class="card"><h4>vs. fractional COO / EOS</h4><p>"They cost more per month than our whole system costs once, and they hand you a plan. We hand you a running business."</p></div>
+    <div class="card"><h4>vs. automation / CRM point shops</h4><p>"A workflow isn't a system. We map the whole operation, then automate the right parts, with CRM, site, and finances included."</p></div>
+    <div class="card"><h4>vs. vertical coaches</h4><p>Don't fight their brand. Be their implementation arm: "Love what they teach? We build it in your shop, locally, this month." Referral partnership, not rivalry.</p></div>
+    <div class="card"><h4>vs. DIY / "do nothing"</h4><p>Lead with the paid audit as the low-risk first yes, and quantify the cost of inaction. "You bought the tools. We make them a system you can step away from."</p></div>
+  </div>
+  <p class="note">Differentiators ranked: one vendor/whole system &middot; price-to-scope arbitrage &middot; AI-native delivery &middot; local + in-person &middot; Black-owned (unlocks minority procurement: City of Tampa SLBE, Hillsborough supplier diversity) &middot; productized + recurring.</p>
+</div></section>
+
+<!-- REVENUE -->
+<section id="revenue"><div class="wrap">
+  <h2><span class="num">10</span>Revenue model &amp; path to six figures</h2>
+  <p class="sub">The packages are strong. The Operator System is actually underpriced. The bottlenecks are mix, recurring revenue, and a paid front door. <span class="ref">revenue-model-path-to-100k.md</span></p>
+  <div class="metrics">
+    <div class="metric"><div class="big">$8-15K</div><div class="lab">Market value of the Operator System...</div><div class="src">Source: component pricing research, 2025-26</div></div>
+    <div class="metric good"><div class="big">$4,500</div><div class="lab">...what we sell it for (underpriced)</div><div class="src">Source: BPP service catalog</div></div>
+    <div class="metric amber"><div class="big">~$3.2K</div><div class="lab">Current monthly run-rate</div><div class="src">Source: HubSpot 2026 YTD</div></div>
+    <div class="metric good"><div class="big">$10-12K</div><div class="lab">Target monthly exit run-rate</div><div class="src">Goal</div></div>
+  </div>
+  <h3>Is $100K calendar-2026 possible? Honest answer: a stretch.</h3>
+  <p>To hit $100K this calendar year we'd need ~$84K in Jun-Dec (~$12K/mo), a ~4x jump with the year half gone. Realistic "good" is ~$50-70K for 2026, exiting at a $10-12K/month run-rate that puts a clean six figures in clear view by early 2027.</p>
+  <div class="grid g2">
+    <div class="card pill"><span class="tag green">Scenario A &mdash; "Good", capacity-realistic</span><h4>~$100-150K / 12 months</h4>
+      <ul><li>2 Operator Systems/mo @ ~$5,000 = $120K/yr</li><li>1 Launch Pad/mo = ~$21.6K/yr</li><li>~1 add-on/mo = ~$14.4K/yr</li><li>Operator Care ramp to 6 retainers = ~$40K</li></ul></div>
+    <div class="card"><span class="tag amber">The biggest lever</span><h4>Recurring revenue</h4><p><b>10 Operator Care clients at $1,000/mo = $120,000/yr</b> of predictable revenue. That clears six figures by itself, before a single new project, with zero change to the packages. It also raises the firm's valuation.</p></div>
+  </div>
+</div></section>
+
+<!-- SCALE -->
+<section id="scale"><div class="wrap">
+  <h2><span class="num">11</span>Scaling roadmap: buy back our time</h2>
+  <p class="sub">We're in grind mode now because we're best at the deals. As deals grow, we delegate in sequence so the business scales without us as the bottleneck. The system we build now is what future hires slot into. <span class="ref">scaling-roadmap.md</span></p>
+  <table>
+    <tr><th>Stage</th><th>State</th><th>What we delegate first</th></tr>
+    <tr><td>0. Now (grind)</td><td>Eli + Kenny sell &amp; deliver; Daunte gates AI/BI/finance</td><td>Build the systems + templates so roles can slot in</td></tr>
+    <tr><td>1. Steady pipeline</td><td>Consistent 2-3 Operator-equiv closes/mo</td><td>Appointment setter (front of funnel + booking)</td></tr>
+    <tr><td>2. Too many leads</td><td>More calls than 2 can run</td><td>Closer(s) working our scripts + battlecards</td></tr>
+    <tr><td>3. Too many deals</td><td>Sold capacity exceeds delivery</td><td>Account managers + delivery contractors</td></tr>
+    <tr><td>4. Scaled</td><td>Multiple closers + delivery team</td><td>Specialists + an ops lead; founders move to strategy</td></tr>
+  </table>
+  <div class="callout">Recurring revenue funds the first hires. Hires free our time. Free time means more selling and more systems, which means more deals and more recurring. The Care retainer is the fuel for buying back our time.</div>
+</div></section>
+
+<!-- FOUNDATIONS -->
+<section id="foundations"><div class="wrap">
+  <h2><span class="num">12</span>Foundations to fix first (week 1)</h2>
+  <p class="sub">The plan is over-supplied with tactics. It only fails if we turn on the growth engine before fixing these. None of it blocks starting warm outreach tomorrow. <span class="ref">phase-0-launch-readiness.md</span></p>
+  <ul class="clean two-col">
+    <li><b>Capacity ceiling:</b> ~2 concurrent Operators (~2-3 closes/mo). Honor the Monday 2-item WIP limit. Sell start-dates when full, never discount.</li>
+    <li><b>CRM cleanup:</b> fix misclassified clients, add amounts, tag package/source/lost-reason, make 5 fields required, re-baseline close rate.</li>
+    <li><b>Qualified-lead gate:</b> 5 criteria a lead must pass before a call. Decision-maker on the call is non-negotiable. <span class="ref">templates/qualified-lead-checklist.md</span></li>
+    <li><b>Legal floor:</b> attorney-reviewed MSA/SOW/change-order/refund in HubSpot e-sign + an E&amp;O insurance quote.</li>
+    <li><b>Sales-to-delivery handoff:</b> a one-page doc + confirm the real decision-maker at kickoff + sign-off gate on every milestone. Now built into our onboarding skill, so every new client captures it automatically. <span class="ref">skill: bpp-client-delivery</span></li>
+    <li><b>Speed-to-lead:</b> a real intake + notification + rotation, or set an honest target we can hit.</li>
+    <li><b>Operator Care details</b> (what's included + our response-time promise) defined before we offer it.</li>
+    <li><b>Team rhythm:</b> Kenny's scoreboard + weekly 30-min standup + named DRIs.</li>
+  </ul>
+</div></section>
+
+<!-- TEMPLATES -->
+<section id="templates"><div class="wrap">
+  <h2><span class="num">13</span>Ready-to-use templates</h2>
+  <p class="sub">All in the <b>templates/</b> folder of this kit. Copy, personalize, send. The 30-day plan above tells you when to use each.</p>
+  <div class="grid g3">
+    <div class="card"><h4>Lost-deal revival</h4><p>4-touch sequence to work the ~$15K of warm lost deals.</p><span class="ref">templates/lost-deal-revival.md</span></div>
+    <div class="card"><h4>Open-pipeline cadence</h4><p>The 8-12 touch, ~18-day multi-channel follow-up.</p><span class="ref">templates/open-pipeline-followup-cadence.md</span></div>
+    <div class="card"><h4>Referral-partner outreach</h4><p>Bookkeeper/CFO/CPA/banker variants + a 1-page agreement outline.</p><span class="ref">templates/referral-partner-outreach.md</span></div>
+    <div class="card"><h4>Qualified-lead checklist</h4><p>The 5-gate pre-call filter.</p><span class="ref">templates/qualified-lead-checklist.md</span></div>
+    <div class="card"><h4>FB-group playbook</h4><p>Diagnose-don't-pitch routine + DM opener.</p><span class="ref">templates/fb-group-value-post.md</span></div>
+    <div class="card"><h4>Paid-audit offer + script</h4><p>The front-door pitch and the ascension close.</p><span class="ref">templates/paid-audit-offer.md</span></div>
+    <div class="card"><h4>Owner-Dependency Scorecard</h4><p>The 10-question lead magnet + scoring/wiring.</p><span class="ref">templates/owner-dependency-scorecard.md</span></div>
+    <div class="card"><h4>Sales-to-delivery handoff</h4><p>The doc that stops scope blowup and wrong-approver churn. Now built into the onboarding skill, so it runs automatically at every kickoff.</p><span class="ref">skill: bpp-client-delivery</span></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p><b>BPP Client Acquisition Strategy</b> &middot; June 2026 &middot; Built around Eli + Kenny, scaling to a sales team.</p>
+  <p style="margin-top:8px">Part 1 is the plan, Part 2 is the reasoning. Full detail in the companion markdown docs in this folder. Numbers sourced from live HubSpot data (Jun 2026) and 2025-2026 market research. North star: $170K.</p>
+</div></footer>
+
+</body>
+</html>
