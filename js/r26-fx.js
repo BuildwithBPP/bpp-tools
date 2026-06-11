@@ -6,9 +6,11 @@
  *
  * What it adds:
  *  - WebGL 3D heroes (Three.js, lazy ESM import, desktop only):
- *      home  -> "business system assembling itself" lattice in [data-hero-3d]
+ *      home  -> "chaos -> system -> order" particle flow through the gold
+ *               BPP ring into an organized grid, in [data-hero-3d]
  *      about -> node-constellation sphere behind .r26-subhero
  *      packages/booking/referral -> sparse ambient constellation in subhero
+ *  - White BPP monogram injected beside the nav/footer wordmarks
  *  - Interactive layer (all pages): FAQ accordion, mobile menu, magnetic
  *    buttons ([data-magnetic]), 3D card tilt + gold sheen, custom cursor,
  *    split-text hero reveal, scroll parallax, nav scroll state, CTA glow,
@@ -78,6 +80,12 @@
     '.r26x-ring{width:34px;height:34px;border:1.5px solid rgba(241,190,92,.65);transition:width .25s ease,height .25s ease,border-color .25s ease,background-color .25s ease}',
     '.r26x-ring.r26x-hov{width:52px;height:52px;border-color:#F1BE5C;background:rgba(241,190,92,.08)}',
     'html.r26x-cur,html.r26x-cur *{cursor:none!important}',
+    /* brand mark (white BPP monogram) in nav, footer, mobile menu */
+    '.r26x-brandmark{height:30px;width:auto;display:block}',
+    '.r26x-brandmark-f{height:36px;width:auto;display:block}',
+    '.r26x-brandmark-m{height:24px;width:auto;display:inline-block;vertical-align:middle;margin-right:10px}',
+    '.r26-nav-brand{display:flex;align-items:center;grid-column-gap:10px;gap:10px}',
+    '.r26-footer-brand{display:flex;align-items:center;grid-column-gap:12px;gap:12px}',
     /* split-text reveal */
     '.r26x-w{display:inline-block;overflow:hidden;vertical-align:bottom}',
     '.r26x-wi{display:inline-block;transform:translateY(114%);transition:transform .95s cubic-bezier(.16,1,.3,1)}',
@@ -116,6 +124,20 @@
         if (map[i][0].test(t)) { a.setAttribute('href', map[i][1]); return; }
       }
       if (/book|call|start with|contact/.test(t)) a.setAttribute('href', '/booking-redesign');
+    });
+  }
+
+  /* ------------------------------------------------- brand logo inject */
+  var BRAND_MARK = 'https://cdn.prod.website-files.com/699f9483b49696115c2aff2c/6a2ad43e91db0ec6e12dc177_bpp-mark-white-2.png';
+  function brandLogo() {
+    [['.r26-nav-brand', 'r26x-brandmark'], ['.r26-footer-brand', 'r26x-brandmark-f']].forEach(function (pair) {
+      d.querySelectorAll(pair[0]).forEach(function (el) {
+        var img = d.createElement('img');
+        img.src = BRAND_MARK;
+        img.alt = '';
+        img.className = pair[1];
+        el.insertBefore(img, el.firstChild);
+      });
     });
   }
 
@@ -172,7 +194,7 @@
         q.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
         });
-        setOpen(idx === 0, true); /* first item open by default */
+        setOpen(true, true); /* all answers visible by default; still collapsible */
       });
     });
   }
@@ -193,7 +215,12 @@
     menu.setAttribute('aria-label', 'Mobile');
     var tag = d.createElement('div');
     tag.className = 'r26x-menu-tag';
-    tag.textContent = 'Business Plans Plus';
+    var tagMark = d.createElement('img');
+    tagMark.src = BRAND_MARK;
+    tagMark.alt = '';
+    tagMark.className = 'r26x-brandmark-m';
+    tag.appendChild(tagMark);
+    tag.appendChild(d.createTextNode('Business Plans Plus'));
     menu.appendChild(tag);
     var links = d.querySelectorAll('.r26-nav-links a');
     links.forEach(function (a, i) {
@@ -276,7 +303,7 @@
   /* ------------------------------------------------- card tilt + sheen */
   function tilt() {
     if (REDUCED || !FINE) return;
-    var cards = d.querySelectorAll('.r26-pillar,.r26-tile,.r26-price-card,.r26-steps-grid > div');
+    var cards = d.querySelectorAll('.r26-pillar,.r26-tile,.r26-price-card,.r26-testi-card,.r26-steps-grid > div');
     cards.forEach(function (card) {
       card.classList.add('r26x-tilt');
       if (getComputedStyle(card).position === 'static') card.style.position = 'relative';
@@ -453,11 +480,13 @@
     var rim = new THREE.PointLight(GOLD, 1.3, 40); rim.position.set(-6, -3, 6); scene.add(rim);
   }
 
-  /* Home hero: modular blocks assembling into one orbiting system */
+  /* Home hero: "chaos -> system -> order". Scattered work (steel particles)
+     streams through the gold BPP ring and locks into an organized operating
+     grid. Loops continuously: the system, always running. */
   function homeScene(THREE, mount) {
     var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(35, mount.clientWidth / Math.max(mount.clientHeight, 1), 0.1, 100);
-    camera.position.set(0, 0, 14);
+    var camera = new THREE.PerspectiveCamera(38, mount.clientWidth / Math.max(mount.clientHeight, 1), 0.1, 100);
+    camera.position.set(0, 0.15, 12.5);
     if (getComputedStyle(mount).position === 'static') mount.style.position = 'relative';
     var renderer = fitRenderer(THREE, mount);
     renderer.domElement.className = 'r26x-c3d';
@@ -466,61 +495,69 @@
     sceneLights(THREE, scene);
 
     var group = new THREE.Group();
-    group.rotation.x = -0.08;
     scene.add(group);
 
-    var defs = [
-      { p: [0, 0, 0], s: 2.2, c: NAVY },
-      { p: [2.6, 1.2, -0.6], s: 1.35, c: STEEL },
-      { p: [-2.4, 1.5, 0.4], s: 1.2, c: NAVY_D },
-      { p: [-2.3, -1.6, -0.4], s: 1.45, c: STEEL },
-      { p: [2.3, -1.5, 0.5], s: 1.25, c: NAVY_D },
-      { p: [0.2, 2.6, -0.2], s: 1.0, c: NAVY },
-      { p: [-0.1, -2.7, 0.3], s: 1.05, c: NAVY }
-    ];
-    var blocks = defs.map(function (def, i) {
-      var geo = new THREE.BoxGeometry(def.s, def.s, def.s);
-      var mat = new THREE.MeshStandardMaterial({ color: def.c, roughness: 0.42, metalness: 0.22 });
-      var mesh = new THREE.Mesh(geo, mat);
-      var edges = new THREE.LineSegments(
-        new THREE.EdgesGeometry(geo),
-        new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0.85 })
-      );
-      mesh.add(edges);
-      var dir = new THREE.Vector3(def.p[0] || 0.4, def.p[1] || -0.3, def.p[2] + 0.6).normalize();
-      mesh.userData = {
-        target: new THREE.Vector3(def.p[0], def.p[1], def.p[2]),
-        start: new THREE.Vector3(def.p[0], def.p[1], def.p[2]).addScaledVector(dir, 5 + i * 0.7),
-        rot: new THREE.Euler((i % 3 - 1) * 0.9, (i % 2 ? 1 : -1) * 1.1, i * 0.35),
-        delay: i * 0.12,
-        phase: i * 1.7
-      };
-      mesh.position.copy(mesh.userData.start);
-      mesh.rotation.copy(mesh.userData.rot);
-      group.add(mesh);
-      return mesh;
-    });
+    var N = 1100;
+    var CHAOS_C = new THREE.Color(0x8fb6cf);
+    var GOLD_C = new THREE.Color(GOLD);
+    var ORDER_C = new THREE.Color(0xeaf2f8);
 
-    var pairs = [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [1, 4], [2, 3]];
-    var linePos = new Float32Array(pairs.length * 6);
-    pairs.forEach(function (pr, i) {
-      var a = defs[pr[0]].p, b = defs[pr[1]].p;
-      linePos.set([a[0], a[1], a[2], b[0], b[1], b[2]], i * 6);
-    });
-    var lineGeo = new THREE.BufferGeometry();
-    lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
-    var lineMat = new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0 });
-    group.add(new THREE.LineSegments(lineGeo, lineMat));
+    /* ordered slots: a 6 x 5 x 3 lattice on the right */
+    var slots = [];
+    var GX = 6, GY = 5, GZ = 3, SP = 0.62, CX = 2.05;
+    for (var ix = 0; ix < GX; ix++)
+      for (var iy = 0; iy < GY; iy++)
+        for (var iz = 0; iz < GZ; iz++)
+          slots.push(new THREE.Vector3(
+            CX + (ix - (GX - 1) / 2) * SP,
+            (iy - (GY - 1) / 2) * SP,
+            (iz - (GZ - 1) / 2) * SP
+          ));
 
-    var nodeMat = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0 });
-    var nodes = pairs.map(function (pr, i) {
-      var a = defs[pr[0]].p, b = defs[pr[1]].p;
-      var m = new THREE.Mesh(new THREE.SphereGeometry(0.12, 12, 12), nodeMat.clone());
-      m.position.set((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2);
-      m.userData.phase = i * 0.9;
-      group.add(m);
-      return m;
-    });
+    var pos = new Float32Array(N * 3);
+    var col = new Float32Array(N * 3);
+    var P = [];
+    for (var i = 0; i < N; i++) {
+      var slot = slots[i % slots.length];
+      P.push({
+        ax: -2.9 + (Math.random() - 0.5) * 2.8,
+        ay: (Math.random() - 0.5) * 3.2,
+        az: (Math.random() - 0.5) * 2.4,
+        bx: slot.x + (Math.random() - 0.5) * 0.08,
+        by: slot.y + (Math.random() - 0.5) * 0.08,
+        bz: slot.z + (Math.random() - 0.5) * 0.08,
+        t: Math.random(),
+        sp: 0.07 + Math.random() * 0.05,
+        ph: Math.random() * Math.PI * 2,
+        r: 0.25 + Math.random() * 0.45
+      });
+    }
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+    var pts = new THREE.Points(geo, new THREE.PointsMaterial({
+      size: 0.075, vertexColors: true, transparent: true, opacity: 0.95, sizeAttenuation: true
+    }));
+    group.add(pts);
+
+    /* the gold ring: the BPP system everything flows through */
+    var ring = new THREE.Mesh(
+      new THREE.TorusGeometry(1.12, 0.05, 16, 72),
+      new THREE.MeshStandardMaterial({
+        color: GOLD, roughness: 0.3, metalness: 0.5,
+        emissive: GOLD, emissiveIntensity: 0.35
+      })
+    );
+    ring.rotation.y = Math.PI / 2 - 0.38; /* slight tilt so it reads as a ring, not a bar */
+    group.add(ring);
+
+    /* faint gold frame around the ordered grid: structure, visible */
+    var frame = new THREE.LineSegments(
+      new THREE.EdgesGeometry(new THREE.BoxGeometry(GX * SP + 0.45, GY * SP + 0.45, GZ * SP + 0.45)),
+      new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0.22 })
+    );
+    frame.position.x = CX;
+    group.add(frame);
 
     var mx = 0, my = 0, smx = 0, smy = 0;
     mount.closest('section, body').addEventListener('mousemove', function (e) {
@@ -528,29 +565,47 @@
       my = (e.clientY / window.innerHeight - 0.5) * 2;
     }, { passive: true });
 
-    var ASSEMBLE = 1.7;
+    function ease(x) { return 1 - Math.pow(1 - x, 3); }
+
     makeRenderLoop(renderer, mount, function (t) {
-      var done = true;
-      blocks.forEach(function (b) {
-        var u = b.userData;
-        var p = Math.min(Math.max((t - 0.15 - u.delay) / ASSEMBLE, 0), 1);
-        if (p < 1) done = false;
-        var e = 1 - Math.pow(1 - p, 4);
-        b.position.lerpVectors(u.start, u.target, e);
-        b.rotation.set(u.rot.x * (1 - e), u.rot.y * (1 - e), u.rot.z * (1 - e));
-        if (p >= 1) b.position.y = u.target.y + Math.sin(t * 0.8 + u.phase) * 0.07;
-      });
-      if (done) {
-        if (lineMat.opacity < 0.35) lineMat.opacity = Math.min(0.35, lineMat.opacity + 0.012);
-        nodes.forEach(function (n) {
-          if (n.material.opacity < 0.9) n.material.opacity = Math.min(0.9, n.material.opacity + 0.02);
-          var s = 1 + Math.sin(t * 2 + n.userData.phase) * 0.28;
-          n.scale.setScalar(s);
-        });
+      for (var i = 0; i < N; i++) {
+        var p = P[i];
+        var u = (p.t + t * p.sp) % 1;
+        var i3 = i * 3, x, y, z, cr, cg, cb, fade = 1;
+        if (u < 0.06) fade = u / 0.06;
+        else if (u > 0.96) fade = (1 - u) / 0.04;
+        if (u < 0.5) {
+          /* chaotic drift converging on the ring */
+          var k = u / 0.5, ek = ease(k), wob = 1 - k;
+          x = p.ax * (1 - ek) + Math.sin(t * 1.7 + p.ph) * p.r * wob;
+          y = p.ay * (1 - ek) + Math.cos(t * 1.3 + p.ph * 1.7) * p.r * wob;
+          z = p.az * (1 - ek) + Math.sin(t * 1.1 + p.ph * 0.6) * p.r * wob * 0.7;
+          var g = Math.max(0, (k - 0.7) / 0.3);
+          cr = CHAOS_C.r + (GOLD_C.r - CHAOS_C.r) * g;
+          cg = CHAOS_C.g + (GOLD_C.g - CHAOS_C.g) * g;
+          cb = CHAOS_C.b + (GOLD_C.b - CHAOS_C.b) * g;
+        } else {
+          /* through the ring, out to an ordered slot, then hold */
+          var k2 = Math.min((u - 0.5) / 0.32, 1), ek2 = ease(k2);
+          x = p.bx * ek2;
+          y = p.by * ek2;
+          z = p.bz * ek2;
+          if (k2 >= 1) y += Math.sin(t * 2 + p.ph) * 0.015;
+          var g2 = 1 - Math.min(k2 * 1.6, 1);
+          cr = ORDER_C.r + (GOLD_C.r - ORDER_C.r) * g2;
+          cg = ORDER_C.g + (GOLD_C.g - ORDER_C.g) * g2;
+          cb = ORDER_C.b + (GOLD_C.b - ORDER_C.b) * g2;
+        }
+        pos[i3] = x; pos[i3 + 1] = y; pos[i3 + 2] = z;
+        col[i3] = cr * fade; col[i3 + 1] = cg * fade; col[i3 + 2] = cb * fade;
       }
+      geo.attributes.position.needsUpdate = true;
+      geo.attributes.color.needsUpdate = true;
+      ring.material.emissiveIntensity = 0.3 + Math.sin(t * 2.2) * 0.12;
+      ring.rotation.x = Math.sin(t * 0.4) * 0.06;
       smx += (mx - smx) * 0.04; smy += (my - smy) * 0.04;
-      group.rotation.y = t * 0.07 + smx * 0.16;
-      group.rotation.x = -0.08 + smy * 0.1;
+      group.rotation.y = smx * 0.14 + Math.sin(t * 0.12) * 0.03;
+      group.rotation.x = smy * 0.09;
       renderer.render(scene, camera);
     });
     watchResize(mount, renderer, camera);
@@ -655,6 +710,7 @@
   /* --------------------------------------------------------------- boot */
   function boot() {
     repairLinks();
+    brandLogo();
     accordion();
     mobileMenu();
     navState();
