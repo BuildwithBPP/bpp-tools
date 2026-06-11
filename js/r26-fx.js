@@ -5,15 +5,20 @@
  * scroll + scroll reveals + count-up) and does NOT re-init any of that.
  *
  * What it adds:
- *  - WebGL 3D heroes (Three.js, lazy ESM import, desktop only):
- *      home  -> "chaos -> system -> order" particle flow through the gold
- *               BPP ring into an organized grid, in [data-hero-3d]
+ *  - Home hero: vanilla 2D-canvas faux-3D node-network in [data-hero-3d] —
+ *    8 navy/steel nodes + thin gold lines assemble (~1.2s), then slow orbit
+ *    with a faint gold pulse. NO WebGL on the home page. Mobile and
+ *    reduced-motion render one static assembled frame; no-JS keeps the CSS
+ *    stand-in. ~6KB, no dependencies.
+ *  - Subhero 3D (Three.js, lazy ESM import, desktop only):
  *      about -> node-constellation sphere behind .r26-subhero
  *      packages/booking/referral -> sparse ambient constellation in subhero
+ *  - Home H1: line-by-line GSAP SplitText reveal (reuses the gsap that
+ *    r26motion loads; CSS word reveal as fallback).
  *  - White BPP monogram injected beside the nav/footer wordmarks
- *  - Interactive layer (all pages): FAQ accordion, mobile menu, magnetic
- *    buttons ([data-magnetic]), 3D card tilt + gold sheen, custom cursor,
- *    split-text hero reveal, scroll parallax, nav scroll state, CTA glow,
+ *  - Interactive layer (all pages): FAQ accordion (answers open by default),
+ *    mobile menu, magnetic buttons ([data-magnetic]), 3D card tilt + gold
+ *    sheen, custom cursor, scroll parallax, nav scroll state, CTA glow,
  *    link underline draw-ins.
  *  - Safety net: repairs href="#" nav/CTA links on the home redesign page.
  *
@@ -376,9 +381,45 @@
   }
 
   /* ------------------------------------------------ split-text reveal */
+  /* Home H1: line-by-line via GSAP SplitText (gsap is already CDN-loaded by
+     r26motion — poll for it, never double-load gsap itself). Falls back to
+     the CSS word reveal if gsap/SplitText don't arrive. Subhero pages keep
+     the CSS word reveal. */
   function splitReveal() {
     if (REDUCED) return;
-    var el = d.querySelector('.r26-hero-h1') || d.querySelector('.r26-subhero-h1');
+    var hero = d.querySelector('.r26-hero-h1');
+    if (hero) {
+      if (hero.dataset.r26xSplit) return;
+      hero.dataset.r26xSplit = '1';
+      var waited = 0;
+      (function poll() {
+        if (window.gsap) {
+          var s = d.createElement('script');
+          s.src = 'https://cdn.jsdelivr.net/npm/gsap@3/dist/SplitText.min.js';
+          s.onload = function () {
+            try {
+              window.gsap.registerPlugin(window.SplitText);
+              var split = new window.SplitText(hero, { type: 'lines', linesClass: 'r26x-line' });
+              split.lines.forEach(function (ln) {
+                var wrap = d.createElement('div');
+                wrap.style.overflow = 'hidden';
+                ln.parentNode.insertBefore(wrap, ln);
+                wrap.appendChild(ln);
+              });
+              window.gsap.from(split.lines, { yPercent: 112, duration: 0.9, ease: 'expo.out', stagger: 0.07 });
+            } catch (e) { delete hero.dataset.r26xSplit; cssWordReveal(hero); }
+          };
+          s.onerror = function () { delete hero.dataset.r26xSplit; cssWordReveal(hero); };
+          d.head.appendChild(s);
+        } else if ((waited += 80) < 2400) setTimeout(poll, 80);
+        else { delete hero.dataset.r26xSplit; cssWordReveal(hero); }
+      })();
+      return;
+    }
+    cssWordReveal(d.querySelector('.r26-subhero-h1'));
+  }
+
+  function cssWordReveal(el) {
     if (!el || el.dataset.r26xSplit) return;
     el.dataset.r26xSplit = '1';
     var frag = d.createDocumentFragment();
@@ -480,135 +521,131 @@
     var rim = new THREE.PointLight(GOLD, 1.3, 40); rim.position.set(-6, -3, 6); scene.add(rim);
   }
 
-  /* Home hero: "chaos -> system -> order". Scattered work (steel particles)
-     streams through the gold BPP ring and locks into an organized operating
-     grid. Loops continuously: the system, always running. */
-  function homeScene(THREE, mount) {
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(38, mount.clientWidth / Math.max(mount.clientHeight, 1), 0.1, 100);
-    camera.position.set(0, 0.15, 12.5);
+  /* ============================== Home hero: vanilla-canvas node network.
+     A faux-3D lattice of 8 rounded nodes (navy bodies, steel rims) joined by
+     thin gold lines assembles itself, then idles in a slow orbit with a faint
+     pulse on the gold nodes: "we build the system that runs your business."
+     No WebGL, no dependencies. Mobile + reduced-motion render one static
+     assembled frame. The CSS stand-in remains the no-JS fallback. */
+  function heroNetwork(mount) {
+    var STATIC_FRAME = REDUCED || window.innerWidth < 768;
     if (getComputedStyle(mount).position === 'static') mount.style.position = 'relative';
-    var renderer = fitRenderer(THREE, mount);
-    renderer.domElement.className = 'r26x-c3d';
-    mount.appendChild(renderer.domElement);
+    var canvas = d.createElement('canvas');
+    canvas.className = 'r26x-c3d';
+    canvas.setAttribute('aria-hidden', 'true');
+    mount.appendChild(canvas);
     mount.classList.add('r26x-3d-live');
-    sceneLights(THREE, scene);
+    var ctx = canvas.getContext('2d');
+    var DPR = Math.min(window.devicePixelRatio || 1, 2);
+    var W = 0, H = 0;
+    function size() {
+      W = mount.clientWidth; H = mount.clientHeight;
+      canvas.width = W * DPR; canvas.height = H * DPR;
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
+    size();
 
-    var group = new THREE.Group();
-    scene.add(group);
+    /* lattice: unit-space coords, r = node radius px, gold = active node */
+    var defs = [
+      { x: 0,     y: 0,     z: 0,    r: 21 },
+      { x: 0.62,  y: 0.30,  z: -0.35, r: 13 },
+      { x: -0.58, y: 0.38,  z: 0.30,  r: 11 },
+      { x: -0.55, y: -0.40, z: -0.25, r: 14 },
+      { x: 0.55,  y: -0.38, z: 0.33,  r: 12 },
+      { x: 0.05,  y: 0.62,  z: 0.15,  r: 8, gold: true },
+      { x: -0.04, y: -0.64, z: -0.12, r: 8, gold: true },
+      { x: 0.30,  y: -0.05, z: 0.62,  r: 7, gold: true }
+    ];
+    var edges = [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [1, 5], [3, 6], [4, 7], [2, 5], [1, 4]];
+    var nodes = defs.map(function (n, i) {
+      var th = Math.random() * Math.PI * 2;
+      return {
+        x: n.x, y: n.y, z: n.z, r: n.r, gold: !!n.gold,
+        sx: n.x + Math.cos(th) * 1.3, sy: n.y + Math.sin(th) * 1.1, sz: n.z + (Math.random() - 0.5) * 1.6,
+        delay: i * 0.08, ph: i * 1.93
+      };
+    });
 
-    var N = 1100;
-    var CHAOS_C = new THREE.Color(0x8fb6cf);
-    var GOLD_C = new THREE.Color(GOLD);
-    var ORDER_C = new THREE.Color(0xeaf2f8);
-
-    /* ordered slots: a 6 x 5 x 3 lattice on the right */
-    var slots = [];
-    var GX = 6, GY = 5, GZ = 3, SP = 0.62, CX = 2.05;
-    for (var ix = 0; ix < GX; ix++)
-      for (var iy = 0; iy < GY; iy++)
-        for (var iz = 0; iz < GZ; iz++)
-          slots.push(new THREE.Vector3(
-            CX + (ix - (GX - 1) / 2) * SP,
-            (iy - (GY - 1) / 2) * SP,
-            (iz - (GZ - 1) / 2) * SP
-          ));
-
-    var pos = new Float32Array(N * 3);
-    var col = new Float32Array(N * 3);
-    var P = [];
-    for (var i = 0; i < N; i++) {
-      var slot = slots[i % slots.length];
-      P.push({
-        ax: -2.9 + (Math.random() - 0.5) * 2.8,
-        ay: (Math.random() - 0.5) * 3.2,
-        az: (Math.random() - 0.5) * 2.4,
-        bx: slot.x + (Math.random() - 0.5) * 0.08,
-        by: slot.y + (Math.random() - 0.5) * 0.08,
-        bz: slot.z + (Math.random() - 0.5) * 0.08,
-        t: Math.random(),
-        sp: 0.07 + Math.random() * 0.05,
-        ph: Math.random() * Math.PI * 2,
-        r: 0.25 + Math.random() * 0.45
+    var TILT = -0.18, F = 3.2; /* x-tilt + perspective strength (unit space) */
+    function ease(x) { return 1 - Math.pow(1 - x, 4); }
+    function draw(t) {
+      ctx.clearRect(0, 0, W, H);
+      var cx = W / 2, cy = H / 2;
+      var scale = Math.min(W, H) * 0.42;
+      var rot = STATIC_FRAME ? 0.5 : t * 0.12 + smx * 0.3;
+      var tilt = TILT + (STATIC_FRAME ? 0 : smy * 0.12);
+      var cosR = Math.cos(rot), sinR = Math.sin(rot);
+      var cosT = Math.cos(tilt), sinT = Math.sin(tilt);
+      var proj = nodes.map(function (n) {
+        var p = STATIC_FRAME ? 1 : Math.min(Math.max((t - 0.1 - n.delay) / 1.2, 0), 1);
+        var e = ease(p);
+        var x = n.sx + (n.x - n.sx) * e;
+        var y = n.sy + (n.y - n.sy) * e;
+        var z = n.sz + (n.z - n.sz) * e;
+        if (!STATIC_FRAME && p >= 1) y += Math.sin(t * 0.9 + n.ph) * 0.018;
+        /* rotate Y then X-tilt */
+        var x1 = x * cosR + z * sinR, z1 = -x * sinR + z * cosR;
+        var y1 = y * cosT - z1 * sinT, z2 = y * sinT + z1 * cosT;
+        var k = F / (F + z2);
+        return { sx: cx + x1 * scale * k, sy: cy + y1 * scale * k, k: k, a: e, n: n };
+      });
+      /* edges: thin gold, alpha gated on both endpoints having arrived */
+      ctx.lineWidth = 1;
+      for (var i = 0; i < edges.length; i++) {
+        var A = proj[edges[i][0]], B = proj[edges[i][1]];
+        var a = Math.min(A.a, B.a) * 0.38 * Math.min(A.k, B.k);
+        if (a <= 0.01) continue;
+        ctx.strokeStyle = 'rgba(241,190,92,' + a.toFixed(3) + ')';
+        ctx.beginPath(); ctx.moveTo(A.sx, A.sy); ctx.lineTo(B.sx, B.sy); ctx.stroke();
+      }
+      /* nodes: back-to-front */
+      proj.slice().sort(function (a, b) { return a.k - b.k; }).forEach(function (q) {
+        var n = q.n, r = n.r * q.k, alpha = 0.25 + q.a * 0.75;
+        if (n.gold) {
+          var pulse = STATIC_FRAME ? 0 : Math.sin(t * 2.1 + n.ph) * 0.5 + 0.5;
+          var rr = r * (1 + pulse * 0.18);
+          ctx.fillStyle = 'rgba(241,190,92,' + (0.10 + pulse * 0.10) * q.a + ')';
+          ctx.beginPath(); ctx.arc(q.sx, q.sy, rr * 2.4, 0, 6.2832); ctx.fill();
+          ctx.fillStyle = 'rgba(241,190,92,' + (0.85 * alpha).toFixed(3) + ')';
+          ctx.beginPath(); ctx.arc(q.sx, q.sy, rr, 0, 6.2832); ctx.fill();
+        } else {
+          var grad = ctx.createRadialGradient(q.sx - r * 0.35, q.sy - r * 0.35, r * 0.15, q.sx, q.sy, r);
+          grad.addColorStop(0, 'rgba(89,135,165,' + alpha.toFixed(3) + ')');
+          grad.addColorStop(1, 'rgba(4,71,113,' + alpha.toFixed(3) + ')');
+          ctx.fillStyle = grad;
+          ctx.beginPath(); ctx.arc(q.sx, q.sy, r, 0, 6.2832); ctx.fill();
+          ctx.strokeStyle = 'rgba(89,135,165,' + (0.55 * alpha).toFixed(3) + ')';
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.arc(q.sx, q.sy, r, 0, 6.2832); ctx.stroke();
+        }
       });
     }
-    var geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
-    var pts = new THREE.Points(geo, new THREE.PointsMaterial({
-      size: 0.075, vertexColors: true, transparent: true, opacity: 0.95, sizeAttenuation: true
-    }));
-    group.add(pts);
 
-    /* the gold ring: the BPP system everything flows through */
-    var ring = new THREE.Mesh(
-      new THREE.TorusGeometry(1.12, 0.05, 16, 72),
-      new THREE.MeshStandardMaterial({
-        color: GOLD, roughness: 0.3, metalness: 0.5,
-        emissive: GOLD, emissiveIntensity: 0.35
-      })
-    );
-    ring.rotation.y = Math.PI / 2 - 0.38; /* slight tilt so it reads as a ring, not a bar */
-    group.add(ring);
-
-    /* faint gold frame around the ordered grid: structure, visible */
-    var frame = new THREE.LineSegments(
-      new THREE.EdgesGeometry(new THREE.BoxGeometry(GX * SP + 0.45, GY * SP + 0.45, GZ * SP + 0.45)),
-      new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0.22 })
-    );
-    frame.position.x = CX;
-    group.add(frame);
-
-    var mx = 0, my = 0, smx = 0, smy = 0;
-    mount.closest('section, body').addEventListener('mousemove', function (e) {
-      mx = (e.clientX / window.innerWidth - 0.5) * 2;
-      my = (e.clientY / window.innerHeight - 0.5) * 2;
-    }, { passive: true });
-
-    function ease(x) { return 1 - Math.pow(1 - x, 3); }
-
-    makeRenderLoop(renderer, mount, function (t) {
-      for (var i = 0; i < N; i++) {
-        var p = P[i];
-        var u = (p.t + t * p.sp) % 1;
-        var i3 = i * 3, x, y, z, cr, cg, cb, fade = 1;
-        if (u < 0.06) fade = u / 0.06;
-        else if (u > 0.96) fade = (1 - u) / 0.04;
-        if (u < 0.5) {
-          /* chaotic drift converging on the ring */
-          var k = u / 0.5, ek = ease(k), wob = 1 - k;
-          x = p.ax * (1 - ek) + Math.sin(t * 1.7 + p.ph) * p.r * wob;
-          y = p.ay * (1 - ek) + Math.cos(t * 1.3 + p.ph * 1.7) * p.r * wob;
-          z = p.az * (1 - ek) + Math.sin(t * 1.1 + p.ph * 0.6) * p.r * wob * 0.7;
-          var g = Math.max(0, (k - 0.7) / 0.3);
-          cr = CHAOS_C.r + (GOLD_C.r - CHAOS_C.r) * g;
-          cg = CHAOS_C.g + (GOLD_C.g - CHAOS_C.g) * g;
-          cb = CHAOS_C.b + (GOLD_C.b - CHAOS_C.b) * g;
-        } else {
-          /* through the ring, out to an ordered slot, then hold */
-          var k2 = Math.min((u - 0.5) / 0.32, 1), ek2 = ease(k2);
-          x = p.bx * ek2;
-          y = p.by * ek2;
-          z = p.bz * ek2;
-          if (k2 >= 1) y += Math.sin(t * 2 + p.ph) * 0.015;
-          var g2 = 1 - Math.min(k2 * 1.6, 1);
-          cr = ORDER_C.r + (GOLD_C.r - ORDER_C.r) * g2;
-          cg = ORDER_C.g + (GOLD_C.g - ORDER_C.g) * g2;
-          cb = ORDER_C.b + (GOLD_C.b - ORDER_C.b) * g2;
-        }
-        pos[i3] = x; pos[i3 + 1] = y; pos[i3 + 2] = z;
-        col[i3] = cr * fade; col[i3 + 1] = cg * fade; col[i3 + 2] = cb * fade;
-      }
-      geo.attributes.position.needsUpdate = true;
-      geo.attributes.color.needsUpdate = true;
-      ring.material.emissiveIntensity = 0.3 + Math.sin(t * 2.2) * 0.12;
-      ring.rotation.x = Math.sin(t * 0.4) * 0.06;
-      smx += (mx - smx) * 0.04; smy += (my - smy) * 0.04;
-      group.rotation.y = smx * 0.14 + Math.sin(t * 0.12) * 0.03;
-      group.rotation.x = smy * 0.09;
-      renderer.render(scene, camera);
-    });
-    watchResize(mount, renderer, camera);
+    var smx = 0, smy = 0, mx = 0, my = 0;
+    if (STATIC_FRAME) { draw(0); }
+    else {
+      mount.closest('section, body').addEventListener('mousemove', function (e) {
+        mx = (e.clientX / window.innerWidth - 0.5) * 2;
+        my = (e.clientY / window.innerHeight - 0.5) * 2;
+      }, { passive: true });
+      var active = true, visible = true;
+      var io = new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }, { rootMargin: '120px' });
+      io.observe(mount);
+      d.addEventListener('visibilitychange', function () { active = !d.hidden; });
+      var t0 = performance.now();
+      (function frame(now) {
+        requestAnimationFrame(frame);
+        if (!active || !visible) return;
+        smx += (mx - smx) * 0.04; smy += (my - smy) * 0.04;
+        draw((now - t0) / 1000);
+      })(t0);
+    }
+    if (window.ResizeObserver) new ResizeObserver(function () {
+      if (!mount.clientWidth) return;
+      size();
+      if (STATIC_FRAME) draw(0);
+    }).observe(mount);
   }
 
   /* Subhero constellation: networked node-sphere (denser on About) */
@@ -685,23 +722,30 @@
     requestAnimationFrame(function () { host.classList.add('r26x-in'); });
   }
 
+  /* Home hero canvas: cheap enough to run everywhere; mobile/reduced-motion
+     get one static assembled frame inside heroNetwork itself. */
+  function initHero() {
+    var heroMount = d.querySelector('[data-hero-3d]');
+    if (!heroMount) return;
+    try { heroNetwork(heroMount); }
+    catch (e) { /* leave the CSS stand-in in place */ }
+  }
+
+  /* Subhero constellations (about/packages/booking/referral) keep Three.js;
+     the home page never loads it. */
   function init3D() {
     if (REDUCED || window.innerWidth < 768) return;
-    var heroMount = d.querySelector('[data-hero-3d]');
     var subhero = d.querySelector('.r26-subhero');
-    if (!heroMount && !subhero) return;
+    if (!subhero) return;
     function start() {
       import(THREE_URL).then(function (THREE) {
         try {
-          if (heroMount) homeScene(THREE, heroMount);
-          if (subhero) {
-            var about = PATH.indexOf('about-redesign') !== -1;
-            constellation(THREE, subhero, about
-              ? { n: 130, r: 2.3, x: 2.1, link: 0.42, lineOpacity: 0.3 }
-              : { n: 80, r: 2.6, x: 2.4, link: 0.4, lineOpacity: 0.18 });
-          }
-        } catch (e) { /* leave the CSS stand-in in place */ }
-      }).catch(function () { /* CDN unavailable: CSS stand-in remains */ });
+          var about = PATH.indexOf('about-redesign') !== -1;
+          constellation(THREE, subhero, about
+            ? { n: 130, r: 2.3, x: 2.1, link: 0.42, lineOpacity: 0.3 }
+            : { n: 80, r: 2.6, x: 2.4, link: 0.4, lineOpacity: 0.18 });
+        } catch (e) { /* leave the flat subhero in place */ }
+      }).catch(function () { /* CDN unavailable: flat subhero remains */ });
     }
     if (d.readyState === 'complete') setTimeout(start, 50);
     else window.addEventListener('load', function () { setTimeout(start, 50); });
@@ -720,6 +764,7 @@
     splitReveal();
     parallax();
     ctaGlow();
+    initHero();
     init3D();
   }
   if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', boot);
