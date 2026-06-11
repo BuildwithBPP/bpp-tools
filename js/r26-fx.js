@@ -106,6 +106,18 @@
     '.r26x-slider-dots{display:flex;gap:9px}',
     '.r26x-slider-dot{width:9px;height:9px;border-radius:50%;border:0;padding:0;background:#C9D6E0;cursor:pointer;transition:background-color .25s ease,transform .25s ease}',
     '.r26x-slider-dot.r26x-on{background:#F1BE5C;transform:scale(1.25)}',
+    /* youtube facade */
+    '.r26x-video{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background-size:cover;background-position:center;cursor:pointer;box-shadow:0 18px 48px rgba(2,30,52,.28)}',
+    '.r26x-video::after{content:"";position:absolute;inset:0;background:rgba(3,51,89,.28);transition:background .3s ease}',
+    '.r26x-video:hover::after{background:rgba(3,51,89,.12)}',
+    '.r26x-video-play{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:#F1BE5C;z-index:2;display:flex;align-items:center;justify-content:center;transition:transform .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 10px 30px rgba(2,30,52,.35)}',
+    '.r26x-video:hover .r26x-video-play{transform:scale(1.08)}',
+    '.r26x-video-play span{display:block;width:0;height:0;border-left:22px solid #033359;border-top:13px solid transparent;border-bottom:13px solid transparent;margin-left:6px}',
+    '.r26x-video-frame{position:absolute;inset:0;width:100%;height:100%;border:0}',
+    '.r26x-video-on{cursor:default}.r26x-video-on::after{display:none}',
+    /* team linkedin button hover */
+    '.r26-team-li{transition:border-color .25s ease,background-color .25s ease,color .25s ease}',
+    '.r26-team-li:hover{border-color:#F1BE5C!important;background-color:#F1BE5C;color:#033359!important}',
     /* CTA ambient glow */
     '.r26-cta{position:relative;overflow:hidden}',
     '.r26x-glow{position:absolute;width:55%;padding-bottom:55%;border-radius:50%;top:-25%;left:-12%;pointer-events:none;background:radial-gradient(circle,rgba(241,190,92,.13),transparent 65%);animation:r26xDrift 16s ease-in-out infinite alternate}',
@@ -229,6 +241,37 @@
       }, { passive: true });
       go(0);
       restart();
+    });
+  }
+
+  /* ------------------------------------------------ YouTube facade
+     [data-r26-video="<id>"] becomes a poster + gold play button; the real
+     iframe only loads on click (Core Web Vitals friendly). */
+  function videoFacade() {
+    d.querySelectorAll('[data-r26-video]').forEach(function (el) {
+      var id = el.getAttribute('data-r26-video');
+      if (!id) return;
+      el.classList.add('r26x-video');
+      el.style.backgroundImage = 'url(https://img.youtube.com/vi/' + id + '/maxresdefault.jpg)';
+      var btn = d.createElement('div');
+      btn.className = 'r26x-video-play';
+      btn.innerHTML = '<span></span>';
+      el.appendChild(btn);
+      function play() {
+        var f = d.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+        f.allow = 'autoplay; encrypted-media; picture-in-picture';
+        f.allowFullscreen = true;
+        f.title = el.getAttribute('aria-label') || 'Video';
+        f.className = 'r26x-video-frame';
+        el.innerHTML = '';
+        el.appendChild(f);
+        el.classList.add('r26x-video-on');
+      }
+      el.addEventListener('click', play, { once: true });
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); }
+      });
     });
   }
 
@@ -856,6 +899,7 @@
     fixRawImages();
     repairLinks();
     brandLogo();
+    videoFacade();
     slider();
     accordion();
     mobileMenu();
