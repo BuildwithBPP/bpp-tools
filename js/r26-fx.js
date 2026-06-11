@@ -95,6 +95,17 @@
     '.r26x-w{display:inline-block;overflow:hidden;vertical-align:bottom}',
     '.r26x-wi{display:inline-block;transform:translateY(114%);transition:transform .95s cubic-bezier(.16,1,.3,1)}',
     '.r26x-go .r26x-wi{transform:none}',
+    /* testimonial slider */
+    '.r26x-slider-vp{overflow:hidden}',
+    '.r26x-slider-track{display:flex;flex-direction:row;grid-row-gap:0;gap:0;transition:transform .65s cubic-bezier(.16,1,.3,1)}',
+    '[data-r26-slider] .r26-slide{flex:0 0 100%;min-width:100%;box-sizing:border-box}',
+    '.r26x-slider-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:32px}',
+    '.r26x-slider-btn{width:46px;height:46px;border-radius:50%;border:1.5px solid #5987A5;background:transparent;color:#044771;font-size:1.1rem;cursor:pointer;transition:border-color .25s ease,background-color .25s ease,color .25s ease}',
+    '.r26x-slider-btn:hover{border-color:#F1BE5C;background:#F1BE5C;color:#033359}',
+    '.r26x-slider-btn:focus-visible{outline:2px solid #F1BE5C;outline-offset:3px}',
+    '.r26x-slider-dots{display:flex;gap:9px}',
+    '.r26x-slider-dot{width:9px;height:9px;border-radius:50%;border:0;padding:0;background:#C9D6E0;cursor:pointer;transition:background-color .25s ease,transform .25s ease}',
+    '.r26x-slider-dot.r26x-on{background:#F1BE5C;transform:scale(1.25)}',
     /* CTA ambient glow */
     '.r26-cta{position:relative;overflow:hidden}',
     '.r26x-glow{position:absolute;width:55%;padding-bottom:55%;border-radius:50%;top:-25%;left:-12%;pointer-events:none;background:radial-gradient(circle,rgba(241,190,92,.13),transparent 65%);animation:r26xDrift 16s ease-in-out infinite alternate}',
@@ -129,6 +140,95 @@
         if (map[i][0].test(t)) { a.setAttribute('href', map[i][1]); return; }
       }
       if (/book|call|start with|contact/.test(t)) a.setAttribute('href', '/booking-redesign');
+    });
+  }
+
+  /* -------------------------------------------------- imgraw -> img fix
+     whtml_builder publishes raw <img> tags as non-rendering <imgraw>
+     elements with the src moved to data-raw-src. Convert them back. */
+  function fixRawImages() {
+    d.querySelectorAll('imgraw[data-raw-src]').forEach(function (raw) {
+      var img = d.createElement('img');
+      img.src = raw.getAttribute('data-raw-src');
+      var cls = (raw.getAttribute('class') || '').split(/\s+/);
+      cls = cls.filter(function (c, i) { return c && cls.indexOf(c) === i; });
+      if (cls.length) img.className = cls.join(' ');
+      if (raw.getAttribute('alt') !== null) img.alt = raw.getAttribute('alt');
+      if (raw.getAttribute('loading')) img.loading = raw.getAttribute('loading');
+      raw.parentNode.replaceChild(img, raw);
+    });
+  }
+
+  /* --------------------------------------------------- testimonial slider
+     Progressive enhancement over a vertical stack of .r26-slide cards inside
+     [data-r26-slider]: turns it into a one-per-view slider with arrows,
+     dots, autoplay (pause on hover/hidden), swipe. Reduced motion: no
+     autoplay, instant jumps. */
+  function slider() {
+    d.querySelectorAll('[data-r26-slider]').forEach(function (root) {
+      var slides = root.querySelectorAll('.r26-slide');
+      if (slides.length < 2) return;
+      var track = slides[0].parentNode;
+      var vp = d.createElement('div');
+      vp.className = 'r26x-slider-vp';
+      track.parentNode.insertBefore(vp, track);
+      vp.appendChild(track);
+      track.classList.add('r26x-slider-track');
+      if (REDUCED) track.style.transition = 'none';
+
+      var nav = d.createElement('div');
+      nav.className = 'r26x-slider-nav';
+      var prev = d.createElement('button');
+      prev.className = 'r26x-slider-btn';
+      prev.setAttribute('aria-label', 'Previous testimonial');
+      prev.innerHTML = '&#8592;';
+      var dots = d.createElement('div');
+      dots.className = 'r26x-slider-dots';
+      var next = d.createElement('button');
+      next.className = 'r26x-slider-btn';
+      next.setAttribute('aria-label', 'Next testimonial');
+      next.innerHTML = '&#8594;';
+      nav.appendChild(prev); nav.appendChild(dots); nav.appendChild(next);
+      vp.parentNode.insertBefore(nav, vp.nextSibling);
+
+      var dotEls = [];
+      slides.forEach(function (_, i) {
+        var b = d.createElement('button');
+        b.className = 'r26x-slider-dot';
+        b.setAttribute('aria-label', 'Go to testimonial ' + (i + 1));
+        b.addEventListener('click', function () { go(i, true); });
+        dots.appendChild(b);
+        dotEls.push(b);
+      });
+
+      var idx = 0, timer = null;
+      function go(i, manual) {
+        idx = (i + slides.length) % slides.length;
+        track.style.transform = 'translateX(-' + idx * 100 + '%)';
+        dotEls.forEach(function (b, j) { b.classList.toggle('r26x-on', j === idx); });
+        if (manual) restart();
+      }
+      prev.addEventListener('click', function () { go(idx - 1, true); });
+      next.addEventListener('click', function () { go(idx + 1, true); });
+      function restart() {
+        if (timer) clearInterval(timer);
+        if (REDUCED) return;
+        timer = setInterval(function () {
+          if (!d.hidden) go(idx + 1);
+        }, 6500);
+      }
+      root.addEventListener('mouseenter', function () { if (timer) clearInterval(timer); });
+      root.addEventListener('mouseleave', restart);
+      /* swipe */
+      var sx = null;
+      vp.addEventListener('pointerdown', function (e) { sx = e.clientX; }, { passive: true });
+      vp.addEventListener('pointerup', function (e) {
+        if (sx === null) return;
+        var dx = e.clientX - sx; sx = null;
+        if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1), true);
+      }, { passive: true });
+      go(0);
+      restart();
     });
   }
 
@@ -753,8 +853,10 @@
 
   /* --------------------------------------------------------------- boot */
   function boot() {
+    fixRawImages();
     repairLinks();
     brandLogo();
+    slider();
     accordion();
     mobileMenu();
     navState();
