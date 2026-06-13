@@ -114,8 +114,11 @@
     '.r26x-video-play{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:#F1BE5C;z-index:2;display:flex;align-items:center;justify-content:center;transition:transform .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 10px 30px rgba(2,30,52,.35)}',
     '.r26x-video:hover .r26x-video-play{transform:scale(1.08)}',
     '.r26x-video-play span{display:block;width:0;height:0;border-left:22px solid #033359;border-top:13px solid transparent;border-bottom:13px solid transparent;margin-left:6px}',
-    '.r26x-video-frame{position:absolute;inset:0;width:100%;height:100%;border:0}',
+    '.r26x-video-frame{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}',
     '.r26x-video-on{cursor:default}.r26x-video-on::after{display:none}',
+    /* portrait self-hosted video: vertical phone frame on mobile, wide navy brand stage on desktop */
+    '.r26x-vp{max-width:380px;margin-left:auto;margin-right:auto}',
+    '@media (min-width:768px){.r26x-vp{max-width:980px;aspect-ratio:16/9!important;background:radial-gradient(130% 130% at 50% 0%,#0a3c66 0%,#033359 58%,#02223a 100%)}.r26x-vp .r26x-video-frame{object-fit:contain}}',
     /* team linkedin button hover */
     '.r26-team-li{transition:border-color .25s ease,background-color .25s ease,color .25s ease}',
     '.r26-team-li:hover{border-color:#F1BE5C!important;background-color:#F1BE5C;color:#033359!important}',
@@ -265,17 +268,13 @@
         vid.preload = 'metadata';
         vid.setAttribute('playsinline', '');
         vid.setAttribute('webkit-playsinline', '');
-        vid.style.objectFit = 'cover';
-        vid.style.background = '#033359';
         vid.title = el.getAttribute('aria-label') || 'Video';
         vid.addEventListener('loadedmetadata', function () {
           if (!vid.videoWidth || !vid.videoHeight) return;
           el.style.aspectRatio = vid.videoWidth + ' / ' + vid.videoHeight;
-          if (vid.videoHeight > vid.videoWidth) { /* portrait: cap to a centered phone-width frame so it doesn't dominate */
-            el.style.maxWidth = '380px';
-            el.style.marginLeft = 'auto';
-            el.style.marginRight = 'auto';
-          }
+          /* portrait video -> phone frame on mobile, wide navy brand stage on desktop (handled in CSS via .r26x-vp;
+             the inline aspect-ratio above is the mobile frame; the desktop media query overrides it to 16/9) */
+          if (vid.videoHeight > vid.videoWidth) el.classList.add('r26x-vp');
         });
         el.appendChild(vid);
       } else {
