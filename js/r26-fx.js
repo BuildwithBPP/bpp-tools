@@ -269,7 +269,13 @@
         vid.style.background = '#033359';
         vid.title = el.getAttribute('aria-label') || 'Video';
         vid.addEventListener('loadedmetadata', function () {
-          if (vid.videoWidth && vid.videoHeight) el.style.aspectRatio = vid.videoWidth + ' / ' + vid.videoHeight;
+          if (!vid.videoWidth || !vid.videoHeight) return;
+          el.style.aspectRatio = vid.videoWidth + ' / ' + vid.videoHeight;
+          if (vid.videoHeight > vid.videoWidth) { /* portrait: cap to a centered phone-width frame so it doesn't dominate */
+            el.style.maxWidth = '380px';
+            el.style.marginLeft = 'auto';
+            el.style.marginRight = 'auto';
+          }
         });
         el.appendChild(vid);
       } else {
