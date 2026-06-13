@@ -118,7 +118,7 @@
     '.r26x-video-on{cursor:default}.r26x-video-on::after{display:none}',
     /* portrait self-hosted video: vertical phone frame on mobile, wide navy brand stage on desktop */
     '.r26x-vp{max-width:380px;margin-left:auto;margin-right:auto}',
-    '@media (min-width:768px){.r26x-vp{max-width:980px;aspect-ratio:16/9!important;background:radial-gradient(130% 130% at 50% 0%,#0a3c66 0%,#033359 58%,#02223a 100%)}.r26x-vp .r26x-video-frame{object-fit:contain}}',
+    '@media (min-width:768px){.r26x-vp{max-width:980px;aspect-ratio:16/9!important;background:radial-gradient(46% 66% at 50% 52%,rgba(241,190,92,.14),rgba(241,190,92,0) 70%),radial-gradient(130% 130% at 50% 0%,#0a3c66 0%,#033359 58%,#02223a 100%)}.r26x-vp .r26x-video-frame{object-fit:contain}}',
     /* team linkedin button hover */
     '.r26-team-li{transition:border-color .25s ease,background-color .25s ease,color .25s ease}',
     '.r26-team-li:hover{border-color:#F1BE5C!important;background-color:#F1BE5C;color:#033359!important}',
