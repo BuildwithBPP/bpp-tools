@@ -5,11 +5,12 @@
  * scroll + scroll reveals + count-up) and does NOT re-init any of that.
  *
  * What it adds:
- *  - Home hero: vanilla 2D-canvas faux-3D node-network in [data-hero-3d] —
- *    8 navy/steel nodes + thin gold lines assemble (~1.2s), then slow orbit
- *    with a faint gold pulse. NO WebGL on the home page. Mobile and
- *    reduced-motion render one static assembled frame; no-JS keeps the CSS
- *    stand-in. ~6KB, no dependencies.
+ *  - Home hero: vanilla 2D-canvas "chaos to command center" dashboard in
+ *    [data-hero-3d] — scattered business clutter (glyph chips + loose
+ *    dashboard parts) drifts in disorder, then sweeps into a clean, glowing
+ *    command-center dashboard with a live chart + pulse (~2.3s). NO WebGL on
+ *    the home page. Mobile and reduced-motion render the settled dashboard as
+ *    one static frame; no-JS keeps the CSS stand-in. No dependencies.
  *  - Subhero 3D (Three.js, lazy ESM import, desktop only):
  *      about -> node-constellation sphere behind .r26-subhero
  *      packages/booking/referral -> sparse ambient constellation in subhero
@@ -664,13 +665,14 @@
     var rim = new THREE.PointLight(GOLD, 1.3, 40); rim.position.set(-6, -3, 6); scene.add(rim);
   }
 
-  /* ============================== Home hero: vanilla-canvas node network.
-     A faux-3D lattice of 8 rounded nodes (navy bodies, steel rims) joined by
-     thin gold lines assembles itself, then idles in a slow orbit with a faint
-     pulse on the gold nodes: "we build the system that runs your business."
-     No WebGL, no dependencies. Mobile + reduced-motion render one static
-     assembled frame. The CSS stand-in remains the no-JS fallback. */
-  function heroNetwork(mount) {
+  /* ====================== Home hero: "chaos to command center" dashboard.
+     Everyday business clutter (loose dashboard parts + scattered glyph chips)
+     drifts in disorder, then sweeps into a clean, glowing command-center
+     dashboard that idles with a live chart and a pulse: "we turn your chaos
+     into one system you can run." Vanilla 2D canvas, no WebGL, no deps. Mobile
+     and reduced-motion render the settled dashboard as one static frame; the
+     CSS stand-in stays the no-JS fallback. */
+  function heroDashboard(mount) {
     var STATIC_FRAME = REDUCED || window.innerWidth < 768;
     if (getComputedStyle(mount).position === 'static') mount.style.position = 'relative';
     var canvas = d.createElement('canvas');
@@ -680,107 +682,265 @@
     mount.classList.add('r26x-3d-live');
     var ctx = canvas.getContext('2d');
     var DPR = Math.min(window.devicePixelRatio || 1, 2);
-    var W = 0, H = 0;
+    var W = 0, H = 0, P = { w: 0, h: 0, x: 0, y: 0 };
+
     function size() {
       W = mount.clientWidth; H = mount.clientHeight;
       canvas.width = W * DPR; canvas.height = H * DPR;
       canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      var pw = Math.min(W * 0.96, H * 1.42);
+      var ph = pw * 0.66;
+      if (ph > H * 0.94) { ph = H * 0.94; pw = ph / 0.66; }
+      P = { w: pw, h: ph, x: (W - pw) / 2, y: (H - ph) / 2 };
     }
     size();
 
-    /* lattice: unit-space coords, r = node radius px, gold = active node */
-    var defs = [
-      { x: 0,     y: 0,     z: 0,    r: 21 },
-      { x: 0.62,  y: 0.30,  z: -0.35, r: 13 },
-      { x: -0.58, y: 0.38,  z: 0.30,  r: 11 },
-      { x: -0.55, y: -0.40, z: -0.25, r: 14 },
-      { x: 0.55,  y: -0.38, z: 0.33,  r: 12 },
-      { x: 0.05,  y: 0.62,  z: 0.15,  r: 8, gold: true },
-      { x: -0.04, y: -0.64, z: -0.12, r: 8, gold: true },
-      { x: 0.30,  y: -0.05, z: 0.62,  r: 7, gold: true }
-    ];
-    var edges = [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [1, 5], [3, 6], [4, 7], [2, 5], [1, 4]];
-    var nodes = defs.map(function (n, i) {
-      var th = Math.random() * Math.PI * 2;
-      return {
-        x: n.x, y: n.y, z: n.z, r: n.r, gold: !!n.gold,
-        sx: n.x + Math.cos(th) * 1.3, sy: n.y + Math.sin(th) * 1.1, sz: n.z + (Math.random() - 0.5) * 1.6,
-        delay: i * 0.08, ph: i * 1.93
-      };
-    });
-
-    var TILT = -0.18, F = 3.2; /* x-tilt + perspective strength (unit space) */
     function ease(x) { return 1 - Math.pow(1 - x, 4); }
-    function draw(t) {
-      ctx.clearRect(0, 0, W, H);
-      var cx = W / 2, cy = H / 2;
-      var scale = Math.min(W, H) * 0.42;
-      var rot = STATIC_FRAME ? 0.5 : t * 0.12 + smx * 0.3;
-      var tilt = TILT + (STATIC_FRAME ? 0 : smy * 0.12);
-      var cosR = Math.cos(rot), sinR = Math.sin(rot);
-      var cosT = Math.cos(tilt), sinT = Math.sin(tilt);
-      var proj = nodes.map(function (n) {
-        var p = STATIC_FRAME ? 1 : Math.min(Math.max((t - 0.1 - n.delay) / 1.2, 0), 1);
-        var e = ease(p);
-        var x = n.sx + (n.x - n.sx) * e;
-        var y = n.sy + (n.y - n.sy) * e;
-        var z = n.sz + (n.z - n.sz) * e;
-        if (!STATIC_FRAME && p >= 1) y += Math.sin(t * 0.9 + n.ph) * 0.018;
-        /* rotate Y then X-tilt */
-        var x1 = x * cosR + z * sinR, z1 = -x * sinR + z * cosR;
-        var y1 = y * cosT - z1 * sinT, z2 = y * sinT + z1 * cosT;
-        var k = F / (F + z2);
-        return { sx: cx + x1 * scale * k, sy: cy + y1 * scale * k, k: k, a: e, n: n };
-      });
-      /* edges: thin gold, alpha gated on both endpoints having arrived */
-      ctx.lineWidth = 1;
-      for (var i = 0; i < edges.length; i++) {
-        var A = proj[edges[i][0]], B = proj[edges[i][1]];
-        var a = Math.min(A.a, B.a) * 0.38 * Math.min(A.k, B.k);
-        if (a <= 0.01) continue;
-        ctx.strokeStyle = 'rgba(241,190,92,' + a.toFixed(3) + ')';
-        ctx.beginPath(); ctx.moveTo(A.sx, A.sy); ctx.lineTo(B.sx, B.sy); ctx.stroke();
-      }
-      /* nodes: back-to-front */
-      proj.slice().sort(function (a, b) { return a.k - b.k; }).forEach(function (q) {
-        var n = q.n, r = n.r * q.k, alpha = 0.25 + q.a * 0.75;
-        if (n.gold) {
-          var pulse = STATIC_FRAME ? 0 : Math.sin(t * 2.1 + n.ph) * 0.5 + 0.5;
-          var rr = r * (1 + pulse * 0.18);
-          ctx.fillStyle = 'rgba(241,190,92,' + (0.10 + pulse * 0.10) * q.a + ')';
-          ctx.beginPath(); ctx.arc(q.sx, q.sy, rr * 2.4, 0, 6.2832); ctx.fill();
-          ctx.fillStyle = 'rgba(241,190,92,' + (0.85 * alpha).toFixed(3) + ')';
-          ctx.beginPath(); ctx.arc(q.sx, q.sy, rr, 0, 6.2832); ctx.fill();
-        } else {
-          var grad = ctx.createRadialGradient(q.sx - r * 0.35, q.sy - r * 0.35, r * 0.15, q.sx, q.sy, r);
-          grad.addColorStop(0, 'rgba(89,135,165,' + alpha.toFixed(3) + ')');
-          grad.addColorStop(1, 'rgba(4,71,113,' + alpha.toFixed(3) + ')');
-          ctx.fillStyle = grad;
-          ctx.beginPath(); ctx.arc(q.sx, q.sy, r, 0, 6.2832); ctx.fill();
-          ctx.strokeStyle = 'rgba(89,135,165,' + (0.55 * alpha).toFixed(3) + ')';
-          ctx.lineWidth = 1;
-          ctx.beginPath(); ctx.arc(q.sx, q.sy, r, 0, 6.2832); ctx.stroke();
-        }
+    function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+    function lerp(a, b, e) { return a + (b - a) * e; }
+    function rr(x, y, w, h, r) {
+      r = Math.min(r, w / 2, h / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    /* pieces in panel-local coords (0..1 of the panel); each gets a fixed
+       random scatter seed so the chaos frame is stable across resizes. */
+    function mk(type, lx, ly, lw, lh, glyph, depth) {
+      var ang = Math.random() * Math.PI * 2;
+      var dist = 0.9 + Math.random() * 0.8;
+      return {
+        type: type, lx: lx, ly: ly, lw: lw, lh: lh, glyph: glyph, depth: depth,
+        sdx: Math.cos(ang) * dist, sdy: Math.sin(ang) * dist * 0.8,
+        srot: (Math.random() - 0.5) * 1.1, sscale: 0.55 + Math.random() * 0.5,
+        ph: Math.random() * 6.283, delay: 0
+      };
+    }
+    var pieces = [
+      mk('header', 0.00, 0.00, 1.00, 0.165, null, 0.55),
+      mk('tile', 0.05, 0.235, 0.275, 0.255, 'dollar', 1.0),
+      mk('tile', 0.3625, 0.235, 0.275, 0.255, 'clock', 1.0),
+      mk('tile', 0.675, 0.235, 0.275, 0.255, 'check', 1.0),
+      mk('chart', 0.05, 0.55, 0.575, 0.40, null, 0.85),
+      mk('row', 0.66, 0.55, 0.29, 0.115, 'doc', 0.75),
+      mk('row', 0.66, 0.6925, 0.29, 0.115, 'chat', 0.75),
+      mk('row', 0.66, 0.835, 0.29, 0.115, 'user', 0.75)
+    ];
+    pieces.forEach(function (p, i) { p.delay = i * 0.06; });
+    /* free-floating clutter glyphs: visible in chaos, cleared as order arrives */
+    var noise = [];
+    var nGl = ['calendar', 'dollar', 'doc', 'clock', 'chat', 'check', 'user'];
+    for (var ni = 0; ni < 7; ni++) {
+      noise.push({
+        nx: 0.12 + Math.random() * 0.76, ny: 0.1 + Math.random() * 0.8,
+        g: nGl[ni % nGl.length], s: 0.55 + Math.random() * 0.7,
+        ph: Math.random() * 6.283, sp: 0.5 + Math.random() * 0.7,
+        rot: (Math.random() - 0.5) * 0.8
       });
     }
 
+    function glyph(type, cx, cy, s, col, alpha) {
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = col; ctx.fillStyle = col;
+      ctx.lineWidth = Math.max(1.3, s * 0.11);
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      if (type === 'dollar') {
+        ctx.beginPath(); ctx.arc(cx, cy, s * 0.5, 0, 6.2832); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx, cy - s * 0.36); ctx.lineTo(cx, cy + s * 0.36); ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx, cy - s * 0.13, s * 0.17, Math.PI * 0.15, Math.PI * 1.25); ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx, cy + s * 0.13, s * 0.17, Math.PI * 1.15, Math.PI * 0.25); ctx.stroke();
+      } else if (type === 'clock') {
+        ctx.beginPath(); ctx.arc(cx, cy, s * 0.5, 0, 6.2832); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx, cy - s * 0.3); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + s * 0.24, cy + s * 0.1); ctx.stroke();
+      } else if (type === 'check') {
+        ctx.beginPath(); ctx.arc(cx, cy, s * 0.5, 0, 6.2832); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx - s * 0.24, cy + s * 0.02); ctx.lineTo(cx - s * 0.04, cy + s * 0.22); ctx.lineTo(cx + s * 0.27, cy - s * 0.2); ctx.stroke();
+      } else if (type === 'doc') {
+        rr(cx - s * 0.34, cy - s * 0.44, s * 0.68, s * 0.88, s * 0.1); ctx.stroke();
+        for (var li = 0; li < 3; li++) {
+          var ly = cy - s * 0.18 + li * s * 0.22;
+          ctx.beginPath(); ctx.moveTo(cx - s * 0.18, ly); ctx.lineTo(cx + (li === 2 ? 0.02 : 0.18) * s, ly); ctx.stroke();
+        }
+      } else if (type === 'calendar') {
+        rr(cx - s * 0.44, cy - s * 0.38, s * 0.88, s * 0.78, s * 0.1); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx - s * 0.44, cy - s * 0.13); ctx.lineTo(cx + s * 0.44, cy - s * 0.13); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx - s * 0.22, cy - s * 0.45); ctx.lineTo(cx - s * 0.22, cy - s * 0.28); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx + s * 0.22, cy - s * 0.45); ctx.lineTo(cx + s * 0.22, cy - s * 0.28); ctx.stroke();
+      } else if (type === 'chat') {
+        rr(cx - s * 0.46, cy - s * 0.36, s * 0.92, s * 0.62, s * 0.16); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx - s * 0.16, cy + s * 0.26); ctx.lineTo(cx - s * 0.3, cy + s * 0.48); ctx.lineTo(cx - s * 0.02, cy + s * 0.26); ctx.stroke();
+      } else if (type === 'user') {
+        ctx.beginPath(); ctx.arc(cx, cy - s * 0.18, s * 0.2, 0, 6.2832); ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx, cy + s * 0.46, s * 0.34, Math.PI * 1.15, Math.PI * 1.85); ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    /* a docked panel-piece: rounded card carrying a small glyph + bars */
+    function drawPiece(p, gx, gy, gw, gh, e, alpha, t, idx) {
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      var cx = gx + gw / 2, cy = gy + gh / 2;
+      ctx.translate(cx, cy);
+      ctx.rotate(lerp(p.srot, 0, e));
+      var sc = lerp(p.sscale, 1, e);
+      ctx.scale(sc, sc);
+      ctx.translate(-gw / 2, -gh / 2);
+      if (p.type === 'header') {
+        var hg = ctx.createLinearGradient(0, 0, gw, 0);
+        hg.addColorStop(0, '#044771'); hg.addColorStop(1, '#033359');
+        ctx.fillStyle = hg; rr(0, 0, gw, gh, gh * 0.28); ctx.fill();
+        var dy = gh / 2;
+        ['rgba(255,255,255,.28)', 'rgba(255,255,255,.28)', 'rgba(255,255,255,.28)'].forEach(function (c, k) {
+          ctx.fillStyle = c; ctx.beginPath(); ctx.arc(gh * 0.7 + k * gh * 0.42, dy, gh * 0.1, 0, 6.2832); ctx.fill();
+        });
+        ctx.fillStyle = 'rgba(255,255,255,.5)'; rr(gw * 0.42, dy - gh * 0.1, gw * 0.16, gh * 0.2, gh * 0.1); ctx.fill();
+        var lp = STATIC_FRAME ? 0.6 : Math.sin(t * 2.4) * 0.5 + 0.5;
+        ctx.fillStyle = 'rgba(241,190,92,' + (0.25 + lp * 0.2) + ')';
+        ctx.beginPath(); ctx.arc(gw - gh * 0.95, dy, gh * 0.18 + lp * gh * 0.05, 0, 6.2832); ctx.fill();
+        ctx.fillStyle = '#F1BE5C';
+        ctx.beginPath(); ctx.arc(gw - gh * 0.95, dy, gh * 0.1, 0, 6.2832); ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,.5)'; rr(gw - gh * 0.7, dy - gh * 0.07, gh * 0.4, gh * 0.14, gh * 0.07); ctx.fill();
+      } else if (p.type === 'tile') {
+        ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#E6EBF1'; ctx.lineWidth = 1;
+        rr(0, 0, gw, gh, gh * 0.16); ctx.fill(); ctx.stroke();
+        glyph(p.glyph, gw * 0.2, gh * 0.32, gh * 0.34, '#5987A5', 1);
+        ctx.fillStyle = '#1A2B3C'; rr(gw * 0.12, gh * 0.58, gw * 0.5, gh * 0.16, gh * 0.07); ctx.fill();
+        ctx.fillStyle = '#F1BE5C'; rr(gw * 0.12, gh * 0.8, gw * 0.32, gh * 0.085, gh * 0.04); ctx.fill();
+        ctx.fillStyle = '#CBD5E1'; rr(gw * 0.5, gh * 0.81, gw * 0.18, gh * 0.07, gh * 0.035); ctx.fill();
+      } else if (p.type === 'chart') {
+        ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#E6EBF1'; ctx.lineWidth = 1;
+        rr(0, 0, gw, gh, gh * 0.1); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#1A2B3C'; rr(gw * 0.07, gh * 0.12, gw * 0.3, gh * 0.1, gh * 0.05); ctx.fill();
+        var ix = gw * 0.07, iw = gw * 0.86, iy = gh * 0.34, ih = gh * 0.5, base = iy + ih;
+        ctx.strokeStyle = '#EEF2F6'; ctx.lineWidth = 1;
+        for (var gl = 0; gl < 3; gl++) {
+          var yy = iy + ih * gl / 3;
+          ctx.beginPath(); ctx.moveTo(ix, yy); ctx.lineTo(ix + iw, yy); ctx.stroke();
+        }
+        var hs = [0.32, 0.5, 0.42, 0.66, 0.58, 0.84];
+        var bw = iw / hs.length * 0.5;
+        var pts = [];
+        for (var bi = 0; bi < hs.length; bi++) {
+          var grow = STATIC_FRAME ? 1 : clamp((t - 1.9 - bi * 0.08) / 0.5, 0, 1);
+          var hv = hs[bi];
+          if (!STATIC_FRAME && bi === hs.length - 1) hv += Math.sin(t * 1.6) * 0.05;
+          var bh = ih * hv * ease(grow);
+          var bx = ix + iw * (bi + 0.5) / hs.length - bw / 2;
+          ctx.fillStyle = 'rgba(89,135,165,.18)';
+          rr(bx, base - bh, bw, bh, bw * 0.3); ctx.fill();
+          pts.push({ x: ix + iw * (bi + 0.5) / hs.length, y: base - ih * hv });
+        }
+        var lprog = STATIC_FRAME ? 1 : ease(clamp((t - 2.1) / 0.8, 0, 1));
+        ctx.strokeStyle = '#F1BE5C'; ctx.lineWidth = Math.max(1.6, gh * 0.03);
+        ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+        ctx.beginPath();
+        var last = (pts.length - 1) * lprog;
+        for (var pi = 0; pi <= last; pi++) {
+          var a = pts[Math.floor(pi)], b = pts[Math.min(Math.ceil(pi), pts.length - 1)], f = pi - Math.floor(pi);
+          var px = lerp(a.x, b.x, f), py = lerp(a.y, b.y, f);
+          if (pi === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+        var ep = pts[Math.min(Math.round(last), pts.length - 1)];
+        var dpulse = STATIC_FRAME ? 0.5 : Math.sin(t * 2.6) * 0.5 + 0.5;
+        ctx.fillStyle = 'rgba(241,190,92,' + (0.2 + dpulse * 0.2) + ')';
+        ctx.beginPath(); ctx.arc(ep.x, ep.y, gh * 0.06 + dpulse * gh * 0.02, 0, 6.2832); ctx.fill();
+        ctx.fillStyle = '#F1BE5C'; ctx.beginPath(); ctx.arc(ep.x, ep.y, gh * 0.035, 0, 6.2832); ctx.fill();
+      } else if (p.type === 'row') {
+        ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#E6EBF1'; ctx.lineWidth = 1;
+        rr(0, 0, gw, gh, gh * 0.22); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = 'rgba(89,135,165,.12)';
+        ctx.beginPath(); ctx.arc(gh * 0.62, gh * 0.5, gh * 0.3, 0, 6.2832); ctx.fill();
+        glyph(p.glyph, gh * 0.62, gh * 0.5, gh * 0.42, '#5987A5', 1);
+        ctx.fillStyle = '#334155'; rr(gh * 1.05, gh * 0.3, gw * 0.42, gh * 0.16, gh * 0.08); ctx.fill();
+        ctx.fillStyle = '#CBD5E1'; rr(gh * 1.05, gh * 0.58, gw * 0.28, gh * 0.12, gh * 0.06); ctx.fill();
+        ctx.fillStyle = '#16a34a';
+        ctx.beginPath(); ctx.arc(gw - gh * 0.5, gh * 0.5, gh * 0.12, 0, 6.2832); ctx.fill();
+      }
+      ctx.restore();
+    }
+
     var smx = 0, smy = 0, mx = 0, my = 0;
+    function draw(t) {
+      ctx.clearRect(0, 0, W, H);
+      var gp = STATIC_FRAME ? 1 : ease(clamp((t - 0.85) / 1.45, 0, 1));
+      var floatY = STATIC_FRAME ? 0 : Math.sin(t * 0.7) * H * 0.006;
+      var ox = smx * P.w * 0.03, oy = smy * P.h * 0.03 + floatY;
+
+      /* soft gold glow + glowing white base behind the assembling panel */
+      if (gp > 0.02) {
+        var cx0 = P.x + P.w / 2 + ox, cy0 = P.y + P.h / 2 + oy;
+        var g = ctx.createRadialGradient(cx0, cy0, P.w * 0.1, cx0, cy0, P.w * 0.75);
+        g.addColorStop(0, 'rgba(241,190,92,' + (0.10 * gp) + ')');
+        g.addColorStop(1, 'rgba(241,190,92,0)');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+        ctx.save();
+        ctx.globalAlpha = gp;
+        ctx.shadowColor = 'rgba(3,33,73,0.45)'; ctx.shadowBlur = P.w * 0.06; ctx.shadowOffsetY = P.h * 0.04;
+        ctx.fillStyle = '#F4F6F8';
+        rr(P.x + ox - P.w * 0.012, P.y + oy - P.h * 0.012, P.w * 1.024, P.h * 1.024, P.h * 0.07);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      /* clutter glyphs: fade out as the system comes together */
+      var nAlpha = STATIC_FRAME ? 0 : (1 - gp) * 0.9;
+      if (nAlpha > 0.01) {
+        for (var k = 0; k < noise.length; k++) {
+          var nn = noise[k];
+          var dxx = Math.sin(t * nn.sp + nn.ph) * P.w * 0.03;
+          var dyy = Math.cos(t * nn.sp * 0.8 + nn.ph) * P.h * 0.04;
+          var ncx = P.x + nn.nx * P.w + dxx + ox * nn.s;
+          var ncy = P.y + nn.ny * P.h + dyy + oy * nn.s;
+          ctx.save(); ctx.translate(ncx, ncy); ctx.rotate(nn.rot + Math.sin(t * 0.5 + nn.ph) * 0.15);
+          glyph(nn.g, 0, 0, P.h * 0.13 * nn.s, '#7FA6C0', nAlpha);
+          ctx.restore();
+        }
+      }
+
+      /* pieces: scattered -> docked */
+      for (var i = 0; i < pieces.length; i++) {
+        var p = pieces[i];
+        var e = STATIC_FRAME ? 1 : ease(clamp((t - 0.85 - p.delay) / 0.9, 0, 1));
+        var tx = P.x + p.lx * P.w, ty = P.y + p.ly * P.h, tw = p.lw * P.w, th = p.lh * P.h;
+        var drift = STATIC_FRAME ? 0 : (1 - e);
+        var jx = Math.sin(t * 0.9 + p.ph) * P.w * 0.02 * drift;
+        var jy = Math.cos(t * 0.8 + p.ph) * P.h * 0.03 * drift;
+        var sx = tx + p.sdx * P.w * 0.45 * drift + jx;
+        var sy = ty + p.sdy * P.h * 0.55 * drift + jy;
+        var gx = lerp(sx, tx, e) + ox * p.depth;
+        var gy = lerp(sy, ty, e) + oy * p.depth;
+        var alpha = STATIC_FRAME ? 1 : lerp(0.0, 1, clamp(e * 1.4, 0, 1));
+        drawPiece(p, gx, gy, tw, th, e, alpha, t, i);
+      }
+    }
+
+    var raf = 0, active = true, visible = true;
     if (STATIC_FRAME) { draw(0); }
     else {
-      mount.closest('section, body').addEventListener('mousemove', function (e) {
+      (mount.closest('section') || d.body).addEventListener('mousemove', function (e) {
+        if (!FINE) return;
         mx = (e.clientX / window.innerWidth - 0.5) * 2;
         my = (e.clientY / window.innerHeight - 0.5) * 2;
       }, { passive: true });
-      var active = true, visible = true;
-      var io = new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }, { rootMargin: '120px' });
-      io.observe(mount);
+      if (window.IntersectionObserver) {
+        new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }, { rootMargin: '140px' }).observe(mount);
+      }
       d.addEventListener('visibilitychange', function () { active = !d.hidden; });
       var t0 = performance.now();
       (function frame(now) {
-        requestAnimationFrame(frame);
+        raf = requestAnimationFrame(frame);
         if (!active || !visible) return;
-        smx += (mx - smx) * 0.04; smy += (my - smy) * 0.04;
+        smx += (mx - smx) * 0.05; smy += (my - smy) * 0.05;
         draw((now - t0) / 1000);
       })(t0);
     }
@@ -866,11 +1026,11 @@
   }
 
   /* Home hero canvas: cheap enough to run everywhere; mobile/reduced-motion
-     get one static assembled frame inside heroNetwork itself. */
+     get the settled dashboard as one static frame inside heroDashboard. */
   function initHero() {
     var heroMount = d.querySelector('[data-hero-3d]');
     if (!heroMount) return;
-    try { heroNetwork(heroMount); }
+    try { heroDashboard(heroMount); }
     catch (e) { /* leave the CSS stand-in in place */ }
   }
 
