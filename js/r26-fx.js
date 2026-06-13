@@ -710,7 +710,7 @@
      no-JS fallback. */
   function heroDashboard(mount) {
     var ICO={"dollar-sign":{"p":["M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"],"l":[[12.0,2.0,12.0,22.0]]},"clock":{"p":["M12 6v6l4 2"],"c":[[12.0,12.0,10.0]]},"circle-check":{"p":["m9 12 2 2 4-4"],"c":[[12.0,12.0,10.0]]},"calendar":{"p":["M8 2v4","M16 2v4","M3 10h18"],"r":[[3.0,4.0,18.0,18.0,2.0]]},"mail":{"p":["m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"],"r":[[2.0,4.0,20.0,16.0,2.0]]},"users":{"p":["M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2","M16 3.128a4 4 0 0 1 0 7.744","M22 21v-2a4 4 0 0 0-3-3.87"],"c":[[9.0,7.0,4.0]]},"phone":{"p":["M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"]},"folder":{"p":["M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"]},"trending-up":{"p":["M16 7h6v6","m22 7-8.5 8.5-5-5L2 17"]},"file-text":{"p":["M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z","M14 2v5a1 1 0 0 0 1 1h5","M10 9H8","M16 13H8","M16 17H8"]},"message-square":{"p":["M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"]},"bar-chart-3":{"p":["M3 3v16a2 2 0 0 0 2 2h16","M18 17V9","M13 17V5","M8 17v-3"]}};
-    var STATIC_FRAME = REDUCED || window.innerWidth < 768;
+    var STATIC_FRAME = REDUCED;
     if (getComputedStyle(mount).position === 'static') mount.style.position = 'relative';
     var canvas = d.createElement('canvas');
     canvas.className = 'r26x-c3d';
@@ -1078,7 +1078,7 @@
   /* Subhero constellations (about/packages/booking/referral) keep Three.js;
      the home page never loads it. */
   function init3D() {
-    if (REDUCED || window.innerWidth < 768) return;
+    if (REDUCED) return;
     var subhero = d.querySelector('.r26-subhero');
     if (!subhero) return;
     function start() {
