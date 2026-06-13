@@ -635,7 +635,7 @@
   function parallax() {
     if (REDUCED) return;
     var hv = d.querySelector('.r26-hero-visual');
-    var sh = d.querySelector('.r26-subhero-inner');
+    var sh = window.innerWidth >= 768 ? d.querySelector('.r26-subhero-inner') : null; /* subhero parallax off on mobile (felt like the section scrolled with you) */
     if (!hv && !sh) return;
     var raf = 0;
     function apply() {
@@ -911,7 +911,10 @@
     }
 
     var smx = 0, smy = 0, mx = 0, my = 0, sp = STATIC_FRAME ? 1 : 0;
-    var DIST = clamp(window.innerHeight * 0.45, 260, 440);
+    var MOB = window.innerWidth < 768;
+    function calcDist() { return MOB ? clamp(window.innerHeight * 0.62, 430, 560) : clamp(window.innerHeight * 0.45, 260, 440); }
+    var DIST = calcDist();
+    var HOLD = MOB ? 80 : 0; /* mobile: hold full chaos for the first bit of scroll, then assemble more slowly */
     function draw(t) {
       ctx.clearRect(0, 0, W, H);
       var gp = ease(sp);
@@ -933,7 +936,7 @@
         ctx.restore();
       }
 
-      var nAlpha = STATIC_FRAME ? 0 : (1 - gp) * 0.95;
+      var nAlpha = STATIC_FRAME ? 0 : (MOB ? Math.pow(1 - clamp(sp, 0, 1), 2) : (1 - gp)) * 0.95;
       if (nAlpha > 0.01) {
         for (var k = 0; k < noise.length; k++) {
           var nn = noise[k];
@@ -979,7 +982,7 @@
       (function frame(now) {
         raf = requestAnimationFrame(frame);
         if (!active || !visible) return;
-        var target = clamp(window.scrollY / DIST, 0, 1);
+        var target = clamp((window.scrollY - HOLD) / DIST, 0, 1);
         sp += (target - sp) * 0.14;
         smx += (mx - smx) * 0.05; smy += (my - smy) * 0.05;
         draw((now - t0) / 1000);
@@ -987,7 +990,7 @@
     }
     if (window.ResizeObserver) new ResizeObserver(function () {
       if (!mount.clientWidth) return;
-      size(); DIST = clamp(window.innerHeight * 0.45, 260, 440);
+      size(); MOB = window.innerWidth < 768; DIST = calcDist(); HOLD = MOB ? 80 : 0;
       if (STATIC_FRAME) draw(0);
     }).observe(mount);
   }
