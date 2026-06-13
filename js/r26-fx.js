@@ -145,17 +145,24 @@
   /* ----------------------------------------------- link repair (home) */
   function repairLinks() {
     var map = [
-      [/^home$/, '/home-redesign'],
-      [/packages/, '/packages-redesign'],
-      [/^about$/, '/about-redesign'],
-      [/referral/, '/referral-redesign']
+      [/^home$/, '/'],
+      [/packages/, '/packages'],
+      [/^about$/, '/about'],
+      [/referral/, '/referral']
     ];
+    /* go-live: rewrite any hard -redesign link to its final clean URL */
+    var slug = { 'home-redesign': '/', 'packages-redesign': '/packages', 'about-redesign': '/about', 'booking-redesign': '/booking', 'referral-redesign': '/referral' };
+    d.querySelectorAll('a[href*="-redesign"]').forEach(function (a) {
+      var h = a.getAttribute('href') || '';
+      for (var key in slug) { if (h.indexOf(key) !== -1) { a.setAttribute('href', slug[key]); break; } }
+    });
+    /* placeholder # links -> destination inferred from link text */
     d.querySelectorAll('a[href="#"]').forEach(function (a) {
       var t = (a.textContent || '').trim().toLowerCase();
       for (var i = 0; i < map.length; i++) {
         if (map[i][0].test(t)) { a.setAttribute('href', map[i][1]); return; }
       }
-      if (/book|call|start with|contact/.test(t)) a.setAttribute('href', '/booking-redesign');
+      if (/book|call|start with|contact/.test(t)) a.setAttribute('href', '/booking');
     });
   }
 
