@@ -1,10 +1,10 @@
 {
   "_format": "Auto-refreshed by bpp-monday-prep skill (Step 11.5). index.html fetches this on load. Falls back to hardcoded values if stale.",
-  "generated_at": "2026-06-08T11:30:00",
-  "generation_mode": "auto",
+  "generated_at": "2026-06-15T12:30:00",
+  "generation_mode": "manual",
   "test_mode": false,
   "as_of_date": "2026-05-01",
-  "as_of_note": "Cash/AR are from the May 1 forecast — the JUNE forecast has not been built yet, so cash is 38 days old. Pipeline/clients are live as of 2026-06-08. Confirmed June collections (Jeannette $960, $927 payout) likely push savings over $3K — confirm at June close.",
+  "as_of_note": "Cash/AR are from the May 1 forecast — the JUNE forecast STILL has not been built, so cash is 45 days old. Pipeline/clients are live as of 2026-06-15. Confirmed June collections (Jeannette $960, $927 payout) likely push savings over $3K — confirm at June close.",
   "stats": {
     "cash_on_hand": 6496,
     "cash_breakdown": {
@@ -16,14 +16,14 @@
     "buffer_gap": -321,
     "savings_pct_to_phase2": 93,
     "ar_total": 5975,
-    "ar_note": "Estimate — HubSpot has no amount_paid field; AR is committed milestones still owed across closed-won deals (~$5,975 known).",
+    "ar_note": "Estimate — HubSpot has no amount_paid field; AR is committed milestones still owed across closed-won deals (~$5,975 known; Lois remaining may be lower if the halfway 40% is already in).",
     "active_clients_count": 4,
-    "active_clients_names": ["Financial Acuity", "SEEDFOLKids", "Lois Marketing", "Wedelia Wellness"],
-    "pipeline_total": 12500,
-    "pipeline_count": 5,
-    "pipeline_hot_count": 3,
+    "active_clients_names": ["Financial Acuity", "SEEDFOLKids", "Lois Marketing", "HALO Commons"],
+    "pipeline_total": 16098,
+    "pipeline_count": 6,
+    "pipeline_hot_count": 4,
     "pipeline_cold_count": 0,
-    "pipeline_verified_date": "2026-06-08"
+    "pipeline_verified_date": "2026-06-15"
   },
   "ar_scenarios": [
     {"name": "Conservative", "receivables_in": 4260, "ending_operating": 5488, "savings_after": 3453, "hits_phase2": true, "highlight": false, "detail": "May forecast highs: Wanda $500, Lois $1,800, Jeannette $960 (already in 6/4), Maxine $1,000."},
@@ -41,10 +41,10 @@
       "subtitle": "Maxine · Growth Package ($3,350)",
       "owner": "Daunte/Eli/Kenny",
       "owner_color": "daunte",
-      "phase": "Build",
-      "next_milestone": "~$1,000 milestone; website in active client review",
-      "at_risk": true,
-      "risk_note": "7 milestones overdue + 2 Blocked; 6/6 website review meeting canceled — reschedule. Maxine actively reviewing (momentum)."
+      "phase": "Build → Review",
+      "next_milestone": "MS-2 Website + MS-4 GBP In Review; review/closeout chain 6/16-6/26; closes 6/26",
+      "at_risk": false,
+      "risk_note": "RECOVERING HARD — MS-3 Intake Done 6/8, MS-2/MS-4 In Review, all milestones re-baselined. HubSpot training for Maxine delivered (Rodney '5 stars'). Land MS-2 + GBP this week to hold the 6/26 close."
     },
     {
       "name": "SEEDFOLKids",
@@ -52,27 +52,29 @@
       "owner": "Eli/Daunte",
       "owner_color": "eli",
       "phase": "Closeout",
-      "next_milestone": "Project Close Out (overdue since 4/18); 30-day iteration window closes 6/20",
-      "at_risk": true,
-      "risk_note": "Closeout dragging; 1 Blocked subitem (Wix guide). MS-1 Branding now Done."
+      "next_milestone": "Project Close Out DONE 6/9; only CFO/QuickBooks consulting (Daunte) gates final close; iteration window closes 6/20",
+      "at_risk": false,
+      "risk_note": "Close-out done. Daunte to confirm the 10-hr QuickBooks consulting is complete to fully close."
     },
     {
       "name": "Lois Marketing",
       "subtitle": "Phil Tirado · Operator System ($4,500)",
       "owner": "Eli/Kenny",
       "owner_color": "eli",
-      "phase": "Build",
-      "next_milestone": "MS-2 Playbook + MS-5 Website Audit In Progress; Website Design Review scheduled; ~$3,150 owed",
+      "phase": "Build → Review",
+      "next_milestone": "MS-3 CRM in client review, MS-5 Website Audit due 6/16, MS-4 Financial Clarity Session starts today; closes 7/2-7/3",
       "at_risk": false,
-      "risk_note": "Improving — no longer Blocked (was 3 Blocked milestones last brief)."
+      "risk_note": "On track. Healthy — no Blocked milestones."
     },
     {
-      "name": "Wedelia Wellness",
-      "subtitle": "BP+QB+GMB / Root to Radiance ($1,248 P1)",
+      "name": "HALO Commons / HALO Pathways",
+      "subtitle": "Felicia · Launch Pad ($1,649)",
       "owner": "Eli",
       "owner_color": "eli",
       "phase": "Build",
-      "next_milestone": "Business Plan + Landing Page In Progress"
+      "next_milestone": "Business Plan (Rodney) + Landing Page due 6/19; halfway invoice 6/19; GBP 6/23; closes 6/26",
+      "at_risk": false,
+      "risk_note": "On track + upsell signal alive (HALO Pathways expansion). Felicia very engaged. $824.50 closeout owed (INV-1027)."
     }
   ],
   "operating_norms_compact": [
@@ -81,21 +83,21 @@
     "AI per dept: framework central, ownership distributed"
   ],
   "whats_new": {
-    "ratified_date": "2026-06-08",
-    "headline": "Lead-gen is working — pipeline up to $12.5K with three new deals. The constraint moved to closing + cash.",
+    "ratified_date": "2026-06-15",
+    "headline": "Close the Goal Line — delivery recovered (overdue cleared, 4 clients on a real close track) and Sprint 3 is now a focused cash + lead-gen push. The job is converting what's at the goal line.",
     "items": [
-      {"label": "Pipeline +$5.5K", "text": "Three new deals: Merge Pro $4,500 (Proposal Sent, 6/16), Hyacinthe $2,000 (Proposal Sent, 6/22), R Ward Events (Discovery, 6/22)."},
-      {"label": "TwentyTen stuck", "text": "$4,500 at Verbal Commitment 15 days past its 5/24 close date — biggest deal at the goal line."},
-      {"label": "Sprint 2 closed 58%", "text": "7 of 12 Done; 5 carryovers (29 pts). Sprint 3 not yet planned."},
-      {"label": "Cash moving", "text": "Jeannette $960 collected 6/4 + $927 payout 6/8 — likely pushes savings over the $3K Phase-2 trigger."}
+      {"label": "Overdue cleared", "text": "Last week's 5 stale Client Delivery milestones are all resolved or re-baselined. Only 2 items 3 days late, both In Review."},
+      {"label": "Pipeline ~$16K", "text": "Up from $12.5K: R Ward moved Discovery→Proposal ($1,799), tess came in via organic search ($1,799). Merge Pro $4,500 closes 6/16."},
+      {"label": "TwentyTen 22 days stuck", "text": "$4,500 at Verbal Commitment, 22 days past close, going quiet. Decide close-or-kill today."},
+      {"label": "Sprint 3 = cash sprint", "text": "13 items / ~65 pts, planned today: outreach volume, referral partners, warm-cash revival, Operator Care, XCJS case study. Stacked on top of the June client close — sequence, don't pile on."}
     ]
   },
   "what_changed_recent": [
-    "Pipeline grew from $7K to $12.5K — three new deals (Merge Pro, Hyacinthe, R Ward Events)",
-    "Sprint 2 ended 6/5 at 58% (7/12 Done); 5 items carry over; Sprint 3 unplanned",
-    "SEEDFOLKids MS-1 Branding now Done (was 8 days overdue last brief) — project in closeout",
-    "Lois Marketing no longer Blocked (was 3 Blocked milestones) — delivery recovering",
-    "Financial Acuity is now the most at-risk client — 7 overdue milestones; website review meeting canceled 6/6",
-    "Confirmed collections: Jeannette $960 (6/4) + $927 HubSpot payout (6/8)"
+    "Overdue queue cleared — the 6/9 timeline reset worked; FA MS-3 Done 6/8, SEEDFOLKids close-out Done 6/9, FA MS-2/MS-4 In Review",
+    "All four clients now on a real close track: FA 6/26, HALO 6/26, Lois 7/2, SEEDFOLKids pending QB consulting",
+    "Pipeline grew to ~$16K (6 deals) — R Ward to Proposal Sent, tess new inbound (organic search)",
+    "buildwithbpp.com r26-fx redesign went LIVE 6/13 (apex + www, clean URLs)",
+    "Sprint 3 planned 6/15 as a cash + lead-gen push (~65 pts) — first time the sprint is explicitly on the BPP North Star",
+    "TwentyTen Motors $4,500 now 22 days stuck at Verbal Commitment (was 15 last week)"
   ]
 }
