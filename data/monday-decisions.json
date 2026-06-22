@@ -54,7 +54,7 @@
           "notes": "Replaces the proposed 4-Phase framework from plan v7. Team simplified it. First $150 payments already sent to Eli during the meeting."
         },
         {
-          "decision": "Retainer / AI Operations Care pricing is an OPEN RESEARCH item. Team aligned on outcome-based over time-based pricing (time-based acceptable only as fallback). Numbers floated: $250/mo digestible for current clients, $150-500/mo range, larger retainers for bigger ICPs. Not finalized — needs benchmarking research before it goes in a client proposal.",
+          "decision": "Retainer / AI Operations Care pricing is an OPEN RESEARCH item. Team aligned on outcome-based over time-based pricing (time-based acceptable only as fallback). Numbers floated: $250/mo digestible for current clients, $150-500/mo range, larger retainers for bigger ICPs. Not finalized \u2014 needs benchmarking research before it goes in a client proposal.",
           "owner": "Daunte + Kenny",
           "due_date": "2026-06-06",
           "status": "OPEN",
@@ -146,6 +146,156 @@
           "due_date": null,
           "status": "OPEN",
           "notes": "Connected to Eli's financial pressure + Kenny's exit strategy avoided conversation"
+        }
+      ]
+    },
+    {
+      "week_of": "2026-06-22",
+      "note": "From the 2026-06-22 BPP stand-up (CEO meeting). Decisions + status pulled from the Teams transcript; recap mirrored at _claude/data/monday-recaps/2026-06-22.md.",
+      "decisions": [
+        {
+          "decision": "Financial Acuity close holds Friday 6/26 (website revisions done, GBP processing)",
+          "owner": "Eli + Kenny",
+          "set_date": "2026-06-22",
+          "due_date": "2026-06-26",
+          "status": "IN_FLIGHT",
+          "notes": "Eli confirms client sign-off; Kenny final GBP check. FA business cards are a one-off (Daunte), non-blocking."
+        },
+        {
+          "decision": "HALO close slips from 6/26 to ~7/3, pending the in-person review",
+          "owner": "Eli",
+          "set_date": "2026-06-22",
+          "due_date": "2026-07-03",
+          "status": "IN_FLIGHT",
+          "notes": "Date confirmed after the 6/23 in-person review; business plans need client review time. Rodney+Eli huddle 6/22 to prep."
+        },
+        {
+          "decision": "TwentyTen Motors ($4,500) \u2014 keep in pipeline and follow up (not killed)",
+          "owner": "Eli",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "IN_FLIGHT",
+          "notes": "Carried 3 weeks; team decided to keep + follow up rather than kill."
+        },
+        {
+          "decision": "Merge Pro ($4,500) \u2014 keep, reframe as a referral/partner relationship",
+          "owner": "Kenny",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "IN_FLIGHT",
+          "notes": "Close date lapsed 6/16; Kenny follows up as a partner play, not a direct close."
+        },
+        {
+          "decision": "Hyacinthe Property Management \u2014 move to Closed Lost (not a fit)",
+          "owner": "Eli",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "DONE",
+          "notes": "Eli updates HubSpot stage."
+        },
+        {
+          "decision": "RW Events (Divina) \u2014 Kenny sends a follow-up",
+          "owner": "Kenny",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "IN_FLIGHT",
+          "notes": "Kept alive; was close-dated 6/22."
+        },
+        {
+          "decision": "Legacy Studios (Benji) \u2014 keep; committed to pay in July",
+          "owner": "Eli",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "IN_FLIGHT",
+          "notes": "Eli follows up next week."
+        },
+        {
+          "decision": "Delete the stray TESS test deal in HubSpot",
+          "owner": "Kenny",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "OPEN",
+          "notes": "Data hygiene."
+        },
+        {
+          "decision": "Lois Financial Clarity Session + AI automation \u2014 Kenny + Daunte scope tomorrow PM",
+          "owner": "Kenny + Daunte",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "IN_FLIGHT",
+          "notes": "Eli walks Kenny through the two outreach sequences ~Wed. Replaces the overdue MS-4 scheduling."
+        },
+        {
+          "decision": "SEEDFOLKids \u2014 no owed hours; Daunte to contact Sean + Chucho and pitch a QuickBooks-maintenance retainer",
+          "owner": "Daunte",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "OPEN",
+          "notes": "Gating item to officially close SEEDFOLKids + a possible upsell."
+        },
+        {
+          "decision": "Build two HubSpot sequences (cold leads vs referral partners) + a touches-tracking property",
+          "owner": "Kenny + Eli",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "IN_FLIGHT",
+          "notes": "Kenny builds; Eli writes cold + referral lead content this week. ~50 June leads to feed it."
+        },
+        {
+          "decision": "New content workflow: transcript -> Claude breaks out ideas -> KJ edits (replaces Justin's role)",
+          "owner": "Daunte + Kenny",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "IN_FLIGHT",
+          "notes": "Backlog of short-forms + 2 pods already in Drive."
+        },
+        {
+          "decision": "Pay out the June partner guarantee",
+          "owner": "Daunte",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "DONE",
+          "notes": "Agreed to still pay even if cash flow dips slightly negative."
+        },
+        {
+          "decision": "Build the June forecast + confirm Phase 2 (savings >= $3K)",
+          "owner": "Daunte",
+          "set_date": "2026-06-01",
+          "due_date": null,
+          "status": "OPEN",
+          "notes": "Carried 3 weeks. May shown live (revenue ~46% under budget, net ~$500, shy of $3K goal); full update pending. Phase 2 NOT yet hit."
+        },
+        {
+          "decision": "Add Kenny + Eli as formal HubSpot owners",
+          "owner": "Daunte",
+          "set_date": "2026-06-08",
+          "due_date": null,
+          "status": "OPEN",
+          "notes": "NOT discussed this meeting \u2014 carry forward."
+        },
+        {
+          "decision": "WIP=2 / sequencing discipline (everyone 3-4x over)",
+          "owner": "All",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "OPEN",
+          "notes": "NOT discussed this meeting \u2014 carry forward."
+        },
+        {
+          "decision": "Justin (social contractor) offboard decision",
+          "owner": "Kenny + Daunte",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "OPEN",
+          "notes": "Unresponsive while posting elsewhere; Rodney pushed to be decisive. Leaning offboard; new content workflow is the replacement. Not finalized."
+        },
+        {
+          "decision": "Natalie partnership (auditing / process mapping / valuation referral partner)",
+          "owner": "Eli",
+          "set_date": "2026-06-22",
+          "due_date": null,
+          "status": "OPEN",
+          "notes": "Complementary to BPP; Eli to propose early-July time once she's back."
         }
       ]
     }
