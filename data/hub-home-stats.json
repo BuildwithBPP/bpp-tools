@@ -1,10 +1,10 @@
 {
   "_format": "Auto-refreshed by bpp-monday-prep skill (Step 11.5). index.html fetches this on load. Falls back to hardcoded values if stale.",
-  "generated_at": "2026-06-15T12:30:00",
+  "generated_at": "2026-06-22T12:00:00",
   "generation_mode": "manual",
   "test_mode": false,
   "as_of_date": "2026-05-01",
-  "as_of_note": "Cash/AR are from the May 1 forecast — the JUNE forecast STILL has not been built, so cash is 45 days old. Pipeline/clients are live as of 2026-06-15. Confirmed June collections (Jeannette $960, $927 payout) likely push savings over $3K — confirm at June close.",
+  "as_of_note": "Cash/AR are from the May 1 forecast — the JUNE forecast STILL has not been built, so cash is 52 days old (3 weeks overdue). Pipeline/clients are live as of 2026-06-22. A single June close likely pushes savings over $3K — confirm at June close to activate Phase 2.",
   "stats": {
     "cash_on_hand": 6496,
     "cash_breakdown": {
@@ -15,24 +15,24 @@
     "buffer_target": 3649,
     "buffer_gap": -321,
     "savings_pct_to_phase2": 93,
-    "ar_total": 5975,
-    "ar_note": "Estimate — HubSpot has no amount_paid field; AR is committed milestones still owed across closed-won deals (~$5,975 known; Lois remaining may be lower if the halfway 40% is already in).",
+    "ar_total": 4175,
+    "ar_note": "Estimate — HubSpot has no amount_paid field; AR is committed milestones still owed across closed-won deals (~$4,175 known on the low end using Lois final $1,350; up to ~$6K if Lois middle 40% still owed; SEEDFOLKids Strategic + Wedelia splits unknown).",
     "active_clients_count": 4,
-    "active_clients_names": ["Financial Acuity", "SEEDFOLKids", "Lois Marketing", "HALO Commons"],
+    "active_clients_names": ["Financial Acuity", "HALO Commons", "Lois Marketing", "SEEDFOLKids"],
     "pipeline_total": 16098,
     "pipeline_count": 6,
     "pipeline_hot_count": 4,
     "pipeline_cold_count": 0,
-    "pipeline_verified_date": "2026-06-15"
+    "pipeline_verified_date": "2026-06-22"
   },
   "ar_scenarios": [
-    {"name": "Conservative", "receivables_in": 4260, "ending_operating": 5488, "savings_after": 3453, "hits_phase2": true, "highlight": false, "detail": "May forecast highs: Wanda $500, Lois $1,800, Jeannette $960 (already in 6/4), Maxine $1,000."},
-    {"name": "Realistic", "receivables_in": 5085, "ending_operating": 6313, "savings_after": 3700, "hits_phase2": true, "highlight": true, "detail": "+ HALO Commons $824.50."},
+    {"name": "Conservative", "receivables_in": 4260, "ending_operating": 5488, "savings_after": 3453, "hits_phase2": true, "highlight": false, "detail": "May forecast highs. 52 days stale — Jeannette $960 already in 6/4. REBUILD with June actuals."},
+    {"name": "Realistic", "receivables_in": 5085, "ending_operating": 6313, "savings_after": 3700, "hits_phase2": true, "highlight": true, "detail": "+ HALO Commons $824.50. REBUILD with June actuals."},
     {"name": "Stretch", "receivables_in": 6434, "ending_operating": 7663, "savings_after": 4105, "hits_phase2": true, "highlight": false, "detail": "+ Lois closeout $1,350. Within reach of Phase 3."}
   ],
   "phase": {
     "current": "Phase 1",
-    "next_trigger": "Savings >= $3K (93%; likely crossed with June collections — confirm at close)",
+    "next_trigger": "Savings >= $3K (93%; a single June close likely crosses it — confirm at close)",
     "transitioning_to": "Phase 2"
   },
   "active_clients": [
@@ -41,40 +41,40 @@
       "subtitle": "Maxine · Growth Package ($3,350)",
       "owner": "Daunte/Eli/Kenny",
       "owner_color": "daunte",
-      "phase": "Build → Review",
-      "next_milestone": "MS-2 Website + MS-4 GBP In Review; review/closeout chain 6/16-6/26; closes 6/26",
+      "phase": "Review → Close",
+      "next_milestone": "MS-2 Website + MS-4 GBP In Review (past due); Internal Review past due 6/18; Client Review 6/23; Close-out 6/26",
       "at_risk": false,
-      "risk_note": "RECOVERING HARD — MS-3 Intake Done 6/8, MS-2/MS-4 In Review, all milestones re-baselined. HubSpot training for Maxine delivered (Rodney '5 stars'). Land MS-2 + GBP this week to hold the 6/26 close."
-    },
-    {
-      "name": "SEEDFOLKids",
-      "subtitle": "Strategic Planning ($3,200)",
-      "owner": "Eli/Daunte",
-      "owner_color": "eli",
-      "phase": "Closeout",
-      "next_milestone": "Project Close Out DONE 6/9; only CFO/QuickBooks consulting (Daunte) gates final close; iteration window closes 6/20",
-      "at_risk": false,
-      "risk_note": "Close-out done. Daunte to confirm the 10-hr QuickBooks consulting is complete to fully close."
-    },
-    {
-      "name": "Lois Marketing",
-      "subtitle": "Phil Tirado · Operator System ($4,500)",
-      "owner": "Eli/Kenny",
-      "owner_color": "eli",
-      "phase": "Build → Review",
-      "next_milestone": "MS-3 CRM in client review, MS-5 Website Audit due 6/16, MS-4 Financial Clarity Session starts today; closes 7/2-7/3",
-      "at_risk": false,
-      "risk_note": "On track. Healthy — no Blocked milestones."
+      "risk_note": "Closes 6/26 but the review chain is compressing — land MS-2 (Eli) + MS-4 GBP (Kenny) now to hold the date. ~$1,000 final milestone owed."
     },
     {
       "name": "HALO Commons / HALO Pathways",
       "subtitle": "Felicia · Launch Pad ($1,649)",
       "owner": "Eli",
       "owner_color": "eli",
-      "phase": "Build",
-      "next_milestone": "Business Plan (Rodney) + Landing Page due 6/19; halfway invoice 6/19; GBP 6/23; closes 6/26",
+      "phase": "Build → Review",
+      "next_milestone": "Business Plan (Rodney) + Landing Page In Review past 6/19; GBP starts today; Internal 6/24 → Client 6/25 → Close 6/26",
       "at_risk": false,
-      "risk_note": "On track + upsell signal alive (HALO Pathways expansion). Felicia very engaged. $824.50 closeout owed (INV-1027)."
+      "risk_note": "On track (tight) + upsell alive. Felicia very engaged — sent Founders' Vision + Our Story site copy 6/20 (implement before close). $824.50 halfway owed. Rodney wants tech stack split per entity."
+    },
+    {
+      "name": "Lois Marketing",
+      "subtitle": "Phil Tirado · Operator System ($4,500)",
+      "owner": "Eli/Daunte/Kenny",
+      "owner_color": "eli",
+      "phase": "Build → Review",
+      "next_milestone": "MS-5 Website Audit in client review; MS-4 Financial Clarity (Daunte) overdue Not Started; MS-6 AI Automation starts today; closes ~7/2",
+      "at_risk": false,
+      "risk_note": "WATCH — Daunte's MS-4 Financial Clarity Session is overdue (due 6/18, Not Started) and gates the 7/2 close."
+    },
+    {
+      "name": "SEEDFOLKids",
+      "subtitle": "Strategic Planning ($3,200)",
+      "owner": "Daunte/Eli",
+      "owner_color": "eli",
+      "phase": "Closeout",
+      "next_milestone": "Project Close Out DONE 6/9; only CFO/QuickBooks consulting (Daunte) gates final close; iteration window closed 6/20",
+      "at_risk": false,
+      "risk_note": "Daunte to confirm the 10-hr QuickBooks consulting is complete to fully close."
     }
   ],
   "operating_norms_compact": [
@@ -83,21 +83,21 @@
     "AI per dept: framework central, ownership distributed"
   ],
   "whats_new": {
-    "ratified_date": "2026-06-15",
-    "headline": "Close the Goal Line — delivery recovered (overdue cleared, 4 clients on a real close track) and Sprint 3 is now a focused cash + lead-gen push. The job is converting what's at the goal line.",
+    "ratified_date": "2026-06-22",
+    "headline": "Finish the Closes — three client closes land in 11 days (FA + HALO 6/26, Lois 7/2) while owners are 3-4x over WIP. The job is finishing, not sourcing: clear the In-Review bottleneck and convert the goal line.",
     "items": [
-      {"label": "Overdue cleared", "text": "Last week's 5 stale Client Delivery milestones are all resolved or re-baselined. Only 2 items 3 days late, both In Review."},
-      {"label": "Pipeline ~$16K", "text": "Up from $12.5K: R Ward moved Discovery→Proposal ($1,799), tess came in via organic search ($1,799). Merge Pro $4,500 closes 6/16."},
-      {"label": "TwentyTen 22 days stuck", "text": "$4,500 at Verbal Commitment, 22 days past close, going quiet. Decide close-or-kill today."},
-      {"label": "Sprint 3 = cash sprint", "text": "13 items / ~65 pts, planned today: outreach volume, referral partners, warm-cash revival, Operator Care, XCJS case study. Stacked on top of the June client close — sequence, don't pile on."}
+      {"label": "Two Friday closes", "text": "FA + HALO both close 6/26. Their In-Review deliverables are past due and the review chains are compressing — land MS-2/MS-4 (FA) and LP/BP (HALO) today/tomorrow."},
+      {"label": "13 pts shipped", "text": "Sprint 3 closed 3 items this week: Outreach Campaign (8), Kenny's outreach skill in-house (3), service-agreement sign-off (2). Sprint at 23% done, day 8."},
+      {"label": "Two $4,500 deals stuck", "text": "TwentyTen 29 days past close at Verbal Commitment; Merge Pro close date lapsed 6/16. Both carried 3 weeks. Kill-or-close this week."},
+      {"label": "June forecast 3 weeks overdue", "text": "Cash is 52 days old; Phase 2 (savings ≥ $3K) still unconfirmed. #1 recurring drift — build it at the June close."}
     ]
   },
   "what_changed_recent": [
-    "Overdue queue cleared — the 6/9 timeline reset worked; FA MS-3 Done 6/8, SEEDFOLKids close-out Done 6/9, FA MS-2/MS-4 In Review",
-    "All four clients now on a real close track: FA 6/26, HALO 6/26, Lois 7/2, SEEDFOLKids pending QB consulting",
-    "Pipeline grew to ~$16K (6 deals) — R Ward to Proposal Sent, tess new inbound (organic search)",
-    "buildwithbpp.com r26-fx redesign went LIVE 6/13 (apex + www, clean URLs)",
-    "Sprint 3 planned 6/15 as a cash + lead-gen push (~65 pts) — first time the sprint is explicitly on the BPP North Star",
-    "TwentyTen Motors $4,500 now 22 days stuck at Verbal Commitment (was 15 last week)"
+    "Two client closes now land THIS Friday 6/26 (FA + HALO); Lois follows ~7/2",
+    "Sprint 3 shipped 13 pts this week — Outreach Campaign Done, Kenny's outreach skill brought in-house, service-agreement sign-off section added",
+    "'tess' inbound confirmed real — now a pipeline deal (Kenny owns, closes 7/2)",
+    "TwentyTen Motors $4,500 now 29 days stuck at Verbal Commitment (was 22 last week); Merge Pro $4,500 close date lapsed 6/16",
+    "Hyacinthe ($2,000) + RW Events ($1,799) both close-dated today 6/22",
+    "June forecast still not built — now 3 weeks overdue; cash 52 days stale"
   ]
 }
