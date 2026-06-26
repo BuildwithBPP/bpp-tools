@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Sprint Pulse · BPP Tools Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  .pulse-hero { background: #0a1628; color: white; border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; }
+  .pulse-hero h2 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .pulse-hero .sub { font-size: 12px; color: #8899aa; margin-bottom: 18px; }
+  .pulse-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .stat { background: rgba(255,255,255,0.07); border-radius: 8px; padding: 12px 14px; }
+  .stat .n { font-size: 26px; font-weight: 800; color: white; line-height: 1; }
+  .stat .l { font-size: 11px; color: #8899aa; margin-top: 4px; }
+  .stat.green .n { color: #4ade80; }
+  .stat.blue .n { color: #60a5fa; }
+  .pulse-cta { margin-top: 18px; display: flex; gap: 10px; }
+  .pulse-cta a { display: inline-block; padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 700; text-decoration: none; }
+  .btn-primary { background: #1d4ed8; color: white; }
+  .btn-primary:hover { background: #1e40af; }
+  .btn-ghost { background: rgba(255,255,255,0.1); color: white; }
+  .btn-ghost:hover { background: rgba(255,255,255,0.18); }
+
+  .archive-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-radius: 8px; border: 1px solid #e5e5e5; margin-bottom: 8px; text-decoration: none; color: inherit; transition: background 0.15s; }
+  .archive-row:hover { background: #f8fafc; }
+  .archive-row .ar-left h4 { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+  .archive-row .ar-left p { font-size: 11px; color: #888; }
+  .archive-row .ar-right { font-size: 12px; color: #1d4ed8; font-weight: 600; white-space: nowrap; }
+
+  .badge-current { display: inline-block; background: #dbeafe; color: #1e40af; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; margin-left: 8px; vertical-align: middle; }
+
+  .how-to { background: #f8fafc; border-radius: 10px; padding: 16px 20px; border: 1px solid #e5e5e5; }
+  .how-to h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+  .how-to ol { padding-left: 18px; }
+  .how-to li { font-size: 12px; color: #444; line-height: 1.8; }
+  code { font-size: 11px; background: #eef; padding: 1px 5px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div id="hub-nav"></div>
+
+<main>
+
+  <div class="dept-page-head">
+    <h1>Sales Sprint Pulse</h1>
+    <div class="dept-dri">DRI · Eli Fisher &amp; Kenny Hawkins</div>
+    <div class="dept-owns">Weekly cadence tracker — sequence activity, direct outreach, deal pipeline, and team metrics.</div>
+  </div>
+
+  <!-- CURRENT SPRINT -->
+  <div class="dept-section">
+    <div class="dept-section-label">Current Sprint</div>
+    <div class="pulse-hero">
+      <h2>Week 1 · Jun 22–27, 2026 <span class="badge-current">ACTIVE</span></h2>
+      <div class="sub">Sequence 696918756 · 30 referral partners enrolled · Professional services — Tampa Bay</div>
+      <div class="pulse-stats">
+        <div class="stat"><div class="n">30</div><div class="l">Contacts enrolled</div></div>
+        <div class="stat blue"><div class="n">26</div><div class="l">Active in sequence</div></div>
+        <div class="stat green"><div class="n">1</div><div class="l">Sequence replies</div></div>
+        <div class="stat green"><div class="n">2</div><div class="l">Discovery calls today</div></div>
+      </div>
+      <div class="pulse-cta">
+        <a href="sprint-pulse-week-1-jun26.html" class="btn-primary">Open Full Pulse →</a>
+        <a href="https://app.hubspot.com" target="_blank" class="btn-ghost">HubSpot CRM ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARCHIVE -->
+  <div class="dept-section">
+    <div class="dept-section-label">Archive — All Sprint Pulses</div>
+    <a class="archive-row" href="sprint-pulse-week-1-jun26.html">
+      <div class="ar-left">
+        <h4>Week 1 — Jun 26, 2026 <span class="badge-current">CURRENT</span></h4>
+        <p>30 contacts · 1 reply (Keleisha Carter) · 2 discovery calls · Sipsies Lemonade + Ed/Breathe Biologics</p>
+      </div>
+      <div class="ar-right">View →</div>
+    </a>
+    <div style="font-size:12px;color:#aaa;padding:10px 4px;">Future pulses will appear here each Friday.</div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="dept-section">
+    <div class="dept-section-label">How to Use This</div>
+    <div class="how-to">
+      <h3>Sprint Pulse Cadence</h3>
+      <ol>
+        <li>Every Friday, Eli and Kenny fill in self-report fields before the weekly stand-up call.</li>
+        <li>Claude pulls the latest HubSpot data (contacts, sequence stats, deals) and updates the pulse document.</li>
+        <li>The team reviews the pulse together on the call — scoreboard, pipeline, friction points, template feedback.</li>
+        <li>After the call, the finalized HTML is saved here and in the BPP workspace at <code>1. Internal Operations/2. Marketing &amp; Sales/Sprint Pulse/</code>.</li>
+        <li>At the start of any new sprint or when Claude needs historical context, it reads <code>_claude/context/sprint-pulse-log.md</code> for a fast summary of all past pulses.</li>
+      </ol>
+    </div>
+  </div>
+
+</main>
+
+<div class="hub-footer">
+  <div class="footer-brand">Business Plans <span>Plus</span></div>
+  <div class="footer-note">Internal Tools Hub &middot; Tampa Bay &middot; 2026</div>
+</div>
+
+<script src="../js/nav.js" data-page="departments"></script>
+
+</body>
+</html>

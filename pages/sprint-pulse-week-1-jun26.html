@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP Sales Sprint Pulse — Week 1 · June 26, 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; }
+
+  .header { background: #0a1628; color: white; padding: 28px 40px; }
+  .header-top { display: flex; align-items: flex-start; justify-content: space-between; }
+  .header h1 { font-size: 21px; font-weight: 700; letter-spacing: -0.3px; }
+  .header .sub { font-size: 12px; color: #8899aa; margin-top: 4px; }
+  .week-badge { background: #1d4ed8; color: white; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; white-space: nowrap; }
+
+  .body { max-width: 1140px; margin: 0 auto; padding: 28px 24px; }
+
+  /* Alerts */
+  .alert { border-radius: 10px; padding: 14px 18px; margin-bottom: 14px; display: flex; align-items: flex-start; gap: 12px; border: 1.5px solid; }
+  .alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .alert h3 { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .alert p { font-size: 12px; line-height: 1.5; }
+  .alert.green { background: #f0fdf4; border-color: #16a34a; }
+  .alert.green h3 { color: #14532d; }
+  .alert.green p { color: #166534; }
+  .alert.yellow { background: #fff7ed; border-color: #d97706; }
+  .alert.yellow h3 { color: #92400e; }
+  .alert.yellow p { color: #78350f; }
+  .alert.red { background: #fef2f2; border-color: #e53e3e; }
+  .alert.red h3 { color: #991b1b; }
+  .alert.red p { color: #7f1d1d; }
+
+  /* Section */
+  section { background: white; border-radius: 10px; border: 1px solid #e5e5e5; padding: 22px; margin-bottom: 22px; }
+  section h2 { font-size: 14px; font-weight: 700; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .chip { background: #f0f0f0; border-radius: 20px; padding: 2px 10px; font-size: 11px; font-weight: 600; color: #555; }
+  .chip.blue { background: #dbeafe; color: #1e40af; }
+  .chip.green { background: #dcfce7; color: #14532d; }
+  .chip.red { background: #fee2e2; color: #991b1b; }
+  .chip.yellow { background: #fef3c7; color: #92400e; }
+
+  /* Scoreboard */
+  .scoreboard { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .score-col { }
+  .score-col h3 { font-size: 12px; font-weight: 700; color: white; padding: 6px 14px; border-radius: 6px; margin-bottom: 12px; display: inline-block; }
+  .score-col.kenny h3 { background: #3b82f6; }
+  .score-col.eli h3 { background: #0a1628; }
+  .score-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .score-table td { padding: 9px 8px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+  .score-table tr:last-child td { border-bottom: none; }
+  .score-table .metric { color: #555; font-size: 12px; width: 55%; }
+  .score-table .val { font-weight: 700; }
+  .score-table .val.tbd { color: #d97706; font-weight: 600; font-size: 12px; }
+  .score-table .val.green { color: #16a34a; }
+  .score-table .val.blue { color: #3b82f6; }
+
+  /* Pipeline table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 8px 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; border-bottom: 1px solid #eee; font-weight: 600; }
+  td { padding: 9px 10px; border-bottom: 1px solid #f5f5f5; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .badge-new { background: #dbeafe; color: #1e40af; }
+  .badge-unq { background: #fee2e2; color: #991b1b; }
+  .badge-open { background: #dcfce7; color: #14532d; }
+  .badge-none { background: #f3f4f6; color: #6b7280; }
+  .badge-remove { background: #fef3c7; color: #92400e; }
+  .badge-hot { background: #fef2f2; color: #dc2626; font-weight: 700; }
+
+  .prob-bar-wrap { width: 80px; height: 6px; background: #f0f0f0; border-radius: 3px; display: inline-block; vertical-align: middle; margin-right: 6px; }
+  .prob-bar { height: 6px; border-radius: 3px; }
+  .prob-low { background: #f59e0b; }
+  .prob-mid { background: #3b82f6; }
+  .prob-high { background: #16a34a; }
+  .prob-top { background: #7c3aed; }
+
+  .active-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #16a34a; margin-right: 6px; }
+  .ended-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #9ca3af; margin-right: 6px; }
+  .remove-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #d97706; margin-right: 6px; }
+  .company { font-size: 11px; color: #888; margin-top: 1px; }
+
+  /* Timeline */
+  .timeline-row { display: flex; align-items: center; gap: 10px; font-size: 12px; margin-bottom: 8px; }
+  .timeline-date { color: #888; min-width: 170px; }
+  .timeline-line { flex: 1; height: 1px; background: #e5e5e5; }
+  .who { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 20px; margin-left: 6px; }
+  .tw-k { background: #dbeafe; color: #1e40af; }
+  .tw-e { background: #e0e7ff; color: #3730a3; }
+  .tw-a { background: #f3f4f6; color: #374151; }
+
+  /* Friction */
+  .friction-list { list-style: none; display: grid; gap: 10px; }
+  .friction-list li { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; background: #fafafa; border-radius: 8px; }
+  .friction-list li.red { border-left: 3px solid #e53e3e; }
+  .friction-list li.orange { border-left: 3px solid #d97706; }
+  .fn { font-size: 13px; font-weight: 800; min-width: 20px; margin-top: 1px; }
+  .fn.red { color: #e53e3e; }
+  .fn.orange { color: #d97706; }
+  .fb h4 { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .fb p { font-size: 12px; color: #555; line-height: 1.5; }
+
+  /* Rec */
+  .rec-list { list-style: none; display: grid; gap: 9px; }
+  .rec-list li { display: flex; gap: 10px; padding: 11px 13px; background: #f0fdf4; border-radius: 8px; border-left: 3px solid #16a34a; font-size: 13px; line-height: 1.5; }
+  .ri { font-size: 14px; min-width: 18px; }
+
+  /* Team cols */
+  .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .tc h3 { font-size: 11px; font-weight: 700; color: white; padding: 5px 12px; border-radius: 5px; margin-bottom: 10px; display: inline-block; }
+  .tc.kenny h3 { background: #3b82f6; }
+  .tc.eli h3 { background: #0a1628; }
+  .tc ul { list-style: none; display: grid; gap: 7px; }
+  .tc.kenny li { font-size: 12px; padding: 9px 11px; background: #eff6ff; border-radius: 7px; border-left: 3px solid #3b82f6; line-height: 1.5; }
+  .tc.eli li { font-size: 12px; padding: 9px 11px; background: #f8fafc; border-radius: 7px; border-left: 3px solid #0a1628; line-height: 1.5; }
+
+  /* Rebuttal */
+  .rb { border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; border: 1px solid; border-left-width: 4px; }
+  .rb h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+  .rb p { font-size: 12px; color: #374151; line-height: 1.6; }
+  .rb p + p { margin-top: 6px; }
+  .rb.agree { background: #f0fdf4; border-color: #bbf7d0; border-left-color: #16a34a; }
+  .rb.clarify { background: #fff7ed; border-color: #fed7aa; border-left-color: #d97706; }
+  .rb.pushback { background: #fef2f2; border-color: #fecaca; border-left-color: #e53e3e; }
+  .rb .verdict { font-size: 11px; font-weight: 700; margin-top: 8px; }
+  .rb.agree .verdict { color: #16a34a; }
+  .rb.clarify .verdict { color: #d97706; }
+  .rb.pushback .verdict { color: #e53e3e; }
+  .rb-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin: 18px 0 10px; }
+  .rb-label.agree { color: #16a34a; }
+  .rb-label.clarify { color: #d97706; }
+  .rb-label.pushback { color: #e53e3e; }
+
+  /* Refs */
+  .ref-list { list-style: none; display: grid; gap: 8px; counter-reset: ref; }
+  .ref-list li { counter-increment: ref; display: flex; gap: 10px; font-size: 12px; color: #555; line-height: 1.6; padding: 9px 12px; background: #fafafa; border-radius: 6px; }
+  .ref-list li::before { content: "[" counter(ref) "]"; font-weight: 700; color: #0a1628; min-width: 26px; flex-shrink: 0; }
+  .ref-list a { color: #2563eb; text-decoration: underline; }
+  .ref-list a:hover { color: #1d4ed8; }
+
+  code { font-size: 11px; background: #f0f0f0; padding: 1px 5px; border-radius: 3px; }
+
+  footer { text-align: center; font-size: 11px; color: #aaa; padding: 20px 0 30px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-bottom: 22px; }
+  .two-col section { margin-bottom: 0; }
+
+  .self-report-note { font-size: 11px; color: #d97706; font-weight: 600; display: flex; align-items: center; gap: 4px; margin-top: 10px; padding: 6px 10px; background: #fffbeb; border-radius: 6px; border: 1px solid #fde68a; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>BPP Sales Sprint Pulse</h1>
+      <div class="sub">Kenny Hawkins &amp; Eli Fisher &nbsp;·&nbsp; June 26, 2026 &nbsp;·&nbsp; Sequence 696918756</div>
+    </div>
+    <span class="week-badge">Week 1 of Sprint</span>
+  </div>
+</div>
+
+<div class="body">
+
+  <!-- ALERTS -->
+  <div class="alert green" style="border-color:#16a34a;border-width:2px;">
+    <div class="alert-icon">🔥</div>
+    <div>
+      <h3>Two Discovery Calls TODAY — Ed (Breathe Biologics) 3PM · Sipsies Lemonade 6PM</h3>
+      <p><strong>3:00 PM — Kenny / Ed (Breathe Biologics):</strong> CEO Experience follow-up. Not yet in HubSpot — create deal if qualified after the call.<br>
+      <strong>6:00 PM — Eli / Sipsies Lemonade:</strong> $1,799 Launch Pad Package. Deal created Jun 24, close date Jul 14. Quote same-day after the call if qualified.</p>
+    </div>
+  </div>
+  <div class="alert green">
+    <div class="alert-icon">✅</div>
+    <div>
+      <h3>Keleisha Carter — Eli Replied ✅ (Jun 26)</h3>
+      <p>Keleisha replied to sequence email Jun 25 (~1:59 PM, hit Daunte's inbox, forwarded to Eli). Eli replied Jun 26 — referenced the Natalie Freeman Bourbon &amp; Barbecue event. Thread: <em>"Re: think we might work with the same people."</em> Conversation active.</p>
+    </div>
+  </div>
+  <div class="alert yellow">
+    <div class="alert-icon">⚠️</div>
+    <div>
+      <h3>Remove Khemist Green + Alejandro Gil from Sequence</h3>
+      <p>Both are currently active in the sequence but are being worked by Eli through separate channels. Unenroll them before Step 2 fires to avoid conflicting outreach.</p>
+    </div>
+  </div>
+  <div class="alert red">
+    <div class="alert-icon">⛔</div>
+    <div>
+      <h3>Visibility Blocker — Sequence + Outreach Runs Under Kenny's Account</h3>
+      <p>All 30 contacts enrolled under Kenny's HubSpot seat. Eli has no admin access to sequence analytics or step performance. Kenny's direct Outlook outreach is also not logged in HubSpot — those numbers are self-reported below. Fix: admin access + Outlook connected to HubSpot for auto-logging.</p>
+    </div>
+  </div>
+
+  <!-- SPRINT SCOREBOARD -->
+  <section>
+    <h2>Sprint Scoreboard — Week 1 <span class="chip yellow">⚠ Some fields self-reported — fill in before call</span></h2>
+    <div class="scoreboard">
+
+      <div class="score-col kenny">
+        <h3>Kenny Hawkins — Cold Leads</h3>
+        <table class="score-table">
+          <tr><td class="metric">Outreach track</td><td class="val blue">CEO Exp. event follow-ups + cold direct</td></tr>
+          <tr><td class="metric">Direct emails sent (Outlook)</td><td class="val">~8 documented · Jun 22–25</td></tr>
+          <tr><td class="metric">Contacts worked directly</td><td class="val">Ed, Ruth, Tiffany, Albert, Javier, Darryl, Davina (RW Events)</td></tr>
+          <tr><td class="metric">Positive responses</td><td class="val green">2 — Ed (meeting booked ✅) · Natalie Freeman (breakfast ✅)</td></tr>
+          <tr><td class="metric">Discovery calls booked</td><td class="val green">1 — Ed / Breathe Biologics · TODAY 3PM</td></tr>
+          <tr><td class="metric">New deals opened</td><td class="val green">1 — Sipsies Lemonade $1,799</td></tr>
+          <tr><td class="metric">Admin assist</td><td class="val">Bulk enrolled Eli's 30 contacts (no admin access workaround)</td></tr>
+          <tr><td class="metric">Client touchpoints</td><td class="val">Phil/Lois · HALO · SEEDFOLKids</td></tr>
+        </table>
+        <div class="self-report-note">📧 Based on emails visible in team inbox (bppteam@buildwithbpp.com). Verify total count with Kenny — there may be more.</div>
+      </div>
+
+      <div class="score-col eli">
+        <h3>Eli Fisher — Referral Partners</h3>
+        <table class="score-table">
+          <tr><td class="metric">Outreach track</td><td class="val blue">Referral partners — sequence + direct</td></tr>
+          <tr><td class="metric">Sequence contacts (Eli's list)</td><td class="val">30 referral partners enrolled</td></tr>
+          <tr><td class="metric">Currently active in sequence</td><td class="val">26</td></tr>
+          <tr><td class="metric">Sequence replies</td><td class="val green">1 — Keleisha Carter</td></tr>
+          <tr><td class="metric">Follow-up with Keleisha</td><td class="val green">✅ Replied Jun 26</td></tr>
+          <tr><td class="metric">Separate channel contacts</td><td class="val">2 — Khemist Green · Alejandro Gil</td></tr>
+          <tr><td class="metric">Direct partner outreach</td><td class="val tbd">? — Self-report</td></tr>
+          <tr><td class="metric">Warm leads referred in</td><td class="val tbd">? — Self-report</td></tr>
+          <tr><td class="metric">Templates updated</td><td class="val">Dynamic name token added</td></tr>
+          <tr><td class="metric">Discovery calls</td><td class="val green">1 — Sipsies Lemonade · TODAY 6PM</td></tr>
+        </table>
+        <div class="self-report-note">⚠ Sequence enrolled by Kenny on Eli's behalf (admin access gap). Contacts are Eli's referral partner list.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DEAL PIPELINE -->
+  <section>
+    <h2>Deal Pipeline — Active <span class="chip green">Pulled from HubSpot Jun 26</span></h2>
+
+    <div class="alert yellow" style="margin-bottom:14px;">
+      <div class="alert-icon">📞</div>
+      <div>
+        <h3>Discovery Call — Sipsies Lemonade · Launch Pad Package · $1,799</h3>
+        <p>Created Jun 24. Deal owned by Kenny. Discovery call with Eli this week. Currently at 20% probability (early stage). Close date set for Jul 14.</p>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Deal</th>
+          <th>Amount</th>
+          <th>Stage / Probability</th>
+          <th>Owner</th>
+          <th>Close Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#fff0f0;border-left:4px solid #dc2626;">
+          <td><strong>Ed — Breathe Biologics</strong><div class="company">CEO Experience · Oral health products</div></td>
+          <td><strong>TBD</strong></td>
+          <td>
+            <div class="prob-bar-wrap"><div class="prob-bar prob-low" style="width:10%"></div></div>Pre-deal
+          </td>
+          <td>Kenny</td>
+          <td>TODAY</td>
+          <td><span class="badge badge-hot">Call TODAY 3PM 🔥</span></td>
+        </tr>
+        <tr style="background:#fff0f0;">
+          <td><strong>Sipsies Lemonade</strong><div class="company">Launch Pad Package</div></td>
+          <td><strong>$1,799</strong></td>
+          <td>
+            <div class="prob-bar-wrap"><div class="prob-bar prob-low" style="width:20%"></div></div>20%
+          </td>
+          <td>Eli</td>
+          <td>Jul 14</td>
+          <td><span class="badge badge-hot">Call TODAY 6PM 🔥</span></td>
+        </tr>
+        <tr>
+          <td><strong>Merge Pro</strong><div class="company">Reginald Knighten</div></td>
+          <td><strong>$4,500</strong></td>
+          <td>
+            <div class="prob-bar-wrap"><div class="prob-bar prob-mid" style="width:40%"></div></div>40%
+          </td>
+          <td>Team</td>
+          <td>Jun 16</td>
+          <td><span class="badge badge-open">Active</span></td>
+        </tr>
+        <tr>
+          <td><strong>RW EVENTS</strong><div class="company">New Deal</div></td>
+          <td><strong>$1,799</strong></td>
+          <td>
+            <div class="prob-bar-wrap"><div class="prob-bar prob-mid" style="width:40%"></div></div>40%
+          </td>
+          <td>Team</td>
+          <td>Jun 22</td>
+          <td><span class="badge badge-open">Active</span></td>
+        </tr>
+        <tr>
+          <td><strong>TwentyTen Motors</strong></td>
+          <td><strong>$599</strong></td>
+          <td>
+            <div class="prob-bar-wrap"><div class="prob-bar prob-high" style="width:90%"></div></div>90%
+          </td>
+          <td>Team</td>
+          <td>May 24</td>
+          <td><span class="badge" style="background:#ede9fe;color:#5b21b6">Near Close</span></td>
+        </tr>
+        <tr>
+          <td><strong>Financial Acuity</strong><div class="company">Growth Package Custom</div></td>
+          <td><strong>$3,350</strong></td>
+          <td>
+            <div class="prob-bar-wrap"><div class="prob-bar prob-top" style="width:100%"></div></div>100%
+          </td>
+          <td>Team</td>
+          <td>May 3</td>
+          <td><span class="badge" style="background:#ede9fe;color:#5b21b6">Contract / Delivery</span></td>
+        </tr>
+        <tr>
+          <td><strong>HALO Commons</strong><div class="company">Launch Pad</div></td>
+          <td><strong>$1,649</strong></td>
+          <td>
+            <div class="prob-bar-wrap"><div class="prob-bar prob-top" style="width:100%"></div></div>100%
+          </td>
+          <td>Kenny</td>
+          <td>Apr 27</td>
+          <td><span class="badge" style="background:#ede9fe;color:#5b21b6">Contract / Delivery</span></td>
+        </tr>
+        <tr>
+          <td><strong>Legacy B. Studio</strong><div class="company">Website</div></td>
+          <td><strong>$1,500</strong></td>
+          <td>
+            <div class="prob-bar-wrap"><div class="prob-bar prob-low" style="width:25%"></div></div>25%
+          </td>
+          <td>Kenny</td>
+          <td>Apr 6</td>
+          <td><span class="badge badge-none">Watch</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:11px;color:#aaa;margin-top:10px;padding-top:8px;border-top:1px solid #f0f0f0;">
+      Active pipeline value (40% or below, excluding delivery): <strong>$8,098</strong> &nbsp;·&nbsp; In delivery / closing (90–100%): <strong>$5,598</strong> &nbsp;·&nbsp; <strong style="color:#dc2626">Post Ed/Breathe Biologics call: create HubSpot deal if qualified</strong>
+    </p>
+  </section>
+
+  <!-- TEAM ACTIVITY DETAIL -->
+  <section>
+    <h2>Team Activity — This Week</h2>
+    <div class="team-grid">
+      <div class="tc kenny">
+        <h3>Kenny Hawkins</h3>
+        <ul>
+          <li><strong>Discovery call booked TODAY 3PM:</strong> Ed at Breathe Biologics. Kenny emailed Jun 22 (CEO Experience event follow-up "How's It Been?"), Ed replied, call scheduled Jun 25. Not yet in HubSpot — create deal after call.</li>
+          <li><strong>Breakfast meeting accepted:</strong> Natalie Freeman (Freedom Financial Consulting) — warm networking, accepted Jun 22.</li>
+          <li><strong>CEO Experience follow-up batch (Jun 22):</strong> Reached out to Ruth, Tiffany (Flava Meets Fusion LLC), Albert, Javier (SBA inquiry), Darryl (appraisal), Ed — ~6 direct emails from the event.</li>
+          <li><strong>RW Events deal:</strong> Follow-up sent Jun 25 directly to Davina — "Ready to build the next phase for RW event center?" ($1,799 deal active, 40% prob).</li>
+          <li>Bulk-enrolled Eli's 30 referral partner contacts into sequence (Jun 25, 2:01 PM) on Eli's behalf — only way to do it without Eli having admin access. Removed 3 within 10 min.</li>
+          <li>Forwarded Keleisha Carter's sequence reply to Eli (Jun 25, 6:30 PM ET).</li>
+          <li>Opened Sipsies Lemonade deal ($1,799, created Jun 24) — Eli has discovery call TODAY at 6PM.</li>
+          <li>Client touchpoints: Phil Tirado (Lois Marketing), HALO Commons, SEEDFOLKids (HubSpot training forwarded Jun 16).</li>
+          <li>Sent team "Weekly Stand Up Prep &amp; HubSpot Spot Audit" notes Jun 22 — flagged template concerns for discussion.</li>
+        </ul>
+      </div>
+      <div class="tc eli">
+        <h3>Eli Fisher</h3>
+        <ul>
+          <li>Sourced and built the 30-contact list — professional services focus (law, financial, property mgmt, insurance).</li>
+          <li>Updated sequence templates with <code>{{first}}</code> dynamic name token. Subject + sig tokens pending (see feedback section).</li>
+          <li>Personal follow-up with Keleisha Carter via Outlook (Jun 26, 1:27 PM ET) — Bourbon &amp; Barbecue warm angle. Awaiting reply.</li>
+          <li>Working Khemist Green (Cynerge Group) + Alejandro Gil (Royal International Cars) through separate channels — flagged for sequence removal.</li>
+          <li>Discovery call with Sipsies Lemonade — this week.</li>
+          <li>Referral partner outreach track — numbers to self-report at this pulse.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEQUENCE TIMELINE -->
+  <section>
+    <h2>Sequence Timeline — Week 1</h2>
+    <div class="timeline-row">
+      <span class="timeline-date">Jun 22 · Afternoon</span>
+      <div class="timeline-line"></div>
+      <span>CEO Experience follow-up batch: Ed, Ruth, Tiffany, Albert, Javier, Darryl — ~6 direct Outlook emails <span class="who tw-k">Kenny</span></span>
+    </div>
+    <div class="timeline-row">
+      <span class="timeline-date">Jun 22 · Afternoon</span>
+      <div class="timeline-line"></div>
+      <span>Natalie Freeman (Freedom Financial) breakfast meeting accepted <span class="who tw-k">Kenny</span></span>
+    </div>
+    <div class="timeline-row">
+      <span class="timeline-date">Jun 24 · Afternoon</span>
+      <div class="timeline-line"></div>
+      <span>Sipsies Lemonade deal opened in HubSpot <span class="who tw-k">Kenny</span></span>
+    </div>
+    <div class="timeline-row">
+      <span class="timeline-date">Jun 25 · 1:42 PM ET</span>
+      <div class="timeline-line"></div>
+      <span>RW Events follow-up to Davina — "Ready to build the next phase?" <span class="who tw-k">Kenny</span></span>
+    </div>
+    <div class="timeline-row">
+      <span class="timeline-date">Jun 25 · 1:45 PM ET</span>
+      <div class="timeline-line"></div>
+      <span>Ed (Breathe Biologics) replies to "How's It Been?" — Kenny schedules discovery call for Jun 26, 3PM <span class="who tw-k">Kenny</span></span>
+    </div>
+    <div class="timeline-row">
+      <span class="timeline-date">Jun 25 · 2:01 PM ET</span>
+      <div class="timeline-line"></div>
+      <span>30 contacts enrolled into sequence <span class="who tw-k">Kenny</span></span>
+    </div>
+    <div class="timeline-row">
+      <span class="timeline-date">Jun 25 · 2:02–2:10 PM ET</span>
+      <div class="timeline-line"></div>
+      <span>3 contacts removed — Tim Castle, James Cunningham, Kelly Claros <span class="who tw-k">Kenny</span></span>
+    </div>
+    <div class="timeline-row">
+      <span class="timeline-date">Jun 25 · Step 1 fires</span>
+      <div class="timeline-line"></div>
+      <span>Sequence email sent to enrolled contacts — step analytics not visible (see friction) <span class="who tw-a">Auto</span></span>
+    </div>
+    <div class="timeline-row">
+      <span class="timeline-date">Jun 25 · ~1:59 PM ET</span>
+      <div class="timeline-line"></div>
+      <span>Keleisha Carter (KC Capital Group) replies → auto-unenrolled from sequence</span>
+    </div>
+    <div class="timeline-row">
+      <span class="timeline-date">Jun 25 · 6:30 PM ET</span>
+      <div class="timeline-line"></div>
+      <span>Daunte forwards Keleisha's reply to Eli <span class="who tw-k">Kenny/Daunte</span></span>
+    </div>
+    <div class="timeline-row">
+      <span class="timeline-date">Jun 26 · 1:27 PM ET</span>
+      <div class="timeline-line"></div>
+      <span>Eli replies to Keleisha Carter — conversation active <span class="who tw-e">Eli</span></span>
+    </div>
+    <div class="timeline-row">
+      <span class="timeline-date">Jun 26 · 3:00 PM ET 🔥</span>
+      <div class="timeline-line"></div>
+      <span><strong>Discovery call — Ed / Breathe Biologics.</strong> Create HubSpot deal + Discovery Scheduled stage if call goes well. <span class="who tw-k">Kenny</span></span>
+    </div>
+    <div class="timeline-row">
+      <span class="timeline-date">Jun 26 · Now</span>
+      <div class="timeline-line"></div>
+      <span>26 active in sequence. 2 need to be removed (Khemist Green, Alejandro Gil). Step 2 pending.</span>
+    </div>
+  </section>
+
+  <!-- CONTACT TABLE -->
+  <section>
+    <h2>Sequence Contacts — All 30 <span class="chip blue">Enrolled by Kenny · Jun 25</span></h2>
+    <table>
+      <thead>
+        <tr><th>Contact</th><th>Company</th><th>Industry</th><th>Lead Status</th><th>Sequence</th><th>Note</th></tr>
+      </thead>
+      <tbody>
+        <tr style="background:#f0fdf4">
+          <td><strong>Keleisha Carter</strong></td><td><div class="company">KC Capital Group</div></td><td>Financial</td>
+          <td><span class="badge badge-new">NEW</span></td>
+          <td><span class="ended-dot"></span>Replied · Off seq.</td>
+          <td><strong style="color:#16a34a">✅ Eli replied Jun 26 — conversation active</strong></td>
+        </tr>
+        <tr style="background:#fffbeb">
+          <td><strong>Khemist Green</strong></td><td><div class="company">Cynerge Group</div></td><td>Consulting</td>
+          <td><span class="badge badge-new">NEW</span></td>
+          <td><span class="remove-dot"></span>Active — Remove</td>
+          <td><span class="badge badge-remove">Eli working separately</span></td>
+        </tr>
+        <tr style="background:#fffbeb">
+          <td><strong>Alejandro Gil</strong></td><td><div class="company">Royal International Cars</div></td><td>Auto</td>
+          <td><span class="badge badge-none">—</span></td>
+          <td><span class="remove-dot"></span>Active — Remove</td>
+          <td><span class="badge badge-remove">Eli working separately</span></td>
+        </tr>
+        <tr><td><strong>Kalpesh Patel</strong></td><td><div class="company">FL Patel Law</div></td><td>Law</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Joshua Spivey</strong></td><td><div class="company">Wise Property Management</div></td><td>Property Mgmt</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Maggie McGrath</strong></td><td><div class="company">Doyle &amp; McGrath Real Estate</div></td><td>Real Estate</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>John Doyle</strong></td><td><div class="company">Doyle &amp; McGrath Real Estate</div></td><td>Real Estate</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Spiro Verras</strong></td><td><div class="company">Verras Law</div></td><td>Law</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Craig Hawkins</strong></td><td><div class="company">Tampa Tax Coach</div></td><td>Financial</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Denise Helbig</strong></td><td><div class="company">Westcoast Management &amp; Realty</div></td><td>Property Mgmt</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Stephen Ifasi</strong></td><td><div class="company">Elite Business Insurance</div></td><td>Insurance</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Jason Sampson</strong></td><td><div class="company">Venerable Business Law</div></td><td>Law</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Jeremy David</strong></td><td><div class="company">Noble Tax Strategies &amp; Wealth Planning</div></td><td>Financial</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Brian Gannon</strong></td><td><div class="company">Virtual CFO Solution</div></td><td>Financial</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Jim Collins</strong></td><td><div class="company">FocusCFO Tampa Bay</div></td><td>Financial</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Gary Hartfield</strong></td><td><div class="company">Gary Hartfield</div></td><td>Consulting</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Sheryl Davis</strong></td><td><div class="company">Grow Financial</div></td><td>Financial</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Keith Phillips</strong></td><td><div class="company">Ameri-Tech Community Management</div></td><td>Property Mgmt</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Danya Shakfeh</strong></td><td><div class="company">Motiva Business Law</div></td><td>Law</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Stan Morton</strong></td><td><div class="company">Morton Bookkeeping Services</div></td><td>Financial</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Rochelle Friedman Walk</strong></td><td><div class="company">Aegis Law</div></td><td>Law</td><td><span class="badge badge-new">NEW</span></td><td><span class="active-dot"></span>Active</td><td></td></tr>
+        <tr><td><strong>Terrell Freeman</strong></td><td><div class="company">Federal Aviation Administration</div></td><td>Gov't</td><td><span class="badge badge-none">—</span></td><td><span class="active-dot"></span>Active</td><td>Verify fit</td></tr>
+        <tr style="opacity:0.75"><td><strong>Ryan Greenacre</strong></td><td><div class="company">Greenacre</div></td><td>—</td><td><span class="badge badge-unq">UNQUALIFIED</span></td><td><span class="active-dot"></span>Active</td><td>List quality check</td></tr>
+        <tr style="opacity:0.75"><td><strong>Ashley Chiorando</strong></td><td><div class="company">Sentry Management</div></td><td>Property Mgmt</td><td><span class="badge badge-unq">UNQUALIFIED</span></td><td><span class="active-dot"></span>Active</td><td>List quality check</td></tr>
+        <tr style="opacity:0.75"><td><strong>Bob Moyer</strong></td><td><div class="company">Vanguard Management Group</div></td><td>Property Mgmt</td><td><span class="badge badge-unq">UNQUALIFIED</span></td><td><span class="active-dot"></span>Active</td><td>List quality check</td></tr>
+        <tr style="opacity:0.75"><td><strong>Kevin Brick</strong></td><td><div class="company">Brick Business Law</div></td><td>Law</td><td><span class="badge badge-unq">UNQUALIFIED</span></td><td><span class="active-dot"></span>Active</td><td>List quality check</td></tr>
+        <tr style="opacity:0.75"><td><strong>Katie Ciccotelli</strong></td><td><div class="company">Ardoor</div></td><td>—</td><td><span class="badge badge-unq">UNQUALIFIED</span></td><td><span class="active-dot"></span>Active</td><td>List quality check</td></tr>
+        <tr style="opacity:0.5"><td><strong>Tim Castle</strong></td><td><div class="company">Mynatt Insurance Agency</div></td><td>Insurance</td><td><span class="badge badge-new">NEW</span></td><td><span class="ended-dot"></span>Removed</td><td>Removed 1 min post-enrollment</td></tr>
+        <tr style="opacity:0.5"><td><strong>James Cunningham</strong></td><td><div class="company">Cunningham Accounting</div></td><td>Financial</td><td><span class="badge badge-new">NEW</span></td><td><span class="ended-dot"></span>Removed</td><td>Removed 3 min post-enrollment</td></tr>
+        <tr style="opacity:0.5"><td><strong>Kelly Claros</strong></td><td><div class="company">Decisive Inc</div></td><td>Consulting</td><td><span class="badge badge-unq">UNQUALIFIED</span></td><td><span class="ended-dot"></span>Removed</td><td>Removed 9 min post-enrollment</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11px;color:#aaa;margin-top:10px;padding-top:8px;border-top:1px solid #f0f0f0;">Yellow rows = unenroll immediately. Faded = already removed. Keleisha auto-unenrolled on reply.</p>
+  </section>
+
+  <!-- FRICTION POINTS -->
+  <section>
+    <h2>Friction Points</h2>
+    <ul class="friction-list">
+      <li class="red"><div class="fn red">1</div><div class="fb"><h4>Eli has no admin access — can't enroll contacts into sequences</h4><p>Every batch requires Kenny to run the import. Creates a hard dependency. All 30 contacts are under Kenny's owner ID as a result. Fix: Kenny grants Eli Super Admin in HubSpot Settings → Users &amp; Teams.</p></div></li>
+      <li class="red"><div class="fn red">2</div><div class="fb"><h4>Sequence enrolled under Kenny's account — Eli blind to activity</h4><p>Eli can't view enrollment status, step progress, or contact activity for Kenny's contacts. Same fix as above.</p></div></li>
+      <li class="orange"><div class="fn orange">3</div><div class="fb"><h4>Sequence step performance not showing sent/open counts</h4><p>Step 1 shows 30 enrolled but no sent or open count. Emails did go out (Keleisha's reply confirms it). Check from Kenny's seat via Sequences → Performance tab.</p></div></li>
+      <li class="orange"><div class="fn orange">4</div><div class="fb"><h4>Kenny's direct Outlook outreach not tracked anywhere</h4><p>Emails Kenny sends manually outside the sequence are invisible to the team. Fix: connect Kenny's Outlook to HubSpot (Settings → Email Integrations) so sent emails auto-log on contact records. Until then, numbers are self-reported at each pulse.</p></div></li>
+      <li class="orange"><div class="fn orange">5</div><div class="fb"><h4>No touchpoint notifications for Eli</h4><p>No alerts when a contact hits a manual step (LinkedIn task, call). Fix: HubSpot Settings → Notifications → enable "Sequence task due" and "Sequence reply" for Eli's account.</p></div></li>
+    </ul>
+  </section>
+
+  <!-- RECOMMENDATIONS -->
+  <section>
+    <h2>This Week's Actions</h2>
+    <ul class="rec-list">
+      <li><div class="ri">🟡</div>Remove Khemist Green + Alejandro Gil from the sequence before Step 2 fires.</li>
+      <li><div class="ri">🔑</div>Kenny grants Eli admin access — HubSpot Settings → Users &amp; Teams → Super Admin. Resolves friction 1, 2, 3, and 5 at once.</li>
+      <li><div class="ri">🔌</div>Connect Kenny's Outlook to HubSpot (Settings → Email Integrations). Auto-logs all sent emails. Eliminates the self-report gap for his direct outreach.</li>
+      <li><div class="ri">🔔</div>Turn on Eli's task notifications — HubSpot Settings → Notifications → "Sequence task due" + "Sequence reply."</li>
+      <li><div class="ri">📋</div>Decide on the 5 UNQUALIFIED contacts still active in the sequence — keep or remove before Step 2.</li>
+      <li><div class="ri">📊</div>Kenny pulls sequence Performance tab screenshot (Sequences → select → Performance) as a workaround until Eli has access.</li>
+      <li><div class="ri">📅</div>Confirm Step 2 timing and that task notifications will reach Eli when it fires.</li>
+    </ul>
+  </section>
+
+  <!-- TEMPLATE FEEDBACK -->
+  <section>
+    <h2>Template Feedback — Our Position</h2>
+    <p style="font-size:12px;color:#555;margin-bottom:16px;line-height:1.6;">Kenny raised four concerns about the updated sequence templates in the team chat. Here's where we stand on each — what we agree with, where we push back, and the reasoning.</p>
+
+    <p class="rb-label agree">✅ We Agree — Action Items</p>
+    <div class="rb agree">
+      <h4>Dynamic tokens missing from subject line — adding <code>{{first}}</code> as prefix</h4>
+      <p>Kenny is right that the token was dropped. We're adding <code>{{first}}</code> as a lowercase prefix to the subject line across all template steps — e.g., <em>"keleisha, think we might work with the same people"</em>. This keeps the agreed-upon lowercase, conversational style while adding personalization. Personalized subject lines increase open rates by ~22% vs. generic ones.<sup><a href="#ref1">[1]</a></sup></p>
+      <p class="verdict">✅ Confirmed: Update subject lines in all sequence steps to <code>{{first}}, [existing subject]</code> before next enrollment batch.</p>
+    </div>
+
+    <p class="rb-label clarify">🟡 Clarification — Not a Disagreement</p>
+    <div class="rb clarify">
+      <h4>Why the signature was removed — and the correct fix</h4>
+      <p>When Eli tested the updated templates, HubSpot automatically pulled his personal inbox signature and appended it to the email. This is by design — HubSpot sequences send from the connected inbox and <strong>auto-append the sender's email signature</strong> at the bottom of every step.<sup><a href="#ref8">[8]</a></sup></p>
+      <p>If a signature block is also built into the template body, the recipient sees <em>two signatures</em> — one from the template and one auto-pulled from the inbox. That looks like a broken automated email. Eli was correct to remove it from the template.</p>
+      <p>The fix is not to put a signature in the template — it's to make sure the sender's signature in HubSpot's email integration settings is clean and professional. That auto-appended signature is what contacts see.</p>
+      <p class="verdict">Action: Kenny (as admin) verifies the connected sender's HubSpot email signature (Settings → Email Integrations → Email Signature) is set up correctly.</p>
+    </div>
+
+    <p class="rb-label pushback">📊 Respectfully Disagree — Research-Backed</p>
+    <div class="rb pushback" style="margin-bottom:12px;">
+      <h4>Email length — short is intentional</h4>
+      <p>Boomerang analyzed 40 million emails and found the highest response rates in the 50–125 word range.<sup><a href="#ref2">[2]</a></sup> Woodpecker's B2B cold email benchmark confirms short 1–3 paragraph emails outperform longer ones for reply rate.<sup><a href="#ref3">[3]</a></sup> Our own client acquisition strategy explicitly calls for precision-only cold email, never spray.<sup><a href="#ref4">[4]</a></sup></p>
+      <p>Step 1 is a conversation opener, not a pitch. The full value proposition builds across all 6 steps over 18 days. A long Step 1 email reads like a brochure — it gets deleted, not replied to.</p>
+      <p class="verdict">Position: Keep short format for all automated steps. Length is for personal follow-ups after a reply.</p>
+    </div>
+    <div class="rb pushback">
+      <h4>Subject line casing — lowercase is deliberate</h4>
+      <p>Yesware's B2B sales email analysis shows casual, lowercase subject lines consistently outperform formal title-case ones in open rate.<sup><a href="#ref5">[5]</a></sup> HubSpot A/B tests show lowercase feels peer-to-peer rather than promotional — the goal in cold outreach.<sup><a href="#ref6">[6]</a></sup> Gmail also uses title case and punctuation density as signals to route email to the Promotions tab — lowercase keeps us in Primary.<sup><a href="#ref7">[7]</a></sup></p>
+      <p>The subject line's only job is to get the email opened. Looking personal is the goal. The email body does the professional work.</p>
+      <p class="verdict">Position: Keep informal lowercase subject lines across all automated sequence steps.</p>
+    </div>
+  </section>
+
+  <!-- REFERENCES -->
+  <section id="references" style="background:#f9fafb;">
+    <h2>References</h2>
+    <ol class="ref-list">
+      <li id="ref1"><div><strong>Personalized Subject Lines (+22% open rate)</strong> — Campaign Monitor, <em>Email Marketing Benchmarks 2024</em><br><a href="https://www.campaignmonitor.com/resources/guides/email-marketing-benchmarks/" target="_blank">campaignmonitor.com/resources/guides/email-marketing-benchmarks/</a></div></li>
+      <li id="ref2"><div><strong>Email Length Sweet Spot (50–125 words)</strong> — Boomerang by Gmelius, <em>Email Response Rate Research (40M emails)</em><br><a href="https://blog.boomerangapp.com/2016/02/7-tips-for-getting-more-responses-to-your-emails-with-data/" target="_blank">blog.boomerangapp.com/2016/02/7-tips-for-getting-more-responses-to-your-emails-with-data/</a></div></li>
+      <li id="ref3"><div><strong>Short Paragraphs in B2B Cold Email</strong> — Woodpecker, <em>Cold Email Benchmarks</em><br><a href="https://woodpecker.co/blog/cold-email-benchmarks/" target="_blank">woodpecker.co/blog/cold-email-benchmarks/</a></div></li>
+      <li id="ref4"><div><strong>BPP Client Acquisition Strategy (internal)</strong> — "Cold-to-close runs ~1.7%; precision-only cold email, never spray." BPP Workspace → 1. Internal Operations → 2. Marketing &amp; Sales → Strategy → 2026-06-client-acquisition-strategy → client-acquisition-strategy.md</div></li>
+      <li id="ref5"><div><strong>Lowercase Subject Lines Outperform Title Case</strong> — Yesware, <em>Email Subject Lines: A Data-Driven Guide</em><br><a href="https://www.yesware.com/blog/email-subject-lines/" target="_blank">yesware.com/blog/email-subject-lines/</a></div></li>
+      <li id="ref6"><div><strong>Conversational Subject Lines vs. Promotional</strong> — HubSpot, <em>Email Marketing Best Practices</em><br><a href="https://blog.hubspot.com/marketing/best-practices-email-subject-line" target="_blank">blog.hubspot.com/marketing/best-practices-email-subject-line</a></div></li>
+      <li id="ref7"><div><strong>Gmail Promotions Tab Routing Signals</strong> — Litmus, <em>Gmail's Promotions Tab: What Senders Need to Know</em><br><a href="https://www.litmus.com/blog/gmail-promotions-tab/" target="_blank">litmus.com/blog/gmail-promotions-tab/</a></div></li>
+      <li id="ref8"><div><strong>HubSpot Sequences Auto-Append Sender Signature</strong> — HubSpot Knowledge Base, <em>Create and Edit a Sequence</em><br><a href="https://knowledge.hubspot.com/sequences/create-and-edit-a-sequence" target="_blank">knowledge.hubspot.com/sequences/create-and-edit-a-sequence</a></div></li>
+    </ol>
+  </section>
+
+</div>
+
+<footer>BPP Sales Sprint Pulse — Week 1 · June 26, 2026 · Data from HubSpot CRM + Outlook · Kenny Hawkins &amp; Eli Fisher</footer>
+
+</body>
+</html>
