@@ -8,13 +8,14 @@
     "QB": "PENDING (email not scanned — local runner)",
     "Git": "PENDING (Daunte local repos)"
   },
-  "north_star": "Confirm what actually closed on Friday (FA and/or HALO), reset WIP for a leaner Sprint 4, and get the June cash picture on paper before the runway conversation goes stale another week.",
+  "north_star": "Set real close dates for FA and HALO (both slipped), replan Sprint 3 around the 12/18-day sequence timelines, and get the June cash picture on paper before another week passes without a number.",
   "sprint": {
     "number": 3,
-    "transitioning_to": 4,
+    "transitioning_to": null,
     "goal": "Generate leads, reduce friction to close, close more deals",
     "day": null,
-    "note": "Sprint 3 ends 2026-06-28; Sprint 4 starts 2026-06-29",
+    "note": "Sprint 3 EXTENDED — referral sequence 12 days, cold leads sequence 18 days not factored into original plan. If sequences launch 2026-06-29, sprint closes ~2026-07-17. Sprint 4 kickoff pending.",
+    "estimated_close": "2026-07-17",
     "pct_done": 23,
     "items_done": 3,
     "items_total": 13
@@ -57,22 +58,22 @@
   ],
   "clients_at_risk": [
     {
+      "name": "Financial Acuity",
+      "flag_reason": "Did NOT close 6/26. Website + GBP still In Review. Project close out not started. No new date set. Final payment ~$2,345 still outstanding.",
+      "owner": "Eli + Kenny + Daunte",
+      "close_target": "TBD — set in 6/29 meeting"
+    },
+    {
       "name": "HALO Commons",
-      "flag_reason": "BP + landing page In Review 9 days; GBP not started; close rescheduled to 7/3",
+      "flag_reason": "Prior 7/3 target no longer valid. BP just delivered. Still needs: nonprofit setup (scope TBD), GBP, client review, project close out. No new date. Final payment ~$990 still outstanding.",
       "owner": "Eli",
-      "close_target": "2026-07-03"
+      "close_target": "TBD — set in 6/29 meeting"
     },
     {
       "name": "Lois Marketing",
-      "flag_reason": "MS4 Financial Clarity + MS6 AI Automation both not started; project close 7/2",
+      "flag_reason": "MS4 Financial Clarity + MS6 AI Automation both not started; project close projected 7/2",
       "owner": "Eli + Kenny + Daunte",
       "close_target": "2026-07-02"
-    },
-    {
-      "name": "Financial Acuity",
-      "flag_reason": "Close scheduled 6/26 — board not updated; verify payment received + deliverables signed off",
-      "owner": "Daunte + Eli + Kenny",
-      "close_target": "2026-06-26"
     }
   ],
   "cold_deals": [],
