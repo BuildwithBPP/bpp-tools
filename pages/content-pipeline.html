@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Pipeline SOP &middot; BPP Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  /* Stage pipeline */
+  .stage-row{display:grid;grid-template-columns:44px 1fr auto;gap:0 14px;align-items:start;background:var(--card);border:1.5px solid var(--border);border-left:4px solid var(--navy);border-radius:10px;padding:14px 18px;margin-bottom:9px;transition:transform .15s,box-shadow .15s;}
+  .stage-row:hover{transform:translateY(-1px);box-shadow:0 3px 12px rgba(4,71,113,0.07);}
+  .stage-row.accent{border-left-color:var(--gold);}
+  .stage-emoji{font-size:22px;line-height:1;padding-top:1px;}
+  .stage-body{min-width:0;}
+  .stage-name{font-family:var(--head);font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:2px;}
+  .stage-name .stage-label{display:inline-block;background:var(--navy);color:#fff;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border-radius:3px;margin-left:8px;vertical-align:middle;}
+  .stage-row.accent .stage-name .stage-label{background:var(--gold-dim);color:#fff;}
+  .stage-desc{font-size:12px;color:var(--muted);line-height:1.55;}
+  .stage-owner{font-size:10px;font-weight:600;color:var(--navy);text-align:right;white-space:nowrap;padding-top:2px;}
+
+  /* Role table */
+  .rtable{width:100%;border-collapse:collapse;margin-top:4px;margin-bottom:28px;}
+  .rtable th{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:10px 14px;text-align:left;background:var(--navy);color:#fff;}
+  .rtable th:first-child{border-radius:8px 0 0 0;}
+  .rtable th:last-child{border-radius:0 8px 0 0;}
+  .rtable td{font-size:12px;color:var(--muted);padding:9px 14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55;}
+  .rtable tr:last-child td{border-bottom:none;}
+  .rtable td:first-child{font-weight:600;color:var(--text);white-space:nowrap;}
+  .rtable tr:nth-child(even) td{background:#f8fafc;}
+
+  /* Convention block */
+  .conv-block{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:20px 22px;margin-bottom:28px;}
+  .conv-block + .conv-block{margin-top:-16px;}
+  .conv-title{font-family:var(--head);font-size:13px;font-weight:800;color:var(--navy);margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em;}
+  .conv-rule{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--border);}
+  .conv-rule:last-child{border-bottom:none;}
+  .conv-key{font-size:11px;font-weight:700;color:var(--text);min-width:100px;}
+  .conv-val{font-size:12px;color:var(--muted);line-height:1.5;}
+  .conv-example{font-family:monospace;font-size:11.5px;background:var(--gold-glow);border:1px solid var(--gold-border);color:#7a5900;padding:8px 12px;border-radius:6px;margin-top:8px;display:block;}
+
+  /* Decision rule */
+  .decision-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
+  .decision-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:16px 18px;}
+  .dc-action{font-family:var(--head);font-size:12px;font-weight:800;margin-bottom:6px;}
+  .dc-action.promote{color:var(--green);}
+  .dc-action.park{color:var(--steel);}
+  .dc-action.delete{color:var(--red);}
+  .dc-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+
+  /* Series rules */
+  .rule-list{list-style:none;padding:0;margin:0 0 28px;}
+  .rule-list li{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:12.5px;color:var(--muted);line-height:1.55;}
+  .rule-list li:last-child{border-bottom:none;}
+  .rule-list li::before{content:"";display:inline-block;min-width:6px;height:6px;background:var(--gold);border-radius:50%;margin-top:6px;}
+  .rule-list li strong{color:var(--text);}
+
+  /* Quick links */
+  .quick-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;}
+  .ql-btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--head);font-size:11px;font-weight:700;color:var(--navy);background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:7px 14px;text-decoration:none;transition:border-color .15s,box-shadow .15s;}
+  .ql-btn:hover{border-color:var(--navy);box-shadow:0 2px 8px rgba(4,71,113,0.1);}
+  .ql-btn.gold{background:var(--gold-glow);border-color:var(--gold-border);color:var(--gold-dim);}
+
+  @media(max-width:640px){
+    .stage-row{grid-template-columns:36px 1fr;gap:8px;}
+    .stage-owner{grid-column:2;}
+    .decision-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div id="hub-nav"></div>
+
+<main>
+
+  <div class="sec-header">
+    <div class="sec-eyebrow">Marketing &amp; Content</div>
+    <div class="sec-title">Content <span>Pipeline</span> SOP</div>
+    <div class="sec-desc">One database. One flow. Nine stages. Everything the team needs to run content day, hand off to the editor, and publish on schedule.</div>
+  </div>
+
+  <div class="quick-links">
+    <a class="ql-btn gold" href="https://www.notion.so/25503a31b81b807593fc000b1da66d96" target="_blank">&#128221; Notion IdeaBank</a>
+    <a class="ql-btn" href="https://drive.google.com/drive/folders/1CihIoZHcIINVnBZpYtPiSpLLJ4wU4wfO" target="_blank">&#128190; BPP Media Drive</a>
+    <a class="ql-btn" href="https://app.metricool.com" target="_blank">&#128202; Metricool</a>
+  </div>
+
+  <!-- PIPELINE FLOW -->
+  <div class="sec-label">The Flow &mdash; 9 Stages</div>
+
+  <div class="stage-row">
+    <div class="stage-emoji">&#128161;</div>
+    <div class="stage-body">
+      <div class="stage-name">Idea <span class="stage-label">Stage 1</span></div>
+      <div class="stage-desc">Add a title + Format + Pillar. Status stays at Idea. Anyone can do this in under 30 seconds. Don&rsquo;t overthink it.</div>
+    </div>
+    <div class="stage-owner">Anyone</div>
+  </div>
+
+  <div class="stage-row">
+    <div class="stage-emoji">&#9989;</div>
+    <div class="stage-body">
+      <div class="stage-name">Approved <span class="stage-label">Stage 2</span></div>
+      <div class="stage-desc">Content Lead reviews Idea Vault (oldest-first). Promising ideas get flipped to Approved. Everything else gets Parked or deleted. Nothing leaves this review still at Idea status.</div>
+    </div>
+    <div class="stage-owner">Content Lead (Kenny)</div>
+  </div>
+
+  <div class="stage-row accent">
+    <div class="stage-emoji">&#128203;</div>
+    <div class="stage-body">
+      <div class="stage-name">On Deck <span class="stage-label">The Gate</span></div>
+      <div class="stage-desc"><strong>The week before content day</strong>, pick 8&ndash;12 Approved ideas. Write the one-line outline in the page body (Hook &rarr; 3 bullets &rarr; CTA keyword). Flip to On Deck. These are the only ideas that appear in the Monthly Lineup view.</div>
+    </div>
+    <div class="stage-owner">Content Lead (Kenny)</div>
+  </div>
+
+  <div class="stage-row">
+    <div class="stage-emoji">&#127916;</div>
+    <div class="stage-body">
+      <div class="stage-name">Filmed <span class="stage-label">Stage 4</span></div>
+      <div class="stage-desc">On content day, open Monthly Lineup and film every On Deck idea using H-V-CTA-R. After filming: create the Drive subfolder, paste the Drive Link into the Notion property, flip to Filmed.</div>
+    </div>
+    <div class="stage-owner">Eli / Kenny / Daunte</div>
+  </div>
+
+  <div class="stage-row">
+    <div class="stage-emoji">&#9986;&#65039;</div>
+    <div class="stage-body">
+      <div class="stage-name">Post-Production <span class="stage-label">Stage 5</span></div>
+      <div class="stage-desc">Editor opens With Editor view, clicks Drive Link to footage, cuts, adds captions and music, exports finals. When done, notify publisher &mdash; entry moves to Scheduled.</div>
+    </div>
+    <div class="stage-owner">Editor (KJ)</div>
+  </div>
+
+  <div class="stage-row">
+    <div class="stage-emoji">&#128197;</div>
+    <div class="stage-body">
+      <div class="stage-name">Scheduled <span class="stage-label">Stage 6</span></div>
+      <div class="stage-desc">Publisher queues the final cut in Metricool. Entry stays Scheduled until it goes live.</div>
+    </div>
+    <div class="stage-owner">Publisher</div>
+  </div>
+
+  <div class="stage-row">
+    <div class="stage-emoji">&#128994;</div>
+    <div class="stage-body">
+      <div class="stage-name">Published <span class="stage-label">Stage 7</span></div>
+      <div class="stage-desc">Once live, paste the published URL into the Link property. ~30 days later, fill in Views and set Result (Hit / TBD / Miss) in the Performance view.</div>
+    </div>
+    <div class="stage-owner">Publisher</div>
+  </div>
+
+  <div class="stage-row">
+    <div class="stage-emoji">&#128452;&#65039;</div>
+    <div class="stage-body">
+      <div class="stage-name">Parked <span class="stage-label">Exit</span></div>
+      <div class="stage-desc">Good idea, wrong season. Disappears from all active views. Reviewed quarterly &mdash; anything Parked 6+ months either comes back to Idea or gets deleted.</div>
+    </div>
+    <div class="stage-owner">Anyone</div>
+  </div>
+
+
+  <!-- TEAM ROLES -->
+  <div class="sec-label">Team Roles</div>
+
+  <table class="rtable">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Owns</th>
+        <th>Views they live in</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Anyone</td>
+        <td>Capture raw ideas (title + Format + Pillar, 30 sec)</td>
+        <td>Idea Vault</td>
+      </tr>
+      <tr>
+        <td>Content Lead (Kenny)</td>
+        <td>Monthly review: approve ideas + build On Deck lineup</td>
+        <td>Idea Vault &rarr; Pipeline board</td>
+      </tr>
+      <tr>
+        <td>On-Camera (Eli / Kenny / Daunte)</td>
+        <td>Film on content day, create Drive subfolder, paste Drive Link</td>
+        <td>Monthly Lineup &rarr; With Editor</td>
+      </tr>
+      <tr>
+        <td>Editor (KJ)</td>
+        <td>Post-production: cuts, captions, music, export finals</td>
+        <td>With Editor</td>
+      </tr>
+      <tr>
+        <td>Publisher</td>
+        <td>Schedule in Metricool, paste live link, flip to Published</td>
+        <td>Publishing Queue</td>
+      </tr>
+      <tr>
+        <td>Head of Marketing (future)</td>
+        <td>Monthly retro: fill Views + Result, identify patterns, own full pipeline</td>
+        <td>Performance &rarr; Pipeline board</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- DRIVE CONVENTION -->
+  <div class="sec-label">BPP Media Drive &mdash; Folder Convention</div>
+
+  <div class="conv-block">
+    <div class="conv-title">Per-Video Folder Naming</div>
+    <div class="conv-rule">
+      <div class="conv-key">Format</div>
+      <div class="conv-val"><code>[##]_(FirstName) - Exact Notion Title</code> &mdash; always two-digit order number, first name in parens, title copy-pasted exact (no trailing punctuation changes)</div>
+    </div>
+    <div class="conv-rule">
+      <div class="conv-key">Example</div>
+      <div class="conv-val"><code>03_(Eli) - Project Management Isn&rsquo;t a Tool You Buy</code></div>
+    </div>
+    <div class="conv-rule">
+      <div class="conv-key">Subfolders</div>
+      <div class="conv-val"><code>01_Raw</code> &mdash; iPhone footage &nbsp;&middot;&nbsp; <code>02_Finals</code> &mdash; exported cuts &nbsp;&middot;&nbsp; <code>03_Thumbs</code> &mdash; cover photo options</div>
+    </div>
+    <div class="conv-rule">
+      <div class="conv-key">Drive Link</div>
+      <div class="conv-val">Copy the link to the <em>per-video subfolder</em> (not the parent content day folder) and paste it into the Notion Drive Link property. Editor clicks directly to their footage.</div>
+    </div>
+  </div>
+
+  <div class="conv-block">
+    <div class="conv-title">Final Export File Naming</div>
+    <div class="conv-rule">
+      <div class="conv-key">Format</div>
+      <div class="conv-val"><code>BPP_[YYYY-MM-DD]_[short-title]_[platform].mp4</code></div>
+    </div>
+    <div class="conv-rule">
+      <div class="conv-key">Example</div>
+      <div class="conv-val"><code>BPP_2026-07-15_relationships-close-deals_IG.mp4</code></div>
+    </div>
+    <code class="conv-example">BPP Media/
+  02_Content Days/
+    2026/
+      2026-07-15/
+        01_(Kenny) - Relationships Close Deals and Systems Keep Them/
+          01_Raw/
+          02_Finals/
+            BPP_2026-07-15_relationships-close-deals_IG.mp4
+          03_Thumbs/</code>
+  </div>
+
+
+  <!-- SERIES RULES -->
+  <div class="sec-label">Series Rules</div>
+
+  <div class="conv-block">
+    <div class="conv-title">Series = A Named Campaign with a Concrete Plan</div>
+    <ul class="rule-list">
+      <li><strong>Only activate a series when you have 3+ ideas planned for it.</strong> Create all 3+ Notion entries at once, tag them with the same Series name, and put them On Deck together.</li>
+      <li><strong>Film as a batch.</strong> All ideas in a series get shot on the same content day and released in consecutive weeks.</li>
+      <li><strong>Name it specifically.</strong> &ldquo;Tools That Saved Us 10 Hours This Week&rdquo; is a real campaign. &ldquo;Tools That Are 2 Good&rdquo; as an infinite bucket is not.</li>
+      <li><strong>Leave Series blank for standalone pieces.</strong> Don&rsquo;t tag an idea as a series &ldquo;in case it becomes one.&rdquo;</li>
+      <li><strong>Existing series (1 min Biz Tip, Tools That Are 2 Good, Founder Psychology) are dormant</strong> &mdash; the options stay in the dropdown, but nothing should be tagged to them unless you&rsquo;re actively running that campaign with a 3-part plan in hand.</li>
+    </ul>
+  </div>
+
+
+  <!-- STALE IDEAS -->
+  <div class="sec-label">Stale Ideas Framework</div>
+
+  <div class="conv-block">
+    <div class="conv-title">Monthly Rule &mdash; Every Idea Gets a Decision</div>
+    <div class="conv-rule">
+      <div class="conv-key">When</div>
+      <div class="conv-val">Every month, the week before content day, when the Content Lead opens Idea Vault to build On Deck.</div>
+    </div>
+    <div class="conv-rule">
+      <div class="conv-key">Rule</div>
+      <div class="conv-val">Work through Idea Vault oldest-first. Every entry at Status = Idea gets one decision: Promote, Park, or Delete. Nothing leaves the session still at Idea.</div>
+    </div>
+  </div>
+
+  <div class="decision-grid">
+    <div class="decision-card">
+      <div class="dc-action promote">Promote &rarr; Approved</div>
+      <div class="dc-desc">Team wants to make it. Serves a Pillar, has a clear hook. Flip to Approved and it becomes eligible for On Deck next cycle.</div>
+    </div>
+    <div class="decision-card">
+      <div class="dc-action park">Park &rarr; Parked</div>
+      <div class="dc-desc">Good concept, wrong season. Disappears from active views. Revisited at the quarterly purge.</div>
+    </div>
+    <div class="decision-card">
+      <div class="dc-action delete">Delete</div>
+      <div class="dc-desc">Not good, already covered, or will never use. Gone. The bar for deletion is &ldquo;we&rsquo;d never add this today.&rdquo;</div>
+    </div>
+  </div>
+
+  <div class="conv-block">
+    <div class="conv-title">Quarterly Hard Purge (Jan, Apr, Jul, Oct)</div>
+    <ul class="rule-list">
+      <li>Review everything in <strong>Parked</strong>. Test: <em>&ldquo;If this wasn&rsquo;t already in the database, would you add it today?&rdquo;</em></li>
+      <li>No &rarr; delete it. Yes &rarr; move back to Idea for the next monthly cycle.</li>
+      <li><strong>Anything Parked for 6+ months (two consecutive quarters) gets deleted automatically.</strong></li>
+    </ul>
+  </div>
+
+</main>
+
+<div class="hub-footer">
+  <div class="footer-brand">Business Plans <span>Plus</span></div>
+  <div class="footer-note">Internal Tools Hub &middot; Tampa Bay &middot; 2026</div>
+</div>
+
+<script src="../js/nav.js" data-page="departments"></script>
+
+</body>
+</html>

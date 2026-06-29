@@ -1,0 +1,2205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Marketing SOP &middot; Business Plans Plus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #044771;
+    --navy-2: #033158;
+    --gold: #F1BE5C;
+    --gold-soft: #fdf0d4;
+    --gold-border: rgba(241,190,92,0.4);
+    --blue: #5987A5;
+    --cream: #edf1f5;
+    --paper: #ffffff;
+    --ink: #1a1a1a;
+    --ink-soft: #4a5567;
+    --line: #d8dfe6;
+    --success: #1a9e5c;
+    --warn: #d4920a;
+    --red: #c23b22;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.68;
+  }
+  h1, h2, h3, h4, .callout-title, .part-label {
+    font-family: "Montserrat", "Inter", -apple-system, sans-serif;
+  }
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+
+  /* PROGRESS BAR */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--gold);
+    z-index: 1000;
+    width: 0%;
+    transition: width 0.1s linear;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* SIDEBAR TOC */
+  .toc-sidebar {
+    position: fixed;
+    top: 72px;
+    left: calc(50% - 450px - 248px);
+    width: 228px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 0 10px;
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+    z-index: 50;
+    box-shadow: 0 4px 16px rgba(4,71,113,0.08);
+    display: none;
+  }
+  @media (min-width: 1360px) { .toc-sidebar { display: block; } }
+  .toc-head {
+    padding: 0 16px 10px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 8px;
+  }
+  .toc-sidebar a {
+    display: block;
+    padding: 5px 16px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.1s, background 0.1s, border-color 0.1s;
+    border-left: 2px solid transparent;
+    line-height: 1.45;
+  }
+  .toc-sidebar a.active { color: var(--navy); font-weight: 600; border-left-color: var(--gold); background: var(--gold-soft); }
+  .toc-sidebar a:hover { color: var(--navy); background: var(--cream); }
+  .toc-n { display: inline-block; width: 20px; font-size: 10px; color: var(--gold); font-weight: 700; }
+
+  /* HERO */
+  header.hero {
+    background: var(--navy);
+    color: var(--paper);
+    padding: 56px 56px 48px;
+    border-bottom: 4px solid var(--gold);
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 10px;
+  }
+  header.hero h1 {
+    margin: 0 0 14px;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+  }
+  header.hero .sub {
+    font-size: 16px;
+    color: #c8d4e3;
+    margin: 0 0 24px;
+    max-width: 660px;
+    line-height: 1.6;
+  }
+  header.hero .meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    font-size: 12.5px;
+    color: #c8d4e3;
+  }
+  header.hero .meta strong {
+    color: var(--gold);
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 10px;
+  }
+
+  /* QUICK LINKS BAR */
+  .quick-links-bar {
+    background: var(--cream);
+    padding: 14px 56px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--line);
+  }
+  .ql {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--navy);
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 20px;
+    padding: 7px 14px;
+    text-decoration: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .ql:hover { border-color: var(--navy); box-shadow: 0 2px 8px rgba(4,71,113,0.1); }
+  .ql.gold { background: var(--gold-soft); border-color: var(--gold-border); color: #8a6018; }
+
+  /* MAIN */
+  main { padding: 52px 56px; }
+  section { margin-bottom: 68px; scroll-margin-top: 20px; }
+  section:last-of-type { margin-bottom: 0; }
+  .section-divider { border: none; border-top: 2px solid var(--line); margin: 52px 0; }
+  .part-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: var(--navy);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  /* SECTION HEADINGS */
+  h2 {
+    font-size: 26px;
+    color: var(--navy);
+    margin: 0 0 8px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  h2 .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 50%;
+    font-size: 15px;
+    font-weight: 700;
+    margin-right: 12px;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+  h2 .step-meta {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin: 5px 0 0 48px;
+  }
+  h3 {
+    font-size: 18px;
+    color: var(--navy);
+    margin: 28px 0 10px;
+    font-weight: 600;
+  }
+  p { margin: 0 0 14px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin-bottom: 7px; }
+  strong { color: var(--ink); }
+  code {
+    font-family: "SF Mono", Consolas, Monaco, "Courier New", monospace;
+    background: var(--gold-soft);
+    color: var(--navy);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  a { color: var(--navy); font-weight: 600; }
+
+  /* CALLOUTS */
+  .callout {
+    background: var(--gold-soft);
+    border-left: 4px solid var(--gold);
+    padding: 16px 22px;
+    margin: 18px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 14.5px;
+  }
+  .callout.navy { background: rgba(4,71,113,0.05); border-left-color: var(--navy); }
+  .callout.green { background: #f0faf5; border-left-color: var(--success); }
+  .callout.green .callout-title { color: var(--success); }
+  .callout.warn { background: #fff8ec; border-left-color: var(--warn); }
+  .callout.warn .callout-title { color: var(--warn); }
+  .callout.rule { background: #fff9ef; border-left-color: var(--gold); }
+  .callout-title {
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .callout p:last-child, .callout ul:last-child { margin-bottom: 0; }
+
+  /* NOTE BLOCK */
+  .note {
+    background: #f0faf5;
+    border-left: 4px solid var(--success);
+    padding: 13px 20px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .note strong {
+    color: var(--success);
+    display: block;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  /* LOOM VIDEO PLACEHOLDER */
+  .loom-wrap {
+    background: #0d1421;
+    border-radius: 10px;
+    padding: 36px 28px;
+    text-align: center;
+    margin: 24px 0;
+    border: 2px dashed rgba(241,190,92,0.3);
+    position: relative;
+  }
+  .loom-badge {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(241,190,92,0.45);
+    font-family: "Montserrat", sans-serif;
+  }
+  .loom-play {
+    width: 52px;
+    height: 52px;
+    background: rgba(241,190,92,0.1);
+    border: 2px solid rgba(241,190,92,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    font-size: 20px;
+    color: rgba(241,190,92,0.6);
+  }
+  .loom-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .loom-sub { font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.5; }
+
+  /* VIEW BLOCKS */
+  .view-block {
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(4,71,113,0.04);
+  }
+  .view-header {
+    background: var(--navy);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 3px solid var(--gold);
+  }
+  .view-emoji { font-size: 24px; flex-shrink: 0; }
+  .view-title-group { flex: 1; }
+  .view-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+  }
+  .view-filter { font-size: 11.5px; color: rgba(255,255,255,0.55); margin-top: 3px; }
+  .view-owner-tag {
+    font-family: "Montserrat", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 5px 11px;
+    border-radius: 4px;
+    background: rgba(241,190,92,0.18);
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .view-body { padding: 26px 28px; }
+  .view-who-pill {
+    display: inline-block;
+    font-family: "Montserrat", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 11px;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .view-purpose {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    line-height: 1.68;
+  }
+
+  /* STAGE BLOCKS */
+  .stage-block {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 18px;
+    align-items: start;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-left: 4px solid var(--navy);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 12px;
+  }
+  .stage-block.gate { border-left-color: var(--gold); }
+  .stage-block.exit { border-left-color: var(--blue); opacity: 0.85; }
+  .stage-num {
+    width: 42px;
+    height: 42px;
+    background: var(--navy);
+    color: var(--gold);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Montserrat", sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .stage-block.gate .stage-num { background: var(--gold); color: var(--navy); }
+  .stage-block.exit .stage-num { background: var(--blue); color: white; font-size: 16px; }
+  .stage-name {
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+  .stage-name .badge {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    background: var(--navy);
+    color: white;
+  }
+  .stage-block.gate .stage-name .badge { background: var(--gold); color: var(--navy); }
+  .stage-block.exit .stage-name .badge { background: var(--blue); color: white; }
+  .stage-owner-tag {
+    font-family: "Montserrat", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 9px;
+  }
+  .stage-steps {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+  .stage-steps ol, .stage-steps ul { margin: 8px 0 0; padding-left: 18px; }
+  .stage-steps li { margin-bottom: 5px; }
+
+  /* SYSTEM FLOW */
+  .flow {
+    margin: 22px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .flow-step {
+    width: 100%;
+    max-width: 660px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 20px;
+  }
+  .flow-step.fs-notion { background: #f4f0ff; border-color: #c9bef5; }
+  .flow-step.fs-drive { background: #edf7ff; border-color: #a8d4f5; }
+  .flow-step.fs-edit { background: #f0faf5; border-color: #a5d6b5; }
+  .flow-step.fs-schedule { background: var(--gold-soft); border-color: var(--gold-border); }
+  .flow-step.fs-end { background: var(--navy); border-color: var(--navy); text-align: center; }
+  .flow-step.fs-end .step-label { color: var(--gold); font-family: "Montserrat", sans-serif; }
+  .flow-step.fs-end .step-desc { color: rgba(255,255,255,0.6); }
+  .step-label {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .step-desc { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+  .flow-arrow { color: var(--ink-soft); font-size: 20px; line-height: 1; }
+
+  /* TWO-COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+  .card { background: var(--cream); border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+  .card .badge {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--gold);
+    font-family: "Montserrat", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .card h4 { margin: 0 0 7px; font-size: 16px; color: var(--navy); }
+  .card p { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
+
+  /* DECISION GRID */
+  .decision-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 16px 0 20px; }
+  .decision-card { background: var(--cream); border: 1.5px solid var(--line); border-radius: 8px; padding: 16px 18px; }
+  .dc-action { font-family: "Montserrat", sans-serif; font-size: 12px; font-weight: 800; margin-bottom: 7px; }
+  .dc-action.promote { color: var(--success); }
+  .dc-action.park { color: var(--blue); }
+  .dc-action.del { color: var(--red); }
+  .dc-desc { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* DRIVE FOLDER TREE */
+  .folder-tree {
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 18px 0;
+    background: var(--paper);
+    font-family: "SF Mono", Consolas, Monaco, "Courier New", monospace;
+    font-size: 12.5px;
+  }
+  .tree-header {
+    background: var(--navy);
+    padding: 10px 18px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .tree-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 8px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .tree-row:last-child { border-bottom: none; }
+  .tree-name { color: var(--ink); }
+  .tree-name.folder { color: var(--navy); font-weight: 700; }
+  .tree-name.i1 { padding-left: 16px; }
+  .tree-name.i2 { padding-left: 32px; }
+  .tree-name.i3 { padding-left: 48px; }
+  .tree-name.i4 { padding-left: 64px; }
+  .tree-note { font-family: "Inter", sans-serif; font-size: 11px; color: var(--ink-soft); margin-left: auto; flex-shrink: 0; font-style: italic; text-align: right; max-width: 44%; }
+
+  /* TIMELINE */
+  .timeline { margin: 22px 0; padding-left: 28px; border-left: 3px solid var(--gold-soft); }
+  .ti { position: relative; margin-bottom: 22px; }
+  .ti:last-child { margin-bottom: 0; }
+  .ti::before {
+    content: "";
+    position: absolute;
+    left: -37px;
+    top: 8px;
+    width: 14px;
+    height: 14px;
+    background: var(--gold);
+    border-radius: 50%;
+    border: 3px solid var(--paper);
+    box-shadow: 0 0 0 2px rgba(241,190,92,0.4);
+  }
+  .ti .when { font-family: "Montserrat", sans-serif; font-weight: 700; color: var(--navy); font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+  .ti .what { font-size: 14px; color: var(--ink-soft); line-height: 1.65; }
+
+  /* ROLES TABLE */
+  table { border-collapse: collapse; width: 100%; margin: 18px 0; font-size: 13.5px; }
+  th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--navy); color: var(--gold); font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td:first-child { font-weight: 600; color: var(--navy); }
+  tr:nth-child(even) td { background: #f8fafc; }
+  tr:last-child td { border-bottom: none; }
+
+  /* METRICOOL STEPS */
+  .mtr-steps { margin: 20px 0; }
+  .mtr-step {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    align-items: start;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .mtr-step:last-child { border-bottom: none; }
+  .mtr-num {
+    width: 36px;
+    height: 36px;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .mtr-content h4 { margin: 0 0 6px; font-size: 15px; color: var(--navy); font-family: "Montserrat", sans-serif; font-weight: 700; }
+  .mtr-content p { margin: 0 0 6px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.62; }
+  .mtr-content p:last-child { margin-bottom: 0; }
+  .mtr-content ul { margin: 8px 0 0; padding-left: 18px; font-size: 13px; color: var(--ink-soft); }
+
+  /* SKILL BLOCKS */
+  .skill-block {
+    background: #0d1421;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 18px 0;
+    border: 1.5px solid rgba(241,190,92,0.2);
+  }
+  .skill-eyebrow {
+    font-family: "Montserrat", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(241,190,92,0.5);
+    margin-bottom: 6px;
+  }
+  .skill-trigger {
+    font-family: "SF Mono", Consolas, Monaco, monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+  .skill-tagline {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .skill-modes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .skill-mode {
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    padding: 12px 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .skill-mode-label {
+    font-family: "Montserrat", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 5px;
+  }
+  .skill-mode-body { font-size: 12px; color: rgba(255,255,255,0.48); line-height: 1.5; }
+  .skill-block.secondary {
+    border-color: rgba(89,135,165,0.3);
+    background: #0a1018;
+  }
+  .skill-block.secondary .skill-trigger { color: var(--blue); }
+  .skill-block.secondary .skill-eyebrow { color: rgba(89,135,165,0.6); }
+  .skill-block.secondary .skill-mode-label { color: var(--blue); }
+
+  /* HVCAR FRAMEWORK */
+  .hvctar-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .hvctar-cell {
+    background: var(--cream);
+    border: 1.5px solid var(--line);
+    border-top: 3px solid var(--navy);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .hvctar-cell.hook { border-top-color: var(--gold); }
+  .hvctar-cell.cta { border-top-color: var(--success); }
+  .hvctar-cell.reset { border-top-color: var(--blue); }
+  .hvctar-letter {
+    font-family: "Montserrat", sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hvctar-cell.hook .hvctar-letter { color: #8a6018; }
+  .hvctar-cell.cta .hvctar-letter { color: var(--success); }
+  .hvctar-cell.reset .hvctar-letter { color: var(--blue); }
+  .hvctar-name {
+    font-family: "Montserrat", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .hvctar-time { font-size: 11px; color: var(--gold); font-weight: 700; font-family: "Montserrat", sans-serif; margin-bottom: 5px; }
+  .hvctar-desc { font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* FORMAT CHIPS */
+  .format-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .fmt { font-family: "Montserrat", sans-serif; font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 20px; letter-spacing: 0.3px; }
+  .fmt-reel   { background: #f0ecff; color: #5e35b1; }
+  .fmt-carousel{ background: #fff3e0; color: #c46200; }
+  .fmt-linkedin{ background: #e3f2fd; color: #0d47a1; }
+  .fmt-blog   { background: #f5f5f5; color: #424242; }
+  .fmt-newsletter{ background: #fce4ec; color: #880e4f; }
+  .fmt-youtube { background: #ffebee; color: #b71c1c; }
+
+  /* FORMAT WORKFLOW CARDS */
+  .format-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0; }
+  .fw-card { border: 1.5px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 6px rgba(4,71,113,0.04); }
+  .fw-head { background: var(--navy); padding: 12px 18px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid var(--gold); }
+  .fw-title { font-family: "Montserrat", sans-serif; font-size: 13px; font-weight: 700; color: white; }
+  .fw-body { padding: 16px 18px; font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+  .fw-body ol { margin: 0; padding-left: 16px; }
+  .fw-body li { margin-bottom: 4px; }
+  .fw-tag { display: inline-block; background: var(--gold-soft); color: #8a6018; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; font-family: "Montserrat", sans-serif; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: #d8d1bd;
+    padding: 36px 56px 40px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    border-top: 4px solid var(--gold);
+  }
+  footer h4 { color: var(--gold); margin: 0 0 8px; letter-spacing: 1px; text-transform: uppercase; font-size: 11px; font-family: "Montserrat", sans-serif; }
+  footer a { color: var(--gold); text-decoration: none; }
+  footer .sig { margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.12); color: #908676; font-size: 12px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 720px) {
+    header.hero, main, footer, .quick-links-bar { padding-left: 20px; padding-right: 20px; }
+    header.hero h1 { font-size: 28px; }
+    header.hero .meta { grid-template-columns: repeat(2,1fr); }
+    .two-col, .format-cards, .skill-modes, .hvctar-grid { grid-template-columns: 1fr; }
+    .decision-grid { grid-template-columns: 1fr; }
+    h2 .step-meta { margin-left: 0; margin-top: 8px; }
+  }
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; max-width: none; }
+    header.hero, footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    section { page-break-inside: avoid; }
+    .loom-wrap, .toc-sidebar, #progress-bar { display: none; }
+  }
+
+  /* ======================================================
+     VISUAL ENHANCEMENT LAYER — overrides above as needed
+     ====================================================== */
+
+  /* Progress bar — thicker */
+  #progress-bar { height: 4px; }
+
+  /* Page card — stronger shadow */
+  .page {
+    box-shadow: 0 0 0 1px var(--line), 0 24px 64px rgba(4,71,113,0.1), 0 4px 16px rgba(4,71,113,0.06);
+  }
+
+  /* TOC — fix cut-off at narrow viewports */
+  .toc-sidebar {
+    left: max(10px, calc(50% - 450px - 252px));
+  }
+  @media (min-width: 1360px) { .toc-sidebar { display: none; } }
+  @media (min-width: 1430px) { .toc-sidebar { display: block; } }
+
+  /* HERO — gradient + dot grid texture + glow orb */
+  header.hero {
+    background: linear-gradient(145deg, #021f3b 0%, #033d65 55%, #0a5e94 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  header.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(241,190,92,0.09) 1.5px, transparent 1.5px);
+    background-size: 26px 26px;
+    pointer-events: none;
+  }
+  header.hero::after {
+    content: '';
+    position: absolute;
+    top: -110px;
+    right: -90px;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(241,190,92,0.11) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  header.hero > * { position: relative; z-index: 1; }
+  header.hero h1 {
+    font-size: 38px;
+    background: linear-gradient(135deg, #ffffff 0%, #ffe8a8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* QUICK LINKS — premium hover */
+  .ql {
+    transition: background 0.18s, color 0.18s, border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+  }
+  .ql:hover {
+    background: var(--navy);
+    color: white;
+    border-color: var(--navy);
+    box-shadow: 0 4px 14px rgba(4,71,113,0.22);
+    transform: translateY(-1px);
+  }
+  .ql.gold:hover {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+    box-shadow: 0 4px 14px rgba(241,190,92,0.35);
+  }
+
+  /* SECTION NUMBERS — gold glow */
+  h2 .num {
+    box-shadow: 0 0 0 3px rgba(241,190,92,0.22), 0 4px 14px rgba(241,190,92,0.3);
+  }
+
+  /* SECTION DIVIDER — decorative diamond */
+  .section-divider {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent 0%, var(--line) 25%, var(--line) 75%, transparent 100%);
+    margin: 56px 0;
+    position: relative;
+  }
+  .section-divider::after {
+    content: '◆';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--gold);
+    font-size: 9px;
+    background: var(--paper);
+    padding: 0 12px;
+  }
+
+  /* PART LABEL — gradient + shadow */
+  .part-label {
+    background: linear-gradient(135deg, var(--navy) 0%, #0d5e94 100%);
+    letter-spacing: 2.5px;
+    box-shadow: 0 3px 10px rgba(4,71,113,0.22);
+    padding: 5px 14px 5px 12px;
+  }
+
+  /* VIEW BLOCKS — gradient header + pattern + hover */
+  .view-block {
+    transition: box-shadow 0.22s, transform 0.22s;
+  }
+  .view-block:hover {
+    box-shadow: 0 8px 28px rgba(4,71,113,0.12), 0 2px 8px rgba(4,71,113,0.06);
+    transform: translateY(-1px);
+  }
+  .view-header {
+    background: linear-gradient(135deg, #022d50 0%, #044771 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .view-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(241,190,92,0.065) 1px, transparent 1px);
+    background-size: 18px 18px;
+    pointer-events: none;
+  }
+  .view-header > * { position: relative; z-index: 1; }
+
+  /* STAGE BLOCKS — shadow + hover slide */
+  .stage-block {
+    box-shadow: 0 2px 10px rgba(4,71,113,0.07), 0 1px 3px rgba(4,71,113,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .stage-block:hover {
+    box-shadow: 0 6px 22px rgba(4,71,113,0.13), 0 2px 6px rgba(4,71,113,0.06);
+    transform: translateX(3px);
+  }
+  .stage-block.gate {
+    box-shadow: 0 2px 12px rgba(241,190,92,0.15), 0 1px 4px rgba(241,190,92,0.08);
+  }
+  .stage-block.gate:hover {
+    box-shadow: 0 6px 24px rgba(241,190,92,0.22), 0 2px 8px rgba(241,190,92,0.1);
+  }
+
+  /* SKILL BLOCKS — glow + richer gradient */
+  .skill-block {
+    background: linear-gradient(145deg, #0a1120 0%, #0e1828 100%);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.28), inset 0 1px 0 rgba(241,190,92,0.12);
+    border-color: rgba(241,190,92,0.25);
+  }
+  .skill-trigger {
+    text-shadow: 0 0 28px rgba(241,190,92,0.32);
+    letter-spacing: -0.3px;
+  }
+  .skill-block.secondary {
+    border-color: rgba(89,135,165,0.35);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(89,135,165,0.12);
+  }
+  .skill-block.secondary .skill-trigger {
+    text-shadow: 0 0 24px rgba(89,135,165,0.35);
+  }
+
+  /* H-V-CTA-R CELLS — warm gradient fills */
+  .hvctar-cell {
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .hvctar-cell:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(4,71,113,0.1);
+  }
+  .hvctar-cell.hook {
+    background: linear-gradient(135deg, #fffcf4 0%, #fff8e8 100%);
+  }
+  .hvctar-cell.cta {
+    background: linear-gradient(135deg, #f0faf6 0%, #e8f7ef 100%);
+  }
+  .hvctar-cell.reset {
+    background: linear-gradient(135deg, #eef4fc 0%, #e6f0fb 100%);
+  }
+  .hvctar-cell.value { background: linear-gradient(135deg, #f8f9fc 0%, #f0f4fa 100%); }
+  .hvctar-letter { font-size: 28px; }
+
+  /* TIMELINE — glow dot */
+  .timeline {
+    border-left-color: rgba(241,190,92,0.3);
+    border-left-width: 2px;
+  }
+  .ti::before {
+    box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px rgba(241,190,92,0.4), 0 0 14px rgba(241,190,92,0.22);
+  }
+  .ti .when {
+    color: var(--navy);
+    letter-spacing: 0.8px;
+  }
+
+  /* FORMAT CARDS — hover lift */
+  .fw-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .fw-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(4,71,113,0.14), 0 2px 8px rgba(4,71,113,0.06);
+  }
+
+  /* GENERIC CARDS — hover lift */
+  .card {
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(4,71,113,0.1), 0 2px 6px rgba(4,71,113,0.05);
+  }
+
+  /* CALLOUTS — left-border glow on gold */
+  .callout { box-shadow: inset 4px 0 0 0 var(--gold); border-left: none; padding-left: 26px; }
+  .callout.navy { box-shadow: inset 4px 0 0 0 var(--navy); border-left: none; }
+  .callout.green { box-shadow: inset 4px 0 0 0 var(--success); border-left: none; }
+  .callout.warn { box-shadow: inset 4px 0 0 0 var(--warn); border-left: none; }
+  .callout.rule { box-shadow: inset 4px 0 0 0 var(--gold); border-left: none; }
+
+  /* METRICOOL STEP NUMBERS — shadow */
+  .mtr-num {
+    box-shadow: 0 2px 10px rgba(241,190,92,0.3), 0 0 0 3px rgba(241,190,92,0.12);
+  }
+
+  /* FOLDER TREE — upgrade */
+  .tree-header {
+    background: linear-gradient(135deg, #022d50 0%, var(--navy) 100%);
+    letter-spacing: 2px;
+  }
+
+  /* FOOTER — enhanced */
+  footer {
+    background: linear-gradient(145deg, #021f3b 0%, #033d65 60%, #044771 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(241,190,92,0.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+    pointer-events: none;
+  }
+  footer > * { position: relative; z-index: 1; }
+
+  /* YOUTUBE EMBED */
+  .yt-section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 28px 0 10px;
+  }
+  .yt-section-label::before {
+    content: '';
+    display: inline-block;
+    width: 14px; height: 10px;
+    background: #ff0000;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .yt-embed-wrap {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    background: #0d1421;
+    border: 1.5px solid rgba(241,190,92,0.22);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  }
+  .yt-embed-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+    border-radius: 10px;
+  }
+  .yt-embed-caption {
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    margin: 6px 0 20px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- SIDEBAR TOC (desktop only, ≥1360px) -->
+<aside class="toc-sidebar" id="toc-sidebar">
+  <div class="toc-head">In this guide</div>
+  <a href="#three-tools"><span class="toc-n">01</span> The Three Tools</a>
+  <a href="#ideabank-intro"><span class="toc-n">02</span> IdeaBank Intro</a>
+  <a href="#pipeline-board"><span class="toc-n">03</span> Pipeline Board</a>
+  <a href="#idea-vault"><span class="toc-n">04</span> Idea Vault</a>
+  <a href="#monthly-lineup"><span class="toc-n">05</span> Monthly Lineup</a>
+  <a href="#with-editor"><span class="toc-n">06</span> With Editor</a>
+  <a href="#publishing-queue"><span class="toc-n">07</span> Publishing Queue</a>
+  <a href="#performance"><span class="toc-n">08</span> Performance</a>
+  <a href="#metricool"><span class="toc-n">09</span> Metricool</a>
+  <a href="#content-lifecycle"><span class="toc-n">10</span> Content Lifecycle</a>
+  <a href="#content-script"><span class="toc-n">11</span> Script Workflow</a>
+  <a href="#content-format"><span class="toc-n">12</span> By Format</a>
+  <a href="#media-drive"><span class="toc-n">13</span> Media Drive</a>
+  <a href="#content-day-playbook"><span class="toc-n">14</span> Content Day</a>
+  <a href="#team-roles"><span class="toc-n">15</span> Team Roles</a>
+  <a href="#editorial-rules"><span class="toc-n">16</span> Editorial Rules</a>
+</aside>
+
+<div class="page">
+
+  <header class="hero">
+    <div class="eyebrow">Business Plans Plus &middot; Internal SOP</div>
+    <h1>The BPP Marketing System</h1>
+    <p class="sub">Everything the team needs to run content at BPP: how to use every Notion IdeaBank view, how it flows into the Drive, how Drive flows to the editor, how published content gets scheduled in Metricool, and how to build scripts using the AI tools we&rsquo;ve built.</p>
+    <div class="meta">
+      <div><strong>For</strong>BPP Marketing Team</div>
+      <div><strong>From</strong>Business Plans Plus</div>
+      <div><strong>Status</strong>Active SOP</div>
+      <div><strong>Updated</strong>2026</div>
+    </div>
+  </header>
+
+  <div class="quick-links-bar">
+    <a class="ql gold" href="https://www.notion.so/25503a31b81b807593fc000b1da66d96" target="_blank">&#x1F4DD; Notion IdeaBank</a>
+    <a class="ql" href="https://drive.google.com/drive/folders/1CihIoZHcIINVnBZpYtPiSpLLJ4wU4wfO" target="_blank">&#x1F4BE; BPP Media Drive</a>
+    <a class="ql" href="https://app.metricool.com" target="_blank">&#x1F4CA; Metricool</a>
+  </div>
+
+  <main>
+
+    <!-- INTRO -->
+    <section>
+      <h2>Why This Guide Exists</h2>
+      <p>BPP&rsquo;s content operation runs across three tools: Notion, Google Drive, and Metricool. The problem isn&rsquo;t using any one of them &mdash; it&rsquo;s knowing how they <em>talk to each other</em> and what you&rsquo;re supposed to do at each step. This SOP is that map.</p>
+      <p>Follow it once and the flow becomes second nature. Every role, every view, and every handoff is documented here so nothing falls through the cracks and no one is guessing what to do next.</p>
+      <div class="callout">
+        <div class="callout-title">Loom videos are coming for each section</div>
+        <p>Every major section has a video placeholder below the written steps. Eli will record a short Loom walk-through for each one. The written instructions are complete and can be followed right now &mdash; the videos reinforce each step visually.</p>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- PART 1: THREE TOOLS -->
+    <section id="three-tools">
+      <div class="part-label">Part 1 &mdash; The System</div>
+      <h2><span class="num">01</span> The Three Tools &amp; How They Connect<span class="step-meta">The big picture before the detail</span></h2>
+      <p>Every piece of BPP content flows through three tools. Understanding what each one owns &mdash; and what it does <em>not</em> own &mdash; is the foundation of the whole system.</p>
+
+      <div class="two-col">
+        <div class="card">
+          <span class="badge">Tool 1</span>
+          <h4>Notion IdeaBank</h4>
+          <p>The brain. Every idea starts here. Every status change happens here. This is the single source of truth for where every piece of content stands in the pipeline.</p>
+        </div>
+        <div class="card">
+          <span class="badge">Tool 2</span>
+          <h4>BPP Media Drive</h4>
+          <p>The vault. All raw footage, review edits, and final cuts live here &mdash; organized by content day and by video. Nothing gets lost in a camera roll.</p>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <span class="badge">Tool 3</span>
+          <h4>Metricool</h4>
+          <p>The publisher. Final cuts get queued here for scheduling across platforms. Analytics on published content feed back into the Performance view in Notion.</p>
+        </div>
+        <div class="card" style="background: var(--gold-soft); border-color: var(--gold-border);">
+          <span class="badge" style="background: var(--gold); color: var(--navy);">The Rule</span>
+          <h4>Notion is always first</h4>
+          <p>No video gets filmed without an entry in Notion. No Drive folder gets created without a Notion entry it belongs to. Notion is the trigger for everything downstream.</p>
+        </div>
+      </div>
+
+      <h3>The End-to-End Flow</h3>
+      <div class="flow">
+        <div class="flow-step fs-notion">
+          <div class="step-label">&#x1F4A1; Notion IdeaBank &mdash; Idea created</div>
+          <div class="step-desc">Anyone adds a title, Format, and Pillar. Status = Idea. Under 30 seconds.</div>
+        </div>
+        <div class="flow-arrow">&#x2193;</div>
+        <div class="flow-step fs-notion">
+          <div class="step-label">&#x2705; Notion &mdash; Content Lead reviews and schedules</div>
+          <div class="step-desc">Monthly review: Idea Vault combed oldest-first. Promising ideas become Approved. The best Approved ideas become Content Day with a script written beforehand.</div>
+        </div>
+        <div class="flow-arrow">&#x2193;</div>
+        <div class="flow-step fs-drive">
+          <div class="step-label">&#x1F3A5; Content Day &mdash; Film + create Drive folder</div>
+          <div class="step-desc">On-camera talent films every Content Day idea. After each video: Drive folder created, raw footage uploaded to 01_Raw, Drive Link pasted into Notion, status flipped to Post-Production.</div>
+        </div>
+        <div class="flow-arrow">&#x2193;</div>
+        <div class="flow-step fs-edit">
+          <div class="step-label">&#x2702;&#xFE0F; Drive &rarr; Editor &mdash; Post-production</div>
+          <div class="step-desc">Editor opens the With Editor view in Notion, clicks the Drive Link to access raw footage, cuts and adds captions, saves the review cut to 02_Review. Creator approves, final goes to 03_Finals.</div>
+        </div>
+        <div class="flow-arrow">&#x2193;</div>
+        <div class="flow-step fs-schedule">
+          <div class="step-label">&#x1F4C5; Metricool &mdash; Scheduled</div>
+          <div class="step-desc">Publisher takes the final cut from 03_Finals, queues it in Metricool with caption and publish date. Notion status flips to Scheduled.</div>
+        </div>
+        <div class="flow-arrow">&#x2193;</div>
+        <div class="flow-step fs-end">
+          <div class="step-label">&#x1F7E2; Published &mdash; Results logged in Notion</div>
+          <div class="step-desc">Once live, status flips to Published. About 30 days later, the Content Lead opens the Performance view, fills in Views, and sets the Result (Hit / TBD / Miss). Patterns inform next month&rsquo;s approvals.</div>
+        </div>
+      </div>
+
+      <div class="loom-wrap">
+        <div class="loom-badge">Loom Video</div>
+        <div class="loom-play">&#9654;</div>
+        <div class="loom-title">System Overview Walk-Through</div>
+        <div class="loom-sub">A quick visual tour of all three tools and how they connect &mdash; paste Loom URL here when ready</div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- PART 2: NOTION IDEABANK -->
+    <section id="ideabank-intro">
+      <div class="part-label">Part 2 &mdash; The Notion IdeaBank</div>
+      <h2><span class="num">02</span> Understanding the IdeaBank<span class="step-meta">One database &middot; Multiple views &middot; One flow</span></h2>
+      <p>The Notion IdeaBank is a <strong>single database</strong> with multiple views &mdash; each one a different filtered window on the same data. You don&rsquo;t move entries from one place to another. You change the <strong>Status</strong> field, and the entry automatically appears in the right view.</p>
+      <div class="callout navy">
+        <div class="callout-title">The mental model</div>
+        <p>Think of it like a whiteboard with sticky notes. The sticky notes (entries) don&rsquo;t move around &mdash; you flip the color (Status). Each view is a window that only shows certain colors. Change the color, and the note appears in a new window automatically.</p>
+      </div>
+      <p>The IdeaBank covers <strong>all content formats</strong> &mdash; Reels, Carousels, LinkedIn Posts, Newsletters, Blog Articles. The Format property tells each entry what kind of content it is. Most views are designed for video content; for non-video formats, see the <a href="#content-format">Content by Format</a> section.</p>
+    </section>
+
+    <!-- VIEW 1: PIPELINE BOARD -->
+    <section id="pipeline-board">
+      <h2><span class="num">03</span> View 1 &mdash; Pipeline Board<span class="step-meta">Default view &middot; Full bird&rsquo;s-eye picture</span></h2>
+
+      <div class="view-block">
+        <div class="view-header">
+          <div class="view-emoji">&#x1F4CB;</div>
+          <div class="view-title-group">
+            <div class="view-title">Pipeline Board</div>
+            <div class="view-filter">Kanban &middot; All active statuses &middot; Default view</div>
+          </div>
+          <div class="view-owner-tag">Everyone</div>
+        </div>
+        <div class="view-body">
+          <span class="view-who-pill">Who uses it: Everyone</span>
+          <div class="view-purpose">The Pipeline Board is your full-picture view of every piece of content in the system. It&rsquo;s a Kanban board &mdash; ideas organized into columns by Status. This is the first view you see when you open the IdeaBank and the best place to understand what&rsquo;s happening across the whole pipeline at a glance.</div>
+
+          <h3>What you see</h3>
+          <p>Each column = one Status. Cards show the idea&rsquo;s title, Format, Pillar, and owner. From left to right, the columns follow the content lifecycle:</p>
+          <p><strong>Idea &rarr; Approved &rarr; Content Day &rarr; Post-Production &rarr; Scheduled &rarr; Published</strong></p>
+          <p>Parked ideas are hidden from this view by default. After a content day, status moves directly from Content Day to Post-Production once raw footage is uploaded to Drive.</p>
+
+          <div class="callout warn">
+            <div class="callout-title">If you see a &ldquo;No Status&rdquo; column</div>
+            <p>Some older IdeaBank entries were created before the pipeline was formalized and never had a status assigned. If you see a &ldquo;No Status&rdquo; column on the Pipeline Board, open each entry in that column and set Status to <strong>Idea</strong>. The board should only ever show the 7 named statuses. Going forward: every new entry must have Status = Idea set at the moment it&rsquo;s created &mdash; never save a new entry with no status.</p>
+          </div>
+
+          <h3>When to use it</h3>
+          <ul>
+            <li><strong>Before a content meeting</strong> &mdash; spot where content is bottlenecked (too many Approved? Nothing in Post-Production?)</li>
+            <li><strong>Quick status check</strong> &mdash; is anything stuck in the same column for two weeks?</li>
+            <li><strong>Finding a specific piece</strong> &mdash; scan by column rather than searching the full database</li>
+          </ul>
+
+          <h3>Step by step</h3>
+          <ol>
+            <li>Open the <a href="https://www.notion.so/25503a31b81b807593fc000b1da66d96" target="_blank">Notion IdeaBank</a>. Pipeline Board should be selected as the default view.</li>
+            <li>If you land on a different view, click the view name in the top-left of the database and select <strong>Pipeline Board</strong>.</li>
+            <li>Scroll left and right to see all status columns. Click any card to open the full entry.</li>
+            <li>To move an entry: open the card, click the <strong>Status</strong> field, and select the new status. The card will immediately move to the correct column. You can also drag cards between columns.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="loom-wrap">
+        <div class="loom-badge">Loom Video</div>
+        <div class="loom-play">&#9654;</div>
+        <div class="loom-title">Pipeline Board Walk-Through</div>
+        <div class="loom-sub">How to read the board, spot bottlenecks, and move entries between statuses &mdash; paste Loom URL here</div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: IDEA VAULT -->
+    <section id="idea-vault">
+      <h2><span class="num">04</span> View 2 &mdash; Idea Vault<span class="step-meta">Raw ideas &middot; Content Lead&rsquo;s review surface</span></h2>
+
+      <div class="view-block">
+        <div class="view-header">
+          <div class="view-emoji">&#x1F3E6;</div>
+          <div class="view-title-group">
+            <div class="view-title">Idea Vault</div>
+            <div class="view-filter">Filter: Status = Idea &middot; Sorted oldest &rarr; newest</div>
+          </div>
+          <div class="view-owner-tag">Anyone (add) &middot; Kenny (review)</div>
+        </div>
+        <div class="view-body">
+          <span class="view-who-pill">Who uses it: Anyone (to add) &middot; Content Lead Kenny (to review)</span>
+          <div class="view-purpose">The Idea Vault is where raw ideas live before anyone has decided if they&rsquo;re worth making. It&rsquo;s also where the Content Lead runs the monthly review &mdash; working through every idea oldest-first and making exactly one decision per entry: Promote, Park, or Delete. Nothing leaves a review session still at Idea status.</div>
+
+          <h3>Adding a new idea (anyone on the team)</h3>
+          <ol>
+            <li>Open the IdeaBank and click to the <strong>Idea Vault</strong> view.</li>
+            <li>Click <strong>New</strong> at the top of the table or at the bottom of the list.</li>
+            <li>Fill in three fields: <strong>Title</strong> (write it like a social post hook), <strong>Format</strong> (Reel, Carousel, Newsletter, etc.), <strong>Pillar</strong>.</li>
+            <li>Leave <strong>Status = Idea</strong>. Don&rsquo;t touch anything else. The whole point is speed &mdash; 30 seconds or less per idea.</li>
+          </ol>
+          <div class="note">
+            <strong>Don&rsquo;t judge ideas when you add them</strong>
+            Just capture them. The hook doesn&rsquo;t have to be perfect. The Content Lead will evaluate them in the monthly review &mdash; your job is to get the idea in the database before you forget it.
+          </div>
+
+          <h3>Monthly review (Content Lead)</h3>
+          <p>Once a month, the week before content day, the Content Lead opens the Idea Vault and works through every entry oldest-first. Every entry at Status = Idea gets one of three decisions:</p>
+          <div class="decision-grid">
+            <div class="decision-card">
+              <div class="dc-action promote">Promote &rarr; Approved</div>
+              <div class="dc-desc">The team wants to make this. It serves a Pillar and has a clear hook. Flip to Approved. It&rsquo;s now eligible for Content Day in the next cycle.</div>
+            </div>
+            <div class="decision-card">
+              <div class="dc-action park">Park &rarr; Parked</div>
+              <div class="dc-desc">Good concept, wrong season. Flip to Parked. It disappears from all active views and gets reviewed again at the quarterly purge.</div>
+            </div>
+            <div class="decision-card">
+              <div class="dc-action del">Delete</div>
+              <div class="dc-desc">Not good, already covered, or will never be made. Delete it. The bar: &ldquo;Would we add this today if it wasn&rsquo;t already here?&rdquo; No &rarr; delete it.</div>
+            </div>
+          </div>
+          <div class="callout">
+            <div class="callout-title">Nothing leaves the session at &ldquo;Idea&rdquo;</div>
+            <p>This is the rule. Block 30 minutes, work all the way through the list, and don&rsquo;t close the tab until every Idea-status entry has a decision.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="loom-wrap">
+        <div class="loom-badge">Loom Video</div>
+        <div class="loom-play">&#9654;</div>
+        <div class="loom-title">Idea Vault Walk-Through</div>
+        <div class="loom-sub">How to add ideas fast and how to run the monthly review &mdash; paste Loom URL here</div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: MONTHLY LINEUP -->
+    <section id="monthly-lineup">
+      <h2><span class="num">05</span> View 3 &mdash; Monthly Lineup<span class="step-meta">Content day staging area &middot; Content Day ideas only</span></h2>
+
+      <div class="view-block">
+        <div class="view-header">
+          <div class="view-emoji">&#x1F4C5;</div>
+          <div class="view-title-group">
+            <div class="view-title">Monthly Lineup</div>
+            <div class="view-filter">Filter: Status = Content Day &middot; Used on content day</div>
+          </div>
+          <div class="view-owner-tag">Content Lead + On-Camera</div>
+        </div>
+        <div class="view-body">
+          <span class="view-who-pill">Who uses it: Content Lead (to build) &middot; On-Camera talent (on content day)</span>
+          <div class="view-purpose">The Monthly Lineup is the &ldquo;ready to film&rdquo; view. It only shows entries with Status = Content Day &mdash; ideas that have been approved, scripted, and selected for the upcoming content day. This is the view that&rsquo;s open on a phone or second screen during filming.</div>
+
+          <h3>Building the lineup (Content Lead &mdash; week before content day)</h3>
+          <ol>
+            <li>Open the <strong>Idea Vault</strong> and review all Approved entries. Pick the strongest <strong>8&ndash;12</strong> for the upcoming content day. Consider Format variety, Pillar balance, and any time-sensitive topics.</li>
+            <li>For each selected entry, run the <strong><code>/content-script</code></strong> skill in Claude Code to generate the camera-ready script (see <a href="#content-script">Section 11</a>). Paste the output into the Notion page body.</li>
+            <li>Change each entry&rsquo;s Status from <strong>Approved &rarr; Content Day</strong>. It will now appear in the Monthly Lineup.</li>
+          </ol>
+
+          <div class="callout rule">
+            <div class="callout-title">Content Day is the gate</div>
+            <p>Nothing gets filmed that isn&rsquo;t at Content Day status. If a great idea comes up on content day that wasn&rsquo;t in the lineup, add a new Notion entry, write the script, and flip it to Content Day before filming it. Otherwise it doesn&rsquo;t exist in the system.</p>
+          </div>
+
+          <h3>Using the lineup on content day (on-camera talent)</h3>
+          <ol>
+            <li>Open the IdeaBank and switch to <strong>Monthly Lineup</strong>.</li>
+            <li>You&rsquo;ll see every Content Day idea for today. Click any card to open the full entry and review the hook and script before filming.</li>
+            <li>Film each video using <strong>H-V-CTA-R</strong>: Hook (first 3&ndash;7 seconds) &rarr; Value (3 key points) &rarr; CTA (one clear ask) &rarr; Reset (repeat the hook to close the loop).</li>
+            <li>After filming each video: create the Drive folder, upload raw footage, paste the Drive Link into Notion, and flip status to <strong>Post-Production</strong>. Do this per video &mdash; not as a batch at the end of the day.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="loom-wrap">
+        <div class="loom-badge">Loom Video</div>
+        <div class="loom-play">&#9654;</div>
+        <div class="loom-title">Monthly Lineup Walk-Through</div>
+        <div class="loom-sub">How to build the lineup and how to use it on content day &mdash; paste Loom URL here</div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: WITH EDITOR -->
+    <section id="with-editor">
+      <h2><span class="num">06</span> View 4 &mdash; With Editor<span class="step-meta">Post-production queue &middot; Footage ready to edit</span></h2>
+
+      <div class="view-block">
+        <div class="view-header">
+          <div class="view-emoji">&#x2702;&#xFE0F;</div>
+          <div class="view-title-group">
+            <div class="view-title">With Editor</div>
+            <div class="view-filter">Filter: Status = Post-Production &middot; Shows Drive Link property</div>
+          </div>
+          <div class="view-owner-tag">Editor</div>
+        </div>
+        <div class="view-body">
+          <span class="view-who-pill">Who uses it: On-Camera (handoff) &middot; Editor (post-production)</span>
+          <div class="view-purpose">With Editor is the editor&rsquo;s queue. It only shows entries with a Drive Link attached and Status = Post-Production. The editor opens this view, sees what&rsquo;s waiting, clicks the Drive Link directly to the raw footage, edits, and saves the review cut. No guessing where the files are. No messages asking &ldquo;did you upload yet?&rdquo;</div>
+
+          <h3>Handing off to the editor (after filming each video)</h3>
+          <ol>
+            <li><strong>Create the Drive folder</strong> inside today&rsquo;s content day folder. Naming convention: <code>[##]_(FirstName) - Exact Notion Title</code>. Inside it, create three subfolders: <code>01_Raw</code>, <code>02_Review</code>, <code>03_Finals</code>.</li>
+            <li><strong>Transfer raw footage</strong> from your camera to <code>01_Raw</code>.</li>
+            <li><strong>Copy the Drive link</strong> to the per-video folder &mdash; the individual video folder, not the content day parent folder.</li>
+            <li>In Notion, open the entry, paste the link into the <strong>Drive Link</strong> property, and flip Status to <strong>Post-Production</strong>. The entry now appears in the With Editor view.</li>
+          </ol>
+
+          <h3>Working in the With Editor view (editor)</h3>
+          <ol>
+            <li>Open the IdeaBank and switch to <strong>With Editor</strong>.</li>
+            <li>Every entry ready for editing appears here. The Drive Link is visible in the table without opening individual cards.</li>
+            <li>Click the <strong>Drive Link</strong> for your current piece. It opens the per-video folder directly &mdash; raw footage is in <code>01_Raw</code>.</li>
+            <li>Edit: cuts, captions, music, color grade. Export the review file using the naming convention: <code>BPP_[YYYY-MM-DD]_[short-title]_[platform].mp4</code>. <strong>Save to <code>02_Review</code></strong> &mdash; not to Finals. Thumbnail options also go in <code>02_Review</code>.</li>
+            <li>Notify the creator (Slack, text, or tag in Notion) that the review cut is ready.</li>
+          </ol>
+
+          <h3>Review and approval (creator)</h3>
+          <ol>
+            <li>Open the Drive Link and go to <code>02_Review</code>. Watch the edit.</li>
+            <li>If approved: move the final file to <code>03_Finals</code>. Flip Status to <strong>Scheduled</strong>.</li>
+            <li>If changes needed: leave it in <code>02_Review</code> and send notes to the editor. The entry stays at Post-Production until approved.</li>
+          </ol>
+
+          <div class="callout green">
+            <div class="callout-title">Why 02_Review exists</div>
+            <p><strong>03_Finals is clean.</strong> Only approved, ready-to-publish files live there. 02_Review is the working layer &mdash; rough cuts, thumbnail options, anything that hasn&rsquo;t passed review yet. This keeps the publisher from accidentally uploading a rough cut to Metricool.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="loom-wrap">
+        <div class="loom-badge">Loom Video</div>
+        <div class="loom-play">&#9654;</div>
+        <div class="loom-title">With Editor Walk-Through</div>
+        <div class="loom-sub">The full handoff: creating the Drive folder, adding the link, editing, and the review-to-final flow &mdash; paste Loom URL here</div>
+      </div>
+    </section>
+
+    <!-- VIEW 5: PUBLISHING QUEUE -->
+    <section id="publishing-queue">
+      <h2><span class="num">07</span> View 5 &mdash; Publishing Queue<span class="step-meta">Publisher&rsquo;s surface &middot; Ready to go live</span></h2>
+
+      <div class="view-block">
+        <div class="view-header">
+          <div class="view-emoji">&#x1F680;</div>
+          <div class="view-title-group">
+            <div class="view-title">Publishing Queue</div>
+            <div class="view-filter">Filter: Status = Scheduled &middot; Auto-exits when flipped to Published</div>
+          </div>
+          <div class="view-owner-tag">Publisher</div>
+        </div>
+        <div class="view-body">
+          <span class="view-who-pill">Who uses it: Publisher</span>
+          <div class="view-purpose">The Publishing Queue shows everything that&rsquo;s been edited, approved, and is waiting to go live. The publisher uses this to pull final cuts from Drive and queue them in Metricool. Once a piece goes live and status flips to Published, it automatically exits this view.</div>
+
+          <h3>Publishing a piece step by step</h3>
+          <ol>
+            <li>Open <strong>Publishing Queue</strong> to see everything at Status = Scheduled.</li>
+            <li>Click into an entry. Open the <strong>Drive Link</strong> to navigate to the per-video folder. Open <code>03_Finals</code> to find the approved file.</li>
+            <li>Download the final file. Open <a href="https://app.metricool.com" target="_blank">Metricool</a>, create a new post, upload the file, write the caption, select platforms, and set the publish date and time. (See <a href="#metricool">Section 09</a> for full Metricool instructions.)</li>
+            <li>When the content goes live, go back to Notion and flip Status to <strong>Published</strong>. The entry automatically exits this view.</li>
+            <li>About 30 days later, fill in the <strong>Result</strong> field: <strong>Hit</strong> (outperformed expectations), <strong>TBD</strong> (still unclear), or <strong>Miss</strong> (underperformed). This is the performance signal for future approvals.</li>
+          </ol>
+
+          <div class="callout navy">
+            <div class="callout-title">Where does published content go?</div>
+            <p>Once flipped to Published, the entry exits the Publishing Queue and moves to the Pipeline Board&rsquo;s Published column. It also appears in the <a href="#performance">Performance view</a> (Section 08) where the 30-day retro happens. Nothing is lost &mdash; it just moves to a different view.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="loom-wrap">
+        <div class="loom-badge">Loom Video</div>
+        <div class="loom-play">&#9654;</div>
+        <div class="loom-title">Publishing Queue Walk-Through</div>
+        <div class="loom-sub">How to pull a final cut, schedule in Metricool, log it as Published, and set the Result &mdash; paste Loom URL here</div>
+      </div>
+    </section>
+
+    <!-- VIEW 6: PERFORMANCE -->
+    <section id="performance">
+      <h2><span class="num">08</span> View 6 &mdash; Performance<span class="step-meta">Post-publish archive &middot; Monthly pattern review</span></h2>
+
+      <div class="view-block">
+        <div class="view-header">
+          <div class="view-emoji">&#x1F4CA;</div>
+          <div class="view-title-group">
+            <div class="view-title">Performance</div>
+            <div class="view-filter">Filter: Status = Published &middot; Views + Result properties</div>
+          </div>
+          <div class="view-owner-tag">Content Lead</div>
+        </div>
+        <div class="view-body">
+          <span class="view-who-pill">Who uses it: Content Lead (monthly retro)</span>
+          <div class="view-purpose">The Performance view is the published content archive. Metricool is the primary analytics tool &mdash; it gives you the PDF report with reach, plays, and engagement. This view exists to log one-line results per entry so you can spot patterns over time: which topics, formats, and hooks perform?</div>
+
+          <h3>The monthly retro (3 steps)</h3>
+          <ol>
+            <li><strong>Pull the Metricool PDF</strong> for the month (Analytics tab &rarr; select date range &rarr; Download PDF). This is your raw data source.</li>
+            <li><strong>Open Performance</strong> in Notion. For each published entry from the last content day, fill in <strong>Views</strong> with the 30-day reach number, and set <strong>Result</strong>: Hit / TBD / Miss.</li>
+            <li><strong>Look for patterns</strong>: which Format, Pillar, or hook type is consistently a Hit? Carry that signal into next month&rsquo;s Idea Vault approvals.</li>
+          </ol>
+
+          <div class="callout">
+            <div class="callout-title">Result is for learning, not judgment</div>
+            <p>A Miss isn&rsquo;t a failure &mdash; it&rsquo;s data. Mark it honestly. Over three months you&rsquo;ll see patterns that make Content Day decisions much smarter.</p>
+          </div>
+
+          <div class="callout navy" style="margin-top: 20px;">
+            <div class="callout-title">Schedule View: use Metricool instead</div>
+            <p>The original SOP included a Notion calendar (Schedule View) for tracking publish dates. Metricool already has a planner calendar that shows your full publishing schedule &mdash; maintaining a second calendar in Notion creates two sources of truth. Use Metricool&rsquo;s built-in planner as your editorial calendar. See <a href="#metricool">Section 09</a> for how to use it.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="loom-wrap">
+        <div class="loom-badge">Loom Video</div>
+        <div class="loom-play">&#9654;</div>
+        <div class="loom-title">Performance View Walk-Through</div>
+        <div class="loom-sub">How to run the monthly retro using the Metricool PDF + the Notion Performance view &mdash; paste Loom URL here</div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- METRICOOL DEEP-DIVE -->
+    <section id="metricool">
+      <div class="part-label">Part 3 &mdash; Metricool</div>
+      <h2><span class="num">09</span> Metricool &mdash; Scheduling &amp; Analytics<span class="step-meta">Where finals get published &middot; Where results get tracked</span></h2>
+      <p>Metricool is BPP&rsquo;s publishing and analytics hub. Every final video goes through here before it hits Instagram, TikTok, LinkedIn, Facebook, or YouTube. This section covers the full Metricool workflow: connecting your platforms, scheduling a post, and reading the analytics PDF.</p>
+
+      <div class="view-block">
+        <div class="view-header">
+          <div class="view-emoji">&#x1F4CA;</div>
+          <div class="view-title-group">
+            <div class="view-title">Metricool</div>
+            <div class="view-filter">app.metricool.com &middot; BPP team account</div>
+          </div>
+          <div class="view-owner-tag">Publisher</div>
+        </div>
+        <div class="view-body">
+          <span class="view-who-pill">Who uses it: Publisher &middot; Content Lead (analytics)</span>
+          <div class="view-purpose">Metricool replaces juggling native apps for each platform. You upload once, choose your platforms, write the caption, pick a publish time, and it handles delivery. The analytics tab pulls performance data across all platforms into one place so you don&rsquo;t have to check Instagram, TikTok, and LinkedIn separately.</div>
+        </div>
+      </div>
+
+      <div class="mtr-steps">
+        <div class="mtr-step">
+          <div class="mtr-num">1</div>
+          <div class="mtr-content">
+            <h4>Connect your platforms (one-time setup)</h4>
+            <p>Go to <a href="https://app.metricool.com" target="_blank">app.metricool.com</a> &rarr; <strong>Settings</strong> (gear icon) &rarr; <strong>Social Networks</strong>. Connect each platform BPP uses:</p>
+            <ul>
+              <li><strong>Instagram</strong> &mdash; connect via Facebook login (requires Business or Creator account)</li>
+              <li><strong>TikTok</strong> &mdash; connect via TikTok login</li>
+              <li><strong>LinkedIn</strong> &mdash; connect BPP&rsquo;s Company Page</li>
+              <li><strong>Facebook</strong> &mdash; connect the BPP Facebook Page</li>
+              <li><strong>YouTube</strong> &mdash; connect via Google account (for long-form only)</li>
+            </ul>
+            <p>Each platform needs to be re-authorized every 60&ndash;90 days due to token expiration. If a scheduled post fails to publish, check that the platform is still connected.</p>
+          </div>
+        </div>
+
+        <div class="mtr-step">
+          <div class="mtr-num">2</div>
+          <div class="mtr-content">
+            <h4>Schedule a new post</h4>
+            <p>From the Metricool dashboard:</p>
+            <ul>
+              <li>Click <strong>Create Post</strong> (or click any date in the Planner calendar)</li>
+              <li>Upload the final video file from <code>03_Finals</code> in BPP Media Drive (download it to your computer first, then upload)</li>
+              <li>Select which platforms to post to (checkboxes across the top of the composer)</li>
+              <li>Write the caption in the main text field. If you&rsquo;re posting to multiple platforms, each gets its own caption tab &mdash; customize the LinkedIn version for a professional tone</li>
+              <li>Set the <strong>publish date and time</strong>, or click <strong>Best Time</strong> to let Metricool suggest the optimal slot based on your audience&rsquo;s past engagement</li>
+              <li>Click <strong>Schedule</strong></li>
+            </ul>
+            <p>After scheduling, go back to Notion and flip the entry&rsquo;s Status to <strong>Scheduled</strong> to match.</p>
+          </div>
+        </div>
+
+        <div class="mtr-step">
+          <div class="mtr-num">3</div>
+          <div class="mtr-content">
+            <h4>The Planner &mdash; your editorial calendar</h4>
+            <p>Click <strong>Planner</strong> in the left nav. You&rsquo;ll see a calendar view of everything scheduled. This is your publishing schedule &mdash; use it to:</p>
+            <ul>
+              <li>Check for gaps (nothing scheduled for a week) or clusters (three posts on the same day)</li>
+              <li>Drag-and-drop to reschedule without re-uploading</li>
+              <li>Click any post to edit the caption or platforms before it goes live</li>
+            </ul>
+            <p>This replaces the need for a schedule view in Notion. Metricool is the authoritative calendar for what&rsquo;s publishing and when.</p>
+          </div>
+        </div>
+
+        <div class="mtr-step">
+          <div class="mtr-num">4</div>
+          <div class="mtr-content">
+            <h4>Pulling the analytics PDF</h4>
+            <p>About 30 days after a content day, pull the analytics PDF for the monthly retro:</p>
+            <ul>
+              <li>Go to <strong>Analytics</strong> in the left nav</li>
+              <li>Select the date range covering your last content batch</li>
+              <li>Scroll down to find per-post stats (reach, plays, saves, profile visits, engagement rate)</li>
+              <li>Click <strong>Download PDF</strong> (top-right of the Analytics page)</li>
+            </ul>
+            <p>The PDF gives you a summary per platform plus individual post stats. Use the per-post play counts to fill in the <strong>Views</strong> field in Notion&rsquo;s Performance view.</p>
+          </div>
+        </div>
+
+        <div class="mtr-step">
+          <div class="mtr-num">5</div>
+          <div class="mtr-content">
+            <h4>The feedback loop back to Notion</h4>
+            <p>After pulling the PDF:</p>
+            <ul>
+              <li>Open the <a href="#performance">Performance view</a> in Notion</li>
+              <li>For each published entry, fill in <strong>Views</strong> (plays from Metricool) and set <strong>Result</strong> (Hit / TBD / Miss)</li>
+              <li>The patterns that emerge from 3+ months of Results directly inform what gets Approved in the Idea Vault &mdash; this is how the content gets smarter over time</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="yt-section-label">Watch: Metricool Tutorials</div>
+
+      <div class="yt-embed-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/LAmC6fjUSm8"
+          title="How to Schedule and Analyze Content as a Social Media Manager — Full Metricool Tutorial"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p class="yt-embed-caption">Full walkthrough: scheduling posts, managing multiple platforms, and analyzing performance in Metricool.</p>
+
+      <div class="yt-embed-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/Dbbrszq1Cak"
+          title="Your guide to using Metricool in 2025"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p class="yt-embed-caption">2025 overview: connecting accounts, the planning tab, analytics tab, and inbox — start here if you&rsquo;re new to Metricool.</p>
+
+      <div class="loom-wrap" style="margin-top: 28px;">
+        <div class="loom-badge">Your Loom &mdash; Record When Ready</div>
+        <div class="loom-play">&#9654;</div>
+        <div class="loom-title">BPP Account Walk-Through (Eli&rsquo;s Recording)</div>
+        <div class="loom-sub">Show the BPP account: platforms connected, a live scheduling example, and where to find the analytics PDF &mdash; paste Loom URL here</div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- PART 4: CONTENT LIFECYCLE -->
+    <section id="content-lifecycle">
+      <div class="part-label">Part 4 &mdash; The Content Lifecycle</div>
+      <h2><span class="num">10</span> From Idea to Published &mdash; All 7 Stages<span class="step-meta">The complete status journey</span></h2>
+      <p>Every piece of content in the IdeaBank moves through these stages. This section explains what each status means, who owns it, and exactly what needs to happen before it can move forward.</p>
+
+      <div class="stage-block">
+        <div class="stage-num">1</div>
+        <div>
+          <div class="stage-name">&#x1F4A1; Idea <span class="badge">Status: Idea</span></div>
+          <div class="stage-owner-tag">Owner: Anyone</div>
+          <div class="stage-steps">A raw idea. Someone saw something, heard something, or had a thought worth capturing. All that&rsquo;s required is a title, a Format, and a Pillar. The bar is extremely low. Get it in the database &mdash; don&rsquo;t edit it.</div>
+        </div>
+      </div>
+
+      <div class="stage-block">
+        <div class="stage-num">2</div>
+        <div>
+          <div class="stage-name">&#x2705; Approved <span class="badge">Status: Approved</span></div>
+          <div class="stage-owner-tag">Owner: Content Lead (Kenny)</div>
+          <div class="stage-steps">The Content Lead reviewed this in the monthly Idea Vault pass and decided it&rsquo;s worth making. It sits in the approved queue, waiting to be selected for an upcoming content day.</div>
+        </div>
+      </div>
+
+      <div class="stage-block gate">
+        <div class="stage-num">3</div>
+        <div>
+          <div class="stage-name">&#x1F3AC; Content Day <span class="badge">The Gate</span></div>
+          <div class="stage-owner-tag">Owner: Content Lead (Kenny)</div>
+          <div class="stage-steps">
+            <strong>This is the gate.</strong> The week before content day, the Content Lead selects 8&ndash;12 Approved ideas, runs the <code>/content-script</code> skill to generate a camera-ready script for each, and pastes the output into the Notion page body. Only Content Day ideas appear in the Monthly Lineup. Only Content Day ideas get filmed. Everything else waits.
+          </div>
+        </div>
+      </div>
+
+      <div class="stage-block">
+        <div class="stage-num">4</div>
+        <div>
+          <div class="stage-name">&#x2702;&#xFE0F; Post-Production <span class="badge">Status: Post-Production</span></div>
+          <div class="stage-owner-tag">Owner: On-Camera (Drive handoff) &rarr; Editor (editing)</div>
+          <div class="stage-steps">
+            After filming, the creator creates the Drive folder, uploads raw footage to <code>01_Raw</code>, pastes the Drive Link into Notion, and flips status to Post-Production. The editor opens the With Editor view, pulls footage from <code>01_Raw</code>, edits, and saves the review cut to <code>02_Review</code>. Creator approves and moves the final to <code>03_Finals</code>.
+          </div>
+        </div>
+      </div>
+
+      <div class="stage-block">
+        <div class="stage-num">5</div>
+        <div>
+          <div class="stage-name">&#x1F4C5; Scheduled <span class="badge">Status: Scheduled</span></div>
+          <div class="stage-owner-tag">Owner: Publisher</div>
+          <div class="stage-steps">Publisher takes the final cut from <code>03_Finals</code>, uploads to Metricool, writes the caption, and sets the publish date. Entry stays at Scheduled until it goes live.</div>
+        </div>
+      </div>
+
+      <div class="stage-block">
+        <div class="stage-num">6</div>
+        <div>
+          <div class="stage-name">&#x1F7E2; Published <span class="badge">Status: Published</span></div>
+          <div class="stage-owner-tag">Owner: Publisher &rarr; Content Lead (retro)</div>
+          <div class="stage-steps">Content is live. Publisher flips status to Published. About 30 days later, the Content Lead opens the Performance view, fills in <strong>Views</strong>, and sets <strong>Result</strong> (Hit / TBD / Miss). Patterns from this retro directly inform what gets Approved in the next monthly cycle.</div>
+        </div>
+      </div>
+
+      <div class="stage-block exit">
+        <div class="stage-num">&#x2197;</div>
+        <div>
+          <div class="stage-name">&#x1F5C3;&#xFE0F; Parked <span class="badge">Exit Lane</span></div>
+          <div class="stage-owner-tag">Owner: Content Lead or Anyone</div>
+          <div class="stage-steps">Good idea, wrong season. Parked entries disappear from all active views. Reviewed quarterly &mdash; anything Parked for 6+ months either comes back to Idea or gets deleted. This is a hold, not a trash bin.</div>
+        </div>
+      </div>
+
+      <div class="loom-wrap">
+        <div class="loom-badge">Loom Video</div>
+        <div class="loom-play">&#9654;</div>
+        <div class="loom-title">Full Lifecycle Walk-Through</div>
+        <div class="loom-sub">Following one piece of content from Idea all the way to Published &mdash; paste Loom URL here</div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- CONTENT SCRIPT WORKFLOW -->
+    <section id="content-script">
+      <div class="part-label">Part 5 &mdash; Script Workflow</div>
+      <h2><span class="num">11</span> The Content Script Workflow<span class="step-meta">Write the script before you walk in front of the camera</span></h2>
+      <p>The bottleneck on content day is rarely ideas &mdash; it&rsquo;s walking in front of the camera without a locked hook and a clear structure. BPP has two Claude Code skills built to solve this. Use them during the week before content day, after an entry moves to Content Day status.</p>
+
+      <h3>Primary skill: <code>/content-script</code></h3>
+      <p>This is the day-to-day script generator. Run it for every piece in the Monthly Lineup before content day starts.</p>
+
+      <div class="skill-block">
+        <div class="skill-eyebrow">BPP Skill &mdash; Day-to-Day</div>
+        <div class="skill-trigger">/content-script</div>
+        <div class="skill-tagline">Turns a Notion IdeaBank entry into a camera-ready script. Works for Reels, Carousels, and LinkedIn Posts using BPP brand voice automatically.</div>
+        <div class="skill-modes">
+          <div class="skill-mode">
+            <div class="skill-mode-label">Mode 1 &mdash; H-V-CTA-R Batch Reel</div>
+            <div class="skill-mode-body">Fast, punchy 60-second Reel script. Best for content day batches where you&rsquo;re filming 8&ndash;12 pieces. Hook + 3 value bullets + CTA + Reset.</div>
+          </div>
+          <div class="skill-mode">
+            <div class="skill-mode-label">Mode 2 &mdash; 5-Part Pillar Piece</div>
+            <div class="skill-mode-body">Deeper authority content up to 90 seconds. Hook &rarr; Context &rarr; Tension &rarr; Pivot &rarr; Payoff. For planned series or high-stakes topics.</div>
+          </div>
+          <div class="skill-mode">
+            <div class="skill-mode-label">Carousel Mode</div>
+            <div class="skill-mode-body">Slide-by-slide copy: Hook slide &rarr; Pain &rarr; Step 1/2/3 &rarr; Example &rarr; CTA. Includes design notes and export specs.</div>
+          </div>
+          <div class="skill-mode">
+            <div class="skill-mode-label">Output Includes</div>
+            <div class="skill-mode-body">Full script, on-screen text cues for the editor, export specs per platform, and suggested CTA keyword.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>The H-V-CTA-R framework</h3>
+      <p>Every BPP Reel script follows this four-part structure. The skill enforces it &mdash; but knowing it helps you deliver on camera:</p>
+
+      <div class="hvctar-grid">
+        <div class="hvctar-cell hook">
+          <div class="hvctar-letter">H</div>
+          <div class="hvctar-name">Hook</div>
+          <div class="hvctar-time">0&ndash;7 seconds</div>
+          <div class="hvctar-desc">Stops the scroll. ≤12 words. Start with a number, action verb, or bold claim. Repeat at the end.</div>
+        </div>
+        <div class="hvctar-cell value">
+          <div class="hvctar-letter">V</div>
+          <div class="hvctar-name">Value</div>
+          <div class="hvctar-time">Majority of video</div>
+          <div class="hvctar-desc">3 specific bullets, ~8&ndash;10 seconds each. Start each with a verb. Speak straight to camera.</div>
+        </div>
+        <div class="hvctar-cell cta">
+          <div class="hvctar-letter">CTA</div>
+          <div class="hvctar-name">Call to Action</div>
+          <div class="hvctar-time">10&ndash;15 seconds</div>
+          <div class="hvctar-desc">One clear ask: &ldquo;Comment [KEYWORD] if you want [outcome]. Or book a free consult &mdash; link in bio.&rdquo;</div>
+        </div>
+        <div class="hvctar-cell reset">
+          <div class="hvctar-letter">R</div>
+          <div class="hvctar-name">Reset</div>
+          <div class="hvctar-time">5&ndash;10 seconds</div>
+          <div class="hvctar-desc">Repeat the exact hook line from the opening. Closes the loop and reinforces the takeaway.</div>
+        </div>
+      </div>
+
+      <h3>How to run it</h3>
+      <ol>
+        <li>Open Claude Code and type <code>/content-script</code> (or <code>/script</code>)</li>
+        <li>The skill will ask for: the idea title, Format (Reel / Carousel / LinkedIn Post), who&rsquo;s on camera, Pillar, and optional CTA keyword</li>
+        <li>It outputs a complete script formatted to paste directly into the Notion page body (Draft section)</li>
+        <li>Paste the script into the entry. Confirm the CTA keyword is visible so the editor can add it to the on-screen text</li>
+        <li>Flip the entry to <strong>Content Day</strong> if not already done</li>
+      </ol>
+
+      <h3>Strategic skill: <code>/video-content-strategist</code></h3>
+      <p>This is a different tool for a different job. Use it quarterly or when planning a new content direction &mdash; not for individual scripts.</p>
+
+      <div class="skill-block secondary">
+        <div class="skill-eyebrow">BPP Skill &mdash; Quarterly / Strategic</div>
+        <div class="skill-trigger">/video-content-strategist</div>
+        <div class="skill-tagline">Channel strategy, 90-day content roadmaps, YouTube SEO keyword research, and repurposing pipelines. Turns one long-form asset into 10+ pieces across platforms.</div>
+        <div class="skill-modes">
+          <div class="skill-mode">
+            <div class="skill-mode-label">Mode 1 &mdash; Strategy</div>
+            <div class="skill-mode-body">Niche definition, content pillars, SEO keyword targets, 90-day launch plan.</div>
+          </div>
+          <div class="skill-mode">
+            <div class="skill-mode-label">Mode 2 &mdash; Script</div>
+            <div class="skill-mode-body">Long-form YouTube or short-form scripts with chapters and B-roll notes.</div>
+          </div>
+          <div class="skill-mode">
+            <div class="skill-mode-label">Mode 3 &mdash; Repurpose</div>
+            <div class="skill-mode-body">Atomize one blog post, webinar, or podcast into 10+ platform-adapted video assets.</div>
+          </div>
+          <div class="skill-mode">
+            <div class="skill-mode-label">Best for</div>
+            <div class="skill-mode-body">Planning a new series, launching a YouTube channel, or turning an existing piece of content into a multi-platform campaign.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="loom-wrap">
+        <div class="loom-badge">Loom Video</div>
+        <div class="loom-play">&#9654;</div>
+        <div class="loom-title">Content Script Walk-Through &mdash; Live Demo</div>
+        <div class="loom-sub">Running /content-script on a real IdeaBank entry and pasting the output into Notion &mdash; paste Loom URL here</div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- CONTENT BY FORMAT -->
+    <section id="content-format">
+      <div class="part-label">Part 6 &mdash; Content by Format</div>
+      <h2><span class="num">12</span> Content by Format<span class="step-meta">Not all content goes through the video pipeline</span></h2>
+      <p>The IdeaBank tracks all BPP content types &mdash; not just video. The Format property on each entry determines which production path it follows. Video formats use the full pipeline (Drive + editor + Metricool). Written and designed formats skip the Drive and editor steps entirely.</p>
+
+      <h3>Format types in the IdeaBank</h3>
+      <div class="format-chips">
+        <span class="fmt fmt-reel">Reel / Short</span>
+        <span class="fmt fmt-carousel">Carousel</span>
+        <span class="fmt fmt-linkedin">LinkedIn Post</span>
+        <span class="fmt fmt-blog">Blog / Article</span>
+        <span class="fmt fmt-newsletter">Newsletter</span>
+        <span class="fmt fmt-youtube">YouTube (Long-Form)</span>
+      </div>
+
+      <h3>Production path by format</h3>
+      <div class="format-cards">
+        <div class="fw-card">
+          <div class="fw-head">
+            <div>&#x1F3A5;</div>
+            <div class="fw-title">Reel / Short &amp; YouTube</div>
+          </div>
+          <div class="fw-body">
+            <ol>
+              <li>Script with <span class="fw-tag">/content-script</span></li>
+              <li>Film on content day</li>
+              <li>Create Drive folder (<code>01_Raw</code> / <code>02_Review</code> / <code>03_Finals</code>)</li>
+              <li>Editor edits, saves to <code>02_Review</code></li>
+              <li>Creator approves, moves to <code>03_Finals</code></li>
+              <li>Publisher queues in Metricool</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="fw-card">
+          <div class="fw-head">
+            <div>&#x1F5BC;&#xFE0F;</div>
+            <div class="fw-title">Carousel</div>
+          </div>
+          <div class="fw-body">
+            <ol>
+              <li>Script slides with <span class="fw-tag">/content-script</span> (Carousel mode)</li>
+              <li>Design slides in Canva using BPP brand template</li>
+              <li>Export as image set (PNG)</li>
+              <li>Schedule in Metricool as a carousel post</li>
+            </ol>
+            <p style="margin-top:8px; font-size:12px; color: var(--ink-soft);">No Drive folder needed. Status: Idea &rarr; Approved &rarr; Content Day &rarr; Scheduled &rarr; Published.</p>
+          </div>
+        </div>
+
+        <div class="fw-card">
+          <div class="fw-head">
+            <div>&#x1F4F0;</div>
+            <div class="fw-title">Newsletter</div>
+          </div>
+          <div class="fw-body">
+            <ol>
+              <li>Draft with <span class="fw-tag">/content-script</span> (newsletter mode) or <span class="fw-tag">/content-production</span></li>
+              <li>Review and edit in Claude Code or Google Docs</li>
+              <li>Send via email platform (Mailchimp or equivalent)</li>
+            </ol>
+            <p style="margin-top:8px; font-size:12px; color: var(--ink-soft);">No Drive folder. No Metricool. Status goes directly: Content Day &rarr; Published.</p>
+          </div>
+        </div>
+
+        <div class="fw-card">
+          <div class="fw-head">
+            <div>&#x270D;&#xFE0F;</div>
+            <div class="fw-title">Blog / Article</div>
+          </div>
+          <div class="fw-body">
+            <ol>
+              <li>Outline and draft with <span class="fw-tag">/content-script</span> or <span class="fw-tag">/content-production</span></li>
+              <li>Edit and proof-read</li>
+              <li>Publish to website (Webflow CMS or WordPress)</li>
+            </ol>
+            <p style="margin-top:8px; font-size:12px; color: var(--ink-soft);">No Drive folder. No Metricool for delivery. Status: Content Day &rarr; Published.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout rule">
+        <div class="callout-title">Key rule: Drive + With Editor = video only</div>
+        <p>The BPP Media Drive and the With Editor view are exclusively for video content (Reels, Shorts, YouTube). Carousels, Newsletters, and Blog posts skip both. If a non-video entry shows up in the With Editor view, check that the Status was set correctly &mdash; it should only be at Post-Production if raw footage exists in Drive.</p>
+      </div>
+
+      <div class="loom-wrap">
+        <div class="loom-badge">Loom Video</div>
+        <div class="loom-play">&#9654;</div>
+        <div class="loom-title">Format-Specific Workflows Walk-Through</div>
+        <div class="loom-sub">Showing how a Reel, a Carousel, and a Newsletter each move through the pipeline differently &mdash; paste Loom URL here</div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- PART 7: BPP MEDIA DRIVE -->
+    <section id="media-drive">
+      <div class="part-label">Part 7 &mdash; BPP Media Drive</div>
+      <h2><span class="num">13</span> The BPP Media Drive<span class="step-meta">Where all footage and finals live</span></h2>
+      <p>The BPP Media Drive is the vault. Every raw clip, every review edit, and every final cut lives here &mdash; organized by content day and by video so the editor can find footage without asking anyone.</p>
+
+      <h3>The folder structure</h3>
+      <div class="folder-tree">
+        <div class="tree-header">BPP Media Drive &mdash; Folder Structure</div>
+        <div class="tree-row"><div class="tree-name folder">BPP Media/</div><div class="tree-note">Root &mdash; never drop files here directly</div></div>
+        <div class="tree-row"><div class="tree-name folder i1">01_Brand Assets/</div><div class="tree-note">Logos, templates, brand files</div></div>
+        <div class="tree-row"><div class="tree-name folder i1">02_Content Days/</div><div class="tree-note">All content day footage lives here</div></div>
+        <div class="tree-row"><div class="tree-name folder i2">2026/</div><div class="tree-note">Year folder</div></div>
+        <div class="tree-row"><div class="tree-name folder i3">2026-07-15/</div><div class="tree-note">Content day folder &mdash; YYYY-MM-DD</div></div>
+        <div class="tree-row"><div class="tree-name folder i4">01_(Kenny) - Relationships Close Deals/</div><div class="tree-note">Per-video folder</div></div>
+        <div class="tree-row"><div class="tree-name i4" style="padding-left:80px;">01_Raw/</div><div class="tree-note">Raw camera footage &rarr; here</div></div>
+        <div class="tree-row"><div class="tree-name i4" style="padding-left:80px;">02_Review/</div><div class="tree-note">Review cuts + thumbnail options &rarr; here</div></div>
+        <div class="tree-row"><div class="tree-name i4" style="padding-left:80px;">03_Finals/</div><div class="tree-note">Approved finals only &rarr; here</div></div>
+        <div class="tree-row"><div class="tree-name folder i4">02_(Eli) - Project Management Isn&rsquo;t a Tool You Buy/</div><div class="tree-note">Next video in the sequence</div></div>
+        <div class="tree-row"><div class="tree-name folder i4">03_(Daunte) - Why Your Pricing Is Wrong/</div><div class="tree-note">And so on&hellip;</div></div>
+      </div>
+
+      <h3>Per-video folder naming</h3>
+      <div class="callout">
+        <div class="callout-title">Format: <code>[##]_(FirstName) - Exact Notion Title</code></div>
+        <p style="margin-top:10px;margin-bottom:0;">
+          <strong>##</strong> &mdash; two-digit order number for the filming sequence: <code>01</code>, <code>02</code>, <code>03</code>&hellip;<br>
+          <strong>(FirstName)</strong> &mdash; who&rsquo;s on camera for this piece, in parentheses<br>
+          <strong>Exact Notion Title</strong> &mdash; copy-paste the title from the Notion entry exactly, no paraphrasing
+        </p>
+      </div>
+
+      <h3>Subfolders: what goes where</h3>
+      <div class="two-col">
+        <div class="card">
+          <span class="badge">01_Raw</span>
+          <h4>Raw footage</h4>
+          <p>All raw camera files exactly as recorded. No edits, no exports. Transfer here immediately after each video is filmed.</p>
+        </div>
+        <div class="card">
+          <span class="badge">02_Review</span>
+          <h4>Review edits + thumbnails</h4>
+          <p>The editor&rsquo;s working files: review cuts, caption tests, and thumbnail options. Creator reviews from here before approving the final.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 0;">
+        <span class="badge">03_Finals</span>
+        <h4>Approved finals</h4>
+        <p style="margin:0;">Only approved, ready-to-publish files. Publisher pulls from here to upload to Metricool. If it&rsquo;s in 03_Finals, it&rsquo;s been approved and is safe to publish.</p>
+      </div>
+
+      <div class="note">
+        <strong>Always use the exact Notion title</strong>
+        Don&rsquo;t shorten it or paraphrase it. If the Notion entry is titled &ldquo;How We Used AI to Save 10 Hours This Week,&rdquo; the folder is named exactly that. Exact match keeps everything traceable from Notion &rarr; Drive &rarr; editor.
+      </div>
+
+      <h3>Final export file naming</h3>
+      <div class="callout">
+        <div class="callout-title">Format: <code>BPP_[YYYY-MM-DD]_[short-title]_[platform].mp4</code></div>
+        <p style="margin-top:10px;margin-bottom:0;"><strong>Example:</strong> <code>BPP_2026-07-15_relationships-close-deals_IG.mp4</code></p>
+        <p style="margin-top:8px;font-size:13.5px;margin-bottom:0;"><strong>Platform codes:</strong> <code>IG</code> Instagram &middot; <code>TT</code> TikTok &middot; <code>LI</code> LinkedIn &middot; <code>YT</code> YouTube Shorts</p>
+      </div>
+
+      <h3>Linking Drive to Notion (the Drive Link property)</h3>
+      <ol>
+        <li>In Google Drive, navigate to the per-video folder (e.g., <code>01_(Eli) - Project Management Isn&rsquo;t a Tool/</code>).</li>
+        <li>Right-click the folder &rarr; <strong>Get link</strong>. Set to &ldquo;Anyone with the link can view.&rdquo;</li>
+        <li>Copy the link.</li>
+        <li>In Notion, open the corresponding entry and paste the link into the <strong>Drive Link</strong> property field.</li>
+      </ol>
+      <div class="callout warn">
+        <div class="callout-title">Link to the per-video folder, not the content day folder</div>
+        <p>The Drive Link in Notion should point to the individual video&rsquo;s folder &mdash; not to the parent date folder. The editor needs to land directly on the right footage, not dig through 12 videos to find theirs.</p>
+      </div>
+
+      <div class="loom-wrap">
+        <div class="loom-badge">Loom Video</div>
+        <div class="loom-play">&#9654;</div>
+        <div class="loom-title">BPP Media Drive Walk-Through</div>
+        <div class="loom-sub">Creating the folder, naming it right, uploading footage, and linking to Notion &mdash; paste Loom URL here</div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- PART 8: PUTTING IT TOGETHER -->
+    <section id="content-day-playbook">
+      <div class="part-label">Part 8 &mdash; Putting It Together</div>
+      <h2><span class="num">14</span> Content Day Playbook<span class="step-meta">Start to finish &mdash; everything in order</span></h2>
+      <p>This is the full run-of-show for a BPP content day &mdash; from opening Notion in the morning to footage uploaded and the editor notified before you leave.</p>
+
+      <div class="timeline">
+        <div class="ti">
+          <div class="when">Week Before &mdash; Content Lead</div>
+          <div class="what">Run the monthly Idea Vault review (Promote / Park / Delete every Idea-status entry). Select 8&ndash;12 for Content Day. Run <code>/content-script</code> for each and paste scripts into the Notion page body. Flip each to Content Day. Confirm the Monthly Lineup is fully populated with outlines before content day morning.</div>
+        </div>
+        <div class="ti">
+          <div class="when">Morning of Content Day</div>
+          <div class="what">On-camera talent opens Monthly Lineup and reads through all Content Day entries. Review each hook and script structure. You&rsquo;re not memorizing &mdash; you&rsquo;re making sure the direction is clear before the camera turns on.</div>
+        </div>
+        <div class="ti">
+          <div class="when">During Filming</div>
+          <div class="what">Film each Content Day idea using H-V-CTA-R: Hook (3&ndash;7 seconds) &rarr; Value (3 key points) &rarr; CTA (one clear ask) &rarr; Reset (repeat the hook). Keep Monthly Lineup open on a second screen or phone. Record multiple takes. Keep energy up &mdash; the editor needs options.</div>
+        </div>
+        <div class="ti">
+          <div class="when">After Each Video (before filming the next)</div>
+          <div class="what">
+            Do the handoff immediately after each video &mdash; not at the end of the day:<br>
+            1. Create the per-video Drive folder (<code>[##]_(Name) - Title</code>) with three subfolders: <code>01_Raw</code>, <code>02_Review</code>, <code>03_Finals</code>.<br>
+            2. Transfer raw footage from your camera to <code>01_Raw</code>.<br>
+            3. In Notion, paste the Drive link into the Drive Link field and flip Status to <strong>Post-Production</strong>.<br>
+            Repeat for every video before moving to the next one.
+          </div>
+        </div>
+        <div class="ti">
+          <div class="when">End of Content Day</div>
+          <div class="what">Every filmed entry should be at Status = Post-Production with a Drive Link. Monthly Lineup should be empty. If any ideas didn&rsquo;t get filmed, flip them back to Approved. Notify the editor that footage is ready in Drive.</div>
+        </div>
+        <div class="ti">
+          <div class="when">Editor&rsquo;s Window</div>
+          <div class="what">Editor opens With Editor view, works through each entry using the Drive Links. Edits and saves review cut to <code>02_Review</code> (thumbnail options too). Notifies creator when each piece is ready for review. Creator approves and moves final to <code>03_Finals</code>. Publisher queues in Metricool and flips status to Scheduled.</div>
+        </div>
+        <div class="ti">
+          <div class="when">30 Days After Publishing</div>
+          <div class="what">Content Lead pulls the Metricool analytics PDF. Opens Performance view in Notion. Fills in Views and Result for everything published from this content day. Patterns from this retro directly inform what gets Approved in the next monthly cycle.</div>
+        </div>
+      </div>
+
+      <div class="loom-wrap">
+        <div class="loom-badge">Loom Video</div>
+        <div class="loom-play">&#9654;</div>
+        <div class="loom-title">Content Day Playbook Walk-Through</div>
+        <div class="loom-sub">A full content day from morning brief to footage uploaded and editor notified &mdash; paste Loom URL here</div>
+      </div>
+    </section>
+
+    <!-- TEAM ROLES -->
+    <section id="team-roles">
+      <h2><span class="num">15</span> Team Roles<span class="step-meta">Who owns what &middot; And when</span></h2>
+      <p>Everyone on the team touches the IdeaBank at a different moment. This table shows each role, what they own, which views they work in, and when they&rsquo;re active in the cycle.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>What They Own</th>
+            <th>Primary Views</th>
+            <th>When Active</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Anyone (Eli / Kenny / Daunte)</td>
+            <td>Capture raw ideas &mdash; title, Format, Pillar, 30 seconds</td>
+            <td>Idea Vault (add only)</td>
+            <td>Anytime an idea hits</td>
+          </tr>
+          <tr>
+            <td>Content Lead (Kenny)</td>
+            <td>Monthly review: approve ideas, build Content Day lineup, run /content-script, run 30-day retro</td>
+            <td>Idea Vault &rarr; Pipeline Board &rarr; Monthly Lineup &rarr; Performance</td>
+            <td>Week before content day &middot; Monthly retro</td>
+          </tr>
+          <tr>
+            <td>On-Camera (Eli / Kenny / Daunte)</td>
+            <td>Film on content day, create Drive folder, upload raw to 01_Raw, paste Drive Link, flip status to Post-Production</td>
+            <td>Monthly Lineup &rarr; Drive (per-video folder)</td>
+            <td>Content day</td>
+          </tr>
+          <tr>
+            <td>Editor</td>
+            <td>Post-production: cuts, captions, music, export review cut to 02_Review (thumbnails too), notify creator</td>
+            <td>With Editor &rarr; Drive (per-video folders)</td>
+            <td>After each content day</td>
+          </tr>
+          <tr>
+            <td>Publisher</td>
+            <td>Pull approved final from 03_Finals, schedule in Metricool, flip to Published</td>
+            <td>Publishing Queue &rarr; Metricool</td>
+            <td>After editing and creator approval complete</td>
+          </tr>
+          <tr>
+            <td>Head of Marketing (Kenny)</td>
+            <td>Owns the full content pipeline: strategy, monthly retro, pattern analysis, pipeline health, editorial calendar, Content Lead functions</td>
+            <td>All views &rarr; Metricool analytics &rarr; Performance</td>
+            <td>Weekly check-in + monthly retro + quarterly purge</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- EDITORIAL RULES -->
+    <section id="editorial-rules">
+      <h2><span class="num">16</span> Editorial Rules<span class="step-meta">Series &middot; Stale ideas &middot; Cadence</span></h2>
+
+      <h3>Series Rules</h3>
+      <p>A series is a named campaign with a concrete plan &mdash; not just a theme. The rules:</p>
+      <ul>
+        <li><strong>Only activate a series when you have 3+ ideas planned.</strong> Create all 3+ Notion entries at once, tag them with the same Series name, and put them Content Day together.</li>
+        <li><strong>Film as a batch.</strong> All ideas in a series get shot on the same content day and release in consecutive weeks.</li>
+        <li><strong>Name it specifically.</strong> &ldquo;Tools That Saved Us 10 Hours This Week&rdquo; is a real campaign. A broad topic bucket is not.</li>
+        <li><strong>Leave Series blank for standalone pieces.</strong> Don&rsquo;t tag something as a series &ldquo;in case it becomes one.&rdquo;</li>
+        <li><strong>Existing dormant series</strong> (1 min Biz Tip, Tools That Are 2 Good, Founder Psychology) stay in the dropdown but nothing should be tagged to them without a 3-part plan in hand.</li>
+      </ul>
+
+      <h3>Stale Ideas &mdash; Monthly Rule</h3>
+      <p>Every Idea-status entry gets a decision every month. The rule: <strong>nothing leaves the monthly review session still at Idea status.</strong> Work through the Idea Vault oldest-first. Every entry gets Promoted, Parked, or Deleted before you close the tab.</p>
+
+      <h3>Quarterly Hard Purge (Jan &middot; Apr &middot; Jul &middot; Oct)</h3>
+      <ul>
+        <li>Review everything at Status = Parked. Ask: <em>&ldquo;If this wasn&rsquo;t already in the database, would we add it today?&rdquo;</em></li>
+        <li>No &rarr; delete it. Yes &rarr; move back to Idea for the next monthly cycle.</li>
+        <li><strong>Anything Parked for 6+ months gets deleted automatically.</strong> No exceptions.</li>
+      </ul>
+
+      <h3>The Monthly Cadence at a Glance</h3>
+      <div class="timeline">
+        <div class="ti">
+          <div class="when">Week Before Content Day</div>
+          <div class="what">Content Lead: run Idea Vault review (Promote / Park / Delete every Idea-status entry) &rarr; select 8&ndash;12 for Content Day &rarr; run /content-script for each &rarr; paste scripts into Notion page body.</div>
+        </div>
+        <div class="ti">
+          <div class="when">Content Day</div>
+          <div class="what">Film all Content Day ideas. Create Drive folders per video. Upload raw footage to 01_Raw. Add Drive Links in Notion. Flip statuses to Post-Production. Notify editor.</div>
+        </div>
+        <div class="ti">
+          <div class="when">Week After Content Day</div>
+          <div class="what">Editor finishes edits, saves review cuts to 02_Review. Creator approves and moves finals to 03_Finals. Publisher queues everything in Metricool. All pieces at Status = Scheduled.</div>
+        </div>
+        <div class="ti">
+          <div class="when">30 Days After Publishing</div>
+          <div class="what">Content Lead: pull Metricool analytics PDF &rarr; open Performance view &rarr; fill in Views and Result for every piece from the last content day &rarr; carry patterns into next month&rsquo;s approval decisions.</div>
+        </div>
+        <div class="ti">
+          <div class="when">Quarterly (Jan &middot; Apr &middot; Jul &middot; Oct)</div>
+          <div class="what">Hard purge of the Parked section. Delete anything that would never be made today. Anything with legs moves back to Idea.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <h4>Business Plans Plus</h4>
+    <p>Marketing &amp; Content Operating System &middot; Internal SOP &middot; Tampa Bay &middot; 2026<br>
+    <a href="https://buildwithbpp.com" target="_blank">buildwithbpp.com</a></p>
+    <p style="margin-top:14px;color:#a8b3c4;font-size:12.5px;">Questions on this SOP? Reach Eli or Kenny. If something is out of date or missing, flag it and we&rsquo;ll update it.</p>
+    <div class="sig">BPP Marketing SOP &middot; Active &middot; 2026</div>
+  </footer>
+
+</div>
+
+<script>
+  // Progress bar
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const st = document.documentElement.scrollTop;
+    const sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    bar.style.width = Math.round(st / sh * 100) + '%';
+  });
+
+  // Active TOC link via IntersectionObserver
+  const sections = document.querySelectorAll('section[id]');
+  const tocLinks = document.querySelectorAll('.toc-sidebar a');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        tocLinks.forEach(a => a.classList.remove('active'));
+        const a = document.querySelector('.toc-sidebar a[href="#' + e.target.id + '"]');
+        if (a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -65% 0px' });
+  sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>
