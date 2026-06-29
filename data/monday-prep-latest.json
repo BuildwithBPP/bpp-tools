@@ -1,85 +1,86 @@
 {
-  "week_of": "2026-06-22",
-  "generated_at": "2026-06-22T12:00:00",
-  "generation_mode": "manual",
-  "test_mode": false,
+  "generated_at": "2026-06-28T20:00:00",
+  "week_of": "2026-06-29",
   "sources_status": {
-    "QB": "PENDING",
+    "Forecast": "STALE (58 days old, 2026-05-01)",
     "HubSpot": "OK",
     "Monday": "OK",
-    "Forecast": "STALE",
-    "Git": "OK",
-    "Outlook": "OK"
+    "QB": "PENDING (email not scanned — local runner)",
+    "Git": "PENDING (Daunte local repos)"
   },
-  "stale_flags": [
-    "Cash is from the May 1 forecast (52 days old). The JUNE forecast STILL has not been built and the June-1 checkpoint (Phase 2 activation, savings >= $3K) was never completed. This has now rolled for three weeks. Treat cash as a stale estimate, not current.",
-    "AR remaining is a HubSpot estimate (no amount_paid field); QB transaction CSV not pulled this run (MS365 read-only on the runner).",
-    "Capacity is parent-level only. Client Delivery subitems still carry stale April statuses (zombie In Review/In Progress under Done parents) and were excluded again this week.",
-    "Inbox digest is Eli's mailbox only (delegate read is single-mailbox); Daunte/Kenny not separately scanned."
-  ],
-  "theme": "Finish the Closes",
-  "theme_rationale": "Three client closes land in 11 days (FA + HALO on 6/26, Lois ~7/2) while all three owners sit 3-4x over the WIP limit. The In-Review deliverables blocking the two Friday closes are past their due dates and the review chains are compressing. The constraint this week is finishing, not sourcing: clear the In-Review bottleneck, run Daunte's two overdue gating items (SEEDFOLKids QB consulting, Lois Financial Clarity Session), and force a kill-or-close on the two stuck $4,500 deals (TwentyTen 29 days, Merge Pro close lapsed).",
-  "north_star": "Three client closes in 11 days (FA + HALO 6/26, Lois 7/2) while owners are 3-4x over WIP. One job: protect and finish the closes. Clear the In-Review deliverables blocking the 6/26 chains, get Daunte's two overdue gating items done (SEEDFOLKids QB consulting + Lois Financial Clarity Session), force a kill-or-close on the two stuck $4,500 deals, and finally build the June forecast so Phase 2 (savings >= $3K) can be confirmed at the close.",
-  "operating_norms": [
-    "$2K rule: below = DRI calls it. Above = team debate.",
-    "Iron sharpens iron: defend with rationale, don't defer for harmony.",
-    "AI per dept: framework central, agents owned by the dept they serve."
-  ],
-  "out_of_scope": [
-    "Project deep-dives (delivery sync, not here)",
-    "Sprint backlog grooming line-by-line (mid-sprint Wednesday)",
-    "Compensation / exit / strategic shifts (separate sessions)"
-  ],
+  "north_star": "Confirm what actually closed on Friday (FA and/or HALO), reset WIP for a leaner Sprint 4, and get the June cash picture on paper before the runway conversation goes stale another week.",
   "sprint": {
     "number": 3,
-    "total": null,
-    "day": 8,
+    "transitioning_to": 4,
+    "goal": "Generate leads, reduce friction to close, close more deals",
+    "day": null,
+    "note": "Sprint 3 ends 2026-06-28; Sprint 4 starts 2026-06-29",
     "pct_done": 23,
-    "goal": "Cash + lead-gen + reduce friction to close (on the BPP North Star). 13 items, ~55 pts. 13 pts shipped this week (Outreach Campaign, Bring Kenny's outreach skill in-house, Service-agreement sign-off section). 42 pts remaining.",
-    "planned_this_morning": false,
-    "item_count": 13,
-    "points_total": 55,
-    "points_done": 13,
-    "points_remaining": 42,
-    "done_count": 3,
-    "in_progress_count": 5,
-    "not_started_count": 5,
-    "span_note": "Sprint 3 group is labeled Jun 15 - Jul 5 (3-week span); today 6/22 is day 8."
+    "items_done": 3,
+    "items_total": 13
   },
   "top_three": [
-    {"title": "Finish BPP Business Plan", "owner": "Daunte/Eli/Kenny", "status": "In Progress", "points": 5, "due": "2026-07-05"},
-    {"title": "Update HubSpot Pipelines (clean pipeline supports closing)", "owner": "Daunte/Kenny", "status": "In Progress", "points": 5, "due": "2026-07-05"},
-    {"title": "Put real volume in: 40-60 warm touches (referral asks, partner intros, group convos)", "owner": "Eli/Kenny", "status": "Not Started", "points": 5, "due": "2026-06-28"}
+    {
+      "title": "Put real volume in: 40-60 warm touches (referral asks, partner intros, group convos)",
+      "owner": "Eli + Kenny",
+      "status": "Not Started",
+      "priority": "Critical",
+      "points": 5
+    },
+    {
+      "title": "Update HubSpot Pipelines",
+      "owner": "Daunte + Kenny",
+      "status": "In Progress",
+      "priority": "Critical",
+      "points": 5
+    },
+    {
+      "title": "Finish BPP Business Plan",
+      "owner": "Daunte",
+      "status": "In Progress",
+      "priority": "Critical",
+      "points": 5
+    }
   ],
-  "suggested_move": {
-    "headline": "Clear the In-Review bottleneck blocking the two Friday closes. FA (MS-2 Website + MS-4 GBP) and HALO (Landing Page + Business Plan) are all still In Review / In Progress past their due dates, yet their Internal->Client review chains are supposed to finish by 6/26. Land those four deliverables today/tomorrow to unlock ~$1,000 FA final + ~$824.50 HALO halfway. Pair it with a hard kill-or-close call on TwentyTen ($4,500, 29 days stuck) and Merge Pro ($4,500, close date lapsed 6/16).",
-    "reasoning": "Cash is $321 under buffer, two deals had close dates today (6/22), and the binding constraint is finishing, not sourcing. The near-certain cash from the 6/26 closes is what pushes savings past the $3K Phase 2 trigger. TwentyTen and Merge Pro have both been carried 3 weeks running."
-  },
   "overdue": [
-    {"title": "Lois Marketing — MS-4 Financial Clarity Session", "owner": "Daunte", "days_overdue": 4, "status": "Not Started", "note": "the one genuinely stalled item; gates the Lois close"},
-    {"title": "Financial Acuity — Internal Review", "owner": "Daunte", "days_overdue": 4, "status": "In Progress"},
-    {"title": "Financial Acuity — MS-2 Website Build", "owner": "Eli", "days_overdue": 6, "status": "In Review"},
-    {"title": "Financial Acuity — MS-4 GBP Setup", "owner": "Kenny", "days_overdue": 10, "status": "In Review"},
-    {"title": "Lois Marketing — MS-5 Website Audit", "owner": "Eli", "days_overdue": 6, "status": "In Review"},
-    {"title": "HALO — Business Plan", "owner": "Rodney", "days_overdue": 3, "status": "In Progress"},
-    {"title": "HALO — Landing Page", "owner": "Eli", "days_overdue": 3, "status": "In Review"},
-    {"title": "Revive warm cash (Ops)", "owner": "Kenny", "days_overdue": 1, "status": "In Progress"}
+    { "title": "FA MS2 Website Build", "owner": "Eli", "due_date": "2026-06-16", "days_overdue": 12 },
+    { "title": "FA MS4 GBP Setup", "owner": "Kenny", "due_date": "2026-06-12", "days_overdue": 16 },
+    { "title": "FA Internal Review", "owner": "Daunte", "due_date": "2026-06-18", "days_overdue": 10 },
+    { "title": "FA Client Review", "owner": "Daunte", "due_date": "2026-06-23", "days_overdue": 5 },
+    { "title": "FA Project Close Out", "owner": "Daunte", "due_date": "2026-06-26", "days_overdue": 2 },
+    { "title": "HALO Business Plan", "owner": "Eli", "due_date": "2026-06-19", "days_overdue": 9 },
+    { "title": "HALO Landing Page", "owner": "Eli", "due_date": "2026-06-19", "days_overdue": 9 },
+    { "title": "HALO GBP Setup", "owner": "Eli", "due_date": "2026-06-23", "days_overdue": 5 },
+    { "title": "Lois MS4 Financial Clarity Session", "owner": "Daunte", "due_date": "2026-06-18", "days_overdue": 10 },
+    { "title": "Lois MS5 Website Audit", "owner": "Eli", "due_date": "2026-06-16", "days_overdue": 12 },
+    { "title": "Lois MS6 AI Automation", "owner": "Daunte + Kenny", "due_date": "2026-06-26", "days_overdue": 2 }
   ],
-  "overdue_note": "Most past-due items are In Review (client-review stage) at the finish line of the 6/26 closes, not abandoned. The only genuinely stalled one is Lois MS-4 Financial Clarity Session (Daunte, Not Started, 4 days). The In-Review items are blocking the close chains, so they read as overdue but the risk is compression, not neglect.",
   "clients_at_risk": [
-    {"name": "Financial Acuity", "flag_reason": "Closes 6/26. Chain slipping: MS-2 Website (Eli) + MS-4 GBP (Kenny) still In Review past due, Internal Review (Daunte) past due 6/18, Client Review due tomorrow 6/23, Close-out 6/26. Land MS-2 + MS-4 now to hold 6/26.", "owner": "Daunte/Eli/Kenny", "status": "WATCH (close compressing)"},
-    {"name": "HALO Commons / HALO Pathways", "flag_reason": "Closes 6/26. Halfway milestone Done 6/19. Business Plan (Rodney) + Landing Page (Eli) In Review/IP past 6/19; GBP starts today; Internal 6/24 -> Client 6/25 -> Close 6/26. Felicia very engaged (sent Founders' Vision + Our Story site copy 6/20). Rodney wants tech stack split per entity.", "owner": "Eli", "status": "ON TRACK (tight) + upsell"},
-    {"name": "Lois Marketing", "flag_reason": "Closes ~7/2. MS-5 Website Audit sent for client review 6/19; MS-4 Financial Clarity (Daunte) overdue, Not Started; MS-6 AI Automation starts today. Needs Daunte to run the Financial Clarity Session.", "owner": "Eli/Daunte/Kenny", "status": "WATCH (Daunte gating item overdue)"},
-    {"name": "SEEDFOLKids", "flag_reason": "Only CFO/QuickBooks consulting (Daunte, In Progress) gates final close. 30-day iteration window closed 6/20. ACTION: Daunte confirm QB consulting is done so we can close.", "owner": "Daunte/Eli", "status": "WATCH (closing, Daunte gating)"}
+    {
+      "name": "HALO Commons",
+      "flag_reason": "BP + landing page In Review 9 days; GBP not started; close rescheduled to 7/3",
+      "owner": "Eli",
+      "close_target": "2026-07-03"
+    },
+    {
+      "name": "Lois Marketing",
+      "flag_reason": "MS4 Financial Clarity + MS6 AI Automation both not started; project close 7/2",
+      "owner": "Eli + Kenny + Daunte",
+      "close_target": "2026-07-02"
+    },
+    {
+      "name": "Financial Acuity",
+      "flag_reason": "Close scheduled 6/26 — board not updated; verify payment received + deliverables signed off",
+      "owner": "Daunte + Eli + Kenny",
+      "close_target": "2026-06-26"
+    }
   ],
   "cold_deals": [],
-  "cold_deals_note": "No deals over 14 days without activity (all touched within 7 days). But three are stuck on lapsed close dates: TwentyTen Motors (Verbal Commitment, 29 days past close), Merge Pro (Proposal Sent, close date lapsed 6/16), Legacy B. Studio (Qualified, close date way stale 4/6).",
   "wip_violations": [
-    {"owner": "Daunte", "in_flight": 8, "limit": 2},
-    {"owner": "Kenny", "in_flight": 7, "limit": 2},
-    {"owner": "Eli", "in_flight": 7, "limit": 2}
+    { "owner": "Daunte", "in_flight": 8 },
+    { "owner": "Eli", "in_flight": 5 },
+    { "owner": "Kenny", "in_flight": 3 }
   ],
-  "wip_note": "Parent-level (In Progress + In Review) across Ops + Client Delivery. Subitem zombies (stale April statuses under Done parents) excluded this run. Everyone is 3-4x over WIP=2 because the Sprint 3 cash push is stacked on a heavy June delivery close.",
   "cash": {
     "operating": 3328,
     "savings": 2805,
@@ -87,134 +88,116 @@
     "total": 6496,
     "buffer_target": 3649,
     "buffer_gap": -321,
-    "savings_pct_to_phase2": 93,
     "as_of_date": "2026-05-01",
-    "source": "May 1 forecast (52 days old) — June forecast STILL not built; cash refreshes at monthly close",
-    "collections_since_note": "Jeannette Bradley $960 (INV-1031) collected 6/4 and a June HubSpot payout likely pushed savings over the $3K Phase-2 trigger, but unconfirmed until the June close is run."
+    "source": "monthly forecast (STALE — 58 days old)",
+    "stale": true
   },
   "ar_layers": {
     "source_of_record": "HubSpot",
-    "model": "Each closed-won deal carries up to 3 milestone invoices. Invoice 1 activates at signing and flows to QuickBooks; invoices 2-3 stay in draft and live only in HubSpot. HubSpot holds the full committed-AR picture; QB shows only activated invoices.",
-    "layer_qb_activated": {
-      "note": "QB transaction CSV not pulled this run (MS365 read-only). No new money-in notifications appeared in the Outlook scan this week."
-    },
+    "model": "Closed-won deals carry up to 3 milestone invoices; deposit (30%) activates at signing; remaining (70%) stays in HubSpot draft until triggered",
     "layer_hubspot_committed": {
       "status": "OK",
       "deals": [
-        {"name": "Financial Acuity - Growth Package Custom", "amount": 3350, "payment_status": "Deposit Received", "estimated_remaining": 1000, "note": "Maxine; final milestone, closes 6/26"},
-        {"name": "Halo Commons / HACO Pathways - Launch Pad", "amount": 1649, "payment_status": "Deposit Received", "estimated_remaining": 824.5, "note": "Halfway invoice; milestone Done 6/19"},
-        {"name": "Lois Marketing LLC - Operator System", "amount": 4500, "payment_status": "(blank)", "estimated_remaining": 1350, "note": "30/40/30; halfway invoice sent ~5/19, so middle 40% may already be in — remaining could be the final $1,350 (up to $3,150 if middle still owed). Confirm at close."},
-        {"name": "Xtremely Clean - Automation/CRM", "amount": 3315, "payment_status": "Deposit Received", "estimated_remaining": 500, "note": "Wanda"},
-        {"name": "Xtremely Clean - 10 hrs consulting", "amount": 500, "payment_status": "Pending", "estimated_remaining": 500, "note": "Fully owed"},
-        {"name": "SEEDFOLkids - Strategic Planning", "amount": 3200, "payment_status": "Deposit Received", "estimated_remaining": null, "note": "Remaining split unknown"},
-        {"name": "Wedelia Wellness - P1", "amount": 1248, "payment_status": "Deposit Received", "estimated_remaining": null}
+        {
+          "name": "Financial Acuity - Growth Package Custom",
+          "amount": 3350,
+          "payment_status": "Deposit Received",
+          "estimated_remaining": 2345,
+          "note": "Close scheduled 6/26 — verify if final payment received. If yes, remaining = $0."
+        },
+        {
+          "name": "HALO Commons - Launch Pad",
+          "amount": 1649,
+          "payment_status": "Deposit Received",
+          "estimated_remaining": 990,
+          "note": "Close target 7/3. In-person review 6/23 completed."
+        },
+        {
+          "name": "Lois Marketing LLC - Operator System",
+          "amount": 4500,
+          "payment_status": null,
+          "estimated_remaining": 1350,
+          "note": "Halfway invoice paid (est. May). Final 30% after project close ~7/2."
+        },
+        {
+          "name": "SEEDFOLKids - Strategic Planning",
+          "amount": 3200,
+          "payment_status": "Deposit Received",
+          "estimated_remaining": null,
+          "note": "Old deal (Feb). 6/22 recap said no owed hours — verify outstanding balance."
+        }
       ],
-      "estimated_remaining_known": 4174.5,
-      "note": "~$4.2K-$6K of known remaining milestones across closed-won deals (low end uses Lois final $1,350; high end ~$6K if Lois middle 40% still owed). HubSpot has no amount_paid field, so per-deal remaining is an estimate."
+      "estimated_remaining_known": 4685,
+      "note": "Sum of FA + HALO + Lois estimates. SEEDFOLKids balance unknown."
     }
   },
-  "ar_scenarios": [
-    {"name": "Conservative", "receivables_in": 4260, "expenses_out": -2100, "ending_operating": 5488, "savings_after": 3453, "hits_phase2": true, "highlight": false, "detail": "From May forecast (highs only). 52 days stale — Jeannette $960 already collected 6/4. REBUILD with June actuals."},
-    {"name": "Realistic", "receivables_in": 5085, "expenses_out": -2100, "ending_operating": 6313, "savings_after": 3700, "hits_phase2": true, "highlight": true, "detail": "+ HALO Commons $824.50. REBUILD with June actuals."},
-    {"name": "Stretch", "receivables_in": 6434, "expenses_out": -2100, "ending_operating": 7663, "savings_after": 4105, "hits_phase2": true, "highlight": false, "detail": "+ Lois closeout $1,350. Within reach of Phase 3."}
-  ],
-  "ar_scenarios_note": "52 days stale (carried from the May 1 forecast). Building the June forecast is the single oldest open item on the board — now 3 weeks overdue.",
   "pipeline": {
-    "total": 16098,
+    "total": 10898,
     "count": 6,
-    "hot_count": 4,
-    "hot_value": 10098,
+    "hot_count": 2,
+    "hot_value": 2500,
     "cold_count": 0,
     "cold_value": 0,
-    "verified_date": "2026-06-22",
-    "owner_attribution_note": "Deals split across HubSpot owner-ids: Daunte 158829628 (TwentyTen), Eli 158851882 (Legacy B. Studio), Kenny 158851883 (Merge Pro, Hyacinthe, RW Events, tess). Still inconsistent and informal — formally add Kenny + Eli as HubSpot owners (open since 5/18).",
     "deals": [
-      {"name": "Hyacinthe Property Management", "amount": 2000, "stage": "Proposal Sent", "owner": "Kenny", "last_activity": "2026-06-21", "closedate": "2026-06-22", "closedate_status": "CLOSE DATE TODAY — active (last touch 6/21)"},
-      {"name": "RW Events", "amount": 1799, "stage": "Proposal Sent", "owner": "Kenny", "last_activity": "2026-06-15", "closedate": "2026-06-22", "closedate_status": "CLOSE DATE TODAY"},
-      {"name": "Merge Pro", "amount": 4500, "stage": "Proposal Sent", "owner": "Kenny", "last_activity": "2026-06-19", "closedate": "2026-06-16", "closedate_status": "LAPSED 6 days — re-date + drive to signature, or kill"},
-      {"name": "tess", "amount": 1799, "stage": "Lead Captured", "owner": "Kenny", "last_activity": "2026-06-16", "closedate": "2026-07-02", "closedate_status": "future-hot — organic-search inbound, now a real deal"},
-      {"name": "TwentyTen Motors", "amount": 4500, "stage": "Verbal Commitment", "owner": "Daunte", "last_activity": "2026-06-15", "closedate": "2026-05-24", "closedate_status": "LAPSED 29 days — biggest deal, stuck at Verbal Commitment. Kill-or-close."},
-      {"name": "Legacy B. Studio - Website", "amount": 1500, "stage": "Qualified & Working", "owner": "Eli", "last_activity": "2026-06-15", "closedate": "2026-04-06", "closedate_status": "close date way stale"}
+      { "name": "Sipsies Lemonade", "amount": 2500, "stage": "Proposal Sent", "owner": "Eli", "closedate": "2026-07-14", "last_activity": "2026-06-28" },
+      { "name": "All State", "amount": null, "stage": "Discovery Scheduled", "owner": "Kenny", "closedate": "2026-07-16", "last_activity": "2026-06-27" },
+      { "name": "RW Events", "amount": 1799, "stage": "Proposal Sent", "owner": "Kenny", "closedate": "2026-06-22", "last_activity": "2026-06-26" },
+      { "name": "Merge Pro", "amount": 4500, "stage": "Proposal Sent", "owner": "Kenny", "closedate": "2026-06-16", "last_activity": "2026-06-25" },
+      { "name": "Legacy B. Studio", "amount": 1500, "stage": "Qualified & Working", "owner": "Eli", "closedate": "2026-04-06", "last_activity": "2026-06-26" },
+      { "name": "TwentyTen Motors", "amount": 599, "stage": "Verbal Commitment", "owner": "Daunte", "closedate": "2026-05-24", "last_activity": "2026-06-23" }
     ]
   },
-  "phase": {"current": "Phase 1", "next_trigger": "Savings >= $3K (93% there; a single June close likely crosses it — confirm at June close)", "transitioning_to": "Phase 2"},
   "capacity_per_owner": {
-    "Daunte": {"in_flight": 8, "overdue": 2, "day_job_flag": "RS&H bandwidth limited", "note": "Ops In Progress: Update HubSpot Pipelines, Finish Biz Plan, Develop Free Resources, Weekly content + Send Justin creds (In Review). Client Delivery: SEEDFOLKids CFO QB, FA Internal Review, FA Client Review. Gating items overdue: Lois MS-4 Financial Clarity (Not Started), FA Internal Review."},
-    "Kenny": {"in_flight": 7, "overdue": 2, "day_job_flag": "Recovery context (ongoing)", "note": "Ops: Revive warm cash, List 15 referral partners, Update HubSpot Pipelines, Finish Biz Plan, Weekly content + Send Justin creds (In Review). Client Delivery: FA MS-4 GBP (In Review). Heaviest Sprint 3 sales load."},
-    "Eli": {"in_flight": 7, "overdue": 0, "day_job_flag": "Most BPP time of any owner", "note": "Ops: List 15 referral partners, Develop Free Resources, Finish Biz Plan, Weekly content. Client Delivery: FA MS-2 Website, Lois MS-5 Website Audit, HALO Landing Page (all In Review)."}
+    "Daunte": { "in_flight": 8, "overdue": 5, "points": 18 },
+    "Eli": { "in_flight": 5, "overdue": 6, "points": 18 },
+    "Kenny": { "in_flight": 3, "overdue": 1, "points": 6 }
   },
-  "capacity_alert": "Same three part-time owners carrying a heavy June delivery close (FA 6/26, HALO 6/26, Lois 7/2, SEEDFOLKids pending QB) AND the Sprint 3 cash/lead-gen push. Everyone is 3-4x over the WIP=2 limit. Sequence, don't pile on: protect the 6/26 closes first, then the goal-line deals, then only the Sprint 3 sales items realistically touchable this week. Drain before refill.",
-  "shipped_last_week": [
-    {"repo": "Sprint 3 (Ops)", "commit_summary": "Outreach Campaign DONE 6/19 (8 pts)", "author": "Eli/Kenny"},
-    {"repo": "Sprint 3 (Ops)", "commit_summary": "Bring Kenny's outreach skill into the BPP workspace + pilot it DONE 6/17 (3 pts)", "author": "Kenny/Eli"},
-    {"repo": "Sprint 3 (Ops)", "commit_summary": "Update service agreement: deliverable sign-off section DONE 6/19 (2 pts)", "author": "Eli"},
-    {"repo": "Client Delivery", "commit_summary": "HALO Halfway Milestone + Invoice DONE 6/19", "author": "Eli"},
-    {"repo": "Client Delivery", "commit_summary": "Lois MS-3 CRM Audit + Training DONE 6/16", "author": "Kenny"},
-    {"repo": "Subitems", "commit_summary": "Lead Scraping Skill DONE 6/17; Ref-view lead-pipeline fix DONE 6/19", "author": "Kenny"},
-    {"repo": "bpp-tools (git)", "commit_summary": "Quiet week (1 data-refresh commit) — the r26-fx redesign shipped last week (6/13) and was already reported", "author": "Eli"}
-  ],
   "carry_forward": {
     "open_decisions": [
-      "Build the June forecast + confirm Phase 2 activation (savings >= $3K) — Daunte — now 3 weeks overdue, oldest open item",
-      "Close-or-kill TwentyTen Motors — still OPEN (deal now 29 days stuck at Verbal Commitment)",
-      "Push Merge Pro to signature — close date lapsed 6/16, still Proposal Sent",
-      "Add Kenny + Eli as formal HubSpot owners — still OPEN",
-      "Validate Worker pipeline end-to-end (Daunte, was due 5/18) — still OPEN",
-      "Wanda Plan B 1-pager, 3 scenarios (Daunte drafts / Eli reviews, was due 5/22) — still OPEN",
-      "Build dummy QB / HubSpot / LivePlan accounts for cross-training (Daunte, was due 5/20) — still OPEN",
-      "Daunte researches HR / contractor / procurement role shape — still OPEN",
-      "Schedule compensation framework conversation — still OPEN"
+      "June forecast + Phase 2 confirmation (Daunte — 4 weeks overdue)",
+      "Add Kenny + Eli as formal HubSpot owners",
+      "WIP=2 / sequencing discipline",
+      "Justin offboard decision",
+      "Natalie partnership timing (Eli — early July)",
+      "Delete TESS test deal (Kenny)",
+      "SEEDFOLKids QB maintenance retainer pitch (Daunte)"
     ],
-    "incomplete_commits": [],
+    "incomplete_commits": [
+      "Build two HubSpot sequences (cold vs referral) + touches property — Kenny + Eli",
+      "Lois Financial Clarity + AI automation scope — Kenny + Daunte",
+      "New content workflow: transcript to Claude to KJ — Daunte + Kenny",
+      "TwentyTen Motors follow-up — Eli",
+      "Merge Pro reframe — Kenny",
+      "RW Events follow-up — Kenny",
+      "Legacy Studios follow-up — Eli"
+    ],
     "deferred_parking_lot": [
-      "Client Delivery / Ops subitem date + status re-baselining (stale April timelines)",
-      "Two-board friction (Operations vs. Client Projects)"
-    ],
-    "note": "The 2026-06-15 decisions file was left as a template (the 6/15 meeting decisions were never recorded). Carry-forward reconstructed from its prompts/status-check section. RESOLVED since last week: 'tess' inbound confirmed real (now a pipeline deal, Kenny owns)."
+      "~50 leads in CRM — feed outreach sequences once built",
+      "Two-board friction (Ops vs Client Delivery)",
+      "Compensation framework conversation"
+    ]
   },
-  "prior_decisions": [
-    {"status": "OPEN", "decision": "Build the June forecast + confirm Phase 2 (savings >= $3K)", "owner": "Daunte", "set_date": "2026-06-01", "due_date": "2026-06-01"},
-    {"status": "OPEN", "decision": "Close-or-kill TwentyTen Motors", "owner": "Daunte", "set_date": "2026-06-08", "due_date": null},
-    {"status": "OPEN", "decision": "Push Merge Pro to signature", "owner": "Kenny", "set_date": "2026-06-08", "due_date": "2026-06-16"},
-    {"status": "OPEN", "decision": "Add Kenny + Eli as formal HubSpot owners", "owner": "Daunte", "set_date": "2026-06-08", "due_date": null},
-    {"status": "OPEN", "decision": "Validate Worker pipeline end-to-end", "owner": "Daunte", "set_date": "2026-05-11", "due_date": "2026-05-18"},
-    {"status": "OPEN", "decision": "Wanda Plan B 1-pager (3 scenarios)", "owner": "Daunte + Eli", "set_date": "2026-05-15", "due_date": "2026-05-22"},
-    {"status": "OPEN", "decision": "Build dummy QB / HubSpot / LivePlan accounts for cross-training", "owner": "Daunte", "set_date": "2026-05-06", "due_date": "2026-05-20"},
-    {"status": "OPEN", "decision": "Daunte researches HR / contractor / procurement role shape", "owner": "Daunte", "set_date": "2026-05-06", "due_date": null},
-    {"status": "OPEN", "decision": "Schedule compensation framework conversation (separate session)", "owner": "Daunte", "set_date": "2026-05-06", "due_date": null}
-  ],
-  "inbox_digest": {
-    "Eli": {
-      "vip_count": 3,
-      "vip_items": [
-        {"from": "felicia@halocommons.com / fbglaton@yahoo.com", "subject": "HALO site copy — Founders' Vision + Our Story", "received": "2026-06-20", "snippet": "Felicia sent replacement Founders' Vision + Our Story copy for the landing page. Implement before the 6/26 close. Felicia very engaged.", "client_tagged": "HALO Commons"},
-        {"from": "rodney@buildwithbpp.com", "subject": "Re: HALO Commons/Pathways Tech Stack Recommendation", "received": "2026-06-19", "snippet": "Rodney wants the tech stack separated per entity (Commons vs Pathways) for both business plans.", "client_tagged": "HALO Commons"},
-        {"from": "geraldinne18@gmail.com", "subject": "Accepted: Geraldinne x BPP Intro Call", "received": "2026-06-18", "snippet": "New prospect intro call accepted for Thu 6/25 10am.", "client_tagged": null}
-      ],
-      "momentum_signals": ["Lois team has the website for review (Eli sent 6/19, revisions pending)", "Kenny's Content Day audit doc circulated for review"],
-      "money_signals": [],
-      "flags": ["Weekly Business Meeting invite was canceled 6/6 — confirm today's CEO meeting is on"]
-    },
-    "Kenny": {"note": "not separately pulled this run (MS365 read-only, single-mailbox scan on eli@); Kenny's sends surface via bppteam@"},
-    "Daunte": {"note": "not separately pulled this run (MS365 read-only, single-mailbox scan on eli@)"},
-    "shared": {"note": "bppteam@ / admin@ threads surface via Eli's mailbox"}
-  },
-  "inbox_rollup": "51 messages in Eli's mailbox over 7 days. 3 VIP (HALO site copy from Felicia, Rodney tech-stack split, Geraldinne new call 6/25). ~10 batch + ~12 archive (Blinq/Popl card intros, Hillsborough Black Chamber blasts, Monday notifications). No money-in notifications and no fire-alarm client emails.",
+  "ai_suggested_move": "Confirm FA close status first — if final payment landed 6/26, that unlocks the cash picture and Phase 2 question. If not, make a collection call before end of week.",
+  "ai_suggested_reasoning": "FA represents ~$2,345 in estimated remaining AR; HALO adds ~$990. Together ~$3,335 that swings whether Phase 2 activates and what the runway looks like. The forecast is 58 days stale — a 5-minute number drop from Daunte is the unlock.",
   "drift_signals": [
-    "June forecast still not built — cash is 52 days old; the June-1 checkpoint (Phase 2 activation, savings >= $3K) was never done. Flagged 3 weeks running. #1 recurring drift, escalating.",
-    "TwentyTen Motors $4,500 now 29 days past its 5/24 close date, stuck at Verbal Commitment (was 22 last week).",
-    "Merge Pro $4,500 close date lapsed 6/16, still Proposal Sent.",
-    "Two 6/26 client closes (FA + HALO) have In-Review deliverables already past their due dates — close-chain compression risk.",
-    "Lois MS-4 Financial Clarity Session (Daunte) overdue, Not Started — gates the Lois close.",
-    "HubSpot owner attribution still informal — deals split across 3 owner-ids; formally add Kenny + Eli as owners.",
-    "Client Delivery subitems carry stale April statuses (zombie In Review/In Progress under Done parents) — re-baseline or close so capacity counts stay clean."
+    "Forecast 58 days stale — June close + updated numbers owed from Daunte (4th week flagged)",
+    "Phase 2 savings trigger not yet formally confirmed",
+    "Sprint 3 ended at 23% done (3/13) — 10 items carry into Sprint 4",
+    "WIP violations for 3rd consecutive week — rule set but behavior unchanged",
+    "Justin contractor situation unresolved — offboard decision overdue",
+    "HubSpot owners (Kenny + Eli) still not added",
+    "HALO Webflow asset cleanup still owed"
   ],
-  "qc_schedule": {"next_qb_qc": "TBD", "next_hubspot_qc": "TBD", "next_drive_qc": "TBD"},
-  "parking_lot": [
-    "Two-board friction (Operations vs. Client Projects)",
-    "Compensation framework conversation",
-    "AI workforce top 3 confirmation",
-    "Client Delivery / Ops subitem date + status re-baselining (stale April timelines)",
-    "HR / contractor / procurement role research"
-  ]
+  "prior_decisions_count": 16,
+  "inbox_digest": {
+    "note": "PENDING — MS365 inbox scan not available on this runner. Daunte to surface any VIP items in Block 0."
+  },
+  "shipped_last_week": {
+    "note": "PENDING — git repos on Daunte local machine.",
+    "board_confirmed": [
+      "Kenny: outreach skill published to BPP workspace (Sprint 3, Done)",
+      "Eli: Outreach Campaign complete (Sprint 3, Done)",
+      "Eli: Service agreement updated with deliverable sign-off section (Sprint 3, Done)"
+    ]
+  }
 }
