@@ -770,6 +770,9 @@
      VISUAL ENHANCEMENT LAYER — overrides above as needed
      ====================================================== */
 
+  /* Body — navy blue background instead of gray */
+  body { background: #022d50; }
+
   /* Progress bar — thicker */
   #progress-bar { height: 4px; }
 
@@ -778,12 +781,14 @@
     box-shadow: 0 0 0 1px var(--line), 0 24px 64px rgba(4,71,113,0.1), 0 4px 16px rgba(4,71,113,0.06);
   }
 
-  /* TOC — fix cut-off at narrow viewports */
+  /* TOC — narrowed to 200px so it clears the page edge at 1360px+ viewports */
   .toc-sidebar {
-    left: max(10px, calc(50% - 450px - 252px));
+    width: 200px;
+    left: max(10px, calc(50% - 450px - 14px - 200px));
+    background: var(--paper);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12);
+    border-color: rgba(4,71,113,0.15);
   }
-  @media (min-width: 1360px) { .toc-sidebar { display: none; } }
-  @media (min-width: 1430px) { .toc-sidebar { display: block; } }
 
   /* HERO — gradient + dot grid texture + glow orb */
   header.hero {
@@ -1011,6 +1016,52 @@
     pointer-events: none;
   }
   footer > * { position: relative; z-index: 1; }
+
+  /* YOUTUBE LINK CARDS */
+  .yt-link-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-left: 4px solid #e00000;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+  }
+  .yt-link-card:hover {
+    box-shadow: 0 6px 20px rgba(4,71,113,0.12);
+    transform: translateY(-1px);
+    border-color: var(--navy);
+    border-left-color: #e00000;
+  }
+  .yt-link-icon {
+    width: 36px;
+    height: 36px;
+    background: #e00000;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .yt-link-body { flex: 1; }
+  .yt-link-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+    line-height: 1.45;
+  }
+  .yt-link-desc { font-size: 12.5px; color: var(--ink-soft); line-height: 1.55; }
+  .yt-link-arrow { color: var(--blue); font-size: 16px; flex-shrink: 0; margin-top: 2px; font-weight: 700; }
 
   /* YOUTUBE EMBED */
   .yt-section-label {
@@ -1607,25 +1658,23 @@
 
       <div class="yt-section-label">Watch: Metricool Tutorials</div>
 
-      <div class="yt-embed-wrap">
-        <iframe
-          src="https://www.youtube.com/embed/LAmC6fjUSm8"
-          title="How to Schedule and Analyze Content as a Social Media Manager — Full Metricool Tutorial"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <p class="yt-embed-caption">Full walkthrough: scheduling posts, managing multiple platforms, and analyzing performance in Metricool.</p>
+      <a class="yt-link-card" href="https://www.youtube.com/watch?v=LAmC6fjUSm8" target="_blank" rel="noopener">
+        <div class="yt-link-icon">&#9654;</div>
+        <div class="yt-link-body">
+          <div class="yt-link-title">How to Schedule and Analyze Content as a Social Media Manager &mdash; Full Metricool Tutorial</div>
+          <div class="yt-link-desc">Deep-dive walkthrough: scheduling posts, managing multiple platforms in one place, and analyzing post performance. Best starting point for publishers learning Metricool.</div>
+        </div>
+        <div class="yt-link-arrow">&#x2197;</div>
+      </a>
 
-      <div class="yt-embed-wrap">
-        <iframe
-          src="https://www.youtube.com/embed/Dbbrszq1Cak"
-          title="Your guide to using Metricool in 2025"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <p class="yt-embed-caption">2025 overview: connecting accounts, the planning tab, analytics tab, and inbox — start here if you&rsquo;re new to Metricool.</p>
+      <a class="yt-link-card" href="https://www.youtube.com/watch?v=Dbbrszq1Cak" target="_blank" rel="noopener">
+        <div class="yt-link-icon">&#9654;</div>
+        <div class="yt-link-body">
+          <div class="yt-link-title">Your Guide to Using Metricool in 2025</div>
+          <div class="yt-link-desc">Comprehensive 2025 overview covering all tabs: connecting accounts, the planning calendar, analytics dashboard, and inbox. Start here if you&rsquo;re new to Metricool.</div>
+        </div>
+        <div class="yt-link-arrow">&#x2197;</div>
+      </a>
 
       <div class="loom-wrap" style="margin-top: 28px;">
         <div class="loom-badge">Your Loom &mdash; Record When Ready</div>
