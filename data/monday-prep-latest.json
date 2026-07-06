@@ -66,13 +66,13 @@
     },
     {
       "name": "HALO Commons",
-      "flag_reason": "Business plan delivered ~6/23, no client response as of 6/29 — Rodney took primary lead on the follow-up. Still needs nonprofit setup + GBP (Eli), landing page, client + internal review, closeout. Final ~$990 outstanding.",
+      "flag_reason": "Business plan delivered ~6/23, no client response as of 6/29 — Rodney took primary lead on the follow-up. Landing page to confirm good to close. Nonprofit setup (501c3 Google Workspace + GBP) BLOCKED on Felicia's attorney finishing IRS Form 1023. Client + internal review, closeout still owed. Final ~$990 outstanding.",
       "owner": "Eli (Rodney on client follow-up)",
-      "close_target": "TBD — set once client responds to the plan"
+      "close_target": "TBD — set once client responds to the plan; nonprofit acknowledgment gated on Form 1023"
     },
     {
       "name": "Lois Marketing",
-      "flag_reason": "MS4 Financial Clarity (Daunte) + MS6 AI Automation (Daunte + Kenny) still open. Chucho cancelled the QuickBooks financials session — Daunte to reschedule. AI automation scope still unclear.",
+      "flag_reason": "Landing page now a close-gating deliverable (Eli, confirm good to close). MS4 Financial Clarity (Daunte) + MS6 AI Automation (Daunte + Kenny) still open. Chucho cancelled the QuickBooks financials session — Daunte to reschedule. AI automation scope still unclear.",
       "owner": "Eli + Kenny + Daunte",
       "close_target": "post-close (~7/2 slipped)"
     }
@@ -178,9 +178,9 @@
       "Kenny: resolve FA GBP video error (due 6/29)",
       "Rodney: HALO business plan follow-up (primary lead, due last week)",
       "Daunte: reschedule Chucho (Lois QB financials)",
-      "Eli: update Monday sprint 3 dates (due 6/29)",
-      "Eli: SEEDFOLKids retainer pitch to Diana ($350/mo)",
-      "Eli: referral copy fix (send us a client, they close, you get $250)",
+      "Eli: SEEDFOLKids retainer pitch to Diana — SENT, now following up",
+      "Eli: confirm FA + HALO + Lois landing pages good to close",
+      "Eli: HALO nonprofit setup blocked on Felicia's attorney finishing IRS Form 1023",
       "Eli + Kenny: BIN Network Pinellas Tuesday 7/7"
     ],
     "deferred_parking_lot": [

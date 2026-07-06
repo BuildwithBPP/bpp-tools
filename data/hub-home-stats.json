@@ -60,9 +60,9 @@
       "owner": "Eli",
       "owner_color": "eli",
       "phase": "Build → Review",
-      "next_milestone": "Business plan delivered; awaiting client response (Rodney leading follow-up). Nonprofit setup + GBP + landing page + reviews still owed. No committed close date.",
+      "next_milestone": "Business plan delivered; awaiting client response (Rodney leading follow-up). Landing page to confirm good to close. Nonprofit setup (501c3 Google Workspace + GBP) BLOCKED on Felicia's attorney finishing IRS Form 1023. No committed close date.",
       "at_risk": true,
-      "risk_note": "~$990 final payment outstanding. Close date set once the client responds to the plan."
+      "risk_note": "~$990 final payment outstanding. Nonprofit acknowledgment can't complete until the Form 1023 lands. Close date set once the client responds to the plan."
     },
     {
       "name": "Lois Marketing",
@@ -70,9 +70,9 @@
       "owner": "Eli/Daunte/Kenny",
       "owner_color": "eli",
       "phase": "Build → Review",
-      "next_milestone": "MS-4 Financial Clarity (Daunte) overdue; Chucho cancelled the QB session, reschedule owed. MS-6 AI Automation not started, scope unclear. Client review + close slipped past 7/2.",
+      "next_milestone": "Landing page now a close-gating deliverable (Eli, confirm good to close). MS-4 Financial Clarity (Daunte) overdue; Chucho cancelled the QB session, reschedule owed. MS-6 AI Automation not started, scope unclear. Client review + close slipped past 7/2.",
       "at_risk": true,
-      "risk_note": "WATCH — two milestones gate the close and both are stalled. AI automation scope needs defining."
+      "risk_note": "WATCH — landing page + two stalled milestones gate the close. AI automation scope needs defining."
     },
     {
       "name": "SEEDFOLKids",
@@ -80,9 +80,9 @@
       "owner": "Daunte/Eli",
       "owner_color": "eli",
       "phase": "Closeout",
-      "next_milestone": "Project closed. Retainer pitch ($350/mo, 5 hrs: QuickBooks + Honey site) to Diana is the open upsell — Eli to send.",
+      "next_milestone": "Project closed. Retainer pitch ($350/mo, 5 hrs: QuickBooks + Honey site) already sent to Diana — Eli following up.",
       "at_risk": false,
-      "risk_note": "Retainer pitch is the recurring-revenue play."
+      "risk_note": "Retainer pitch is the recurring-revenue play — awaiting Diana's response."
     }
   ],
   "operating_norms_compact": [
