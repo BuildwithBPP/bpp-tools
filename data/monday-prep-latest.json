@@ -3,13 +3,13 @@
   "week_of": "2026-07-06",
   "run_type": "ad-hoc (standup canceled — plan sent async)",
   "sources_status": {
-    "Forecast": "STALE (66 days old, 2026-05-01)",
+    "Forecast": "OK — mid-year snapshot shared 6/29 (Phase 2 hit); formal June close in progress (first week of July)",
     "HubSpot": "OK",
     "Monday": "BLOCKED (API_TEMPORARILY_BLOCKED — account rate limit; sprint/capacity/overdue carried from 2026-06-29 board pull, unverified)",
     "QB": "PENDING (email not scanned — local runner)",
     "Git": "PENDING (Daunte local repos)"
   },
-  "north_star": "Land the two closes that keep slipping — Financial Acuity and HALO — by setting and hitting real dates, keep the Sprint 3 sequences running toward the ~7/17 close, hit BIN Network Pinellas Tuesday 7/7, and get the June cash number on paper.",
+  "north_star": "We hit Phase 2, but June ran slightly negative — so this week is about rebuilding the cushion: land the ~$2.9K June receivables, close Financial Acuity and HALO, keep the Sprint 3 sequences running toward ~7/17, and hit BIN Network Pinellas Tuesday 7/7.",
   "sprint": {
     "number": 3,
     "transitioning_to": null,
@@ -85,15 +85,21 @@
   ],
   "wip_note": "Carried from 6/29 — third consecutive week over WIP=2. Unverified this run.",
   "cash": {
-    "operating": 3328,
-    "savings": 2805,
+    "operating": 3200,
+    "savings": 3118,
     "rodney_envelope": 363,
-    "total": 6496,
+    "total": 6400,
     "buffer_target": 3649,
-    "buffer_gap": -321,
-    "as_of_date": "2026-05-01",
-    "source": "monthly forecast (STALE — 66 days old)",
-    "stale": true
+    "buffer_gap": -449,
+    "as_of_date": "2026-06-29",
+    "source": "Daunte's mid-year financial snapshot (6/29)",
+    "stale": false,
+    "phase": "Phase 2 ACTIVE (savings crossed $3K = $3,117.55 on 6/29; $50/partner closed-deal bonus now live)",
+    "ytd_revenue": 13200,
+    "ytd_net_income": 2600,
+    "profitable_every_month": true,
+    "cash_flow_watch": "June ~$300 in the red on paper (light booking $960 + heavy software renewals) — 2nd negative month while paying $150 guaranteed payments each. ~$2.9K receivables bring it close to flat. Rebuild the cushion; don't dip into savings.",
+    "june_receivables_to_collect": 2900
   },
   "ar_layers": {
     "source_of_record": "HubSpot",
@@ -131,7 +137,7 @@
         }
       ],
       "estimated_remaining_known": 4685,
-      "note": "Sum of FA + HALO + Lois estimates. SEEDFOLKids balance unknown."
+      "note": "Sum of FA + HALO + Lois committed-milestone estimates (SEEDFOLKids balance unknown). Not all due this month — Daunte's 6/29 snapshot puts near-term collectible June work at ~$2.9K. Verify against QuickBooks."
     }
   },
   "pipeline": {
@@ -160,7 +166,7 @@
     "open_decisions": [
       "FA committed new close date — never set (Eli + Daunte + Kenny)",
       "HALO committed new close date — never set (Eli)",
-      "June forecast + Phase 2 confirmation (Daunte — ~5 weeks overdue)",
+      "Formal June close housekeeping: book Rodney's June 5% (~$48) + prior-month revenue-share cleanup (Daunte, first week of July)",
       "Merge Pro + RW Events — final follow-up then keep/kill (Kenny)",
       "TwentyTen close-or-kill (Daunte)",
       "Add Kenny + Eli as formal HubSpot owners",
@@ -183,12 +189,11 @@
       "Compensation framework conversation"
     ]
   },
-  "ai_suggested_move": "Lock in this week's high-likelihood AR: close FA (final ~$2,345 outstanding) and HALO (~$990), and get the June forecast number down.",
-  "ai_suggested_reasoning": "Operating cash is ~$321 under the two-month buffer on May 1 numbers, and no June number exists. FA + HALO are the two nearest AR milestones (~$3,335 combined) and both are Closed Won sitting behind a couple of review steps. Finishing those beats chasing new pipeline. Cash clarity follows the June close.",
+  "ai_suggested_move": "Rebuild the cash cushion: land the ~$2.9K of June receivables and close FA (final ~$2,345) + HALO (~$990). Don't dip into savings.",
+  "ai_suggested_reasoning": "Phase 2 is hit and we're profitable YTD, but June ran ~$300 negative — the 2nd month of negative cash flow while paying $150 guaranteed payments each. Operating is ~$449 under the two-month buffer. The fastest fix is collection, not new pipeline: ~$2.9K of June work is billable now, and FA + HALO (~$3,335 combined) are Closed Won sitting behind a couple of review steps. Finishing those rebuilds the cushion.",
   "drift_signals": [
-    "Forecast 66 days stale — June close + updated numbers still owed from Daunte (~5 weeks overdue)",
+    "June ran ~$300 negative — 2nd consecutive negative cash-flow month while paying guaranteed payments; rebuild the cushion",
     "FA + HALO closes have slipped repeatedly with no committed dates",
-    "Phase 2 savings trigger not yet formally confirmed",
     "WIP violations for 3rd+ consecutive week",
     "Merge Pro + RW Events aging past close date — decide keep/kill",
     "HubSpot owners (Kenny + Eli) still not added",
