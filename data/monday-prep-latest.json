@@ -9,10 +9,10 @@
     "QB": "PENDING (report emails to Daunte's mailbox — local runner)",
     "Git": "OK (bpp-tools; bpp-plugins not visible from this runner)"
   },
-  "north_star": "Sprint 3's final week: convert finished work into cash — the FA final invoice is out, get it paid; Sipsies' close date is 7/14; All State discovery closes 7/16. Then close Sprint 3 honestly on Friday: retro, done/kill/roll on every open item, and set up Sprint 4.",
+  "north_star": "Sprint 3's final week: convert finished work into cash — the FA final invoice is out, get it paid; All State discovery closes 7/16. Sipsies re-dated (client car troubles — follow up week of 7/20). Then close Sprint 3 honestly on Friday: retro, done/kill/roll on every open item, and set up Sprint 4.",
   "suggested_move": {
-    "headline": "Collect the money that's already earned: FA final invoice (~$2,345, sent 7/10), Sipsies ($2,500, closes 7/14), Legacy B's promised July payment ($1,500).",
-    "reasoning": "Operating (~$3,200) is still ~$449 under the two-month buffer after a second negative month. Collection is now one step from cash: invoice sent, agreement out with a close date of tomorrow, and a payment already promised for July. Roughly $6.3K of near-cash rides on follow-through, not new work."
+    "headline": "Collect the FA final invoice (~$2,345, sent 7/10) and price All State at discovery 7/16 — the two live money moves this week.",
+    "reasoning": "Operating (~$3,200) is still ~$449 under the two-month buffer after a second negative month. FA is invoiced and collectible now. Sipsies slipped to late July (client car troubles) and Legacy B asked to wait for his next paycheck (Eli reaches out week of 7/20 — final follow-up), so FA is the one collection fully in our control this week."
   },
   "sprint": {
     "number": 3,
@@ -92,11 +92,11 @@
     "cold_value": 0,
     "note": "All State carries no amount — price it at discovery (7/16). TwentyTen Motors moved to Deal Lost 7/7. Merge Pro + RW Events keep/kill decision open a 3rd week.",
     "deals": [
-      { "name": "Sipsies Lemonade - Custom Package", "owner": "Eli", "stage": "Proposal Sent", "amount": 2500, "close_date": "2026-07-14", "note": "HOT — close date is tomorrow; close or re-date" },
+      { "name": "Sipsies Lemonade - Custom Package", "owner": "Eli", "stage": "Proposal Sent", "amount": 2500, "close_date": "2026-07-14", "note": "RE-DATED 7/13 — client hit car troubles; asked to be contacted 3rd/4th week of July. Eli follows up week of 7/20. Update the HubSpot close date." },
       { "name": "All State", "owner": "Kenny", "stage": "Discovery Scheduled", "amount": null, "close_date": "2026-07-16", "note": "HOT — discovery + AI-layer research; needs a price" },
       { "name": "Merge Pro - New Deal", "owner": "Kenny", "stage": "Proposal Sent", "amount": 4500, "close_date": "2026-06-16", "note": "Past close date — keep/kill this week" },
       { "name": "RW EVENTS - New Deal", "owner": "Kenny", "stage": "Proposal Sent", "amount": 1799, "close_date": "2026-06-22", "note": "Past close date — keep/kill this week" },
-      { "name": "Legacy B. Studio - Website", "owner": "Eli", "stage": "Qualified & Working", "amount": 1500, "close_date": "2026-04-06", "note": "Committed to pay in July — confirm" }
+      { "name": "Legacy B. Studio - Website", "owner": "Eli", "stage": "Qualified & Working", "amount": 1500, "close_date": "2026-04-06", "note": "Asked to wait for his next paycheck — Eli reaches out week of 7/20. FINAL follow-up: if it pushes back again, stop chasing." }
     ]
   },
   "cash": {

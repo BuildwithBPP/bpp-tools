@@ -30,11 +30,11 @@
     "pipeline_cold_count": 0,
     "pipeline_verified_date": "2026-07-13"
   },
-  "cash_flow_watch": "June ran ~$300 in the red on paper — second negative cash-flow month while paying $150 guaranteed payments each. The fix is collection, and it's closer than last week: FA's final invoice is out (~$2,345), Sipsies' close date is 7/14 ($2,500), and Legacy B committed to paying $1,500 in July. Rebuild the cushion; don't dip into savings.",
+  "cash_flow_watch": "June ran ~$300 in the red on paper — second negative cash-flow month while paying $150 guaranteed payments each. The fix is collection: FA's final invoice is out (~$2,345) and is the one collection fully in our control this week. Sipsies slipped to late July (client car troubles) and Legacy B asked to wait for his next paycheck (final follow-up week of 7/20). Rebuild the cushion; don't dip into savings.",
   "ar_scenarios": [
     {"name": "FA final invoice collects", "receivables_in": 2345, "ending_operating": 5545, "highlight": true, "note": "Invoice sent 7/10 — the nearest cash. Puts operating back over the two-month buffer on its own."},
-    {"name": "+ Sipsies closes 7/14", "receivables_in": 4845, "ending_operating": 8045, "note": "Sipsies deposit/first milestone on top (contract $2,500; timing of cash depends on payment plan)."},
-    {"name": "+ HALO + Lois finals", "receivables_in": 7185, "ending_operating": 10385, "note": "HALO final (~$990, closeout 8/8) + Lois final (~$1,350) land as those projects close."}
+    {"name": "+ Sipsies closes late July", "receivables_in": 4845, "ending_operating": 8045, "note": "Client asked to reconnect 3rd/4th week of July (car troubles). Deposit/first milestone on the $2,500 contract lands then, if it closes."},
+    {"name": "+ HALO + Lois finals", "receivables_in": 7185, "ending_operating": 10385, "note": "HALO final (~$990, closeout 8/8) + Lois final (~$1,350) land as those projects close. Legacy B's $1,500 is possible upside — final follow-up week of 7/20."}
   ],
   "phase": {
     "current": "Phase 2",
@@ -92,16 +92,18 @@
   ],
   "whats_new": {
     "ratified_date": "2026-07-13",
-    "headline": "Sprint 3's final week (ends ~7/17). The money earned is one step from the bank: FA's final invoice is out, Sipsies' close date is 7/14, All State discovery is 7/16. Collect, close, then close the sprint honestly on Friday — retro plus a done/kill/roll call on all 10 open items.",
+    "headline": "Sprint 3's final week (ends ~7/17). FA's final invoice is out — collect it; All State discovery is 7/16. Sipsies re-dated to late July (client car troubles). Then close the sprint honestly on Friday — retro plus a done/kill/roll call on all 10 open items.",
     "items": [
       {"label": "FA invoice out", "text": "Final invoice (~$2,345) sent 7/10 with the finished logo pack + business card. Website updates done 7/7. This is the nearest cash in the company — follow it to collection."},
       {"label": "HALO plans delivered", "text": "Both business plan versions complete from BPP's side (7/7); client reviewing through ~7/21. QR code delivered. Board track: BP revision 7/31, closeout 8/8, ~$990 final at the end. Next-steps/upsell conversation is open per Rodney."},
-      {"label": "Pipeline cleaned", "text": "TwentyTen Motors moved to Deal Lost 7/7. 5 open deals, $10,299 priced. Sipsies ($2,500) closes 7/14; All State discovery 7/16. Merge Pro + RW Events keep/kill still owed — third week."},
+      {"label": "Pipeline cleaned", "text": "TwentyTen Motors moved to Deal Lost 7/7. 5 open deals, $10,299 priced. Sipsies ($2,500) re-dated — client car troubles, Eli reconnects week of 7/20. All State discovery 7/16. Legacy B waits for his next paycheck — final follow-up week of 7/20, then we stop chasing. Merge Pro + RW Events keep/kill still owed — third week."},
       {"label": "Sprint 3 ends Friday", "text": "23% done with 5 items past their 7/11 dates and the board untouched for two weeks. Friday needs a real retro and a done/kill/roll decision on every open item, not a quiet rollover into Sprint 4."}
     ]
   },
   "what_changed_recent": [
     "FA final invoice SENT 7/10 (~$2,345) — nearest cash; collection follow-up this week",
+    "Sipsies re-dated 7/13 — client car troubles; reconnect 3rd/4th week of July",
+    "Legacy B waiting on next paycheck — final follow-up week of 7/20, then stop chasing",
     "HALO business plans complete from BPP's side (7/7); client review through ~7/21; closeout track 8/8",
     "TwentyTen Motors moved to Deal Lost 7/7 — pipeline now 5 deals, $10,299",
     "Kenny + Eli appear live as HubSpot deal owners — attribution fix likely done (verify)",
