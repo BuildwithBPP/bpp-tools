@@ -50,7 +50,6 @@
   ],
   "overdue": [
     { "title": "FA MS4 GBP Setup (In Review)", "owner": "Kenny", "due_date": "2026-07-03", "days_overdue": 10 },
-    { "title": "HALO Google Business Profile", "owner": "Eli", "due_date": "2026-07-03", "days_overdue": 10 },
     { "title": "FA Internal Review", "owner": "Daunte", "due_date": "2026-07-07", "days_overdue": 6 },
     { "title": "Lois MS5 Website Audit (In Review)", "owner": "Eli", "due_date": "2026-07-07", "days_overdue": 6 },
     { "title": "FA Client Review", "owner": "Daunte", "due_date": "2026-07-09", "days_overdue": 4 },
@@ -61,7 +60,7 @@
     { "title": "Sprint: Xtremely Clean case study", "owner": "Eli", "due_date": "2026-07-11", "days_overdue": 2 },
     { "title": "Sprint: Pick HubSpot-integrated SMS tool", "owner": "Kenny + Eli", "due_date": "2026-07-11", "days_overdue": 2 }
   ],
-  "overdue_note": "Board statuses are live but the board hasn't been edited since 6/29 — email traffic shows FA is materially ahead of its board state (final invoice sent 7/10). Treat FA's overdue chain as 'update the board', not 'do the work'.",
+  "overdue_note": "Client Delivery board refreshed by Eli 7/13 (HALO GBP done, Lois MS4 in progress, SEEDFOLKids archived). The Ops/sprint board is still untouched since 6/29. FA's overdue chain is partly 'update the board' — email shows the final invoice already went out 7/10.",
   "clients_at_risk": [
     {
       "name": "Financial Acuity",
@@ -71,13 +70,13 @@
     },
     {
       "name": "HALO Commons / Pathways",
-      "flag_reason": "Business plans complete from BPP's side (Rodney, 7/7); client review window through ~7/21. QR code delivered 7/10, warm client response 7/12. GBP task overdue (7/3). Rodney recommends approaching them about next steps — upsell window open. Final ~$990 outstanding.",
+      "flag_reason": "GBP COMPLETE (7/13, board updated). Business plans complete from BPP's side (Rodney, 7/7); business plan completion is now the ONLY open item — client review through ~7/21, revision due 7/31. QR code delivered 7/10, warm client response 7/12. Rodney recommends approaching them about next steps — upsell window open. Final ~$990 outstanding.",
       "owner": "Eli (Rodney on client relationship)",
       "close_target": "BP revision 7/31 · closeout 8/8 (board)"
     },
     {
       "name": "Lois Marketing",
-      "flag_reason": "MS4 Financial Clarity Session (Daunte) due Friday 7/18 and still Not Started — the Chucho reschedule from 6/29 never happened; now the close-gating item. MS5 In Review. MS6 AI Automation due 8/1, scope unclear. Final ~$1,350 outstanding.",
+      "flag_reason": "MS4 Financial Clarity Session (Daunte) moved to In Progress 7/13 — still due Friday 7/18, confirm the Chucho session is actually booked. MS5 In Review. MS6 AI Automation due 8/1, scope unclear. Final ~$1,350 outstanding.",
       "owner": "Daunte (MS4/MS6) + Eli (MS5)",
       "close_target": "closeout 8/8 (board)"
     }
@@ -138,7 +137,7 @@
       "HALO timeline — board now shows BP rev 7/31 / closeout 8/8"
     ],
     "incomplete_commits": [
-      "Chucho / Lois MS4 reschedule (Daunte) — still Not Started, due 7/18",
+      "Chucho / Lois MS4 (Daunte) — In Progress as of 7/13, due Friday 7/18: confirm the session is booked",
       "5 sprint items past 7/11 due dates (referral partners, warm-cash revival, retainer packages, XC case study, SMS tool)"
     ]
   },
@@ -161,7 +160,7 @@
     "batch_note": "HCBCC 'Get Grant Ready' 7/24 (relevant to HALO) · Monday.com switches to AI credits 7/27 (watch plan cost)"
   },
   "drift_signals": [
-    "Monday board untouched for 2 weeks — no longer reflects delivery reality; 5 sprint items blew through 7/11 quietly",
+    "Ops/sprint board untouched since 6/29 (Eli refreshed Client Delivery 7/13) — 5 sprint items blew through 7/11 quietly",
     "Second consecutive week without a live standup (7/10 cancellation) — open decisions rolling instead of resolving",
     "Cash numbers 14 days old; formal June close unconfirmed",
     "WIP violations, 4th consecutive week — enforce the rule or retire it",

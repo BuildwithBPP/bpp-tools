@@ -60,9 +60,9 @@
       "owner": "Eli",
       "owner_color": "eli",
       "phase": "Client Review",
-      "next_milestone": "Business plans complete from BPP's side, both versions (Rodney, 7/7) — client has a 2-week review window through ~7/21. QR code delivered 7/10. Board timeline: BP revision 7/31, closeout 8/8. GBP setup still owed (was due 7/3).",
+      "next_milestone": "GBP COMPLETE (7/13). Business plans complete from BPP's side, both versions (Rodney, 7/7) — the business plan completion (client review through ~7/21, revision due 7/31) is now the ONLY thing outstanding. QR code delivered 7/10. Closeout 8/8.",
       "at_risk": false,
-      "risk_note": "~$990 final outstanding, collectible at closeout (8/8 track). Rodney recommends opening the next-steps/upsell conversation now."
+      "risk_note": "~$990 final outstanding, collectible at closeout (8/8 track). Everything but the business plan is done — Rodney recommends opening the next-steps/upsell conversation now."
     },
     {
       "name": "Lois Marketing",
@@ -70,9 +70,9 @@
       "owner": "Eli/Daunte/Kenny",
       "owner_color": "eli",
       "phase": "Build → Review",
-      "next_milestone": "MS-4 Financial Clarity Session (Daunte) due Friday 7/18 and still Not Started — the Chucho reschedule never happened; now the close-gating item. MS-5 Website Audit (Eli) in review. MS-6 AI Automation due 8/1, scope unclear. Closeout 8/8.",
+      "next_milestone": "MS-4 Financial Clarity Session (Daunte) moved to In Progress 7/13, due Friday 7/18 — confirm the Chucho session is booked. MS-5 Website Audit (Eli) in review. MS-6 AI Automation due 8/1, scope unclear. Closeout 8/8.",
       "at_risk": true,
-      "risk_note": "WATCH — MS-4 blows its date Friday unless the Chucho session gets scheduled this week. ~$1,350 final gated behind it."
+      "risk_note": "WATCH — MS-4 is due Friday; in progress but the session needs to actually happen. ~$1,350 final gated behind it."
     },
     {
       "name": "SEEDFOLKids",
@@ -80,7 +80,7 @@
       "owner": "Daunte/Eli",
       "owner_color": "eli",
       "phase": "Closeout",
-      "next_milestone": "Project closed 6/9. Honey-store training guide delivered and praised. Retainer pitch ($350/mo) sent to Diana — no response yet; one more follow-up then let it rest. Daunte's QB consulting deliverable still shows In Progress on the board with a May timeline — confirm or close it.",
+      "next_milestone": "Project closed 6/9; board block archived 7/13. Honey-store training guide delivered and praised. Retainer pitch ($350/mo) sent to Diana — no response yet; one more follow-up then let it rest.",
       "at_risk": false,
       "risk_note": "Retainer pitch is the recurring-revenue play — awaiting Diana's response."
     }
@@ -104,11 +104,12 @@
     "FA final invoice SENT 7/10 (~$2,345) — nearest cash; collection follow-up this week",
     "Sipsies re-dated 7/13 — client car troubles; reconnect 3rd/4th week of July",
     "Legacy B waiting on next paycheck — final follow-up week of 7/20, then stop chasing",
-    "HALO business plans complete from BPP's side (7/7); client review through ~7/21; closeout track 8/8",
+    "HALO GBP complete (7/13) — business plan completion is now the only open HALO item; client review through ~7/21; closeout track 8/8",
     "TwentyTen Motors moved to Deal Lost 7/7 — pipeline now 5 deals, $10,299",
     "Kenny + Eli appear live as HubSpot deal owners — attribution fix likely done (verify)",
     "Weekly Business Meeting canceled 7/10 — second async week; open decisions rolling",
-    "Lois MS-4 (Chucho financial clarity) due 7/18, still Not Started — close-gating",
+    "Lois MS-4 (Chucho financial clarity) in progress as of 7/13, due Friday 7/18 — confirm the session is booked",
+    "Client Delivery board refreshed 7/13: HALO GBP done, SEEDFOLKids block archived",
     "Sprint 3 ends ~7/17 at 23% done — retro + Sprint 4 planning owed Friday",
     "Marketing SOP live with 7 Loom walkthroughs; HALO 501(c)(3) lessons doc added to the Hub"
   ]
