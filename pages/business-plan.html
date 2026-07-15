@@ -116,6 +116,13 @@
 
   /* MILESTONE FLOW */
   .ms-flow{display:flex;gap:8px;margin-top:18px;overflow-x:auto;padding-bottom:8px;}
+  @media print {
+    .page-subnav{display:none!important;}
+    .ms-flow,.trigger-flow,.subnav-tabs,.revchart-bars{overflow:visible!important;flex-wrap:wrap!important;}
+    .ms-step{min-width:0!important;}
+    .plan-main section{page-break-inside:avoid;}
+    body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
   .ms-step{flex:1;min-width:200px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;border-top:4px solid var(--gold);position:relative;}
   .ms-q{font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;color:var(--gold-dark);margin-bottom:8px;}
   .ms-text{font-size:12.5px;color:var(--ink-soft);line-height:1.55;}
@@ -176,13 +183,13 @@
 <!-- HERO -->
 <section class="plan-hero" id="top">
   <div class="plan-hero-inner">
-    <div class="ph-eyebrow">Business Plan · 2026–2028 · Internal Edition · Anchored on H1 2026 Actuals</div>
-    <h1>A profitable, $13K foundation — budgeted into a <span class="accent">$400K run-rate by 2028.</span></h1>
-    <p class="ph-lede">This is the honest plan. We are small and profitable today. We sell growth-stage businesses a productized system that helps them <em style="color:var(--gold);">close more deals, plug the money leaks they can't see, and grow without the owner as the bottleneck</em>, across three tiers with recurring care retainers as the compounding engine. The numbers below start from real first-half actuals and budget forward. No hockey sticks, no single client carrying the plan.</p>
+    <div class="ph-eyebrow">Business Plan · 2026–2028 · Internal Edition · Anchored on 2026 Actuals Through July 14</div>
+    <h1>A small, real, profitable foundation — budgeted honestly to <span class="accent">~$160K by 2028.</span></h1>
+    <p class="ph-lede">This is the honest plan. We sell growth-stage businesses a productized system that helps them <em style="color:var(--gold);">close more deals, plug the money leaks they can't see, and grow without the owner as the bottleneck</em>, across a four-package ladder. Every number below starts from real QuickBooks actuals through July 14 and budgets forward against the named pipeline at approved prices. No hockey sticks, no single client carrying the plan.</p>
     <div class="hero-stats">
-      <div class="hs-card"><div class="hs-label">2026 H1 Actual</div><div class="hs-value">$13.2K</div><div class="hs-detail">Revenue · profitable every month</div></div>
-      <div class="hs-card"><div class="hs-label">Net Income YTD</div><div class="hs-value">$2.6K</div><div class="hs-detail">~20% net margin · cash $6.4K</div></div>
-      <div class="hs-card"><div class="hs-label">2028 Target (Base)</div><div class="hs-value">~$406K</div><div class="hs-detail">~$400K annual run-rate exiting 2028</div></div>
+      <div class="hs-card"><div class="hs-label">2026 Actual · thru Jul 14</div><div class="hs-value">$15.1K</div><div class="hs-detail">Revenue · profitable YTD (Mar &amp; Jun down)</div></div>
+      <div class="hs-card"><div class="hs-label">Net Income YTD</div><div class="hs-value">$3.3K</div><div class="hs-detail">22% net margin · cash $8.1K</div></div>
+      <div class="hs-card"><div class="hs-label">2028 Base Target</div><div class="hs-value">~$160K</div><div class="hs-detail">Base case; upside ~$300K</div></div>
       <div class="hs-card"><div class="hs-label">Comp Status</div><div class="hs-value">Phase 2</div><div class="hs-detail">Savings crossed $3K · deal bonus live</div></div>
     </div>
   </div>
@@ -194,18 +201,18 @@
 <section id="actuals">
   <div class="section-eyebrow">The Honest Starting Line</div>
   <h2>Where we actually are, mid-2026</h2>
-  <p class="section-desc">Through June 29, 2026 (cash basis), BPP has booked ~$13.2K in revenue and ~$2.6K in net income, and has been profitable every month. The earlier strategic plan aimed at $150–185K for 2026. The actual first-half run-rate does not support that, and this plan does not pretend it does. Instead we budget forward from real actuals.</p>
+  <p class="section-desc">Through July 14, 2026 (cash basis), BPP has booked ~$15.1K in revenue and ~$3.3K in net income, a 22% margin. It is profitable overall, but <strong>not every month</strong>: March and June were loss months, and revenue has trended down. The earlier plan aimed at $150–185K for 2026; the actuals do not support that, so this plan budgets forward from what the pipeline can close at approved prices.</p>
   <table class="ptable">
-    <thead><tr><th>Metric</th><th>Actual (Jan 1 – Jun 29, 2026)</th></tr></thead>
+    <thead><tr><th>Metric</th><th>Actual (Jan 1 – Jul 14, 2026, cash basis)</th></tr></thead>
     <tbody>
-      <tr><td>Revenue YTD</td><td>~$13,200 &nbsp;(Q1 $7,259 + Q2 $5,941)</td></tr>
-      <tr><td>Net income YTD</td><td>~$2,600 &nbsp;(profitable every month)</td></tr>
-      <tr><td>Cash on hand</td><td>~$6,400 &nbsp;($3,200 operating + $3,118 savings)</td></tr>
-      <tr><td>A/R inbound</td><td>~$2,900 &nbsp;(June work to collect)</td></tr>
-      <tr><td>June bookings</td><td>$960 &nbsp;(light month; ~$300 paper loss)</td></tr>
+      <tr><td>Revenue YTD</td><td>~$15,053 &nbsp;(Jan–Jun $13,163 + Jul 1–14 $1,890)</td></tr>
+      <tr><td>Net income YTD</td><td>~$3,338 &nbsp;(22.2% margin; <strong>Mar −$331 and Jun −$334 were losses</strong>)</td></tr>
+      <tr><td>Cash + undeposited</td><td>$8,132 &nbsp;(incl. $3,118 savings reserve)</td></tr>
+      <tr><td>A/R</td><td>$1,793</td></tr>
+      <tr><td>Monthly trend</td><td>~$2.5K/mo (Jan–May) → $960 (Jun) → ~$1K/mo, declining</td></tr>
     </tbody>
   </table>
-  <div class="callout"><p><strong>The reframe.</strong> This plan replaces the aspirational "$150–185K in 2026" with a re-anchored Base case of ~$63K for 2026 that the actuals actually support, then a real scaling story across 2027–2028 as the productized model and recurring layer take hold. <em>Reality first, ambition second.</em></p></div>
+  <div class="callout"><p><strong>The reframe.</strong> The re-based <strong>Base is ~$26K for 2026</strong> (the $15.1K already booked plus a pipeline-tested ~$11K in H2 at approved prices). The old aspirational ~$63K is now the <strong>upside</strong> case. Reaching $63K would need ~$8.6K/month for the rest of the year against a current run-rate near $1K/month. <em>Reality first, ambition second.</em></p></div>
 </section>
 
 <!-- LADDER -->
@@ -253,97 +260,93 @@
 <!-- SCENARIOS -->
 <section id="scenarios">
   <div class="section-eyebrow">The Numbers · 3 Scenarios</div>
-  <h2>Budgeted forward from $13.2K H1 actual</h2>
-  <p class="section-desc">Three scenarios bracket the range. The Base case is the plan of record and reaches a ~$400K annual run-rate exiting 2028 — the strategic plan's destination, re-paced to honor a slow first half.</p>
+  <h2>Budgeted forward from $15.1K actual, tested against the pipeline</h2>
+  <p class="section-desc">Three scenarios bracket the range, all starting from the $15.1K already booked through July 14. The Base is pipeline-tested at <strong>approved</strong> prices (Launch Pad $1,799, Operator $4,500). The old ~$63K plan is now the High/upside case. Net income is shown rather than margin, because margins run high on a lean owner-operated base (see the P&amp;L note).</p>
   <div class="scn-grid">
     <div class="scn">
-      <div class="scn-tag">Low · Conservative</div><div class="scn-sub">Slow ramp · Operator held at $4,500 · recurring carries it</div>
-      <div class="scn-row big"><span>2026</span><span>$34K</span></div>
-      <div class="scn-row big"><span>2027</span><span>$127K</span></div>
-      <div class="scn-row big"><span>2028</span><span>$228K</span></div>
-      <div class="scn-row"><span>2028 net margin</span><span>25%</span></div>
-      <div class="scn-row"><span>Exit run-rate (ARR)</span><span>~$118K</span></div>
+      <div class="scn-tag">Low · Conservative</div><div class="scn-sub">Collections + 1–2 closes; H2 ~$6K</div>
+      <div class="scn-row big"><span>2026</span><span>$21K</span></div>
+      <div class="scn-row big"><span>2027</span><span>$50K</span></div>
+      <div class="scn-row big"><span>2028</span><span>$100K</span></div>
+      <div class="scn-row"><span>2026 net income</span><span>~$1.7K</span></div>
+      <div class="scn-row"><span>2028 net income</span><span>~$63K</span></div>
     </div>
     <div class="scn base">
-      <div class="scn-tag">Base · Plan of Record</div><div class="scn-sub">H2 engine turns on · Operator $5,500 · 45% retainer attach</div>
-      <div class="scn-row big"><span>2026</span><span>$63K</span></div>
-      <div class="scn-row big"><span>2027</span><span>$211K</span></div>
-      <div class="scn-row big"><span>2028</span><span>$406K</span></div>
-      <div class="scn-row"><span>2028 net margin</span><span>30%</span></div>
-      <div class="scn-row"><span>Exit run-rate (ARR)</span><span>~$262K</span></div>
+      <div class="scn-tag">Base · Plan of Record</div><div class="scn-sub">Pipeline-tested at approved prices; H2 ~$11K</div>
+      <div class="scn-row big"><span>2026</span><span>$26K</span></div>
+      <div class="scn-row big"><span>2027</span><span>$80K</span></div>
+      <div class="scn-row big"><span>2028</span><span>$160K</span></div>
+      <div class="scn-row"><span>2026 net income</span><span>~$5.3K</span></div>
+      <div class="scn-row"><span>2028 net income</span><span>~$107K</span></div>
     </div>
     <div class="scn high">
-      <div class="scn-tag">High · Upside</div><div class="scn-sub">Fast recurring build · market-correct AI Ops retainer · pulls hiring forward</div>
-      <div class="scn-row big"><span>2026</span><span>$91K</span></div>
-      <div class="scn-row big"><span>2027</span><span>$360K</span></div>
-      <div class="scn-row big"><span>2028</span><span>$707K</span></div>
-      <div class="scn-row"><span>2028 net margin</span><span>30%</span></div>
-      <div class="scn-row"><span>Exit run-rate (ARR)</span><span>~$549K</span></div>
+      <div class="scn-tag">High · Upside (= old Base)</div><div class="scn-sub">Pipeline converts + proposed prices adopted; H2 ~$45K</div>
+      <div class="scn-row big"><span>2026</span><span>$60K</span></div>
+      <div class="scn-row big"><span>2027</span><span>$150K</span></div>
+      <div class="scn-row big"><span>2028</span><span>$300K</span></div>
+      <div class="scn-row"><span>2026 net income</span><span>~$34K</span></div>
+      <div class="scn-row"><span>2028 net income</span><span>~$213K</span></div>
     </div>
   </div>
 </section>
 
 <!-- REVENUE CHART -->
 <section id="revenue">
-  <div class="section-eyebrow">Revenue Composition · Base Case</div>
-  <h2>The shift from project work to recurring revenue</h2>
-  <p class="section-desc">Each bar splits revenue three ways. By 2028, recurring MRR (green) is the largest slice — the business has moved off the project treadmill onto a compounding base. Heights are to scale (2028 = $406K).</p>
+  <div class="section-eyebrow">Revenue Trajectory · Base Case</div>
+  <h2>From a $15K real base to ~$160K, honestly paced</h2>
+  <p class="section-desc">Total revenue by year, Base case, to scale (2028 = $160K). 2026 is mostly already booked; the growth in 2027–2028 assumes the productized ladder and the referral-partner engine actually take hold. This is a build from a small base, not a leap.</p>
   <div class="revchart">
     <div class="revchart-bars">
       <div class="revbar-col">
-        <div class="revbar-total">$63K</div>
-        <div class="revbar-stack" style="height:46px;">
-          <div class="revbar-seg project" style="height:62%;"></div>
-          <div class="revbar-seg install" style="height:27%;"></div>
-          <div class="revbar-seg mrr" style="height:11%;"></div>
+        <div class="revbar-total">$26K</div>
+        <div class="revbar-stack" style="height:49px;">
+          <div class="revbar-seg" style="height:100%;background:var(--blue);"></div>
         </div>
-        <div class="revbar-label"><div class="revbar-year">2026</div><div class="revbar-note">Re-anchored</div></div>
+        <div class="revbar-label"><div class="revbar-year">2026</div><div class="revbar-note">Pipeline-tested</div></div>
       </div>
       <div class="revbar-col">
-        <div class="revbar-total">$211K</div>
-        <div class="revbar-stack" style="height:156px;">
-          <div class="revbar-seg project" style="height:34%;"></div>
-          <div class="revbar-seg install" style="height:28%;"></div>
-          <div class="revbar-seg mrr" style="height:38%;"></div>
+        <div class="revbar-total">$80K</div>
+        <div class="revbar-stack" style="height:150px;">
+          <div class="revbar-seg" style="height:100%;background:var(--gold-dark);"></div>
         </div>
-        <div class="revbar-label"><div class="revbar-year">2027</div><div class="revbar-note">Scale year</div></div>
+        <div class="revbar-label"><div class="revbar-year">2027</div><div class="revbar-note">Ladder scales</div></div>
       </div>
       <div class="revbar-col">
-        <div class="revbar-total">$406K</div>
+        <div class="revbar-total">$160K</div>
         <div class="revbar-stack" style="height:300px;">
-          <div class="revbar-seg project" style="height:25%;"></div>
-          <div class="revbar-seg install" style="height:28%;"></div>
-          <div class="revbar-seg mrr" style="height:47%;"></div>
+          <div class="revbar-seg" style="height:100%;background:var(--green);"></div>
         </div>
-        <div class="revbar-label"><div class="revbar-year">2028</div><div class="revbar-note">Recurring-led</div></div>
+        <div class="revbar-label"><div class="revbar-year">2028</div><div class="revbar-note">Base target</div></div>
       </div>
     </div>
     <div class="revlegend">
-      <div class="revleg"><div class="revsw" style="background:var(--blue);"></div> Project (Engine 1)</div>
-      <div class="revleg"><div class="revsw" style="background:var(--gold);"></div> AI Install (Engine 2 one-time)</div>
-      <div class="revleg"><div class="revsw" style="background:var(--green);"></div> Recurring MRR (Engine 2)</div>
+      <div class="revleg"><div class="revsw" style="background:var(--blue);"></div> 2026 (mostly booked)</div>
+      <div class="revleg"><div class="revsw" style="background:var(--gold-dark);"></div> 2027 forecast</div>
+      <div class="revleg"><div class="revsw" style="background:var(--green);"></div> 2028 forecast</div>
     </div>
   </div>
 </section>
 
 <!-- P&L -->
 <section id="pnl">
-  <div class="section-eyebrow">Projected P&amp;L · Base Case</div>
-  <h2>Profitable in every year, margin holds as owners get paid</h2>
-  <p class="section-desc">Gross margin holds 70–75%. Net margin stays 27–30% even as profit grows, because owner draws scale with the business (profit-share begins once the comp plan clears Phase 3). Full statements, balance sheet, and cash flow are in the financial model workbook.</p>
+  <div class="section-eyebrow">Projected P&amp;L · Base Case · Formula-driven</div>
+  <h2>Highly profitable on a lean, owner-operated base</h2>
+  <p class="section-desc">Real COGS is ~7% (Rodney's contractual 5% advisor share plus software reimbursables), so gross margin runs ~93%, matching the actuals. Net margins look high (60%+ in the out-years) for one honest reason: <strong>owner compensation is intentionally held to $150/month per partner</strong> ($5,400/yr recurring guaranteed payments) while the business is built. Net income is owner-available profit, taken as distributions, not wages. There is no income-tax line (pass-through; owners reserve personally). Full formula-driven statements are in the model workbook.</p>
   <table class="ptable">
-    <thead><tr><th>Line</th><th>2026</th><th>2027</th><th>2028</th></tr></thead>
+    <thead><tr><th>Line (Base)</th><th>2026</th><th>2027</th><th>2028</th></tr></thead>
     <tbody>
-      <tr class="total"><td>Revenue</td><td>$62,684</td><td>$210,948</td><td>$406,403</td></tr>
-      <tr><td>Direct Costs</td><td>15,671</td><td>59,066</td><td>121,921</td></tr>
-      <tr><td>Gross Profit</td><td>47,013</td><td>151,883</td><td>284,482</td></tr>
-      <tr><td>Gross Margin</td><td>75%</td><td>72%</td><td>70%</td></tr>
-      <tr><td>Operating Expenses</td><td>25,895</td><td>82,424</td><td>135,798</td></tr>
-      <tr><td>Operating Income</td><td>21,118</td><td>69,459</td><td>148,684</td></tr>
-      <tr><td>Income Tax Reserve (18%)</td><td>3,801</td><td>12,503</td><td>26,763</td></tr>
-      <tr class="total"><td>Net Profit</td><td>$17,317</td><td>$56,956</td><td>$121,921</td></tr>
-      <tr><td>Net Margin</td><td>28%</td><td>27%</td><td>30%</td></tr>
-      <tr><td>Cash, end of year</td><td>$19,080</td><td>$69,370</td><td>$178,692</td></tr>
+      <tr class="total"><td>Revenue</td><td>$26,053</td><td>$80,000</td><td>$160,000</td></tr>
+      <tr><td>COGS (Rodney 5% + software reimb.)</td><td>1,798</td><td>5,520</td><td>11,040</td></tr>
+      <tr><td>Gross Profit</td><td>24,255</td><td>74,480</td><td>148,960</td></tr>
+      <tr><td>Gross Margin</td><td>93%</td><td>93%</td><td>93%</td></tr>
+      <tr><td>Recurring Partners Guaranteed Payments</td><td>3,400</td><td>5,400</td><td>5,400</td></tr>
+      <tr><td>Performance-Based Guaranteed Payments</td><td>600</td><td>2,400</td><td>3,600</td></tr>
+      <tr><td>Software, marketing, other, contractor</td><td>15,000</td><td>19,000</td><td>33,000</td></tr>
+      <tr><td>Total Operating Expenses</td><td>19,000</td><td>26,800</td><td>42,000</td></tr>
+      <tr><td>Operating Income</td><td>5,255</td><td>47,680</td><td>106,960</td></tr>
+      <tr class="total"><td>Net Income (owner-available)</td><td>$5,315</td><td>$47,740</td><td>$107,020</td></tr>
+      <tr><td>Net Margin</td><td>20%</td><td>60%</td><td>67%</td></tr>
+      <tr><td>Cash, end of year (after distributions)</td><td>~$8,800</td><td>~$28,700</td><td>~$68,300</td></tr>
     </tbody>
   </table>
 </section>
@@ -352,7 +355,7 @@
 <section id="pricing">
   <div class="section-eyebrow">Pricing · Research-Backed</div>
   <h2>We are at-market to underpriced — the upside is on the high tiers</h2>
-  <p class="section-desc">Independent 2025–2026 pricing research benchmarked every tier. The clearest revenue levers: adopt Operator at $5,500 (overdue) and raise the AI Operations Care retainer toward the market-correct $2,500–3,500. These are board recommendations, not unilateral changes.</p>
+  <p class="section-desc"><strong>Approved today (ratified): Launch Pad $1,799 and Operator $4,500.</strong> Everything else on this page — the $5,500 Operator, the tiered care retainers, the Growth &amp; AI Pilot, and Scale $10–15K — is <strong>proposed</strong>, pending a team decision. Independent 2025–2026 research says the clearest revenue levers are adopting Operator at $5,500 (overdue) and raising the AI Operations Care retainer toward $2,500–3,500. Recommendations, not unilateral changes.</p>
   <table class="ptable">
     <thead><tr><th>Item</th><th>Current / Proposed</th><th>Market Verdict</th><th>Plan Treatment</th></tr></thead>
     <tbody>
@@ -397,7 +400,7 @@
   <p class="section-desc">Harden the AI workforce and tools so they are client-ready, build the lead-gen machine, land the first flagship case study, and turn on the recurring engine.</p>
   <div class="ms-flow">
     <div class="ms-step"><div class="ms-q">Q3 2026</div><div class="ms-text">Ship the AI Proposal Agent UI. Launch the Resource Library + first 4 lead magnets. Run all 3 case-study discovery conversations. First care retainers signed.</div></div>
-    <div class="ms-step"><div class="ms-q">Q4 2026</div><div class="ms-text">Publish the first flagship case study. Deliver the first Scale System install. Recurring MRR crosses ~$2.8K/mo (Base).</div></div>
+    <div class="ms-step"><div class="ms-q">Q4 2026</div><div class="ms-text">Close the H2 pipeline (Felicia Russell, Sipsy's, Legacy B) at approved prices. Publish the first case study. Land the re-based ~$26K for the year.</div></div>
     <div class="ms-step"><div class="ms-q">Q1 2027</div><div class="ms-text">All lead-gen channels live and measured. Recurring MRR compounding. First contractor/VA hire as MRR clears its trigger.</div></div>
     <div class="ms-step"><div class="ms-q">Q2 2027</div><div class="ms-text">Operator price decision implemented. Retainer pricing finalized and in proposals. Second case study published.</div></div>
   </div>
@@ -418,6 +421,7 @@
       <div class="risk"><div class="risk-name">4 · Care-retainer churn &gt;20% in 6 months</div><div class="risk-trig"><strong>Trigger:</strong> re-scope and re-price; fix the value framing behind "$500 resistance."</div></div>
       <div class="risk"><div class="risk-name">5 · Founder-delivery trap</div><div class="risk-trig"><strong>Trigger:</strong> if an owner spends &gt;50% of BPP hours on bespoke install work, pause install sales and tighten the playbook.</div></div>
       <div class="risk"><div class="risk-name">6 · Commoditization clock</div><div class="risk-trig"><strong>Mitigation:</strong> assume the entry-tier floor keeps dropping; lean toward Operator, Scale, recurring, and local/vertical depth.</div></div>
+      <div class="risk"><div class="risk-name">7 · Wellness floor breach</div><div class="risk-trig"><strong>Trigger:</strong> owners run BPP alongside other jobs and real personal load. If an owner reports zero days off in a month, or capacity flags red, pause new sales targets, close existing pipeline only, and do not add load to a fragile system.</div></div>
     </div>
   </div>
 </section>
@@ -446,7 +450,7 @@
     <div class="orow"><div class="onum">2</div><div><div class="otitle">AI Operations Care retainer — raise toward $2,500–3,500?</div><div class="odesc">The single biggest revenue lever in the model. Daunte + Kenny.</div></div></div>
     <div class="orow"><div class="onum">3</div><div><div class="otitle">Add a ~$750–1,000 mid-tier retainer?</div><div class="odesc">Bridges the wide $500 → $1,500 gap. Eli + Kenny.</div></div></div>
     <div class="orow"><div class="onum">4</div><div><div class="otitle">Add 3-month minimums + tiered SLAs to retainers?</div><div class="odesc">Research flagged both as below market norm. Eli + Daunte.</div></div></div>
-    <div class="orow"><div class="onum">5</div><div><div class="otitle">Adopt the re-anchored ~$63K Base as the 2026 plan of record?</div><div class="odesc">Replaces the older $150–185K aim the actuals don't support. All three.</div></div></div>
+    <div class="orow"><div class="onum">5</div><div><div class="otitle">Adopt the re-based ~$26K Base as the 2026 plan of record?</div><div class="odesc">Pipeline-tested at approved prices; replaces the older $150–185K aim. The ~$63K is the upside case. All three.</div></div></div>
   </div>
 </section>
 
