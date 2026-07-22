@@ -193,6 +193,19 @@
   .grp-t { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 800; color: var(--navy); letter-spacing: -0.2px; }
   .grp-s { font-size: 11.5px; color: var(--gray); margin-top: 3px; line-height: 1.5; }
 
+  /* JUMPSTART TIERS */
+  .jt { margin: 0 24px 14px; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+  .jt-row { padding: 13px 16px; border-bottom: 1px solid var(--rule); }
+  .jt-row:last-child { border-bottom: none; }
+  .jt-row.jt-top { background: #fdf9f0; }
+  .jt-h { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; margin-bottom: 3px; }
+  .jt-n { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #8a6a1a; background: #fdf3e0; padding: 2px 7px; border-radius: 3px; }
+  .jt-name { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 800; color: var(--navy); }
+  .jt-p { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 800; color: var(--navy); margin-left: auto; }
+  .jt-w { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #b8862a; margin-bottom: 5px; }
+  .jt-b { font-size: 12px; color: var(--gray); line-height: 1.55; }
+  .jt-b em { color: var(--navy); font-style: italic; }
+
   /* SUMMARY TABLE */
   .sum-wrap { border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; margin-bottom: 22px; }
   .sum-head { background: var(--navy); color: #fff; padding: 11px 20px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
@@ -261,7 +274,7 @@
   <div class="sum-wrap">
     <div class="sum-head">
       <span class="t">Everything at a glance</span>
-      <span class="s">Five ways in, one path up. Full detail on each below.</span>
+      <span class="s">Three entry tiers, three build tiers. Full detail on each below.</span>
     </div>
     <div class="sum-scroll">
       <table class="sum">
@@ -277,19 +290,27 @@
         </thead>
         <tbody>
           <tr>
-            <td><span class="p-name">AI Jumpstart</span><span class="p-tier">On-ramp &middot; Coaching</span></td>
-            <td>Solo or micro owner who wants to learn AI themselves. Also existing clients we want to grow.</td>
-            <td><span class="p-price">$599 / $1,999</span><span class="p-sub">Setup / Next Level</span></td>
-            <td>90 min, or 3&ndash;4 sessions</td>
-            <td>Next Level fee credits to Sprint or Launch Pad</td>
+            <td><span class="p-name">AI Jumpstart: Setup</span><span class="p-tier">Entry &middot; Tier 1 &middot; We teach, they do</span></td>
+            <td>Curious solo or micro owner who wants to stop guessing and get started.</td>
+            <td><span class="p-price">$599</span><span class="p-sub">One session</span></td>
+            <td>90 minutes</td>
+            <td>No credit (the taste)</td>
             <td><span class="badge prop">Proposed</span></td>
           </tr>
           <tr>
-            <td><span class="p-name">AI Pilot Sprint</span><span class="p-tier">Entry point &middot; De-risk</span></td>
-            <td>Scale-sized buyer who wants proof before committing. Cautious, or burned before.</td>
+            <td><span class="p-name">AI Jumpstart: Workflows</span><span class="p-tier">Entry &middot; Tier 2 &middot; We build together</span></td>
+            <td>Owner who wants it working and wants to understand how it works.</td>
+            <td><span class="p-price">$1,999</span><span class="p-sub">3&ndash;4 sessions</span></td>
+            <td>3&ndash;4 sessions</td>
+            <td>Fee credits into any build</td>
+            <td><span class="badge prop">Proposed</span></td>
+          </tr>
+          <tr>
+            <td><span class="p-name">AI Jumpstart: Pilot</span><span class="p-tier">Entry &middot; Tier 3 &middot; We do it for them</span></td>
+            <td>Larger or skeptical buyer who wants proof on their own business first.</td>
             <td><span class="p-price">$2,997</span><span class="p-sub">Fixed price</span></td>
             <td>~2 weeks</td>
-            <td>50% into Scale</td>
+            <td>50% into Scale or Operator</td>
             <td><span class="badge prop">Proposed</span></td>
           </tr>
           <tr class="row-div">
@@ -341,64 +362,20 @@
 
     <div class="grp">
       <div class="grp-t">Try before you build</div>
-      <div class="grp-s">Low commitment, fast proof. Both credit into a build, so nothing they spend here is wasted.</div>
+      <div class="grp-s">Low commitment, fast proof. One product line with three tiers, and Tiers 2 and 3 credit into a build, so nothing they spend here is wasted.</div>
     </div>
 
-    <!-- AI JUMPSTART (ON-RAMP) -->
+    <!-- AI JUMPSTART: THREE TIERS -->
     <div class="pkg pkg-jumpstart">
       <div class="pkg-header">
         <div>
-          <div class="pkg-eyebrow">On-ramp: AI Jumpstart · Coaching, not a build</div>
-          <div class="pkg-name">Learn to run your busywork on AI</div>
-          <div class="pkg-who">Solo/micro owner, DIY type, or an existing client we want to grow</div>
+          <div class="pkg-eyebrow">Entry point: AI Jumpstart &middot; Three tiers</div>
+          <div class="pkg-name">Get them running on AI, at whatever depth they are ready for</div>
+          <div class="pkg-who">One product line, three levels. The only thing that changes is how much we do for them.</div>
         </div>
         <div style="text-align:right;">
-          <span class="pkg-price">$599 / $1,999</span>
-          <div class="pkg-timeline">90 min · or 3–4 sessions</div>
-        </div>
-      </div>
-      <div class="coverage">
-        <div class="cov-pill active">Attract &amp; close</div>
-        <div class="cov-pill cov-inactive">Deliver &amp; serve</div>
-        <div class="cov-pill cov-inactive">See &amp; decide</div>
-      </div>
-      <div class="say-box">
-        <div class="section-label">Say this</div>
-        <div class="say-line">"Want to learn to run your busywork on AI yourself? In a few sessions I'll show you how to use AI for your proposals, emails, scheduling, and pricing, so the stuff that eats your nights takes minutes instead."</div>
-        <div class="listen"><strong>Listen for:</strong> solo or micro owner · DIY type · price-sensitive · "I just want to figure this AI stuff out" · an existing client we want to grow.</div>
-      </div>
-      <div class="pkg-body single-col">
-        <div>
-          <div class="section-label">What's included</div>
-          <ul class="deliverables">
-            <li><strong>Setup ($599):</strong> one 90-minute 1:1 working session on their real tasks</li>
-            <li><strong>Next Level ($1,999):</strong> 3–4 sessions building real workflows together</li>
-            <li>A written cheat sheet they keep, built around their own business</li>
-            <li>30 days of support after the final session (Next Level only)</li>
-          </ul>
-        </div>
-      </div>
-      <div class="outcome-box">
-        <strong>Outcome</strong>
-        They stop losing hours to busywork and get that time back to sell. It's also the cheapest way for a skeptical owner to prove AI is worth it, which opens the door to us building it for them.
-      </div>
-      <div class="note-box">
-        <strong>This is the front door.</strong> When they see it work and want it built for real, the <strong>Next Level fee credits toward an AI Pilot Sprint or Launch Pad</strong>. Always plant that seed.<br>
-        <strong>Price status:</strong> proposed, pending team ratification. Pilot it with existing clients (HALO, Financial Acuity, Wanda) first. Note: the $599 intro is the one package <strong>excluded</strong> from the referral program.
-      </div>
-    </div>
-
-    <!-- AI PILOT SPRINT (ENTRY POINT) -->
-    <div class="pkg pkg-pilot">
-      <div class="pkg-header">
-        <div>
-          <div class="pkg-eyebrow">Entry point: AI Pilot Sprint · De-risk the big build</div>
-          <div class="pkg-name">Prove one automation pays off before going all-in</div>
-          <div class="pkg-who">Scale-sized buyer who wants proof first · Cautious, or burned by consultants before</div>
-        </div>
-        <div style="text-align:right;">
-          <span class="pkg-price">$2,997</span>
-          <div class="pkg-timeline">~2 weeks · Fixed price</div>
+          <span class="pkg-price">$599 to $2,997</span>
+          <div class="pkg-timeline">90 minutes to 2 weeks</div>
         </div>
       </div>
       <div class="coverage">
@@ -408,27 +385,34 @@
       </div>
       <div class="say-box">
         <div class="section-label">Say this</div>
-        <div class="say-line">"Not ready to commit to a big build? Let's prove it first. Pick your single biggest headache. We solve it in two weeks, you see the ROI with your own eyes, then you decide."</div>
-        <div class="listen"><strong>Listen for:</strong> Scale-sized buyer ($1.5M+) who's cautious · "prove it to me" · burned by consultants before · wants a small first step. &nbsp;<strong>The money:</strong> de-risks the decision. A fraction of Scale, a measurable win on a real problem, and it credits toward the full thing. <strong>Lead with the Sprint whenever a big buyer hesitates. Proof beats persuasion.</strong></div>
+        <div class="say-line">"Let's get AI actually working on your busywork. We can do that three ways depending on how hands-on you want to be: I teach you, we build it together, or we just build it for you and show you the results."</div>
+        <div class="listen"><strong>Pick the tier by one question: how much do they want to do themselves?</strong> A curious solo owner takes Tier 1. Someone who wants real workflows but likes being involved takes Tier 2. A busy or skeptical owner who wants to be shown, not taught, takes Tier 3.</div>
       </div>
-      <div class="pkg-body single-col">
-        <div>
-          <div class="section-label">What's included</div>
-          <ul class="deliverables">
-            <li>One real problem scoped, measured, and solved end to end</li>
-            <li>Starter install of the operating system: file/folder structure plus working automations on that problem</li>
-            <li>Before/after measurement so the ROI is provable, not claimed</li>
-            <li>Recommendation on what to build next, and what it would cost</li>
-          </ul>
+      <div class="jt">
+        <div class="jt-row">
+          <div class="jt-h"><span class="jt-n">Tier 1</span><span class="jt-name">Setup</span><span class="jt-p">$599</span></div>
+          <div class="jt-w">We teach, they do</div>
+          <div class="jt-b">One 90-minute working session. We get their AI account set up properly, make sure their files are somewhere sane (Google Drive, Teams, or OneDrive), and teach two or three real uses on their own work. They leave with a written cheat sheet.<br><em>Best for: the curious owner who wants to stop guessing and just get started.</em></div>
+        </div>
+        <div class="jt-row">
+          <div class="jt-h"><span class="jt-n">Tier 2</span><span class="jt-name">Workflows</span><span class="jt-p">$1,999</span></div>
+          <div class="jt-w">We build it together</div>
+          <div class="jt-b">Three to four sessions. We build real working workflows side by side on their actual process, organize their file and folder structure properly, and leave them a cheat sheet plus 30 days of support. They can run and change it themselves afterward.<br><em>Best for: the owner who wants it working and wants to understand how it works.</em></div>
+        </div>
+        <div class="jt-row jt-top">
+          <div class="jt-h"><span class="jt-n">Tier 3</span><span class="jt-name">Pilot</span><span class="jt-p">$2,997</span></div>
+          <div class="jt-w">We do it for them</div>
+          <div class="jt-b">Two weeks, hands-off for them. They pick one real problem that is costing money. We measure it, install the starter file and folder system, build one or two working automations live in their environment, then measure again and hand over a written before and after plus a recommendation on what to build next.<br><em>Best for: a larger or skeptical buyer who wants proof on their own business before committing to a full build.</em></div>
         </div>
       </div>
       <div class="outcome-box">
         <strong>Outcome</strong>
-        They see the system running in their own business, on their own problem, before committing to the full build. The fastest way to turn a skeptic into a Scale client.
+        They stop losing hours to busywork, and they have seen AI work on their own business rather than in a demo. Every tier is designed to end with them wanting the system built for real.
       </div>
       <div class="note-box">
-        <strong>Upgrade credit:</strong> 50% of the Sprint fee applied toward Scale System.<br>
-        <strong>Price status:</strong> proposed as a standalone SKU, pending team ratification.
+        <strong>Credits up:</strong> Tier 2 fee credits toward any build package. Tier 3 credits <strong>50% toward Scale or Operator</strong>. Tier 1 is the taste, it carries no credit.<br>
+        <strong>Selling to a bigger company?</strong> Lead with Tier 3 and describe it as a two-week paid pilot rather than leaning on the Jumpstart name, which can sound entry level to a $2M owner.<br>
+        <strong>Price status:</strong> all three tiers proposed, pending team ratification. Pilot with existing clients (HALO, Financial Acuity, Wanda) first. Note: the <strong>$599 tier is the one package excluded</strong> from the referral program.
       </div>
     </div>
 
@@ -675,9 +659,10 @@
       <div class="footer-label">Credits &amp; referrals</div>
       <ul class="footer-items">
         <li><strong>15%</strong> of a referred client's first engagement (minimum $250) on any package except the $599 AI Jumpstart intro</li>
-        <li>AI Jumpstart Next Level → Sprint or Launch Pad: <strong>fee credited</strong></li>
+        <li>Jumpstart Tier 2 → any build: <strong>fee credited</strong></li>
+        <li>Jumpstart Tier 3 → Scale or Operator: <strong>50% credit</strong></li>
         <li>Launch Pad → Operator: <strong>50% credit</strong></li>
-        <li>AI Pilot Sprint → Scale: <strong>50% credit</strong></li>
+        
         <li>Operator → Scale: <strong>$1,000 credit</strong></li>
         <li>Branding delivered in-house</li>
         <li>Gov. contractor AI tools: quoted separately</li>
@@ -689,7 +674,7 @@
     <div class="footer-label">Price status: before you quote</div>
     <p style="font-size:12px;line-height:1.6;color:var(--gray);margin-bottom:14px;">
       <strong style="color:#1a7a4a;">Approved, quote with confidence:</strong> Launch Pad <strong>$1,799</strong> · Operator <strong>$4,500</strong> · Scale <strong>$10K–$15K</strong>.<br>
-      <strong style="color:#a1291d;">Proposed, do not quote as final:</strong> AI Jumpstart ($599 / $1,999) · Operator increase to <strong>$5,500</strong> · AI Pilot Sprint as a standalone SKU · the monthly care retainers.
+      <strong style="color:#a1291d;">Proposed, do not quote as final:</strong> AI Jumpstart ($599 / $1,999) · Operator increase to <strong>$5,500</strong> · the three AI Jumpstart tiers · the monthly care retainers.
     </p>
     <a href="package-cheat-sheet.html" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 20px;background:#044771;color:#fff;border-radius:10px;text-decoration:none;font-size:13px;">
       <span><strong style="color:#F1BE5C;">Printable version →</strong> Same pitch language in a one-page format you can print or hand to a new rep.</span>
