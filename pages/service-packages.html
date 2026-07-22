@@ -193,6 +193,18 @@
   .grp-t { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 800; color: var(--navy); letter-spacing: -0.2px; }
   .grp-s { font-size: 11.5px; color: var(--gray); margin-top: 3px; line-height: 1.5; }
 
+  /* STRATEGY - Blue */
+  .pkg-strategy { border-color: var(--blue); }
+  .pkg-strategy .pkg-header { background: #eef3f7; }
+  .pkg-strategy .pkg-eyebrow { color: #3f6683; }
+  .pkg-strategy .pkg-name { color: var(--navy); }
+  .pkg-strategy .pkg-price { color: var(--navy); }
+  .pkg-strategy .cov-pill.active { background: var(--blue); color: white; }
+  .pkg-strategy .section-label { color: #3f6683; }
+  .pkg-strategy .outcome-box { background: #eef3f7; color: var(--navy); border: 1px solid #cbdae6; }
+  .pkg-strategy .outcome-box strong { color: #3f6683; }
+  .pkg-strategy .note-box { background: #f2f6f9; border-color: var(--blue); }
+
   /* JUMPSTART TIERS */
   .jt { margin: 0 24px 14px; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
   .jt-row { padding: 13px 16px; border-bottom: 1px solid var(--rule); }
@@ -274,7 +286,7 @@
   <div class="sum-wrap">
     <div class="sum-head">
       <span class="t">Everything at a glance</span>
-      <span class="s">Three entry tiers, three build tiers. Full detail on each below.</span>
+      <span class="s">Three entry tiers, three build tiers, plus standalone strategy. Full detail on each below.</span>
     </div>
     <div class="sum-scroll">
       <table class="sum">
@@ -324,10 +336,10 @@
           <tr class="row-star">
             <td><span class="p-name">Operator System</span><span class="p-tier">Tier 2 &middot; Build &middot; Primary focus</span></td>
             <td>Established but chaotic. $250K&ndash;$2M, 5&ndash;25 people. Most deals should land here.</td>
-            <td><span class="p-price">$4,500</span><span class="p-sub">+ $500/mo care</span></td>
+            <td><span class="p-price">$5,500</span><span class="p-sub">+ $500/mo care</span></td>
             <td>6&ndash;8 weeks</td>
             <td>$1,000 into Scale</td>
-            <td><span class="badge ok">Approved</span><br><span class="badge prop" style="margin-top:4px;">$5,500 proposed</span></td>
+            <td><span class="badge ok">Approved</span></td>
           </tr>
           <tr>
             <td><span class="p-name">Scale System</span><span class="p-tier">Tier 3 &middot; Build</span></td>
@@ -336,6 +348,14 @@
             <td>8&ndash;12 weeks</td>
             <td>Custom above $15K</td>
             <td><span class="badge ok">Approved</span></td>
+          </tr>
+          <tr class="row-div">
+            <td><span class="p-name">Strategy &amp; Advisory</span><span class="p-tier">Standalone &middot; Session / Document / Intensive</span></td>
+            <td>Any stage. The thinking work: a decision session, a plan or model, or a full planning engagement.</td>
+            <td><span class="p-price">$500 to $3,500</span><span class="p-sub">By deliverable, never by the hour</span></td>
+            <td>90 min to 3 weeks</td>
+            <td>Session into any build; Intensive 50% into Operator or Scale</td>
+            <td><span class="badge prop">Proposed</span></td>
           </tr>
         </tbody>
       </table>
@@ -492,7 +512,7 @@
           <div class="pkg-who">Established Operator · $250K–$2M revenue · 5–25 employees · Service-based · Operationally chaotic</div>
         </div>
         <div style="text-align:right;">
-          <span class="pkg-price">$4,500</span>
+          <span class="pkg-price">$5,500</span>
           <div class="pkg-timeline">6–8 weeks · Fixed price</div>
         </div>
       </div>
@@ -628,6 +648,61 @@
       </div>
     </div>
 
+    <div class="grp">
+      <div class="grp-t">Strategy &amp; advisory</div>
+      <div class="grp-s">Sold on its own, and already inside the packages. This is real revenue we have been leaving on the table by billing it as hours instead of outcomes.</div>
+    </div>
+
+    <!-- STRATEGY & ADVISORY -->
+    <div class="pkg pkg-strategy">
+      <div class="pkg-header">
+        <div>
+          <div class="pkg-eyebrow">Standalone &middot; Strategy &amp; Advisory</div>
+          <div class="pkg-name">The thinking work, priced as an outcome</div>
+          <div class="pkg-who">Any stage. Sells on its own, opens the door to a build, and is already bundled inside Launch Pad and Scale.</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="pkg-price">$500 to $3,500</span>
+          <div class="pkg-timeline">90 minutes to 3 weeks</div>
+        </div>
+      </div>
+      <div class="coverage">
+        <div class="cov-pill cov-inactive">Attract &amp; close</div>
+        <div class="cov-pill cov-inactive">Deliver &amp; serve</div>
+        <div class="cov-pill active">See &amp; decide</div>
+      </div>
+      <div class="say-box">
+        <div class="section-label">Say this</div>
+        <div class="say-line">"Before you build anything, you need a clear picture of where the business actually is and where the money is going. That is a piece of work on its own, and it is often the right first step."</div>
+        <div class="listen"><strong>Never sell this as hours again.</strong> We have historically sold 10-hour blocks at $500, which works out to about $50 an hour, below what we charge for CRM work we already flagged as below cost. The exact same thinking sold as a packaged deliverable went out at $3,200. Sell the deliverable, not the clock.</div>
+      </div>
+      <div class="jt">
+        <div class="jt-row">
+          <div class="jt-h"><span class="jt-n">Session</span><span class="jt-name">Strategy Session</span><span class="jt-p">$500</span></div>
+          <div class="jt-w">90 minutes, plus a written recap</div>
+          <div class="jt-b">One focused working session on a real decision: pricing, which service to push, whether to hire, where the money is leaking. They leave with written recommendations, not just a conversation.<br><em>Same $500 clients already pay us, for 90 minutes instead of 10 hours.</em></div>
+        </div>
+        <div class="jt-row">
+          <div class="jt-h"><span class="jt-n">Document</span><span class="jt-name">Business Plan or Financial Model</span><span class="jt-p">$1,500 each</span></div>
+          <div class="jt-w">1 to 2 weeks</div>
+          <div class="jt-b"><b>Business plan:</b> lender and partner ready, the same document that is bundled into Launch Pad. <b>Financial model:</b> 12-month forecast with scenario planning, the same build that is bundled into Scale.<br><em>Both are already things we make well. They just have not had a price of their own.</em></div>
+        </div>
+        <div class="jt-row jt-top">
+          <div class="jt-h"><span class="jt-n">Intensive</span><span class="jt-name">Strategic Planning</span><span class="jt-p">$2,500 to $3,500</span></div>
+          <div class="jt-w">2 to 3 weeks</div>
+          <div class="jt-b">The full engagement: where the business is now, where it is going, what to do about it, and the numbers behind it. Goals, priorities, and an operating plan the leadership team can actually run against.<br><em>Priced off a real precedent. We sold exactly this to SEEDFOLKids at $3,200.</em></div>
+        </div>
+      </div>
+      <div class="outcome-box">
+        <strong>Outcome</strong>
+        The owner gets clarity and a decision they can act on, and we get a paid first engagement with someone who is not ready for a build yet. A large share of our historical revenue came from this work, so it deserves a price and a name.
+      </div>
+      <div class="note-box">
+        <strong>Credits up:</strong> the Strategy Session fee credits toward any build. Strategic Planning credits <strong>50% toward Operator or Scale</strong>, since much of the process mapping overlaps.<br>
+        <strong>Price status:</strong> all proposed, pending team ratification. The one firm rule regardless of what gets ratified: <strong>no more 10-hour blocks at $500.</strong>
+      </div>
+    </div>
+
   </div>
 
   <!-- FOOTER -->
@@ -649,7 +724,7 @@
         <li>No revenue traction or team in place</li>
         <li>Founder resists systems or technology entirely</li>
         <li>Expects heavy discounts to start</li>
-        <li>Wants a business plan only (no package)</li>
+        <li>Wants free advice with no intent to pay for anything</li>
         <li>Asking about grants instead of investing in services</li>
         <li>Won't adopt what BPP builds</li>
         <li>No upgrade potential (Launch Pad)</li>
@@ -673,8 +748,8 @@
   <div style="border-top:1px solid var(--rule);margin-top:24px;padding-top:20px;">
     <div class="footer-label">Price status: before you quote</div>
     <p style="font-size:12px;line-height:1.6;color:var(--gray);margin-bottom:14px;">
-      <strong style="color:#1a7a4a;">Approved, quote with confidence:</strong> Launch Pad <strong>$1,799</strong> · Operator <strong>$4,500</strong> · Scale <strong>$10K–$15K</strong>.<br>
-      <strong style="color:#a1291d;">Proposed, do not quote as final:</strong> AI Jumpstart ($599 / $1,999) · Operator increase to <strong>$5,500</strong> · the three AI Jumpstart tiers · the monthly care retainers.
+      <strong style="color:#1a7a4a;">Approved, quote with confidence:</strong> Launch Pad <strong>$1,799</strong> · Operator <strong>$5,500</strong> · Scale <strong>$10K–$15K</strong>.<br>
+      <strong style="color:#a1291d;">Proposed, do not quote as final:</strong> the three AI Jumpstart tiers ($599 / $1,999 / $2,997) &middot; Strategy &amp; Advisory ($500 / $1,500 / $2,500&ndash;3,500) &middot; the monthly care retainers.
     </p>
     <a href="package-cheat-sheet.html" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 20px;background:#044771;color:#fff;border-radius:10px;text-decoration:none;font-size:13px;">
       <span><strong style="color:#F1BE5C;">Printable version →</strong> Same pitch language in a one-page format you can print or hand to a new rep.</span>
