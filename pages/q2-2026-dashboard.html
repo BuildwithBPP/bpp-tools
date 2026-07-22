@@ -43,7 +43,7 @@
   .header-period { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: var(--gold); }
   .header-date { font-size: 10px; opacity: 0.5; margin-top: 3px; }
 
-  .page { max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px; }
+  .page { max-width: 1440px; margin: 0 auto; padding: 32px 32px 64px; }
 
   /* SECTION HEADERS */
   .section-bar { background: var(--navy); border-radius: 8px; padding: 14px 24px; margin: 36px 0 6px; display: flex; align-items: center; justify-content: space-between; }
@@ -153,7 +153,7 @@
     <div class="kpi-card gold">
       <div class="kpi-label">Deals Closed (HubSpot)</div>
       <div class="kpi-value">$10,448</div>
-      <div class="kpi-sub">5 deals . $7,098 excluding FA carryover</div>
+      <div class="kpi-sub">5 deals . $7,098 excl. FA carryover . Q1: $9,050</div>
       <div class="kpi-source">HubSpot closed-won</div>
       <div class="progress-wrap">
         <div class="progress-bar"><div class="progress-fill" style="width:70%; background:var(--gold);"></div></div>
@@ -175,7 +175,7 @@
     <div class="kpi-card green">
       <div class="kpi-label">Active Pipeline (Q3)</div>
       <div class="kpi-value">$11,497</div>
-      <div class="kpi-sub">6 deals . First retainer deal included</div>
+      <div class="kpi-sub">6 deals . First retainer deal included . Q1 end: $12,000</div>
       <div class="kpi-source">HubSpot pipeline . Jul 22</div>
     </div>
   </div>
@@ -190,7 +190,7 @@
     <div class="kpi-card red">
       <div class="kpi-label">Deals Lost</div>
       <div class="kpi-value">12</div>
-      <div class="kpi-sub">~$28,194 lost . 4x net-new closed value</div>
+      <div class="kpi-sub">~$28,194 lost . 4x net-new closed . Q1: 9 deals / $16,948</div>
       <div class="kpi-source">HubSpot closed-lost</div>
     </div>
     <div class="kpi-card amber">
@@ -293,19 +293,19 @@
     <div class="kpi-card green">
       <div class="kpi-label">Total Expenses</div>
       <div class="kpi-value">$4,722</div>
-      <div class="kpi-sub">Fell every month (Q1 rose every month)</div>
+      <div class="kpi-sub">Q1: $5,606 . Fell every month (Q1 rose every month)</div>
       <div class="kpi-source">QB Transaction Report</div>
     </div>
     <div class="kpi-card green">
       <div class="kpi-label">Net Profit Margin</div>
       <div class="kpi-value">20%</div>
-      <div class="kpi-sub">$1,180 net income <span class="pill-amber status-pill">Floor of 20-25% goal</span></div>
+      <div class="kpi-sub">$1,180 net income . Q1: 23% <span class="pill-amber status-pill">Floor of 20-25% goal</span></div>
       <div class="kpi-source">QB net income / revenue</div>
     </div>
     <div class="kpi-card amber">
       <div class="kpi-label">Efficiency Ratio</div>
       <div class="kpi-value">80%</div>
-      <div class="kpi-sub">$0.80 spent per $1 earned <span class="pill-amber status-pill">Goal: under 75%</span></div>
+      <div class="kpi-sub">$0.80 spent per $1 earned . Q1: 77% <span class="pill-amber status-pill">Goal: under 75%</span></div>
       <div class="kpi-source">QB expenses / revenue</div>
     </div>
   </div>
@@ -314,13 +314,13 @@
     <div class="kpi-card navy">
       <div class="kpi-label">H1 2026 Revenue</div>
       <div class="kpi-value">$13,143</div>
-      <div class="kpi-sub">22% of $60K annual budget at halfway</div>
-      <div class="kpi-source">QB Q1 + Q2</div>
+      <div class="kpi-sub">H1 net income $2,602 (20%) . 22% of $60K budget</div>
+      <div class="kpi-source">QB Q1 + Q2 . Cash basis</div>
     </div>
     <div class="kpi-card green">
       <div class="kpi-label">Cash on Hand</div>
       <div class="kpi-value">$7,687</div>
-      <div class="kpi-sub">QB Checking $7,631 + Chase $56 . A/R $1,793 . Amex owed $477</div>
+      <div class="kpi-sub">A/R $1,793 . Amex owed $477 . Q1 review: $5,220</div>
       <div class="kpi-source">QB Balance Sheet . As of Jul 14</div>
     </div>
     <div class="kpi-card amber">
@@ -342,32 +342,42 @@
       <div class="chart-title">Monthly P&L Trend</div>
       <div class="chart-sub">Source: QuickBooks Cash Basis . Apr-Jun 2026</div>
       <table class="data-table" style="margin-bottom:0; border:none; box-shadow:none;">
-        <thead><tr><th></th><th>Apr</th><th>May</th><th>Jun</th><th>Q2 Total</th></tr></thead>
+        <thead><tr><th></th><th>Apr</th><th>May</th><th>Jun</th><th>Q2 Total</th><th>Q1 Total</th></tr></thead>
         <tbody>
-          <tr><td><strong>Revenue</strong></td><td>$2,624</td><td>$2,300</td><td>$960</td><td><strong>$5,884</strong></td></tr>
-          <tr><td style="padding-left:20px;color:var(--gray-light);">Marketing</td><td>$2,175</td><td>$1,800</td><td>$960</td><td>$4,935</td></tr>
-          <tr><td style="padding-left:20px;color:var(--gray-light);">Consulting</td><td>$449</td><td>$500</td><td>--</td><td>$949</td></tr>
-          <tr><td style="padding-left:20px;color:var(--gray-light);">Technology</td><td>--</td><td>--</td><td>--</td><td>$0</td></tr>
-          <tr><td><strong>Expenses</strong></td><td>$1,767</td><td>$1,606</td><td>$1,349</td><td><strong>$4,722</strong></td></tr>
-          <tr><td style="padding-left:20px;color:var(--gray-light);">Office / Software</td><td>$735</td><td>$133</td><td>$1,275</td><td>$2,143</td></tr>
-          <tr><td style="padding-left:20px;color:var(--gray-light);">Content / Ads</td><td>$347</td><td>$550</td><td>--</td><td>$897</td></tr>
-          <tr><td style="padding-left:20px;color:var(--gray-light);">Other (GP, labor, fees, Rodney)</td><td>$685</td><td>$923</td><td>$74</td><td>$1,682</td></tr>
-          <tr class="total"><td><strong>Net Income</strong></td><td style="color:var(--green);">$862</td><td style="color:var(--green);">$700</td><td style="color:var(--red);">-$382</td><td><strong>$1,180</strong></td></tr>
+          <tr><td><strong>Revenue</strong></td><td>$2,624</td><td>$2,300</td><td>$960</td><td><strong>$5,884</strong></td><td><strong>$7,259</strong></td></tr>
+          <tr><td style="padding-left:20px;color:var(--gray-light);">Operator System (Lois)</td><td>$1,350</td><td>$1,800</td><td>--</td><td>$3,150</td><td>--</td></tr>
+          <tr><td style="padding-left:20px;color:var(--gray-light);">Legacy / custom packages</td><td>$449</td><td>--</td><td>$960</td><td>$1,409</td><td>--</td></tr>
+          <tr><td style="padding-left:20px;color:var(--gray-light);">Launch Pad (HALO)</td><td>$825</td><td>--</td><td>--</td><td>$825</td><td>--</td></tr>
+          <tr><td style="padding-left:20px;color:var(--gray-light);">Hourly consulting</td><td>--</td><td>$500</td><td>--</td><td>$500</td><td>$1,500</td></tr>
+          <tr><td><strong>Expenses</strong></td><td>$1,767</td><td>$1,606</td><td>$1,349</td><td><strong>$4,722</strong></td><td><strong>$5,837</strong></td></tr>
+          <tr><td style="padding-left:20px;color:var(--gray-light);">Office / Software</td><td>$735</td><td>$133</td><td>$1,275</td><td>$2,143</td><td>$3,022</td></tr>
+          <tr><td style="padding-left:20px;color:var(--gray-light);">Content / Ads</td><td>$347</td><td>$550</td><td>--</td><td>$897</td><td>$1,659</td></tr>
+          <tr><td style="padding-left:20px;color:var(--gray-light);">Other (GP, labor, fees, Rodney)</td><td>$685</td><td>$923</td><td>$74</td><td>$1,682</td><td>$1,156</td></tr>
+          <tr class="total"><td><strong>Net Income</strong></td><td style="color:var(--green);">$862</td><td style="color:var(--green);">$700</td><td style="color:var(--red);">-$382</td><td><strong>$1,180</strong></td><td><strong>$1,423</strong></td></tr>
         </tbody>
       </table>
+      <div style="font-size:9px; color:var(--gray-light); margin-top:8px;">Q2 revenue mapped from QB client payments to package tiers (Lois = Operator; HALO = Launch Pad; SEEDFOLKids final + De Dior BP = legacy/custom; Xtremely Clean = hourly). Q1 used pre-tier categories, so tier rows show only where comparable. Q1 totals are the locked close numbers.</div>
     </div>
     <div>
       <div class="chart-card" style="margin-bottom:16px;">
-        <div class="chart-title">Q2 Revenue by Service Category</div>
-        <div class="chart-sub">Source: QuickBooks . Recategorization to package tiers still pending (Q1 action item)</div>
-        <div style="display:flex; gap:12px; align-items:stretch;">
-          <div style="flex:84; background:var(--navy); border-radius:6px; padding:14px; color:white; text-align:center;">
-            <div style="font-family:'Montserrat',sans-serif; font-size:18px; font-weight:800;">$4,935</div>
-            <div style="font-size:10px; opacity:0.8; margin-top:2px;">Marketing . 84%</div>
+        <div class="chart-title">Q2 Cash Revenue by Package Tier</div>
+        <div class="chart-sub">Mapped from QB client payments . First quarter reportable by tier . QB category recategorization still pending in QB itself</div>
+        <div style="display:flex; gap:10px; align-items:stretch;">
+          <div style="flex:54; background:var(--navy); border-radius:6px; padding:14px 8px; color:white; text-align:center;">
+            <div style="font-family:'Montserrat',sans-serif; font-size:17px; font-weight:800;">$3,150</div>
+            <div style="font-size:9px; opacity:0.8; margin-top:2px;">Operator System . 54%</div>
           </div>
-          <div style="flex:16; background:var(--gold); border-radius:6px; padding:14px; color:var(--navy-dark); text-align:center;">
-            <div style="font-family:'Montserrat',sans-serif; font-size:18px; font-weight:800;">$949</div>
-            <div style="font-size:10px; opacity:0.7; margin-top:2px;">Consulting . 16%</div>
+          <div style="flex:24; background:var(--blue); border-radius:6px; padding:14px 8px; color:white; text-align:center;">
+            <div style="font-family:'Montserrat',sans-serif; font-size:17px; font-weight:800;">$1,409</div>
+            <div style="font-size:9px; opacity:0.85; margin-top:2px;">Legacy / Custom . 24%</div>
+          </div>
+          <div style="flex:14; background:var(--blue-mid); border-radius:6px; padding:14px 6px; color:white; text-align:center;">
+            <div style="font-family:'Montserrat',sans-serif; font-size:15px; font-weight:800;">$825</div>
+            <div style="font-size:9px; opacity:0.85; margin-top:2px;">Launch Pad . 14%</div>
+          </div>
+          <div style="flex:9; background:var(--gold); border-radius:6px; padding:14px 6px; color:var(--navy-dark); text-align:center;">
+            <div style="font-family:'Montserrat',sans-serif; font-size:15px; font-weight:800;">$500</div>
+            <div style="font-size:9px; opacity:0.7; margin-top:2px;">Hourly . 8%</div>
           </div>
         </div>
       </div>
@@ -610,9 +620,9 @@
     </div>
     <div class="kpi-card" style="border-left:5px solid var(--card-border);">
       <div class="kpi-label">Time Per Deliverable</div>
-      <div class="kpi-value sm" style="color:var(--gray-light);">Killed</div>
-      <div class="kpi-sub">Never tracked in 2 quarters . Dropped Jul 22 (Daunte)</div>
-      <div class="kpi-source">Revisit only if pricing demands it</div>
+      <div class="kpi-value sm" style="color:var(--gray-light);">--</div>
+      <div class="kpi-sub">Clockify not yet set up (carried 2 quarters)</div>
+      <div class="kpi-source">Recommit at the meeting with an owner + date</div>
     </div>
   </div>
 
