@@ -154,6 +154,57 @@
   .pkg-scale .outcome-box strong { color: #8a6a1a; }
   .pkg-scale .note-box { background: #fdf6e3; border-color: var(--gold); }
 
+  /* JUMPSTART - Amber (on-ramp, coaching) */
+  .pkg-jumpstart { border-color: #d9a13b; }
+  .pkg-jumpstart .pkg-header { background: #fdf3e0; }
+  .pkg-jumpstart .pkg-eyebrow { color: #8a6a1a; }
+  .pkg-jumpstart .pkg-name { color: var(--navy); }
+  .pkg-jumpstart .pkg-price { color: var(--navy); }
+  .pkg-jumpstart .cov-pill.active { background: #b8862a; color: white; }
+  .pkg-jumpstart .section-label { color: #8a6a1a; }
+  .pkg-jumpstart .deliverables li::before { background: #d9a13b; }
+  .pkg-jumpstart .outcome-box { background: #fdf3e0; color: var(--navy); border: 1px solid #ecd3a4; }
+  .pkg-jumpstart .outcome-box strong { color: #8a6a1a; }
+  .pkg-jumpstart .note-box { background: #fdf6e8; border-color: #d9a13b; }
+
+  /* PILOT - Slate (bridge, de-risk) */
+  .pkg-pilot { border-color: #6b7f92; }
+  .pkg-pilot .pkg-header { background: #eef2f6; }
+  .pkg-pilot .pkg-eyebrow { color: #4a5c6e; }
+  .pkg-pilot .pkg-name { color: var(--navy); }
+  .pkg-pilot .pkg-price { color: var(--navy); }
+  .pkg-pilot .cov-pill.active { background: #6b7f92; color: white; }
+  .pkg-pilot .section-label { color: #4a5c6e; }
+  .pkg-pilot .deliverables li::before { background: #6b7f92; }
+  .pkg-pilot .outcome-box { background: #eef2f6; color: var(--navy); border: 1px solid #cbd6e0; }
+  .pkg-pilot .outcome-box strong { color: #4a5c6e; }
+  .pkg-pilot .note-box { background: #f2f5f8; border-color: #6b7f92; }
+
+  /* PITCH LAYER (internal sales language) */
+  .say-box { margin: 0 24px 10px; padding: 12px 16px; border-radius: 6px; background: #fffaf0; border-left: 3px solid var(--gold); }
+  .say-box .say-line { font-size: 13.5px; line-height: 1.55; font-style: italic; font-weight: 600; color: var(--navy); }
+  .say-box .listen { margin-top: 9px; padding-top: 9px; border-top: 1px dashed #e6d9bd; font-size: 11.5px; color: var(--gray); line-height: 1.55; }
+  .say-box .listen strong { color: var(--navy); font-weight: 700; }
+  .say-box .section-label { color: #8a6a1a !important; margin-bottom: 6px; }
+
+  /* PITCH FRAMEWORK BAND */
+  .pitch-band { border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+  .pitch-band-head { background: var(--navy); color: #fff; padding: 12px 22px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .pitch-band-head .t { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 14px; }
+  .pitch-band-head .s { font-size: 11.5px; color: rgba(255,255,255,0.7); }
+  .pitch-band-body { padding: 16px 22px; background: #fff; }
+  .pitch-band-body p { font-size: 12.5px; line-height: 1.6; color: var(--black); margin-bottom: 10px; }
+  .pitch-band-body p:last-child { margin-bottom: 0; }
+  .pitch-band-body b { color: var(--navy); }
+  .pb-money { background: #f0f9f3; border-left: 3px solid #1a9e5c; border-radius: 0 5px 5px 0; padding: 9px 14px; font-size: 12px; color: #14663d; line-height: 1.55; }
+  .pb-never { background: #fdeaea; border-left: 3px solid #c0392b; border-radius: 0 5px 5px 0; padding: 9px 14px; font-size: 11.5px; color: #7a2b23; line-height: 1.55; margin-top: 10px; }
+  .pb-never b { color: #a1291d; }
+  .pb-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+  .pb-step { background: #f5f7f9; border-radius: 6px; padding: 10px 13px; font-size: 11.5px; line-height: 1.5; color: var(--gray); }
+  .pb-step .n { display: inline-block; width: 16px; height: 16px; background: var(--gold); color: var(--navy); border-radius: 50%; font-size: 9.5px; font-weight: 800; text-align: center; line-height: 16px; margin-right: 5px; }
+  .pb-step b { color: var(--navy); }
+  @media (max-width: 720px) { .pb-three { grid-template-columns: 1fr; } }
+
   /* FOOTER */
   .footer { border-top: 1px solid var(--rule); padding-top: 24px; margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
   .footer-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); margin-bottom: 10px; }
@@ -192,10 +243,23 @@
     <p class="hero-sub">We help established service businesses automate operations, centralize data, and build AI-powered systems so the owner can stop being the bottleneck.</p>
   </div>
 
-  <a href="package-cheat-sheet.html" style="display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1100px;margin:0 auto 4px;padding:12px 20px;background:#044771;color:#fff;border-radius:10px;text-decoration:none;font-size:14px;">
-    <span><strong style="color:#F1BE5C;">Team →</strong> One-page pitch cheat sheet: names, one-liners, prices, full Scale scope, and how to say it.</span>
-    <span style="background:#F1BE5C;color:#023154;font-weight:800;font-size:12px;padding:6px 12px;border-radius:6px;white-space:nowrap;">Open cheat sheet</span>
-  </a>
+  <div class="pitch-band">
+    <div class="pitch-band-head">
+      <span class="t">How to pitch this</span>
+      <span class="s">Read this before the packages. Money first, plain English, no jargon.</span>
+    </div>
+    <div class="pitch-band-body">
+      <p><b>What "the AI operating system" is — say it like this:</b> "Think about everything that keeps your business running — following up with leads, tracking customers, sending invoices, knowing your numbers, all the repetitive admin. Right now most of that lives in your head, or scattered across sticky notes, texts, and spreadsheets. We build one organized place where all of it lives and runs, and we put AI to work inside it so the busywork happens on its own. It's the difference between a business that depends on you remembering everything, and one that runs itself while you sell and grow."</p>
+      <p><b>Under the hood (internal only):</b> it's the file/folder system we run BPP on (our Cowork setup) plus Claude skills and automations, sized up at every tier. Describe it to a client by what it <i>does</i>, never by the plumbing.</p>
+      <div class="pb-money"><b>The money translation — always close the loop to this:</b> fewer dropped leads = more deals closed · faster admin = more hours to sell · clear numbers = you stop leaking money you can't see. Organized businesses make more and keep more. That's the whole pitch.</div>
+      <div class="pb-never"><b>Never open with</b> "AI operating system," "operating system," "file structure," "automations," or any tool name. Those are how we build it, not why they buy it. Lead with the dollar or the hour, every time. Bring in "operating system" only once they're nodding and ask "so what do you actually do?"</div>
+      <div class="pb-three">
+        <div class="pb-step"><span class="n">1</span><b>Money/time hook.</b> "Most businesses like yours are leaking money they can't see — slow follow-ups, no system, no clear picture of what's profitable."</div>
+        <div class="pb-step"><span class="n">2</span><b>Their problem, their words.</b> "Sounds like everything falls apart when you step away / leads slip through the cracks."</div>
+        <div class="pb-step"><span class="n">3</span><b>The package as the fix.</b> "That's exactly what our [package] fixes." Then use the <b>Say this</b> line on the package below.</div>
+      </div>
+    </div>
+  </div>
 
   <div class="spine">
     <div class="spine-label">Our framework</div>
@@ -211,6 +275,57 @@
   </div>
 
   <div class="packages">
+
+    <!-- AI JUMPSTART (ON-RAMP) -->
+    <div class="pkg pkg-jumpstart">
+      <div class="pkg-header">
+        <div>
+          <div class="pkg-eyebrow">On-ramp — AI Jumpstart · Coaching, not a build</div>
+          <div class="pkg-name">Learn to run your busywork on AI</div>
+          <div class="pkg-who">Solo/micro owner, DIY type, or an existing client we want to grow</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="pkg-price">$599 / $1,999</span>
+          <div class="pkg-timeline">90 min · or 3–4 sessions</div>
+        </div>
+      </div>
+      <div class="coverage">
+        <div class="cov-pill active">Attract &amp; close</div>
+        <div class="cov-pill cov-inactive">Deliver &amp; serve</div>
+        <div class="cov-pill cov-inactive">See &amp; decide</div>
+      </div>
+      <div class="say-box">
+        <div class="section-label">Say this</div>
+        <div class="say-line">"Want to learn to run your busywork on AI yourself? In a few sessions I'll show you how to use AI for your proposals, emails, scheduling, and pricing — so the stuff that eats your nights takes minutes instead."</div>
+        <div class="listen"><strong>Listen for:</strong> solo or micro owner · DIY type · price-sensitive · "I just want to figure this AI stuff out" · an existing client we want to grow.</div>
+      </div>
+      <div class="pkg-body single-col">
+        <div>
+          <div class="section-label">What's included</div>
+          <ul class="deliverables">
+            <li><strong>Setup — $599:</strong> one 90-minute 1:1 working session on their real tasks</li>
+            <li><strong>Next Level — $1,999:</strong> 3–4 sessions building real workflows together</li>
+            <li>A written cheat sheet they keep, built around their own business</li>
+            <li>30 days of support after the final session (Next Level only)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="outcome-box">
+        <strong>Outcome</strong>
+        They stop losing hours to busywork and get that time back to sell. It's also the cheapest way for a skeptical owner to prove AI is worth it — which opens the door to us building it for them.
+      </div>
+      <div class="note-box">
+        <strong>This is the front door.</strong> When they see it work and want it built for real, the <strong>Next Level fee credits toward a Growth &amp; AI Pilot or Launch Pad</strong>. Always plant that seed.<br>
+        <strong>Price status:</strong> proposed — pending team ratification. Pilot it with existing clients (HALO, Financial Acuity, Wanda) first. Note: the $599 intro is the one package <strong>excluded</strong> from the referral program.
+      </div>
+    </div>
+
+    <div class="upgrade-strip">
+      <div class="upgrade-arrow">
+        <span style="color:var(--navy); font-weight:600;">↓</span>
+        <span style="color:var(--gray); font-size:11px;">Coaching clients: Next Level fee credited toward a Pilot or Launch Pad</span>
+      </div>
+    </div>
 
     <!-- LAUNCH PAD -->
     <div class="pkg pkg-launchpad">
@@ -229,6 +344,11 @@
         <div class="cov-pill active">Attract &amp; close</div>
         <div class="cov-pill cov-inactive">Deliver &amp; serve</div>
         <div class="cov-pill cov-inactive">See &amp; decide</div>
+      </div>
+      <div class="say-box">
+        <div class="section-label">Say this</div>
+        <div class="say-line">"Just getting going? We'll get you set up right — organized, professional, and ready to actually make money — instead of fumbling the basics for six months."</div>
+        <div class="listen"><strong>Listen for:</strong> just starting · pre-revenue to ~$150K · "I don't even know where to start" · wearing every hat. &nbsp;<strong>The money:</strong> new businesses bleed time and credibility on disorganization; this gets them to their first paying customers faster and looking like a company people trust.</div>
       </div>
       <div class="pkg-body single-col">
         <div>
@@ -287,6 +407,11 @@
         <div class="cov-pill active">Deliver &amp; serve</div>
         <div class="cov-pill partial">See &amp; decide — partial</div>
       </div>
+      <div class="say-box">
+        <div class="section-label">Say this</div>
+        <div class="say-line">"Growing, but everything falls apart when you step away? We'll organize the whole operation so you stop losing deals to the chaos and get your time back to sell."</div>
+        <div class="listen"><strong>Listen for:</strong> established but chaotic · $250K–$2M, 5–25 people · "I'm the bottleneck" · "leads slip through" · "I can't take a day off." &nbsp;<strong>The money:</strong> chaos costs money — dropped follow-ups, lost leads, the owner stuck in the weeds instead of selling. Organizing it recovers deals they're losing <em>right now</em> and frees the owner's most valuable hours. <strong>This is what most clients mean by "the AI operating system" — most deals should land here.</strong></div>
+      </div>
       <div class="pkg-body">
         <div>
           <div class="section-label">Core deliverables (in order)</div>
@@ -336,6 +461,57 @@
       </div>
     </div>
 
+    <!-- GROWTH & AI PILOT (BRIDGE) -->
+    <div class="pkg pkg-pilot">
+      <div class="pkg-header">
+        <div>
+          <div class="pkg-eyebrow">Bridge — Growth &amp; AI Pilot · De-risk the big build</div>
+          <div class="pkg-name">Prove one automation pays off before going all-in</div>
+          <div class="pkg-who">Scale-sized buyer who wants proof first · Cautious, or burned by consultants before</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="pkg-price">$2,997</span>
+          <div class="pkg-timeline">~2 weeks · Fixed price</div>
+        </div>
+      </div>
+      <div class="coverage">
+        <div class="cov-pill active">Attract &amp; close</div>
+        <div class="cov-pill partial">Deliver &amp; serve — partial</div>
+        <div class="cov-pill cov-inactive">See &amp; decide</div>
+      </div>
+      <div class="say-box">
+        <div class="section-label">Say this</div>
+        <div class="say-line">"Not ready to commit to a big build? Let's prove it first. Pick your single biggest headache — we solve it in two weeks, you see the ROI with your own eyes, then you decide."</div>
+        <div class="listen"><strong>Listen for:</strong> Scale-sized buyer ($1.5M+) who's cautious · "prove it to me" · burned by consultants before · wants a small first step. &nbsp;<strong>The money:</strong> de-risks the decision — a fraction of Scale, a measurable win on a real problem, and it credits toward the full thing. <strong>Lead with the Pilot whenever a big buyer hesitates. Proof beats persuasion.</strong></div>
+      </div>
+      <div class="pkg-body single-col">
+        <div>
+          <div class="section-label">What's included</div>
+          <ul class="deliverables">
+            <li>One real problem scoped, measured, and solved end to end</li>
+            <li>Starter install of the operating system — file/folder structure plus working automations on that problem</li>
+            <li>Before/after measurement so the ROI is provable, not claimed</li>
+            <li>Recommendation on what to build next, and what it would cost</li>
+          </ul>
+        </div>
+      </div>
+      <div class="outcome-box">
+        <strong>Outcome</strong>
+        They see the system running in their own business, on their own problem, before committing to the full build. The fastest way to turn a skeptic into a Scale client.
+      </div>
+      <div class="note-box">
+        <strong>Upgrade credit:</strong> 50% of the Pilot fee applied toward Scale System.<br>
+        <strong>Price status:</strong> proposed as a standalone SKU — pending team ratification.
+      </div>
+    </div>
+
+    <div class="upgrade-strip">
+      <div class="upgrade-arrow">
+        <span style="color:var(--navy); font-weight:600;">↓</span>
+        <span style="color:var(--gray); font-size:11px;">Pilot clients: 50% of fee credited toward Scale System</span>
+      </div>
+    </div>
+
     <!-- SCALE -->
     <div class="pkg pkg-scale">
       <div class="pkg-header">
@@ -353,6 +529,11 @@
         <div class="cov-pill active">Attract &amp; close</div>
         <div class="cov-pill active">Deliver &amp; serve</div>
         <div class="cov-pill active">See &amp; decide</div>
+      </div>
+      <div class="say-box">
+        <div class="section-label">Say this</div>
+        <div class="say-line">"Ready to grow without the chaos — and without adding headcount? We build the whole command center: every process, live dashboards, and AI running the busywork, so the business scales on systems instead of on you."</div>
+        <div class="listen"><strong>Listen for:</strong> bigger, ready to scale · $1.5M–$5M, 15–50 people · "we're growing but it's held together with duct tape" · hiring to patch process gaps. &nbsp;<strong>The money:</strong> lets them add revenue without adding payroll, shows leadership what's actually profitable in real time, and removes the owner as the bottleneck to growth.</div>
       </div>
       <div class="pkg-body">
         <div>
@@ -435,12 +616,26 @@
       <div class="footer-label">Credits &amp; referrals</div>
       <ul class="footer-items">
         <li><strong>15%</strong> of a referred client's first engagement (minimum $250) — any package except the $599 AI Jumpstart intro</li>
+        <li>AI Jumpstart Next Level → Pilot or Launch Pad: <strong>fee credited</strong></li>
         <li>Launch Pad → Operator: <strong>50% credit</strong></li>
+        <li>Growth &amp; AI Pilot → Scale: <strong>50% credit</strong></li>
         <li>Operator → Scale: <strong>$1,000 credit</strong></li>
         <li>Branding delivered in-house</li>
         <li>Gov. contractor AI tools: quoted separately</li>
       </ul>
     </div>
+  </div>
+
+  <div style="border-top:1px solid var(--rule);margin-top:24px;padding-top:20px;">
+    <div class="footer-label">Price status — before you quote</div>
+    <p style="font-size:12px;line-height:1.6;color:var(--gray);margin-bottom:14px;">
+      <strong style="color:#1a7a4a;">Approved — quote with confidence:</strong> Launch Pad <strong>$1,799</strong> · Operator <strong>$4,500</strong> · Scale <strong>$10K–$15K</strong>.<br>
+      <strong style="color:#a1291d;">Proposed — do not quote as final:</strong> AI Jumpstart ($599 / $1,999) · Operator increase to <strong>$5,500</strong> · Growth &amp; AI Pilot as a standalone SKU · the monthly care retainers.
+    </p>
+    <a href="package-cheat-sheet.html" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 20px;background:#044771;color:#fff;border-radius:10px;text-decoration:none;font-size:13px;">
+      <span><strong style="color:#F1BE5C;">Printable version →</strong> Same pitch language in a one-page format you can print or hand to a new rep.</span>
+      <span style="background:#F1BE5C;color:#023154;font-weight:800;font-size:12px;padding:6px 12px;border-radius:6px;white-space:nowrap;">Open cheat sheet</span>
+    </a>
   </div>
 </div>
 
