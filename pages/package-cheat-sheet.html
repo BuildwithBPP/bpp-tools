@@ -3,93 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Package Cheat Sheet · BPP Tools Hub</title>
+<title>Sales Cheat Sheet · BPP Tools Hub</title>
 <link rel="stylesheet" href="../css/styles.css">
 <style>
-  :root{--navy:#044771;--navy-d:#023154;--gold:#F1BE5C;--gold-d:#c0912f;--green:#1a9e5c;--blue:#5987A5;--ink:#1a2436;--soft:#4a5568;--line:#e2e8f0;--cream:#FAF6EE;}
+  :root{--navy:#044771;--navy-d:#023154;--gold:#F1BE5C;--gold-d:#b8862a;--green:#1a9e5c;--blue:#5987A5;--ink:#1a2436;--soft:#4a5568;--line:#e2e8f0;--cream:#FAF6EE;}
   *{box-sizing:border-box;}
   body{font-family:'Segoe UI',system-ui,sans-serif;color:var(--ink);margin:0;background:#eef2f6;font-size:13px;line-height:1.5;}
-  .sheet{max-width:960px;margin:0 auto;background:#fff;}
-  header{background:linear-gradient(135deg,var(--navy),var(--navy-d));color:#fff;padding:20px 28px;}
+  .sheet{max-width:1000px;margin:0 auto;background:#fff;}
+  header{background:linear-gradient(135deg,var(--navy),var(--navy-d));color:#fff;padding:22px 30px;}
   header .kick{color:var(--gold);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;}
-  header h1{margin:4px 0 0;font-size:26px;font-weight:800;}
-  header .sub{color:rgba(255,255,255,.75);font-size:11.5px;margin-top:3px;}
-  .body{padding:22px 28px;}
-  h2{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--gold-d);margin:22px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px;}
-  .say{background:var(--navy);color:#fff;border-radius:10px;padding:16px 20px;font-size:16px;font-weight:600;line-height:1.5;}
-  .say .gold{color:var(--gold);}
-  .how{background:var(--cream);border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 16px;margin-top:10px;font-size:12.5px;color:var(--soft);}
-  .never{background:#fdeaea;border-left:4px solid #c0392b;border-radius:0 8px 8px 0;padding:9px 16px;margin-top:8px;font-size:12px;color:#7a2b23;}
+  header h1{margin:4px 0 0;font-size:27px;font-weight:800;}
+  header .sub{color:rgba(255,255,255,.78);font-size:12px;margin-top:4px;}
+  .body{padding:24px 30px;}
+  h2{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--gold-d);margin:26px 0 10px;border-bottom:2px solid var(--line);padding-bottom:5px;}
+  h2:first-of-type{margin-top:6px;}
+  .never{background:#fdeaea;border-left:4px solid #c0392b;border-radius:0 8px 8px 0;padding:10px 16px;margin-top:9px;font-size:12px;color:#7a2b23;}
   .never b{color:#a1291d;}
-  table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px;}
-  th{background:var(--navy);color:#fff;text-align:left;padding:8px 10px;font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;}
-  td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top;}
-  tr:nth-child(even) td{background:#fafbfc;}
-  .pk{font-weight:800;color:var(--navy);white-space:nowrap;}
-  .pk.star::after{content:" \2b50";font-size:10px;}
-  .price{font-weight:800;color:var(--gold-d);white-space:nowrap;}
-  .say-line{font-style:italic;color:var(--ink);}
-  .note{background:#f5f7f9;border-radius:8px;padding:12px 16px;margin-top:10px;font-size:12.5px;color:var(--soft);}
+  .core{background:#eef5fb;border:1px solid #cfe0ee;border-radius:12px;padding:16px 20px;margin-top:8px;}
+  .core p{margin:0 0 9px;font-size:13px;color:var(--ink);}
+  .core p:last-child{margin-bottom:0;}
+  .core b{color:var(--navy);}
+  .core .money{background:#fff;border-left:3px solid var(--green);border-radius:0 6px 6px 0;padding:8px 14px;font-size:12.5px;color:#166b40;}
+  .pkg{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:14px;}
+  .pkg-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding:13px 18px;color:#fff;}
+  .pkg-top .name{font-size:18px;font-weight:800;}
+  .pkg-top .price{font-size:16px;font-weight:800;margin-left:auto;white-space:nowrap;}
+  .pkg-top .tag{font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;opacity:.9;}
+  .pkg.onramp .pkg-top{background:linear-gradient(135deg,var(--gold-d),#8f6415);}
+  .pkg.p1 .pkg-top{background:linear-gradient(135deg,var(--blue),#3f6683);}
+  .pkg.p2 .pkg-top{background:linear-gradient(135deg,var(--navy),var(--navy-d));}
+  .pkg.pb .pkg-top{background:linear-gradient(135deg,#6b7f92,#4a5c6e);}
+  .pkg.p3 .pkg-top{background:linear-gradient(135deg,var(--green),#0f7742);}
+  .pkg-body{padding:14px 18px;}
+  .row{display:flex;gap:10px;margin:9px 0;}
+  .row:first-child{margin-top:0;}
+  .row .lbl{flex:0 0 92px;font-size:9.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--navy);padding-top:2px;}
+  .row .val{flex:1;font-size:12.5px;color:var(--ink);}
+  .row.pitch .val{font-style:italic;font-weight:600;color:var(--navy-d);background:var(--cream);border-radius:6px;padding:8px 12px;}
+  .row.money .val{color:#166b40;}
+  .row .val b{color:var(--navy);}
+  .star{color:var(--gold);}
+  .note{background:#f5f7f9;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:12.5px;color:var(--soft);}
   .note b{color:var(--navy);}
-  .scale{display:grid;grid-template-columns:1fr 1fr;gap:0 26px;margin-top:8px;}
-  .scale h3{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--navy);margin:10px 0 4px;}
-  .scale ul{margin:0;padding-left:18px;font-size:12px;color:var(--ink);}
-  .scale li{margin:3px 0;}
+  .path{background:var(--navy);color:#fff;border-radius:10px;padding:14px 18px;margin-top:10px;font-size:13px;line-height:1.7;}
+  .path b{color:var(--gold);}
+  .pitchwrap{counter-reset:p;}
+  .pitch4{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;margin-top:8px;}
+  .pitch4 div{font-size:12.5px;padding-left:24px;position:relative;}
+  .pitch4 b{color:var(--navy);}
+  .pitch4 div::before{content:counter(p);counter-increment:p;position:absolute;left:0;top:0;width:17px;height:17px;background:var(--gold);color:var(--navy-d);border-radius:50%;font-size:10px;font-weight:800;text-align:center;line-height:17px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 26px;}
+  .grid2 h3{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--navy);margin:12px 0 4px;}
+  .grid2 ul{margin:0;padding-left:18px;font-size:12px;}
+  .grid2 li{margin:3px 0;}
   .tiers{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
   .tier{flex:1;min-width:150px;background:var(--cream);border:1px solid var(--line);border-radius:8px;padding:10px 12px;}
   .tier .t{font-weight:800;color:var(--gold-d);font-size:15px;}
   .tier .d{font-size:11px;color:var(--soft);margin-top:2px;}
-  .pitch{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;margin-top:8px;}
-  .pitch div{font-size:12.5px;padding-left:22px;position:relative;}
-  .pitch b{color:var(--navy);}
-  .pitch div::before{content:counter(p);counter-increment:p;position:absolute;left:0;top:0;width:16px;height:16px;background:var(--gold);color:var(--navy-d);border-radius:50%;font-size:10px;font-weight:800;text-align:center;line-height:16px;}
-  .pitchwrap{counter-reset:p;}
-  footer{padding:12px 28px;background:var(--navy-d);color:rgba(255,255,255,.7);font-size:10.5px;text-align:center;}
+  footer{padding:14px 30px;background:var(--navy-d);color:rgba(255,255,255,.72);font-size:10.5px;text-align:center;}
   footer b{color:var(--gold);}
-  @media print{body{background:#fff;font-size:11.5px;}.sheet{max-width:100%;}h2{margin-top:14px;}@page{margin:0.5in;}}
+  @media print{body{background:#fff;font-size:11.5px;}.sheet{max-width:100%;}.pkg,.core,.note{break-inside:avoid;}@page{margin:0.5in;}}
 </style>
 </head>
 <body>
 <div id="hub-nav"></div>
 <div class="sheet">
   <header>
-    <div class="kick">Internal · Sales &amp; Pitch Tool · Not for clients</div>
-    <h1>BPP Package Cheat Sheet</h1>
-    <div class="sub">Memorize this. Everyone pitches the same way. Money first, no jargon.</div>
+    <div class="kick">Internal · Sales Enablement · Not for clients</div>
+    <h1>BPP Sales Cheat Sheet</h1>
+    <div class="sub">Everyone pitches the same way. Money first, plain English, no jargon. If you can only remember one thing: <b style="color:#fff;">lead with the money or the time, name their problem in their words, then name the package.</b></div>
   </header>
   <div class="body">
 
-    <h2>What BPP is — say it exactly like this</h2>
-    <div class="say">"We help you <span class="gold">make more money and take back your time</span> by fixing the behind-the-scenes stuff — follow-up, customer tracking, your numbers — and letting smart tools do the busywork."</div>
-    <div class="how"><b>If they ask how:</b> "Most growing businesses leak money they can't see: slow follow-ups, no system, no clear picture of what's profitable. We plug those leaks and put automation and AI to work, so more of what you're already doing turns into revenue, and less of it depends on you."</div>
-    <div class="never"><b>Never say</b> "AI operating system," "operating system," "file structure," or any tool name up front. Lead with the money or the time. Every time.</div>
+    <h2>Start here — what "the AI operating system" actually is (for a non-technical owner)</h2>
+    <div class="core">
+      <p><b>Say it like this:</b> "Think about everything that keeps your business running — following up with leads, tracking customers, sending invoices, knowing your numbers, all the repetitive admin. Right now most of that lives in your head, or scattered across sticky notes, texts, and spreadsheets. We build one organized place where all of it lives and runs — your files, your process, your numbers — and we put AI to work inside it so the busywork happens on its own. It's the difference between a business that depends on you remembering everything, and one that runs itself while you sell and grow."</p>
+      <p><b>What it is under the hood (internal only — never say this to a client):</b> the file/folder system we run BPP on (our Cowork setup) + Claude skills + automations. Clients get a sized-up version at every tier. To the client, always describe it by what it <i>does</i>, never by the plumbing.</p>
+      <div class="money"><b>The money translation (always close the loop to this):</b> fewer dropped leads = more deals closed · faster admin = more hours to sell · clear numbers = you stop leaking money you can't see. Organized businesses make more and keep more. That's the whole pitch.</div>
+    </div>
+    <div class="never"><b>Never open with</b> "AI operating system," "operating system," "file structure," "automations," or any tool name. Those are how we build it, not why they buy it. Lead with the dollar or the hour. Every time. Bring in "operating system" only once they're nodding and ask "so what do you actually do?"</div>
 
-    <h2>Entry on-ramp — AI Jumpstart (coaching)</h2>
-    <div class="note"><b>Say this:</b> "Learn to run your busywork on AI in a few sessions — proposals, emails, scheduling, pricing." · <b>Setup $599</b> (90-min 1:1) or <b>Next Level $1,999</b> (3–4 sessions + a cheat sheet they keep + 30 days support). Best for existing clients and solo owners who want to do it themselves with a coach.<br><b>This is the front door, and it leads straight into the operating system:</b> coaching gets them using AI on their own; when they want it built for real, we install it (Growth &amp; AI Pilot → Operator → Scale), and the Next Level fee credits toward a Pilot or Launch Pad. Pilot it with HALO, Financial Acuity, and Wanda first.</div>
+    <h2>The 3-line pitch — works for any package</h2>
+    <div class="note">
+      <b>1. The money/time hook:</b> "Most businesses like yours are leaking money they can't see — slow follow-ups, no system, no clear picture of what's profitable."<br>
+      <b>2. Their problem in their words:</b> "Sounds like everything falls apart when you step away / leads slip through the cracks / you're buried in admin instead of selling."<br>
+      <b>3. The package as the fix:</b> "That's exactly what our [package] fixes — here's how it works and what you'd get." <span style="color:var(--navy);font-weight:700;">Then use the package block below.</span>
+    </div>
 
-    <h2>The four build packages</h2>
-    <table>
-      <thead><tr><th>Package</th><th>Price</th><th>Say this</th><th>Who it's for</th></tr></thead>
-      <tbody>
-        <tr><td class="pk">Launch Pad</td><td class="price">$1,799</td><td class="say-line">"Get set up right and ready to start making money."</td><td>Just starting · pre-rev to $150K</td></tr>
-        <tr><td class="pk star">Operator System</td><td class="price">$4,500</td><td class="say-line">"Get organized so you stop losing deals and get your time back."</td><td>Established, chaotic · $250K–$2M, 5–25 ppl</td></tr>
-        <tr><td class="pk">Growth &amp; AI Pilot</td><td class="price">$2,997</td><td class="say-line">"Prove one automation pays off before you go all-in."</td><td>Curious but cautious · wants proof</td></tr>
-        <tr><td class="pk">Scale System</td><td class="price">$10K–$15K</td><td class="say-line">"Run the whole business on systems and data so you can grow without the chaos."</td><td>Bigger, ready to scale · $1.5M–$5M, 15–50 ppl</td></tr>
-      </tbody>
-    </table>
-    <div class="note"><b>The path up:</b> AI Jumpstart → Growth &amp; AI Pilot / Launch Pad → (50% credit) Operator → ($1,000 credit) Scale. Coaching teaches them; the packages build it for them. Every rung feeds the next.<br>
-    <b>Referral program:</b> refer a business that becomes a paying client and get <b>15% of their first engagement, minimum $250</b> — on any package except the $599 AI Jumpstart intro. Scales with the deal, easy to pay. (Updates the old flat-$250 program.)<br>
-    <b>Prices — approved vs proposed:</b> Launch Pad <b>$1,799</b> and Operator <b>$4,500</b> are approved. Proposed (team decision): the AI Jumpstart coaching tier ($599/$1,999), the Operator increase to <b>$5,500</b>, the monthly care retainers, and the Pilot as a standalone SKU. Scale is the standing $10–15K.</div>
+    <h2>The packages — pitch each one from here</h2>
 
-    <h2>What the "AI operating system" actually is (internal only)</h2>
-    <div class="note">It's the <b>file/folder system we run BPP on</b> (our Cowork setup) plus <b>Claude skills and automations</b>. Clients get a version of it at every tier, sized up as they climb. The <b>Growth &amp; AI Pilot is the starter install of it</b>: the file/folder system plus a few working skills/automations on one real problem, so they see it running in their own business before the full build. <b>Operator</b> layers on the CRM and more automations; <b>Scale</b> is the full command center, dashboards, and 5–8 automations. To the client, describe it by what it <i>does</i> (fewer dropped balls, faster work, clear numbers), never by the plumbing.</div>
+    <div class="pkg onramp">
+      <div class="pkg-top"><span class="tag">On-Ramp · Coaching</span><span class="name">AI Jumpstart</span><span class="price">$599 / $1,999</span></div>
+      <div class="pkg-body">
+        <div class="row pitch"><div class="lbl">Say this</div><div class="val">"Want to learn to run your busywork on AI yourself? In a few sessions I'll show you how to use AI for your proposals, emails, scheduling, and pricing — so the stuff that eats your nights takes minutes instead."</div></div>
+        <div class="row"><div class="lbl">What it is</div><div class="val">Hands-on coaching, not a build. We sit with the owner and teach them to use AI on their real tasks. <b>$599</b> = one 90-minute 1:1. <b>$1,999</b> = 3–4 sessions building real workflows together + a cheat sheet they keep + 30 days of support.</div></div>
+        <div class="row money"><div class="lbl">The money</div><div class="val">They stop losing hours to busywork and get that time back to sell. It's also the cheapest way to prove AI is worth it — which opens the door to us building it for them.</div></div>
+        <div class="row"><div class="lbl">Listen for</div><div class="val">Solo/micro owner, DIY type, price-sensitive, "I just want to figure this AI stuff out," or an existing client we want to grow.</div></div>
+        <div class="row"><div class="lbl">Then</div><div class="val">This is the front door. When they see it work and want it done for real, the Next Level fee <b>credits toward a Pilot or Launch Pad</b>. Always plant that seed.</div></div>
+      </div>
+    </div>
+
+    <div class="pkg p1">
+      <div class="pkg-top"><span class="tag">Tier 1 · Build</span><span class="name">Launch Pad</span><span class="price">$1,799 &nbsp;+ $249/mo</span></div>
+      <div class="pkg-body">
+        <div class="row pitch"><div class="lbl">Say this</div><div class="val">"Just getting going? We'll get you set up right — organized, professional, and ready to actually make money — instead of fumbling the basics for six months."</div></div>
+        <div class="row"><div class="lbl">What it is</div><div class="val">The foundational setup for a new or pre-revenue business: their core systems, structure, and first AI tools in place so they launch organized instead of chaotic. The starter version of the operating system.</div></div>
+        <div class="row money"><div class="lbl">The money</div><div class="val">New businesses bleed time and credibility on disorganization. This gets them to their first paying customers faster and looking like a company people trust with their money.</div></div>
+        <div class="row"><div class="lbl">Listen for</div><div class="val">Just starting, pre-revenue to ~$150K, "I don't even know where to start," wearing every hat.</div></div>
+        <div class="row"><div class="lbl">Then</div><div class="val"><b>50% credits up into Operator</b> when they outgrow the basics.</div></div>
+      </div>
+    </div>
+
+    <div class="pkg p2">
+      <div class="pkg-top"><span class="tag">Tier 2 · Build · <span class="star">★</span> Primary focus</span><span class="name">Operator System</span><span class="price">$4,500 &nbsp;+ $500/mo</span></div>
+      <div class="pkg-body">
+        <div class="row pitch"><div class="lbl">Say this</div><div class="val">"Growing, but everything falls apart when you step away? We'll organize the whole operation so you stop losing deals to the chaos and get your time back to sell."</div></div>
+        <div class="row"><div class="lbl">What it is</div><div class="val">The core operating-system build for an established, busy business. We map their key processes, set up the file/folder system, install a CRM so no lead slips, and put AI to work on the repetitive stuff. <b>This is what most clients mean by "the AI operating system."</b></div></div>
+        <div class="row money"><div class="lbl">The money</div><div class="val">Chaos costs money — dropped follow-ups, lost leads, the owner stuck in the weeds instead of selling. Organizing it recovers deals they're losing right now and frees the owner's most valuable hours.</div></div>
+        <div class="row"><div class="lbl">Listen for</div><div class="val">Established but chaotic, $250K–$2M, 5–25 people, "I'm the bottleneck," "leads slip through," "I can't take a day off."</div></div>
+        <div class="row"><div class="lbl">Then</div><div class="val"><b>$1,000 credits up into Scale.</b> This is our primary focus — most deals should land here. (Proposed increase to <b>$5,500</b> pending team ratification.)</div></div>
+      </div>
+    </div>
+
+    <div class="pkg pb">
+      <div class="pkg-top"><span class="tag">Bridge · De-risk</span><span class="name">Growth &amp; AI Pilot</span><span class="price">$2,997</span></div>
+      <div class="pkg-body">
+        <div class="row pitch"><div class="lbl">Say this</div><div class="val">"Not ready to commit to a big build? Let's prove it first. Pick your single biggest headache — we solve it in two weeks, you see the ROI with your own eyes, then you decide."</div></div>
+        <div class="row"><div class="lbl">What it is</div><div class="val">A small, focused starter install of the operating system on <b>one real problem</b> — so a bigger, skeptical buyer sees it running in their own business before the full build. Low risk, fast proof.</div></div>
+        <div class="row money"><div class="lbl">The money</div><div class="val">De-risks the decision. They put down a fraction of Scale, get a measurable win on a real problem, and it credits toward the full thing.</div></div>
+        <div class="row"><div class="lbl">Listen for</div><div class="val">Scale-sized buyer ($1.5M+) who's cautious, "prove it to me," burned by consultants before, wants a small first step.</div></div>
+        <div class="row"><div class="lbl">Then</div><div class="val"><b>50% credits toward Scale.</b> Proof beats persuasion — lead with the Pilot whenever a big buyer hesitates.</div></div>
+      </div>
+    </div>
+
+    <div class="pkg p3">
+      <div class="pkg-top"><span class="tag">Tier 3 · Build</span><span class="name">Scale System (AI Ops)</span><span class="price">$10K–$15K &nbsp;+ $1.5–2K/mo</span></div>
+      <div class="pkg-body">
+        <div class="row pitch"><div class="lbl">Say this</div><div class="val">"Ready to grow without the chaos — and without adding headcount? We build the whole command center: every process, live dashboards, and AI running the busywork, so the business scales on systems instead of on you."</div></div>
+        <div class="row"><div class="lbl">What it is</div><div class="val">The full operating-system build: process audit + SOPs so anyone can run the work, a BI dashboard for real-time numbers, 5–8 AI automations, and CRM optimization. The complete command center.</div></div>
+        <div class="row money"><div class="lbl">The money</div><div class="val">Lets them add revenue without adding payroll, shows leadership what's actually profitable in real time, and removes the owner as the bottleneck to growth.</div></div>
+        <div class="row"><div class="lbl">Listen for</div><div class="val">Bigger, ready to scale, $1.5M–$5M, 15–50 people, "we're growing but it's held together with duct tape," hiring to patch process gaps.</div></div>
+        <div class="row"><div class="lbl">Then</div><div class="val">The care retainer keeps it optimized and adds new automation each quarter. See the full scope below.</div></div>
+      </div>
+    </div>
+
+    <h2>How they climb — every rung feeds the next</h2>
+    <div class="path"><b>AI Jumpstart</b> (learn it) → <b>Growth &amp; AI Pilot</b> / <b>Launch Pad</b> (prove it / start it) → <b>Operator</b> (run on it) → <b>Scale</b> (grow on it). Coaching teaches them; the packages build it for them. The credits are the escalator: Next Level → Pilot/Launch Pad, Launch Pad → 50% into Operator, Operator → $1,000 into Scale, Pilot → 50% into Scale. <b>Never oversell the top.</b> Size to the business today and let the credits pull them up as they grow.</div>
 
     <h2>Scale System — full scope · $10,000–$15,000 · 8–12 weeks · fixed price (custom above $15K)</h2>
-    <div class="scale">
+    <div class="grid2">
       <div>
         <h3>Foundation (always first)</h3>
         <ul>
-          <li>Full process audit — 3–5 key processes mapped, gaps found, optimization roadmap</li>
+          <li>Full process audit — 3–5 key processes mapped, gaps found, roadmap built</li>
           <li>SOP documentation — any team member can execute without the owner</li>
         </ul>
         <h3>Core deliverables</h3>
@@ -122,18 +188,25 @@
     </div>
     <div class="note"><b>Care after (proposed):</b> AI Operations Care <b>$1,500–$2,000/mo</b> (research supports $2,500–$3,500) — keeps it optimized, adds automation each quarter. &nbsp;·&nbsp; <b>Add-ons (any tier):</b> extra AI workflow $1,500 · QuickBooks $699–$1,499 · Webflow build from $3,500 · brand identity $1,000.</div>
 
-    <h2>How to run any pitch</h2>
+    <h2>Referral program &amp; price status</h2>
+    <div class="note">
+      <b>Referral:</b> refer a business that becomes a paying client and get <b>15% of their first engagement, minimum $250 — on any package except the $599 AI Jumpstart intro.</b> Scales with the deal, easy to pay. (Updates the old flat-$250 program.)<br>
+      <b>Approved (pitch with confidence):</b> Launch Pad <b>$1,799</b>, Operator <b>$4,500</b>.<br>
+      <b>Proposed (team decision pending — don't quote as final):</b> AI Jumpstart tier ($599/$1,999), Operator → <b>$5,500</b>, the monthly care retainers, and the Pilot as a standalone SKU. Scale is the standing $10–15K.
+    </div>
+
+    <h2>How to run any pitch — the 4 rules</h2>
     <div class="pitchwrap">
-      <div class="pitch">
-        <div><b>Money first.</b> First sentence is a dollar or time outcome. Always.</div>
+      <div class="pitch4">
+        <div><b>Money first.</b> Your first sentence is a dollar or a time outcome. Always.</div>
         <div><b>Name their problem in their words</b> before you name a package.</div>
-        <div><b>Size to the business,</b> not the biggest number — credits pull them up.</div>
-        <div><b>Hesitant on Scale? Lead with the Pilot.</b> Proof beats persuasion.</div>
+        <div><b>Size to the business,</b> not the biggest number — the credits pull them up.</div>
+        <div><b>Hesitant on a big build? Lead with the Pilot.</b> Proof beats persuasion.</div>
       </div>
     </div>
 
   </div>
-  <footer>Business Plans <b>Plus</b> · Package Cheat Sheet v1 · Internal · Update prices here first when the team ratifies changes</footer>
+  <footer>Business Plans <b>Plus</b> · Sales Cheat Sheet v2 · Internal · Update prices here first when the team ratifies changes</footer>
 </div>
 <script src="../js/nav.js" data-page="strategy"></script>
 </body>
