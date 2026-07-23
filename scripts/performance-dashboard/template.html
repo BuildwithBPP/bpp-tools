@@ -126,7 +126,11 @@
   <div class="shead"><span class="n">1</span><span class="t">Financial</span><span class="s" id="s-fin">&mdash;</span></div>
   <div class="grid2 wide-l">
     <div class="card"><div class="card-t">Revenue &amp; net income by month</div><div class="card-s" id="ct-rev">Cash basis &middot; QuickBooks. Selected period highlighted; loss months marked red.</div><div id="ch-rev"></div></div>
-    <div class="card"><div class="card-t">Revenue by category</div><div class="card-s">Selected period &middot; QuickBooks income accounts</div><div id="ch-revcat"></div></div>
+    <div class="card"><div class="card-t">Revenue by offering</div><div class="card-s">Selected period &middot; each client payment mapped to its service line (estimated for bundled packages)</div><div id="ch-revoff"></div></div>
+  </div>
+  <div class="grid2 wide-l" style="margin-top:12px">
+    <div class="card"><div class="card-t">Expenses by category</div><div class="card-s">Selected period &middot; QuickBooks</div><div id="ch-expcat"></div></div>
+    <div class="card"><div class="card-t">Cost structure</div><div class="card-s">Selected period &middot; efficiency and the biggest levers</div><div id="ch-expsum"></div></div>
   </div>
 
   <div class="shead"><span class="n">2</span><span class="t">Sales</span><span class="s" id="s-sales">&mdash;</span></div>
@@ -184,10 +188,12 @@ function priorScope(year, period, month){
   return has?{year:py,period:pq,month:null,label:pq+' '+py}:null;
 }
 function agg(months){
-  const a=JSON.parse(JSON.stringify(EMPTY)); a.revcat={};
+  const a=JSON.parse(JSON.stringify(EMPTY)); a.revcat={}; a.revoff={}; a.expcat={};
   months.forEach(m=>{ const d=g(m);
     a.rev+=d.rev; a.exp+=d.exp; a.net+=d.net; a.wonN+=d.wonN; a.wonV+=d.wonV; a.lostN+=d.lostN; a.lostV+=d.lostV;
     for(const k in (d.revcat||{})) a.revcat[k]=(a.revcat[k]||0)+d.revcat[k];
+    for(const k in (d.revoff||{})) a.revoff[k]=(a.revoff[k]||0)+d.revoff[k];
+    for(const k in (d.expcat||{})) a.expcat[k]=(a.expcat[k]||0)+d.expcat[k];
     ['ig','fb','tt','li'].forEach(p=>{ a[p].v+=d[p].v; a[p].p+=d[p].p; a[p].e+=d[p].e; });
     a.web.pv+=d.web.pv; a.web.vis+=d.web.vis;
   });
@@ -359,9 +365,16 @@ function render(){
   // charts
   const lossKeys=yearMonths.filter(m=>g(m).net<0);
   $('ch-rev').innerHTML=colChart(yearMonths, m=>g(m).rev, {fmt:usd, lossKeys});
-  // revcat
-  const catRows=Object.entries(a.revcat).map(([k,v])=>({label:k,val:v})).sort((x,y)=>y.val-x.val);
-  $('ch-revcat').innerHTML=barChart(catRows,{fmt:usd});
+  // revenue by offering
+  const offColors=['url(#gNavy)','url(#gBlue)','url(#gSky)','url(#gGold)','url(#gHbar)','url(#gGood)'];
+  const offRows=Object.entries(a.revoff||{}).map(([k,v])=>({label:k,val:v})).sort((x,y)=>y.val-x.val).map((r,i)=>({...r,color:offColors[i%offColors.length]}));
+  $('ch-revoff').innerHTML=barChart(offRows,{fmt:usd});
+  // expenses by category
+  const expRows=Object.entries(a.expcat||{}).map(([k,v])=>({label:k,val:v})).sort((x,y)=>y.val-x.val)
+    .map(r=>({...r,color: r.label==='Software'?'url(#gBad)':'url(#gHbar)'}));
+  $('ch-expcat').innerHTML=barChart(expRows,{fmt:usd});
+  // cost structure summary
+  $('ch-expsum').innerHTML=costCard(a,pa);
   // deals
   $('ch-deals').innerHTML=groupCols(yearMonths);
   // winrate card
@@ -383,6 +396,18 @@ function render(){
 function tile(lbl,val,meta,acc,sp){
   return '<div class="tile '+(acc||'')+'">'+(sp||'')+'<div class="lbl">'+lbl+'</div><div class="val'+(val.length>7?' sm':'')+' tnum">'+val+'</div><div class="meta">'+meta+'</div></div>';
 }
+function costCard(a,pa){
+  const eff=a.rev?Math.round(a.exp/a.rev*100):0;
+  const sw=(a.expcat&&a.expcat['Software'])||0; const swShare=a.exp?Math.round(sw/a.exp*100):0;
+  const cm=(a.expcat&&a.expcat['Content & Marketing'])||0;
+  return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">'
+   +mini('Total expenses', usdFull(a.exp), (pa?deltaText(a.exp,pa.exp)+' vs prior':'&mdash;'), 'info')
+   +mini('Efficiency ratio', eff+'%', '$'+(eff/100).toFixed(2)+' spent per $1', eff<75?'good':eff<90?'warn':'bad')
+   +mini('Software', usdFull(sw), swShare+'% of expenses', swShare<40?'good':'warn')
+   +mini('Content spend', usdFull(cm), a.rev?Math.round(cm/a.rev*100)+'% of revenue':'&mdash;','info')
+   +'</div>';
+}
+function deltaText(cur,prev){ if(!prev) return 'new'; const p=Math.round((cur-prev)/Math.abs(prev)*100); return (p>=0?'+':'')+p+'%'; }
 function winCard(a,wr,pa){
   const net=a.wonV-a.lostV;
   return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">'

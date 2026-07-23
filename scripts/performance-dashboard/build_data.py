@@ -38,6 +38,50 @@ with open(os.path.join(DA4,"account-by-month.csv"),encoding="utf-8-sig") as fh:
         if not cat: continue
         M[r["month"]]["revcat"][cat]+=round(f(r["amount"]),2)
 
+# ---- REVENUE BY OFFERING (keyword-first, client fallback) ----
+def offering(name, desc):
+    d=(desc or "").lower(); nm=(name or "").lower()
+    if any(k in d for k in ["crm","hubspot pipeline","honeybook","ai workflow","automation"]): return "Systems & CRM"
+    if any(k in d for k in ["website","landing page","ecommerce","google voice"]) or "form" in d and "optimiz" in d: return "Website & Digital"
+    if any(k in d for k in ["brand","logo","visual foundation","guideline","print","collateral"]): return "Brand & Design"
+    if "business plan" in d: return "Business Planning"
+    if any(k in d for k in ["google business profile","google my business","gmb"," seo"]): return "Local SEO / GMB"
+    if any(k in d for k in ["quickbooks","chart of accounts"]): return "Finance / QuickBooks"
+    if "social media strategy" in d: return "Marketing & Social"
+    if any(k in d for k in ["state filing","compliance"]): return "Consulting & Other"
+    # client fallback for milestone / bare payments
+    if "phil tirado" in nm: return "Systems & CRM"           # Lois Operator System
+    if "halo" in nm: return "Website & Digital"               # HALO Launch Pad
+    if "jeannette" in nm or "seed folk" in nm: return "Business Planning"  # SEEDFOLKids strategic planning
+    if "wedelia" in nm or "mable" in nm: return "Business Planning"
+    if "stack all profits" in nm or "fawwwkk" in nm or "legacy roof" in nm or "darnel felix" in nm: return "Marketing & Social"
+    if "roberts brothers" in nm: return "Website & Digital"
+    return "Consulting & Other"
+_inc={"Consulting Income","Technology Income","Marketing Income","Uncategorized Income","Unapplied Cash Payment Income"}
+with open(os.path.join(DA4,"transactions-all.csv"),encoding="utf-8-sig") as fh:
+    for r in csv.DictReader(fh):
+        if r["account"] not in _inc: continue
+        amt=f(r["amount"])
+        if amt<=0: continue
+        m=r["month"]; M[m].setdefault("revoff",defaultdict(float))
+        M[m]["revoff"][offering(r["name"],r["description"])]+=amt
+
+# ---- EXPENSES BY CATEGORY ----
+EXPMAP={"Software & apps":"Software","Content Creation & Management":"Content & Marketing",
+ "Promotional Materials":"Content & Marketing","Events & Sponsorships":"Content & Marketing",
+ "Partners Guaranteed Payments":"Owner Pay","Prior Owner Revenue Share (5%)":"Rodney Rev-Share",
+ "Contract labor":"Contract Labor","Bank fees & service charges":"Fees","QuickBooks Payments Fees":"Fees"}
+with open(os.path.join(DA4,"account-by-month.csv"),encoding="utf-8-sig") as fh:
+    for r in csv.DictReader(fh):
+        if r["is_income"]!="no": continue
+        amt=f(r["amount"]);
+        if amt==0: continue
+        cat=EXPMAP.get(r["account"])
+        if not cat:
+            cat="Client Costs" if "Reimbursable" in r["account"] else "Other"
+        m=r["month"]; M[m].setdefault("expcat",defaultdict(float))
+        M[m]["expcat"][cat]+=amt
+
 # ---- SOCIAL (DA-003 dailies) ----
 def month_of(d): return d[:7]  # 2026-04-01 -> 2026-04
 def agg_platform(pattern, viewcol, postcol, engcol):
@@ -133,6 +177,8 @@ for m in months:
     d=M[m]
     data[m]={"rev":round(d["rev"],2),"exp":round(d["exp"],2),"net":round(d["net"],2),
         "revcat":{k:round(v,2) for k,v in d["revcat"].items()},
+        "revoff":{k:round(v,2) for k,v in d.get("revoff",{}).items()},
+        "expcat":{k:round(v,2) for k,v in d.get("expcat",{}).items()},
         "wonN":d["wonN"],"wonV":round(d["wonV"],2),"lostN":d["lostN"],"lostV":round(d["lostV"],2),
         "ig":{k:round(v,2) for k,v in d["ig"].items()},"fb":{k:round(v,2) for k,v in d["fb"].items()},
         "tt":{k:round(v,2) for k,v in d["tt"].items()},"li":{k:round(v,2) for k,v in d["li"].items()},
