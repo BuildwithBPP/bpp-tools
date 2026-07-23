@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP Performance Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:#044771; --navy-dark:#022f4d; --navy-mid:#0a5a8c; --blue:#2f80c4; --blue-bright:#2a78d6;
+    --sky:#6ba8d8; --gold:#F1BE5C; --gold-dark:#d99e2b;
+    --bg:#eaeef2; --card:#ffffff; --border:#dbe3ea; --border-strong:#c4d0da;
+    --grid:#e8edf2; --ink:#16232e; --ink-2:#5a6b78; --muted:#8a97a3;
+    --good:#1a9e5c; --good-dark:#147a46; --warn:#d4920a; --red:#c0392b;
+    --good-soft:#e6f4ec; --warn-soft:#fbf0d9; --red-soft:#f7e3e0;
+    --shadow:0 1px 2px rgba(16,35,46,0.05), 0 1px 3px rgba(16,35,46,0.04);
+  }
+  body { font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased; }
+  .tnum { font-variant-numeric:tabular-nums; }
+
+  .header { background:linear-gradient(120deg,var(--navy-dark) 0%,var(--navy) 55%,var(--navy-mid) 100%); padding:20px 34px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+  .h-left { display:flex; align-items:center; gap:14px; }
+  .h-logo { width:42px; height:42px; background:var(--gold); border-radius:7px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; color:var(--navy-dark); letter-spacing:-0.5px; }
+  .h-title { color:#fff; font-size:19px; font-weight:700; letter-spacing:-0.3px; }
+  .h-sub { color:rgba(255,255,255,0.62); font-size:11px; margin-top:2px; }
+  .h-asof { text-align:right; color:#fff; }
+  .h-asof .a1 { font-size:12px; font-weight:600; color:var(--gold); }
+  .h-asof .a2 { font-size:10px; opacity:0.5; margin-top:3px; }
+
+  /* slicer control bar */
+  .controls { background:#fff; border-bottom:1px solid var(--border); padding:12px 34px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; position:sticky; top:0; z-index:20; box-shadow:0 1px 3px rgba(16,35,46,0.04); }
+  .ctl-group { display:flex; align-items:center; gap:9px; }
+  .ctl-lbl { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); }
+  .seg { display:inline-flex; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:3px; gap:2px; flex-wrap:wrap; }
+  .seg button { border:none; background:transparent; color:var(--ink-2); font-family:inherit; font-size:12px; font-weight:600; padding:6px 12px; border-radius:6px; cursor:pointer; transition:all 0.12s; }
+  .seg button:hover { color:var(--navy); }
+  .seg button.on { background:var(--navy); color:#fff; box-shadow:var(--shadow); }
+  select.msel { font-family:inherit; font-size:12px; font-weight:600; color:var(--navy); border:1px solid var(--border); border-radius:7px; padding:7px 10px; background:#fff; cursor:pointer; }
+  .scope-tag { margin-left:auto; font-size:12px; color:var(--ink-2); }
+  .scope-tag b { color:var(--navy); }
+
+  .wrap { max-width:1240px; margin:0 auto; padding:22px 28px 60px; }
+
+  .shead { display:flex; align-items:baseline; gap:12px; margin:28px 0 14px; padding-bottom:9px; border-bottom:2px solid var(--navy); }
+  .shead .n { font-size:11px; font-weight:700; color:#fff; background:var(--navy); width:21px; height:21px; border-radius:5px; display:inline-flex; align-items:center; justify-content:center; }
+  .shead .t { font-size:15px; font-weight:700; color:var(--ink); letter-spacing:-0.2px; }
+  .shead .s { font-size:11px; color:var(--muted); margin-left:auto; font-weight:500; }
+
+  .tiles { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+  .tile { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:15px 16px; box-shadow:var(--shadow); position:relative; overflow:hidden; }
+  .tile::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--navy); }
+  .tile.acc-gold::before { background:var(--gold); } .tile.acc-good::before { background:var(--good); }
+  .tile.acc-red::before { background:var(--red); } .tile.acc-warn::before { background:var(--warn); }
+  .tile .lbl { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); }
+  .tile .val { font-size:24px; font-weight:700; color:var(--navy); margin-top:7px; letter-spacing:-0.5px; }
+  .tile .val.sm { font-size:19px; }
+  .tile .meta { font-size:11px; color:var(--ink-2); margin-top:6px; display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
+  .delta { font-weight:700; display:inline-flex; align-items:center; gap:2px; }
+  .delta.up { color:var(--good-dark); } .delta.down { color:var(--red); } .delta.flat { color:var(--muted); }
+  .spark { position:absolute; right:12px; top:13px; opacity:0.9; }
+
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .grid2.wide-l { grid-template-columns:1.25fr 0.75fr; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:17px 19px; box-shadow:var(--shadow); }
+  .card-t { font-size:13px; font-weight:700; color:var(--ink); }
+  .card-s { font-size:10.5px; color:var(--muted); margin-top:1px; margin-bottom:12px; }
+
+  .note { background:var(--card); border:1px solid var(--border); border-left:3px solid var(--navy); border-radius:8px; padding:14px 17px; box-shadow:var(--shadow); margin-top:12px; }
+  .note.gold { border-left-color:var(--gold); } .note.red { border-left-color:var(--red); }
+  .note .nt { font-size:12px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+  .note .nb { font-size:12px; color:var(--ink-2); line-height:1.65; } .note .nb b { color:var(--ink); }
+  .cap { font-size:10.5px; color:var(--muted); margin-top:8px; }
+  svg text { font-family:'Inter',system-ui,sans-serif; }
+  .chip { display:inline-flex; align-items:center; gap:5px; font-size:10px; font-weight:700; padding:2px 8px; border-radius:20px; }
+  .chip .cd { width:6px; height:6px; border-radius:50%; }
+  .chip.good { background:var(--good-soft); color:var(--good-dark); } .chip.good .cd { background:var(--good); }
+  .chip.warn { background:var(--warn-soft); color:#9a6a06; } .chip.warn .cd { background:var(--warn); }
+  .chip.bad { background:var(--red-soft); color:var(--red); } .chip.bad .cd { background:var(--red); }
+  .chip.info { background:#e4eef7; color:var(--navy); } .chip.info .cd { background:var(--blue); }
+  .empty { font-size:12px; color:var(--muted); padding:24px 4px; text-align:center; }
+
+  .foot { background:var(--navy-dark); padding:15px 34px; display:flex; justify-content:space-between; align-items:center; margin-top:40px; flex-wrap:wrap; gap:8px; }
+  .foot .ft { font-size:10px; color:rgba(255,255,255,0.42); } .foot .fg { font-size:11px; font-weight:700; color:var(--gold); }
+
+  @media (max-width:900px){ .tiles{grid-template-columns:repeat(2,1fr);} .grid2,.grid2.wide-l{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div id="hub-nav"></div>
+
+<div class="header">
+  <div class="h-left">
+    <div class="h-logo">BPP</div>
+    <div>
+      <div class="h-title">Performance Dashboard</div>
+      <div class="h-sub">Business Plans Plus LLC &middot; sliceable by year, quarter, month</div>
+    </div>
+  </div>
+  <div class="h-asof">
+    <div class="a1" id="asof">&mdash;</div>
+    <div class="a2">QuickBooks &middot; HubSpot &middot; Metricool &middot; refreshed 2026-07-23</div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="ctl-group">
+    <span class="ctl-lbl">Year</span>
+    <div class="seg" id="yearSeg"></div>
+  </div>
+  <div class="ctl-group">
+    <span class="ctl-lbl">Period</span>
+    <div class="seg" id="periodSeg"></div>
+  </div>
+  <div class="ctl-group">
+    <span class="ctl-lbl">Month</span>
+    <select class="msel" id="monthSel"></select>
+  </div>
+  <div class="scope-tag" id="scopeTag"></div>
+</div>
+
+<div class="wrap">
+  <div class="tiles" id="kpis"></div>
+
+  <div class="shead"><span class="n">1</span><span class="t">Financial</span><span class="s" id="s-fin">&mdash;</span></div>
+  <div class="grid2 wide-l">
+    <div class="card"><div class="card-t">Revenue &amp; net income by month</div><div class="card-s" id="ct-rev">Cash basis &middot; QuickBooks. Selected period highlighted; loss months marked red.</div><div id="ch-rev"></div></div>
+    <div class="card"><div class="card-t">Revenue by category</div><div class="card-s">Selected period &middot; QuickBooks income accounts</div><div id="ch-revcat"></div></div>
+  </div>
+
+  <div class="shead"><span class="n">2</span><span class="t">Sales</span><span class="s" id="s-sales">&mdash;</span></div>
+  <div class="grid2">
+    <div class="card"><div class="card-t">Deals won vs lost by month</div><div class="card-s">HubSpot closed-won / closed-lost value, by close date</div><div id="ch-deals"></div></div>
+    <div class="card"><div class="card-t">Win rate &amp; deal flow</div><div class="card-s">Selected period &middot; count and value</div><div id="ch-winrate"></div></div>
+  </div>
+
+  <div class="shead"><span class="n">3</span><span class="t">Marketing &amp; content</span><span class="s" id="s-mkt">&mdash;</span></div>
+  <div class="grid2">
+    <div class="card"><div class="card-t">Content views by platform</div><div class="card-s">Selected period &middot; Metricool</div><div id="ch-social"></div></div>
+    <div class="card"><div class="card-t">Followers by platform</div><div class="card-s">End of selected period &middot; net change shown</div><div id="ch-foll"></div></div>
+  </div>
+
+  <div class="shead"><span class="n">4</span><span class="t">Website</span><span class="s" id="s-web">&mdash;</span></div>
+  <div class="card"><div class="card-t">Website traffic by month</div><div class="card-s">Page views &middot; GA via Metricool. Selected period highlighted.</div><div id="ch-web"></div></div>
+
+  <div class="note">
+    <div class="nt">How this works &amp; what to trust</div>
+    <div class="nb"><b>One data model, sliced live.</b> Every tile and chart recomputes from monthly records for the year / quarter / month you pick. <b>Revenue, expenses, net income</b> are QuickBooks cash basis (the accurate money view) and reconcile to the monthly close. <b>Deals won/lost</b> follow HubSpot close dates &mdash; that's bookings momentum, not cash, so it won't match same-month revenue. One deliberate override: Financial Acuity's $3,350 is attributed to Q1 (its first invoice, January) to match the team's ratified quarterly attribution, not HubSpot's later May close date. <b>Social &amp; website</b> come from Metricool; social history starts Sept 2025 and website Nov 2025, so earlier months read low or blank. Source archives live in DA-003 (social) and DA-004 (financial).</div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="ft">Data model generated 2026-07-23 from DA-003 / DA-004 / HubSpot &middot; internal use only</div>
+  <div class="fg">buildwithbpp.com</div>
+</div>
+
+<script>
+const DATA = __DATA__;
+const D = DATA.data, MONTHS = DATA.months;
+const MN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const QS = {Q1:['01','02','03'],Q2:['04','05','06'],Q3:['07','08','09'],Q4:['10','11','12']};
+const YEARS = [...new Set(MONTHS.map(m=>m.slice(0,4)))].sort();
+let state = { year: YEARS[YEARS.length-1], period: 'Q2', month: null };
+
+const EMPTY = {rev:0,exp:0,net:0,revcat:{},wonN:0,wonV:0,lostN:0,lostV:0,ig:{v:0,p:0,e:0,f:0},fb:{v:0,p:0,e:0,f:0},tt:{v:0,p:0,e:0,f:0},li:{v:0,p:0,e:0,f:0},web:{pv:0,vis:0}};
+const g = m => D[m] || EMPTY;
+
+// ---------- scope ----------
+function scopeMonths(year, period, month){
+  let keys;
+  if(period==='MONTH'){ keys=[year+'-'+month]; }
+  else if(period==='FY'){ keys=MONTHS.filter(m=>m.startsWith(year)); }
+  else { keys=QS[period].map(mm=>year+'-'+mm); }
+  return keys.filter(k=>MONTHS.includes(k));
+}
+function priorScope(year, period, month){
+  if(period==='FY'){ const py=(+year-1)+''; return YEARS.includes(py)?{year:py,period:'FY',month:null,label:py}:null; }
+  if(period==='MONTH'){ const i=MONTHS.indexOf(year+'-'+month); if(i>0){const pm=MONTHS[i-1]; return {year:pm.slice(0,4),period:'MONTH',month:pm.slice(5),label:MN[+pm.slice(5)-1]+" '"+pm.slice(2,4)}; } return null; }
+  const order=['Q1','Q2','Q3','Q4']; const qi=order.indexOf(period);
+  let py=year, pq;
+  if(qi===0){ py=(+year-1)+''; pq='Q4'; } else pq=order[qi-1];
+  const has=scopeMonths(py,pq,null).length>0;
+  return has?{year:py,period:pq,month:null,label:pq+' '+py}:null;
+}
+function agg(months){
+  const a=JSON.parse(JSON.stringify(EMPTY)); a.revcat={};
+  months.forEach(m=>{ const d=g(m);
+    a.rev+=d.rev; a.exp+=d.exp; a.net+=d.net; a.wonN+=d.wonN; a.wonV+=d.wonV; a.lostN+=d.lostN; a.lostV+=d.lostV;
+    for(const k in (d.revcat||{})) a.revcat[k]=(a.revcat[k]||0)+d.revcat[k];
+    ['ig','fb','tt','li'].forEach(p=>{ a[p].v+=d[p].v; a[p].p+=d[p].p; a[p].e+=d[p].e; });
+    a.web.pv+=d.web.pv; a.web.vis+=d.web.vis;
+  });
+  // followers = value at last month in scope
+  const last=months[months.length-1];
+  if(last){ ['ig','fb','tt','li'].forEach(p=>{ a[p].f=g(last)[p].f; }); }
+  return a;
+}
+
+// ---------- format ----------
+const $ = id => document.getElementById(id);
+function usd(n){ const s=n<0?'-':''; n=Math.abs(n); if(n>=1000) return s+'$'+(n/1000).toFixed(n>=10000?0:1)+'K'; return s+'$'+Math.round(n); }
+function usdFull(n){ return (n<0?'-$':'$')+Math.abs(n).toLocaleString('en-US',{maximumFractionDigits:0}); }
+function num(n){ n=Math.round(n); if(n>=1000) return (n/1000).toFixed(n>=10000?0:1)+'K'; return ''+n; }
+function pctOf(a,b){ return b?Math.round(a/b*100):0; }
+function deltaHTML(cur,prev,inv=false){
+  if(prev===null||prev===undefined) return '<span class="delta flat">&mdash;</span>';
+  if(prev===0) return cur>0?'<span class="delta up">new</span>':'<span class="delta flat">&mdash;</span>';
+  const p=Math.round((cur-prev)/Math.abs(prev)*100);
+  const up=p>=0; const good=inv?!up:up;
+  const arrow=up?'&#9650;':'&#9660;';
+  return '<span class="delta '+(p===0?'flat':(good?'up':'down'))+'">'+arrow+' '+Math.abs(p)+'%</span>';
+}
+
+// ---------- svg helpers ----------
+function niceMax(v){ if(v<=0) return 1; const p=Math.pow(10,Math.floor(Math.log10(v))); for(const m of [1,1.5,2,2.5,3,4,5,7.5,10]){ if(v<=m*p) return m*p; } return 10*p; }
+function esc(s){ return String(s); }
+
+// vertical column chart of monthly values; highlight = set of month-keys in scope
+function colChart(monthKeys, valFn, {fmt=usd, height=250, lossKeys=[], gold=false}={}){
+  const W=640,H=height,padL=50,padR=14,padT=26,padB=30;
+  const vals=monthKeys.map(valFn);
+  const max=niceMax(Math.max(...vals,1));
+  const plotH=H-padT-padB, plotW=W-padL-padR, base=padT+plotH;
+  const n=monthKeys.length, step=plotW/n, bw=Math.min(40,step*0.6);
+  let s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" role="img">';
+  // gridlines + y labels
+  s+='<g stroke="#e8edf2" stroke-width="1">';
+  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'"'+(i===4?' stroke="#c4d0da"':'')+'/>'; }
+  s+='</g><g fill="#8a97a3" font-size="10" text-anchor="end" class="tnum">';
+  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<text x="'+(padL-6)+'" y="'+(y+3)+'">'+fmt(max*(4-i)/4)+'</text>'; }
+  s+='</g>';
+  // bars
+  monthKeys.forEach((k,i)=>{
+    const v=vals[i], h=Math.max(v<=0?0:v/max*plotH,0), x=padL+step*i+(step-bw)/2, y=base-h;
+    const inScope=state.__scope.includes(k);
+    const isLoss=lossKeys.includes(k);
+    const fill = inScope ? (gold?'url(#gGold)':'url(#gNavy)') : '#d7e0e8';
+    if(h>0.5) s+='<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="4" fill="'+fill+'"/>';
+    if(isLoss) s+='<circle cx="'+(x+bw/2).toFixed(1)+'" cy="'+(base+9)+'" r="2.6" fill="#c0392b"/>';
+    // value label for in-scope
+    if(inScope && v!==0) s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(y-5).toFixed(1)+'" font-size="9.5" font-weight="700" fill="#16232e" text-anchor="middle" class="tnum">'+fmt(v)+'</text>';
+    s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(base+22)+'" font-size="10" fill="#5a6b78" text-anchor="middle">'+MN[+k.slice(5)-1]+'</text>';
+  });
+  s+='</svg>';
+  return s;
+}
+
+// horizontal bars: rows=[{label,val,color?}], fmt
+function barChart(rows, {fmt=usd, height=null, unit=''}={}){
+  rows=rows.filter(r=>r.val>0);
+  if(!rows.length) return '<div class="empty">No data for this period</div>';
+  const W=640, rowH=34, padT=6, padB=6, H=height||(rows.length*rowH+padT+padB);
+  const labelW=140, padR=60, plotW=W-labelW-padR;
+  const max=Math.max(...rows.map(r=>r.val));
+  let s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" role="img">';
+  rows.forEach((r,i)=>{
+    const y=padT+i*rowH, bw=r.val/max*plotW, bh=20;
+    s+='<text x="'+(labelW-10)+'" y="'+(y+bh/2+4)+'" font-size="11.5" fill="#16232e" text-anchor="end">'+esc(r.label)+'</text>';
+    s+='<rect x="'+labelW+'" y="'+y+'" width="'+Math.max(bw,2).toFixed(1)+'" height="'+bh+'" rx="4" fill="'+(r.color||'url(#gHbar)')+'"/>';
+    s+='<text x="'+(labelW+Math.max(bw,2)+8).toFixed(1)+'" y="'+(y+bh/2+4)+'" font-size="11" font-weight="700" fill="#16232e" class="tnum">'+fmt(r.val)+(unit||'')+'</text>';
+  });
+  s+='</svg>';
+  return s;
+}
+
+// grouped won/lost columns by month
+function groupCols(monthKeys, {height=250}={}){
+  const W=640,H=height,padL=50,padR=14,padT=26,padB=30;
+  const won=monthKeys.map(k=>g(k).wonV), lost=monthKeys.map(k=>g(k).lostV);
+  const max=niceMax(Math.max(...won,...lost,1));
+  const plotH=H-padT-padB, plotW=W-padL-padR, base=padT+plotH;
+  const n=monthKeys.length, step=plotW/n, bw=Math.min(13,step*0.32);
+  let s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" role="img">';
+  s+='<g stroke="#e8edf2" stroke-width="1">';
+  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'"'+(i===4?' stroke="#c4d0da"':'')+'/>'; }
+  s+='</g><g fill="#8a97a3" font-size="10" text-anchor="end" class="tnum">';
+  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<text x="'+(padL-6)+'" y="'+(y+3)+'">'+usd(max*(4-i)/4)+'</text>'; }
+  s+='</g>';
+  monthKeys.forEach((k,i)=>{
+    const cx=padL+step*i+step/2;
+    const hw=won[i]/max*plotH, hl=lost[i]/max*plotH;
+    if(hw>0.5) s+='<rect x="'+(cx-bw-1).toFixed(1)+'" y="'+(base-hw).toFixed(1)+'" width="'+bw+'" height="'+hw.toFixed(1)+'" rx="3" fill="url(#gGood)"/>';
+    if(hl>0.5) s+='<rect x="'+(cx+1).toFixed(1)+'" y="'+(base-hl).toFixed(1)+'" width="'+bw+'" height="'+hl.toFixed(1)+'" rx="3" fill="url(#gBad)"/>';
+    s+='<text x="'+cx.toFixed(1)+'" y="'+(base+22)+'" font-size="10" fill="#5a6b78" text-anchor="middle">'+MN[+k.slice(5)-1]+'</text>';
+  });
+  // legend
+  s+='<g font-size="10.5" fill="#5a6b78"><rect x="'+(padL)+'" y="6" width="9" height="9" rx="2" fill="url(#gGood)"/><text x="'+(padL+13)+'" y="14">Won</text>';
+  s+='<rect x="'+(padL+58)+'" y="6" width="9" height="9" rx="2" fill="url(#gBad)"/><text x="'+(padL+71)+'" y="14">Lost</text></g>';
+  s+='</svg>';
+  return s;
+}
+
+// area line for website
+function areaLine(monthKeys, valFn, {fmt=num, height=230}={}){
+  const W=640,H=height,padL=48,padR=14,padT=24,padB=30;
+  const vals=monthKeys.map(valFn); const max=niceMax(Math.max(...vals,1));
+  const plotH=H-padT-padB, plotW=W-padL-padR, base=padT+plotH, n=monthKeys.length;
+  const X=i=>padL+(n===1?plotW/2:plotW*i/(n-1)); const Y=v=>base-v/max*plotH;
+  let s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" role="img">';
+  s+='<g stroke="#e8edf2" stroke-width="1">';
+  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'"'+(i===4?' stroke="#c4d0da"':'')+'/>'; }
+  s+='</g><g fill="#8a97a3" font-size="10" text-anchor="end" class="tnum">';
+  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<text x="'+(padL-6)+'" y="'+(y+3)+'">'+fmt(max*(4-i)/4)+'</text>'; }
+  s+='</g>';
+  let pts=vals.map((v,i)=>X(i).toFixed(1)+','+Y(v).toFixed(1));
+  s+='<polygon points="'+padL+','+base+' '+pts.join(' ')+' '+(X(n-1)).toFixed(1)+','+base+'" fill="url(#gArea)" opacity="0.5"/>';
+  s+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#2f80c4" stroke-width="2" stroke-linejoin="round"/>';
+  vals.forEach((v,i)=>{ const inScope=state.__scope.includes(monthKeys[i]);
+    s+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(v).toFixed(1)+'" r="'+(inScope?3.4:2.2)+'" fill="'+(inScope?'#044771':'#6ba8d8')+'"/>';
+    if(inScope&&v>0) s+='<text x="'+X(i).toFixed(1)+'" y="'+(Y(v)-8).toFixed(1)+'" font-size="9.5" font-weight="700" fill="#16232e" text-anchor="middle" class="tnum">'+fmt(v)+'</text>';
+    s+='<text x="'+X(i).toFixed(1)+'" y="'+(base+22)+'" font-size="10" fill="#5a6b78" text-anchor="middle">'+MN[+monthKeys[i].slice(5)-1]+'</text>';
+  });
+  s+='</svg>';
+  return s;
+}
+
+function spark(vals){
+  const W=70,H=22; const max=Math.max(...vals,1),min=Math.min(...vals,0);
+  const rng=max-min||1; const n=vals.length;
+  const pts=vals.map((v,i)=>(1+i*(W-2)/(n-1)).toFixed(1)+','+(H-2-(v-min)/rng*(H-6)).toFixed(1));
+  return '<svg class="spark" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'"><polyline points="'+pts.join(' ')+'" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="'+pts[pts.length-1].split(',')[0]+'" cy="'+pts[pts.length-1].split(',')[1]+'" r="2.3" fill="#2a78d6"/></svg>';
+}
+
+// ---------- render ----------
+function render(){
+  const {year,period,month}=state;
+  const months=scopeMonths(year,period,month);
+  state.__scope=months;
+  const a=agg(months);
+  const pr=priorScope(year,period,month);
+  const pa=pr?agg(scopeMonths(pr.year,pr.period,pr.month)):null;
+  const yearMonths=MONTHS.filter(m=>m.startsWith(year));
+
+  // scope label
+  const plabel = period==='FY'?('Full year '+year):period==='MONTH'?(MN[+month-1]+' '+year):(period+' '+year);
+  $('scopeTag').innerHTML='Showing <b>'+plabel+'</b>'+(months.length?' &middot; '+months.length+' month'+(months.length>1?'s':''):'');
+  $('asof').textContent=plabel;
+  const cmp = pa?(' vs '+pr.label):'';
+  $('s-fin').textContent='Revenue '+usdFull(a.rev)+' &middot; net '+usdFull(a.net);
+  $('s-fin').innerHTML='Revenue '+usdFull(a.rev)+' &middot; net '+usdFull(a.net);
+  $('s-sales').innerHTML=a.wonN+' won &middot; '+a.lostN+' lost';
+  $('s-mkt').innerHTML=num(a.ig.v+a.fb.v+a.tt.v+a.li.v)+' views &middot; '+(a.ig.p+a.fb.p+a.tt.p+a.li.p)+' posts';
+  $('s-web').innerHTML=num(a.web.pv)+' page views';
+
+  // KPI tiles
+  const revSpark=yearMonths.map(m=>g(m).rev);
+  const margin=a.rev?Math.round(a.net/a.rev*100):0;
+  const socV=a.ig.v+a.fb.v+a.tt.v+a.li.v, psocV=pa?(pa.ig.v+pa.fb.v+pa.tt.v+pa.li.v):null;
+  const foll=a.ig.f+a.fb.f+a.tt.f+a.li.f, pfoll=pa?(pa.ig.f+pa.fb.f+pa.tt.f+pa.li.f):null;
+  const netAcc=a.net>=0?'acc-good':'acc-red';
+  $('kpis').innerHTML=
+    tile('Revenue', usdFull(a.rev), deltaHTML(a.rev,pa&&pa.rev)+cmp, 'acc-good', spark(revSpark))
+   +tile('Net income', usdFull(a.net), (margin)+'% margin &middot; '+deltaHTML(a.net,pa&&pa.net), netAcc)
+   +tile('Deals won', usdFull(a.wonV), a.wonN+' deals &middot; '+deltaHTML(a.wonV,pa&&pa.wonV), 'acc-gold')
+   +tile('Content views', num(socV), deltaHTML(socV,psocV)+cmp, '')
+   +tile('Followers', num(foll), (pfoll!==null?((foll-pfoll>=0?'+':'')+(foll-pfoll)+' net'):'&mdash;'), 'acc-gold');
+
+  // charts
+  const lossKeys=yearMonths.filter(m=>g(m).net<0);
+  $('ch-rev').innerHTML=colChart(yearMonths, m=>g(m).rev, {fmt:usd, lossKeys});
+  // revcat
+  const catRows=Object.entries(a.revcat).map(([k,v])=>({label:k,val:v})).sort((x,y)=>y.val-x.val);
+  $('ch-revcat').innerHTML=barChart(catRows,{fmt:usd});
+  // deals
+  $('ch-deals').innerHTML=groupCols(yearMonths);
+  // winrate card
+  const wr=(a.wonN+a.lostN)?Math.round(a.wonN/(a.wonN+a.lostN)*100):0;
+  $('ch-winrate').innerHTML=winCard(a,wr,pa);
+  // social
+  const socRows=[
+    {label:'TikTok',val:a.tt.v,color:'url(#gNavy)'},
+    {label:'Instagram',val:a.ig.v,color:'url(#gBlue)'},
+    {label:'Facebook',val:a.fb.v,color:'url(#gSky)'},
+    {label:'LinkedIn',val:a.li.v,color:'url(#gGold)'}
+  ];
+  $('ch-social').innerHTML=barChart(socRows,{fmt:num});
+  // followers
+  $('ch-foll').innerHTML=follCard(a,pa);
+  // web
+  $('ch-web').innerHTML=areaLine(yearMonths, m=>g(m).web.pv, {fmt:num});
+}
+function tile(lbl,val,meta,acc,sp){
+  return '<div class="tile '+(acc||'')+'">'+(sp||'')+'<div class="lbl">'+lbl+'</div><div class="val'+(val.length>7?' sm':'')+' tnum">'+val+'</div><div class="meta">'+meta+'</div></div>';
+}
+function winCard(a,wr,pa){
+  const net=a.wonV-a.lostV;
+  return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">'
+   +mini('Win rate', wr+'%', a.wonN+' of '+(a.wonN+a.lostN)+' closed', wr>=40?'good':wr>=25?'warn':'bad')
+   +mini('Net bookings', usdFull(net), net>=0?'won &gt; lost':'lost &gt; won', net>=0?'good':'bad')
+   +mini('Won value', usdFull(a.wonV), a.wonN+' deals','info')
+   +mini('Lost value', usdFull(a.lostV), a.lostN+' deals','bad')
+   +'</div>';
+}
+function mini(l,v,s,chip){
+  return '<div style="background:var(--bg);border-radius:8px;padding:12px 13px"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)">'+l+'</div><div style="font-size:20px;font-weight:800;color:var(--navy);margin-top:5px;letter-spacing:-.5px" class="tnum">'+v+'</div><div style="margin-top:6px"><span class="chip '+chip+'"><span class="cd"></span>'+s+'</span></div></div>';
+}
+function follCard(a,pa){
+  const P=[['TikTok','tt'],['Instagram','ig'],['Facebook','fb'],['LinkedIn','li']];
+  let s='<table style="width:100%;border-collapse:collapse" class="tnum">';
+  s+='<tr style="font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#8a97a3"><td style="padding:0 8px 8px">Platform</td><td style="text-align:right;padding:0 8px 8px">Followers</td><td style="text-align:right;padding:0 8px 8px">Net change</td></tr>';
+  P.forEach(([nm,k])=>{ const cur=a[k].f, prev=pa?pa[k].f:null, dc=prev!==null?cur-prev:null;
+    const dcol=dc===null?'#8a97a3':dc>0?'#147a46':dc<0?'#c0392b':'#8a97a3';
+    s+='<tr style="border-top:1px solid var(--grid)"><td style="padding:9px 8px;font-size:12.5px">'+nm+'</td><td style="text-align:right;padding:9px 8px;font-weight:700;font-size:12.5px">'+Math.round(cur)+'</td><td style="text-align:right;padding:9px 8px;font-weight:700;font-size:12px;color:'+dcol+'">'+(dc===null?'&mdash;':(dc>0?'+':'')+dc)+'</td></tr>';
+  });
+  s+='</table>';
+  return s;
+}
+
+// ---------- controls ----------
+function buildControls(){
+  $('yearSeg').innerHTML=YEARS.map(y=>'<button data-y="'+y+'"'+(y===state.year?' class="on"':'')+'>'+y+'</button>').join('');
+  $('periodSeg').innerHTML=['FY','Q1','Q2','Q3','Q4'].map(p=>'<button data-p="'+p+'"'+(p===state.period?' class="on"':'')+'>'+(p==='FY'?'Full year':p)+'</button>').join('');
+  const yearMonths=MONTHS.filter(m=>m.startsWith(state.year));
+  $('monthSel').innerHTML='<option value="">— pick month —</option>'+yearMonths.map(m=>'<option value="'+m.slice(5)+'"'+(state.period==='MONTH'&&state.month===m.slice(5)?' selected':'')+'>'+MN[+m.slice(5)-1]+' '+state.year+'</option>').join('');
+  $('yearSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{ state.year=b.dataset.y; if(state.period==='MONTH'){state.period='FY';state.month=null;} buildControls(); render(); });
+  $('periodSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{ state.period=b.dataset.p; state.month=null; setSeg(); render(); $('monthSel').value=''; });
+  $('monthSel').onchange=e=>{ if(e.target.value){ state.period='MONTH'; state.month=e.target.value; setSeg(); render(); } };
+}
+function setSeg(){
+  $('periodSeg').querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.dataset.p===state.period));
+}
+buildControls(); render();
+</script>
+
+<script src="../js/nav.js" data-page="strategy"></script>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+  <linearGradient id="gNavy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f80c4"/><stop offset="1" stop-color="#044771"/></linearGradient>
+  <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9a13a"/><stop offset="1" stop-color="#d4920a"/></linearGradient>
+  <linearGradient id="gBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5aa0dd"/><stop offset="1" stop-color="#2f80c4"/></linearGradient>
+  <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ec6e8"/><stop offset="1" stop-color="#6ba8d8"/></linearGradient>
+  <linearGradient id="gGood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2bb673"/><stop offset="1" stop-color="#1a9e5c"/></linearGradient>
+  <linearGradient id="gBad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d65f52"/><stop offset="1" stop-color="#c0392b"/></linearGradient>
+  <linearGradient id="gHbar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#044771"/><stop offset="1" stop-color="#2f80c4"/></linearGradient>
+  <linearGradient id="gArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ba8d8"/><stop offset="1" stop-color="#eaeef2"/></linearGradient>
+</defs></svg>
+</body>
+</html>
