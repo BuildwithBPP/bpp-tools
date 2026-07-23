@@ -136,8 +136,9 @@
   <div class="shead"><span class="n">2</span><span class="t">Sales</span><span class="s" id="s-sales">&mdash;</span></div>
   <div class="grid2">
     <div class="card"><div class="card-t">Deals won vs lost by month</div><div class="card-s">HubSpot closed-won / closed-lost value, by close date</div><div id="ch-deals"></div></div>
-    <div class="card"><div class="card-t">Win rate &amp; deal flow</div><div class="card-s">Selected period &middot; count and value</div><div id="ch-winrate"></div></div>
+    <div class="card"><div class="card-t">Win rate &amp; deal flow</div><div class="card-s">Selected period &middot; count, value, and efficiency</div><div id="ch-winrate"></div></div>
   </div>
+  <div class="card" style="margin-top:12px"><div class="card-t">Closed revenue by owner</div><div class="card-s">Selected period &middot; HubSpot closed-won value by deal owner</div><div id="ch-owner"></div></div>
 
   <div class="shead"><span class="n">3</span><span class="t">Marketing &amp; content</span><span class="s" id="s-mkt">&mdash;</span></div>
   <div class="grid2">
@@ -146,7 +147,10 @@
   </div>
 
   <div class="shead"><span class="n">4</span><span class="t">Website</span><span class="s" id="s-web">&mdash;</span></div>
-  <div class="card"><div class="card-t">Website traffic by month</div><div class="card-s">Page views &middot; GA via Metricool. Selected period highlighted.</div><div id="ch-web"></div></div>
+  <div class="grid2 wide-l">
+    <div class="card"><div class="card-t">Website traffic by month</div><div class="card-s">Page views &middot; GA via Metricool. Selected period highlighted.</div><div id="ch-web"></div></div>
+    <div class="card"><div class="card-t">Traffic summary</div><div class="card-s">Selected period</div><div id="ch-websum"></div></div>
+  </div>
 
   <div class="note">
     <div class="nt">How this works &amp; what to trust</div>
@@ -188,12 +192,13 @@ function priorScope(year, period, month){
   return has?{year:py,period:pq,month:null,label:pq+' '+py}:null;
 }
 function agg(months){
-  const a=JSON.parse(JSON.stringify(EMPTY)); a.revcat={}; a.revoff={}; a.expcat={};
+  const a=JSON.parse(JSON.stringify(EMPTY)); a.revcat={}; a.revoff={}; a.expcat={}; a.wonOwner={};
   months.forEach(m=>{ const d=g(m);
     a.rev+=d.rev; a.exp+=d.exp; a.net+=d.net; a.wonN+=d.wonN; a.wonV+=d.wonV; a.lostN+=d.lostN; a.lostV+=d.lostV;
     for(const k in (d.revcat||{})) a.revcat[k]=(a.revcat[k]||0)+d.revcat[k];
     for(const k in (d.revoff||{})) a.revoff[k]=(a.revoff[k]||0)+d.revoff[k];
     for(const k in (d.expcat||{})) a.expcat[k]=(a.expcat[k]||0)+d.expcat[k];
+    for(const k in (d.wonOwner||{})) a.wonOwner[k]=(a.wonOwner[k]||0)+d.wonOwner[k];
     ['ig','fb','tt','li'].forEach(p=>{ a[p].v+=d[p].v; a[p].p+=d[p].p; a[p].e+=d[p].e; });
     a.web.pv+=d.web.pv; a.web.vis+=d.web.vis;
   });
@@ -380,6 +385,12 @@ function render(){
   // winrate card
   const wr=(a.wonN+a.lostN)?Math.round(a.wonN/(a.wonN+a.lostN)*100):0;
   $('ch-winrate').innerHTML=winCard(a,wr,pa);
+  // revenue by owner
+  const ownColors={Eli:'url(#gNavy)',Daunte:'url(#gBlue)',Kenny:'url(#gGold)'};
+  const ownRows=Object.entries(a.wonOwner||{}).map(([k,v])=>({label:k,val:v,color:ownColors[k]||'url(#gHbar)'})).sort((x,y)=>y.val-x.val);
+  $('ch-owner').innerHTML=barChart(ownRows,{fmt:usd});
+  // web summary
+  $('ch-websum').innerHTML=webCard(a,pa);
   // social
   const socRows=[
     {label:'TikTok',val:a.tt.v,color:'url(#gNavy)'},
@@ -410,11 +421,26 @@ function costCard(a,pa){
 function deltaText(cur,prev){ if(!prev) return 'new'; const p=Math.round((cur-prev)/Math.abs(prev)*100); return (p>=0?'+':'')+p+'%'; }
 function winCard(a,wr,pa){
   const net=a.wonV-a.lostV;
+  const avg=a.wonN?a.wonV/a.wonN:0;
+  const mkt=(a.expcat&&a.expcat['Content & Marketing'])||0;
+  const cpa=a.wonN?mkt/a.wonN:0;
   return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">'
    +mini('Win rate', wr+'%', a.wonN+' of '+(a.wonN+a.lostN)+' closed', wr>=40?'good':wr>=25?'warn':'bad')
+   +mini('Avg deal size', usdFull(avg), a.wonN+' won', 'info')
    +mini('Net bookings', usdFull(net), net>=0?'won &gt; lost':'lost &gt; won', net>=0?'good':'bad')
+   +mini('Cost / acquisition', cpa?usdFull(cpa):'&mdash;', 'mktg spend / won', cpa&&cpa<300?'good':'warn')
    +mini('Won value', usdFull(a.wonV), a.wonN+' deals','info')
    +mini('Lost value', usdFull(a.lostV), a.lostN+' deals','bad')
+   +'</div>';
+}
+function webCard(a,pa){
+  const pv=a.web.pv, vis=a.web.vis, ppv=pa?pa.web.pv:null, pvis=pa?pa.web.vis:null;
+  const perVis=vis?(pv/vis).toFixed(1):'&mdash;';
+  return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">'
+   +mini('Page views', Math.round(pv).toLocaleString(), (ppv?deltaText(pv,ppv)+' vs prior':'&mdash;'), 'info')
+   +mini('Unique visitors', Math.round(vis).toLocaleString(), (pvis?deltaText(vis,pvis)+' vs prior':'&mdash;'), 'info')
+   +mini('Pages / visitor', perVis, 'depth of visit', 'info')
+   +mini('Content views', num(a.ig.v+a.fb.v+a.tt.v+a.li.v), 'social, same period', 'info')
    +'</div>';
 }
 function mini(l,v,s,chip){
