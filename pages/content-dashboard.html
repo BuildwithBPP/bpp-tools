@@ -128,7 +128,7 @@ td{padding:8px;border-bottom:1px solid var(--border)}tr:hover td{background:var(
 </header>
 
 <div class="rb"><strong>To-Do:</strong> Finish Meta Developer App setup. Connect BPP Instagram + Facebook Page, generate access token with instagram_manage_insights permission. This unlocks watch time, skip rate, and accurate views.</div>
-<div class="nb"><strong>Data note:</strong> Posts through Apr 2, 2026 came from platform CSV exports; <strong>Apr 3 &ndash; Jul 22, 2026 was pulled live from the Metricool MCP on 2026-07-22</strong>, so a few columns differ by source. Newer records have no watch-time, follows-per-post, or saves-on-Facebook, and <strong>Instagram Reels are not included in the new post rows</strong> (feed posts only) &mdash; account-level Reels totals live in the DA-003 Social Media Database. Feb 2026 is missing from all platforms (gap in the original exports). Daily account-level aggregates (the authoritative totals) live in <code>7. Data Analytics/DA-003 - Social Media Database</code>.</div>
+<div class="nb"><strong>Data note:</strong> Posts through Apr 2, 2026 came from CSV exports; Apr 3 &ndash; Jul 22 from the Metricool MCP. These rows are feed posts + account totals. <strong>Reel-level metrics (watch-time, retention, saves, shares) are available from Metricool&rsquo;s reels connector</strong> and can be layered in on request. Only <strong>follows-per-post</strong> is genuinely unavailable (an Instagram API limit, not Metricool). Feb 2026 is missing (gap in the original exports). Authoritative totals live in <code>DA-003 - Social Media Database</code>.</div>
 
 <div class="tab-nav">
   <div class="tab-section">
