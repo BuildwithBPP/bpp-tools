@@ -18,7 +18,7 @@
 .dg-vtrack{flex:1;height:14px;background:var(--bg);border-radius:4px;position:relative;overflow:hidden;}
 .dg-vcommit{position:absolute;top:0;left:0;height:100%;background:#d7e0e8;border-radius:4px;}
 .dg-vdone{position:absolute;top:0;left:0;height:100%;background:var(--navy);border-radius:4px;}
-.dg-vval{font-size:10.5px;font-weight:700;color:var(--text2);width:46px;text-align:right;flex-shrink:0;}
+.dg-vval{font-size:10.5px;font-weight:700;color:var(--text2);width:78px;text-align:right;flex-shrink:0;}
 .dg-note{font-size:10.5px;color:var(--muted);margin-top:10px;line-height:1.5;}
 .dg-frow{display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid var(--border);}
 .dg-frow:last-child{border-bottom:none;}
@@ -406,12 +406,15 @@ function renderDelivery(d) {
   var hist = (d.velocity && d.velocity.history) || [];
   var recent = hist.slice(-4);
   var maxC = Math.max.apply(null, recent.map(function(h){return Math.max(h.committed,h.completed);}).concat([1]));
+  var HCOL = {green:'#16a34a',amber:'#d97706',red:'#dc2626'};
   var vh = '';
   recent.forEach(function(h){
     var cw = h.committed/maxC*100, dw = h.completed/maxC*100;
+    var dc = HCOL[h.health] || '#044771';
+    var rel = h.reliability==null ? '' : ' <span style="color:'+dc+';font-weight:700;">'+h.reliability+'%</span>';
     vh += '<div class="dg-vrow"><span class="lbl">S'+h.sprint+'</span>'+
-      '<span class="dg-vtrack"><span class="dg-vcommit" style="width:'+cw.toFixed(1)+'%"></span><span class="dg-vdone" style="width:'+dw.toFixed(1)+'%"></span></span>'+
-      '<span class="dg-vval">'+h.completed+'/'+h.committed+'</span></div>';
+      '<span class="dg-vtrack"><span class="dg-vcommit" style="width:'+cw.toFixed(1)+'%"></span><span class="dg-vdone" style="width:'+dw.toFixed(1)+'%;background:'+dc+';"></span></span>'+
+      '<span class="dg-vval">'+h.completed+'/'+h.committed+rel+'</span></div>';
   });
   document.getElementById('dg-velocity').innerHTML = vh || '<div class="dg-empty">No sprint data.</div>';
   var cur = d.velocity && d.velocity.current_sprint;

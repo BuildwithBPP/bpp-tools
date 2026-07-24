@@ -1,45 +1,41 @@
 #!/usr/bin/env python3
 """
-build.py — Delivery Tracker data builder for the BPP tools hub.
+build.py - Delivery Tracker data builder for the BPP tools hub.
 
 Transforms two raw monday.com board pulls into data/delivery-tracker.json,
 the snapshot that pages/delivery-tracker.html and index.html render.
 
 Inputs (raw output of the monday get_board_items_page tool, one file each):
-  --client   Client Delivery board 18406004595  -> Gantt timeline
-  --internal BPP Internal board   18406003425   -> Velocity (story points / sprint)
+  --client   Client Delivery board 18406004595  -> Gantt timeline + delivery health
+  --internal BPP Internal board   18406003425   -> Velocity + forecast
 
-The bpp-delivery-tracker skill writes those two raw files, then runs this,
-then POSTs the result to the worker's /save-tracker route. It is also called
-by the weekly bpp-monday-prep piggyback step.
+Pull the client board WITH the item-level `updated_at` timestamp (returned by
+default) - it powers the "no silent weeks" staleness flags on the Health tab.
+Pull the FULL internal board (incl. Product Backlog group) so the forecast can
+sum remaining backlog points.
 
-Story points live in a monday *status/color* column (color_mm267yph) whose
-label IS the number — read the raw value, never a phantom-rendered text.
+Story points live in a monday status/color column (color_mm267yph) whose label
+IS the number - read the raw value, never a phantom-rendered text.
 Velocity = sum of points over Done items, grouped by the Sprint dropdown.
 """
 import argparse, json, re, sys
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 
-# group id -> clean client display name (Client Delivery board)
 CLIENT_NAMES = {
     "group_mm22rqgp": "SEEDFOLKids",
     "group_mm22b0fs": "Financial Acuity",
     "group_mm2cctgg": "Lois Marketing",
     "group_mm2v952v": "HALO Commons",
 }
-# groups that are not real client work
-SKIP_GROUPS = {"new_group29179"}  # ⭐ NEW CLIENT TEMPLATE
-
-DONE_GROUP = "new_group43041"     # Internal board "Done"
+SKIP_GROUPS = {"new_group29179"}   # client board: NEW CLIENT TEMPLATE
+BACKLOG_GROUP = "new_group29179"   # internal board: Product Backlog
+DONE_GROUP = "new_group43041"      # internal board: Done
 SPRINT_GOAL = "Generate leads, reduce friction to close, close more deals"
-
-# Committed points we know from sprint history but that are no longer fully
-# on the board (archived items). Live-computed committed understates these.
-SEED_COMMITTED = {2: 59}
+SEED_COMMITTED = {2: 59}           # archived sprints understate committed on the board
+TARGET_LOW, TARGET_HIGH, TEAM_SIZE = 25, 35, 3
 
 
 def short_owner(raw):
-    """'Eli Fisher, Daunte Benjamin' -> 'Eli' (first accountable owner)."""
     if not raw:
         return None
     first = raw.split(",")[0].strip()
@@ -48,17 +44,12 @@ def short_owner(raw):
 
 def points(cv):
     v = cv.get("color_mm267yph")
-    if isinstance(v, str) and v.isdigit():
-        return int(v)
-    return 0
+    return int(v) if isinstance(v, str) and v.isdigit() else 0
 
 
 def sprint_num(cv):
     d = cv.get("dropdown_mm1w96sd")
-    label = d if isinstance(d, str) else None
-    if not label:
-        return None
-    m = re.search(r"(\d+)", label)
+    m = re.search(r"(\d+)", d) if isinstance(d, str) else None
     return int(m.group(1)) if m else None
 
 
@@ -79,7 +70,7 @@ def build_gantt(client_raw):
         cv = it.get("column_values", {})
         frm, to = parse_timeline(cv.get("project_timeline"))
         if not frm or not to:
-            continue  # no scheduled bar -> not on the timeline
+            continue
         buckets.setdefault(client, []).append({
             "name": it.get("name", "").strip(),
             "phase": cv.get("dropdown_mm1wfknj"),
@@ -88,37 +79,56 @@ def build_gantt(client_raw):
             "to": to,
             "due": cv.get("date_mm22kzfc"),
             "status": cv.get("project_status"),
+            "updated_at": (it.get("updated_at") or "")[:10] or None,
         })
     clients = []
     for name, items in buckets.items():
         items.sort(key=lambda x: x["from"])
         clients.append({"client": name, "items": items})
-    # stable, useful order: most items first, then name
     clients.sort(key=lambda c: (-len(c["items"]), c["client"]))
     return {"clients": clients}
 
 
+def sprint_health(reliability, carryover, committed):
+    # green = reliable + low carryover; red = badly under-delivered
+    if reliability is None:
+        return "unknown"
+    if reliability >= 85 and (committed == 0 or carryover / committed <= 0.15):
+        return "green"
+    if reliability >= 60:
+        return "amber"
+    return "red"
+
+
 def build_velocity(internal_raw, today):
     completed, committed = {}, {}
+    throughput = {}
     owner_done, owner_committed = {}, {}
     sprint_titles = {}
+    backlog_points = 0
+
     for it in internal_raw.get("items", []):
         cv = it.get("column_values", {})
+        grp = it.get("group") or {}
+        pts = points(cv)
+        if grp.get("id") == BACKLOG_GROUP:
+            if cv.get("project_status") != "Done":
+                backlog_points += pts
+            continue
         sn = sprint_num(cv)
         if sn is None:
             continue
-        pts = points(cv)
-        grp = it.get("group") or {}
         is_done = grp.get("id") == DONE_GROUP or cv.get("project_status") == "Done"
-        if grp.get("title") and "Sprint %d" % sn in (grp.get("title") or ""):
+        if grp.get("title") and ("Sprint %d" % sn) in (grp.get("title") or ""):
             sprint_titles[sn] = grp.get("title")
         committed[sn] = committed.get(sn, 0) + pts
+        own = short_owner(cv.get("project_owner")) or "Unassigned"
         owner_committed.setdefault(sn, {})
         owner_done.setdefault(sn, {})
-        own = short_owner(cv.get("project_owner")) or "Unassigned"
         owner_committed[sn][own] = owner_committed[sn].get(own, 0) + pts
         if is_done:
             completed[sn] = completed.get(sn, 0) + pts
+            throughput[sn] = throughput.get(sn, 0) + 1
             owner_done[sn][own] = owner_done[sn].get(own, 0) + pts
 
     for sn, c in SEED_COMMITTED.items():
@@ -126,6 +136,10 @@ def build_velocity(internal_raw, today):
 
     history = []
     for sn in sorted(set(completed) | set(committed)):
+        comm = committed.get(sn, 0)
+        comp = completed.get(sn, 0)
+        carry = max(comm - comp, 0)
+        rel = round(comp / comm * 100) if comm else None
         by_owner = {}
         for own in set(owner_committed.get(sn, {})) | set(owner_done.get(sn, {})):
             by_owner[own] = {
@@ -134,18 +148,37 @@ def build_velocity(internal_raw, today):
             }
         history.append({
             "sprint": sn,
-            "committed": committed.get(sn, 0),
-            "completed": completed.get(sn, 0),
+            "committed": comm,
+            "completed": comp,
+            "carryover": carry,
+            "reliability": rel,
+            "throughput": throughput.get(sn, 0),
+            "health": sprint_health(rel, carry, comm),
             "by_owner": by_owner,
         })
 
+    # rolling average + band over the last 3 sprints' completed points
+    recent = [h["completed"] for h in history[-3:]] or [0]
+    rolling_avg = round(sum(recent) / len(recent), 1)
+    band = {"min": min(recent), "max": max(recent)}
+
+    # forecast: sprints to clear the remaining backlog at the velocity range
+    forecast = None
+    if backlog_points > 0 and band["max"] > 0:
+        import math
+        low = math.ceil(backlog_points / band["max"])   # optimistic (fast) -> fewer sprints
+        high = math.ceil(backlog_points / band["min"]) if band["min"] > 0 else None
+        mid = math.ceil(backlog_points / rolling_avg) if rolling_avg > 0 else None
+        forecast = {"backlog_points": backlog_points, "low_sprints": low,
+                    "high_sprints": high, "mid_sprints": mid}
+
+    # current sprint window from the sprint-backlog group title "(Jun 15 - Jul 18)"
     cur = max((h["sprint"] for h in history), default=None)
     current = None
     if cur is not None:
         start = end = span = day = None
         status = "active"
-        title = sprint_titles.get(cur, "")
-        m = re.search(r"\(([^)]+)\)", title)  # "(Jun 15 - Jul 18)"
+        m = re.search(r"\(([^)]+)\)", sprint_titles.get(cur, ""))
         if m:
             try:
                 a, b = m.group(1).split(" - ")
@@ -153,22 +186,20 @@ def build_velocity(internal_raw, today):
                 start = datetime.strptime("%s %d" % (a.strip(), yr), "%b %d %Y").date()
                 end = datetime.strptime("%s %d" % (b.strip(), yr), "%b %d %Y").date()
                 span = (end - start).days + 1
-                elapsed = (today - start).days + 1
-                day = max(1, min(elapsed, span))
+                day = max(1, min((today - start).days + 1, span))
                 if today > end:
                     status = "closed"
             except ValueError:
                 pass
-        current = {
-            "number": cur,
-            "goal": SPRINT_GOAL,
-            "start": start.isoformat() if start else None,
-            "end": end.isoformat() if end else None,
-            "span": span,
-            "day": day,
-            "status": status,
-        }
-    return {"current_sprint": current, "history": history}
+        current = {"number": cur, "goal": SPRINT_GOAL,
+                   "start": start.isoformat() if start else None,
+                   "end": end.isoformat() if end else None,
+                   "span": span, "day": day, "status": status}
+
+    return {"current_sprint": current, "history": history,
+            "rolling_avg": rolling_avg, "band": band,
+            "backlog_points": backlog_points, "forecast": forecast,
+            "target": {"low": TARGET_LOW, "high": TARGET_HIGH, "team": TEAM_SIZE}}
 
 
 def main():
@@ -194,15 +225,14 @@ def main():
 
     v = out["velocity"]
     print("Wrote %s" % args.out)
-    print("  clients: %d" % len(out["gantt"]["clients"]))
     for c in out["gantt"]["clients"]:
-        print("    %-18s %d items" % (c["client"], len(c["items"])))
-    print("  sprints:")
+        print("  %-18s %d items" % (c["client"], len(c["items"])))
     for h in v["history"]:
-        print("    Sprint %d: %d/%d completed/committed" % (h["sprint"], h["completed"], h["committed"]))
-    cur = v["current_sprint"]
-    if cur:
-        print("  current: Sprint %s (%s, day %s/%s)" % (cur["number"], cur["status"], cur["day"], cur["span"]))
+        print("  Sprint %d: %d/%d done/committed  rel=%s%%  carry=%d  thru=%d  %s"
+              % (h["sprint"], h["completed"], h["committed"], h["reliability"],
+                 h["carryover"], h["throughput"], h["health"]))
+    print("  rolling_avg=%s band=%s backlog=%d forecast=%s"
+          % (v["rolling_avg"], v["band"], v["backlog_points"], v["forecast"]))
 
 
 if __name__ == "__main__":

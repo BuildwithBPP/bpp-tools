@@ -7,273 +7,532 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css">
 <style>
-/* ---- sub-tabs ---- */
-.dt-tabs{display:flex;gap:6px;margin-bottom:22px;}
+/* ---- sub-tabs + controls ---- */
+.dt-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;align-items:center;}
 .dt-panel{display:none;animation:fadeUp .3s ease;}
 .dt-panel.active{display:block;}
-.dt-meta{font-size:11px;color:var(--muted);margin-bottom:16px;}
-.dt-note{font-size:11px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:6px;padding:9px 12px;margin-bottom:18px;line-height:1.5;}
+.dt-note{font-size:11px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:6px;padding:9px 12px;margin-bottom:16px;line-height:1.5;}
+.dt-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px;}
+.dt-controls .seg{display:inline-flex;border:1.5px solid var(--border);border-radius:7px;overflow:hidden;}
+.dt-controls .seg button{background:#fff;border:none;padding:6px 11px;font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;border-right:1px solid var(--border);}
+.dt-controls .seg button:last-child{border-right:none;}
+.dt-controls .seg button.on{background:var(--navy);color:#fff;}
+.dt-controls select{border:1.5px solid var(--border);border-radius:7px;padding:6px 9px;font-family:var(--sans);font-size:11px;color:var(--text2);background:#fff;}
+.dt-controls label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:2px;}
+
+/* ---- KPI tiles ---- */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px;}
+.kpi{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:15px 17px;border-top:3px solid var(--border);}
+.kpi.alert{border-top-color:var(--red);}
+.kpi.warn{border-top-color:var(--yellow);}
+.kpi.good{border-top-color:var(--green);}
+.kpi-val{font-family:var(--head);font-size:27px;font-weight:800;color:var(--navy);line-height:1;}
+.kpi.alert .kpi-val{color:var(--red);}
+.kpi-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:7px;}
+
+/* ---- RAG cards ---- */
+.rag-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-bottom:24px;}
+.rag-card{background:var(--card);border:1.5px solid var(--border);border-radius:11px;padding:16px 18px;}
+.rag-card.red{border-left:4px solid var(--red);}
+.rag-card.amber{border-left:4px solid var(--yellow);}
+.rag-card.green{border-left:4px solid var(--green);}
+.rag-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.rag-name{font-family:var(--head);font-size:15px;font-weight:800;color:var(--navy);}
+.rag-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;}
+.rag-dot.red{background:var(--red);}.rag-dot.amber{background:var(--yellow);}.rag-dot.green{background:var(--green);}
+.rag-meta{font-size:11px;color:var(--muted);line-height:1.7;}
+.rag-meta b{color:var(--text2);font-weight:600;}
+.rag-ribbon{display:flex;gap:4px;margin-top:9px;flex-wrap:wrap;}
+.rag-phase{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--bg);color:var(--muted);}
+.rag-phase.done{background:rgba(22,163,74,.12);color:var(--green);}
+.rag-phase.active{background:var(--navy);color:#fff;}
+
+/* ---- at-risk + upcoming tables ---- */
+.dt-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:8px;}
+.dt-table th{text-align:left;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:2px solid var(--border);}
+.dt-table td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--text2);}
+.dt-table tr:hover td{background:rgba(4,71,113,.03);}
+.flag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.04em;}
+.flag.overdue{background:var(--red-bg);color:var(--red);}
+.flag.slipped{background:var(--yellow-bg);color:var(--yellow);}
+.flag.stalled{background:rgba(100,116,139,.14);color:var(--muted);}
+.flag.late{background:var(--yellow-bg);color:var(--yellow);}
+.panel{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:20px;}
+.panel-title{font-family:var(--head);font-size:13px;font-weight:800;color:var(--navy);margin-bottom:2px;}
+.panel-sub{font-size:11px;color:var(--muted);margin-bottom:14px;}
+.dt-empty{padding:22px;text-align:center;color:var(--muted);font-size:12px;}
 
 /* ---- gantt ---- */
-.gantt-wrap{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:0;overflow-x:auto;margin-bottom:24px;}
-.gantt-inner{min-width:820px;}
-.gantt-axis{position:relative;height:26px;margin-left:var(--labelw,220px);border-bottom:1px solid var(--border);}
+.gantt-wrap{background:var(--card);border:1.5px solid var(--border);border-radius:12px;overflow-x:auto;margin-bottom:18px;}
+.gantt-inner{position:relative;}
+.gantt-axis{position:relative;height:24px;border-bottom:1px solid var(--border);}
 .gantt-tick{position:absolute;top:0;bottom:0;border-left:1px solid var(--border);}
-.gantt-tick span{position:absolute;top:6px;left:5px;font-size:9.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.gantt-tick span{position:absolute;top:6px;left:5px;font-size:9.5px;font-weight:600;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
 .gantt-client{border-bottom:1px solid var(--border);}
 .gantt-client:last-child{border-bottom:none;}
-.gantt-client-hd{display:flex;align-items:center;gap:8px;padding:9px 16px;background:var(--bg);font-family:var(--head);font-size:12px;font-weight:800;color:var(--navy);position:sticky;left:0;}
+.gantt-client-hd{display:flex;align-items:center;gap:7px;padding:8px 14px;background:var(--bg);font-family:var(--head);font-size:12px;font-weight:800;color:var(--navy);position:sticky;left:0;cursor:pointer;z-index:4;}
+.gantt-client-hd .caret{font-size:9px;color:var(--muted);transition:transform .15s;}
+.gantt-client-hd.collapsed .caret{transform:rotate(-90deg);}
 .gantt-client-hd .gc-count{font-family:var(--sans);font-size:10px;font-weight:600;color:var(--muted);}
-.gantt-row{position:relative;height:30px;display:flex;align-items:center;}
-.gantt-row:hover{background:rgba(4,71,113,0.03);}
-.gantt-label{width:var(--labelw,220px);flex-shrink:0;font-size:11px;color:var(--text2);padding:0 10px 0 22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:sticky;left:0;background:inherit;z-index:2;}
+.gantt-client-hd .rag-dot{width:9px;height:9px;}
+.gantt-row{position:relative;height:29px;display:flex;align-items:center;}
+.gantt-row:hover{background:rgba(4,71,113,.03);}
+.gantt-label{flex-shrink:0;font-size:11px;color:var(--text2);padding:0 10px 0 22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:sticky;left:0;background:inherit;z-index:3;}
+.gantt-row:hover .gantt-label{background:#f7fafc;}
 .gantt-track{position:relative;flex:1;height:100%;}
-.gantt-bar{position:absolute;top:7px;height:16px;border-radius:4px;display:flex;align-items:center;min-width:3px;box-shadow:0 1px 2px rgba(0,0,0,.08);}
-.gantt-bar .gb-owner{font-size:9px;font-weight:700;color:#fff;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;mix-blend-mode:normal;}
-.gantt-bar.st-done{opacity:.55;}
-.gantt-bar.st-notstarted{opacity:1;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.35) 0 4px,transparent 4px 8px);}
-.gantt-bar.st-review{outline:1.5px dashed var(--gold-dim);outline-offset:1px;}
-.gantt-overlay{position:absolute;left:var(--labelw,220px);right:0;top:0;bottom:0;pointer-events:none;z-index:3;}
+.gantt-bar{position:absolute;top:7px;height:15px;border-radius:4px;display:flex;align-items:center;min-width:3px;box-shadow:0 1px 2px rgba(0,0,0,.08);cursor:default;}
+.gantt-bar .gb-owner{font-size:9px;font-weight:700;color:#fff;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.gantt-bar.st-done{opacity:.5;}
+.gantt-bar.st-notstarted{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.38) 0 4px,transparent 4px 8px);}
+.gantt-bar.risk{outline:2px solid var(--red);outline-offset:1px;}
+.gantt-diamond{position:absolute;top:6px;width:16px;height:16px;transform:rotate(45deg);border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.12);}
+.gantt-diamond.risk{outline:2px solid var(--red);outline-offset:1px;}
+.gantt-overlay{position:absolute;top:0;bottom:0;pointer-events:none;z-index:2;}
 .gantt-today{position:absolute;top:0;bottom:0;width:2px;background:var(--red);}
 .gantt-today span{position:absolute;top:-1px;left:3px;font-size:8.5px;font-weight:700;color:var(--red);background:var(--card);padding:0 3px;}
-.phase-legend{display:flex;flex-wrap:wrap;gap:14px;margin:2px 2px 22px;font-size:11px;color:var(--text2);}
-.phase-legend .pl{display:flex;align-items:center;gap:6px;}
-.phase-legend .pl i{width:12px;height:12px;border-radius:3px;display:inline-block;}
-.phase-legend .sep{width:1px;background:var(--border);margin:0 4px;}
+.legend{display:flex;flex-wrap:wrap;gap:13px;margin:2px 2px 20px;font-size:11px;color:var(--text2);}
+.legend .pl{display:flex;align-items:center;gap:6px;}
+.legend .pl i{width:12px;height:12px;border-radius:3px;display:inline-block;}
+.legend .pl i.dia{transform:rotate(45deg);border-radius:2px;width:10px;height:10px;}
+.legend .sep{width:1px;background:var(--border);margin:0 3px;}
+#gantt-tip{position:fixed;z-index:999;background:#16232e;color:#fff;font-size:11px;line-height:1.5;padding:8px 11px;border-radius:6px;max-width:280px;box-shadow:0 6px 20px rgba(0,0,0,.25);pointer-events:none;display:none;}
+#gantt-tip b{color:var(--gold);}
 
 /* ---- velocity ---- */
-.vel-top{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:24px;}
-@media(max-width:820px){.vel-top{grid-template-columns:1fr;}}
-.panel{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;}
-.panel-title{font-family:var(--head);font-size:13px;font-weight:800;color:var(--navy);margin-bottom:2px;}
-.panel-sub{font-size:11px;color:var(--muted);margin-bottom:16px;}
+.vel-top{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;margin-bottom:20px;}
+@media(max-width:860px){.vel-top{grid-template-columns:1fr;}}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.sp-chip{display:flex;align-items:center;gap:7px;border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;font-size:11px;}
+.sp-chip .dot{width:9px;height:9px;border-radius:50%;}
+.sp-chip .dot.green{background:var(--green);}.sp-chip .dot.amber{background:var(--yellow);}.sp-chip .dot.red{background:var(--red);}
+.sp-chip b{font-family:var(--head);color:var(--navy);}
+.sp-chip .rel{font-weight:700;}
 .vel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
 .vel-card{border:1.5px solid var(--border);border-radius:9px;padding:13px 15px;border-top:3px solid var(--border);}
-.vel-card.eli{border-top-color:var(--gold);}
-.vel-card.daunte{border-top-color:var(--gold-dim);}
-.vel-card.kenny{border-top-color:var(--steel);}
-.vel-name{font-family:var(--head);font-size:13px;font-weight:800;color:var(--navy);margin-bottom:8px;}
-.vel-pts{font-size:22px;font-weight:800;font-family:var(--head);color:var(--navy);line-height:1;}
+.vel-card.eli{border-top-color:var(--gold);}.vel-card.daunte{border-top-color:var(--gold-dim);}.vel-card.kenny{border-top-color:var(--steel);}
+.vel-name{font-family:var(--head);font-size:13px;font-weight:800;color:var(--navy);margin-bottom:7px;}
+.vel-pts{font-size:21px;font-weight:800;font-family:var(--head);color:var(--navy);line-height:1;}
 .vel-pts small{font-size:11px;font-weight:600;color:var(--muted);}
-.progress-bar{height:6px;background:var(--bg);border-radius:4px;overflow:hidden;margin-top:9px;}
+.progress-bar{height:6px;background:var(--bg);border-radius:4px;overflow:hidden;margin-top:8px;}
 .progress-fill{height:100%;border-radius:4px;background:var(--navy);}
-.vel-card.eli .progress-fill{background:var(--gold-dim);}
-.vel-card.kenny .progress-fill{background:var(--steel);}
-.vel-legend{display:flex;gap:16px;font-size:11px;color:var(--text2);margin-top:4px;}
+.vel-card.eli .progress-fill{background:var(--gold-dim);}.vel-card.kenny .progress-fill{background:var(--steel);}
+.fc-big{font-family:var(--head);font-size:30px;font-weight:800;color:var(--navy);line-height:1;}
+.fc-big small{font-size:13px;color:var(--muted);font-weight:600;}
+.vel-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--text2);margin-top:6px;}
 .vel-legend .vl{display:flex;align-items:center;gap:6px;}
 .vel-legend .vl i{width:12px;height:12px;border-radius:3px;display:inline-block;}
-.dt-empty{padding:30px;text-align:center;color:var(--muted);font-size:13px;}
+
+/* client-facing view hides internal-only bits */
+body[data-view="client"] .internal-only{display:none !important;}
+.view-note{font-size:10px;color:var(--muted);}
+
+@media print{
+  .hub-nav,.dt-tabs,.dt-controls,#gantt-tip{display:none !important;}
+  .dt-panel{display:block !important;}
+  .gantt-wrap{overflow:visible;}
+  .gantt-client-hd.collapsed + *{display:flex !important;}
+}
 </style>
 </head>
-<body>
+<body data-view="internal">
 <div id="hub-nav"></div>
+<div id="gantt-tip"></div>
 
 <main>
   <div class="sec-header">
     <div class="sec-eyebrow">Delivery &middot; Live from Monday.com</div>
     <div class="sec-title">Delivery <span>Tracker</span></div>
-    <div class="sec-desc">Client delivery timeline and sprint velocity, pulled from the Client Delivery and BPP Internal boards. <span id="dt-generated" style="color:var(--muted);"></span></div>
+    <div class="sec-desc">Client delivery health, timeline, and sprint velocity. <span id="dt-generated" style="color:var(--muted);"></span></div>
   </div>
 
   <div class="dt-tabs">
-    <button class="btn btn-navy" id="tab-gantt" onclick="showPanel('gantt',this)">&#128197; Delivery Timeline</button>
+    <button class="btn btn-navy" id="tab-health" onclick="showPanel('health',this)">&#128717; Health</button>
+    <button class="btn" id="tab-gantt" onclick="showPanel('gantt',this)">&#128197; Timeline</button>
     <button class="btn" id="tab-velocity" onclick="showPanel('velocity',this)">&#9889; Velocity</button>
-    <button class="btn" style="margin-left:auto;" onclick="loadData()" title="Re-fetch the latest snapshot">&#8635; Refresh</button>
+    <span style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+      <span class="seg" style="display:inline-flex;border:1.5px solid var(--border);border-radius:7px;overflow:hidden;">
+        <button id="view-internal" class="on" onclick="setView('internal')" style="background:var(--navy);color:#fff;border:none;padding:6px 11px;font-size:11px;font-weight:600;cursor:pointer;">Internal</button>
+        <button id="view-client" onclick="setView('client')" style="background:#fff;color:var(--muted);border:none;border-left:1px solid var(--border);padding:6px 11px;font-size:11px;font-weight:600;cursor:pointer;">Client view</button>
+      </span>
+      <button class="btn" onclick="loadData()" title="Re-fetch the latest snapshot">&#8635;</button>
+    </span>
+  </div>
+
+  <!-- HEALTH -->
+  <div class="dt-panel active" id="panel-health">
+    <div class="kpi-row" id="kpi-row"></div>
+    <div class="sec-label">Client Health</div>
+    <div class="rag-grid" id="rag-grid"></div>
+    <div class="panel internal-only">
+      <div class="panel-title">At Risk &middot; needs attention</div>
+      <div class="panel-sub">Overdue, past planned end, starting late, or stalled with no movement.</div>
+      <div style="overflow-x:auto;"><table class="dt-table" id="atrisk-table"></table></div>
+      <div id="atrisk-empty" class="dt-empty" style="display:none;">Nothing at risk. All open work is on schedule and moving.</div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Upcoming &middot; next 14 days</div>
+      <div class="panel-sub">Deliverables due soon, by due date.</div>
+      <div style="overflow-x:auto;"><table class="dt-table" id="upcoming-table"></table></div>
+      <div id="upcoming-empty" class="dt-empty" style="display:none;">Nothing due in the next 14 days.</div>
+    </div>
   </div>
 
   <!-- GANTT -->
-  <div class="dt-panel active" id="panel-gantt">
-    <div class="dt-note"><strong>Timeline view.</strong> Bars show each deliverable's scheduled window (Monday Timeline column). Monday has no dependency field, so these show <em>schedule</em>, not predecessor links. Color = project phase; striped = not started; faded = done; dashed = in review.</div>
-    <div class="phase-legend" id="phase-legend"></div>
+  <div class="dt-panel" id="panel-gantt">
+    <div class="dt-controls">
+      <label>Zoom</label>
+      <span class="seg" id="zoom-seg">
+        <button data-zoom="week" onclick="setZoom('week',this)">Week</button>
+        <button data-zoom="month" class="on" onclick="setZoom('month',this)">Month</button>
+        <button data-zoom="quarter" onclick="setZoom('quarter',this)">Quarter</button>
+      </span>
+      <label style="margin-left:6px;">Color</label>
+      <span class="seg" id="color-seg">
+        <button data-cb="phase" class="on" onclick="setColorBy('phase',this)">Phase</button>
+        <button data-cb="owner" onclick="setColorBy('owner',this)">Owner</button>
+        <button data-cb="status" onclick="setColorBy('status',this)">Status</button>
+      </span>
+      <label style="margin-left:6px;">Filter</label>
+      <select id="f-client" onchange="renderGantt()"><option value="">All clients</option></select>
+      <select id="f-owner" onchange="renderGantt()"><option value="">All owners</option></select>
+      <select id="f-status" onchange="renderGantt()"><option value="">All statuses</option></select>
+    </div>
+    <div class="dt-note"><strong>Timeline view.</strong> Bars show each deliverable's scheduled window. Monday has no dependency field, so these show schedule, not predecessor links. Single-date items show as &#9670; milestones. Red outline = overdue or past planned end.</div>
+    <div class="legend" id="legend"></div>
     <div class="gantt-wrap"><div class="gantt-inner" id="gantt"></div></div>
   </div>
 
   <!-- VELOCITY -->
   <div class="dt-panel" id="panel-velocity">
     <div class="dt-note" id="vel-sprint-note"></div>
+    <div class="chip-row" id="sprint-chips"></div>
     <div class="vel-top">
-      <div class="panel">
-        <div class="panel-title">Points per sprint</div>
-        <div class="panel-sub">Committed vs. completed story points. Target band = 25&ndash;35 pts / person / sprint.</div>
+      <div class="panel" style="margin:0;">
+        <div class="panel-title">Points per sprint &amp; commitment reliability</div>
+        <div class="panel-sub">Columns = committed vs completed points. Line = reliability (completed &divide; committed). Band = 25&ndash;35 pts/person target.</div>
         <div id="vel-chart"></div>
         <div class="vel-legend">
           <span class="vl"><i style="background:var(--navy);"></i> Completed</span>
           <span class="vl"><i style="background:#d7e0e8;"></i> Committed</span>
+          <span class="vl"><i style="background:#c0392b;border-radius:50%;"></i> Reliability %</span>
           <span class="vl"><i style="background:var(--gold-glow);border:1px solid var(--gold-border);"></i> Target band</span>
         </div>
       </div>
-      <div class="panel">
-        <div class="panel-title">This sprint by owner</div>
-        <div class="panel-sub" id="vel-owner-sub"></div>
-        <div class="vel-grid" id="vel-owners"></div>
+      <div>
+        <div class="panel" style="margin-bottom:14px;">
+          <div class="panel-title">Backlog forecast</div>
+          <div class="panel-sub">Remaining backlog &divide; recent velocity range.</div>
+          <div id="forecast-box"></div>
+        </div>
+        <div class="panel internal-only" style="margin:0;">
+          <div class="panel-title">This sprint &middot; load by owner</div>
+          <div class="panel-sub" id="vel-owner-sub"></div>
+          <div class="vel-grid" id="vel-owners"></div>
+          <div class="view-note" style="margin-top:10px;">Load balancing, not a scoreboard. Points are a team estimate, never an individual comparison.</div>
+        </div>
       </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Throughput &middot; items completed per sprint</div>
+      <div class="panel-sub">Complements points: reveals whether velocity moved because of item size or item count.</div>
+      <div id="thru-chart"></div>
     </div>
   </div>
 </main>
 
-<div id="hub-nav-foot"></div>
 <script src="../js/nav.js" data-page="departments"></script>
 <script>
-var PHASES = {
-  'Initiation':{c:'#5987A5'}, 'Planning':{c:'#7BA7C4'}, 'Execution':{c:'#044771'},
-  'Monitoring':{c:'#D4A63E'}, 'Closure':{c:'#16a34a'}, '_':{c:'#94a3b8'}
-};
-var OWNER_CLASS = {Eli:'eli', Daunte:'daunte', Kenny:'kenny'};
-var DATA = null;
+var PHASES={Initiation:'#5987A5',Planning:'#7BA7C4',Execution:'#044771',Monitoring:'#D4A63E',Closure:'#16a34a',_:'#94a3b8'};
+var OWNER_COL={Eli:'#D4A63E',Daunte:'#5987A5',Kenny:'#0d7a5f',_:'#94a3b8'};
+var OWNER_CLASS={Eli:'eli',Daunte:'daunte',Kenny:'kenny'};
+var STATUS_COL={'done':'#16a34a','in progress':'#044771','in review':'#D4A63E','not started':'#94a3b8','stuck':'#dc2626'};
+var DATA=null, ZOOM='month', COLORBY='phase';
+var PXDAY={week:22,month:7.2,quarter:3};
 
-function showPanel(id, btn){
+function showPanel(id,btn){
   document.querySelectorAll('.dt-panel').forEach(function(p){p.classList.remove('active');});
   document.getElementById('panel-'+id).classList.add('active');
-  document.querySelectorAll('.dt-tabs .btn').forEach(function(b){b.classList.remove('btn-navy');});
-  if(btn) btn.classList.add('btn-navy');
+  ['health','gantt','velocity'].forEach(function(t){document.getElementById('tab-'+t).classList.remove('btn-navy');});
+  if(btn)btn.classList.add('btn-navy');
 }
+function setView(v){
+  document.body.setAttribute('data-view',v);
+  document.getElementById('view-internal').classList.toggle('on',v==='internal');
+  document.getElementById('view-client').classList.toggle('on',v==='client');
+  document.getElementById('view-internal').style.background=v==='internal'?'var(--navy)':'#fff';
+  document.getElementById('view-internal').style.color=v==='internal'?'#fff':'var(--muted)';
+  document.getElementById('view-client').style.background=v==='client'?'var(--navy)':'#fff';
+  document.getElementById('view-client').style.color=v==='client'?'#fff':'var(--muted)';
+}
+function setZoom(z,btn){ZOOM=z;seg('zoom-seg',btn);renderGantt();}
+function setColorBy(c,btn){COLORBY=c;seg('color-seg',btn);renderGantt();}
+function seg(id,btn){document.getElementById(id).querySelectorAll('button').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');}
 
-function d(s){ return s? new Date(s+'T00:00:00') : null; }
-function daysBetween(a,b){ return (b-a)/86400000; }
-function fmtDate(dt){ return dt.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function d(s){return s?new Date(s+'T00:00:00'):null;}
+function today0(){var t=new Date();t.setHours(0,0,0,0);return t;}
+function daysBetween(a,b){return Math.round((b-a)/86400000);}
+function fmtD(dt){return dt.toLocaleDateString('en-US',{month:'short',day:'numeric'});}
+function isDone(s){return (s||'').toLowerCase()==='done';}
 
-function renderGantt(g){
-  var host = document.getElementById('gantt');
-  var clients = (g && g.clients) || [];
-  var all = [];
-  clients.forEach(function(c){ c.items.forEach(function(i){ all.push(i); }); });
-  if(!all.length){ host.innerHTML = '<div class="dt-empty">No scheduled deliverables found.</div>'; return; }
+// ---------- item health ----------
+function itemFlags(i){
+  var t=today0(), due=d(i.due), end=d(i.to), upd=d(i.updated_at), st=(i.status||'').toLowerCase(), out=[];
+  if(st==='done') return out;
+  if(due&&due<t) out.push({flag:'overdue',days:daysBetween(due,t)});
+  if(end&&end<t&&!(due&&due<t)) out.push({flag:'slipped',days:daysBetween(end,t)});
+  if(due&&due>=t&&daysBetween(t,due)<=3&&st==='not started') out.push({flag:'late',days:daysBetween(t,due)});
+  if(upd&&daysBetween(upd,t)>7) out.push({flag:'stalled',days:daysBetween(upd,t)});
+  return out;
+}
+function allItems(){var a=[];(DATA.gantt.clients||[]).forEach(function(c){c.items.forEach(function(i){a.push({c:c.client,i:i});});});return a;}
 
-  var min = d(all[0].from), max = d(all[0].to);
-  all.forEach(function(i){ var f=d(i.from), t=d(i.to); if(f<min)min=f; if(t>max)max=t; });
-  // pad to whole months
-  min = new Date(min.getFullYear(), min.getMonth(), 1);
-  max = new Date(max.getFullYear(), max.getMonth()+1, 1);
-  var span = daysBetween(min, max);
-  var pct = function(dt){ return daysBetween(min, dt)/span*100; };
+// ================= HEALTH =================
+function renderHealth(){
+  var t=today0(), items=allItems();
+  // KPIs
+  var doneWithDue=0,onTime=0,active=0,overdue=0,atrisk=0,due7=0;
+  items.forEach(function(x){
+    var i=x.i, st=(i.status||'').toLowerCase(), due=d(i.due), upd=d(i.updated_at);
+    if(st==='done'){ if(due){doneWithDue++; if(upd&&upd<=due)onTime++;} }
+    else{
+      active++;
+      var f=itemFlags(i);
+      if(f.some(function(z){return z.flag==='overdue';}))overdue++;
+      if(f.length)atrisk++;
+      if(due&&due>=t&&daysBetween(t,due)<=7)due7++;
+    }
+  });
+  var otPct=doneWithDue?Math.round(onTime/doneWithDue*100):null;
+  var kpis=[
+    {v:otPct==null?'--':otPct+'%',l:'On-time (est.)',cls:otPct==null?'':(otPct>=90?'good':otPct>=75?'warn':'alert')},
+    {v:active,l:'Active deliverables',cls:''},
+    {v:overdue,l:'Overdue',cls:overdue>0?'alert':'good'},
+    {v:atrisk,l:'At risk',cls:atrisk>0?'warn':'good'},
+    {v:due7,l:'Due next 7 days',cls:''}
+  ];
+  document.getElementById('kpi-row').innerHTML=kpis.map(function(k){
+    return '<div class="kpi '+k.cls+'"><div class="kpi-val">'+k.v+'</div><div class="kpi-label">'+k.l+'</div></div>';
+  }).join('');
 
-  // month axis
-  var axis = '<div class="gantt-axis">';
-  var m = new Date(min);
-  while(m < max){
-    axis += '<div class="gantt-tick" style="left:'+pct(m).toFixed(3)+'%"><span>'+
-      m.toLocaleDateString('en-US',{month:'short'})+ (m.getMonth()===0?" '"+String(m.getFullYear()).slice(2):'') +'</span></div>';
-    m = new Date(m.getFullYear(), m.getMonth()+1, 1);
-  }
-  // today marker
-  var today = new Date(); today.setHours(0,0,0,0);
-  var todayHtml = '';
-  if(today>=min && today<=max){
-    todayHtml = '<div class="gantt-overlay"><div class="gantt-today" style="left:'+pct(today).toFixed(3)+'%;"><span>Today</span></div></div>';
-  }
-  axis += '</div>';
-
-  var rows = '';
-  clients.forEach(function(c){
-    rows += '<div class="gantt-client"><div class="gantt-client-hd">'+esc(c.client)+
-      ' <span class="gc-count">'+c.items.length+' items</span></div>';
+  // per-client RAG
+  var rag=document.getElementById('rag-grid'); rag.innerHTML='';
+  (DATA.gantt.clients||[]).forEach(function(c){
+    var open=0,nextDue=null,maxStale=0,worst='green',phases={};
     c.items.forEach(function(i){
-      var f=d(i.from), t=d(i.to);
-      var left=pct(f), width=Math.max(pct(t)-left, 0.6);
-      var ph = PHASES[i.phase] || PHASES._;
-      var st = (i.status||'').toLowerCase();
-      var cls = 'gantt-bar';
-      if(st==='done') cls+=' st-done';
-      else if(st==='not started') cls+=' st-notstarted';
-      else if(st.indexOf('review')>=0) cls+=' st-review';
-      var owner = i.owner ? '<span class="gb-owner">'+esc(i.owner)+'</span>' : '';
-      var title = esc(i.name)+' — '+(i.phase||'')+' · '+(i.status||'')+' · '+fmtDate(f)+'→'+fmtDate(t)+(i.owner?(' · '+i.owner):'');
-      rows += '<div class="gantt-row"><div class="gantt-label" title="'+esc(i.name)+'">'+esc(i.name)+'</div>'+
-        '<div class="gantt-track"><div class="'+cls+'" style="left:'+left.toFixed(3)+'%;width:'+width.toFixed(3)+'%;background:'+ph.c+';" title="'+title+'">'+owner+'</div></div></div>';
+      var st=(i.status||'').toLowerCase(), due=d(i.due), upd=d(i.updated_at);
+      if(i.phase)phases[i.phase]=phases[i.phase]||(st==='done'?'done':'active'); if(st!=='done'&&i.phase)phases[i.phase]='active';
+      if(st==='done')return;
+      open++;
+      if(due&&(!nextDue||due<nextDue))nextDue=due;
+      if(upd){var s=daysBetween(upd,t);if(s>maxStale)maxStale=s;}
+      var f=itemFlags(i);
+      if(f.some(function(z){return z.flag==='overdue'||z.flag==='slipped';})||maxStale>10)worst='red';
+      else if((f.length||(due&&due>=t&&daysBetween(t,due)<=7))&&worst!=='red')worst='amber';
     });
-    rows += '</div>';
+    if(maxStale>10)worst='red'; else if(maxStale>7&&worst==='green')worst='amber';
+    var ribbon=['Initiation','Planning','Execution','Monitoring','Closure'].filter(function(p){return phases[p];})
+      .map(function(p){return '<span class="rag-phase '+(phases[p]==='done'?'done':'active')+'">'+p.slice(0,4)+'</span>';}).join('');
+    rag.insertAdjacentHTML('beforeend',
+      '<div class="rag-card '+worst+'"><div class="rag-head"><span class="rag-name">'+esc(c.client)+'</span><span class="rag-dot '+worst+'"></span></div>'+
+      '<div class="rag-meta"><b>'+open+'</b> open &middot; next due '+(nextDue?fmtD(nextDue):'--')+'<br><span class="internal-only">Last movement '+(maxStale?maxStale+'d ago':'--')+'</span></div>'+
+      '<div class="rag-ribbon">'+ribbon+'</div></div>');
   });
-  host.style.position='relative';
-  host.innerHTML = axis + rows + todayHtml;
 
-  // phase legend
-  var legend = '';
-  ['Initiation','Planning','Execution','Monitoring','Closure'].forEach(function(p){
-    legend += '<span class="pl"><i style="background:'+PHASES[p].c+'"></i>'+p+'</span>';
+  // at-risk table
+  var sev={overdue:3,slipped:2,late:1,stalled:1};
+  var risks=[];
+  items.forEach(function(x){
+    var f=itemFlags(x.i);
+    if(f.length){var top=f.sort(function(a,b){return (sev[b.flag]-sev[a.flag])||(b.days-a.days);})[0];risks.push({c:x.c,i:x.i,flag:top.flag,days:top.days});}
   });
-  legend += '<span class="sep"></span><span class="pl"><i style="background:#044771;opacity:.55"></i>Done</span>'+
-    '<span class="pl"><i style="background:#044771;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.5) 0 3px,transparent 3px 6px)"></i>Not started</span>';
-  document.getElementById('phase-legend').innerHTML = legend;
+  risks.sort(function(a,b){return (sev[b.flag]-sev[a.flag])||(b.days-a.days);});
+  var at=document.getElementById('atrisk-table');
+  if(risks.length){
+    document.getElementById('atrisk-empty').style.display='none';
+    at.innerHTML='<tr><th>Client</th><th>Deliverable</th><th>Owner</th><th>Flag</th><th>Days</th></tr>'+
+      risks.map(function(r){var lbl={overdue:'days late',slipped:'past end',late:'to start',stalled:'no move'}[r.flag];
+        return '<tr><td>'+esc(r.c)+'</td><td>'+esc(r.i.name)+'</td><td>'+esc(r.i.owner||'--')+'</td><td><span class="flag '+r.flag+'">'+r.flag+'</span></td><td>'+r.days+'d '+lbl+'</td></tr>';}).join('');
+  } else { at.innerHTML=''; document.getElementById('atrisk-empty').style.display='block'; }
+
+  // upcoming 14d
+  var up=items.filter(function(x){var due=d(x.i.due);return !isDone(x.i.status)&&due&&due>=t&&daysBetween(t,due)<=14;})
+    .sort(function(a,b){return d(a.i.due)-d(b.i.due);});
+  var ut=document.getElementById('upcoming-table');
+  if(up.length){
+    document.getElementById('upcoming-empty').style.display='none';
+    ut.innerHTML='<tr><th>Due</th><th>Deliverable</th><th>Client</th><th>Owner</th><th>Status</th></tr>'+
+      up.map(function(x){var dd=d(x.i.due),dw=daysBetween(t,dd);
+        return '<tr><td><b>'+fmtD(dd)+'</b> <span style="color:var(--muted)">('+(dw===0?'today':dw+'d')+')</span></td><td>'+esc(x.i.name)+'</td><td>'+esc(x.c)+'</td><td>'+esc(x.i.owner||'--')+'</td><td>'+esc(x.i.status||'')+'</td></tr>';}).join('');
+  } else { ut.innerHTML=''; document.getElementById('upcoming-empty').style.display='block'; }
 }
 
-// ---- velocity column chart (committed behind, completed in front, target band) ----
-function velChart(hist, perPersonLow, perPersonHigh, people){
-  if(!hist.length) return '<div class="dt-empty">No sprint data yet.</div>';
-  var W=560,H=240,padL=34,padR=14,padT=22,padB=28;
-  var maxVal = Math.max.apply(null, hist.map(function(h){return Math.max(h.committed,h.completed);}).concat([perPersonHigh*people]));
-  var max = niceMax(maxVal);
-  var plotH=H-padT-padB, plotW=W-padL-padR, base=padT+plotH;
-  var n=hist.length, step=plotW/n, bw=Math.min(46, step*0.5);
-  var s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" role="img" style="max-width:560px;">';
-  // target band
-  var yLow=base-(perPersonLow*people)/max*plotH, yHigh=base-(perPersonHigh*people)/max*plotH;
+// ================= GANTT =================
+function clientRAG(c){
+  var t=today0(),worst='green',maxStale=0;
+  c.items.forEach(function(i){if(isDone(i.status))return;var upd=d(i.updated_at);if(upd)maxStale=Math.max(maxStale,daysBetween(upd,t));
+    var f=itemFlags(i);if(f.some(function(z){return z.flag==='overdue'||z.flag==='slipped';}))worst='red';
+    else if(f.length&&worst!=='red')worst='amber';});
+  if(maxStale>10)worst='red';else if(maxStale>7&&worst==='green')worst='amber';return worst;
+}
+function barColor(i){
+  if(COLORBY==='owner')return OWNER_COL[i.owner]||OWNER_COL._;
+  if(COLORBY==='status')return STATUS_COL[(i.status||'').toLowerCase()]||'#94a3b8';
+  return PHASES[i.phase]||PHASES._;
+}
+function fillSelect(id,vals){var s=document.getElementById(id);var keep=s.value;s.innerHTML=s.options[0].outerHTML+vals.map(function(v){return '<option>'+esc(v)+'</option>';}).join('');s.value=keep;}
+var COLLAPSED={};
+function renderGantt(){
+  var host=document.getElementById('gantt');
+  var fc=document.getElementById('f-client').value,fo=document.getElementById('f-owner').value,fs=document.getElementById('f-status').value;
+  var clients=(DATA.gantt.clients||[]).map(function(c){
+    return {client:c.client,items:c.items.filter(function(i){
+      return (!fc||c.client===fc)&&(!fo||i.owner===fo)&&(!fs||i.status===fs);
+    })};
+  }).filter(function(c){return c.items.length;});
+  var all=[];clients.forEach(function(c){c.items.forEach(function(i){all.push(i);});});
+  if(!all.length){host.innerHTML='<div class="dt-empty">No deliverables match this filter.</div>';return;}
+  var min=d(all[0].from),max=d(all[0].to);
+  all.forEach(function(i){var f=d(i.from),tt=d(i.to);if(f<min)min=f;if(tt>max)max=tt;});
+  min=new Date(min.getFullYear(),min.getMonth(),1);max=new Date(max.getFullYear(),max.getMonth()+1,1);
+  var pxday=PXDAY[ZOOM], labelW=ZOOM==='week'?200:220;
+  var x=function(dt){return daysBetween(min,dt)*pxday;};
+  var chartW=x(max), totalW=labelW+chartW;
+  var host2=host; host2.style.minWidth=totalW+'px';
+
+  var axis='<div class="gantt-axis" style="margin-left:'+labelW+'px;width:'+chartW+'px;">';
+  var m=new Date(min);
+  while(m<max){axis+='<div class="gantt-tick" style="left:'+x(m).toFixed(1)+'px"><span>'+m.toLocaleDateString('en-US',{month:'short'})+(m.getMonth()===0?" '"+String(m.getFullYear()).slice(2):'')+'</span></div>';m=new Date(m.getFullYear(),m.getMonth()+1,1);}
+  axis+='</div>';
+
+  var rows='';
+  clients.forEach(function(c){
+    var col=COLLAPSED[c.client], rag=clientRAG(c);
+    rows+='<div class="gantt-client"><div class="gantt-client-hd'+(col?' collapsed':'')+'" style="width:'+totalW+'px;" onclick="toggleClient(\''+c.client.replace(/'/g,"")+'\')"><span class="caret">&#9660;</span><span class="rag-dot '+rag+'"></span>'+esc(c.client)+' <span class="gc-count">'+c.items.length+'</span></div>';
+    if(!col) c.items.forEach(function(i){
+      var f=d(i.from),tt=d(i.to),left=x(f),w=Math.max(x(tt)-left,3);
+      var risk=itemFlags(i).some(function(z){return z.flag==='overdue'||z.flag==='slipped';});
+      var color=barColor(i), st=(i.status||'').toLowerCase();
+      var cls='gantt-bar'+(st==='done'?' st-done':'')+(st==='not started'?' st-notstarted':'')+(risk?' risk':'');
+      var tip=tipText(i,c.client);
+      var el;
+      if(daysBetween(f,tt)<=0){ // milestone diamond
+        el='<div class="gantt-diamond'+(risk?' risk':'')+'" style="left:'+(left-8).toFixed(1)+'px;background:'+color+';" data-tip="'+esc(tip)+'"></div>';
+      } else {
+        var owner=i.owner?'<span class="gb-owner">'+esc(i.owner)+'</span>':'';
+        el='<div class="'+cls+'" style="left:'+left.toFixed(1)+'px;width:'+w.toFixed(1)+'px;background:'+color+';" data-tip="'+esc(tip)+'" tabindex="0" role="img" aria-label="'+esc(tip)+'">'+owner+'</div>';
+      }
+      rows+='<div class="gantt-row"><div class="gantt-label" style="width:'+labelW+'px;" title="'+esc(i.name)+'">'+esc(i.name)+'</div><div class="gantt-track">'+el+'</div></div>';
+    });
+    rows+='</div>';
+  });
+
+  var t=today0(),todayHtml='';
+  if(t>=min&&t<=max)todayHtml='<div class="gantt-overlay" style="left:'+labelW+'px;width:'+chartW+'px;"><div class="gantt-today" style="left:'+x(t).toFixed(1)+'px"><span>Today</span></div></div>';
+  host2.innerHTML=axis+rows+todayHtml;
+  bindTips();
+  renderLegend();
+}
+function tipText(i,client){
+  var f=d(i.from),tt=d(i.to),parts=[i.name,client+' · '+(i.phase||'')+' · '+(i.status||''),fmtD(f)+' → '+fmtD(tt)];
+  if(i.owner)parts.push('Owner: '+i.owner);
+  if(i.due)parts.push('Due '+fmtD(d(i.due)));
+  var f2=itemFlags(i);if(f2.length)parts.push('⚠ '+f2.map(function(z){return z.flag+' '+z.days+'d';}).join(', '));
+  return parts.join('\n');
+}
+function bindTips(){
+  var tip=document.getElementById('gantt-tip');
+  document.querySelectorAll('#gantt [data-tip]').forEach(function(el){
+    function show(e){tip.textContent=el.getAttribute('data-tip');tip.style.display='block';move(e);}
+    function move(e){var x=(e.clientX||el.getBoundingClientRect().left)+14,y=(e.clientY||el.getBoundingClientRect().top)+14;tip.style.left=Math.min(x,window.innerWidth-290)+'px';tip.style.top=y+'px';}
+    function hide(){tip.style.display='none';}
+    el.addEventListener('mouseenter',show);el.addEventListener('mousemove',move);el.addEventListener('mouseleave',hide);
+    el.addEventListener('focus',function(){var r=el.getBoundingClientRect();tip.textContent=el.getAttribute('data-tip');tip.style.display='block';tip.style.left=r.left+'px';tip.style.top=(r.bottom+6)+'px';});
+    el.addEventListener('blur',hide);
+  });
+}
+function toggleClient(name){COLLAPSED[name]=!COLLAPSED[name];renderGantt();}
+function renderLegend(){
+  var L=document.getElementById('legend'),h='';
+  if(COLORBY==='phase')['Initiation','Planning','Execution','Monitoring','Closure'].forEach(function(p){h+='<span class="pl"><i style="background:'+PHASES[p]+'"></i>'+p+'</span>';});
+  else if(COLORBY==='owner')['Eli','Daunte','Kenny'].forEach(function(o){h+='<span class="pl"><i style="background:'+OWNER_COL[o]+'"></i>'+o+'</span>';});
+  else ['Done','In Progress','In Review','Not Started'].forEach(function(s){h+='<span class="pl"><i style="background:'+STATUS_COL[s.toLowerCase()]+'"></i>'+s+'</span>';});
+  h+='<span class="sep"></span><span class="pl"><i class="dia" style="background:#5987A5"></i>Milestone</span><span class="pl"><i style="background:#fff;outline:2px solid var(--red);outline-offset:-2px;"></i>Overdue / slipped</span>';
+  L.innerHTML=h;
+}
+
+// ================= VELOCITY =================
+function niceMax(v){if(v<=0)return 10;var p=Math.pow(10,Math.floor(Math.log10(v)));var ms=[1,1.5,2,2.5,3,4,5,7.5,10];for(var k=0;k<ms.length;k++){if(v<=ms[k]*p)return ms[k]*p;}return 10*p;}
+function velChart(v){
+  var hist=v.history,tgt=v.target,people=tgt.team;
+  if(!hist.length)return '<div class="dt-empty">No sprint data.</div>';
+  var W=580,H=250,padL=36,padR=40,padT=22,padB=28;
+  var maxV=Math.max.apply(null,hist.map(function(h){return Math.max(h.committed,h.completed);}).concat([tgt.high*people]));
+  var max=niceMax(maxV),plotH=H-padT-padB,plotW=W-padL-padR,base=padT+plotH,n=hist.length,step=plotW/n,bw=Math.min(42,step*0.5);
+  var yP=function(val){return base-val/max*plotH;}, yR=function(pct){return base-pct/100*plotH;};
+  var s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" style="max-width:'+W+'px;" role="img">';
+  var yLow=yP(tgt.low*people),yHigh=yP(tgt.high*people);
   s+='<rect x="'+padL+'" y="'+yHigh.toFixed(1)+'" width="'+plotW+'" height="'+(yLow-yHigh).toFixed(1)+'" fill="rgba(241,190,92,0.12)"/>';
-  s+='<line x1="'+padL+'" y1="'+yLow.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+yLow.toFixed(1)+'" stroke="rgba(212,166,62,0.5)" stroke-dasharray="3 3"/>';
-  s+='<line x1="'+padL+'" y1="'+yHigh.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+yHigh.toFixed(1)+'" stroke="rgba(212,166,62,0.5)" stroke-dasharray="3 3"/>';
-  // gridlines + y labels
-  s+='<g stroke="#e8edf2">';
-  for(var i=0;i<=4;i++){ var y=padT+plotH*i/4; s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'"'+(i===4?' stroke="#c4d0da"':'')+'/>'; }
-  s+='</g><g fill="#8a97a3" font-size="10" text-anchor="end">';
-  for(var j=0;j<=4;j++){ var yy=padT+plotH*j/4; s+='<text x="'+(padL-6)+'" y="'+(yy+3)+'">'+Math.round(max*(4-j)/4)+'</text>'; }
-  s+='</g>';
+  s+='<g stroke="#e8edf2">';for(var i=0;i<=4;i++){var y=padT+plotH*i/4;s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'"'+(i===4?' stroke="#c4d0da"':'')+'/>';}s+='</g>';
+  s+='<g fill="#8a97a3" font-size="9.5" text-anchor="end">';for(var j=0;j<=4;j++){var yy=padT+plotH*j/4;s+='<text x="'+(padL-5)+'" y="'+(yy+3)+'">'+Math.round(max*(4-j)/4)+'</text>';}s+='</g>';
+  s+='<g fill="#c0392b" font-size="9.5" text-anchor="start">';for(var r=0;r<=4;r++){var ry=padT+plotH*r/4;s+='<text x="'+(W-padR+5)+'" y="'+(ry+3)+'">'+(100-r*25)+'%</text>';}s+='</g>';
   hist.forEach(function(h,i){
-    var x=padL+step*i+(step-bw)/2;
-    var hc=h.committed/max*plotH, hd=h.completed/max*plotH;
-    // committed (light, behind)
-    s+='<rect x="'+x.toFixed(1)+'" y="'+(base-hc).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+hc.toFixed(1)+'" rx="4" fill="#d7e0e8"/>';
-    // completed (navy, front, narrower)
-    var bw2=bw*0.62, x2=x+(bw-bw2)/2;
-    s+='<rect x="'+x2.toFixed(1)+'" y="'+(base-hd).toFixed(1)+'" width="'+bw2.toFixed(1)+'" height="'+hd.toFixed(1)+'" rx="3" fill="#044771"/>';
-    s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(base-hc-6).toFixed(1)+'" font-size="10" font-weight="700" fill="#16232e" text-anchor="middle">'+h.completed+'/'+h.committed+'</text>';
-    s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(base+18)+'" font-size="10.5" fill="#5a6b78" text-anchor="middle">S'+h.sprint+'</text>';
+    var cx=padL+step*i+step/2,x=cx-bw/2;
+    s+='<rect x="'+x.toFixed(1)+'" y="'+yP(h.committed).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+(base-yP(h.committed)).toFixed(1)+'" rx="4" fill="#d7e0e8"/>';
+    var bw2=bw*0.6;
+    s+='<rect x="'+(cx-bw2/2).toFixed(1)+'" y="'+yP(h.completed).toFixed(1)+'" width="'+bw2.toFixed(1)+'" height="'+(base-yP(h.completed)).toFixed(1)+'" rx="3" fill="#044771"/>';
+    s+='<text x="'+cx.toFixed(1)+'" y="'+(yP(h.committed)-6).toFixed(1)+'" font-size="9.5" font-weight="700" fill="#16232e" text-anchor="middle">'+h.completed+'/'+h.committed+'</text>';
+    s+='<text x="'+cx.toFixed(1)+'" y="'+(base+18)+'" font-size="10" fill="#5a6b78" text-anchor="middle">S'+h.sprint+'</text>';
   });
-  s+='</svg>';
-  return s;
+  // reliability line
+  var pts=hist.map(function(h,i){return (padL+step*i+step/2).toFixed(1)+','+yR(h.reliability||0).toFixed(1);});
+  s+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#c0392b" stroke-width="2"/>';
+  hist.forEach(function(h,i){s+='<circle cx="'+(padL+step*i+step/2).toFixed(1)+'" cy="'+yR(h.reliability||0).toFixed(1)+'" r="3.2" fill="#c0392b"/>';});
+  // rolling avg dashed
+  s+='<line x1="'+padL+'" y1="'+yP(v.rolling_avg).toFixed(1)+'" x2="'+(W-padR)+'" y2="'+yP(v.rolling_avg).toFixed(1)+'" stroke="#044771" stroke-dasharray="4 3" stroke-width="1.3" opacity="0.6"/>';
+  s+='<text x="'+(padL+4)+'" y="'+(yP(v.rolling_avg)-4).toFixed(1)+'" font-size="8.5" fill="#044771">avg '+v.rolling_avg+'</text>';
+  s+='</svg>';return s;
 }
-function niceMax(v){ if(v<=0) return 10; var p=Math.pow(10,Math.floor(Math.log10(v))); var ms=[1,1.5,2,2.5,3,4,5,7.5,10]; for(var k=0;k<ms.length;k++){ if(v<=ms[k]*p) return ms[k]*p; } return 10*p; }
-
-function renderVelocity(v){
-  var hist = (v && v.history) || [];
-  var cur = v && v.current_sprint;
-  var people = 3;
-  document.getElementById('vel-chart').innerHTML = velChart(hist, 25, 35, people);
-
-  var note = document.getElementById('vel-sprint-note');
-  if(cur){
-    var win = (cur.start&&cur.end) ? (fmtDate(d(cur.start))+' → '+fmtDate(d(cur.end))) : '';
-    var dayTxt = cur.status==='closed' ? 'closed' : ('day '+cur.day+' of '+cur.span);
-    note.innerHTML = '<strong>Sprint '+cur.number+'</strong> · '+esc(cur.goal)+(win?(' · '+win):'')+' · <em>'+dayTxt+'</em>';
-  } else { note.innerHTML = 'No active sprint.'; }
-
-  // owner cards for current sprint
-  var curHist = cur ? hist.filter(function(h){return h.sprint===cur.number;})[0] : hist[hist.length-1];
-  document.getElementById('vel-owner-sub').textContent = curHist ? ('Sprint '+curHist.sprint+' · completed / committed points') : '';
-  var owners = curHist ? curHist.by_owner : {};
-  var names = Object.keys(owners).sort(function(a,b){return owners[b].committed-owners[a].committed;});
-  var html='';
-  names.forEach(function(nm){
-    var o=owners[nm]; var pct = o.committed? Math.round(o.completed/o.committed*100):0;
-    var cls = OWNER_CLASS[nm]||'';
-    html += '<div class="vel-card '+cls+'"><div class="vel-name">'+esc(nm)+'</div>'+
-      '<div class="vel-pts">'+o.completed+' <small>/ '+o.committed+' pts</small></div>'+
-      '<div class="progress-bar"><div class="progress-fill" style="width:'+Math.min(pct,100)+'%"></div></div></div>';
-  });
-  document.getElementById('vel-owners').innerHTML = html || '<div class="dt-empty">No owner data.</div>';
+function thruChart(hist){
+  var W=580,H=120,padL=30,padR=14,padT=14,padB=24,max=niceMax(Math.max.apply(null,hist.map(function(h){return h.throughput;}).concat([1]))),plotH=H-padT-padB,plotW=W-padL-padR,base=padT+plotH,n=hist.length,step=plotW/n,bw=Math.min(40,step*0.5);
+  var s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" style="max-width:'+W+'px;" role="img"><g stroke="#e8edf2"><line x1="'+padL+'" y1="'+base+'" x2="'+(W-padR)+'" y2="'+base+'" stroke="#c4d0da"/></g>';
+  hist.forEach(function(h,i){var cx=padL+step*i+step/2,hh=h.throughput/max*plotH;s+='<rect x="'+(cx-bw/2).toFixed(1)+'" y="'+(base-hh).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+hh.toFixed(1)+'" rx="4" fill="#5987A5"/>';s+='<text x="'+cx.toFixed(1)+'" y="'+(base-hh-5).toFixed(1)+'" font-size="10" font-weight="700" fill="#16232e" text-anchor="middle">'+h.throughput+'</text>';s+='<text x="'+cx.toFixed(1)+'" y="'+(base+16)+'" font-size="10" fill="#5a6b78" text-anchor="middle">S'+h.sprint+'</text>';});
+  s+='</svg>';return s;
+}
+function renderVelocity(){
+  var v=DATA.velocity,cur=v.current_sprint;
+  document.getElementById('vel-chart').innerHTML=velChart(v);
+  document.getElementById('thru-chart').innerHTML=thruChart(v.history);
+  // chips
+  document.getElementById('sprint-chips').innerHTML=v.history.map(function(h){
+    return '<div class="sp-chip"><span class="dot '+h.health+'"></span><b>S'+h.sprint+'</b> <span class="rel">'+(h.reliability==null?'--':h.reliability+'%')+'</span> <span style="color:var(--muted)">'+h.completed+'/'+h.committed+' pts &middot; '+h.carryover+' carried</span></div>';
+  }).join('');
+  // note
+  if(cur){var win=(cur.start&&cur.end)?(fmtD(d(cur.start))+' → '+fmtD(d(cur.end))):'';var dt=cur.status==='closed'?'closed':('day '+cur.day+' of '+cur.span);
+    document.getElementById('vel-sprint-note').innerHTML='<strong>Sprint '+cur.number+'</strong> · '+esc(cur.goal)+(win?(' · '+win):'')+' · <em>'+dt+'</em>';}
+  // forecast
+  var fbox=document.getElementById('forecast-box'),fc=v.forecast;
+  if(fc){fbox.innerHTML='<div class="fc-big">'+fc.low_sprints+'&ndash;'+(fc.high_sprints||'?')+' <small>sprints</small></div><div class="panel-sub" style="margin:8px 0 0;">to clear <b>'+fc.backlog_points+'</b> backlog pts at recent velocity ('+v.band.min+'&ndash;'+v.band.max+' pts/sprint, avg '+v.rolling_avg+'). Range is wide because velocity is unstable — stabilize before promising dates.</div>';}
+  else fbox.innerHTML='<div class="dt-empty">No backlog data.</div>';
+  // owner load
+  var curHist=cur?v.history.filter(function(h){return h.sprint===cur.number;})[0]:v.history[v.history.length-1];
+  document.getElementById('vel-owner-sub').textContent=curHist?('Sprint '+curHist.sprint+' · completed / committed points'):'';
+  var owners=curHist?curHist.by_owner:{},names=Object.keys(owners).sort(function(a,b){return owners[b].committed-owners[a].committed;});
+  document.getElementById('vel-owners').innerHTML=names.map(function(nm){var o=owners[nm],pct=o.committed?Math.round(o.completed/o.committed*100):0,cls=OWNER_CLASS[nm]||'';
+    return '<div class="vel-card '+cls+'"><div class="vel-name">'+esc(nm)+'</div><div class="vel-pts">'+o.completed+' <small>/ '+o.committed+' pts</small></div><div class="progress-bar"><div class="progress-fill" style="width:'+Math.min(pct,100)+'%"></div></div></div>';}).join('')||'<div class="dt-empty">No owner data.</div>';
 }
 
-function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
+// ================= LOAD =================
 function loadData(){
   fetch('../data/delivery-tracker.json?t='+Date.now()).then(function(r){return r.json();}).then(function(data){
-    DATA = data;
-    if(data.generated_at){
-      document.getElementById('dt-generated').textContent = '· Updated '+new Date(data.generated_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    }
-    renderGantt(data.gantt);
-    renderVelocity(data.velocity);
-  }).catch(function(e){
-    document.getElementById('gantt').innerHTML = '<div class="dt-empty">Could not load delivery-tracker.json. Run the bpp-delivery-tracker skill to generate it.</div>';
-  });
+    DATA=data;
+    if(data.generated_at)document.getElementById('dt-generated').textContent='· Updated '+new Date(data.generated_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    // populate filters
+    var owners={},statuses={},clientsList=[];
+    (data.gantt.clients||[]).forEach(function(c){clientsList.push(c.client);c.items.forEach(function(i){if(i.owner)owners[i.owner]=1;if(i.status)statuses[i.status]=1;});});
+    fillSelect('f-client',clientsList);fillSelect('f-owner',Object.keys(owners));fillSelect('f-status',Object.keys(statuses));
+    renderHealth();renderGantt();renderVelocity();
+  }).catch(function(){document.getElementById('kpi-row').innerHTML='<div class="dt-empty">Could not load delivery-tracker.json. Run the bpp-delivery-tracker skill to generate it.</div>';});
 }
 loadData();
 </script>
