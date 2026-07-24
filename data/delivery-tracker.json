@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-24T21:11:54Z",
+  "generated_at": "2026-07-24T22:33:37Z",
   "gantt": {
     "clients": [
       {
@@ -12,7 +12,8 @@
             "from": "2026-04-11",
             "to": "2026-04-13",
             "due": "2026-04-13",
-            "status": "Done"
+            "status": "Done",
+            "updated_at": "2026-04-23"
           },
           {
             "name": "Project Kickoff",
@@ -21,7 +22,8 @@
             "from": "2026-04-14",
             "to": "2026-04-18",
             "due": "2026-04-18",
-            "status": "Done"
+            "status": "Done",
+            "updated_at": "2026-04-23"
           },
           {
             "name": "Project Planning",
@@ -30,7 +32,8 @@
             "from": "2026-04-14",
             "to": "2026-04-23",
             "due": "2026-04-19",
-            "status": "Done"
+            "status": "Done",
+            "updated_at": "2026-04-23"
           },
           {
             "name": "MS 1 - Process Mapping",
@@ -39,7 +42,8 @@
             "from": "2026-04-22",
             "to": "2026-05-13",
             "due": null,
-            "status": "Done"
+            "status": "Done",
+            "updated_at": "2026-05-22"
           },
           {
             "name": "MS 2 - Marketing Playbook",
@@ -48,16 +52,8 @@
             "from": "2026-05-06",
             "to": "2026-05-16",
             "due": null,
-            "status": "Done"
-          },
-          {
-            "name": "Halfway Milestone - Meeting and Invoice",
-            "phase": "Execution",
-            "owner": "Eli",
-            "from": "2026-05-19",
-            "to": "2026-05-19",
-            "due": null,
-            "status": "Done"
+            "status": "Done",
+            "updated_at": "2026-06-09"
           },
           {
             "name": "MS 3 - CRM Audit, Setup + Training",
@@ -66,7 +62,8 @@
             "from": "2026-06-09",
             "to": "2026-06-12",
             "due": "2026-06-12",
-            "status": "Done"
+            "status": "Done",
+            "updated_at": "2026-06-16"
           },
           {
             "name": "MS 5 - Website Audit + Implemented Improvements",
@@ -75,7 +72,8 @@
             "from": "2026-06-09",
             "to": "2026-07-07",
             "due": "2026-07-07",
-            "status": "In Review"
+            "status": "In Review",
+            "updated_at": "2026-06-29"
           },
           {
             "name": "MS 4 - Financial Clarity Session",
@@ -84,7 +82,8 @@
             "from": "2026-06-15",
             "to": "2026-07-18",
             "due": "2026-07-18",
-            "status": "Done"
+            "status": "Done",
+            "updated_at": "2026-07-14"
           },
           {
             "name": "MS 6 - 1 AI Automation",
@@ -93,7 +92,8 @@
             "from": "2026-06-22",
             "to": "2026-08-01",
             "due": "2026-08-01",
-            "status": "In Progress"
+            "status": "In Progress",
+            "updated_at": "2026-07-21"
           },
           {
             "name": "Internal Review",
@@ -102,7 +102,8 @@
             "from": "2026-06-25",
             "to": "2026-08-04",
             "due": "2026-08-04",
-            "status": "Not Started"
+            "status": "Not Started",
+            "updated_at": "2026-06-29"
           },
           {
             "name": "Client Review",
@@ -111,7 +112,8 @@
             "from": "2026-06-29",
             "to": "2026-08-06",
             "due": "2026-08-06",
-            "status": "Not Started"
+            "status": "Not Started",
+            "updated_at": "2026-06-29"
           },
           {
             "name": "Project Close Out",
@@ -120,7 +122,8 @@
             "from": "2026-07-02",
             "to": "2026-08-08",
             "due": "2026-08-08",
-            "status": "Not Started"
+            "status": "Not Started",
+            "updated_at": "2026-06-29"
           },
           {
             "name": "Ask for Referral and Upsell",
@@ -129,7 +132,8 @@
             "from": "2026-07-03",
             "to": "2026-08-08",
             "due": "2026-08-08",
-            "status": "Not Started"
+            "status": "Not Started",
+            "updated_at": "2026-06-29"
           },
           {
             "name": "Project Review",
@@ -138,120 +142,8 @@
             "from": "2026-07-03",
             "to": "2026-08-08",
             "due": "2026-08-08",
-            "status": "Not Started"
-          }
-        ]
-      },
-      {
-        "client": "HALO Commons",
-        "items": [
-          {
-            "name": "Internal Project Setup",
-            "phase": "Initiation",
-            "owner": "Eli",
-            "from": "2026-04-27",
-            "to": "2026-04-28",
-            "due": "2026-04-28",
-            "status": "Done"
-          },
-          {
-            "name": "Project Kickoff",
-            "phase": "Initiation",
-            "owner": "Eli",
-            "from": "2026-04-27",
-            "to": "2026-05-01",
-            "due": "2026-05-01",
-            "status": "Done"
-          },
-          {
-            "name": "Project Planning",
-            "phase": "Planning",
-            "owner": "Eli",
-            "from": "2026-04-30",
-            "to": "2026-05-04",
-            "due": "2026-05-04",
-            "status": "Done"
-          },
-          {
-            "name": "Business Plan",
-            "phase": "Execution",
-            "owner": null,
-            "from": "2026-06-02",
-            "to": "2026-07-31",
-            "due": "2026-07-31",
-            "status": "Done"
-          },
-          {
-            "name": "Landing Page",
-            "phase": "Execution",
-            "owner": "Eli",
-            "from": "2026-06-02",
-            "to": "2026-07-31",
-            "due": "2026-07-31",
-            "status": "Done"
-          },
-          {
-            "name": "Halfway Milestone - Meeting and Invoice",
-            "phase": "Execution",
-            "owner": "Eli",
-            "from": "2026-06-19",
-            "to": "2026-06-19",
-            "due": "2026-06-19",
-            "status": "Done"
-          },
-          {
-            "name": "Internal Review",
-            "phase": "Monitoring",
-            "owner": "Eli",
-            "from": "2026-06-23",
-            "to": "2026-08-04",
-            "due": "2026-08-04",
-            "status": "Done"
-          },
-          {
-            "name": "Client Review",
-            "phase": "Monitoring",
-            "owner": "Eli",
-            "from": "2026-06-24",
-            "to": "2026-08-06",
-            "due": "2026-08-06",
-            "status": "Done"
-          },
-          {
-            "name": "Project Close Out",
-            "phase": "Closure",
-            "owner": "Eli",
-            "from": "2026-06-25",
-            "to": "2026-08-08",
-            "due": "2026-08-08",
-            "status": "In Progress"
-          },
-          {
-            "name": "Ask for Referral and Upsell",
-            "phase": "Closure",
-            "owner": "Eli",
-            "from": "2026-06-26",
-            "to": "2026-08-08",
-            "due": "2026-08-08",
-            "status": "Not Started"
-          },
-          {
-            "name": "Project Review",
-            "phase": "Closure",
-            "owner": "Eli",
-            "from": "2026-06-26",
-            "to": "2026-08-08",
-            "due": "2026-08-08",
-            "status": "Not Started"
-          },
-          {
-            "name": "Google Business Profile",
-            "phase": "Execution",
-            "owner": "Eli",
-            "from": "2026-06-29",
-            "to": "2026-07-03",
-            "due": "2026-07-03",
-            "status": "Done"
+            "status": "Not Started",
+            "updated_at": "2026-06-29"
           }
         ]
       },
@@ -265,7 +157,8 @@
             "from": "2026-02-02",
             "to": "2026-02-03",
             "due": "2026-02-03",
-            "status": "Done"
+            "status": "Done",
+            "updated_at": "2026-04-11"
           },
           {
             "name": "Project Kickoff",
@@ -274,7 +167,8 @@
             "from": "2026-02-04",
             "to": "2026-02-04",
             "due": "2026-02-04",
-            "status": "Done"
+            "status": "Done",
+            "updated_at": "2026-04-11"
           },
           {
             "name": "MS 1 - Branding + Foundation",
@@ -283,7 +177,8 @@
             "from": "2026-03-13",
             "to": "2026-05-03",
             "due": "2026-04-12",
-            "status": "Done"
+            "status": "Done",
+            "updated_at": "2026-05-27"
           },
           {
             "name": "MS 3  -Intake System - hubspot",
@@ -292,7 +187,8 @@
             "from": "2026-04-03",
             "to": "2026-04-15",
             "due": "2026-04-15",
-            "status": "Done"
+            "status": "Done",
+            "updated_at": "2026-06-08"
           },
           {
             "name": "MS 2 - Website Build",
@@ -301,7 +197,8 @@
             "from": "2026-06-09",
             "to": "2026-06-16",
             "due": "2026-06-16",
-            "status": "Done"
+            "status": "Done",
+            "updated_at": "2026-06-29"
           },
           {
             "name": "MS 4 - GBP Setup",
@@ -310,7 +207,8 @@
             "from": "2026-06-09",
             "to": "2026-07-03",
             "due": "2026-07-03",
-            "status": "In Review"
+            "status": "In Review",
+            "updated_at": "2026-06-29"
           },
           {
             "name": "Internal Review",
@@ -319,7 +217,8 @@
             "from": "2026-06-17",
             "to": "2026-07-07",
             "due": "2026-07-07",
-            "status": "In Progress"
+            "status": "In Progress",
+            "updated_at": "2026-06-29"
           },
           {
             "name": "Client Review",
@@ -328,7 +227,8 @@
             "from": "2026-06-19",
             "to": "2026-07-09",
             "due": "2026-07-09",
-            "status": "In Progress"
+            "status": "In Progress",
+            "updated_at": "2026-06-29"
           },
           {
             "name": "Project Close Out",
@@ -337,7 +237,8 @@
             "from": "2026-06-25",
             "to": "2026-07-11",
             "due": "2026-07-11",
-            "status": "Not Started"
+            "status": "Not Started",
+            "updated_at": "2026-06-29"
           },
           {
             "name": "Ask for Referral and Upsell",
@@ -346,7 +247,8 @@
             "from": "2026-06-26",
             "to": "2026-07-11",
             "due": "2026-07-11",
-            "status": "Not Started"
+            "status": "Not Started",
+            "updated_at": "2026-06-29"
           },
           {
             "name": "Project Review",
@@ -355,7 +257,123 @@
             "from": "2026-06-26",
             "to": "2026-07-11",
             "due": "2026-07-11",
-            "status": "Not Started"
+            "status": "Not Started",
+            "updated_at": "2026-06-29"
+          }
+        ]
+      },
+      {
+        "client": "HALO Commons",
+        "items": [
+          {
+            "name": "Internal Project Setup",
+            "phase": "Initiation",
+            "owner": "Eli",
+            "from": "2026-04-27",
+            "to": "2026-04-28",
+            "due": "2026-04-28",
+            "status": "Done",
+            "updated_at": "2026-06-02"
+          },
+          {
+            "name": "Project Kickoff",
+            "phase": "Initiation",
+            "owner": "Eli",
+            "from": "2026-04-27",
+            "to": "2026-05-01",
+            "due": "2026-05-01",
+            "status": "Done",
+            "updated_at": "2026-06-02"
+          },
+          {
+            "name": "Project Planning",
+            "phase": "Planning",
+            "owner": "Eli",
+            "from": "2026-04-30",
+            "to": "2026-05-04",
+            "due": "2026-05-04",
+            "status": "Done",
+            "updated_at": "2026-06-02"
+          },
+          {
+            "name": "Business Plan",
+            "phase": "Execution",
+            "owner": null,
+            "from": "2026-06-02",
+            "to": "2026-07-31",
+            "due": "2026-07-31",
+            "status": "Done",
+            "updated_at": "2026-07-14"
+          },
+          {
+            "name": "Landing Page",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-06-02",
+            "to": "2026-07-31",
+            "due": "2026-07-31",
+            "status": "Done",
+            "updated_at": "2026-07-14"
+          },
+          {
+            "name": "Internal Review",
+            "phase": "Monitoring",
+            "owner": "Eli",
+            "from": "2026-06-23",
+            "to": "2026-08-04",
+            "due": "2026-08-04",
+            "status": "Done",
+            "updated_at": "2026-07-14"
+          },
+          {
+            "name": "Client Review",
+            "phase": "Monitoring",
+            "owner": "Eli",
+            "from": "2026-06-24",
+            "to": "2026-08-06",
+            "due": "2026-08-06",
+            "status": "Done",
+            "updated_at": "2026-07-14"
+          },
+          {
+            "name": "Project Close Out",
+            "phase": "Closure",
+            "owner": "Eli",
+            "from": "2026-06-25",
+            "to": "2026-08-08",
+            "due": "2026-08-08",
+            "status": "In Progress",
+            "updated_at": "2026-07-14"
+          },
+          {
+            "name": "Ask for Referral and Upsell",
+            "phase": "Closure",
+            "owner": "Eli",
+            "from": "2026-06-26",
+            "to": "2026-08-08",
+            "due": "2026-08-08",
+            "status": "Not Started",
+            "updated_at": "2026-06-29"
+          },
+          {
+            "name": "Project Review",
+            "phase": "Closure",
+            "owner": "Eli",
+            "from": "2026-06-26",
+            "to": "2026-08-08",
+            "due": "2026-08-08",
+            "status": "Not Started",
+            "updated_at": "2026-06-29"
+          },
+          {
+            "name": "Google Business Profile",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-06-29",
+            "to": "2026-07-03",
+            "due": "2026-07-03",
+            "status": "Done",
+            "updated_at": "2026-07-13"
           }
         ]
       }
@@ -376,6 +394,10 @@
         "sprint": 1,
         "committed": 49,
         "completed": 49,
+        "carryover": 0,
+        "reliability": 100,
+        "throughput": 18,
+        "health": "green",
         "by_owner": {
           "Daunte": {
             "committed": 25,
@@ -391,18 +413,22 @@
         "sprint": 2,
         "committed": 59,
         "completed": 30,
+        "carryover": 29,
+        "reliability": 51,
+        "throughput": 7,
+        "health": "red",
         "by_owner": {
-          "Eli": {
-            "committed": 16,
-            "completed": 16
+          "Kenny": {
+            "committed": 3,
+            "completed": 3
           },
           "Daunte": {
             "committed": 11,
             "completed": 11
           },
-          "Kenny": {
-            "committed": 3,
-            "completed": 3
+          "Eli": {
+            "committed": 16,
+            "completed": 16
           }
         }
       },
@@ -410,21 +436,42 @@
         "sprint": 3,
         "committed": 55,
         "completed": 13,
+        "carryover": 42,
+        "reliability": 24,
+        "throughput": 3,
+        "health": "red",
         "by_owner": {
-          "Eli": {
-            "committed": 28,
-            "completed": 10
+          "Kenny": {
+            "committed": 9,
+            "completed": 3
           },
           "Daunte": {
             "committed": 18,
             "completed": 0
           },
-          "Kenny": {
-            "committed": 9,
-            "completed": 3
+          "Eli": {
+            "committed": 28,
+            "completed": 10
           }
         }
       }
-    ]
+    ],
+    "rolling_avg": 30.7,
+    "band": {
+      "min": 13,
+      "max": 49
+    },
+    "backlog_points": 234,
+    "forecast": {
+      "backlog_points": 234,
+      "low_sprints": 5,
+      "high_sprints": 18,
+      "mid_sprints": 8
+    },
+    "target": {
+      "low": 25,
+      "high": 35,
+      "team": 3
+    }
   }
 }

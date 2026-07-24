@@ -20,11 +20,26 @@ MCP, transform offline, commit the JSON via the Cloudflare worker (no PR needed 
 ```json
 {
   "generated_at": "ISO-8601 Z",
-  "gantt":    { "clients": [ { "client": "...", "items": [ { "name","phase","owner","from","to","due","status" } ] } ] },
-  "velocity": { "current_sprint": { "number","goal","start","end","span","day","status" },
-                "history": [ { "sprint","committed","completed","by_owner": { "<name>": {"committed","completed"} } } ] }
+  "gantt": { "clients": [ { "client": "...", "items": [
+    { "name","phase","owner","from","to","due","status","updated_at" } ] } ] },
+  "velocity": {
+    "current_sprint": { "number","goal","start","end","span","day","status" },
+    "history": [ { "sprint","committed","completed","carryover","reliability",
+                   "throughput","health","by_owner": { "<name>": {"committed","completed"} } } ],
+    "rolling_avg": 30.7,
+    "band": { "min","max" },
+    "backlog_points": 234,
+    "forecast": { "backlog_points","low_sprints","high_sprints","mid_sprints" },
+    "target": { "low":25, "high":35, "team":3 }
+  }
 }
 ```
+
+Field notes:
+- `updated_at` (YYYY-MM-DD) drives the Health tab's staleness / "no silent weeks" flags. It is the item-level timestamp monday returns by default — **pull it** (don't strip it from the raw file).
+- `reliability` = completed/committed %. `carryover` = committed - completed. `throughput` = count of Done items. `health` = green/amber/red from reliability + carryover.
+- `backlog_points` = sum of open story points in the **Product Backlog** group (`new_group29179`). Pull the FULL internal board so this is complete. `forecast` divides it by the recent velocity `band`.
+- The Health tab (RAG per client, at-risk, KPIs) is computed **client-side** in the page from the gantt items + today's date — build.py just needs to pass `updated_at` through.
 
 ## Steps
 
@@ -82,6 +97,15 @@ render with the new `generated_at` date.
   until deliverables are added. The builder maps groups → clean client names in `CLIENT_NAMES`.
 - **Sprint history seeds:** `SEED_COMMITTED` in build.py overrides committed points for archived
   sprints (Sprint 2 = 59) that are no longer fully on the board.
+
+## Deferred (need a data-capture change, not built)
+These need history or timestamps a single snapshot can't provide. Build only if the pull starts
+capturing them over time:
+- **Daily burndown / burnup** — needs a *daily* remaining-work series (store snapshots over time, or
+  read monday's activity log). The Velocity tab's committed-vs-completed columns are the static stand-in.
+- **Cycle time / lead time / control chart** — needs per-item start + done timestamps from monday's
+  status-change history, not just the current state.
+- **% complete inside Gantt bars** — needs a numeric progress column on the board (don't fabricate it).
 
 ## Registering as a workspace skill (Eli's action — needs consent)
 To make `/delivery-tracker` fire from any Claude Code session:
