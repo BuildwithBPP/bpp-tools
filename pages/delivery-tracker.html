@@ -124,6 +124,8 @@
 
 /* client-facing view hides internal-only bits */
 body[data-view="client"] .internal-only{display:none !important;}
+.client-only{display:none;}
+body[data-view="client"] .client-only{display:inline-flex;}
 .view-note{font-size:10px;color:var(--muted);}
 
 @media print{
@@ -150,10 +152,11 @@ body[data-view="client"] .internal-only{display:none !important;}
     <button class="btn" id="tab-gantt" onclick="showPanel('gantt',this)">&#128197; Timeline</button>
     <button class="btn" id="tab-velocity" onclick="showPanel('velocity',this)">&#9889; Velocity</button>
     <span style="margin-left:auto;display:flex;gap:8px;align-items:center;">
-      <span class="seg" style="display:inline-flex;border:1.5px solid var(--border);border-radius:7px;overflow:hidden;">
+      <span class="seg" title="Internal shows at-risk, staleness and owner load. Client view hides those - safe to screen-share on a call or print to PDF for a client." style="display:inline-flex;border:1.5px solid var(--border);border-radius:7px;overflow:hidden;">
         <button id="view-internal" class="on" onclick="setView('internal')" style="background:var(--navy);color:#fff;border:none;padding:6px 11px;font-size:11px;font-weight:600;cursor:pointer;">Internal</button>
-        <button id="view-client" onclick="setView('client')" style="background:#fff;color:var(--muted);border:none;border-left:1px solid var(--border);padding:6px 11px;font-size:11px;font-weight:600;cursor:pointer;">Client view</button>
+        <button id="view-client" onclick="setView('client')" style="background:#fff;color:var(--muted);border:none;border-left:1px solid var(--border);padding:6px 11px;font-size:11px;font-weight:600;cursor:pointer;">Client-safe</button>
       </span>
+      <button class="btn client-only" onclick="window.print()" title="Save this client-safe view as a PDF to attach to a client update">&#9113; PDF</button>
       <button class="btn" onclick="loadData()" title="Re-fetch the latest snapshot">&#8635;</button>
     </span>
   </div>

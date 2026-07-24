@@ -1,6 +1,6 @@
 ---
 name: bpp-delivery-tracker
-description: Refresh the BPP Delivery Tracker (Gantt + velocity). Pulls the Client Delivery and BPP Internal Monday boards, rebuilds data/delivery-tracker.json via build.py, and POSTs it to the recap worker so the tools-hub page and home module update. Use when Eli says "refresh delivery tracker", "update the gantt", "update delivery tracker", "rebuild the velocity chart", or "/delivery-tracker".
+description: Refresh the BPP Delivery Tracker (Health + Gantt + velocity). Pulls the Client Delivery and BPP Internal Monday boards, rebuilds data/delivery-tracker.json via build.py, and commits it so the tools-hub page and home module update. Use when Eli says "refresh delivery tracker", "update the gantt", "update delivery tracker", "rebuild the velocity chart", or "/delivery-tracker".
 ---
 
 # bpp-delivery-tracker
@@ -70,19 +70,30 @@ python3 scripts/delivery-tracker/build.py \
 The script prints a summary. Sanity check: **Sprint 2 completed should be 30** (known-good anchor);
 each client's item count should match the board.
 
-### 3. Publish via the worker (no PR)
-POST the file to the recap worker's `/save-tracker` route (same worker + secret as ops.html;
-`RECAP_WORKER_URL` / `RECAP_WORKER_SECRET`, mirrored from `pages/ops.html`):
+### 3. Publish (commit the JSON)
+**Primary path — direct commit (this is what the skill run does):** the skill runs inside Claude
+Code with git access, so just commit and push the file. Push to `main` is blocked by the harness,
+so branch + PR (or merge if authorized):
 ```bash
-curl -sS -X POST "$RECAP_WORKER_URL/save-tracker" \
-  -H "Authorization: Bearer $RECAP_WORKER_SECRET" \
-  -H "Content-Type: application/json" \
-  --data @data/delivery-tracker.json
+git checkout -b eli/delivery-refresh
+git add data/delivery-tracker.json && git commit -m "Refresh delivery-tracker snapshot"
+git push -u origin eli/delivery-refresh && gh pr create --fill --base main
 ```
-Expect `{ "ok": true, "path": "data/delivery-tracker.json", "clients": N, "sprints": M }`.
-The worker commits to `main`; GitHub Pages serves the update in ~60s.
+GitHub Pages serves the update ~60s after merge.
 
-If the worker is down, fall back to committing `data/delivery-tracker.json` on a branch and opening a PR.
+**Optional path — worker (browser-triggered saves only):** the worker's `POST /save-tracker` route
+exists for a future in-page "Refresh" button. It is **not deployed yet** — the `bpp-recap-worker`
+lives on a Cloudflare account whose owner must run `wrangler deploy`. Until then, use the direct
+commit above. When live:
+```bash
+curl -sS -X POST "$RECAP_WORKER_URL/save-tracker" -H "Authorization: Bearer $RECAP_WORKER_SECRET" \
+  -H "Content-Type: application/json" --data @data/delivery-tracker.json
+```
+
+**Preserving sprint history after a board reset:** when a sprint's open items are parked back to the
+Product Backlog (so the board only keeps its Done items), the live-computed `committed` drops. Add
+that sprint's original committed points to `SEED_COMMITTED` in build.py so the honest reliability
+stays (e.g. Sprint 2 = 59, Sprint 3 = 55).
 
 ### 4. Verify
 Open `https://buildwithbpp.github.io/bpp-tools/pages/delivery-tracker.html` and confirm both tabs

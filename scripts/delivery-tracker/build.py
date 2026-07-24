@@ -31,7 +31,9 @@ SKIP_GROUPS = {"new_group29179"}   # client board: NEW CLIENT TEMPLATE
 BACKLOG_GROUP = "new_group29179"   # internal board: Product Backlog
 DONE_GROUP = "new_group43041"      # internal board: Done
 SPRINT_GOAL = "Generate leads, reduce friction to close, close more deals"
-SEED_COMMITTED = {2: 59}           # archived sprints understate committed on the board
+SEED_COMMITTED = {2: 59, 3: 55}    # archived/cleaned sprints understate committed on the board
+                                   # (Sprint 3 = 55 preserved after its open items were parked to
+                                   #  Product Backlog on 2026-07-24; only the 3 Done items remain tagged)
 TARGET_LOW, TARGET_HIGH, TEAM_SIZE = 25, 35, 3
 
 
@@ -103,6 +105,7 @@ def sprint_health(reliability, carryover, committed):
 def build_velocity(internal_raw, today):
     completed, committed = {}, {}
     throughput = {}
+    open_count = {}
     owner_done, owner_committed = {}, {}
     sprint_titles = {}
     backlog_points = 0
@@ -130,6 +133,8 @@ def build_velocity(internal_raw, today):
             completed[sn] = completed.get(sn, 0) + pts
             throughput[sn] = throughput.get(sn, 0) + 1
             owner_done[sn][own] = owner_done[sn].get(own, 0) + pts
+        else:
+            open_count[sn] = open_count.get(sn, 0) + 1
 
     for sn, c in SEED_COMMITTED.items():
         committed[sn] = max(committed.get(sn, 0), c)
@@ -191,6 +196,9 @@ def build_velocity(internal_raw, today):
                     status = "closed"
             except ValueError:
                 pass
+        # no open items left tagged to this sprint => it's finished/parked
+        if open_count.get(cur, 0) == 0:
+            status = "closed"
         current = {"number": cur, "goal": SPRINT_GOAL,
                    "start": start.isoformat() if start else None,
                    "end": end.isoformat() if end else None,

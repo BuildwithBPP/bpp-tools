@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-24T22:33:37Z",
+  "generated_at": "2026-07-24T22:59:44Z",
   "gantt": {
     "clients": [
       {
@@ -383,10 +383,10 @@
     "current_sprint": {
       "number": 3,
       "goal": "Generate leads, reduce friction to close, close more deals",
-      "start": "2026-06-15",
-      "end": "2026-07-18",
-      "span": 34,
-      "day": 34,
+      "start": null,
+      "end": null,
+      "span": null,
+      "day": null,
       "status": "closed"
     },
     "history": [
@@ -418,13 +418,13 @@
         "throughput": 7,
         "health": "red",
         "by_owner": {
-          "Kenny": {
-            "committed": 3,
-            "completed": 3
-          },
           "Daunte": {
             "committed": 11,
             "completed": 11
+          },
+          "Kenny": {
+            "committed": 3,
+            "completed": 3
           },
           "Eli": {
             "committed": 16,
@@ -441,17 +441,13 @@
         "throughput": 3,
         "health": "red",
         "by_owner": {
-          "Kenny": {
-            "committed": 9,
-            "completed": 3
-          },
-          "Daunte": {
-            "committed": 18,
-            "completed": 0
-          },
           "Eli": {
-            "committed": 28,
+            "committed": 10,
             "completed": 10
+          },
+          "Kenny": {
+            "committed": 3,
+            "completed": 3
           }
         }
       }
@@ -461,12 +457,12 @@
       "min": 13,
       "max": 49
     },
-    "backlog_points": 234,
+    "backlog_points": 276,
     "forecast": {
-      "backlog_points": 234,
-      "low_sprints": 5,
-      "high_sprints": 18,
-      "mid_sprints": 8
+      "backlog_points": 276,
+      "low_sprints": 6,
+      "high_sprints": 22,
+      "mid_sprints": 9
     },
     "target": {
       "low": 25,
