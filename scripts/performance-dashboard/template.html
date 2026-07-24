@@ -25,9 +25,21 @@
   .h-logo { width:42px; height:42px; background:var(--gold); border-radius:7px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; color:var(--navy-dark); letter-spacing:-0.5px; }
   .h-title { color:#fff; font-size:19px; font-weight:700; letter-spacing:-0.3px; }
   .h-sub { color:rgba(255,255,255,0.62); font-size:11px; margin-top:2px; }
+  .h-right { display:flex; align-items:center; gap:20px; }
   .h-asof { text-align:right; color:#fff; }
   .h-asof .a1 { font-size:12px; font-weight:600; color:var(--gold); }
   .h-asof .a2 { font-size:10px; opacity:0.5; margin-top:3px; }
+  /* privacy toggle */
+  .segp { display:inline-flex; background:rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.22); border-radius:7px; padding:2px; }
+  .segp button { border:none; background:transparent; color:rgba(255,255,255,0.72); font-family:inherit; font-size:11px; font-weight:600; padding:6px 12px; border-radius:5px; cursor:pointer; transition:all .12s; }
+  .segp button.on { background:#fff; color:var(--navy); }
+  body[data-privacy="on"] .pii { filter:blur(7px); -webkit-filter:blur(7px); user-select:none; pointer-events:none; }
+  body[data-privacy="on"] svg text.pii { filter:blur(4.5px); -webkit-filter:blur(4.5px); }
+  .privbar { font-size:11px; color:var(--ink-2); padding:8px 34px 0; display:flex; align-items:center; gap:8px; }
+  .privbar .dotp { width:7px; height:7px; border-radius:50%; background:var(--warn); }
+  body[data-privacy="off"] .privbar .dotp { background:var(--red); }
+  .privbar .p-on { display:inline; } .privbar .p-off { display:none; }
+  body[data-privacy="off"] .privbar .p-on { display:none; } body[data-privacy="off"] .privbar .p-off { display:inline; }
 
   /* slicer control bar */
   .controls { background:#fff; border-bottom:1px solid var(--border); padding:12px 34px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; position:sticky; top:0; z-index:20; box-shadow:0 1px 3px rgba(16,35,46,0.04); }
@@ -109,7 +121,7 @@
   @media (max-width:900px){ .tiles{grid-template-columns:repeat(2,1fr);} .grid2,.grid2.wide-l{grid-template-columns:1fr;} }
 </style>
 </head>
-<body>
+<body data-privacy="on">
 <div id="hub-nav"></div>
 
 <div class="header">
@@ -120,11 +132,18 @@
       <div class="h-sub">Business Plans Plus LLC &middot; sliceable by year, quarter, month</div>
     </div>
   </div>
-  <div class="h-asof">
-    <div class="a1" id="asof">&mdash;</div>
-    <div class="a2">QuickBooks &middot; HubSpot &middot; Metricool &middot; refreshed 2026-07-24</div>
+  <div class="h-right">
+    <div class="h-asof">
+      <div class="a1" id="asof">&mdash;</div>
+      <div class="a2">QuickBooks &middot; HubSpot &middot; Metricool &middot; refreshed 2026-07-24</div>
+    </div>
+    <div class="segp" id="privSeg">
+      <button class="on" data-priv="on">Protected</button>
+      <button data-priv="off">Reveal</button>
+    </div>
   </div>
 </div>
+<div class="privbar"><span class="dotp"></span><span class="p-on">Protected view &mdash; dollar figures are blurred, safe to screen-share. Click <b>Reveal</b> for the real numbers.</span><span class="p-off"><b>Revealed.</b> Real financial figures are visible &mdash; don&rsquo;t screen-share in this state.</span></div>
 
 <div class="controls">
   <div class="ctl-group">
@@ -270,6 +289,7 @@ function agg(months){
 const $ = id => document.getElementById(id);
 function usd(n){ const s=n<0?'-':''; n=Math.abs(n); if(n>=1000) return s+'$'+(n/1000).toFixed(n>=10000?0:1)+'K'; return s+'$'+Math.round(n); }
 function usdFull(n){ return (n<0?'-$':'$')+Math.abs(n).toLocaleString('en-US',{maximumFractionDigits:0}); }
+function maskMoney(html){ return html.replace(/-?\$[\d][\d,]*(\.\d+)?K?/g, m=>'<span class="pii">'+m+'</span>'); }
 function num(n){ n=Math.round(n); if(n>=1000) return (n/1000).toFixed(n>=10000?0:1)+'K'; return ''+n; }
 function pctOf(a,b){ return b?Math.round(a/b*100):0; }
 function deltaHTML(cur,prev,inv=false){
@@ -297,7 +317,7 @@ function colChart(monthKeys, valFn, {fmt=usd, height=250, lossKeys=[], gold=fals
   s+='<g stroke="#e8edf2" stroke-width="1">';
   for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'"'+(i===4?' stroke="#c4d0da"':'')+'/>'; }
   s+='</g><g fill="#8a97a3" font-size="10" text-anchor="end" class="tnum">';
-  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<text x="'+(padL-6)+'" y="'+(y+3)+'">'+fmt(max*(4-i)/4)+'</text>'; }
+  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<text x="'+(padL-6)+'" y="'+(y+3)+'" class="pii">'+fmt(max*(4-i)/4)+'</text>'; }
   s+='</g>';
   // bars
   monthKeys.forEach((k,i)=>{
@@ -308,7 +328,7 @@ function colChart(monthKeys, valFn, {fmt=usd, height=250, lossKeys=[], gold=fals
     if(h>0.5) s+='<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="4" fill="'+fill+'"/>';
     if(isLoss) s+='<circle cx="'+(x+bw/2).toFixed(1)+'" cy="'+(base+9)+'" r="2.6" fill="#c0392b"/>';
     // value label for in-scope
-    if(inScope && v!==0) s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(y-5).toFixed(1)+'" font-size="9.5" font-weight="700" fill="#16232e" text-anchor="middle" class="tnum">'+fmt(v)+'</text>';
+    if(inScope && v!==0) s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(y-5).toFixed(1)+'" font-size="9.5" font-weight="700" fill="#16232e" text-anchor="middle" class="tnum pii">'+fmt(v)+'</text>';
     s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(base+22)+'" font-size="10" fill="#5a6b78" text-anchor="middle">'+MN[+k.slice(5)-1]+'</text>';
   });
   s+='</svg>';
@@ -316,7 +336,7 @@ function colChart(monthKeys, valFn, {fmt=usd, height=250, lossKeys=[], gold=fals
 }
 
 // horizontal bars: rows=[{label,val,color?}], fmt
-function barChart(rows, {fmt=usd, height=null, unit=''}={}){
+function barChart(rows, {fmt=usd, height=null, unit='', pii=false}={}){
   rows=rows.filter(r=>r.val>0);
   if(!rows.length) return '<div class="empty">No data for this period</div>';
   const W=640, rowH=34, padT=6, padB=6, H=height||(rows.length*rowH+padT+padB);
@@ -327,7 +347,7 @@ function barChart(rows, {fmt=usd, height=null, unit=''}={}){
     const y=padT+i*rowH, bw=r.val/max*plotW, bh=20;
     s+='<text x="'+(labelW-10)+'" y="'+(y+bh/2+4)+'" font-size="11.5" fill="#16232e" text-anchor="end">'+esc(r.label)+'</text>';
     s+='<rect x="'+labelW+'" y="'+y+'" width="'+Math.max(bw,2).toFixed(1)+'" height="'+bh+'" rx="4" fill="'+(r.color||'url(#gHbar)')+'"/>';
-    s+='<text x="'+(labelW+Math.max(bw,2)+8).toFixed(1)+'" y="'+(y+bh/2+4)+'" font-size="11" font-weight="700" fill="#16232e" class="tnum">'+fmt(r.val)+(unit||'')+'</text>';
+    s+='<text x="'+(labelW+Math.max(bw,2)+8).toFixed(1)+'" y="'+(y+bh/2+4)+'" font-size="11" font-weight="700" fill="#16232e" class="tnum'+(pii?' pii':'')+'">'+fmt(r.val)+(unit||'')+'</text>';
   });
   s+='</svg>';
   return s;
@@ -344,7 +364,7 @@ function groupCols(monthKeys, {height=250}={}){
   s+='<g stroke="#e8edf2" stroke-width="1">';
   for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'"'+(i===4?' stroke="#c4d0da"':'')+'/>'; }
   s+='</g><g fill="#8a97a3" font-size="10" text-anchor="end" class="tnum">';
-  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<text x="'+(padL-6)+'" y="'+(y+3)+'">'+usd(max*(4-i)/4)+'</text>'; }
+  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<text x="'+(padL-6)+'" y="'+(y+3)+'" class="pii">'+usd(max*(4-i)/4)+'</text>'; }
   s+='</g>';
   monthKeys.forEach((k,i)=>{
     const cx=padL+step*i+step/2;
@@ -406,8 +426,7 @@ function render(){
   $('scopeTag').innerHTML='Showing <b>'+plabel+'</b>'+(months.length?' &middot; '+months.length+' month'+(months.length>1?'s':''):'');
   $('asof').textContent=plabel;
   const cmp = pa?(' vs '+pr.label):'';
-  $('s-fin').textContent='Revenue '+usdFull(a.rev)+' &middot; net '+usdFull(a.net);
-  $('s-fin').innerHTML='Revenue '+usdFull(a.rev)+' &middot; net '+usdFull(a.net);
+  $('s-fin').innerHTML=maskMoney('Revenue '+usdFull(a.rev)+' &middot; net '+usdFull(a.net));
   $('s-sales').innerHTML=a.wonN+' won &middot; '+a.lostN+' lost';
   $('s-mkt').innerHTML=num(a.ig.v+a.fb.v+a.tt.v+a.li.v)+' views &middot; '+(a.ig.p+a.fb.p+a.tt.p+a.li.p)+' posts';
   $('s-web').innerHTML=num(a.web.pv)+' page views';
@@ -418,12 +437,12 @@ function render(){
   const socV=a.ig.v+a.fb.v+a.tt.v+a.li.v, psocV=pa?(pa.ig.v+pa.fb.v+pa.tt.v+pa.li.v):null;
   const foll=a.ig.f+a.fb.f+a.tt.f+a.li.f, pfoll=pa?(pa.ig.f+pa.fb.f+pa.tt.f+pa.li.f):null;
   const netAcc=a.net>=0?'acc-good':'acc-red';
-  $('kpis').innerHTML=
+  $('kpis').innerHTML=maskMoney(
     tile('Revenue', usdFull(a.rev), deltaHTML(a.rev,pa&&pa.rev)+cmp, 'acc-good', spark(revSpark))
    +tile('Net income', usdFull(a.net), (margin)+'% margin &middot; '+deltaHTML(a.net,pa&&pa.net), netAcc)
    +tile('Deals won', usdFull(a.wonV), a.wonN+' deals &middot; '+deltaHTML(a.wonV,pa&&pa.wonV), 'acc-gold')
    +tile('Content views', num(socV), deltaHTML(socV,psocV)+cmp, '')
-   +tile('Followers', num(foll), (pfoll!==null?((foll-pfoll>=0?'+':'')+(foll-pfoll)+' net'):'&mdash;'), 'acc-gold');
+   +tile('Followers', num(foll), (pfoll!==null?((foll-pfoll>=0?'+':'')+(foll-pfoll)+' net'):'&mdash;'), 'acc-gold'));
 
   // charts
   const lossKeys=yearMonths.filter(m=>g(m).net<0);
@@ -431,22 +450,22 @@ function render(){
   // revenue by offering
   const offColors=['url(#gNavy)','url(#gBlue)','url(#gSky)','url(#gGold)','url(#gHbar)','url(#gGood)'];
   const offRows=Object.entries(a.revoff||{}).map(([k,v])=>({label:k,val:v})).sort((x,y)=>y.val-x.val).map((r,i)=>({...r,color:offColors[i%offColors.length]}));
-  $('ch-revoff').innerHTML=barChart(offRows,{fmt:usd});
+  $('ch-revoff').innerHTML=barChart(offRows,{fmt:usd,pii:true});
   // expenses by category
   const expRows=Object.entries(a.expcat||{}).map(([k,v])=>({label:k,val:v})).sort((x,y)=>y.val-x.val)
     .map(r=>({...r,color: r.label==='Software'?'url(#gBad)':'url(#gHbar)'}));
-  $('ch-expcat').innerHTML=barChart(expRows,{fmt:usd});
+  $('ch-expcat').innerHTML=barChart(expRows,{fmt:usd,pii:true});
   // cost structure summary
-  $('ch-expsum').innerHTML=costCard(a,pa);
+  $('ch-expsum').innerHTML=maskMoney(costCard(a,pa));
   // deals
   $('ch-deals').innerHTML=groupCols(yearMonths);
   // winrate card
   const wr=(a.wonN+a.lostN)?Math.round(a.wonN/(a.wonN+a.lostN)*100):0;
-  $('ch-winrate').innerHTML=winCard(a,wr,pa);
+  $('ch-winrate').innerHTML=maskMoney(winCard(a,wr,pa));
   // revenue by owner
   const ownColors={Eli:'url(#gNavy)',Daunte:'url(#gBlue)',Kenny:'url(#gGold)'};
   const ownRows=Object.entries(a.wonOwner||{}).map(([k,v])=>({label:k,val:v,color:ownColors[k]||'url(#gHbar)'})).sort((x,y)=>y.val-x.val);
-  $('ch-owner').innerHTML=barChart(ownRows,{fmt:usd});
+  $('ch-owner').innerHTML=barChart(ownRows,{fmt:usd,pii:true});
   // web summary
   $('ch-websum').innerHTML=webCard(a,pa);
   // social
@@ -466,9 +485,9 @@ function render(){
   const lost=DATA.deals.filter(x=>months.includes(x.ym)&&x.w===0).sort((x,y)=>y.a-x.a);
   $('ct-won').innerHTML='Selected period &middot; '+won.length+' deals';
   $('ct-lost').innerHTML='Selected period &middot; '+lost.length+' deals';
-  $('ch-wonlist').innerHTML=dealList(won,true);
-  $('ch-lostlist').innerHTML=dealList(lost,false);
-  $('ch-pipeline').innerHTML=pipelineTable();
+  $('ch-wonlist').innerHTML=maskMoney(dealList(won,true));
+  $('ch-lostlist').innerHTML=maskMoney(dealList(lost,false));
+  $('ch-pipeline').innerHTML=maskMoney(pipelineTable());
   // reels
   const rl={n:0,v:0,r:0,s:0,sh:0,wt:[]};
   months.forEach(m=>{ const r=g(m).reels; if(r&&r.n){ rl.n+=r.n; rl.v+=r.v; rl.r+=r.r; rl.s+=r.s; rl.sh+=r.sh; rl.wt.push(r.wt);} });
@@ -476,11 +495,11 @@ function render(){
   // narrative (quarter-keyed)
   const qkey=['Q1','Q2','Q3','Q4'].includes(period)?(year+'-'+period):null;
   const nar=qkey&&NARRATIVE[qkey]?NARRATIVE[qkey]:null;
-  $('nar-fin').innerHTML=nar&&nar.fin?note('Financial flags','red',nar.fin):'';
-  $('nar-sales').innerHTML=nar&&nar.sales?note('Sales insights','',nar.sales):'';
+  $('nar-fin').innerHTML=nar&&nar.fin?maskMoney(note('Financial flags','red',nar.fin)):'';
+  $('nar-sales').innerHTML=nar&&nar.sales?maskMoney(note('Sales insights','',nar.sales)):'';
   $('nar-mkt').innerHTML=nar&&nar.mkt?note('Content insight','red',nar.mkt):'';
   $('nar-web').innerHTML=nar&&nar.web?note('Website insight','gold',nar.web):'';
-  $('review-body').innerHTML=nar&&nar.review?nar.review:'<div class="note"><div class="nt">No compiled review for this period</div><div class="nb">The Quarterly Review write-up (OKR scorecard, delivery status, action plan) is authored per quarter. Pick a reviewed quarter (<b>Q2 2026</b>) to read it; the other four tabs work for any period.</div></div>';
+  $('review-body').innerHTML=nar&&nar.review?maskMoney(nar.review):'<div class="note"><div class="nt">No compiled review for this period</div><div class="nb">The Quarterly Review write-up (OKR scorecard, delivery status, action plan) is authored per quarter. Pick a reviewed quarter (<b>Q2 2026</b>) to read it; the other four tabs work for any period.</div></div>';
   $('s-review').innerHTML=nar?(qkey.replace('-',' ')+' &middot; the story behind the numbers'):'select a reviewed quarter';
 }
 function note(t,cls,body){ return '<div class="note '+(cls||'')+' mt12"><div class="nt">'+t+'</div><div class="nb">'+body+'</div></div>'; }
@@ -607,6 +626,11 @@ const NARRATIVE={
 document.querySelectorAll('#tabbar button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on', p.id==='tab-'+b.dataset.tab));
   document.querySelectorAll('#tabbar button').forEach(x=>x.classList.toggle('on', x===b));
+});
+// ---------- privacy toggle ----------
+document.querySelectorAll('#privSeg button').forEach(b=>b.onclick=()=>{
+  document.body.setAttribute('data-privacy', b.dataset.priv);
+  document.querySelectorAll('#privSeg button').forEach(x=>x.classList.toggle('on', x===b));
 });
 buildControls(); render();
 </script>
