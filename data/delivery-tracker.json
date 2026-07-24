@@ -1,0 +1,430 @@
+{
+  "generated_at": "2026-07-24T21:11:54Z",
+  "gantt": {
+    "clients": [
+      {
+        "client": "Lois Marketing",
+        "items": [
+          {
+            "name": "Internal Project Setup",
+            "phase": "Initiation",
+            "owner": "Eli",
+            "from": "2026-04-11",
+            "to": "2026-04-13",
+            "due": "2026-04-13",
+            "status": "Done"
+          },
+          {
+            "name": "Project Kickoff",
+            "phase": "Initiation",
+            "owner": "Eli",
+            "from": "2026-04-14",
+            "to": "2026-04-18",
+            "due": "2026-04-18",
+            "status": "Done"
+          },
+          {
+            "name": "Project Planning",
+            "phase": "Planning",
+            "owner": "Eli",
+            "from": "2026-04-14",
+            "to": "2026-04-23",
+            "due": "2026-04-19",
+            "status": "Done"
+          },
+          {
+            "name": "MS 1 - Process Mapping",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-04-22",
+            "to": "2026-05-13",
+            "due": null,
+            "status": "Done"
+          },
+          {
+            "name": "MS 2 - Marketing Playbook",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-05-06",
+            "to": "2026-05-16",
+            "due": null,
+            "status": "Done"
+          },
+          {
+            "name": "Halfway Milestone - Meeting and Invoice",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-05-19",
+            "to": "2026-05-19",
+            "due": null,
+            "status": "Done"
+          },
+          {
+            "name": "MS 3 - CRM Audit, Setup + Training",
+            "phase": "Execution",
+            "owner": "Kenny",
+            "from": "2026-06-09",
+            "to": "2026-06-12",
+            "due": "2026-06-12",
+            "status": "Done"
+          },
+          {
+            "name": "MS 5 - Website Audit + Implemented Improvements",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-06-09",
+            "to": "2026-07-07",
+            "due": "2026-07-07",
+            "status": "In Review"
+          },
+          {
+            "name": "MS 4 - Financial Clarity Session",
+            "phase": "Execution",
+            "owner": "Daunte",
+            "from": "2026-06-15",
+            "to": "2026-07-18",
+            "due": "2026-07-18",
+            "status": "Done"
+          },
+          {
+            "name": "MS 6 - 1 AI Automation",
+            "phase": "Execution",
+            "owner": "Daunte",
+            "from": "2026-06-22",
+            "to": "2026-08-01",
+            "due": "2026-08-01",
+            "status": "In Progress"
+          },
+          {
+            "name": "Internal Review",
+            "phase": "Monitoring",
+            "owner": "Eli",
+            "from": "2026-06-25",
+            "to": "2026-08-04",
+            "due": "2026-08-04",
+            "status": "Not Started"
+          },
+          {
+            "name": "Client Review",
+            "phase": "Monitoring",
+            "owner": "Eli",
+            "from": "2026-06-29",
+            "to": "2026-08-06",
+            "due": "2026-08-06",
+            "status": "Not Started"
+          },
+          {
+            "name": "Project Close Out",
+            "phase": "Closure",
+            "owner": "Eli",
+            "from": "2026-07-02",
+            "to": "2026-08-08",
+            "due": "2026-08-08",
+            "status": "Not Started"
+          },
+          {
+            "name": "Ask for Referral and Upsell",
+            "phase": "Closure",
+            "owner": "Eli",
+            "from": "2026-07-03",
+            "to": "2026-08-08",
+            "due": "2026-08-08",
+            "status": "Not Started"
+          },
+          {
+            "name": "Project Review",
+            "phase": "Closure",
+            "owner": "Eli",
+            "from": "2026-07-03",
+            "to": "2026-08-08",
+            "due": "2026-08-08",
+            "status": "Not Started"
+          }
+        ]
+      },
+      {
+        "client": "HALO Commons",
+        "items": [
+          {
+            "name": "Internal Project Setup",
+            "phase": "Initiation",
+            "owner": "Eli",
+            "from": "2026-04-27",
+            "to": "2026-04-28",
+            "due": "2026-04-28",
+            "status": "Done"
+          },
+          {
+            "name": "Project Kickoff",
+            "phase": "Initiation",
+            "owner": "Eli",
+            "from": "2026-04-27",
+            "to": "2026-05-01",
+            "due": "2026-05-01",
+            "status": "Done"
+          },
+          {
+            "name": "Project Planning",
+            "phase": "Planning",
+            "owner": "Eli",
+            "from": "2026-04-30",
+            "to": "2026-05-04",
+            "due": "2026-05-04",
+            "status": "Done"
+          },
+          {
+            "name": "Business Plan",
+            "phase": "Execution",
+            "owner": null,
+            "from": "2026-06-02",
+            "to": "2026-07-31",
+            "due": "2026-07-31",
+            "status": "Done"
+          },
+          {
+            "name": "Landing Page",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-06-02",
+            "to": "2026-07-31",
+            "due": "2026-07-31",
+            "status": "Done"
+          },
+          {
+            "name": "Halfway Milestone - Meeting and Invoice",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-06-19",
+            "to": "2026-06-19",
+            "due": "2026-06-19",
+            "status": "Done"
+          },
+          {
+            "name": "Internal Review",
+            "phase": "Monitoring",
+            "owner": "Eli",
+            "from": "2026-06-23",
+            "to": "2026-08-04",
+            "due": "2026-08-04",
+            "status": "Done"
+          },
+          {
+            "name": "Client Review",
+            "phase": "Monitoring",
+            "owner": "Eli",
+            "from": "2026-06-24",
+            "to": "2026-08-06",
+            "due": "2026-08-06",
+            "status": "Done"
+          },
+          {
+            "name": "Project Close Out",
+            "phase": "Closure",
+            "owner": "Eli",
+            "from": "2026-06-25",
+            "to": "2026-08-08",
+            "due": "2026-08-08",
+            "status": "In Progress"
+          },
+          {
+            "name": "Ask for Referral and Upsell",
+            "phase": "Closure",
+            "owner": "Eli",
+            "from": "2026-06-26",
+            "to": "2026-08-08",
+            "due": "2026-08-08",
+            "status": "Not Started"
+          },
+          {
+            "name": "Project Review",
+            "phase": "Closure",
+            "owner": "Eli",
+            "from": "2026-06-26",
+            "to": "2026-08-08",
+            "due": "2026-08-08",
+            "status": "Not Started"
+          },
+          {
+            "name": "Google Business Profile",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-06-29",
+            "to": "2026-07-03",
+            "due": "2026-07-03",
+            "status": "Done"
+          }
+        ]
+      },
+      {
+        "client": "Financial Acuity",
+        "items": [
+          {
+            "name": "Internal Project Setup",
+            "phase": "Initiation",
+            "owner": "Daunte",
+            "from": "2026-02-02",
+            "to": "2026-02-03",
+            "due": "2026-02-03",
+            "status": "Done"
+          },
+          {
+            "name": "Project Kickoff",
+            "phase": "Initiation",
+            "owner": "Daunte",
+            "from": "2026-02-04",
+            "to": "2026-02-04",
+            "due": "2026-02-04",
+            "status": "Done"
+          },
+          {
+            "name": "MS 1 - Branding + Foundation",
+            "phase": "Execution",
+            "owner": "Daunte",
+            "from": "2026-03-13",
+            "to": "2026-05-03",
+            "due": "2026-04-12",
+            "status": "Done"
+          },
+          {
+            "name": "MS 3  -Intake System - hubspot",
+            "phase": "Execution",
+            "owner": "Kenny",
+            "from": "2026-04-03",
+            "to": "2026-04-15",
+            "due": "2026-04-15",
+            "status": "Done"
+          },
+          {
+            "name": "MS 2 - Website Build",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-06-09",
+            "to": "2026-06-16",
+            "due": "2026-06-16",
+            "status": "Done"
+          },
+          {
+            "name": "MS 4 - GBP Setup",
+            "phase": "Execution",
+            "owner": "Kenny",
+            "from": "2026-06-09",
+            "to": "2026-07-03",
+            "due": "2026-07-03",
+            "status": "In Review"
+          },
+          {
+            "name": "Internal Review",
+            "phase": "Monitoring",
+            "owner": "Daunte",
+            "from": "2026-06-17",
+            "to": "2026-07-07",
+            "due": "2026-07-07",
+            "status": "In Progress"
+          },
+          {
+            "name": "Client Review",
+            "phase": "Monitoring",
+            "owner": "Daunte",
+            "from": "2026-06-19",
+            "to": "2026-07-09",
+            "due": "2026-07-09",
+            "status": "In Progress"
+          },
+          {
+            "name": "Project Close Out",
+            "phase": "Closure",
+            "owner": "Daunte",
+            "from": "2026-06-25",
+            "to": "2026-07-11",
+            "due": "2026-07-11",
+            "status": "Not Started"
+          },
+          {
+            "name": "Ask for Referral and Upsell",
+            "phase": "Closure",
+            "owner": "Daunte",
+            "from": "2026-06-26",
+            "to": "2026-07-11",
+            "due": "2026-07-11",
+            "status": "Not Started"
+          },
+          {
+            "name": "Project Review",
+            "phase": "Closure",
+            "owner": "Daunte",
+            "from": "2026-06-26",
+            "to": "2026-07-11",
+            "due": "2026-07-11",
+            "status": "Not Started"
+          }
+        ]
+      }
+    ]
+  },
+  "velocity": {
+    "current_sprint": {
+      "number": 3,
+      "goal": "Generate leads, reduce friction to close, close more deals",
+      "start": "2026-06-15",
+      "end": "2026-07-18",
+      "span": 34,
+      "day": 34,
+      "status": "closed"
+    },
+    "history": [
+      {
+        "sprint": 1,
+        "committed": 49,
+        "completed": 49,
+        "by_owner": {
+          "Daunte": {
+            "committed": 25,
+            "completed": 25
+          },
+          "Eli": {
+            "committed": 24,
+            "completed": 24
+          }
+        }
+      },
+      {
+        "sprint": 2,
+        "committed": 59,
+        "completed": 30,
+        "by_owner": {
+          "Eli": {
+            "committed": 16,
+            "completed": 16
+          },
+          "Daunte": {
+            "committed": 11,
+            "completed": 11
+          },
+          "Kenny": {
+            "committed": 3,
+            "completed": 3
+          }
+        }
+      },
+      {
+        "sprint": 3,
+        "committed": 55,
+        "completed": 13,
+        "by_owner": {
+          "Eli": {
+            "committed": 28,
+            "completed": 10
+          },
+          "Daunte": {
+            "committed": 18,
+            "completed": 0
+          },
+          "Kenny": {
+            "committed": 9,
+            "completed": 3
+          }
+        }
+      }
+    ]
+  }
+}

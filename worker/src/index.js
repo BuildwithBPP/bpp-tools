@@ -6,6 +6,7 @@
  * Endpoints (all POST, all auth via `Authorization: Bearer <SHARED_SECRET>`):
  *   POST /save-recap       saves recap markdown + decisions JSON to bpp-tools repo
  *   POST /save-decisions   saves decisions JSON only
+ *   POST /save-tracker     saves the delivery-tracker snapshot JSON (Gantt + velocity)
  *   GET  /health           returns 200
  *
  * The actual email send happens from Claude Code via the ms365 MCP
@@ -59,6 +60,9 @@ export default {
       if (url.pathname === "/save-decisions") {
         return await handleSaveDecisions(payload, env, corsHeaders);
       }
+      if (url.pathname === "/save-tracker") {
+        return await handleSaveTracker(payload, env, corsHeaders);
+      }
       return json({ error: "Not found" }, 404, corsHeaders);
     } catch (err) {
       console.error("Worker error", err);
@@ -98,6 +102,21 @@ async function handleSaveDecisions(payload, env, cors) {
   if (!payload.week_of) return json({ error: "week_of required" }, 400, cors);
   const result = await commitDecisionsToGitHub(env, payload);
   return json({ ok: true, decisions_committed: result.count }, 200, cors);
+}
+
+// ---------- Save Delivery Tracker snapshot ----------
+
+async function handleSaveTracker(payload, env, cors) {
+  // The whole snapshot is built offline (bpp-delivery-tracker skill / build.py)
+  // and posted as-is. Validate shape, then overwrite the committed file.
+  if (!payload || (!payload.gantt && !payload.velocity)) {
+    return json({ error: "gantt or velocity required" }, 400, cors);
+  }
+  const path = "data/delivery-tracker.json";
+  await commitFileToGitHub(env, path, JSON.stringify(payload, null, 2), "Refresh delivery-tracker snapshot");
+  const clients = (payload.gantt && payload.gantt.clients) ? payload.gantt.clients.length : 0;
+  const sprints = (payload.velocity && payload.velocity.history) ? payload.velocity.history.length : 0;
+  return json({ ok: true, path, clients, sprints }, 200, cors);
 }
 
 // ---------- GitHub commit helpers ----------
