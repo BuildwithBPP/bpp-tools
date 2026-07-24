@@ -53,10 +53,10 @@
 
   <!-- AT A GLANCE STATS (auto-refreshed) -->
   <div class="stat-grid" id="stat-grid">
-    <div class="stat-card" data-owners-only><div class="stat-label">Cash on Hand</div><div class="stat-val" id="stat-cash">$6,496</div><div class="stat-sub" id="stat-cash-sub">May 1 start. Operating + Savings + Rodney envelope.</div></div>
-    <div class="stat-card" data-owners-only><div class="stat-label" id="stat-ar-label">Expected May AR (High)</div><div class="stat-val gold" id="stat-ar">$4,260</div><div class="stat-sub" id="stat-ar-sub">4 high-likelihood receivables in flight</div></div>
-    <div class="stat-card"><div class="stat-label">Active Clients</div><div class="stat-val" id="stat-clients">4</div><div class="stat-sub" id="stat-clients-sub">SEEDFOLKids &middot; Financial Acuity &middot; Lois Marketing &middot; Wedelia Wellness</div></div>
-    <div class="stat-card"><div class="stat-label">Pipeline Value</div><div class="stat-val" id="stat-pipeline">$12K</div><div class="stat-sub" id="stat-pipeline-sub">5 deals (last verified early May)</div></div>
+    <div class="stat-card" data-owners-only><div class="stat-label">Cash on Hand</div><div class="stat-val pii" id="stat-cash">$6,496</div><div class="stat-sub pii" id="stat-cash-sub">May 1 start. Operating + Savings + Rodney envelope.</div></div>
+    <div class="stat-card" data-owners-only><div class="stat-label" id="stat-ar-label">Expected May AR (High)</div><div class="stat-val gold pii" id="stat-ar">$4,260</div><div class="stat-sub pii" id="stat-ar-sub">4 high-likelihood receivables in flight</div></div>
+    <div class="stat-card"><div class="stat-label">Active Clients</div><div class="stat-val" id="stat-clients">4</div><div class="stat-sub pii" id="stat-clients-sub">SEEDFOLKids &middot; Financial Acuity &middot; Lois Marketing &middot; Wedelia Wellness</div></div>
+    <div class="stat-card"><div class="stat-label">Pipeline Value</div><div class="stat-val pii" id="stat-pipeline">$12K</div><div class="stat-sub" id="stat-pipeline-sub">5 deals (last verified early May)</div></div>
   </div>
 
   <!-- AR FORECAST (auto-refreshed) -->
@@ -69,12 +69,12 @@
       <span class="ar-confid">Owners only &middot; Do not share externally</span>
     </div>
 
-    <div class="ar-cash-now" id="ar-cash-now">
+    <div class="ar-cash-now pii" id="ar-cash-now">
       <span>Operating: <strong>$3,328</strong> &nbsp;&middot;&nbsp; Savings: <strong>$2,805</strong> (93% to $3K) &nbsp;&middot;&nbsp; Rodney envelope: <strong>$363</strong></span>
       <span style="color: var(--muted); font-size: 11px;">Operating ~$321 below 2-month buffer of $3,649. Tight, not red.</span>
     </div>
 
-    <div class="scenario-grid" id="scenario-grid">
+    <div class="scenario-grid pii" id="scenario-grid">
       <div class="scenario-card">
         <div class="scenario-name">Conservative</div>
         <div class="scenario-end">$5,488</div>
@@ -98,7 +98,7 @@
 
   <!-- ACTIVE CLIENTS (auto-refreshed) -->
   <div class="sec-label">Active Clients <span style="text-transform:none;font-weight:400;letter-spacing:0;color:var(--muted);font-size:10px;margin-left:8px;">As of <span id="clients-as-of">May 1</span></span></div>
-  <div class="client-grid" id="client-grid">
+  <div class="client-grid pii" id="client-grid">
     <div class="client-tile eli">
       <div class="client-name">Lois Marketing</div>
       <div class="client-meta">Phil Tirado &middot; Operator System ($4,500) &middot; Eli</div>
