@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPP Financial Position — v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771; --navy-dark: #022f4d; --navy-mid: #0a5a8c; --blue: #2f80c4; --blue-bright: #2a78d6;
+    --sky: #6ba8d8; --gold: #F1BE5C; --gold-dark: #d99e2b;
+    --bg: #eaeef2; --card: #ffffff; --border: #dbe3ea; --border-strong: #c4d0da;
+    --grid: #e8edf2; --ink: #16232e; --ink-2: #5a6b78; --muted: #8a97a3;
+    --good: #1a9e5c; --good-dark: #147a46; --warn: #d4920a; --red: #c0392b;
+    --good-soft: #e6f4ec; --warn-soft: #fbf0d9; --red-soft: #f7e3e0;
+    --shadow: 0 1px 2px rgba(16,35,46,0.05), 0 1px 3px rgba(16,35,46,0.04);
+  }
+  body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  /* HEADER */
+  .header { background: linear-gradient(120deg, var(--navy-dark) 0%, var(--navy) 55%, var(--navy-mid) 100%); padding: 22px 36px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .h-left { display: flex; align-items: center; gap: 15px; }
+  .h-logo { width: 42px; height: 42px; background: var(--gold); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; color: var(--navy-dark); letter-spacing: -0.5px; }
+  .h-title { color: #fff; font-size: 19px; font-weight: 700; letter-spacing: -0.3px; }
+  .h-sub { color: rgba(255,255,255,0.62); font-size: 11px; margin-top: 2px; font-weight: 400; }
+  .h-right { display: flex; align-items: center; gap: 22px; }
+  .h-asof { text-align: right; color: #fff; }
+  .h-asof .a1 { font-size: 12px; font-weight: 600; color: var(--gold); }
+  .h-asof .a2 { font-size: 10px; opacity: 0.5; margin-top: 3px; }
+
+  /* privacy segmented switch */
+  .seg { display: inline-flex; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.22); border-radius: 7px; padding: 2px; }
+  .seg button { border: none; background: transparent; color: rgba(255,255,255,0.7); font-family: inherit; font-size: 11px; font-weight: 600; padding: 6px 13px; border-radius: 5px; cursor: pointer; transition: all 0.12s; }
+  .seg button.on { background: #fff; color: var(--navy); }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 22px 28px 60px; }
+
+  .privnote { font-size: 11px; color: var(--ink-2); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+  .dot-s { width: 7px; height: 7px; border-radius: 50%; background: var(--good); flex-shrink: 0; }
+  body[data-privacy="off"] .dot-s { background: var(--warn); }
+  .privnote .on-t { display: none; } body[data-privacy="off"] .privnote .on-t { display: inline; }
+  body[data-privacy="off"] .privnote .off-t { display: none; }
+
+  /* sensitivity */
+  body[data-privacy="on"] .pii { filter: blur(6.5px); user-select: none; pointer-events: none; }
+  .real { display: none; } body[data-privacy="off"] .real { display: inline; } body[data-privacy="off"] .mask { display: none; }
+
+  /* section head */
+  .shead { display: flex; align-items: baseline; gap: 12px; margin: 30px 0 14px; padding-bottom: 9px; border-bottom: 2px solid var(--navy); }
+  .shead .n { font-size: 11px; font-weight: 700; color: #fff; background: var(--navy); width: 21px; height: 21px; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; }
+  .shead .t { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: -0.2px; }
+  .shead .s { font-size: 11px; color: var(--muted); margin-left: auto; font-weight: 500; }
+
+  /* KPI TILES */
+  .tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .tile { background: var(--card); border: 1px solid var(--border); border-radius: 9px; padding: 15px 16px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+  .tile::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--navy); }
+  .tile.acc-gold::before { background: var(--gold); } .tile.acc-good::before { background: var(--good); }
+  .tile.acc-red::before { background: var(--red); } .tile.acc-warn::before { background: var(--warn); }
+  .tile .lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  .tile .val { font-size: 25px; font-weight: 700; color: var(--navy); margin-top: 7px; letter-spacing: -0.5px; }
+  .tile .val.sm { font-size: 20px; }
+  .tile .meta { font-size: 11px; color: var(--ink-2); margin-top: 6px; display: flex; align-items: center; gap: 5px; }
+  .delta { font-weight: 700; display: inline-flex; align-items: center; gap: 2px; }
+  .delta.up { color: var(--good-dark); } .delta.down { color: var(--red); }
+  .spark { position: absolute; right: 12px; top: 13px; opacity: 0.9; }
+
+  /* status chips */
+  .chip { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+  .chip .cd { width: 6px; height: 6px; border-radius: 50%; }
+  .chip.good { background: var(--good-soft); color: var(--good-dark); } .chip.good .cd { background: var(--good); }
+  .chip.warn { background: var(--warn-soft); color: #9a6a06; } .chip.warn .cd { background: var(--warn); }
+  .chip.bad  { background: var(--red-soft); color: var(--red); } .chip.bad .cd { background: var(--red); }
+  .chip.info { background: #e4eef7; color: var(--navy); } .chip.info .cd { background: var(--blue); }
+
+  /* card + chart */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid2.wide-r { grid-template-columns: 0.85fr 1.15fr; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 9px; padding: 17px 19px; box-shadow: var(--shadow); }
+  .card-t { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .card-s { font-size: 10.5px; color: var(--muted); margin-top: 1px; margin-bottom: 14px; }
+
+  /* balance sheet mini table */
+  .bs { width: 100%; border-collapse: collapse; }
+  .bs td { padding: 7px 0; font-size: 12.5px; border-bottom: 1px solid var(--grid); }
+  .bs td.v { text-align: right; font-weight: 600; }
+  .bs tr:last-child td { border-bottom: none; }
+  .bs .grp td { color: var(--ink); font-weight: 700; }
+  .bs .sub td { color: var(--ink-2); font-size: 11.5px; padding-left: 14px; }
+  .bs .tot td { border-top: 2px solid var(--border-strong); font-weight: 800; color: var(--navy); padding-top: 9px; }
+
+  /* data tables */
+  .dt { width: 100%; border-collapse: collapse; }
+  .dt th { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); text-align: left; padding: 0 10px 9px; border-bottom: 1px solid var(--border-strong); }
+  .dt th.r { text-align: right; }
+  .dt td { padding: 9px 10px; font-size: 12px; border-bottom: 1px solid var(--grid); color: var(--ink); }
+  .dt td.r { text-align: right; font-weight: 600; }
+  .dt tr:last-child td { border-bottom: none; }
+  .dt .tot td { font-weight: 800; color: var(--navy); border-top: 2px solid var(--border-strong); background: #f6f9fb; }
+
+  /* ratio scorecard */
+  .score { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .metric { background: var(--card); border: 1px solid var(--border); border-radius: 9px; padding: 15px 17px; box-shadow: var(--shadow); display: grid; grid-template-columns: 92px 1fr; gap: 16px; align-items: start; }
+  .metric.hero { grid-column: 1 / -1; border: 1px solid var(--gold); background: linear-gradient(100deg, #fffdf7, #fff 40%); }
+  .metric .mv { font-size: 28px; font-weight: 800; color: var(--navy); letter-spacing: -0.5px; line-height: 1; }
+  .metric .mn { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-top: 7px; line-height: 1.3; }
+  .metric .mc { margin-top: 8px; }
+  .metric .mbody { border-left: 1px solid var(--border); padding-left: 16px; }
+  .metric .mwhat { font-size: 12px; color: var(--ink); line-height: 1.55; }
+  .metric .mwhat b { color: var(--navy); }
+  .metric .mplain { font-size: 11px; color: var(--ink-2); line-height: 1.55; margin-top: 5px; }
+
+  /* insight */
+  .note { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--navy); border-radius: 8px; padding: 14px 17px; box-shadow: var(--shadow); margin-top: 12px; }
+  .note.gold { border-left-color: var(--gold); } .note.red { border-left-color: var(--red); }
+  .note .nt { font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .note .nb { font-size: 12px; color: var(--ink-2); line-height: 1.65; } .note .nb b { color: var(--ink); }
+
+  .cap { font-size: 10.5px; color: var(--muted); margin-top: 8px; }
+  svg text { font-family: 'Inter', system-ui, sans-serif; }
+  .mt12 { margin-top: 12px; }
+
+  /* footer */
+  .foot { background: var(--navy-dark); padding: 15px 36px; display: flex; justify-content: space-between; align-items: center; margin-top: 40px; flex-wrap: wrap; gap: 8px; }
+  .foot .ft { font-size: 10px; color: rgba(255,255,255,0.42); } .foot .fg { font-size: 11px; font-weight: 700; color: var(--gold); }
+  .back { display: inline-block; margin: 16px 0 0 28px; font-size: 12px; color: var(--navy); text-decoration: none; font-weight: 600; }
+  .back:hover { text-decoration: underline; }
+
+  @media (max-width: 860px) {
+    .tiles { grid-template-columns: repeat(2, 1fr); }
+    .grid2, .grid2.wide-r, .score { grid-template-columns: 1fr; }
+    .metric.hero { grid-column: auto; }
+  }
+</style>
+</head>
+<body data-privacy="on">
+
+<div class="header">
+  <div class="h-left">
+    <div class="h-logo">BPP</div>
+    <div>
+      <div class="h-title">Financial Position &amp; KPI Report</div>
+      <div class="h-sub">Business Plans Plus LLC &middot; internal scorecard</div>
+    </div>
+  </div>
+  <div class="h-right">
+    <div class="h-asof">
+      <div class="a1">As of Jul 22, 2026</div>
+      <div class="a2">QuickBooks Online &middot; accrual &middot; YTD</div>
+    </div>
+    <div class="seg" id="seg">
+      <button class="on" id="segHide" onclick="setPriv(true)">Protected</button>
+      <button id="segShow" onclick="setPriv(false)">Reveal</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="privnote">
+    <span class="dot-s"></span>
+    <span class="off-t">Protected view. Client names and dollar balances are masked, safe to present or screen-share. Switch to Reveal for the real figures.</span>
+    <span class="on-t"><b>Reveal view active.</b> Real client names and balances are visible. Do not screen-share or screenshot in this state.</span>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="tiles">
+    <div class="tile">
+      <div class="lbl">Cash on hand</div>
+      <div class="val"><span class="pii">$7,662.83</span></div>
+      <div class="meta"><span class="pii">~$4,061</span> available &middot; <span class="pii">~$3,600</span> reserve</div>
+    </div>
+    <div class="tile acc-good">
+      <div class="lbl">Revenue YTD</div>
+      <svg class="spark" width="70" height="22" viewBox="0 0 70 22" fill="none" aria-hidden="true">
+        <polyline points="1,6 12,7 23,10 34,4 45,9 56,20 68,13" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="68" cy="13" r="2.3" fill="#2a78d6"/>
+      </svg>
+      <div class="val"><span class="pii">$15,053</span></div>
+      <div class="meta"><span class="delta up">&#9650; 36.3%</span> vs 2025</div>
+    </div>
+    <div class="tile acc-good">
+      <div class="lbl">Net income YTD</div>
+      <div class="val"><span class="pii">$3,287</span></div>
+      <div class="meta">21.8% net margin</div>
+    </div>
+    <div class="tile acc-gold">
+      <div class="lbl">Runway</div>
+      <div class="val">~4.4<span style="font-size:14px;color:var(--ink-2)"> mo</span></div>
+      <div class="meta"><span class="chip warn"><span class="cd"></span>Watch</span></div>
+    </div>
+    <div class="tile">
+      <div class="lbl">Equity</div>
+      <div class="val"><span class="pii">$9,017</span></div>
+      <div class="meta">debt-to-equity 0.10</div>
+    </div>
+  </div>
+
+  <!-- 1 POSITION + PROFITABILITY -->
+  <div class="shead"><span class="n">1</span><span class="t">Position &amp; Profitability</span><span class="s">Balance sheet snapshot + YTD P&amp;L</span></div>
+
+  <div class="grid2 wide-r">
+    <div class="card">
+      <div class="card-t">Balance sheet</div>
+      <div class="card-s">What the business owns and owes, as of Jul 22</div>
+      <table class="bs tnum">
+        <tr class="grp"><td>Cash</td><td class="v"><span class="pii">$7,662.83</span></td></tr>
+        <tr class="sub"><td>Operating (available)</td><td class="v"><span class="pii">~$4,061</span></td></tr>
+        <tr class="sub"><td>Reserve (QB Envelopes)</td><td class="v"><span class="pii">~$3,600</span></td></tr>
+        <tr class="sub"><td>Chase savings (unused)</td><td class="v"><span class="pii">$1.93</span></td></tr>
+        <tr class="grp"><td>Accounts receivable</td><td class="v"><span class="pii">$1,793.26</span></td></tr>
+        <tr class="sub"><td>Undeposited funds</td><td class="v"><span class="pii">$444.15</span></td></tr>
+        <tr class="grp"><td>Total assets</td><td class="v"><span class="pii">$9,900.24</span></td></tr>
+        <tr class="sub"><td>Credit card (Amex)</td><td class="v"><span class="pii">$573.61</span></td></tr>
+        <tr class="sub"><td>Prior-owner payable</td><td class="v"><span class="pii">$309.15</span></td></tr>
+        <tr class="sub"><td>Accounts payable</td><td class="v">$0.00</td></tr>
+        <tr class="grp"><td>Total liabilities</td><td class="v"><span class="pii">$882.76</span></td></tr>
+        <tr class="tot"><td>Equity (net worth)</td><td class="v"><span class="pii">$9,017.48</span></td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-t">Monthly revenue</div>
+      <div class="card-s">Recognized revenue by month &middot; QuickBooks P&amp;L</div>
+      <!-- COLUMN CHART -->
+      <svg width="100%" viewBox="0 0 620 250" role="img" aria-label="Monthly revenue column chart">
+        <defs>
+          <linearGradient id="barG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2f80c4"/><stop offset="1" stop-color="#044771"/>
+          </linearGradient>
+          <linearGradient id="barGlow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e9a13a"/><stop offset="1" stop-color="#d4920a"/>
+          </linearGradient>
+        </defs>
+        <!-- gridlines + y ticks (max 3000) -->
+        <g stroke="#e8edf2" stroke-width="1">
+          <line x1="52" y1="30"  x2="608" y2="30"/>
+          <line x1="52" y1="93"  x2="608" y2="93"/>
+          <line x1="52" y1="156" x2="608" y2="156"/>
+          <line x1="52" y1="210" x2="608" y2="210" stroke="#c4d0da"/>
+        </g>
+        <g fill="#8a97a3" font-size="10" text-anchor="end" class="tnum">
+          <text x="46" y="34">$3,000</text><text x="46" y="97">$2,000</text><text x="46" y="160">$1,000</text><text x="46" y="214">$0</text>
+        </g>
+        <!-- bars: baseline y=210, scale 180px/3000 = 0.06 -->
+        <!-- Jan 2540->152.4  Feb 2459->147.5  Mar 2280->136.8  Apr 2624->157.4  May 2300->138  Jun 960->57.6  Jul 1890->113.4 -->
+        <g>
+          <rect x="70"  y="57.6"  width="42" height="152.4" rx="4" fill="url(#barG)"/>
+          <rect x="146" y="62.5"  width="42" height="147.5" rx="4" fill="url(#barG)"/>
+          <rect x="222" y="73.2"  width="42" height="136.8" rx="4" fill="url(#barG)"/>
+          <rect x="298" y="52.6"  width="42" height="157.4" rx="4" fill="url(#barG)"/>
+          <rect x="374" y="72.0"  width="42" height="138.0" rx="4" fill="url(#barG)"/>
+          <rect x="450" y="152.4" width="42" height="57.6"  rx="4" fill="url(#barGlow)"/>
+          <rect x="526" y="96.6"  width="42" height="113.4" rx="4" fill="url(#barGlow)"/>
+        </g>
+        <!-- value labels -->
+        <g fill="#16232e" font-size="10.5" font-weight="700" text-anchor="middle" class="tnum pii">
+          <text x="91"  y="50">$2,540</text><text x="167" y="55">$2,459</text><text x="243" y="66">$2,280</text>
+          <text x="319" y="45">$2,624</text><text x="395" y="65">$2,300</text><text x="471" y="145">$960</text><text x="547" y="89">$1,890</text>
+        </g>
+        <!-- x labels -->
+        <g fill="#5a6b78" font-size="10.5" text-anchor="middle">
+          <text x="91" y="228">Jan</text><text x="167" y="228">Feb</text><text x="243" y="228">Mar</text><text x="319" y="228">Apr</text><text x="395" y="228">May</text><text x="471" y="228">Jun</text><text x="547" y="228">Jul 1&ndash;22</text>
+        </g>
+      </svg>
+      <div class="cap">June ran ~a third of the average. July is recovering. Gold = below-average months.</div>
+    </div>
+  </div>
+
+  <div class="note gold">
+    <div class="nt">Read this first</div>
+    <div class="nb">BPP is <b>debt-free and owes no vendors</b>. Almost everything it holds is cash and one client balance. Strong and clean, but small, so the number that matters most is <b>runway</b>, not the size of the balance sheet. Of the cash, about <b><span class="pii">$3,600</span> is set aside in QuickBooks Envelopes</b> as the reserve, leaving ~<span class="pii">$4,061</span> available. (The connector can't read Envelopes, so the reserve figure is entered by hand.)</div>
+  </div>
+
+  <!-- 2 RATIOS -->
+  <div class="shead"><span class="n">2</span><span class="t">Key ratios, in plain English</span><span class="s">the number, the status, and what it means</span></div>
+
+  <div class="score">
+    <div class="metric hero">
+      <div><div class="mv">~4.4</div><div class="mn">Runway (months)</div><div class="mc"><span class="chip warn"><span class="cd"></span>Watch</span></div></div>
+      <div class="mbody">
+        <div class="mwhat"><b>The single most important number here.</b> If revenue stopped tomorrow, cash covers ~4.4 months of operating costs (about $1,755/mo).</div>
+        <div class="mplain">Every ratio below looks strong largely because BPP is small and debt-free. Runway is the one that tells you how much breathing room you actually have. Building the cash reserve raises it.</div>
+      </div>
+    </div>
+
+    <div class="metric">
+      <div><div class="mv">11.22</div><div class="mn">Current ratio</div><div class="mc"><span class="chip good"><span class="cd"></span>Healthy</span></div></div>
+      <div class="mbody"><div class="mwhat">For every <b>$1</b> owed near-term, BPP has <b>$11.22</b> to cover it (healthy is 1.5&ndash;3).</div><div class="mplain">High because liabilities are tiny, not because cash is deep. Don't read it as comfort.</div></div>
+    </div>
+
+    <div class="metric">
+      <div><div class="mv">0.10</div><div class="mn">Debt-to-equity</div><div class="mc"><span class="chip good"><span class="cd"></span>Low risk</span></div></div>
+      <div class="mbody"><div class="mwhat">For every <b>$1</b> of owner equity, BPP owes <b>10&cent;</b>. Essentially unleveraged.</div><div class="mplain">No loans. Also means no borrowed capital is working to grow the business.</div></div>
+    </div>
+
+    <div class="metric">
+      <div><div class="mv">57.3%</div><div class="mn">Net revenue retention</div><div class="mc"><span class="chip bad"><span class="cd"></span>Needs work</span></div></div>
+      <div class="mbody"><div class="mwhat">Of last year's client revenue, BPP kept <b>57&cent; on the dollar</b> this year (above 100% = clients grow with you).</div><div class="mplain">The churn story in one number. This is the retainer / recurring-revenue case.</div></div>
+    </div>
+
+    <div class="metric">
+      <div><div class="mv">40%</div><div class="mn">Logo retention</div><div class="mc"><span class="chip bad"><span class="cd"></span>Needs work</span></div></div>
+      <div class="mbody"><div class="mwhat">Of <b>5</b> paying clients last year, <b>2</b> still pay this year.</div><div class="mplain">Revenue is up 36%, but it's new clients replacing lost ones, not the same clients compounding.</div></div>
+    </div>
+
+    <div class="metric">
+      <div><div class="mv">71.2%</div><div class="mn">Top-3 concentration</div><div class="mc"><span class="chip warn"><span class="cd"></span>Watch</span></div></div>
+      <div class="mbody"><div class="mwhat">The three biggest clients are <b>71%</b> of revenue.</div><div class="mplain">Lose one and roughly a fifth of the business goes with it. Keep the pipeline full.</div></div>
+    </div>
+
+    <div class="metric">
+      <div><div class="mv">37.7%</div><div class="mn">Software / revenue</div><div class="mc"><span class="chip warn"><span class="cd"></span>Watch</span></div></div>
+      <div class="mbody"><div class="mwhat">Software eats <b>37.7%</b> of revenue and <b>52%</b> of all expenses.</div><div class="mplain">The biggest controllable lever. April's cost review already found ~$1.6&ndash;1.9K/yr of cuts.</div></div>
+    </div>
+
+    <div class="metric">
+      <div><div class="mv">24.2</div><div class="mn">DSO (days)</div><div class="mc"><span class="chip info"><span class="cd"></span>Read w/ aging</span></div></div>
+      <div class="mbody"><div class="mwhat">Collection averages <b>24 days</b> &mdash; looks healthy on its own.</div><div class="mplain">Misleading: the blended average hides that <b>every open invoice is 90+ days late</b> (Section 5).</div></div>
+    </div>
+  </div>
+
+  <!-- 3 CLIENT CONCENTRATION -->
+  <div class="shead"><span class="n">3</span><span class="t">Client concentration</span><span class="s">7 paying clients &middot; YTD</span></div>
+
+  <div class="grid2 wide-r">
+    <div class="card">
+      <div class="card-t">Top-3 share of revenue</div>
+      <div class="card-s">Concentration risk at a glance</div>
+      <!-- DONUT -->
+      <svg width="100%" viewBox="0 0 240 190" role="img" aria-label="Top 3 clients make up 71.2% of revenue">
+        <!-- donut: circumference for r=70 = 439.8; top3 71.2% -->
+        <g transform="translate(120,95)">
+          <circle r="70" fill="none" stroke="#e8edf2" stroke-width="26"/>
+          <circle r="70" fill="none" stroke="#044771" stroke-width="26" stroke-dasharray="313.1 439.8" transform="rotate(-90)" stroke-linecap="butt"/>
+          <text y="-4" text-anchor="middle" font-size="34" font-weight="800" fill="#044771">71%</text>
+          <text y="18" text-anchor="middle" font-size="10.5" fill="#8a97a3">top 3 clients</text>
+        </g>
+      </svg>
+      <div class="cap" style="text-align:center">Remaining 4 clients: 28.8%</div>
+    </div>
+
+    <div class="card">
+      <div class="card-t">Revenue by client</div>
+      <div class="card-s">Ranked, YTD &middot; deduplicated by hand</div>
+      <!-- HORIZONTAL BAR CHART -->
+      <svg width="100%" viewBox="0 0 640 250" role="img" aria-label="Revenue by client, ranked">
+        <defs><linearGradient id="hbar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#044771"/><stop offset="1" stop-color="#2f80c4"/></linearGradient></defs>
+        <!-- plot x from 150 to 560 (410px) for max 4200; scale 0.09762 px/$ -->
+        <!-- rows y: 8,42,76,110,144,178,212 ; bar h 22 -->
+        <g class="rowlbl" font-size="11.5" fill="#16232e" text-anchor="end">
+          <text x="142" y="24"><tspan class="mask">Client A</tspan><tspan class="real pii">Jeannette Bradley</tspan></text>
+          <text x="142" y="58"><tspan class="mask">Client B</tspan><tspan class="real pii">Phil Tirado</tspan></text>
+          <text x="142" y="92"><tspan class="mask">Client C</tspan><tspan class="real pii">Maxine C.</tspan></text>
+          <text x="142" y="126"><tspan class="mask">Client D</tspan><tspan class="real pii">Wanda Barton</tspan></text>
+          <text x="142" y="160"><tspan class="mask">Client E</tspan><tspan class="real pii">HALO Commons</tspan></text>
+          <text x="142" y="194"><tspan class="mask">Client F</tspan><tspan class="real pii">Infinity Aero</tspan></text>
+          <text x="142" y="228"><tspan class="mask">Client G</tspan><tspan class="real pii">Roberts Bros</tspan></text>
+        </g>
+        <g fill="url(#hbar)">
+          <rect x="150" y="8"   width="410"   height="22" rx="4"/>
+          <rect x="150" y="42"  width="307.5" height="22" rx="4"/>
+          <rect x="150" y="76"  width="299.3" height="22" rx="4"/>
+          <rect x="150" y="110" width="190.3" height="22" rx="4"/>
+          <rect x="150" y="144" width="161.0" height="22" rx="4"/>
+          <rect x="150" y="178" width="48.8"  height="22" rx="4"/>
+          <rect x="150" y="212" width="12.1"  height="22" rx="4"/>
+        </g>
+        <g font-size="11" font-weight="700" fill="#16232e" class="tnum">
+          <text x="568" y="24">28.7%</text><text x="466" y="58">21.5%</text><text x="458" y="92">20.9%</text>
+          <text x="349" y="126">13.3%</text><text x="320" y="160">11.3%</text><text x="208" y="194">3.4%</text><text x="172" y="228">0.8%</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="cap">Revenue by client sums to <span class="pii">$14,637.73</span> (sales tied to a customer). The headline <b>Revenue YTD of <span class="pii">$15,052.70</span></b> is the P&amp;L total; the <span class="pii">$414.97</span> difference is income not tied to a client invoice ($20 unapplied cash, $20 uncategorized, ~$375 posted straight to income). QuickBooks' own "sales by customer" report reads <span class="pii">$20,768</span> because it triple-counts sub-customers &mdash; see Section 7.</div>
+
+  <!-- 4 RETENTION WATERFALL -->
+  <div class="shead"><span class="n">4</span><span class="t">Where the growth came from</span><span class="s">2025 &rarr; 2026 revenue bridge</span></div>
+
+  <div class="card">
+    <div class="card-t">Net revenue retention bridge</div>
+    <div class="card-s">How last year's book became this year's &middot; same period, deduplicated</div>
+    <!-- WATERFALL -->
+    <svg width="100%" viewBox="0 0 900 300" role="img" aria-label="Revenue waterfall from 2025 to 2026">
+      <!-- y max 15000, plot top y=30 bottom y=250 (220px), scale 0.014667 px/$ -->
+      <g stroke="#e8edf2" stroke-width="1">
+        <line x1="70" y1="30"  x2="880" y2="30"/>
+        <line x1="70" y1="103" x2="880" y2="103"/>
+        <line x1="70" y1="177" x2="880" y2="177"/>
+        <line x1="70" y1="250" x2="880" y2="250" stroke="#c4d0da"/>
+      </g>
+      <g fill="#8a97a3" font-size="10" text-anchor="end" class="tnum">
+        <text x="62" y="34">$15K</text><text x="62" y="107">$10K</text><text x="62" y="181">$5K</text><text x="62" y="254">$0</text>
+      </g>
+      <!-- bands centered at x: 130, 258, 386, 514, 642, 810 ; bar width 84 -->
+      <!-- values: 2025 10736 (h157.5, y92.5) ; Exp +3511 (bottom 10736->92.5 top 14246->41.5 h51) ;
+           Contr -1366 (top 14246->41.5 bottom 12881->61.5 h20) ; Churn -6731 (top 12881->61.5 bottom 6149->159.8 h98.3) ;
+           New +8488 (bottom 6149->159.8 top 14638->35.3 h124.5) ; 2026 14638 (h214.7 y35.3) -->
+      <defs>
+        <linearGradient id="wNavy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a5a8c"/><stop offset="1" stop-color="#044771"/></linearGradient>
+        <linearGradient id="wGood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2bb673"/><stop offset="1" stop-color="#1a9e5c"/></linearGradient>
+        <linearGradient id="wBad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d65f52"/><stop offset="1" stop-color="#c0392b"/></linearGradient>
+      </defs>
+      <!-- connectors -->
+      <g stroke="#c4d0da" stroke-width="1" stroke-dasharray="3 3">
+        <line x1="172" y1="92.5"  x2="216" y2="92.5"/>
+        <line x1="300" y1="41.5"  x2="344" y2="41.5"/>
+        <line x1="428" y1="61.5"  x2="472" y2="61.5"/>
+        <line x1="556" y1="159.8" x2="600" y2="159.8"/>
+        <line x1="684" y1="35.3"  x2="768" y2="35.3"/>
+      </g>
+      <!-- bars -->
+      <rect x="88"  y="92.5"  width="84" height="157.5" fill="url(#wNavy)" rx="2"/>
+      <rect x="216" y="41.5"  width="84" height="51.0"  fill="url(#wGood)" rx="2"/>
+      <rect x="344" y="41.5"  width="84" height="20.0"  fill="url(#wBad)"  rx="2"/>
+      <rect x="472" y="61.5"  width="84" height="98.3"  fill="url(#wBad)"  rx="2"/>
+      <rect x="600" y="35.3"  width="84" height="124.5" fill="url(#wGood)" rx="2"/>
+      <rect x="768" y="35.3"  width="84" height="214.7" fill="url(#wNavy)" rx="2"/>
+      <!-- value labels -->
+      <g font-size="11" font-weight="700" text-anchor="middle" class="tnum pii">
+        <text x="130" y="85"  fill="#16232e">$10.7K</text>
+        <text x="258" y="34"  fill="#147a46">+$3.5K</text>
+        <text x="386" y="34"  fill="#c0392b">&minus;$1.4K</text>
+        <text x="514" y="54"  fill="#c0392b">&minus;$6.7K</text>
+        <text x="642" y="28"  fill="#147a46">+$8.5K</text>
+        <text x="810" y="28"  fill="#16232e">$14.6K</text>
+      </g>
+      <!-- x labels -->
+      <g font-size="10.5" text-anchor="middle" fill="#5a6b78">
+        <text x="130" y="266">2025 rev</text>
+        <text x="258" y="266">Expansion</text>
+        <text x="386" y="266">Contraction</text>
+        <text x="514" y="266">Churn</text>
+        <text x="642" y="266">New logos</text>
+        <text x="810" y="266">2026 rev</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="note red">
+    <div class="nt">Growth is masking churn</div>
+    <div class="nb">The +36% headline is <b>new logos (<span class="pii">+$8.5K</span>) replacing churned clients (<span class="pii">&minus;$6.7K</span>)</b>, not existing clients compounding. Three of five clients went to zero. This is the strongest case in the report for a recurring-revenue / retainer model, and worth taking to the virtual board before the team debates it.</div>
+  </div>
+
+  <!-- 5 AR -->
+  <div class="shead"><span class="n">5</span><span class="t">Accounts receivable</span><span class="s">billed vs committed &middot; two sources</span></div>
+
+  <div class="tiles" style="grid-template-columns:repeat(4,1fr)">
+    <div class="tile"><div class="lbl">Total A/R</div><div class="val sm"><span class="pii">$3,143.26</span></div><div class="meta">billed + committed</div></div>
+    <div class="tile acc-warn"><div class="lbl">Billed &amp; unpaid</div><div class="val sm"><span class="pii">$1,793.26</span></div><div class="meta">QuickBooks &middot; invoiced</div></div>
+    <div class="tile acc-good"><div class="lbl">Committed, unbilled</div><div class="val sm"><span class="pii">$1,350.00</span></div><div class="meta">HubSpot &middot; sold, not invoiced</div></div>
+    <div class="tile acc-red"><div class="lbl">Billed A/R over 90 days</div><div class="val">100%</div><div class="meta">of the invoiced portion</div></div>
+  </div>
+  <div class="note red">
+    <div class="nt">Two layers, two systems</div>
+    <div class="nb"><b>Billed A/R (<span class="pii">$1,793</span>, QuickBooks)</b> is three invoices totaling <span class="pii">$2,237</span>, net of <span class="pii">$444</span> in unapplied payments. 100% is 90+ days late &mdash; a collections gap, not a sales gap, and <b>mostly 2025 vintage</b>:
+      <ul style="margin:7px 0 0 16px;padding:0;font-size:11.5px;line-height:1.7">
+        <li>Inv #1008 <span class="mask">Client D</span><span class="real pii">Xtremely Clean</span> &mdash; <b>May 2025</b>, <span class="pii">$1,657.50</span> (over a year old, half of a $3,315 invoice)</li>
+        <li>Inv #1017 <span class="real pii">Tier 1 Solar</span><span class="mask">Client H</span> &mdash; <b>Oct 2025</b>, <span class="pii">$455.68</span></li>
+        <li>Inv #1019 <span class="mask">Client G</span><span class="real pii">Roberts Brothers</span> &mdash; Apr 2026, <span class="pii">$124.23</span> (BPP's own Google Workspace spend rebilled, never collected)</li>
+      </ul>
+      <br><b>Committed but unbilled (<span class="pii">$1,350</span>, HubSpot)</b> is the <span class="mask">Client B</span><span class="real pii">Lois Marketing</span> Operator System final milestone &mdash; sold 30/40/30, first two paid, the last <span class="pii">$1,350</span> not yet invoiced in QuickBooks. Owed to us but invisible on the QB aging report.</div>
+  </div>
+  <div class="cap">Note: naively summing HubSpot deals not marked "Paid in Full" reads ~<span class="pii">$14K</span>, but that's badly overstated &mdash; those statuses are stale (deals QuickBooks confirms are paid in full still show "Deposit Received"). QB is the accurate source for billed A/R; HubSpot only adds genuinely-unbilled committed milestones.</div>
+
+  <!-- 6 PRODUCT MIX -->
+  <div class="shead"><span class="n">6</span><span class="t">Product mix</span><span class="s">revenue by offering &middot; YTD &middot; QB &times; HubSpot</span></div>
+
+  <div class="card">
+    <table class="dt tnum">
+      <thead><tr><th>Offering</th><th class="r">Revenue YTD</th><th class="r">Share</th></tr></thead>
+      <tbody>
+        <tr class="grp2"><td><b>Package engagements</b></td><td class="r"><b><span class="pii">$7,999.00</span></b></td><td class="r"><b>54.6%</b></td></tr>
+        <tr><td style="padding-left:24px;color:var(--ink-2)">&#8226; Operator System</td><td class="r"><span class="pii">$3,150.00</span></td><td class="r">21.5%</td></tr>
+        <tr><td style="padding-left:24px;color:var(--ink-2)">&#8226; Strategic systems build</td><td class="r"><span class="pii">$3,200.00</span></td><td class="r">21.9%</td></tr>
+        <tr><td style="padding-left:24px;color:var(--ink-2)">&#8226; Launch Pad</td><td class="r"><span class="pii">$1,649.00</span></td><td class="r">11.3%</td></tr>
+        <tr><td>Website development</td><td class="r"><span class="pii">$2,400.00</span></td><td class="r">16.4%</td></tr>
+        <tr><td>Hourly consulting</td><td class="r"><span class="pii">$2,000.00</span></td><td class="r">13.7%</td></tr>
+        <tr><td>Brand &amp; design</td><td class="r"><span class="pii">$1,450.00</span></td><td class="r">9.9%</td></tr>
+        <tr><td>Productivity / GMB setup</td><td class="r"><span class="pii">$500.00</span></td><td class="r">3.4%</td></tr>
+        <tr><td>Business planning</td><td class="r"><span class="pii">$449.25</span></td><td class="r">3.1%</td></tr>
+        <tr><td>Software reimbursement</td><td class="r"><span class="pii">$124.23</span></td><td class="r">0.8%</td></tr>
+        <tr><td>Discounts given</td><td class="r"><span class="pii">&minus;$284.75</span></td><td class="r">&minus;1.9%</td></tr>
+        <tr class="tot"><td>Total</td><td class="r"><span class="pii">$14,637.73</span></td><td class="r">100%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note gold">
+    <div class="nt">Reconstructed by mapping each client's revenue to their actual package</div>
+    <div class="nb">QuickBooks lumps <b>55% of revenue into one nameless SKU</b> (&ldquo;HubSpot Custom Line Item&rdquo;). This table rebuilds it by cross-referencing HubSpot deals, so the $7,999 splits into the real offerings &mdash; <b>Operator System, strategic systems builds, and Launch Pad</b>. It reconciles to the penny. The permanent fix is routing package milestones to proper QuickBooks items so this doesn't need hand-reconstruction each month; that migration is underway.</div>
+  </div>
+
+  <!-- 7 DATA QUALITY -->
+  <div class="shead"><span class="n">7</span><span class="t">Data quality &amp; open items</span><span class="s">read before trusting any single QuickBooks figure</span></div>
+
+  <div class="note">
+    <div class="nt">The QuickBooks connector overstates its own summaries</div>
+    <div class="nb">Every hierarchical report double- or triple-counts sub-customers: A/R aging reads <span class="pii">$5,108</span> vs a true <span class="pii">$1,793</span>; sales-by-customer <span class="pii">$20,768</span> vs <span class="pii">$14,638</span>; sales-by-product <span class="pii">$57,833</span> vs <span class="pii">$14,638</span>. <b>Every figure here was deduplicated by hand.</b> The balance sheet is the one clean report, and its A/R matched the corrected number exactly.</div>
+  </div>
+  <div class="grid2 mt12">
+    <div class="note" style="border-left-color:var(--warn)"><div class="nt">Open item 1 &middot; undeposited funds = unapplied A/R credits</div><div class="nb"><span class="pii">$444.15</span> in Payments to Deposit is the <b>same</b> <span class="pii">$444.15</span> of unapplied payments dragging A/R down: <span class="real pii">Stack All Profits</span><span class="mask">a client</span> <span class="pii">$424.15</span> (Sep 2025 overpayment) + four <span class="pii">$5</span> &ldquo;BPP&rdquo; test payments (Jan 2026). Received, never deposited or applied. Clearing them fixes both the asset and the A/R.</div></div>
+    <div class="note" style="border-left-color:var(--warn)"><div class="nt">Open item 2 &middot; net income mismatch</div><div class="nb">P&amp;L reports YTD net income <span class="pii">$3,287.00</span>; balance sheet reports <span class="pii">$2,463.21</span>. An <span class="pii">$823.79</span> gap, possibly a fiscal-year setting. Resolve before the Q2 review.</div></div>
+    <div class="note" style="border-left-color:var(--warn)"><div class="nt">Open item 3 &middot; revenue not tied to invoices</div><div class="nb"><span class="pii">$414.97</span> of P&amp;L income isn't tied to a customer invoice ($20 unapplied cash, $20 uncategorized, ~$375 direct-to-income). This is why the client and product tables sum to <span class="pii">$14,637.73</span> while P&amp;L revenue is <span class="pii">$15,052.70</span>. Tie the postings to customers in QB and the reports agree.</div></div>
+    <div class="note" style="border-left-color:var(--blue)"><div class="nt">Sourcing &middot; where each number comes from</div><div class="nb"><b>QuickBooks:</b> cash, balance sheet, P&amp;L, billed A/R, monthly revenue. <b>HubSpot:</b> committed-but-unbilled A/R, package mapping for the product table. <b>Both reconciled by hand</b> against each other.</div></div>
+  </div>
+
+</div>
+
+<a class="back" href="../index.html">&larr; Back to Tools Hub</a>
+
+<div class="foot">
+  <div class="ft">Static snapshot as of Jul 22, 2026 &middot; regenerated on request from QuickBooks &middot; all figures deduplicated by hand</div>
+  <div class="fg">Business Plans Plus</div>
+</div>
+
+<script>
+  function setPriv(hide){
+    document.body.setAttribute('data-privacy', hide ? 'on':'off');
+    document.getElementById('segHide').classList.toggle('on', hide);
+    document.getElementById('segShow').classList.toggle('on', !hide);
+  }
+</script>
+
+</body>
+</html>
