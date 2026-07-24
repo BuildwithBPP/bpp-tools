@@ -402,3 +402,14 @@ body[data-person="eli"] .link-card[data-person*="eli"]{border-color:var(--eli);b
 
 /* Sensitive-financials gate — a future contractor view sets data-hide-financials on <body> */
 body[data-hide-financials] [data-owners-only]{display:none;}
+
+/* -- Privacy toggle + financial masking (shared; toggle auto-injected by nav.js when .pii present) -- */
+body[data-privacy="on"] .pii{filter:blur(6.5px);-webkit-user-select:none;user-select:none;pointer-events:none;}
+.real{display:none;}
+body[data-privacy="off"] .real{display:inline;}
+body[data-privacy="off"] .mask{display:none;}
+.privacy-toggle{display:inline-flex;align-items:center;gap:6px;flex-shrink:0;margin-left:8px;background:transparent;border:1px solid rgba(255,255,255,0.25);padding:5px 11px;font-family:var(--sans);font-size:11px;font-weight:600;color:rgba(255,255,255,0.85);cursor:pointer;border-radius:4px;transition:all .15s;white-space:nowrap;}
+.privacy-toggle:hover{border-color:rgba(255,255,255,0.5);}
+.privacy-toggle .pt-dot{width:7px;height:7px;border-radius:50%;background:#1a9e5c;transition:background .15s;}
+.privacy-toggle.revealed{background:var(--gold);border-color:var(--gold);color:var(--navy);}
+.privacy-toggle.revealed .pt-dot{background:#c0392b;}

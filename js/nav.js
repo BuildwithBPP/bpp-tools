@@ -40,6 +40,30 @@
   var mount = document.getElementById('hub-nav');
   if (mount) mount.outerHTML = html;
 
+  // -- Privacy toggle: auto-appears only on pages with maskable financial figures (.pii/.mask). Defaults to Protected. --
+  (function () {
+    function initPrivacy() {
+      if (!document.querySelector('.pii, .mask')) return;
+      if (!document.body.hasAttribute('data-privacy')) document.body.setAttribute('data-privacy', 'on');
+      var pnav = document.querySelector('.hub-nav');
+      if (!pnav || pnav.querySelector('.privacy-toggle')) return;
+      var pbtn = document.createElement('button');
+      pbtn.type = 'button';
+      pbtn.className = 'privacy-toggle';
+      pbtn.title = 'Show or hide financial figures';
+      pbtn.innerHTML = '<span class="pt-dot"></span><span class="pt-label">Protected</span>';
+      pbtn.addEventListener('click', function () {
+        var on = document.body.getAttribute('data-privacy') === 'on';
+        document.body.setAttribute('data-privacy', on ? 'off' : 'on');
+        pbtn.classList.toggle('revealed', on);
+        pbtn.querySelector('.pt-label').textContent = on ? 'Revealed' : 'Protected';
+      });
+      pnav.appendChild(pbtn);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initPrivacy);
+    else initPrivacy();
+  })();
+
   // -- Search --
   // The search index is BUILT AT RUNTIME from pages/library.html and pages/departments.html.
   // To add a page to search, just add its card to one of those two pages — no JSON to maintain.
