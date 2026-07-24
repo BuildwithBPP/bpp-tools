@@ -81,6 +81,28 @@
   .chip.info { background:#e4eef7; color:var(--navy); } .chip.info .cd { background:var(--blue); }
   .empty { font-size:12px; color:var(--muted); padding:24px 4px; text-align:center; }
 
+  /* tabs */
+  .tabbar { display:flex; gap:4px; margin:22px 0 4px; border-bottom:1px solid var(--border); flex-wrap:wrap; }
+  .tabbar button { border:none; background:transparent; font-family:inherit; font-size:13px; font-weight:600; color:var(--ink-2); padding:10px 16px; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:all .12s; }
+  .tabbar button:hover { color:var(--navy); }
+  .tabbar button.on { color:var(--navy); border-bottom-color:var(--gold); }
+  .panel { display:none; } .panel.on { display:block; }
+  .mt12 { margin-top:12px; }
+  /* deal list table */
+  .dl { width:100%; border-collapse:collapse; }
+  .dl th { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); text-align:left; padding:0 10px 8px; border-bottom:1px solid var(--border-strong); }
+  .dl th.r { text-align:right; }
+  .dl td { padding:8px 10px; font-size:12px; border-bottom:1px solid var(--grid); color:var(--ink); }
+  .dl td.r { text-align:right; font-weight:600; }
+  .dl tr:last-child td { border-bottom:none; }
+  .dl .tot td { font-weight:800; color:var(--navy); border-top:2px solid var(--border-strong); background:#f6f9fb; }
+  .pill2 { display:inline-block; padding:2px 8px; border-radius:4px; font-size:10px; font-weight:600; }
+  .pill2.won { background:var(--good-soft); color:var(--good-dark); } .pill2.prop { background:#e4eef7; color:var(--navy); } .pill2.qual { background:var(--warn-soft); color:#9a6a06; }
+  /* review narrative */
+  .rev-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; } @media(max-width:900px){.rev-grid{grid-template-columns:1fr;}}
+  .okr-row { display:grid; grid-template-columns:1fr auto; gap:10px; padding:9px 0; border-bottom:1px solid var(--grid); font-size:12px; align-items:center; }
+  .okr-row:last-child{border-bottom:none;}
+
   .foot { background:var(--navy-dark); padding:15px 34px; display:flex; justify-content:space-between; align-items:center; margin-top:40px; flex-wrap:wrap; gap:8px; }
   .foot .ft { font-size:10px; color:rgba(255,255,255,0.42); } .foot .fg { font-size:11px; font-weight:700; color:var(--gold); }
 
@@ -100,7 +122,7 @@
   </div>
   <div class="h-asof">
     <div class="a1" id="asof">&mdash;</div>
-    <div class="a2">QuickBooks &middot; HubSpot &middot; Metricool &middot; refreshed 2026-07-23</div>
+    <div class="a2">QuickBooks &middot; HubSpot &middot; Metricool &middot; refreshed 2026-07-24</div>
   </div>
 </div>
 
@@ -123,33 +145,69 @@
 <div class="wrap">
   <div class="tiles" id="kpis"></div>
 
-  <div class="shead"><span class="n">1</span><span class="t">Financial</span><span class="s" id="s-fin">&mdash;</span></div>
-  <div class="grid2 wide-l">
-    <div class="card"><div class="card-t">Revenue &amp; net income by month</div><div class="card-s" id="ct-rev">Cash basis &middot; QuickBooks. Selected period highlighted; loss months marked red.</div><div id="ch-rev"></div></div>
-    <div class="card"><div class="card-t">Revenue by offering</div><div class="card-s">Selected period &middot; each client payment mapped to its service line (estimated for bundled packages)</div><div id="ch-revoff"></div></div>
-  </div>
-  <div class="grid2 wide-l" style="margin-top:12px">
-    <div class="card"><div class="card-t">Expenses by category</div><div class="card-s">Selected period &middot; QuickBooks</div><div id="ch-expcat"></div></div>
-    <div class="card"><div class="card-t">Cost structure</div><div class="card-s">Selected period &middot; efficiency and the biggest levers</div><div id="ch-expsum"></div></div>
+  <div class="tabbar" id="tabbar">
+    <button data-tab="fin" class="on">Financial</button>
+    <button data-tab="sales">Sales</button>
+    <button data-tab="mkt">Marketing</button>
+    <button data-tab="web">Website</button>
+    <button data-tab="review">Quarterly Review</button>
   </div>
 
-  <div class="shead"><span class="n">2</span><span class="t">Sales</span><span class="s" id="s-sales">&mdash;</span></div>
-  <div class="grid2">
-    <div class="card"><div class="card-t">Deals won vs lost by month</div><div class="card-s">HubSpot closed-won / closed-lost value, by close date</div><div id="ch-deals"></div></div>
-    <div class="card"><div class="card-t">Win rate &amp; deal flow</div><div class="card-s">Selected period &middot; count, value, and efficiency</div><div id="ch-winrate"></div></div>
+  <!-- FINANCIAL -->
+  <div class="panel on" id="tab-fin">
+    <div class="shead"><span class="n">1</span><span class="t">Financial</span><span class="s" id="s-fin">&mdash;</span></div>
+    <div class="grid2 wide-l">
+      <div class="card"><div class="card-t">Revenue &amp; net income by month</div><div class="card-s" id="ct-rev">Cash basis &middot; QuickBooks. Selected period highlighted; loss months marked red.</div><div id="ch-rev"></div></div>
+      <div class="card"><div class="card-t">Revenue by offering</div><div class="card-s">Selected period &middot; each client payment mapped to its service line (estimated for bundled packages)</div><div id="ch-revoff"></div></div>
+    </div>
+    <div class="grid2 wide-l mt12">
+      <div class="card"><div class="card-t">Expenses by category</div><div class="card-s">Selected period &middot; QuickBooks</div><div id="ch-expcat"></div></div>
+      <div class="card"><div class="card-t">Cost structure</div><div class="card-s">Selected period &middot; efficiency and the biggest levers</div><div id="ch-expsum"></div></div>
+    </div>
+    <div id="nar-fin"></div>
   </div>
-  <div class="card" style="margin-top:12px"><div class="card-t">Closed revenue by owner</div><div class="card-s">Selected period &middot; HubSpot closed-won value by deal owner</div><div id="ch-owner"></div></div>
 
-  <div class="shead"><span class="n">3</span><span class="t">Marketing &amp; content</span><span class="s" id="s-mkt">&mdash;</span></div>
-  <div class="grid2">
-    <div class="card"><div class="card-t">Content views by platform</div><div class="card-s">Selected period &middot; Metricool</div><div id="ch-social"></div></div>
-    <div class="card"><div class="card-t">Followers by platform</div><div class="card-s">End of selected period &middot; net change shown</div><div id="ch-foll"></div></div>
+  <!-- SALES -->
+  <div class="panel" id="tab-sales">
+    <div class="shead"><span class="n">2</span><span class="t">Sales</span><span class="s" id="s-sales">&mdash;</span></div>
+    <div class="grid2">
+      <div class="card"><div class="card-t">Deals won vs lost by month</div><div class="card-s">HubSpot closed-won / closed-lost value, by close date</div><div id="ch-deals"></div></div>
+      <div class="card"><div class="card-t">Win rate &amp; deal flow</div><div class="card-s">Selected period &middot; count, value, and efficiency</div><div id="ch-winrate"></div></div>
+    </div>
+    <div class="card mt12"><div class="card-t">Closed revenue by owner</div><div class="card-s">Selected period &middot; HubSpot closed-won value by deal owner</div><div id="ch-owner"></div></div>
+    <div class="grid2 mt12">
+      <div class="card"><div class="card-t">Closed-won deals</div><div class="card-s" id="ct-won">Selected period</div><div id="ch-wonlist"></div></div>
+      <div class="card"><div class="card-t">Lost deals</div><div class="card-s" id="ct-lost">Selected period</div><div id="ch-lostlist"></div></div>
+    </div>
+    <div class="card mt12"><div class="card-t">Active pipeline</div><div class="card-s">Point-in-time snapshot as of Jul 22, 2026 &middot; HubSpot open deals (not affected by the period slicer)</div><div id="ch-pipeline"></div></div>
+    <div id="nar-sales"></div>
   </div>
 
-  <div class="shead"><span class="n">4</span><span class="t">Website</span><span class="s" id="s-web">&mdash;</span></div>
-  <div class="grid2 wide-l">
-    <div class="card"><div class="card-t">Website traffic by month</div><div class="card-s">Page views &middot; GA via Metricool. Selected period highlighted.</div><div id="ch-web"></div></div>
-    <div class="card"><div class="card-t">Traffic summary</div><div class="card-s">Selected period</div><div id="ch-websum"></div></div>
+  <!-- MARKETING -->
+  <div class="panel" id="tab-mkt">
+    <div class="shead"><span class="n">3</span><span class="t">Marketing &amp; content</span><span class="s" id="s-mkt">&mdash;</span></div>
+    <div class="grid2">
+      <div class="card"><div class="card-t">Content views by platform</div><div class="card-s">Selected period &middot; Metricool</div><div id="ch-social"></div></div>
+      <div class="card"><div class="card-t">Followers by platform</div><div class="card-s">End of selected period &middot; net change shown</div><div id="ch-foll"></div></div>
+    </div>
+    <div class="card mt12"><div class="card-t">Instagram Reels performance</div><div class="card-s">Selected period &middot; Metricool reels connector (views, saves, shares, avg watch time)</div><div id="ch-reels"></div></div>
+    <div id="nar-mkt"></div>
+  </div>
+
+  <!-- WEBSITE -->
+  <div class="panel" id="tab-web">
+    <div class="shead"><span class="n">4</span><span class="t">Website</span><span class="s" id="s-web">&mdash;</span></div>
+    <div class="grid2 wide-l">
+      <div class="card"><div class="card-t">Website traffic by month</div><div class="card-s">Page views &middot; GA via Metricool. Selected period highlighted.</div><div id="ch-web"></div></div>
+      <div class="card"><div class="card-t">Traffic summary</div><div class="card-s">Selected period</div><div id="ch-websum"></div></div>
+    </div>
+    <div id="nar-web"></div>
+  </div>
+
+  <!-- REVIEW -->
+  <div class="panel" id="tab-review">
+    <div class="shead"><span class="n">5</span><span class="t">Quarterly Review</span><span class="s" id="s-review">the story behind the numbers</span></div>
+    <div id="review-body"></div>
   </div>
 
   <div class="note">
@@ -159,12 +217,12 @@
 </div>
 
 <div class="foot">
-  <div class="ft">Data model generated 2026-07-23 from DA-003 / DA-004 / HubSpot &middot; internal use only</div>
+  <div class="ft">Data model generated 2026-07-24 from DA-003 / DA-004 / HubSpot &middot; internal use only</div>
   <div class="fg">buildwithbpp.com</div>
 </div>
 
 <script>
-const DATA = {"generated":"2026-07-23","months":["2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"],"data":{"2025-03":{"rev":0.0,"exp":610.22,"net":-610.22,"revcat":{},"revoff":{},"expcat":{"Fees":0.24,"Software":609.98},"wonN":0,"wonV":0,"lostN":0,"lostV":0,"wonOwner":{},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0}},"2025-04":{"rev":305.0,"exp":1556.48,"net":-1251.48,"revcat":{"Consulting":305.0},"revoff":{"Business Planning":305.0},"expcat":{"Other":256.75,"Content & Marketing":500.0,"Fees":-7.76,"Software":807.49},"wonN":0,"wonV":0,"lostN":0,"lostV":0,"wonOwner":{},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0}},"2025-05":{"rev":1549.0,"exp":1056.76,"net":493.12,"revcat":{"Consulting":299.0,"Marketing":170.84,"Technology":1079.16},"revoff":{"Business Planning":299.0,"Systems & CRM":516.67,"Website & Digital":562.49,"Local SEO / GMB":83.34,"Marketing & Social":87.5},"expcat":{"Fees":51.57,"Other":63.85,"Software":941.34},"wonN":0,"wonV":0,"lostN":0,"lostV":0,"wonOwner":{},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0}},"2025-06":{"rev":4596.9,"exp":1729.29,"net":2870.71,"revcat":{"Consulting":377.71,"Marketing":370.84,"Technology":4776.92,"Other":0.0},"revoff":{"Business Planning":251.95,"Consulting & Other":1125.76,"Finance / QuickBooks":935.07,"Website & Digital":1112.49,"Systems & CRM":2929.36,"Local SEO / GMB":83.34,"Marketing & Social":87.5},"expcat":{"Fees":156.73,"Other":460.86,"Client Costs":160.0,"Owner Pay":600.0,"Software":351.7},"wonN":2,"wonV":3015.5,"lostN":0,"lostV":0,"wonOwner":{"Eli":3015.5},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0}},"2025-07":{"rev":1250.0,"exp":1395.97,"net":-142.81,"revcat":{"Marketing":170.84,"Technology":1079.16},"revoff":{"Systems & CRM":516.67,"Website & Digital":562.49,"Local SEO / GMB":83.34,"Marketing & Social":87.5},"expcat":{"Fees":57.24,"Client Costs":35.4,"Content & Marketing":180.0,"Owner Pay":999.0,"Software":243.72,"Other":-119.39},"wonN":1,"wonV":3750,"lostN":0,"lostV":0,"wonOwner":{"Daunte":3750.0},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0}},"2025-08":{"rev":1801.6,"exp":1309.35,"net":494.85,"revcat":{"Consulting":520.29,"Marketing":424.15,"Technology":1100.24},"revoff":{"Business Planning":347.05,"Consulting & Other":173.24,"Finance / QuickBooks":462.93,"Systems & CRM":637.31,"Marketing & Social":424.15},"expcat":{"Fees":70.54,"Client Costs":335.2,"Content & Marketing":575.0,"Software":328.61},"wonN":2,"wonV":1597,"lostN":2,"lostV":1149,"wonOwner":{"Kenny":1597.0},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0}},"2025-09":{"rev":2598.3,"exp":1842.16,"net":758.75,"revcat":{"Consulting":500.0,"Marketing":974.15,"Technology":750.0,"Other":424.15},"revoff":{"Consulting & Other":300.0,"Website & Digital":1750.0,"Marketing & Social":1223.3,"Systems & CRM":375.0},"expcat":{"Fees":54.92,"Client Costs":217.32,"Content & Marketing":500.0,"Software":1069.92},"wonN":0,"wonV":0,"lostN":2,"lostV":4663,"wonOwner":{},"ig":{"v":2455.0,"p":9.0,"e":72.0,"f":0},"fb":{"v":2367.0,"p":11.0,"e":256.0,"f":1118.0},"tt":{"v":20.0,"p":5.0,"e":16.0,"f":0},"li":{"v":66.0,"p":1.0,"e":3.0,"f":187.0},"web":{"pv":0,"vis":0}},"2025-10":{"rev":374.4,"exp":1072.5,"net":-695.57,"revcat":{"Marketing":374.4},"revoff":{"Business Planning":374.4},"expcat":{"Fees":27.73,"Client Costs":67.2,"Content & Marketing":500.0,"Owner Pay":100.0,"Software":377.57},"wonN":1,"wonV":1248,"lostN":5,"lostV":2246,"wonOwner":{"Daunte":1248.0},"ig":{"v":2678.0,"p":14.0,"e":99.0,"f":46.0},"fb":{"v":1791.0,"p":14.0,"e":127.0,"f":1120.0},"tt":{"v":498.0,"p":5.0,"e":11.0,"f":12.0},"li":{"v":19.0,"p":1.0,"e":0.0,"f":188.0},"web":{"pv":0,"vis":0}},"2025-11":{"rev":299.5,"exp":753.7,"net":-450.9,"revcat":{"Marketing":299.5},"revoff":{"Marketing & Social":299.5},"expcat":{"Fees":37.9,"Other":43.61,"Client Costs":36.05,"Content & Marketing":150.0,"Software":486.14},"wonN":0,"wonV":0,"lostN":2,"lostV":4162,"wonOwner":{},"ig":{"v":4699.0,"p":51.0,"e":140.0,"f":54.0},"fb":{"v":2572.0,"p":46.0,"e":187.0,"f":1125.0},"tt":{"v":2832.0,"p":23.0,"e":41.0,"f":18.0},"li":{"v":48.0,"p":2.0,"e":2.0,"f":188.0},"web":{"pv":5.0,"vis":5.0}},"2025-12":{"rev":2049.5,"exp":1742.01,"net":310.77,"revcat":{"Marketing":2049.5},"revoff":{"Website & Digital":1000.0,"Marketing & Social":1049.5},"expcat":{"Fees":46.5,"Other":29.41,"Client Costs":55.16,"Content & Marketing":660.0,"Rodney Rev-Share":405.0,"Software":545.94},"wonN":4,"wonV":7414,"lostN":3,"lostV":4346,"wonOwner":{"Eli":3500.0,"Kenny":3914.0},"ig":{"v":9721.0,"p":69.0,"e":358.0,"f":79.0},"fb":{"v":2835.0,"p":70.0,"e":192.0,"f":1140.0},"tt":{"v":3373.0,"p":24.0,"e":46.0,"f":24.0},"li":{"v":492.0,"p":23.0,"e":89.0,"f":191.0},"web":{"pv":148.0,"vis":135.0}},"2026-01":{"rev":2540.0,"exp":1112.04,"net":1431.35,"revcat":{"Consulting":500.0,"Marketing":293.61,"Technology":1892.18,"Other":40.0},"revoff":{"Consulting & Other":540.0,"Local SEO / GMB":326.24,"Website & Digital":1565.94,"Brand & Design":293.61},"expcat":{"Fees":19.62,"Other":79.42,"Client Costs":54.62,"Rodney Rev-Share":142.0,"Content & Marketing":247.24,"Software":569.14},"wonN":1,"wonV":3350,"lostN":1,"lostV":2823,"wonOwner":{"Daunte":3350.0},"ig":{"v":4846.0,"p":28.0,"e":160.0,"f":104.0},"fb":{"v":1284.0,"p":23.0,"e":94.0,"f":1146.0},"tt":{"v":938.0,"p":6.0,"e":43.0,"f":27.0},"li":{"v":284.0,"p":6.0,"e":9.0,"f":193.0},"web":{"pv":203.0,"vis":168.0}},"2026-02":{"rev":2459.2,"exp":2124.93,"net":337.67,"revcat":{"Consulting":1000.0,"Marketing":1459.2},"revoff":{"Consulting & Other":1000.0,"Business Planning":1459.2},"expcat":{"Fees":124.86,"Other":345.89,"Client Costs":54.85,"Content & Marketing":821.0,"Rodney Rev-Share":122.96,"Software":655.37},"wonN":4,"wonV":4700,"lostN":6,"lostV":8835,"wonOwner":{"Daunte":1000.0,"Eli":3700.0},"ig":{"v":565.0,"p":14.0,"e":0.0,"f":107.0},"fb":{"v":376.0,"p":10.0,"e":0.0,"f":1147.0},"tt":{"v":112.0,"p":0.0,"e":0.0,"f":30.0},"li":{"v":55.0,"p":0.0,"e":0.0,"f":194.0},"web":{"pv":127.0,"vis":91.0}},"2026-03":{"rev":2280.0,"exp":2615.7,"net":-331.25,"revcat":{"Marketing":2280.0},"revoff":{"Business Planning":1280.0,"Brand & Design":1000.0},"expcat":{"Fees":58.52,"Client Costs":54.85,"Content & Marketing":590.5,"Rodney Rev-Share":114.0,"Software":1797.83},"wonN":1,"wonV":1000,"lostN":2,"lostV":2757.15,"wonOwner":{"Eli":1000.0},"ig":{"v":2977.0,"p":23.0,"e":111.0,"f":111.0},"fb":{"v":1951.0,"p":18.0,"e":384.0,"f":1144.0},"tt":{"v":354.0,"p":3.0,"e":5.0,"f":30.0},"li":{"v":233.0,"p":3.0,"e":73.0,"f":193.0},"web":{"pv":83.0,"vis":69.0}},"2026-04":{"rev":2623.75,"exp":1767.01,"net":861.8,"revcat":{"Consulting":449.25,"Marketing":2174.5},"revoff":{"Business Planning":449.25,"Systems & CRM":1350.0,"Website & Digital":824.5},"expcat":{"Fees":112.81,"Other":386.09,"Client Costs":54.85,"Content & Marketing":346.71,"Rodney Rev-Share":131.19,"Software":735.36},"wonN":4,"wonV":7098.25,"lostN":4,"lostV":9395,"wonOwner":{"Eli":6149.0,"Daunte":500.0,"Kenny":449.25},"ig":{"v":11718.0,"p":80.0,"e":371.0,"f":145.0},"fb":{"v":4377.0,"p":65.0,"e":288.0,"f":1150.0},"tt":{"v":26846.0,"p":21.0,"e":3028.0,"f":73.0},"li":{"v":631.0,"p":13.0,"e":125.0,"f":196.0},"web":{"pv":185.0,"vis":94.0}},"2026-05":{"rev":2300.0,"exp":1605.91,"net":699.74,"revcat":{"Consulting":500.0,"Marketing":1800.0},"revoff":{"Consulting & Other":500.0,"Systems & CRM":1800.0},"expcat":{"Fees":112.16,"Client Costs":21.0,"Content & Marketing":550.0,"Contract Labor":375.0,"Owner Pay":300.0,"Rodney Rev-Share":115.0,"Software":132.75},"wonN":0,"wonV":0,"lostN":6,"lostV":16799,"wonOwner":{},"ig":{"v":9401.0,"p":54.0,"e":241.0,"f":180.0},"fb":{"v":2150.0,"p":48.0,"e":67.0,"f":1154.0},"tt":{"v":5902.0,"p":17.0,"e":60.0,"f":86.0},"li":{"v":811.0,"p":25.0,"e":91.0,"f":200.0},"web":{"pv":238.0,"vis":117.0}},"2026-06":{"rev":960.0,"exp":1349.12,"net":-381.73,"revcat":{"Marketing":960.0},"revoff":{"Business Planning":960.0},"expcat":{"Fees":50.64,"Client Costs":25.31,"Contract Labor":-50.0,"Rodney Rev-Share":48.0,"Software":1275.17},"wonN":0,"wonV":0,"lostN":2,"lostV":2000,"wonOwner":{},"ig":{"v":1438.0,"p":8.0,"e":0.0,"f":184.0},"fb":{"v":569.0,"p":11.0,"e":6.0,"f":1157.0},"tt":{"v":538.0,"p":0.0,"e":0.0,"f":86.0},"li":{"v":208.0,"p":0.0,"e":0.0,"f":202.0},"web":{"pv":509.0,"vis":153.0}},"2026-07":{"rev":1889.75,"exp":1227.91,"net":669.42,"revcat":{"Marketing":980.89,"Technology":1007.82},"revoff":{"Local SEO / GMB":173.76,"Website & Digital":1658.56,"Brand & Design":156.39},"expcat":{"Fees":44.3,"Other":55.15,"Client Costs":25.52,"Owner Pay":600.0,"Software":502.94},"wonN":0,"wonV":0,"lostN":4,"lostV":6898,"wonOwner":{},"ig":{"v":1554.0,"p":3.0,"e":0.0,"f":188},"fb":{"v":253.0,"p":5.0,"e":32.0,"f":1161},"tt":{"v":88.0,"p":0.0,"e":0.0,"f":85},"li":{"v":26.0,"p":0.0,"e":0.0,"f":202},"web":{"pv":131.0,"vis":78.0}}}};
+const DATA = {"generated":"2026-07-24","months":["2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"],"data":{"2025-03":{"rev":0.0,"exp":610.22,"net":-610.22,"revcat":{},"revoff":{},"expcat":{"Fees":0.24,"Software":609.98},"wonN":0,"wonV":0,"lostN":0,"lostV":0,"wonOwner":{},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-04":{"rev":305.0,"exp":1556.48,"net":-1251.48,"revcat":{"Consulting":305.0},"revoff":{"Business Planning":305.0},"expcat":{"Other":256.75,"Content & Marketing":500.0,"Fees":-7.76,"Software":807.49},"wonN":0,"wonV":0,"lostN":0,"lostV":0,"wonOwner":{},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-05":{"rev":1549.0,"exp":1056.76,"net":493.12,"revcat":{"Consulting":299.0,"Marketing":170.84,"Technology":1079.16},"revoff":{"Business Planning":299.0,"Systems & CRM":516.67,"Website & Digital":562.49,"Local SEO / GMB":83.34,"Marketing & Social":87.5},"expcat":{"Fees":51.57,"Other":63.85,"Software":941.34},"wonN":0,"wonV":0,"lostN":0,"lostV":0,"wonOwner":{},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-06":{"rev":4596.9,"exp":1729.29,"net":2870.71,"revcat":{"Consulting":377.71,"Marketing":370.84,"Technology":4776.92,"Other":0.0},"revoff":{"Business Planning":251.95,"Consulting & Other":1125.76,"Finance / QuickBooks":935.07,"Website & Digital":1112.49,"Systems & CRM":2929.36,"Local SEO / GMB":83.34,"Marketing & Social":87.5},"expcat":{"Fees":156.73,"Other":460.86,"Client Costs":160.0,"Owner Pay":600.0,"Software":351.7},"wonN":2,"wonV":3015.5,"lostN":0,"lostV":0,"wonOwner":{"Eli":3015.5},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-07":{"rev":1250.0,"exp":1395.97,"net":-142.81,"revcat":{"Marketing":170.84,"Technology":1079.16},"revoff":{"Systems & CRM":516.67,"Website & Digital":562.49,"Local SEO / GMB":83.34,"Marketing & Social":87.5},"expcat":{"Fees":57.24,"Client Costs":35.4,"Content & Marketing":180.0,"Owner Pay":999.0,"Software":243.72,"Other":-119.39},"wonN":1,"wonV":3750,"lostN":0,"lostV":0,"wonOwner":{"Daunte":3750.0},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-08":{"rev":1801.6,"exp":1309.35,"net":494.85,"revcat":{"Consulting":520.29,"Marketing":424.15,"Technology":1100.24},"revoff":{"Business Planning":347.05,"Consulting & Other":173.24,"Finance / QuickBooks":462.93,"Systems & CRM":637.31,"Marketing & Social":424.15},"expcat":{"Fees":70.54,"Client Costs":335.2,"Content & Marketing":575.0,"Software":328.61},"wonN":2,"wonV":1597,"lostN":2,"lostV":1149,"wonOwner":{"Kenny":1597.0},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-09":{"rev":2598.3,"exp":1842.16,"net":758.75,"revcat":{"Consulting":500.0,"Marketing":974.15,"Technology":750.0,"Other":424.15},"revoff":{"Consulting & Other":300.0,"Website & Digital":1750.0,"Marketing & Social":1223.3,"Systems & CRM":375.0},"expcat":{"Fees":54.92,"Client Costs":217.32,"Content & Marketing":500.0,"Software":1069.92},"wonN":0,"wonV":0,"lostN":2,"lostV":4663,"wonOwner":{},"ig":{"v":2455.0,"p":9.0,"e":72.0,"f":0},"fb":{"v":2367.0,"p":11.0,"e":256.0,"f":1118.0},"tt":{"v":20.0,"p":5.0,"e":16.0,"f":0},"li":{"v":66.0,"p":1.0,"e":3.0,"f":187.0},"web":{"pv":0,"vis":0},"reels":{"n":5,"v":770,"r":502,"s":0,"sh":3,"wt":6.5}},"2025-10":{"rev":374.4,"exp":1072.5,"net":-695.57,"revcat":{"Marketing":374.4},"revoff":{"Business Planning":374.4},"expcat":{"Fees":27.73,"Client Costs":67.2,"Content & Marketing":500.0,"Owner Pay":100.0,"Software":377.57},"wonN":1,"wonV":1248,"lostN":5,"lostV":2246,"wonOwner":{"Daunte":1248.0},"ig":{"v":2678.0,"p":14.0,"e":99.0,"f":46.0},"fb":{"v":1791.0,"p":14.0,"e":127.0,"f":1120.0},"tt":{"v":498.0,"p":5.0,"e":11.0,"f":12.0},"li":{"v":19.0,"p":1.0,"e":0.0,"f":188.0},"web":{"pv":0,"vis":0},"reels":{"n":4,"v":1701,"r":1184,"s":0,"sh":8,"wt":5.8}},"2025-11":{"rev":299.5,"exp":753.7,"net":-450.9,"revcat":{"Marketing":299.5},"revoff":{"Marketing & Social":299.5},"expcat":{"Fees":37.9,"Other":43.61,"Client Costs":36.05,"Content & Marketing":150.0,"Software":486.14},"wonN":0,"wonV":0,"lostN":2,"lostV":4162,"wonOwner":{},"ig":{"v":4699.0,"p":51.0,"e":140.0,"f":54.0},"fb":{"v":2572.0,"p":46.0,"e":187.0,"f":1125.0},"tt":{"v":2832.0,"p":23.0,"e":41.0,"f":18.0},"li":{"v":48.0,"p":2.0,"e":2.0,"f":188.0},"web":{"pv":5.0,"vis":5.0},"reels":{"n":17,"v":3424,"r":2729,"s":1,"sh":12,"wt":5.4}},"2025-12":{"rev":2049.5,"exp":1742.01,"net":310.77,"revcat":{"Marketing":2049.5},"revoff":{"Website & Digital":1000.0,"Marketing & Social":1049.5},"expcat":{"Fees":46.5,"Other":29.41,"Client Costs":55.16,"Content & Marketing":660.0,"Rodney Rev-Share":405.0,"Software":545.94},"wonN":4,"wonV":7414,"lostN":3,"lostV":4346,"wonOwner":{"Eli":3500.0,"Kenny":3914.0},"ig":{"v":9721.0,"p":69.0,"e":358.0,"f":79.0},"fb":{"v":2835.0,"p":70.0,"e":192.0,"f":1140.0},"tt":{"v":3373.0,"p":24.0,"e":46.0,"f":24.0},"li":{"v":492.0,"p":23.0,"e":89.0,"f":191.0},"web":{"pv":148.0,"vis":135.0},"reels":{"n":18,"v":7575,"r":5454,"s":6,"sh":27,"wt":6.0}},"2026-01":{"rev":2540.0,"exp":1112.04,"net":1431.35,"revcat":{"Consulting":500.0,"Marketing":293.61,"Technology":1892.18,"Other":40.0},"revoff":{"Consulting & Other":540.0,"Local SEO / GMB":326.24,"Website & Digital":1565.94,"Brand & Design":293.61},"expcat":{"Fees":19.62,"Other":79.42,"Client Costs":54.62,"Rodney Rev-Share":142.0,"Content & Marketing":247.24,"Software":569.14},"wonN":1,"wonV":3350,"lostN":1,"lostV":2823,"wonOwner":{"Daunte":3350.0},"ig":{"v":4846.0,"p":28.0,"e":160.0,"f":104.0},"fb":{"v":1284.0,"p":23.0,"e":94.0,"f":1146.0},"tt":{"v":938.0,"p":6.0,"e":43.0,"f":27.0},"li":{"v":284.0,"p":6.0,"e":9.0,"f":193.0},"web":{"pv":203.0,"vis":168.0},"reels":{"n":6,"v":3853,"r":2373,"s":6,"sh":14,"wt":6.5}},"2026-02":{"rev":2459.2,"exp":2124.93,"net":337.67,"revcat":{"Consulting":1000.0,"Marketing":1459.2},"revoff":{"Consulting & Other":1000.0,"Business Planning":1459.2},"expcat":{"Fees":124.86,"Other":345.89,"Client Costs":54.85,"Content & Marketing":821.0,"Rodney Rev-Share":122.96,"Software":655.37},"wonN":4,"wonV":4700,"lostN":6,"lostV":8835,"wonOwner":{"Daunte":1000.0,"Eli":3700.0},"ig":{"v":565.0,"p":14.0,"e":0.0,"f":107.0},"fb":{"v":376.0,"p":10.0,"e":0.0,"f":1147.0},"tt":{"v":112.0,"p":0.0,"e":0.0,"f":30.0},"li":{"v":55.0,"p":0.0,"e":0.0,"f":194.0},"web":{"pv":127.0,"vis":91.0},"reels":{}},"2026-03":{"rev":2280.0,"exp":2615.7,"net":-331.25,"revcat":{"Marketing":2280.0},"revoff":{"Business Planning":1280.0,"Brand & Design":1000.0},"expcat":{"Fees":58.52,"Client Costs":54.85,"Content & Marketing":590.5,"Rodney Rev-Share":114.0,"Software":1797.83},"wonN":1,"wonV":1000,"lostN":2,"lostV":2757.15,"wonOwner":{"Eli":1000.0},"ig":{"v":2977.0,"p":23.0,"e":111.0,"f":111.0},"fb":{"v":1951.0,"p":18.0,"e":384.0,"f":1144.0},"tt":{"v":354.0,"p":3.0,"e":5.0,"f":30.0},"li":{"v":233.0,"p":3.0,"e":73.0,"f":193.0},"web":{"pv":83.0,"vis":69.0},"reels":{"n":1,"v":445,"r":340,"s":0,"sh":1,"wt":6.3}},"2026-04":{"rev":2623.75,"exp":1767.01,"net":861.8,"revcat":{"Consulting":449.25,"Marketing":2174.5},"revoff":{"Business Planning":449.25,"Systems & CRM":1350.0,"Website & Digital":824.5},"expcat":{"Fees":112.81,"Other":386.09,"Client Costs":54.85,"Content & Marketing":346.71,"Rodney Rev-Share":131.19,"Software":735.36},"wonN":4,"wonV":7098.25,"lostN":4,"lostV":9395,"wonOwner":{"Eli":6149.0,"Daunte":500.0,"Kenny":449.25},"ig":{"v":11718.0,"p":80.0,"e":371.0,"f":145.0},"fb":{"v":4377.0,"p":65.0,"e":288.0,"f":1150.0},"tt":{"v":26846.0,"p":21.0,"e":3028.0,"f":73.0},"li":{"v":631.0,"p":13.0,"e":125.0,"f":196.0},"web":{"pv":185.0,"vis":94.0},"reels":{"n":18,"v":7613,"r":5294,"s":10,"sh":19,"wt":6.1}},"2026-05":{"rev":2300.0,"exp":1605.91,"net":699.74,"revcat":{"Consulting":500.0,"Marketing":1800.0},"revoff":{"Consulting & Other":500.0,"Systems & CRM":1800.0},"expcat":{"Fees":112.16,"Client Costs":21.0,"Content & Marketing":550.0,"Contract Labor":375.0,"Owner Pay":300.0,"Rodney Rev-Share":115.0,"Software":132.75},"wonN":0,"wonV":0,"lostN":6,"lostV":16799,"wonOwner":{},"ig":{"v":9401.0,"p":54.0,"e":241.0,"f":180.0},"fb":{"v":2150.0,"p":48.0,"e":67.0,"f":1154.0},"tt":{"v":5902.0,"p":17.0,"e":60.0,"f":86.0},"li":{"v":811.0,"p":25.0,"e":91.0,"f":200.0},"web":{"pv":238.0,"vis":117.0},"reels":{"n":15,"v":4453,"r":2896,"s":2,"sh":15,"wt":7.0}},"2026-06":{"rev":960.0,"exp":1349.12,"net":-381.73,"revcat":{"Marketing":960.0},"revoff":{"Business Planning":960.0},"expcat":{"Fees":50.64,"Client Costs":25.31,"Contract Labor":-50.0,"Rodney Rev-Share":48.0,"Software":1275.17},"wonN":0,"wonV":0,"lostN":2,"lostV":2000,"wonOwner":{},"ig":{"v":1438.0,"p":8.0,"e":0.0,"f":184.0},"fb":{"v":569.0,"p":11.0,"e":6.0,"f":1157.0},"tt":{"v":538.0,"p":0.0,"e":0.0,"f":86.0},"li":{"v":208.0,"p":0.0,"e":0.0,"f":202.0},"web":{"pv":509.0,"vis":153.0},"reels":{}},"2026-07":{"rev":1889.75,"exp":1227.91,"net":669.42,"revcat":{"Marketing":980.89,"Technology":1007.82},"revoff":{"Local SEO / GMB":173.76,"Website & Digital":1658.56,"Brand & Design":156.39},"expcat":{"Fees":44.3,"Other":55.15,"Client Costs":25.52,"Owner Pay":600.0,"Software":502.94},"wonN":0,"wonV":0,"lostN":4,"lostV":6898,"wonOwner":{},"ig":{"v":1554.0,"p":3.0,"e":0.0,"f":188},"fb":{"v":253.0,"p":5.0,"e":32.0,"f":1161},"tt":{"v":88.0,"p":0.0,"e":0.0,"f":85},"li":{"v":26.0,"p":0.0,"e":0.0,"f":202},"web":{"pv":131.0,"vis":78.0},"reels":{}}},"deals":[{"ym":"2025-06","n":"Remember Wynn Foundations","a":2337.5,"o":"Eli","w":1},{"ym":"2025-06","n":"SEEDFOLKids Foundations","a":678,"o":"Eli","w":1},{"ym":"2025-07","n":"Tier 1 Foundations","a":3750,"o":"Daunte","w":1},{"ym":"2025-08","n":"Mable Blueprinting","a":599,"o":"Kenny","w":1},{"ym":"2025-08","n":"Stack All Profits","a":998,"o":"Kenny","w":1},{"ym":"2025-10","n":"Wedelia Wellness","a":1248,"o":"Daunte","w":1},{"ym":"2025-12","n":"Roberts Brothers - Mktg & Legal","a":2000,"o":"Eli","w":1},{"ym":"2025-12","n":"Xtremely Clean - Automation/CRM","a":3315,"o":"Kenny","w":1},{"ym":"2025-12","n":"Fawwwkk","a":599,"o":"Kenny","w":1},{"ym":"2025-12","n":"Legacy Roofing","a":1500,"o":"Eli","w":1},{"ym":"2026-02","n":"Xtremely Clean - Hourly","a":500,"o":"Daunte","w":1},{"ym":"2026-02","n":"Xtremely Clean - 10hrs","a":500,"o":"Daunte","w":1},{"ym":"2026-02","n":"MAA - 10hrs","a":500,"o":"Eli","w":1},{"ym":"2026-02","n":"SEEDFOLKids - Strategic Planning","a":3200,"o":"Eli","w":1},{"ym":"2026-03","n":"SEEDFOLKids - Brand Guideline","a":1000,"o":"Eli","w":1},{"ym":"2026-04","n":"Lois Marketing - Operator System","a":4500,"o":"Eli","w":1},{"ym":"2026-04","n":"Xtremely Clean - Proposal Dev","a":500,"o":"Daunte","w":1},{"ym":"2026-04","n":"HALO Commons - Launch Pad","a":1649,"o":"Eli","w":1},{"ym":"2026-04","n":"De Dior Studios - BP","a":449.25,"o":"Kenny","w":1},{"ym":"2026-01","n":"Financial Acuity - Growth Package","a":3350,"o":"Daunte","w":1},{"ym":"2025-08","n":"MGP Business Plan","a":599,"o":"","w":0},{"ym":"2025-08","n":"Invitation to a Wedding","a":550,"o":"","w":0},{"ym":"2025-09","n":"Heart & Soul","a":3463,"o":"","w":0},{"ym":"2025-09","n":"For The Girls Tampa","a":1200,"o":"","w":0},{"ym":"2025-10","n":"Squeaky Whips","a":1247,"o":"","w":0},{"ym":"2025-10","n":"Mattie Mae's Fixings","a":200,"o":"","w":0},{"ym":"2025-10","n":"E&M Beautiful Me","a":599,"o":"","w":0},{"ym":"2025-10","n":"Courtesy Office Cleaning","a":0,"o":"","w":0},{"ym":"2025-10","n":"Stack all Profits - Consult","a":200,"o":"","w":0},{"ym":"2025-11","n":"RIVR","a":3563,"o":"","w":0},{"ym":"2025-11","n":"The About Group","a":599,"o":"","w":0},{"ym":"2025-12","n":"Revive Realty","a":1747,"o":"","w":0},{"ym":"2025-12","n":"African Learning Temple","a":2000,"o":"","w":0},{"ym":"2025-12","n":"Troops in Treatment","a":599,"o":"","w":0},{"ym":"2026-01","n":"G. Roberts Logistics","a":2823,"o":"","w":0},{"ym":"2026-02","n":"Stack All Profit - Web/QB","a":1398,"o":"","w":0},{"ym":"2026-02","n":"Prime Pulse Logistics","a":1000,"o":"","w":0},{"ym":"2026-02","n":"Carlo Thompson - RE CRM","a":3440,"o":"","w":0},{"ym":"2026-02","n":"VoltAir Consulting","a":0,"o":"","w":0},{"ym":"2026-02","n":"B5 ReAffirm","a":1000,"o":"","w":0},{"ym":"2026-02","n":"For the Girls - Start","a":1997,"o":"","w":0},{"ym":"2026-03","n":"Sterling Diversified","a":509.15,"o":"","w":0},{"ym":"2026-03","n":"Richard's Funeral Home","a":2248,"o":"","w":0},{"ym":"2026-04","n":"Clinical Research Specialist","a":3599,"o":"","w":0},{"ym":"2026-04","n":"Noisey Creative","a":0,"o":"","w":0},{"ym":"2026-04","n":"Twanda Bradley - Campaign","a":5197,"o":"","w":0},{"ym":"2026-04","n":"Cleaning Top To Bottom","a":599,"o":"","w":0},{"ym":"2026-05","n":"Replace It Auto Glass","a":4500,"o":"","w":0},{"ym":"2026-05","n":"StudentCrowd - Focus Group","a":3000,"o":"","w":0},{"ym":"2026-05","n":"Zing Juice Bar","a":2000,"o":"","w":0},{"ym":"2026-05","n":"Rare Hues Collective","a":4500,"o":"","w":0},{"ym":"2026-05","n":"Love Your Beauty","a":1799,"o":"","w":0},{"ym":"2026-05","n":"Cape to the Bay","a":1000,"o":"","w":0},{"ym":"2026-06","n":"Curbology","a":0,"o":"","w":0},{"ym":"2026-06","n":"Hyacinthe Property Mgmt","a":2000,"o":"","w":0},{"ym":"2026-07","n":"TwentyTen Motors","a":599,"o":"","w":0},{"ym":"2026-07","n":"Merge Pro","a":4500,"o":"","w":0},{"ym":"2026-07","n":"RW Events","a":1799,"o":"","w":0},{"ym":"2026-07","n":"Spring Circle","a":0,"o":"","w":0}],"pipeline":[{"n":"Flava Meets Fusion","a":4497,"stage":"Proposal","o":"Kenny"},{"n":"HALO Retainer","a":3000,"stage":"Proposal","o":"Eli"},{"n":"Sipsies Lemonade - Custom","a":2500,"stage":"Proposal","o":"Eli"},{"n":"Legacy B. Studio - Website","a":1500,"stage":"Qualified","o":"Eli"},{"n":"All State (Felicia Russell)","a":0,"stage":"Qualified","o":"Kenny"},{"n":"Aurelia Tech","a":0,"stage":"Lead","o":"Kenny"}]};
 const D = DATA.data, MONTHS = DATA.months;
 const MN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const QS = {Q1:['01','02','03'],Q2:['04','05','06'],Q3:['07','08','09'],Q4:['10','11','12']};
@@ -403,6 +461,55 @@ function render(){
   $('ch-foll').innerHTML=follCard(a,pa);
   // web
   $('ch-web').innerHTML=areaLine(yearMonths, m=>g(m).web.pv, {fmt:num});
+  // deal lists
+  const won=DATA.deals.filter(x=>months.includes(x.ym)&&x.w===1).sort((x,y)=>y.a-x.a);
+  const lost=DATA.deals.filter(x=>months.includes(x.ym)&&x.w===0).sort((x,y)=>y.a-x.a);
+  $('ct-won').innerHTML='Selected period &middot; '+won.length+' deals';
+  $('ct-lost').innerHTML='Selected period &middot; '+lost.length+' deals';
+  $('ch-wonlist').innerHTML=dealList(won,true);
+  $('ch-lostlist').innerHTML=dealList(lost,false);
+  $('ch-pipeline').innerHTML=pipelineTable();
+  // reels
+  const rl={n:0,v:0,r:0,s:0,sh:0,wt:[]};
+  months.forEach(m=>{ const r=g(m).reels; if(r&&r.n){ rl.n+=r.n; rl.v+=r.v; rl.r+=r.r; rl.s+=r.s; rl.sh+=r.sh; rl.wt.push(r.wt);} });
+  $('ch-reels').innerHTML=reelsCard(rl);
+  // narrative (quarter-keyed)
+  const qkey=['Q1','Q2','Q3','Q4'].includes(period)?(year+'-'+period):null;
+  const nar=qkey&&NARRATIVE[qkey]?NARRATIVE[qkey]:null;
+  $('nar-fin').innerHTML=nar&&nar.fin?note('Financial flags','red',nar.fin):'';
+  $('nar-sales').innerHTML=nar&&nar.sales?note('Sales insights','',nar.sales):'';
+  $('nar-mkt').innerHTML=nar&&nar.mkt?note('Content insight','red',nar.mkt):'';
+  $('nar-web').innerHTML=nar&&nar.web?note('Website insight','gold',nar.web):'';
+  $('review-body').innerHTML=nar&&nar.review?nar.review:'<div class="note"><div class="nt">No compiled review for this period</div><div class="nb">The Quarterly Review write-up (OKR scorecard, delivery status, action plan) is authored per quarter. Pick a reviewed quarter (<b>Q2 2026</b>) to read it; the other four tabs work for any period.</div></div>';
+  $('s-review').innerHTML=nar?(qkey.replace('-',' ')+' &middot; the story behind the numbers'):'select a reviewed quarter';
+}
+function note(t,cls,body){ return '<div class="note '+(cls||'')+' mt12"><div class="nt">'+t+'</div><div class="nb">'+body+'</div></div>'; }
+function dealList(rows,won){
+  if(!rows.length) return '<div class="empty">No deals in this period</div>';
+  const tot=rows.reduce((s,r)=>s+r.a,0);
+  let s='<table class="dl tnum"><thead><tr><th>Deal</th>'+(won?'<th>Owner</th>':'')+'<th class="r">Value</th></tr></thead><tbody>';
+  rows.forEach(r=>{ s+='<tr><td>'+esc(r.n)+'</td>'+(won?'<td>'+(r.o||'&mdash;')+'</td>':'')+'<td class="r">'+(r.a?usdFull(r.a):'&mdash;')+'</td></tr>'; });
+  s+='<tr class="tot"><td>Total</td>'+(won?'<td></td>':'')+'<td class="r">'+usdFull(tot)+'</td></tr></tbody></table>';
+  return s;
+}
+function pipelineTable(){
+  const P=DATA.pipeline||[]; const tot=P.reduce((s,r)=>s+r.a,0);
+  const cls=st=>st==='Proposal'?'prop':'qual';
+  let s='<table class="dl tnum"><thead><tr><th>Deal</th><th>Owner</th><th>Stage</th><th class="r">Value</th></tr></thead><tbody>';
+  P.forEach(r=>{ s+='<tr><td>'+esc(r.n)+'</td><td>'+r.o+'</td><td><span class="pill2 '+cls(r.stage)+'">'+r.stage+'</span></td><td class="r">'+(r.a?usdFull(r.a):'TBD')+'</td></tr>'; });
+  s+='<tr class="tot"><td>Total valued</td><td></td><td></td><td class="r">'+usdFull(tot)+'</td></tr></tbody></table>';
+  return s;
+}
+function reelsCard(rl){
+  if(!rl.n) return '<div class="empty">No Instagram Reels published in this period</div>';
+  const wt=rl.wt.length?(rl.wt.reduce((a,b)=>a+b,0)/rl.wt.length):0;
+  return '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:4px">'
+   +mini('Reels', rl.n+'', 'published', 'info')
+   +mini('Reel views', num(rl.v), 'organic', 'info')
+   +mini('Avg watch', wt.toFixed(1)+'s', 'per reel', wt>=6?'good':'warn')
+   +mini('Saves', rl.s+'', 'bookmark signal', 'info')
+   +mini('Shares', rl.sh+'', 'reach driver', 'info')
+   +'</div>';
 }
 function tile(lbl,val,meta,acc,sp){
   return '<div class="tile '+(acc||'')+'">'+(sp||'')+'<div class="lbl">'+lbl+'</div><div class="val'+(val.length>7?' sm':'')+' tnum">'+val+'</div><div class="meta">'+meta+'</div></div>';
@@ -471,6 +578,36 @@ function buildControls(){
 function setSeg(){
   $('periodSeg').querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.dataset.p===state.period));
 }
+// ---------- quarter narrative (authored per reviewed quarter) ----------
+const NARRATIVE={
+ '2026-Q2':{
+  fin:'<b>Second straight quarter with the same shape:</b> revenue fell every month and the quarter ended on a loss month (Jun -$382 on $960 revenue); Q1 did the same in March. But expenses fell every month (Q1 they rose), and June is inflated by the MacBook ($644, half reimbursed). <b>Software is the lever</b> at 45% of expenses. <b>~$2,340 of earned revenue is uncollected</b> behind two internal blockers (HALO plan, Lois AI scope). Gamma still bills $10/mo despite the April cut; $444 Unapplied Cash needs matching.',
+  sales:'<b>We lost 4x what we closed net-new</b> &mdash; 12 deals worth ~$28.2K lost vs $7.1K won. Reason tally: Budget 4, Timing 4, Stopped Communicating 4, Not a Fit 3, Disqualified 2. The four Budget losses sit at package price points ($1,799&ndash;$4,500), which points at offer legibility, not price. Four "stopped communicating" losses are a follow-up problem the broken HubSpot sequence tracking makes worse. Kenny logged his first attributed close (De Dior). Financial Acuity resolved to Q1.',
+  mkt:'<b>The content engine stopped after May 30.</b> Posts went 179 (Apr) &rarr; 144 (May) &rarr; 19 (Jun), and TikTok + LinkedIn published nothing in June &mdash; the same month revenue hit $960. But the breakout is real: <b>one Apr 25 TikTok ("Rule of Thirds") drove 86% of Q2 TikTok views</b> (28,631 views, 596 shares). The repeatable shape is the short, shareable founder-emotion quote with zero pitch. Protect the cadence (the Marketing SOP shipped Jul 7 is the fix).',
+  web:'<b>The website moved opposite to social</b> &mdash; page views grew every month and peaked in June (509) while posting was silent, with 345 views in three days around Jun 11&ndash;13. Something other than social is driving discovery; find and repeat it.',
+  review:'<div class="rev-grid"><div class="card"><div class="card-t">Q2 OKR scorecard</div><div class="card-s">Objectives set at the Q1 review &middot; 2 hits, 1 partial, 10 misses</div>'
+   +'<div class="okr-row"><span><b>Close $15K in Q2</b> (Kenny+Eli)</span><span class="chip bad"><span class="cd"></span>Miss</span></div>'
+   +'<div class="okr-row"><span><b>Nail Operator delivery</b> (Eli) &mdash; Lois at ~14 wks vs 8</span><span class="chip bad"><span class="cd"></span>Miss</span></div>'
+   +'<div class="okr-row"><span><b>Build lead-gen engine</b> &mdash; email sequence launched; resource page + HubSpot automation didn\'t</span><span class="chip warn"><span class="cd"></span>Partial</span></div>'
+   +'<div class="okr-row"><span><b>Standardize ops</b> &mdash; 4 deck skills shipped; QB recat, Clockify, sprint targets missed</span><span class="chip warn"><span class="cd"></span>Mostly miss</span></div>'
+   +'<div class="cap mt12">The pattern is Close-the-Loop: infrastructure ships, revenue-side commitments don\'t finish. Q3: fewer OKRs, all revenue-gated.</div></div>'
+   +'<div class="card"><div class="card-t">Client delivery</div><div class="card-s">Status as of the review</div>'
+   +'<table class="dl tnum" style="margin-top:4px"><tbody>'
+   +'<tr><td>Financial Acuity</td><td class="r"><span class="pill2 won">Paid + closed</span></td></tr>'
+   +'<tr><td>SEEDFOLKids</td><td class="r"><span class="pill2 won">Closed</span></td></tr>'
+   +'<tr><td>HALO Commons</td><td class="r"><span class="pill2 qual">Blocked: Rodney plan &middot; ~$990</span></td></tr>'
+   +'<tr><td>Lois Marketing</td><td class="r"><span class="pill2 qual">Blocked: AI scope &middot; ~$1,350</span></td></tr>'
+   +'</tbody></table>'
+   +'<div class="cap mt12"><b>Comp:</b> Phase 2 active (savings crossed $3K Jun 29); $50/partner closed-deal bonus live. <b>Discount leakage $0</b> this quarter. Deep balance-sheet / runway / ratios live on the Financial Position tool.</div></div></div>'
+   +'<div class="note red mt12"><div class="nt">5 things to fix in Q3</div><div class="nb"><b>1.</b> Collect the $2,340 (Rodney finishes HALO plan; scope Lois AI). <b>2.</b> Prevent the next double-count &mdash; quarterly HubSpot deal snapshot into DA-004. <b>3.</b> Fix the follow-up leak (repair sequence tracking; weekly follow-up task). <b>4.</b> Close carried Q1 items or kill them (QB recat, Engagement Type backfill, resource page, Clockify). <b>5.</b> Small leaks: cancel Gamma, delete the "test" deal, match $444 Unapplied Cash, Rodney W-9.</div></div>'
+   +'<div class="note gold mt12"><div class="nt">Where we are &rarr; where we\'re going</div><div class="nb">Two straight quarters missing $15K (48%, then 39%), same monthly shape. But the quarter was profitable, expenses fell, cash improved ($7,687 on Jul 14), and Phase 2 comp unlocked. The constraint is revenue, not cost. Fastest money is the $2,340 already earned; pipeline is $11,497 with three proposals out (HALO Retainer is the first recurring-revenue test). Set 2 revenue-gated OKRs for Q3, scored monthly.</div></div>'
+ }
+};
+// ---------- tabs ----------
+document.querySelectorAll('#tabbar button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on', p.id==='tab-'+b.dataset.tab));
+  document.querySelectorAll('#tabbar button').forEach(x=>x.classList.toggle('on', x===b));
+});
 buildControls(); render();
 </script>
 
