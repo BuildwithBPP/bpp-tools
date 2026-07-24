@@ -7,12 +7,13 @@ description: Refresh the BPP Delivery Tracker (Health + Gantt + velocity). Pulls
 
 Regenerates the snapshot behind `pages/delivery-tracker.html` and the "Delivery at a Glance"
 module on `index.html`. Mirrors the `bpp-monday-prep` pattern: pull live Monday data with the
-MCP, transform offline, commit the JSON via the Cloudflare worker (no PR needed for data).
+MCP, transform offline, then commit the JSON (direct git commit; the worker path is optional).
 
-> **This SKILL.md ships inside the bpp-tools repo** (`scripts/delivery-tracker/`) so build.py and the
-> runbook stay together. To make it auto-fire from Claude Code, copy or symlink this folder into the
-> BPP workspace skills dir — see "Registering as a workspace skill" at the bottom. That copy is Eli's
-> call (BPP workspace writes need his consent).
+> **Team skill — lives in the BPP workspace** (`_claude/skills/bpp-delivery-tracker/`), so anyone with
+> the workspace can run it. The runnable **`build.py` lives in the `bpp-tools` repo** at
+> `scripts/delivery-tracker/build.py` (you have it via your `bpp-tools` clone — Daunte:
+> `C:/Users/dtben/Developer/bpp-tools`, Eli: `~/code/bpp-tools`). Same convention as `bpp-monday-prep`,
+> which also drives the `bpp-tools` clone. All paths below are relative to your `bpp-tools` clone.
 
 ## What it produces
 
@@ -118,19 +119,10 @@ capturing them over time:
   status-change history, not just the current state.
 - **% complete inside Gantt bars** — needs a numeric progress column on the board (don't fabricate it).
 
-## Registering as a workspace skill (Eli's action — needs consent)
-To make `/delivery-tracker` fire from any Claude Code session:
-```
-ln -s "$HOME/code/bpp-tools/scripts/delivery-tracker" \
-      "$HOME/AIOS/BPP Operations - BPP Workspace/_claude/skills/bpp-delivery-tracker"
-```
-(or copy the folder). Then add it to the BPP SKILL-DICTIONARY.md.
-
-## Piggyback in bpp-monday-prep (Eli's action — needs consent)
-`bpp-monday-prep` already pulls the BPP Internal board every Sunday. To keep the tracker fresh
-automatically, add a step to that skill after its Monday pulls:
-1. Also pull Client Delivery (`18406004595`) with the columns in Step 1 above.
-2. Run `scripts/delivery-tracker/build.py` against the two raw pulls.
-3. POST the result to `/save-tracker` (Step 3).
-The Internal-board pull it already does can be reused as the `--internal` input, so only the
-Client Delivery pull + build + POST are new.
+## Registration status (done)
+- **In the workspace:** this skill lives at `_claude/skills/bpp-delivery-tracker/` and is listed in
+  `_claude/skills/SKILL-DICTIONARY.md`, so any teammate with the workspace + a `bpp-tools` clone can
+  run it. Load the dictionary at session start so the trigger registers.
+- **Weekly auto-refresh:** wired into `bpp-monday-prep` **Step 11.7** — the Sunday 8pm run rebuilds
+  `data/delivery-tracker.json` and commits it alongside the other snapshots. No manual step needed
+  for the weekly refresh; use this skill on demand for an off-cycle update.
