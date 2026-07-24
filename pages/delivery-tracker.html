@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delivery Tracker - BPP Tools Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+/* ---- sub-tabs ---- */
+.dt-tabs{display:flex;gap:6px;margin-bottom:22px;}
+.dt-panel{display:none;animation:fadeUp .3s ease;}
+.dt-panel.active{display:block;}
+.dt-meta{font-size:11px;color:var(--muted);margin-bottom:16px;}
+.dt-note{font-size:11px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:6px;padding:9px 12px;margin-bottom:18px;line-height:1.5;}
+
+/* ---- gantt ---- */
+.gantt-wrap{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:0;overflow-x:auto;margin-bottom:24px;}
+.gantt-inner{min-width:820px;}
+.gantt-axis{position:relative;height:26px;margin-left:var(--labelw,220px);border-bottom:1px solid var(--border);}
+.gantt-tick{position:absolute;top:0;bottom:0;border-left:1px solid var(--border);}
+.gantt-tick span{position:absolute;top:6px;left:5px;font-size:9.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.gantt-client{border-bottom:1px solid var(--border);}
+.gantt-client:last-child{border-bottom:none;}
+.gantt-client-hd{display:flex;align-items:center;gap:8px;padding:9px 16px;background:var(--bg);font-family:var(--head);font-size:12px;font-weight:800;color:var(--navy);position:sticky;left:0;}
+.gantt-client-hd .gc-count{font-family:var(--sans);font-size:10px;font-weight:600;color:var(--muted);}
+.gantt-row{position:relative;height:30px;display:flex;align-items:center;}
+.gantt-row:hover{background:rgba(4,71,113,0.03);}
+.gantt-label{width:var(--labelw,220px);flex-shrink:0;font-size:11px;color:var(--text2);padding:0 10px 0 22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:sticky;left:0;background:inherit;z-index:2;}
+.gantt-track{position:relative;flex:1;height:100%;}
+.gantt-bar{position:absolute;top:7px;height:16px;border-radius:4px;display:flex;align-items:center;min-width:3px;box-shadow:0 1px 2px rgba(0,0,0,.08);}
+.gantt-bar .gb-owner{font-size:9px;font-weight:700;color:#fff;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;mix-blend-mode:normal;}
+.gantt-bar.st-done{opacity:.55;}
+.gantt-bar.st-notstarted{opacity:1;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.35) 0 4px,transparent 4px 8px);}
+.gantt-bar.st-review{outline:1.5px dashed var(--gold-dim);outline-offset:1px;}
+.gantt-overlay{position:absolute;left:var(--labelw,220px);right:0;top:0;bottom:0;pointer-events:none;z-index:3;}
+.gantt-today{position:absolute;top:0;bottom:0;width:2px;background:var(--red);}
+.gantt-today span{position:absolute;top:-1px;left:3px;font-size:8.5px;font-weight:700;color:var(--red);background:var(--card);padding:0 3px;}
+.phase-legend{display:flex;flex-wrap:wrap;gap:14px;margin:2px 2px 22px;font-size:11px;color:var(--text2);}
+.phase-legend .pl{display:flex;align-items:center;gap:6px;}
+.phase-legend .pl i{width:12px;height:12px;border-radius:3px;display:inline-block;}
+.phase-legend .sep{width:1px;background:var(--border);margin:0 4px;}
+
+/* ---- velocity ---- */
+.vel-top{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:24px;}
+@media(max-width:820px){.vel-top{grid-template-columns:1fr;}}
+.panel{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;}
+.panel-title{font-family:var(--head);font-size:13px;font-weight:800;color:var(--navy);margin-bottom:2px;}
+.panel-sub{font-size:11px;color:var(--muted);margin-bottom:16px;}
+.vel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
+.vel-card{border:1.5px solid var(--border);border-radius:9px;padding:13px 15px;border-top:3px solid var(--border);}
+.vel-card.eli{border-top-color:var(--gold);}
+.vel-card.daunte{border-top-color:var(--gold-dim);}
+.vel-card.kenny{border-top-color:var(--steel);}
+.vel-name{font-family:var(--head);font-size:13px;font-weight:800;color:var(--navy);margin-bottom:8px;}
+.vel-pts{font-size:22px;font-weight:800;font-family:var(--head);color:var(--navy);line-height:1;}
+.vel-pts small{font-size:11px;font-weight:600;color:var(--muted);}
+.progress-bar{height:6px;background:var(--bg);border-radius:4px;overflow:hidden;margin-top:9px;}
+.progress-fill{height:100%;border-radius:4px;background:var(--navy);}
+.vel-card.eli .progress-fill{background:var(--gold-dim);}
+.vel-card.kenny .progress-fill{background:var(--steel);}
+.vel-legend{display:flex;gap:16px;font-size:11px;color:var(--text2);margin-top:4px;}
+.vel-legend .vl{display:flex;align-items:center;gap:6px;}
+.vel-legend .vl i{width:12px;height:12px;border-radius:3px;display:inline-block;}
+.dt-empty{padding:30px;text-align:center;color:var(--muted);font-size:13px;}
+</style>
+</head>
+<body>
+<div id="hub-nav"></div>
+
+<main>
+  <div class="sec-header">
+    <div class="sec-eyebrow">Delivery &middot; Live from Monday.com</div>
+    <div class="sec-title">Delivery <span>Tracker</span></div>
+    <div class="sec-desc">Client delivery timeline and sprint velocity, pulled from the Client Delivery and BPP Internal boards. <span id="dt-generated" style="color:var(--muted);"></span></div>
+  </div>
+
+  <div class="dt-tabs">
+    <button class="btn btn-navy" id="tab-gantt" onclick="showPanel('gantt',this)">&#128197; Delivery Timeline</button>
+    <button class="btn" id="tab-velocity" onclick="showPanel('velocity',this)">&#9889; Velocity</button>
+    <button class="btn" style="margin-left:auto;" onclick="loadData()" title="Re-fetch the latest snapshot">&#8635; Refresh</button>
+  </div>
+
+  <!-- GANTT -->
+  <div class="dt-panel active" id="panel-gantt">
+    <div class="dt-note"><strong>Timeline view.</strong> Bars show each deliverable's scheduled window (Monday Timeline column). Monday has no dependency field, so these show <em>schedule</em>, not predecessor links. Color = project phase; striped = not started; faded = done; dashed = in review.</div>
+    <div class="phase-legend" id="phase-legend"></div>
+    <div class="gantt-wrap"><div class="gantt-inner" id="gantt"></div></div>
+  </div>
+
+  <!-- VELOCITY -->
+  <div class="dt-panel" id="panel-velocity">
+    <div class="dt-note" id="vel-sprint-note"></div>
+    <div class="vel-top">
+      <div class="panel">
+        <div class="panel-title">Points per sprint</div>
+        <div class="panel-sub">Committed vs. completed story points. Target band = 25&ndash;35 pts / person / sprint.</div>
+        <div id="vel-chart"></div>
+        <div class="vel-legend">
+          <span class="vl"><i style="background:var(--navy);"></i> Completed</span>
+          <span class="vl"><i style="background:#d7e0e8;"></i> Committed</span>
+          <span class="vl"><i style="background:var(--gold-glow);border:1px solid var(--gold-border);"></i> Target band</span>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">This sprint by owner</div>
+        <div class="panel-sub" id="vel-owner-sub"></div>
+        <div class="vel-grid" id="vel-owners"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="hub-nav-foot"></div>
+<script src="../js/nav.js" data-page="departments"></script>
+<script>
+var PHASES = {
+  'Initiation':{c:'#5987A5'}, 'Planning':{c:'#7BA7C4'}, 'Execution':{c:'#044771'},
+  'Monitoring':{c:'#D4A63E'}, 'Closure':{c:'#16a34a'}, '_':{c:'#94a3b8'}
+};
+var OWNER_CLASS = {Eli:'eli', Daunte:'daunte', Kenny:'kenny'};
+var DATA = null;
+
+function showPanel(id, btn){
+  document.querySelectorAll('.dt-panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('panel-'+id).classList.add('active');
+  document.querySelectorAll('.dt-tabs .btn').forEach(function(b){b.classList.remove('btn-navy');});
+  if(btn) btn.classList.add('btn-navy');
+}
+
+function d(s){ return s? new Date(s+'T00:00:00') : null; }
+function daysBetween(a,b){ return (b-a)/86400000; }
+function fmtDate(dt){ return dt.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
+
+function renderGantt(g){
+  var host = document.getElementById('gantt');
+  var clients = (g && g.clients) || [];
+  var all = [];
+  clients.forEach(function(c){ c.items.forEach(function(i){ all.push(i); }); });
+  if(!all.length){ host.innerHTML = '<div class="dt-empty">No scheduled deliverables found.</div>'; return; }
+
+  var min = d(all[0].from), max = d(all[0].to);
+  all.forEach(function(i){ var f=d(i.from), t=d(i.to); if(f<min)min=f; if(t>max)max=t; });
+  // pad to whole months
+  min = new Date(min.getFullYear(), min.getMonth(), 1);
+  max = new Date(max.getFullYear(), max.getMonth()+1, 1);
+  var span = daysBetween(min, max);
+  var pct = function(dt){ return daysBetween(min, dt)/span*100; };
+
+  // month axis
+  var axis = '<div class="gantt-axis">';
+  var m = new Date(min);
+  while(m < max){
+    axis += '<div class="gantt-tick" style="left:'+pct(m).toFixed(3)+'%"><span>'+
+      m.toLocaleDateString('en-US',{month:'short'})+ (m.getMonth()===0?" '"+String(m.getFullYear()).slice(2):'') +'</span></div>';
+    m = new Date(m.getFullYear(), m.getMonth()+1, 1);
+  }
+  // today marker
+  var today = new Date(); today.setHours(0,0,0,0);
+  var todayHtml = '';
+  if(today>=min && today<=max){
+    todayHtml = '<div class="gantt-overlay"><div class="gantt-today" style="left:'+pct(today).toFixed(3)+'%;"><span>Today</span></div></div>';
+  }
+  axis += '</div>';
+
+  var rows = '';
+  clients.forEach(function(c){
+    rows += '<div class="gantt-client"><div class="gantt-client-hd">'+esc(c.client)+
+      ' <span class="gc-count">'+c.items.length+' items</span></div>';
+    c.items.forEach(function(i){
+      var f=d(i.from), t=d(i.to);
+      var left=pct(f), width=Math.max(pct(t)-left, 0.6);
+      var ph = PHASES[i.phase] || PHASES._;
+      var st = (i.status||'').toLowerCase();
+      var cls = 'gantt-bar';
+      if(st==='done') cls+=' st-done';
+      else if(st==='not started') cls+=' st-notstarted';
+      else if(st.indexOf('review')>=0) cls+=' st-review';
+      var owner = i.owner ? '<span class="gb-owner">'+esc(i.owner)+'</span>' : '';
+      var title = esc(i.name)+' — '+(i.phase||'')+' · '+(i.status||'')+' · '+fmtDate(f)+'→'+fmtDate(t)+(i.owner?(' · '+i.owner):'');
+      rows += '<div class="gantt-row"><div class="gantt-label" title="'+esc(i.name)+'">'+esc(i.name)+'</div>'+
+        '<div class="gantt-track"><div class="'+cls+'" style="left:'+left.toFixed(3)+'%;width:'+width.toFixed(3)+'%;background:'+ph.c+';" title="'+title+'">'+owner+'</div></div></div>';
+    });
+    rows += '</div>';
+  });
+  host.style.position='relative';
+  host.innerHTML = axis + rows + todayHtml;
+
+  // phase legend
+  var legend = '';
+  ['Initiation','Planning','Execution','Monitoring','Closure'].forEach(function(p){
+    legend += '<span class="pl"><i style="background:'+PHASES[p].c+'"></i>'+p+'</span>';
+  });
+  legend += '<span class="sep"></span><span class="pl"><i style="background:#044771;opacity:.55"></i>Done</span>'+
+    '<span class="pl"><i style="background:#044771;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.5) 0 3px,transparent 3px 6px)"></i>Not started</span>';
+  document.getElementById('phase-legend').innerHTML = legend;
+}
+
+// ---- velocity column chart (committed behind, completed in front, target band) ----
+function velChart(hist, perPersonLow, perPersonHigh, people){
+  if(!hist.length) return '<div class="dt-empty">No sprint data yet.</div>';
+  var W=560,H=240,padL=34,padR=14,padT=22,padB=28;
+  var maxVal = Math.max.apply(null, hist.map(function(h){return Math.max(h.committed,h.completed);}).concat([perPersonHigh*people]));
+  var max = niceMax(maxVal);
+  var plotH=H-padT-padB, plotW=W-padL-padR, base=padT+plotH;
+  var n=hist.length, step=plotW/n, bw=Math.min(46, step*0.5);
+  var s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" role="img" style="max-width:560px;">';
+  // target band
+  var yLow=base-(perPersonLow*people)/max*plotH, yHigh=base-(perPersonHigh*people)/max*plotH;
+  s+='<rect x="'+padL+'" y="'+yHigh.toFixed(1)+'" width="'+plotW+'" height="'+(yLow-yHigh).toFixed(1)+'" fill="rgba(241,190,92,0.12)"/>';
+  s+='<line x1="'+padL+'" y1="'+yLow.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+yLow.toFixed(1)+'" stroke="rgba(212,166,62,0.5)" stroke-dasharray="3 3"/>';
+  s+='<line x1="'+padL+'" y1="'+yHigh.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+yHigh.toFixed(1)+'" stroke="rgba(212,166,62,0.5)" stroke-dasharray="3 3"/>';
+  // gridlines + y labels
+  s+='<g stroke="#e8edf2">';
+  for(var i=0;i<=4;i++){ var y=padT+plotH*i/4; s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'"'+(i===4?' stroke="#c4d0da"':'')+'/>'; }
+  s+='</g><g fill="#8a97a3" font-size="10" text-anchor="end">';
+  for(var j=0;j<=4;j++){ var yy=padT+plotH*j/4; s+='<text x="'+(padL-6)+'" y="'+(yy+3)+'">'+Math.round(max*(4-j)/4)+'</text>'; }
+  s+='</g>';
+  hist.forEach(function(h,i){
+    var x=padL+step*i+(step-bw)/2;
+    var hc=h.committed/max*plotH, hd=h.completed/max*plotH;
+    // committed (light, behind)
+    s+='<rect x="'+x.toFixed(1)+'" y="'+(base-hc).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+hc.toFixed(1)+'" rx="4" fill="#d7e0e8"/>';
+    // completed (navy, front, narrower)
+    var bw2=bw*0.62, x2=x+(bw-bw2)/2;
+    s+='<rect x="'+x2.toFixed(1)+'" y="'+(base-hd).toFixed(1)+'" width="'+bw2.toFixed(1)+'" height="'+hd.toFixed(1)+'" rx="3" fill="#044771"/>';
+    s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(base-hc-6).toFixed(1)+'" font-size="10" font-weight="700" fill="#16232e" text-anchor="middle">'+h.completed+'/'+h.committed+'</text>';
+    s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(base+18)+'" font-size="10.5" fill="#5a6b78" text-anchor="middle">S'+h.sprint+'</text>';
+  });
+  s+='</svg>';
+  return s;
+}
+function niceMax(v){ if(v<=0) return 10; var p=Math.pow(10,Math.floor(Math.log10(v))); var ms=[1,1.5,2,2.5,3,4,5,7.5,10]; for(var k=0;k<ms.length;k++){ if(v<=ms[k]*p) return ms[k]*p; } return 10*p; }
+
+function renderVelocity(v){
+  var hist = (v && v.history) || [];
+  var cur = v && v.current_sprint;
+  var people = 3;
+  document.getElementById('vel-chart').innerHTML = velChart(hist, 25, 35, people);
+
+  var note = document.getElementById('vel-sprint-note');
+  if(cur){
+    var win = (cur.start&&cur.end) ? (fmtDate(d(cur.start))+' → '+fmtDate(d(cur.end))) : '';
+    var dayTxt = cur.status==='closed' ? 'closed' : ('day '+cur.day+' of '+cur.span);
+    note.innerHTML = '<strong>Sprint '+cur.number+'</strong> · '+esc(cur.goal)+(win?(' · '+win):'')+' · <em>'+dayTxt+'</em>';
+  } else { note.innerHTML = 'No active sprint.'; }
+
+  // owner cards for current sprint
+  var curHist = cur ? hist.filter(function(h){return h.sprint===cur.number;})[0] : hist[hist.length-1];
+  document.getElementById('vel-owner-sub').textContent = curHist ? ('Sprint '+curHist.sprint+' · completed / committed points') : '';
+  var owners = curHist ? curHist.by_owner : {};
+  var names = Object.keys(owners).sort(function(a,b){return owners[b].committed-owners[a].committed;});
+  var html='';
+  names.forEach(function(nm){
+    var o=owners[nm]; var pct = o.committed? Math.round(o.completed/o.committed*100):0;
+    var cls = OWNER_CLASS[nm]||'';
+    html += '<div class="vel-card '+cls+'"><div class="vel-name">'+esc(nm)+'</div>'+
+      '<div class="vel-pts">'+o.completed+' <small>/ '+o.committed+' pts</small></div>'+
+      '<div class="progress-bar"><div class="progress-fill" style="width:'+Math.min(pct,100)+'%"></div></div></div>';
+  });
+  document.getElementById('vel-owners').innerHTML = html || '<div class="dt-empty">No owner data.</div>';
+}
+
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function loadData(){
+  fetch('../data/delivery-tracker.json?t='+Date.now()).then(function(r){return r.json();}).then(function(data){
+    DATA = data;
+    if(data.generated_at){
+      document.getElementById('dt-generated').textContent = '· Updated '+new Date(data.generated_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    }
+    renderGantt(data.gantt);
+    renderVelocity(data.velocity);
+  }).catch(function(e){
+    document.getElementById('gantt').innerHTML = '<div class="dt-empty">Could not load delivery-tracker.json. Run the bpp-delivery-tracker skill to generate it.</div>';
+  });
+}
+loadData();
+</script>
+</body>
+</html>

@@ -6,6 +6,28 @@
 <title>BPP Tools Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<style>
+/* -- Delivery at a Glance (home module) -- */
+.dg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;}
+@media(max-width:760px){.dg-grid{grid-template-columns:1fr;}}
+.dg-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:16px 18px;}
+.dg-card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.dg-card-title{font-family:var(--head);font-size:12px;font-weight:800;color:var(--navy);}
+.dg-vrow{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.dg-vrow .lbl{font-size:11px;font-weight:700;color:var(--navy);width:20px;flex-shrink:0;}
+.dg-vtrack{flex:1;height:14px;background:var(--bg);border-radius:4px;position:relative;overflow:hidden;}
+.dg-vcommit{position:absolute;top:0;left:0;height:100%;background:#d7e0e8;border-radius:4px;}
+.dg-vdone{position:absolute;top:0;left:0;height:100%;background:var(--navy);border-radius:4px;}
+.dg-vval{font-size:10.5px;font-weight:700;color:var(--text2);width:46px;text-align:right;flex-shrink:0;}
+.dg-note{font-size:10.5px;color:var(--muted);margin-top:10px;line-height:1.5;}
+.dg-frow{display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid var(--border);}
+.dg-frow:last-child{border-bottom:none;}
+.dg-dot{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
+.dg-fname{flex:1;min-width:0;font-size:11.5px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dg-fname .dg-fclient{font-size:10px;color:var(--muted);}
+.dg-fmeta{font-size:10px;color:var(--muted);flex-shrink:0;}
+.dg-empty{font-size:11px;color:var(--muted);padding:8px 0;}
+</style>
 </head>
 <body>
 
@@ -123,6 +145,20 @@
       <div class="client-meta">Whol-Sum Juice / Root to Radiance &middot; Eli</div>
       <div class="client-row"><span class="client-row-label">Phase</span><span class="client-row-val"><span class="client-phase-pill phase-build">Build</span></span></div>
       <div class="client-row"><span class="client-row-label">Next milestone</span><span class="client-row-val">TBD &mdash; verify</span></div>
+    </div>
+  </div>
+
+  <!-- DELIVERY AT A GLANCE (auto-refreshed from data/delivery-tracker.json) -->
+  <div class="sec-label">Delivery at a Glance <a href="pages/delivery-tracker.html" style="text-transform:none;font-weight:600;letter-spacing:0;color:var(--muted);font-size:11px;margin-left:8px;">Open full tracker &rarr;</a></div>
+  <div class="dg-grid" id="dg-grid" style="display:none;">
+    <div class="dg-card">
+      <div class="dg-card-hd"><div class="dg-card-title">Sprint Velocity</div><a href="pages/delivery-tracker.html" style="font-size:11px;font-weight:600;color:var(--muted);text-decoration:none;">Velocity &rarr;</a></div>
+      <div id="dg-velocity"></div>
+      <div class="dg-note" id="dg-velocity-note"></div>
+    </div>
+    <div class="dg-card">
+      <div class="dg-card-hd"><div class="dg-card-title">In Flight Now</div><a href="pages/delivery-tracker.html" style="font-size:11px;font-weight:600;color:var(--muted);text-decoration:none;">Timeline &rarr;</a></div>
+      <div id="dg-flight"></div>
     </div>
   </div>
 
@@ -352,9 +388,65 @@ function renderHomeStats(d) {
   if (d.as_of_date) setText('clients-as-of', d.as_of_date);
 }
 
+// -- Delivery at a Glance (auto-refreshed from data/delivery-tracker.json) --
+var DG_PHASES = {Initiation:'#5987A5',Planning:'#7BA7C4',Execution:'#044771',Monitoring:'#D4A63E',Closure:'#16a34a',_:'#94a3b8'};
+function dgEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function dgDate(s){ return s ? new Date(s+'T00:00:00') : null; }
+function fetchDelivery() {
+  fetch('data/delivery-tracker.json?t=' + Date.now())
+    .then(function(r){ if(!r.ok) throw new Error('no tracker'); return r.json(); })
+    .then(function(d){ renderDelivery(d); })
+    .catch(function(){ /* silent — module stays hidden if no snapshot */ });
+}
+function renderDelivery(d) {
+  if (!d) return;
+  document.getElementById('dg-grid').style.display = '';
+
+  // Velocity mini-bars (last 4 sprints)
+  var hist = (d.velocity && d.velocity.history) || [];
+  var recent = hist.slice(-4);
+  var maxC = Math.max.apply(null, recent.map(function(h){return Math.max(h.committed,h.completed);}).concat([1]));
+  var vh = '';
+  recent.forEach(function(h){
+    var cw = h.committed/maxC*100, dw = h.completed/maxC*100;
+    vh += '<div class="dg-vrow"><span class="lbl">S'+h.sprint+'</span>'+
+      '<span class="dg-vtrack"><span class="dg-vcommit" style="width:'+cw.toFixed(1)+'%"></span><span class="dg-vdone" style="width:'+dw.toFixed(1)+'%"></span></span>'+
+      '<span class="dg-vval">'+h.completed+'/'+h.committed+'</span></div>';
+  });
+  document.getElementById('dg-velocity').innerHTML = vh || '<div class="dg-empty">No sprint data.</div>';
+  var cur = d.velocity && d.velocity.current_sprint;
+  if (cur) {
+    var dayTxt = cur.status==='closed' ? 'closed' : ('day '+cur.day+' of '+cur.span);
+    document.getElementById('dg-velocity-note').innerHTML = '<strong>Sprint '+cur.number+'</strong> · '+dgEsc(cur.goal)+' · '+dayTxt+'. Navy = completed, grey = committed. Target 25–35 pts/person.';
+  }
+
+  // In flight now: deliverables whose scheduled window spans today
+  var clients = (d.gantt && d.gantt.clients) || [];
+  var today = new Date(); today.setHours(0,0,0,0);
+  var flight = [];
+  clients.forEach(function(c){ c.items.forEach(function(i){
+    var f=dgDate(i.from), t=dgDate(i.to);
+    if (f && t && f<=today && today<=t && (i.status||'').toLowerCase()!=='done') flight.push({client:c.client, item:i, to:t});
+  }); });
+  flight.sort(function(a,b){ return a.to-b.to; });
+  var host = document.getElementById('dg-flight');
+  if (!flight.length) { host.innerHTML = '<div class="dg-empty">Nothing actively scheduled today.</div>'; return; }
+  var shown = flight.slice(0,6), fh='';
+  shown.forEach(function(x){
+    var col = DG_PHASES[x.item.phase] || DG_PHASES._;
+    var due = x.to.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    fh += '<div class="dg-frow"><span class="dg-dot" style="background:'+col+'"></span>'+
+      '<span class="dg-fname">'+dgEsc(x.item.name)+' <span class="dg-fclient">· '+dgEsc(x.client)+'</span></span>'+
+      '<span class="dg-fmeta">'+(x.item.owner?dgEsc(x.item.owner)+' · ':'')+'ends '+due+'</span></div>';
+  });
+  if (flight.length>6) fh += '<div class="dg-empty">+'+(flight.length-6)+' more on the full timeline</div>';
+  host.innerHTML = fh;
+}
+
 // -- Init --
 setDates();
 fetchHomeStats();
+fetchDelivery();
 </script>
 
 </body>
