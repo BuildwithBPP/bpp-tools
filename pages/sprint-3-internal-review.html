@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 3 Review & Retrospective - BPP Internal</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771; --navy-dark: #033359; --blue: #5987A5; --blue-mid: #3a6d8f;
+    --gold: #F1BE5C; --gold-dark: #d4a43e; --bg: #edf1f5; --card-bg: #ffffff;
+    --card-border: #c8d3dc; --section-bg: #e2e9f0; --gray: #4a4a4a; --gray-light: #6B6B6B;
+    --green: #1a9e5c; --green-light: #d4f0e1; --red: #c0392b; --red-light: #f5d5d1;
+    --amber: #d4920a; --amber-light: #fdf0d0;
+    --daunte: #5987A5; --kenny: #1a9e5c; --eli: #d4a43e;
+  }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #14222f; min-height: 100vh; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(4,71,113,0.3); flex-wrap: wrap; gap: 14px; }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .header-logo { width: 44px; height: 44px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: var(--navy-dark); box-shadow: 0 2px 8px rgba(241,190,92,0.4); }
+  .header-text { color: white; }
+  .header-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+  .header-sub { font-size: 11px; font-weight: 300; opacity: 0.7; margin-top: 3px; }
+  .header-right { text-align: right; color: white; }
+  .header-period { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: var(--gold); }
+  .header-date { font-size: 10px; opacity: 0.55; margin-top: 3px; }
+
+  .page { max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px; }
+  .back-link { display: inline-block; font-size: 11px; color: var(--blue-mid); text-decoration: none; margin-bottom: 18px; font-weight: 600; }
+  .back-link:hover { color: var(--navy); }
+
+  /* SECTION HEADERS */
+  .section-bar { background: var(--navy); border-radius: 8px; padding: 14px 24px; margin: 38px 0 8px; display: flex; align-items: center; justify-content: space-between; }
+  .section-bar-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.1em; }
+  .section-bar-sub { font-size: 10px; color: rgba(255,255,255,0.65); }
+  .section-note { font-size: 10px; color: var(--gray-light); margin: 4px 4px 16px; }
+
+  /* KPI CARDS */
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .kpi-card { background: var(--card-bg); border-radius: 10px; padding: 18px; border: 1px solid var(--card-border); text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .kpi-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-light); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; color: var(--navy); }
+  .kpi-sub { font-size: 11px; color: var(--gray-light); margin-top: 4px; }
+  .kpi-source { font-size: 8px; color: var(--blue-mid); margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.75; }
+  .kpi-card.gold { border-left: 5px solid var(--gold); }
+  .kpi-card.green { border-left: 5px solid var(--green); }
+  .kpi-card.red { border-left: 5px solid var(--red); }
+  .kpi-card.amber { border-left: 5px solid var(--amber); }
+
+  /* PROGRESS */
+  .progress-bar { height: 12px; background: #dde4ea; border-radius: 6px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 6px; }
+  .progress-row { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 18px 22px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .progress-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .progress-top .lbl { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--navy); }
+  .progress-top .num { font-size: 12px; color: var(--gray-light); font-weight: 500; }
+
+  /* VELOCITY CARDS */
+  .vel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .vel-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-top: 4px solid var(--blue); }
+  .vel-card.daunte { border-top-color: var(--daunte); }
+  .vel-card.kenny { border-top-color: var(--kenny); }
+  .vel-card.eli { border-top-color: var(--eli); }
+  .vel-name { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); }
+  .vel-role { font-size: 10px; color: var(--gray-light); margin-bottom: 12px; }
+  .vel-stat { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; color: var(--gray); }
+  .vel-stat b { color: var(--navy); font-weight: 700; }
+  .vel-pct { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; margin: 8px 0 6px; }
+
+  /* SHIPPED LIST */
+  .ship-group { margin-bottom: 18px; }
+  .ship-group-head { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--blue-mid); margin: 0 2px 8px; }
+  .ship-item { background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--green); border-radius: 8px; padding: 13px 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .ship-item.exp { border-left-color: var(--blue); }
+  .ship-pts { flex-shrink: 0; width: 40px; height: 40px; border-radius: 8px; background: var(--green-light); color: var(--green); font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+  .ship-pts.exp { background: #d0e3f5; color: var(--navy); font-size: 13px; }
+  .ship-body { flex: 1; }
+  .ship-title { font-size: 13px; font-weight: 600; color: #14222f; }
+  .ship-desc { font-size: 11px; color: var(--gray-light); margin-top: 2px; }
+  .ship-owner { flex-shrink: 0; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 12px; }
+  .owner-daunte { background: rgba(89,135,165,0.15); color: var(--daunte); }
+  .owner-kenny { background: var(--green-light); color: var(--kenny); }
+  .owner-eli { background: var(--amber-light); color: var(--gold-dark); }
+  .owner-team { background: #e2e8f0; color: var(--gray); }
+
+  /* TABLE */
+  .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 10px; overflow: hidden; border: 1px solid var(--card-border); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .data-table th { background: var(--navy); color: white; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 12px 16px; text-align: left; }
+  .data-table td { padding: 11px 16px; font-size: 12px; border-bottom: 1px solid #e8ecf0; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table .carry-crit { border-left: 4px solid var(--red); }
+  .data-table .carry-high { border-left: 4px solid var(--amber); }
+  .pill { display: inline-block; padding: 3px 9px; border-radius: 12px; font-size: 10px; font-weight: 700; }
+  .pill-crit { background: var(--red-light); color: var(--red); }
+  .pill-high { background: var(--amber-light); color: var(--amber); }
+  .pill-prog { background: #d0e3f5; color: var(--navy); }
+  .pill-ns { background: #e2e8f0; color: var(--gray); }
+  .pill-ran { background: var(--green-light); color: var(--green); }
+
+  /* DEPT BARS */
+  .dept-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .dept-name { flex-shrink: 0; width: 200px; font-size: 12px; font-weight: 600; color: var(--navy); }
+  .dept-track { flex: 1; height: 22px; background: #dde4ea; border-radius: 5px; overflow: hidden; position: relative; }
+  .dept-done { height: 100%; background: var(--green); border-radius: 5px 0 0 5px; }
+  .dept-part { height: 100%; background: var(--blue); border-radius: 5px 0 0 5px; }
+  .dept-count { flex-shrink: 0; width: 150px; font-size: 11px; color: var(--gray-light); text-align: right; }
+
+  /* CALLOUT */
+  .callout { border-radius: 8px; padding: 16px 20px; margin: 14px 0 4px; font-size: 12.5px; line-height: 1.65; }
+  .callout.amber { background: #fdf0d0; border: 1px solid #e8cf90; border-left: 4px solid var(--amber); color: #6b5618; }
+  .callout.navy { background: #e6eef4; border: 1px solid #bcd0e0; border-left: 4px solid var(--navy); color: #1c3a4f; }
+  .callout b { color: #14222f; }
+  .callout.amber b { color: #4a3c0e; }
+
+  /* RETRO */
+  .retro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .retro-col { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 0 0 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden; }
+  .retro-head { padding: 14px 18px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; }
+  .retro-head.good { background: var(--green); }
+  .retro-head.bad { background: var(--amber); }
+  .retro-head.act { background: var(--navy); }
+  .retro-item { padding: 11px 18px; font-size: 12px; line-height: 1.5; color: var(--gray); border-bottom: 1px solid #eef2f5; }
+  .retro-item:last-child { border-bottom: none; }
+  .retro-item b { color: #14222f; font-weight: 700; }
+
+  .footer { background: var(--navy-dark); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; margin-top: 40px; flex-wrap: wrap; gap: 8px; }
+  .footer-text { color: rgba(255,255,255,0.6); font-size: 10px; }
+  .footer-gold { color: var(--gold); font-size: 12px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+
+  @media (max-width: 820px) {
+    .kpi-row, .vel-grid, .retro-grid { grid-template-columns: 1fr; }
+    .dept-name { width: 140px; }
+  }
+</style>
+</head>
+<body>
+<div id="hub-nav"></div>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">BPP</div>
+    <div class="header-text">
+      <div class="header-title">Sprint 3 Review &amp; Retrospective</div>
+      <div class="header-sub">Internal Board &middot; Generate leads, reduce friction to close, close more deals</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-period">Jun 15 &ndash; Jul 18, 2026</div>
+    <div class="header-date">Source: Monday.com BPP Internal board &middot; extended from Jul 5 &middot; finalized Jul 23, 2026</div>
+  </div>
+</div>
+
+<div class="page">
+  <a class="back-link" href="reviews.html">&larr; Back to Reviews</a>
+
+  <!-- HEADLINE -->
+  <div class="callout navy" style="margin-top:0;">
+    <b>Read this sprint as a decision, not a burndown.</b> Sprint 3 was the outreach sprint. We extended it from Jul 5 to Jul 18 for one reason: to let the referral and cold sequences finish so we could judge them on real results. The results came in thin, and that signal is the sprint's real output. It drove the two things that now change how BPP runs: the Jul 13 rule that <b>only revenue- or lead-generating work counts as a sprint item</b>, and the Jul 18 decision to <b>hire a sales person and contract out delivery</b>. The backlog numbers below are honest and low. The learning is the win.
+  </div>
+
+  <!-- SNAPSHOT -->
+  <div class="section-bar">
+    <div class="section-bar-title">Sprint Snapshot</div>
+    <div class="section-bar-sub">10 items committed &middot; 42 story points</div>
+  </div>
+  <div class="section-note">Source: Monday.com BPP Internal board (Sprint 3 group) &middot; Timeframe: Jun 15 &ndash; Jul 18, 2026 (extended from Jul 5, a ~5-week sprint)</div>
+  <div class="kpi-row">
+    <div class="kpi-card red">
+      <div class="kpi-label">Marked Done on board</div>
+      <div class="kpi-value">0<span style="font-size:16px;color:var(--gray-light);"> / 10</span></div>
+      <div class="kpi-sub">board frozen since Jun 29</div>
+      <div class="kpi-source">Status column</div>
+    </div>
+    <div class="kpi-card gold">
+      <div class="kpi-label">Outreach executed</div>
+      <div class="kpi-value">30</div>
+      <div class="kpi-sub">referral partners enrolled + cold sequence run</div>
+      <div class="kpi-source">HubSpot sequences</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Sequence replies</div>
+      <div class="kpi-value">~1</div>
+      <div class="kpi-sub">1 reply + a few discovery calls, 0 sprint closes</div>
+      <div class="kpi-source">HubSpot + team inbox</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">2nd-sprint carryover</div>
+      <div class="kpi-value">3</div>
+      <div class="kpi-sub">Daunte's Criticals, reassigned Jul 13</div>
+      <div class="kpi-source">Carried from Sprint 2</div>
+    </div>
+  </div>
+  <div class="callout amber">
+    <b>Two data caveats, stated up front.</b> First, the board was last updated Jun 29 and never moved through the extended close, so the item statuses below are a mid-sprint snapshot, not a closeout. Nothing here should be read as "nobody did anything after Jun 29." Second, this is the exact failure we named as a Sprint 2 action item ("update the board as we go"), and it recurred. The honest completion picture is reconstructed from HubSpot, the team inbox, and the sprint-pulse log rather than trusted to the board.
+  </div>
+
+  <!-- THE OUTREACH EXPERIMENT -->
+  <div class="section-bar">
+    <div class="section-bar-title">What Actually Ran</div>
+    <div class="section-bar-sub">The outreach experiment &middot; the sprint's real deliverable</div>
+  </div>
+  <div class="section-note">Source: HubSpot sequences + team inbox (bppteam@buildwithbpp.com) + sprint-pulse log &middot; Little shipped as backlog items; this is what got done.</div>
+
+  <div class="ship-group">
+    <div class="ship-group-head">Sales &amp; BD &middot; outreach run to completion</div>
+    <div class="ship-item exp">
+      <div class="ship-pts exp">RAN</div>
+      <div class="ship-body"><div class="ship-title">Referral partner sequence enrolled and run (12-day)</div><div class="ship-desc">Eli sourced 30 referral partners (law, financial, property mgmt, insurance, Tampa Bay); Kenny bulk-enrolled. Exceeded the "list 15" target. 1 reply: Keleisha Carter / KC Capital Group.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item exp">
+      <div class="ship-pts exp">RAN</div>
+      <div class="ship-body"><div class="ship-title">Cold follow-up sequence run (18-day)</div><div class="ship-desc">CEO Experience cold contacts worked through the longer cadence. This 18-day tail is why the sprint was extended to Jul 18.</div></div>
+      <div class="ship-owner owner-kenny">Kenny</div>
+    </div>
+    <div class="ship-item exp">
+      <div class="ship-pts exp">RAN</div>
+      <div class="ship-body"><div class="ship-title">Discovery calls surfaced</div><div class="ship-desc">Sipsies Lemonade ($1,799 Launch Pad) and Breathe Biologics (Kenny) came out of the outreach motion. Quotes sent; neither closed inside the sprint.</div></div>
+      <div class="ship-owner owner-team">Team</div>
+    </div>
+  </div>
+  <div class="callout navy">
+    <b>The signal:</b> a full referral + cold outreach cycle, run by a two-person team on top of client delivery, produced about one live conversation and no sprint-attributable close. That is not a reason to stop outreach. It is the evidence that outreach at real volume needs a dedicated owner, which is exactly what the Jul 18 hire-and-contract decision answers.
+  </div>
+
+  <!-- BOARD STATE -->
+  <div class="section-bar">
+    <div class="section-bar-title">Committed Backlog &middot; Board State</div>
+    <div class="section-bar-sub">All 10 items &middot; statuses as of the Jun 29 freeze</div>
+  </div>
+  <div class="section-note">Source: Monday.com Sprint 3 group, pulled Jul 23 &middot; red bar = Critical, amber = High &middot; "In Progress" and "Not Started" reflect Jun 29, not the Jul 18 close.</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>Item</th><th>Owner</th><th>Dept</th><th>Priority</th><th>Board Status</th><th style="text-align:center;">Pts</th></tr>
+    </thead>
+    <tbody>
+      <tr class="carry-crit"><td>Put real volume in: 40&ndash;60 warm touches (referral asks, partner intros, group convos)</td><td>Eli</td><td>Sales &amp; BD</td><td><span class="pill pill-crit">Critical</span></td><td><span class="pill pill-prog">In Progress</span></td><td style="text-align:center;font-weight:700;">5</td></tr>
+      <tr class="carry-crit"><td>Update HubSpot Pipelines<div class="ship-desc">2nd-sprint carry. Reassigned off Daunte Jul 13.</div></td><td>Daunte</td><td>Sales &amp; BD</td><td><span class="pill pill-crit">Critical</span></td><td><span class="pill pill-prog">In Progress</span></td><td style="text-align:center;font-weight:700;">5</td></tr>
+      <tr class="carry-crit"><td>Finish BPP Business Plan<div class="ship-desc">2nd-sprint carry. Reassigned off Daunte Jul 13. Needed for the Claude Partner Network application.</div></td><td>Daunte</td><td>Finance &amp; Ops</td><td><span class="pill pill-crit">Critical</span></td><td><span class="pill pill-prog">In Progress</span></td><td style="text-align:center;font-weight:700;">5</td></tr>
+      <tr class="carry-high"><td>Develop Free Resources<div class="ship-desc">2nd-sprint carry. Reassigned off Daunte Jul 13.</div></td><td>Daunte</td><td>AI &amp; Tech</td><td><span class="pill pill-high">High</span></td><td><span class="pill pill-prog">In Progress</span></td><td style="text-align:center;font-weight:700;">8</td></tr>
+      <tr class="carry-high"><td>List 15 referral partners + send outreach to all 15<div class="ship-desc">Delivered 30, exceeded target. Sequence ran.</div></td><td>Eli</td><td>Sales &amp; BD</td><td><span class="pill pill-high">High</span></td><td><span class="pill pill-ran">Ran / near done</span></td><td style="text-align:center;font-weight:700;">3</td></tr>
+      <tr class="carry-high"><td>Revive warm cash: open + good-fit lost deals, first 10 follow-up touches</td><td>Kenny</td><td>Sales &amp; BD</td><td><span class="pill pill-high">High</span></td><td><span class="pill pill-prog">In Progress</span></td><td style="text-align:center;font-weight:700;">3</td></tr>
+      <tr class="carry-high"><td>Pick an SMS tool that integrates with HubSpot</td><td>Kenny</td><td>Sales &amp; BD</td><td><span class="pill pill-high">High</span></td><td><span class="pill pill-ns">Not Started</span></td><td style="text-align:center;font-weight:700;">3</td></tr>
+      <tr class="carry-high"><td>Finalize retainer packages (recurring revenue offering)</td><td>Eli</td><td>Client Delivery</td><td><span class="pill pill-high">High</span></td><td><span class="pill pill-ns">Not Started</span></td><td style="text-align:center;font-weight:700;">5</td></tr>
+      <tr class="carry-high"><td>Finalize Xtremely Clean one-page case study (beachhead proof)</td><td>Eli</td><td>Marketing</td><td><span class="pill pill-high">High</span></td><td><span class="pill pill-ns">Not Started</span></td><td style="text-align:center;font-weight:700;">3</td></tr>
+      <tr><td>Join owner Facebook groups in target vertical, be helpful (diagnose, don't pitch)</td><td>Eli</td><td>Sales &amp; BD</td><td><span class="pill pill-ns" style="background:#579bfc;color:#fff;">Medium</span></td><td><span class="pill pill-ns">Not Started</span></td><td style="text-align:center;font-weight:700;">2</td></tr>
+    </tbody>
+  </table>
+
+  <!-- VELOCITY -->
+  <div class="section-bar">
+    <div class="section-bar-title">Load by Owner</div>
+    <div class="section-bar-sub">Committed points per person</div>
+  </div>
+  <div class="section-note">Source: Monday.com Story Points + Owner columns &middot; Read as capacity-load signals, not performance. Delivery figures are omitted because the board was not kept current through the close.</div>
+  <div class="vel-grid">
+    <div class="vel-card eli">
+      <div class="vel-name">Eli Fisher</div>
+      <div class="vel-role">Sales &amp; BD + Client Delivery + Marketing</div>
+      <div class="vel-pct" style="color:var(--navy);">18 pts</div>
+      <div class="vel-stat"><span>Items</span><b>5 committed</b></div>
+      <div class="vel-stat"><span>Landed</span><b>Referral sequence ran; 3 items not started</b></div>
+    </div>
+    <div class="vel-card daunte">
+      <div class="vel-name">Daunte Benjamin</div>
+      <div class="vel-role">AI &amp; Tech + Finance &amp; Ops</div>
+      <div class="vel-pct" style="color:var(--amber);">18 pts</div>
+      <div class="vel-stat"><span>Items</span><b>3 committed</b></div>
+      <div class="vel-stat"><span>Landed</span><b>All 3 carried a 2nd sprint; reassigned Jul 13</b></div>
+    </div>
+    <div class="vel-card kenny">
+      <div class="vel-name">Kenny Hawkins</div>
+      <div class="vel-role">Sales &amp; BD</div>
+      <div class="vel-pct" style="color:var(--green);">6 pts</div>
+      <div class="vel-stat"><span>Items</span><b>2 committed</b></div>
+      <div class="vel-stat"><span>Landed</span><b>Cold sequence run; SMS tool not started</b></div>
+    </div>
+  </div>
+  <div class="section-note" style="margin-top:10px;">Root cause Daunte raised at the Jul 13 stand-up: deadlines were assigned without a check on his real availability first. His three items are not a work-quality issue; they are a capacity-vs-commitment mismatch that repeated from Sprint 2. That is a planning fix, not a person fix.</div>
+
+  <!-- BY DEPARTMENT -->
+  <div class="section-bar">
+    <div class="section-bar-title">By Department</div>
+    <div class="section-bar-sub">Committed items and where the work moved</div>
+  </div>
+  <div class="section-note">Source: Monday.com Department column &middot; blue = executed/near-done, empty = not started or carried</div>
+  <div class="progress-row">
+    <div class="dept-row"><div class="dept-name">Sales &amp; BD</div><div class="dept-track"><div class="dept-part" style="width:40%;"></div></div><div class="dept-count">5 items &middot; outreach ran</div></div>
+    <div class="dept-row"><div class="dept-name">Client Delivery &amp; Design</div><div class="dept-track"><div class="dept-done" style="width:0%;"></div></div><div class="dept-count">1 item &middot; not started</div></div>
+    <div class="dept-row"><div class="dept-name">Marketing &amp; Content</div><div class="dept-track"><div class="dept-done" style="width:0%;"></div></div><div class="dept-count">1 item &middot; not started</div></div>
+    <div class="dept-row"><div class="dept-name">AI &amp; Tech</div><div class="dept-track"><div class="dept-done" style="width:0%;"></div></div><div class="dept-count">1 item &middot; carried</div></div>
+    <div class="dept-row"><div class="dept-name">Finance &amp; Operations</div><div class="dept-track"><div class="dept-done" style="width:0%;"></div></div><div class="dept-count">1 item &middot; carried</div></div>
+  </div>
+  <div class="section-note" style="margin-top:10px;">The whole sprint leaned Sales &amp; BD (5 of 10 items). That was the right instinct for the north star. The gap was capacity to execute it, not intent.</div>
+
+  <!-- RETRO -->
+  <div class="section-bar">
+    <div class="section-bar-title">Retrospective</div>
+    <div class="section-bar-sub">What went well &middot; What slowed us down &middot; Action items</div>
+  </div>
+  <div class="section-note">Observations reconstructed from the board, HubSpot, the team inbox, and the Jul 13 + Jul 18 team decisions. Edit before the team retro adds its own voice.</div>
+  <div class="retro-grid">
+    <div class="retro-col">
+      <div class="retro-head good">What went well</div>
+      <div class="retro-item"><b>We ran the experiment to the end.</b> Extending to Jul 18 to see real sequence results, instead of closing on a guess, was the right call. We now have data, not opinions, about solo-run outreach.</div>
+      <div class="retro-item"><b>The referral list over-delivered.</b> The "list 15" item shipped as 30 sourced and enrolled. Sourcing was never the bottleneck.</div>
+      <div class="retro-item"><b>The sprint pointed at the north star.</b> Half the committed items were Sales &amp; BD. The team put its weight where revenue is.</div>
+      <div class="retro-item"><b>Daunte named the real blocker.</b> Raising the "deadlines set without checking availability" root cause in the open is how the planning process actually improves.</div>
+      <div class="retro-item"><b>The sprint produced two durable decisions.</b> The revenue-only sprint rule and the hire-and-contract model both came out of this cycle. That is compounding value.</div>
+    </div>
+    <div class="retro-col">
+      <div class="retro-head bad">What slowed us down</div>
+      <div class="retro-item"><b>Outreach converted thin.</b> A full referral + cold cycle produced ~1 reply and no sprint close. Two people cannot run high-volume outreach and deliver client work at the same time.</div>
+      <div class="retro-item"><b>Daunte's 3 Criticals carried a second sprint.</b> HubSpot Pipelines, BPP Business Plan, and Free Resources all carried from Sprint 2 and stalled again, then were reassigned Jul 13. A two-sprint carry means the commitment was never real.</div>
+      <div class="retro-item"><b>Four items never started.</b> SMS tool, retainer packages, Xtremely Clean case study, and FB groups sat at Not Started the whole sprint. We committed more than we had capacity for, again.</div>
+      <div class="retro-item"><b>The board went stale on Jun 29.</b> This was a named Sprint 2 action item and it recurred. A review is only as trustworthy as the board behind it, and this one was not maintained.</div>
+      <div class="retro-item"><b>A ~5-week sprint hid the slippage.</b> Extending is fine once, for a reason. But a long sprint with a frozen board made it easy to lose track of what was actually moving.</div>
+    </div>
+    <div class="retro-col">
+      <div class="retro-head act">Action items for Sprint 4</div>
+      <div class="retro-item"><b>Only revenue or lead work enters a sprint.</b> Adopt the Jul 13 rule as the hard gate. Internal tooling and ops move to a separate operations lane, out of the sprint burndown.</div>
+      <div class="retro-item"><b>Staff outreach as a role, not a side task.</b> Execute the Jul 18 decision: hire a sales person to own the outreach motion and contract out delivery so the founders are not the bottleneck.</div>
+      <div class="retro-item"><b>Plan against real availability.</b> Before assigning a deadline, confirm the owner's actual bandwidth for the sprint. No more full-time assumptions on part-time capacity.</div>
+      <div class="retro-item"><b>No item carries twice.</b> If something carries a second sprint, it gets reassigned, re-scoped, or killed at planning, not re-committed to the same owner.</div>
+      <div class="retro-item"><b>Two-week sprints, board updated as we go.</b> Return to a tight cadence and move status the moment work changes. If the board cannot be trusted, cancel the review until it can.</div>
+      <div class="retro-item"><b>Account for Eli's new schedule.</b> The Pinellas job (started Jul 20) puts Eli on nights and weekends for BPP. Plan his load accordingly and let contractors carry delivery.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-text">Business Plans Plus LLC &middot; Temple Terrace, FL &middot; Internal Use Only &middot; Source: Monday.com BPP Internal board, reconstructed Jul 23, 2026</div>
+  <div class="footer-gold">buildwithbpp.com</div>
+</div>
+
+<script src="../js/nav.js" data-page="strategy"></script>
+</body>
+</html>
