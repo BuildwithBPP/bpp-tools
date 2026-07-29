@@ -62,7 +62,7 @@
   .tile .lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
   .tile .val { font-size: 25px; font-weight: 700; color: var(--navy); margin-top: 7px; letter-spacing: -0.5px; }
   .tile .val.sm { font-size: 20px; }
-  .tile .meta { font-size: 11px; color: var(--ink-2); margin-top: 6px; display: flex; align-items: center; gap: 5px; }
+  .tile .meta { font-size: 11px; color: var(--ink-2); margin-top: 6px; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
   .delta { font-weight: 700; display: inline-flex; align-items: center; gap: 2px; }
   .delta.up { color: var(--good-dark); } .delta.down { color: var(--red); }
   .spark { position: absolute; right: 12px; top: 13px; opacity: 0.9; }
@@ -170,7 +170,7 @@
     <div class="tile">
       <div class="lbl">Cash on hand</div>
       <div class="val"><span class="pii">$5,618</span></div>
-      <div class="meta"><span class="pii">~$1,993</span> operating &middot; <span class="pii">$3,625</span> reserve</div>
+      <div class="meta"><span class="pii">~$1,993</span> spendable</div>
     </div>
     <div class="tile acc-good">
       <div class="lbl">Revenue YTD</div>
