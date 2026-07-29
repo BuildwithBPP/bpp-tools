@@ -191,6 +191,7 @@
       <div class="card"><div class="card-t">Expenses by category</div><div class="card-s">Selected period &middot; QuickBooks</div><div id="ch-expcat"></div></div>
       <div class="card"><div class="card-t">Cost structure</div><div class="card-s">Selected period &middot; efficiency and the biggest levers</div><div id="ch-expsum"></div></div>
     </div>
+    <div class="card mt12" id="card-avgfin" style="display:none"><div class="card-t">Monthly averages</div><div class="card-s" id="ct-avgfin">Per-month run-rate across the selected period &middot; the pace, not the total</div><div id="ch-avgfin"></div></div>
     <div id="nar-fin"></div>
   </div>
 
@@ -497,17 +498,20 @@ function render(){
   $('ch-expcat').innerHTML=barChart(expRows,{fmt:usd,pii:true});
   // cost structure summary
   $('ch-expsum').innerHTML=maskMoney(costCard(a,pa));
+  // monthly averages (only meaningful across >1 month)
+  if(months.length>1){ $('card-avgfin').style.display=''; $('ch-avgfin').innerHTML=maskMoney(avgCard(a,months.length)); }
+  else $('card-avgfin').style.display='none';
   // deals
   $('ch-deals').innerHTML=groupCols(cols);
   // winrate card
   const wr=(a.wonN+a.lostN)?Math.round(a.wonN/(a.wonN+a.lostN)*100):0;
-  $('ch-winrate').innerHTML=maskMoney(winCard(a,wr,pa));
+  $('ch-winrate').innerHTML=maskMoney(winCard(a,wr,pa,months.length));
   // revenue by owner
   const ownColors={Eli:'url(#gNavy)',Daunte:'url(#gBlue)',Kenny:'url(#gGold)'};
   const ownRows=Object.entries(a.wonOwner||{}).map(([k,v])=>({label:k,val:v,color:ownColors[k]||'url(#gHbar)'})).sort((x,y)=>y.val-x.val);
   $('ch-owner').innerHTML=barChart(ownRows,{fmt:usd,pii:true});
   // web summary
-  $('ch-websum').innerHTML=webCard(a,pa);
+  $('ch-websum').innerHTML=webCard(a,pa,months.length);
   // social
   const socRows=[
     {label:'TikTok',val:a.tt.v,color:'url(#gNavy)'},
@@ -585,11 +589,23 @@ function costCard(a,pa){
    +'</div>';
 }
 function deltaText(cur,prev,fmt){ if(!prev) return 'new'; const diff=cur-prev, p=Math.round(diff/Math.abs(prev)*100); const f=fmt||(x=>''+Math.round(x)); return (p>=0?'+':'')+p+'% ('+(diff>=0?'+':'&minus;')+f(Math.abs(diff))+')'; }
-function winCard(a,wr,pa){
+function avgCard(a,n){
+  const arev=a.rev/n, anet=a.net/n, aexp=a.exp/n, abook=a.wonV/n;
+  return '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:4px">'
+   +mini('Avg monthly revenue', usdFull(arev), 'across '+n+' months', 'info')
+   +mini('Avg monthly net', usdFull(anet), anet>=0?'profitable pace':'burning per month', anet>=0?'good':'bad')
+   +mini('Avg monthly expenses', usdFull(aexp), '$'+(arev?(aexp/arev).toFixed(2):'0.00')+' per $1 earned', aexp<=arev?'good':'bad')
+   +mini('Avg monthly bookings', usdFull(abook), a.wonN+' deals won total', 'info')
+   +'</div>';
+}
+function winCard(a,wr,pa,n){
   const net=a.wonV-a.lostV;
   const avg=a.wonN?a.wonV/a.wonN:0;
   const mkt=(a.expcat&&a.expcat['Content & Marketing'])||0;
   const cpa=a.wonN?mkt/a.wonN:0;
+  const pace=(n&&n>1)?
+    mini('Avg monthly bookings', usdFull(a.wonV/n), (a.wonN/n).toFixed(1)+' deals won / month', 'info')
+   +mini('Monthly win/loss', usdFull(net/n), 'net bookings pace', net>=0?'good':'bad'):'';
   return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">'
    +mini('Win rate', wr+'%', a.wonN+' of '+(a.wonN+a.lostN)+' closed', wr>=40?'good':wr>=25?'warn':'bad')
    +mini('Avg deal size', usdFull(avg), a.wonN+' won', 'info')
@@ -597,16 +613,21 @@ function winCard(a,wr,pa){
    +mini('Cost / acquisition', cpa?usdFull(cpa):'&mdash;', 'mktg spend / won', cpa&&cpa<300?'good':'warn')
    +mini('Won value', usdFull(a.wonV), a.wonN+' deals','info')
    +mini('Lost value', usdFull(a.lostV), a.lostN+' deals','bad')
+   +pace
    +'</div>';
 }
-function webCard(a,pa){
+function webCard(a,pa,n){
   const pv=a.web.pv, vis=a.web.vis, ppv=pa?pa.web.pv:null, pvis=pa?pa.web.vis:null;
   const perVis=vis?(pv/vis).toFixed(1):'&mdash;';
+  const pace=(n&&n>1)?
+    mini('Avg monthly views', Math.round(pv/n).toLocaleString(), 'across '+n+' months', 'info')
+   +mini('Avg monthly visitors', Math.round(vis/n).toLocaleString(), 'across '+n+' months', 'info'):'';
   return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">'
    +mini('Page views', Math.round(pv).toLocaleString(), (ppv?deltaText(pv,ppv)+' vs prior':'&mdash;'), 'info')
    +mini('Unique visitors', Math.round(vis).toLocaleString(), (pvis?deltaText(vis,pvis)+' vs prior':'&mdash;'), 'info')
    +mini('Pages / visitor', perVis, 'depth of visit', 'info')
    +mini('Content views', num(a.ig.v+a.fb.v+a.tt.v+a.li.v), 'social, same period', 'info')
+   +pace
    +'</div>';
 }
 function mini(l,v,s,chip){
@@ -617,8 +638,10 @@ function follCard(a,pa){
   const th='font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#8a97a3';
   let s='<table style="width:100%;border-collapse:collapse" class="tnum">';
   s+='<tr style="'+th+'"><td style="padding:0 6px 8px">Platform</td><td style="text-align:right;padding:0 6px 8px">Posts</td><td style="text-align:right;padding:0 6px 8px">Views</td><td style="text-align:right;padding:0 6px 8px">Engmt</td><td style="text-align:right;padding:0 6px 8px">Followers</td><td style="text-align:right;padding:0 6px 8px">Net</td></tr>';
+  let tp=0,tv=0,te=0,tf=0,tn=0,hasPrev=!!pa;
   P.forEach(([nm,k,col])=>{ const cur=a[k].f, prev=pa?pa[k].f:null, dc=prev!==null?cur-prev:null;
     const dcol=dc===null?'#8a97a3':dc>0?'#147a46':dc<0?'#c0392b':'#8a97a3';
+    tp+=a[k].p; tv+=a[k].v; te+=a[k].e; tf+=cur; if(dc!==null) tn+=dc;
     s+='<tr style="border-top:1px solid var(--grid)">'+
        '<td style="padding:8px 6px;font-size:12.5px;font-weight:600"><span style="display:inline-block;width:7px;height:7px;border-radius:2px;background:'+col+';margin-right:6px"></span>'+nm+'</td>'+
        '<td style="text-align:right;padding:8px 6px;font-size:12px">'+Math.round(a[k].p)+'</td>'+
@@ -627,7 +650,21 @@ function follCard(a,pa){
        '<td style="text-align:right;padding:8px 6px;font-weight:700;font-size:12px">'+Math.round(cur)+'</td>'+
        '<td style="text-align:right;padding:8px 6px;font-weight:700;font-size:11.5px;color:'+dcol+'">'+(dc===null?'&mdash;':(dc>0?'+':'')+dc)+'</td></tr>';
   });
-  s+='</table><div class="cap">Views = organic video/post views (LinkedIn = impressions). Engmt = interactions (likes, comments, saves, shares).</div>';
+  const tncol=tn>0?'#147a46':tn<0?'#c0392b':'#8a97a3';
+  s+='<tr style="border-top:2px solid var(--border-strong);background:#f6f9fb">'+
+     '<td style="padding:8px 6px;font-size:12px;font-weight:800;color:var(--navy)">All platforms</td>'+
+     '<td style="text-align:right;padding:8px 6px;font-size:12px;font-weight:800;color:var(--navy)">'+Math.round(tp)+'</td>'+
+     '<td style="text-align:right;padding:8px 6px;font-size:12px;font-weight:800;color:var(--navy)">'+num(tv)+'</td>'+
+     '<td style="text-align:right;padding:8px 6px;font-size:12px;font-weight:800;color:var(--navy)">'+num(te)+'</td>'+
+     '<td style="text-align:right;padding:8px 6px;font-size:12px;font-weight:800;color:var(--navy)">'+Math.round(tf)+'</td>'+
+     '<td style="text-align:right;padding:8px 6px;font-size:11.5px;font-weight:800;color:'+(hasPrev?tncol:'#8a97a3')+'">'+(hasPrev?((tn>0?'+':'')+tn):'&mdash;')+'</td></tr>';
+  s+='</table>';
+  const avgVP=tp?Math.round(tv/tp):0, engRate=tv?(te/tv*100).toFixed(1):'0.0';
+  s+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">'
+   +mini('Avg views / post', num(avgVP), 'across all platforms', 'info')
+   +mini('Engagement rate', engRate+'%', 'interactions &divide; views', engRate>=3?'good':engRate>=1?'warn':'bad')
+   +'</div>';
+  s+='<div class="cap">Views = organic video/post views (LinkedIn = impressions). Engmt = interactions (likes, comments, saves, shares).</div>';
   return s;
 }
 
