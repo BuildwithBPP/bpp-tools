@@ -63,14 +63,17 @@
   .tile .val { font-size: 25px; font-weight: 700; color: var(--navy); margin-top: 7px; letter-spacing: -0.5px; }
   .tile .val.sm { font-size: 20px; }
   .tile .meta { font-size: 11px; color: var(--ink-2); margin-top: 6px; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
-  .finslicer { display:flex; align-items:center; gap:12px; flex-wrap:wrap; background:var(--card); border:1px solid var(--border); border-radius:9px; padding:9px 14px; margin-bottom:16px; box-shadow:var(--shadow); }
-  .finslicer .fs-lbl { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); }
-  .seg2 { display:inline-flex; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:3px; gap:2px; }
-  .seg2 button { border:none; background:transparent; color:var(--ink-2); font-family:inherit; font-size:12px; font-weight:600; padding:5px 12px; border-radius:6px; cursor:pointer; transition:all .12s; }
-  .seg2 button:hover { color:var(--navy); }
-  .seg2 button.on { background:var(--navy); color:#fff; box-shadow:var(--shadow); }
-  .finslicer .fs-note { font-size:10.5px; color:var(--muted); margin-left:auto; }
-  @media(max-width:640px){ .finslicer .fs-note{ margin-left:0; } }
+  .intro { background:var(--card); border:1px solid var(--border); border-left:4px solid var(--navy); border-radius:10px; padding:16px 20px; margin-bottom:16px; box-shadow:var(--shadow); }
+  .intro-h { font-size:14px; font-weight:800; color:var(--navy); margin-bottom:7px; }
+  .intro-b p { font-size:12px; color:var(--ink-2); line-height:1.6; }
+  .intro-b p a { color:var(--navy); font-weight:600; text-decoration:none; }
+  .intro-b p a:hover { color:var(--gold-dark); }
+  .intro-take { display:grid; grid-template-columns:1fr 1fr; gap:7px 20px; margin-top:12px; }
+  @media(max-width:720px){ .intro-take{ grid-template-columns:1fr; } }
+  .intro-take .tk { font-size:11.5px; color:var(--ink-2); line-height:1.5; display:flex; gap:7px; align-items:flex-start; }
+  .intro-take .tk b { color:var(--ink); }
+  .intro-take .tk-d { width:7px; height:7px; border-radius:50%; margin-top:5px; flex-shrink:0; }
+  .intro-take .tk-d.good{ background:var(--good); } .intro-take .tk-d.warn{ background:var(--warn); } .intro-take .tk-d.bad{ background:var(--red); }
   .delta { font-weight: 700; display: inline-flex; align-items: center; gap: 2px; }
   .delta.up { color: var(--good-dark); } .delta.down { color: var(--red); }
   .spark { position: absolute; right: 12px; top: 13px; opacity: 0.9; }
@@ -173,15 +176,18 @@
     <span class="on-t"><b>Reveal view active.</b> Real client names and balances are visible. Do not screen-share or screenshot in this state.</span>
   </div>
 
-  <!-- P&L PERIOD SLICER (drives revenue, net income, monthly chart, software %) -->
-  <div class="finslicer">
-    <span class="fs-lbl">P&amp;L view</span>
-    <div class="seg2" id="yrSeg">
-      <button data-y="2025">2025</button>
-      <button class="on" data-y="2026">2026 YTD</button>
-      <button data-y="all">All-time</button>
+  <!-- INTRO / HOW TO READ THIS -->
+  <div class="intro">
+    <div class="intro-h">What this is &mdash; and what to take from it</div>
+    <div class="intro-b">
+      <p>The <b>Financial Position &amp; KPI Report is BPP&rsquo;s health snapshot</b>: what the business owns and owes right now, how long its cash lasts, and the ratios that show whether it&rsquo;s sound. It answers &ldquo;<b>are we financially healthy, and can we keep going?</b>&rdquo; &mdash; not &ldquo;how did we perform this month.&rdquo; For revenue, expenses and net income <b>over time</b>, see the <a href="performance-dashboard.html">Performance Dashboard &rarr;</a></p>
+      <div class="intro-take">
+        <div class="tk"><span class="tk-d good"></span>Debt-free and owing no vendors &mdash; a clean, low-risk balance sheet.</div>
+        <div class="tk"><span class="tk-d good"></span>Profitable YTD (<span class="pii">$2,931</span> net, 19.5% margin), with revenue up ~95% vs the same period last year.</div>
+        <div class="tk"><span class="tk-d warn"></span><b>The number that matters is runway (~3.2 months).</b> Operating cash is tight (~<span class="pii">$1,993</span>, below the two-month buffer) &mdash; collection, not cost, is the fix.</div>
+        <div class="tk"><span class="tk-d bad"></span>Growth is masking churn &mdash; retention is the weak spot, and the strongest case for recurring revenue.</div>
+      </div>
     </div>
-    <span class="fs-note">Slices revenue, net income, the monthly chart &amp; software %. Cash, ratios &amp; balance sheet stay current-snapshot.</span>
   </div>
 
   <!-- KPI ROW -->
@@ -241,11 +247,17 @@
     </div>
 
     <div class="card">
-      <div class="card-t">Monthly revenue</div>
-      <div class="card-s">Recognized revenue by month &middot; QuickBooks P&amp;L</div>
-      <!-- COLUMN CHART (rendered by JS per P&L slice) -->
-      <div id="rev-chart"></div>
-      <div class="cap" id="rev-cap">June ran ~a third of the average. July is recovering. Gold = below-average months.</div>
+      <div class="card-t">Income statement</div>
+      <div class="card-s">YTD 2026 &middot; QuickBooks P&amp;L</div>
+      <table class="bs tnum">
+        <tr class="grp"><td>Revenue</td><td class="v"><span class="pii">$15,053</span></td></tr>
+        <tr class="sub"><td>Cost of goods sold</td><td class="v"><span class="pii">&minus;$964</span></td></tr>
+        <tr class="grp"><td>Gross profit</td><td class="v"><span class="pii">$14,089</span> &middot; <span style="color:var(--ink-2);font-weight:400">93.6%</span></td></tr>
+        <tr class="sub"><td>Operating expenses</td><td class="v"><span class="pii">&minus;$11,184</span></td></tr>
+        <tr class="sub"><td>Other (interest, misc)</td><td class="v"><span class="pii">+$27</span></td></tr>
+        <tr class="tot"><td>Net income</td><td class="v"><span class="pii">$2,931</span> &middot; <span style="color:var(--good-dark);font-weight:700">19.5%</span></td></tr>
+      </table>
+      <div class="cap">Revenue &amp; net income <b>by month, quarter &amp; year</b> live on the <a href="performance-dashboard.html" style="color:var(--navy);font-weight:600;text-decoration:none">Performance Dashboard &rarr;</a></div>
     </div>
   </div>
 
@@ -502,71 +514,6 @@
     document.getElementById('segHide').classList.toggle('on', hide);
     document.getElementById('segShow').classList.toggle('on', !hide);
   }
-
-  /* ---- P&L period slicer (revenue, net income, monthly chart, software %) ---- */
-  var FIN = {
-    '2025': { revLbl:'Revenue 2025', netLbl:'Net income 2025', rev:'$14,824', net:'$1,777', margin:'12.0% net margin',
-      meta:'<span style="color:var(--muted)">FY 2025 &middot; first full year</span>',
-      soft:'38.9%', softWhat:'Software eats <b>38.9%</b> of revenue and <b>49%</b> of all expenses.',
-      bars:[['Jan',0],['Feb',0],['Mar',0],['Apr',305],['May',1549],['Jun',4597],['Jul',1250],['Aug',1802],['Sep',2598],['Oct',374],['Nov',300],['Dec',2050]],
-      cap:'2025 from a standing start &mdash; first revenue in April, biggest month June (~$4.6K). Gold = below-average months.' },
-    '2026': { revLbl:'Revenue YTD', netLbl:'Net income YTD', rev:'$15,053', net:'$2,931', margin:'19.5% net margin',
-      meta:'<span class="delta up">&#9650; 95%</span> vs same period 2025',
-      soft:'39.4%', softWhat:'Software eats <b>39.4%</b> of revenue and <b>53%</b> of all expenses.',
-      bars:[['Jan',2540],['Feb',2459],['Mar',2280],['Apr',2624],['May',2300],['Jun',960],['Jul 1–29',1890]],
-      cap:'June ran ~a third of the average. July is recovering. Gold = below-average months.' },
-    'all': { revLbl:'Revenue (all-time)', netLbl:'Net income (all-time)', rev:'$29,877', net:'$4,709', margin:'15.8% net margin',
-      meta:'<span style="color:var(--muted)">2025 + 2026 YTD combined</span>',
-      soft:'39.1%', softWhat:'Software eats <b>39.1%</b> of revenue and <b>51%</b> of all expenses.',
-      bars:[['2025',14824],['2026 YTD',15053]],
-      cap:'Lifetime: 2026 has already matched all of 2025 in seven months. Gold = below-average.' }
-  };
-  function niceMax(v){ if(v<=0) return 1000; var p=Math.pow(10,Math.floor(Math.log10(v))); var ms=[1,1.5,2,2.5,3,4,5,7.5,10]; for(var i=0;i<ms.length;i++){ if(v<=ms[i]*p) return ms[i]*p; } return 10*p; }
-  function revChart(bars){
-    var W=620,H=250,padL=54,padR=12,padT=26,padB=34;
-    var vals=bars.map(function(b){return b[1];});
-    var yMax=niceMax(Math.max.apply(null, vals.concat([1])));
-    var plotH=H-padT-padB, plotW=W-padL-padR, base=padT+plotH;
-    var nz=vals.filter(function(v){return v>0;});
-    var avg=nz.length? nz.reduce(function(a,b){return a+b;},0)/nz.length : 0;
-    var n=bars.length, step=plotW/n, bw=Math.min(46, step*0.5);
-    var s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Revenue by period">';
-    s+='<defs><linearGradient id="barG2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f80c4"/><stop offset="1" stop-color="#044771"/></linearGradient>';
-    s+='<linearGradient id="barGlow2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9a13a"/><stop offset="1" stop-color="#d4920a"/></linearGradient></defs>';
-    s+='<g stroke="#e8edf2" stroke-width="1">';
-    for(var i=0;i<=3;i++){ var gy=padT+plotH*i/3; s+='<line x1="'+padL+'" y1="'+gy.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+gy.toFixed(1)+'"'+(i===3?' stroke="#c4d0da"':'')+'/>'; }
-    s+='</g><g fill="#8a97a3" font-size="10" text-anchor="end" class="tnum">';
-    for(var j=0;j<=3;j++){ var ty=padT+plotH*j/3; var tv=yMax*(3-j)/3; s+='<text x="'+(padL-6)+'" y="'+(ty+3).toFixed(1)+'">$'+Math.round(tv).toLocaleString()+'</text>'; }
-    s+='</g>';
-    bars.forEach(function(b,k){
-      var v=b[1], h=v/yMax*plotH, x=padL+step*k+(step-bw)/2, y=base-h;
-      var fill=(v>0 && v<avg)? 'url(#barGlow2)':'url(#barG2)';
-      if(h>0.5) s+='<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="4" fill="'+fill+'"/>';
-      if(v>0) s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(y-6).toFixed(1)+'" font-size="10" font-weight="700" fill="#16232e" text-anchor="middle" class="tnum pii">$'+Math.round(v).toLocaleString()+'</text>';
-      s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(base+20)+'" font-size="10" fill="#5a6b78" text-anchor="middle">'+b[0]+'</text>';
-    });
-    s+='</svg>';
-    return s;
-  }
-  function renderFin(y){
-    var d=FIN[y]; if(!d) return;
-    document.getElementById('rev-lbl').textContent=d.revLbl;
-    document.getElementById('rev-val').textContent=d.rev;
-    document.getElementById('rev-meta').innerHTML=d.meta;
-    document.getElementById('net-lbl').textContent=d.netLbl;
-    document.getElementById('net-val').textContent=d.net;
-    document.getElementById('net-meta').textContent=d.margin;
-    document.getElementById('soft-mv').textContent=d.soft;
-    document.getElementById('soft-what').innerHTML=d.softWhat;
-    document.getElementById('rev-chart').innerHTML=revChart(d.bars);
-    document.getElementById('rev-cap').innerHTML=d.cap;
-    var btns=document.querySelectorAll('#yrSeg button');
-    for(var i=0;i<btns.length;i++){ btns[i].classList.toggle('on', btns[i].getAttribute('data-y')===y); }
-  }
-  (function(){ var btns=document.querySelectorAll('#yrSeg button');
-    for(var i=0;i<btns.length;i++){ btns[i].onclick=(function(el){ return function(){ renderFin(el.getAttribute('data-y')); }; })(btns[i]); }
-    renderFin('2026');
-  })();
 </script>
 
 </body>
