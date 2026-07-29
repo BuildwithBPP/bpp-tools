@@ -27,6 +27,15 @@
 .dg-fname .dg-fclient{font-size:10px;color:var(--muted);}
 .dg-fmeta{font-size:10px;color:var(--muted);flex-shrink:0;}
 .dg-empty{font-size:11px;color:var(--muted);padding:8px 0;}
+/* slim modules for the decluttered home */
+.whatsnew.slim{padding:14px 20px;margin-bottom:24px;}
+.whatsnew.slim .whatsnew-title{font-size:15px;margin-bottom:8px;}
+.ar-slim{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;justify-content:space-between;background:var(--card);border:1.5px solid var(--border);border-left:4px solid var(--gold);border-radius:9px;padding:11px 16px;margin-bottom:28px;font-size:11.5px;color:var(--text2);line-height:1.5;}
+.ar-slim strong{color:var(--navy);}
+.ar-slim a{color:var(--navy);font-weight:700;text-decoration:none;white-space:nowrap;}
+.ar-slim a:hover{color:var(--gold-dark,#d99e2b);}
+.wow-hd{display:flex;align-items:baseline;gap:10px;}
+.wow-hd .sub{font-size:10px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted);}
 </style>
 </head>
 <body>
@@ -48,78 +57,56 @@
     <a class="qa-card" href="pages/reviews.html"><span class="qa-emoji">&#128200;</span><span class="qa-text">Run the monthly review</span></a>
   </div>
 
-  <!-- WHAT'S NEW BANNER (auto-refreshed Sunday 8pm from data/hub-home-stats.json) -->
-  <div class="whatsnew" id="whats-new-banner">
-    <div class="whatsnew-eyebrow" id="wn-eyebrow">What's New &middot; Ratified 2026-05-06</div>
+  <!-- WHO'S ON WHAT (moved up — who owns what, first thing) -->
+  <div class="sec-label"><span class="wow-hd">Who's On What <span class="sub">DRIs &middot; ratified 2026-05-06</span></span></div>
+  <div class="wow-grid">
+    <div class="wow-card daunte">
+      <div class="wow-name d">Daunte</div>
+      <div class="wow-role">DRI &middot; AI Workforce &amp; Tech + Finance &amp; Operations</div>
+      <div class="wow-item"><span class="wow-dot d"></span>AI plugins, MCPs, automations, Hub builds</div>
+      <div class="wow-item"><span class="wow-dot d"></span>QuickBooks, AR, tax, KPI dashboards, tool stack</div>
+      <div class="wow-item"><span class="wow-dot d"></span>Backup on Sales (financial) + Client Delivery (tech)</div>
+    </div>
+    <div class="wow-card kenny">
+      <div class="wow-name k">Kenny</div>
+      <div class="wow-role">DRI &middot; Sales &amp; BD + Marketing &amp; Content</div>
+      <div class="wow-item"><span class="wow-dot k"></span>Sales: pipeline, HubSpot, lead distribution, deal admin</div>
+      <div class="wow-item"><span class="wow-dot k"></span>Marketing: strategy, social, newsletter, brand voice</div>
+      <div class="wow-item"><span class="wow-dot k"></span>Legal &amp; Contracts (HR component)</div>
+    </div>
+    <div class="wow-card eli">
+      <div class="wow-name e">Eli</div>
+      <div class="wow-role">DRI &middot; Client Delivery &amp; Design</div>
+      <div class="wow-item"><span class="wow-dot e"></span>Onboarding, timeline, weekly status, post-engagement</div>
+      <div class="wow-item"><span class="wow-dot e"></span>Brand, logos, website CMS, deliverable design</div>
+      <div class="wow-item"><span class="wow-dot e"></span>QC before ship + co-builder seat in AI Workforce</div>
+    </div>
+  </div>
+
+  <!-- WHAT'S NEW (slim one-liner, auto-refreshed from data/hub-home-stats.json) -->
+  <div class="whatsnew slim" id="whats-new-banner">
+    <div class="whatsnew-eyebrow" id="wn-eyebrow">Latest decision &middot; ratified 2026-05-06</div>
     <div class="whatsnew-title" id="wn-headline">The chart is the chart. 5 of 6 dept owners locked in.</div>
-    <div class="whatsnew-grid" id="wn-grid">
-      <div class="whatsnew-item">
-        <div class="whatsnew-item-label">Marketing flipped</div>
-        <div class="whatsnew-item-text">Kenny took DRI from Daunte. Justin still executes. <strong>Transition kit packaging in flight</strong> before KT sessions.</div>
-      </div>
-      <div class="whatsnew-item">
-        <div class="whatsnew-item-label">$2K decision rule</div>
-        <div class="whatsnew-item-text">Below $2K with time pressure: dept DRI calls it. Above $2K: full team debate.</div>
-      </div>
-      <div class="whatsnew-item">
-        <div class="whatsnew-item-label">Iron sharpens iron</div>
-        <div class="whatsnew-item-text">For big decisions, defending a position with rationale beats deferring "to keep peace."</div>
-      </div>
-      <div class="whatsnew-item">
-        <div class="whatsnew-item-label">AI agents per dept</div>
-        <div class="whatsnew-item-text">AI Workforce provides the framework. Each dept builds and owns its own agents.</div>
-      </div>
-    </div>
-    <a class="whatsnew-link" href="pages/synthesis.html">Read the full ratification trail &rarr;</a>
+    <a class="whatsnew-link" href="pages/synthesis.html">Full ratification trail &rarr;</a>
   </div>
 
-  <!-- AT A GLANCE STATS (auto-refreshed) -->
+  <!-- PULSE — at a glance, live from QuickBooks + HubSpot -->
+  <div class="sec-label"><span class="wow-hd">Pulse <span class="sub">QuickBooks + HubSpot &middot; as of Jul 29</span></span></div>
   <div class="stat-grid" id="stat-grid">
-    <div class="stat-card" data-owners-only><div class="stat-label">Cash on Hand</div><div class="stat-val pii" id="stat-cash">$6,496</div><div class="stat-sub pii" id="stat-cash-sub">May 1 start. Operating + Savings + Rodney envelope.</div></div>
-    <div class="stat-card" data-owners-only><div class="stat-label" id="stat-ar-label">Expected May AR (High)</div><div class="stat-val gold pii" id="stat-ar">$4,260</div><div class="stat-sub pii" id="stat-ar-sub">4 high-likelihood receivables in flight</div></div>
-    <div class="stat-card"><div class="stat-label">Active Clients</div><div class="stat-val" id="stat-clients">4</div><div class="stat-sub pii" id="stat-clients-sub">SEEDFOLKids &middot; Financial Acuity &middot; Lois Marketing &middot; Wedelia Wellness</div></div>
-    <div class="stat-card"><div class="stat-label">Pipeline Value</div><div class="stat-val pii" id="stat-pipeline">$12K</div><div class="stat-sub" id="stat-pipeline-sub">5 deals (last verified early May)</div></div>
+    <div class="stat-card" data-owners-only><div class="stat-label">Cash on Hand</div><div class="stat-val pii" id="stat-cash">$5,618</div><div class="stat-sub pii" id="stat-cash-sub">Operating ~$1,993 &middot; Savings Reserve $3,625 &middot; QB Jul 29</div></div>
+    <div class="stat-card" data-owners-only><div class="stat-label">Net Income YTD</div><div class="stat-val gold pii" id="stat-net">$3,349</div><div class="stat-sub pii">QuickBooks cash basis &middot; 2026 YTD</div></div>
+    <div class="stat-card"><div class="stat-label">Active Clients</div><div class="stat-val" id="stat-clients">4</div><div class="stat-sub pii" id="stat-clients-sub">Financial Acuity &middot; HALO Commons &middot; Lois Marketing &middot; SEEDFOLKids</div></div>
+    <div class="stat-card"><div class="stat-label">Pipeline Value</div><div class="stat-val pii" id="stat-pipeline">$12.5K</div><div class="stat-sub" id="stat-pipeline-sub">6 open deals &middot; verified Jul 29</div></div>
   </div>
 
-  <!-- AR FORECAST (auto-refreshed) -->
-  <div class="ar-section" data-owners-only>
-    <div class="ar-section-head">
-      <div>
-        <div class="ar-section-title">AR Forecast &middot; If We Close This Month</div>
-        <div class="ar-section-sub" id="ar-section-sub">Based on 2026-05-01 forecast. Phase 2 trigger: Savings &ge; $3K &rarr; activates $50/partner closed-deal bonus.</div>
-      </div>
-      <span class="ar-confid">Owners only &middot; Do not share externally</span>
-    </div>
-
-    <div class="ar-cash-now pii" id="ar-cash-now">
-      <span>Operating: <strong>$3,328</strong> &nbsp;&middot;&nbsp; Savings: <strong>$2,805</strong> (93% to $3K) &nbsp;&middot;&nbsp; Rodney envelope: <strong>$363</strong></span>
-      <span style="color: var(--muted); font-size: 11px;">Operating ~$321 below 2-month buffer of $3,649. Tight, not red.</span>
-    </div>
-
-    <div class="scenario-grid pii" id="scenario-grid">
-      <div class="scenario-card">
-        <div class="scenario-name">Conservative</div>
-        <div class="scenario-end">$5,488</div>
-        <div class="scenario-detail">Highs only: Wanda $500, Lois milestone $1,800, Jeannette $960, Maxine $1,000. +$2,160 net.</div>
-        <div class="scenario-trigger"><strong>Yes &mdash;</strong> hits $3K savings. Phase 2 activates June.</div>
-      </div>
-      <div class="scenario-card realistic">
-        <div class="scenario-name">Realistic</div>
-        <div class="scenario-end">$6,313</div>
-        <div class="scenario-detail">+ HALO Commons $824. Total in: $5,084. +$2,985 net.</div>
-        <div class="scenario-trigger"><strong>Yes &mdash;</strong> savings to $3,700. Operating buffer rebuilt.</div>
-      </div>
-      <div class="scenario-card">
-        <div class="scenario-name">Stretch</div>
-        <div class="scenario-end">$7,663</div>
-        <div class="scenario-detail">+ Lois closeout $1,350. Total in: $6,434. +$4,335 net.</div>
-        <div class="scenario-trigger"><strong>Yes &mdash;</strong> within striking distance of Phase 3 trigger by end of Q2.</div>
-      </div>
-    </div>
+  <!-- AR — slim owners-only line; full forecast + scenarios live on the Finance page -->
+  <div class="ar-slim" data-owners-only>
+    <span><strong>Owners &middot;</strong> Operating cushion tight at <span class="pii">~$1,993</span> (below the <span class="pii">~$3,649</span> two-month buffer); Savings Reserve <span class="pii">$3,625</span> is past Phase 2, ~72% to Phase 3&rsquo;s $5K. Committed milestone AR sits in QB drafts &mdash; collection rebuilds the cushion.</span>
+    <a href="pages/finance.html#ar-forecast">Full AR forecast &amp; scenarios &rarr;</a>
   </div>
 
   <!-- ACTIVE CLIENTS (auto-refreshed) -->
-  <div class="sec-label">Active Clients <span style="text-transform:none;font-weight:400;letter-spacing:0;color:var(--muted);font-size:10px;margin-left:8px;">As of <span id="clients-as-of">May 1</span></span></div>
+  <div class="sec-label">Active Clients <span style="text-transform:none;font-weight:400;letter-spacing:0;color:var(--muted);font-size:10px;margin-left:8px;">As of <span id="clients-as-of">Jul 29</span></span></div>
   <div class="client-grid pii" id="client-grid">
     <div class="client-tile eli">
       <div class="client-name">Lois Marketing</div>
@@ -162,34 +149,6 @@
     </div>
   </div>
 
-  <div class="sec-label">Who's On What &middot; Ratified 2026-05-06</div>
-  <div class="wow-grid">
-    <div class="wow-card daunte">
-      <div class="wow-name d">Daunte</div>
-      <div class="wow-role">DRI &middot; AI Workforce &amp; Tech + Finance &amp; Operations</div>
-      <div class="wow-item"><span class="wow-dot d"></span>AI plugins, MCPs, automations, Hub builds</div>
-      <div class="wow-item"><span class="wow-dot d"></span>QuickBooks, AR, tax, KPI dashboards, tool stack discipline</div>
-      <div class="wow-item"><span class="wow-dot d"></span>Backup on Sales (financial) + Client Delivery (tech-heavy)</div>
-      <div class="wow-item"><span class="wow-dot d"></span>Researching HR / contractor / procurement role shape</div>
-    </div>
-    <div class="wow-card kenny">
-      <div class="wow-name k">Kenny</div>
-      <div class="wow-role">DRI &middot; Sales &amp; BD + Marketing &amp; Content</div>
-      <div class="wow-item"><span class="wow-dot k"></span>Sales: pipeline, HubSpot, lead distribution, deal admin</div>
-      <div class="wow-item"><span class="wow-dot k"></span>Marketing: strategy, social, newsletter, blog, brand voice</div>
-      <div class="wow-item"><span class="wow-dot k"></span>Legal &amp; Contracts (HR component)</div>
-      <div class="wow-item"><span class="wow-dot k"></span>Marketing transition kit pending; KT sessions next few weeks</div>
-    </div>
-    <div class="wow-card eli">
-      <div class="wow-name e">Eli</div>
-      <div class="wow-role">DRI &middot; Client Delivery &amp; Design</div>
-      <div class="wow-item"><span class="wow-dot e"></span>Onboarding, project timeline, weekly status, post-engagement</div>
-      <div class="wow-item"><span class="wow-dot e"></span>Brand visual, logos, brand kit, website CMS, deliverable design</div>
-      <div class="wow-item"><span class="wow-dot e"></span>QC before ship + co-builder seat in AI Workforce</div>
-      <div class="wow-item"><span class="wow-dot e"></span>Marketing production support (long-form video, podcast clips)</div>
-    </div>
-  </div>
-
   <!-- OPERATING NORMS REMINDER -->
   <div class="norms-strip">
     <div class="norms-head">
@@ -201,8 +160,6 @@
       <div class="norm-item"><strong>Iron sharpens iron:</strong> defend with rationale, don't defer for harmony.</div>
       <div class="norm-item"><strong>AI per dept:</strong> framework central, agents owned by the dept they serve.</div>
       <div class="norm-item"><strong>Sales as DNA:</strong> top-of-funnel is everyone's, not just Kenny's.</div>
-      <div class="norm-item"><strong>Cross-train:</strong> dummy QB / HubSpot / Live Plan accounts in motion.</div>
-      <div class="norm-item"><strong>Celebrate wins:</strong> sit-down with the client when something significant lands.</div>
     </div>
   </div>
 
@@ -287,8 +244,9 @@ function renderHomeStats(d) {
   // Stat cards
   setText('stat-cash', fmt(s.cash_on_hand));
   if (s.cash_breakdown) {
-    setText('stat-cash-sub', 'Operating ' + fmt(s.cash_breakdown.operating) + ' · Savings ' + fmt(s.cash_breakdown.savings) + ' · Rodney ' + fmt(s.cash_breakdown.rodney_envelope));
+    setText('stat-cash-sub', 'Operating ~' + fmt(s.cash_breakdown.operating) + ' · Savings Reserve ' + fmt(s.cash_breakdown.savings) + ' · QB ' + (d.as_of_date || ''));
   }
+  if (s.ytd_net_income != null) setText('stat-net', fmt(s.ytd_net_income));
   // Prefer total AR over expected; fall back to expected if AR not yet wired
   if (s.ar_total != null) {
     setText('stat-ar-label', 'Total AR (Issued + Drafts)');
