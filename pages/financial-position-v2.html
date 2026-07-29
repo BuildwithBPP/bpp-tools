@@ -89,6 +89,8 @@
   /* card + chart */
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .grid2.wide-r { grid-template-columns: 0.85fr 1.15fr; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; align-items: start; }
+  @media(max-width:900px){ .grid3 { grid-template-columns: 1fr; } }
   .card { background: var(--card); border: 1px solid var(--border); border-radius: 9px; padding: 17px 19px; box-shadow: var(--shadow); }
   .card-t { font-size: 13px; font-weight: 700; color: var(--ink); }
   .card-s { font-size: 10.5px; color: var(--muted); margin-top: 1px; margin-bottom: 14px; }
@@ -178,14 +180,14 @@
 
   <!-- INTRO / HOW TO READ THIS -->
   <div class="intro">
-    <div class="intro-h">What this is &mdash; and what to take from it</div>
+    <div class="intro-h">What this is, and what to take from it</div>
     <div class="intro-b">
-      <p>The <b>Financial Position &amp; KPI Report is BPP&rsquo;s health snapshot</b>: what the business owns and owes right now, how long its cash lasts, and the ratios that show whether it&rsquo;s sound. It answers &ldquo;<b>are we financially healthy, and can we keep going?</b>&rdquo; &mdash; not &ldquo;how did we perform this month.&rdquo; For revenue, expenses and net income <b>over time</b>, see the <a href="performance-dashboard.html">Performance Dashboard &rarr;</a></p>
+      <p>This is <b>BPP&rsquo;s financial health snapshot</b>: what the business owns and owes right now, how long its cash lasts, and the ratios that show whether it is sound. It answers one question, <b>are we healthy and can we keep going</b>, rather than how we performed this month. For revenue, expenses, and net income <b>over time</b>, see the <a href="performance-dashboard.html">Performance Dashboard &rarr;</a></p>
       <div class="intro-take">
-        <div class="tk"><span class="tk-d good"></span>Debt-free and owing no vendors &mdash; a clean, low-risk balance sheet.</div>
-        <div class="tk"><span class="tk-d good"></span>Profitable YTD (<span class="pii">$2,931</span> net, 19.5% margin), with revenue up ~95% vs the same period last year.</div>
-        <div class="tk"><span class="tk-d warn"></span><b>The number that matters is runway (~3.2 months).</b> Operating cash is tight (~<span class="pii">$1,993</span>, below the two-month buffer) &mdash; collection, not cost, is the fix.</div>
-        <div class="tk"><span class="tk-d bad"></span>Growth is masking churn &mdash; retention is the weak spot, and the strongest case for recurring revenue.</div>
+        <div class="tk"><span class="tk-d good"></span><b>Clean, low-risk balance sheet.</b> Debt-free, no vendors owed.</div>
+        <div class="tk"><span class="tk-d good"></span><b>Profitable and growing.</b> 19.5% net margin YTD, revenue up about 95% year over year.</div>
+        <div class="tk"><span class="tk-d warn"></span><b>Runway is the number that matters, about 3.2 months.</b> Operating cash sits below the two-month buffer, so collection is the lever, not cost.</div>
+        <div class="tk"><span class="tk-d bad"></span><b>Growth is masking churn.</b> Retention is the weak spot, and the case for recurring revenue.</div>
       </div>
     </div>
   </div>
@@ -223,24 +225,24 @@
     </div>
   </div>
 
-  <!-- 1 POSITION + PROFITABILITY -->
-  <div class="shead"><span class="n">1</span><span class="t">Position &amp; Profitability</span><span class="s">Balance sheet snapshot + YTD P&amp;L</span></div>
+  <!-- 1 THE THREE STATEMENTS -->
+  <div class="shead"><span class="n">1</span><span class="t">Position, Profitability &amp; Cash Flow</span><span class="s">The three statements, YTD &middot; as of Jul 29</span></div>
 
-  <div class="grid2 wide-r">
+  <div class="grid3">
     <div class="card">
       <div class="card-t">Balance sheet</div>
-      <div class="card-s">What the business owns and owes, as of Jul 29 &middot; spendable balances</div>
+      <div class="card-s">What we own and owe &middot; spendable balances</div>
       <table class="bs tnum">
-        <tr class="grp"><td>Cash</td><td class="v"><span class="pii">$5,617.85</span></td></tr>
+        <tr class="grp"><td>Cash</td><td class="v"><span class="pii">$5,618</span></td></tr>
         <tr class="sub"><td>Operating (available)</td><td class="v"><span class="pii">~$1,993</span></td></tr>
-        <tr class="sub"><td>Reserve (QB Envelopes)</td><td class="v"><span class="pii">$3,625.13</span></td></tr>
-        <tr class="sub"><td>Chase savings (unused)</td><td class="v"><span class="pii">$1.93</span></td></tr>
-        <tr class="grp"><td>Accounts receivable</td><td class="v"><span class="pii">$1,793.26</span></td></tr>
-        <tr class="sub"><td>Undeposited funds</td><td class="v"><span class="pii">$444.15</span></td></tr>
-        <tr class="grp"><td>Total assets</td><td class="v"><span class="pii">$7,855.26</span></td></tr>
-        <tr class="sub"><td>Credit card (Amex, post-payment)</td><td class="v"><span class="pii">~$520</span></td></tr>
-        <tr class="sub"><td>Prior-owner payable</td><td class="v"><span class="pii">$14.96</span></td></tr>
-        <tr class="sub"><td>Accounts payable</td><td class="v">$0.00</td></tr>
+        <tr class="sub"><td>Reserve (Envelopes)</td><td class="v"><span class="pii">$3,625</span></td></tr>
+        <tr class="sub"><td>Chase savings</td><td class="v"><span class="pii">$2</span></td></tr>
+        <tr class="grp"><td>Accounts receivable</td><td class="v"><span class="pii">$1,793</span></td></tr>
+        <tr class="sub"><td>Undeposited funds</td><td class="v"><span class="pii">$444</span></td></tr>
+        <tr class="grp"><td>Total assets</td><td class="v"><span class="pii">$7,855</span></td></tr>
+        <tr class="sub"><td>Credit card (Amex)</td><td class="v"><span class="pii">~$520</span></td></tr>
+        <tr class="sub"><td>Prior-owner payable</td><td class="v"><span class="pii">$15</span></td></tr>
+        <tr class="sub"><td>Accounts payable</td><td class="v">$0</td></tr>
         <tr class="grp"><td>Total liabilities</td><td class="v"><span class="pii">~$535</span></td></tr>
         <tr class="tot"><td>Equity (net worth)</td><td class="v"><span class="pii">~$7,320</span></td></tr>
       </table>
@@ -248,22 +250,39 @@
 
     <div class="card">
       <div class="card-t">Income statement</div>
-      <div class="card-s">YTD 2026 &middot; QuickBooks P&amp;L</div>
+      <div class="card-s">Revenue and profit &middot; QuickBooks P&amp;L</div>
       <table class="bs tnum">
         <tr class="grp"><td>Revenue</td><td class="v"><span class="pii">$15,053</span></td></tr>
         <tr class="sub"><td>Cost of goods sold</td><td class="v"><span class="pii">&minus;$964</span></td></tr>
-        <tr class="grp"><td>Gross profit</td><td class="v"><span class="pii">$14,089</span> &middot; <span style="color:var(--ink-2);font-weight:400">93.6%</span></td></tr>
-        <tr class="sub"><td>Operating expenses</td><td class="v"><span class="pii">&minus;$11,184</span></td></tr>
-        <tr class="sub"><td>Other (interest, misc)</td><td class="v"><span class="pii">+$27</span></td></tr>
+        <tr class="grp"><td>Gross profit</td><td class="v"><span class="pii">$14,089</span> &middot; <span style="color:var(--ink-2);font-weight:400">94%</span></td></tr>
+        <tr class="sub"><td>Software &amp; apps</td><td class="v"><span class="pii">&minus;$5,924</span></td></tr>
+        <tr class="sub"><td>Advertising &amp; marketing</td><td class="v"><span class="pii">&minus;$2,655</span></td></tr>
+        <tr class="sub"><td>Guaranteed payments</td><td class="v"><span class="pii">&minus;$900</span></td></tr>
+        <tr class="sub"><td>Other operating</td><td class="v"><span class="pii">&minus;$1,705</span></td></tr>
+        <tr class="grp"><td>Operating expenses</td><td class="v"><span class="pii">&minus;$11,184</span></td></tr>
+        <tr class="sub"><td>Other income, net</td><td class="v"><span class="pii">+$27</span></td></tr>
         <tr class="tot"><td>Net income</td><td class="v"><span class="pii">$2,931</span> &middot; <span style="color:var(--good-dark);font-weight:700">19.5%</span></td></tr>
       </table>
-      <div class="cap">Revenue &amp; net income <b>by month, quarter &amp; year</b> live on the <a href="performance-dashboard.html" style="color:var(--navy);font-weight:600;text-decoration:none">Performance Dashboard &rarr;</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-t">Cash flow</div>
+      <div class="card-s">Where the cash moved &middot; QuickBooks</div>
+      <table class="bs tnum">
+        <tr class="grp"><td>Operating activities</td><td class="v"><span class="pii">+$3,681</span></td></tr>
+        <tr class="sub"><td>Investing activities</td><td class="v">$0</td></tr>
+        <tr class="sub"><td>Financing activities</td><td class="v">$0</td></tr>
+        <tr class="grp"><td>Net change in cash</td><td class="v"><span class="pii">+$3,681</span></td></tr>
+        <tr class="sub"><td>Cash, start of year</td><td class="v"><span class="pii">$4,032</span></td></tr>
+        <tr class="tot"><td>Cash, end (QB books)</td><td class="v"><span class="pii">$7,713</span></td></tr>
+      </table>
+      <div class="cap">Operations threw off <b>+$3,681</b> YTD with no debt or investing. Ending cash is QuickBooks&rsquo; posted book balance; spendable is lower (see balance sheet).</div>
     </div>
   </div>
 
   <div class="note gold">
     <div class="nt">Read this first</div>
-    <div class="nb">BPP is <b>debt-free and owes no vendors</b>. Almost everything it holds is cash and one client balance. Strong and clean, but small, so the number that matters most is <b>runway</b>, not the size of the balance sheet. Of the cash, <b><span class="pii">$3,625</span> is set aside in QuickBooks Envelopes</b> as the Savings Reserve (past the $3K Phase-2 line, ~72% to Phase 3&rsquo;s $5K), leaving only ~<span class="pii">$1,993</span> operating. (The connector can't read Envelopes, so the reserve figure is entered by hand.) <b>This view uses spendable balances</b>: the $309 Amex was paid down from Chase this week, and QuickBooks&rsquo; <em>posted</em> books read higher (~<span class="pii">$7,269</span> cash / <span class="pii">$8,662</span> equity) because ~<span class="pii">$1,650</span> of transactions haven&rsquo;t cleared. Operating is <b>~$1,656 below the two-month buffer</b> &mdash; collection, not the reserve, is the fix.</div>
+    <div class="nb">BPP is <b>debt-free and owes no vendors</b>. Almost everything it holds is cash and one client balance. Strong and clean, but small, so the number that matters most is <b>runway</b>, not the size of the balance sheet. Of the cash, <b><span class="pii">$3,625</span> is set aside in QuickBooks Envelopes</b> as the Savings Reserve (past the $3K Phase-2 line, ~72% to Phase 3&rsquo;s $5K), leaving only ~<span class="pii">$1,993</span> operating. (The connector can't read Envelopes, so the reserve figure is entered by hand.) <b>This view uses spendable balances</b>: the $309 Amex was paid down from Chase this week, and QuickBooks&rsquo; <em>posted</em> books read higher (~<span class="pii">$7,269</span> cash / <span class="pii">$8,662</span> equity) because ~<span class="pii">$1,650</span> of transactions haven&rsquo;t cleared. Operating is <b>~$1,656 below the two-month buffer</b>, collection, not the reserve, is the fix.</div>
   </div>
 
   <!-- 2 RATIOS -->
@@ -310,7 +329,7 @@
 
     <div class="metric">
       <div><div class="mv">24.2</div><div class="mn">DSO (days)</div><div class="mc"><span class="chip info"><span class="cd"></span>Read w/ aging</span></div></div>
-      <div class="mbody"><div class="mwhat">Collection averages <b>24 days</b> &mdash; looks healthy on its own.</div><div class="mplain">Misleading: the blended average hides that <b>every open invoice is 90+ days late</b> (Section 5).</div></div>
+      <div class="mbody"><div class="mwhat">Collection averages <b>24 days</b>, looks healthy on its own.</div><div class="mplain">Misleading: the blended average hides that <b>every open invoice is 90+ days late</b> (Section 5).</div></div>
     </div>
   </div>
 
@@ -367,7 +386,7 @@
       </svg>
     </div>
   </div>
-  <div class="cap">Revenue by client sums to <span class="pii">$14,637.73</span> (sales tied to a customer). The headline <b>Revenue YTD of <span class="pii">$15,052.70</span></b> is the P&amp;L total; the <span class="pii">$414.97</span> difference is income not tied to a client invoice ($20 unapplied cash, $20 uncategorized, ~$375 posted straight to income). QuickBooks' own "sales by customer" report reads <span class="pii">$20,768</span> because it triple-counts sub-customers &mdash; see Section 7.</div>
+  <div class="cap">Revenue by client sums to <span class="pii">$14,637.73</span> (sales tied to a customer). The headline <b>Revenue YTD of <span class="pii">$15,052.70</span></b> is the P&amp;L total; the <span class="pii">$414.97</span> difference is income not tied to a client invoice ($20 unapplied cash, $20 uncategorized, ~$375 posted straight to income). QuickBooks' own "sales by customer" report reads <span class="pii">$20,768</span> because it triple-counts sub-customers, see Section 7.</div>
 
   <!-- 4 RETENTION WATERFALL -->
   <div class="shead"><span class="n">4</span><span class="t">Where the growth came from</span><span class="s">2025 &rarr; 2026 revenue bridge</span></div>
@@ -448,15 +467,15 @@
   </div>
   <div class="note red">
     <div class="nt">Two layers, two systems</div>
-    <div class="nb"><b>Billed A/R (<span class="pii">$1,793</span>, QuickBooks)</b> is three invoices totaling <span class="pii">$2,237</span>, net of <span class="pii">$444</span> in unapplied payments. 100% is 90+ days late &mdash; a collections gap, not a sales gap, and <b>mostly 2025 vintage</b>:
+    <div class="nb"><b>Billed A/R (<span class="pii">$1,793</span>, QuickBooks)</b> is three invoices totaling <span class="pii">$2,237</span>, net of <span class="pii">$444</span> in unapplied payments. 100% is 90+ days late, a collections gap, not a sales gap, and <b>mostly 2025 vintage</b>:
       <ul style="margin:7px 0 0 16px;padding:0;font-size:11.5px;line-height:1.7">
-        <li>Inv #1008 <span class="mask">Client D</span><span class="real pii">Xtremely Clean</span> &mdash; <b>May 2025</b>, <span class="pii">$1,657.50</span> (over a year old, half of a $3,315 invoice)</li>
-        <li>Inv #1017 <span class="real pii">Tier 1 Solar</span><span class="mask">Client H</span> &mdash; <b>Oct 2025</b>, <span class="pii">$455.68</span></li>
-        <li>Inv #1019 <span class="mask">Client G</span><span class="real pii">Roberts Brothers</span> &mdash; Apr 2026, <span class="pii">$124.23</span> (BPP's own Google Workspace spend rebilled, never collected)</li>
+        <li>Inv #1008 <span class="mask">Client D</span><span class="real pii">Xtremely Clean</span>, <b>May 2025</b>, <span class="pii">$1,657.50</span> (over a year old, half of a $3,315 invoice)</li>
+        <li>Inv #1017 <span class="real pii">Tier 1 Solar</span><span class="mask">Client H</span>, <b>Oct 2025</b>, <span class="pii">$455.68</span></li>
+        <li>Inv #1019 <span class="mask">Client G</span><span class="real pii">Roberts Brothers</span>, Apr 2026, <span class="pii">$124.23</span> (BPP's own Google Workspace spend rebilled, never collected)</li>
       </ul>
-      <br><b>Committed but unbilled (<span class="pii">$1,350</span>, HubSpot)</b> is the <span class="mask">Client B</span><span class="real pii">Lois Marketing</span> Operator System final milestone &mdash; sold 30/40/30, first two paid, the last <span class="pii">$1,350</span> not yet invoiced in QuickBooks. Owed to us but invisible on the QB aging report.</div>
+      <br><b>Committed but unbilled (<span class="pii">$1,350</span>, HubSpot)</b> is the <span class="mask">Client B</span><span class="real pii">Lois Marketing</span> Operator System final milestone, sold 30/40/30, first two paid, the last <span class="pii">$1,350</span> not yet invoiced in QuickBooks. Owed to us but invisible on the QB aging report.</div>
   </div>
-  <div class="cap">Note: naively summing HubSpot deals not marked "Paid in Full" reads ~<span class="pii">$14K</span>, but that's badly overstated &mdash; those statuses are stale (deals QuickBooks confirms are paid in full still show "Deposit Received"). QB is the accurate source for billed A/R; HubSpot only adds genuinely-unbilled committed milestones.</div>
+  <div class="cap">Note: naively summing HubSpot deals not marked "Paid in Full" reads ~<span class="pii">$14K</span>, but that's badly overstated, those statuses are stale (deals QuickBooks confirms are paid in full still show "Deposit Received"). QB is the accurate source for billed A/R; HubSpot only adds genuinely-unbilled committed milestones.</div>
 
   <!-- 6 PRODUCT MIX -->
   <div class="shead"><span class="n">6</span><span class="t">Product mix</span><span class="s">revenue by offering &middot; YTD &middot; QB &times; HubSpot</span></div>
@@ -482,7 +501,7 @@
   </div>
   <div class="note gold">
     <div class="nt">Reconstructed by mapping each client's revenue to their actual package</div>
-    <div class="nb">QuickBooks lumps <b>55% of revenue into one nameless SKU</b> (&ldquo;HubSpot Custom Line Item&rdquo;). This table rebuilds it by cross-referencing HubSpot deals, so the $7,999 splits into the real offerings &mdash; <b>Operator System, strategic systems builds, and Launch Pad</b>. It reconciles to the penny. The permanent fix is routing package milestones to proper QuickBooks items so this doesn't need hand-reconstruction each month; that migration is underway.</div>
+    <div class="nb">QuickBooks lumps <b>55% of revenue into one nameless SKU</b> (&ldquo;HubSpot Custom Line Item&rdquo;). This table rebuilds it by cross-referencing HubSpot deals, so the $7,999 splits into the real offerings, <b>Operator System, strategic systems builds, and Launch Pad</b>. It reconciles to the penny. The permanent fix is routing package milestones to proper QuickBooks items so this doesn't need hand-reconstruction each month; that migration is underway.</div>
   </div>
 
   <!-- 7 DATA QUALITY -->
@@ -494,7 +513,7 @@
   </div>
   <div class="grid2 mt12">
     <div class="note" style="border-left-color:var(--warn)"><div class="nt">Open item 1 &middot; undeposited funds = unapplied A/R credits</div><div class="nb"><span class="pii">$444.15</span> in Payments to Deposit is the <b>same</b> <span class="pii">$444.15</span> of unapplied payments dragging A/R down: <span class="real pii">Stack All Profits</span><span class="mask">a client</span> <span class="pii">$424.15</span> (Sep 2025 overpayment) + four <span class="pii">$5</span> &ldquo;BPP&rdquo; test payments (Jan 2026). Received, never deposited or applied. Clearing them fixes both the asset and the A/R.</div></div>
-    <div class="note" style="border-left-color:var(--warn)"><div class="nt">Open item 2 &middot; net income mismatch</div><div class="nb">P&amp;L reports YTD net income <span class="pii">$2,931.30</span>; balance sheet reports <span class="pii">$2,107.51</span>. The same <span class="pii">$823.79</span> gap as last week &mdash; structural, not drift. Likely a fiscal-year setting. Resolve before the next review.</div></div>
+    <div class="note" style="border-left-color:var(--warn)"><div class="nt">Open item 2 &middot; net income mismatch</div><div class="nb">P&amp;L reports YTD net income <span class="pii">$2,931.30</span>; balance sheet reports <span class="pii">$2,107.51</span>. The same <span class="pii">$823.79</span> gap as last week, structural, not drift. Likely a fiscal-year setting. Resolve before the next review.</div></div>
     <div class="note" style="border-left-color:var(--warn)"><div class="nt">Open item 3 &middot; revenue not tied to invoices</div><div class="nb"><span class="pii">$414.97</span> of P&amp;L income isn't tied to a customer invoice ($20 unapplied cash, $20 uncategorized, ~$375 direct-to-income). This is why the client and product tables sum to <span class="pii">$14,637.73</span> while P&amp;L revenue is <span class="pii">$15,052.70</span>. Tie the postings to customers in QB and the reports agree.</div></div>
     <div class="note" style="border-left-color:var(--blue)"><div class="nt">Sourcing &middot; where each number comes from</div><div class="nb"><b>QuickBooks:</b> cash, balance sheet, P&amp;L, billed A/R, monthly revenue. <b>HubSpot:</b> committed-but-unbilled A/R, package mapping for the product table. <b>Both reconciled by hand</b> against each other.</div></div>
   </div>
