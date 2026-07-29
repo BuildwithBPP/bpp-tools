@@ -71,6 +71,7 @@
   .tile .meta { font-size:11px; color:var(--ink-2); margin-top:6px; display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
   .delta { font-weight:700; display:inline-flex; align-items:center; gap:2px; }
   .delta.up { color:var(--good-dark); } .delta.down { color:var(--red); } .delta.flat { color:var(--muted); }
+  .dnum { color:var(--muted); font-weight:600; }
   .spark { position:absolute; right:12px; top:13px; opacity:0.9; }
 
   .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
@@ -176,7 +177,7 @@
   <div class="panel on" id="tab-fin">
     <div class="shead"><span class="n">1</span><span class="t">Financial</span><span class="s" id="s-fin">&mdash;</span></div>
     <div class="grid2 wide-l">
-      <div class="card"><div class="card-t">Revenue &amp; net income by month</div><div class="card-s" id="ct-rev">Cash basis &middot; QuickBooks. Selected period highlighted; loss months marked red.</div><div id="ch-rev"></div></div>
+      <div class="card"><div class="card-t">Revenue &amp; net income by month</div><div class="card-s" id="ct-rev">Cash basis Cash basis &middot; QuickBooks. Selected period highlighted; loss months marked red.middot; QuickBooks. Revenue bars + net income line (gold); line dips below zero on loss months.</div><div id="ch-rev"></div></div>
       <div class="card"><div class="card-t">Revenue by offering</div><div class="card-s">Selected period &middot; each client payment mapped to its service line (estimated for bundled packages)</div><div id="ch-revoff"></div></div>
     </div>
     <div class="grid2 wide-l mt12">
@@ -253,13 +254,29 @@ const g = m => D[m] || EMPTY;
 
 // ---------- scope ----------
 function scopeMonths(year, period, month){
+  if(year==='All') return MONTHS.slice();
   let keys;
   if(period==='MONTH'){ keys=[year+'-'+month]; }
   else if(period==='FY'){ keys=MONTHS.filter(m=>m.startsWith(year)); }
   else { keys=QS[period].map(mm=>year+'-'+mm); }
   return keys.filter(k=>MONTHS.includes(k));
 }
+// x-axis buckets for the by-period charts: months of the year, or quarters when All-time
+function viewBuckets(){
+  const scope=state.__scope||[];
+  if(state.year==='All'){
+    const out=[];
+    YEARS.forEach(y=>['Q1','Q2','Q3','Q4'].forEach(q=>{
+      const ms=QS[q].map(mm=>y+'-'+mm).filter(m=>MONTHS.includes(m));
+      if(ms.length) out.push({label:'’'+y.slice(2)+' '+q, months:ms, inScope:true});
+    }));
+    return out;
+  }
+  const ms=MONTHS.filter(m=>m.startsWith(state.year));
+  return ms.map(m=>({label:MN[+m.slice(5)-1], months:[m], inScope:scope.includes(m)}));
+}
 function priorScope(year, period, month){
+  if(year==='All') return null;
   if(period==='FY'){ const py=(+year-1)+''; return YEARS.includes(py)?{year:py,period:'FY',month:null,label:py}:null; }
   if(period==='MONTH'){ const i=MONTHS.indexOf(year+'-'+month); if(i>0){const pm=MONTHS[i-1]; return {year:pm.slice(0,4),period:'MONTH',month:pm.slice(5),label:MN[+pm.slice(5)-1]+" '"+pm.slice(2,4)}; } return null; }
   const order=['Q1','Q2','Q3','Q4']; const qi=order.indexOf(period);
@@ -292,45 +309,57 @@ function usdFull(n){ return (n<0?'-$':'$')+Math.abs(n).toLocaleString('en-US',{m
 function maskMoney(html){ return html.replace(/-?\$[\d][\d,]*(\.\d+)?K?/g, m=>'<span class="pii">'+m+'</span>'); }
 function num(n){ n=Math.round(n); if(n>=1000) return (n/1000).toFixed(n>=10000?0:1)+'K'; return ''+n; }
 function pctOf(a,b){ return b?Math.round(a/b*100):0; }
-function deltaHTML(cur,prev,inv=false){
+function deltaHTML(cur,prev,fmt,inv){
   if(prev===null||prev===undefined) return '<span class="delta flat">&mdash;</span>';
   if(prev===0) return cur>0?'<span class="delta up">new</span>':'<span class="delta flat">&mdash;</span>';
-  const p=Math.round((cur-prev)/Math.abs(prev)*100);
-  const up=p>=0; const good=inv?!up:up;
+  const diff=cur-prev, p=Math.round(diff/Math.abs(prev)*100);
+  const up=diff>=0; const good=inv?!up:up;
   const arrow=up?'&#9650;':'&#9660;';
-  return '<span class="delta '+(p===0?'flat':(good?'up':'down'))+'">'+arrow+' '+Math.abs(p)+'%</span>';
+  const f=fmt||(x=>''+Math.round(x));
+  const dtxt=(diff>=0?'+':'&minus;')+f(Math.abs(diff));
+  return '<span class="delta '+(p===0?'flat':(good?'up':'down'))+'">'+arrow+' '+Math.abs(p)+'%</span> <span class="dnum">'+dtxt+'</span>';
 }
 
 // ---------- svg helpers ----------
 function niceMax(v){ if(v<=0) return 1; const p=Math.pow(10,Math.floor(Math.log10(v))); for(const m of [1,1.5,2,2.5,3,4,5,7.5,10]){ if(v<=m*p) return m*p; } return 10*p; }
 function esc(s){ return String(s); }
 
-// vertical column chart of monthly values; highlight = set of month-keys in scope
-function colChart(monthKeys, valFn, {fmt=usd, height=250, lossKeys=[], gold=false}={}){
-  const W=640,H=height,padL=50,padR=14,padT=26,padB=30;
-  const vals=monthKeys.map(valFn);
-  const max=niceMax(Math.max(...vals,1));
+// combo: revenue columns + net income trend line, over buckets (months or quarters); zero-aware
+function colChart(buckets, mFn, {fmt=usd, height=250, gold=false, netFn=null}={}){
+  const W=640,H=height,padL=52,padR=14,padT=26,padB=34;
+  const vals=buckets.map(b=>mFn(b.months));
+  const nets=netFn?buckets.map(b=>netFn(b.months)):[];
+  const rawMax=Math.max(...vals, ...(netFn?nets:[]), 1);
+  const rawMin=netFn?Math.min(0, ...nets):0;
+  const yMax=niceMax(rawMax);
+  const yMin=rawMin<0?-niceMax(-rawMin):0;
+  const range=(yMax-yMin)||1;
   const plotH=H-padT-padB, plotW=W-padL-padR, base=padT+plotH;
-  const n=monthKeys.length, step=plotW/n, bw=Math.min(40,step*0.6);
+  const Y=v=>base-(v-yMin)/range*plotH;
+  const zeroY=Y(0);
+  const n=buckets.length, step=plotW/n, bw=Math.min(38,step*0.55);
   let s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" role="img">';
-  // gridlines + y labels
   s+='<g stroke="#e8edf2" stroke-width="1">';
-  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'"'+(i===4?' stroke="#c4d0da"':'')+'/>'; }
+  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'"/>'; }
   s+='</g><g fill="#8a97a3" font-size="10" text-anchor="end" class="tnum">';
-  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<text x="'+(padL-6)+'" y="'+(y+3)+'" class="pii">'+fmt(max*(4-i)/4)+'</text>'; }
+  for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; const val=yMax-range*i/4; s+='<text x="'+(padL-6)+'" y="'+(y+3)+'" class="pii">'+fmt(val)+'</text>'; }
   s+='</g>';
-  // bars
-  monthKeys.forEach((k,i)=>{
-    const v=vals[i], h=Math.max(v<=0?0:v/max*plotH,0), x=padL+step*i+(step-bw)/2, y=base-h;
-    const inScope=state.__scope.includes(k);
-    const isLoss=lossKeys.includes(k);
-    const fill = inScope ? (gold?'url(#gGold)':'url(#gNavy)') : '#d7e0e8';
+  if(yMin<0) s+='<line x1="'+padL+'" y1="'+zeroY.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+zeroY.toFixed(1)+'" stroke="#c4d0da" stroke-width="1"/>';
+  buckets.forEach((b,i)=>{
+    const v=vals[i], top=Y(v), h=Math.abs(zeroY-top), x=padL+step*i+(step-bw)/2, y=Math.min(top,zeroY);
+    const fill=b.inScope?(gold?'url(#gGold)':'url(#gNavy)'):'#d7e0e8';
     if(h>0.5) s+='<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="4" fill="'+fill+'"/>';
-    if(isLoss) s+='<circle cx="'+(x+bw/2).toFixed(1)+'" cy="'+(base+9)+'" r="2.6" fill="#c0392b"/>';
-    // value label for in-scope
-    if(inScope && v!==0) s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(y-5).toFixed(1)+'" font-size="9.5" font-weight="700" fill="#16232e" text-anchor="middle" class="tnum pii">'+fmt(v)+'</text>';
-    s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(base+22)+'" font-size="10" fill="#5a6b78" text-anchor="middle">'+MN[+k.slice(5)-1]+'</text>';
+    if(b.inScope && v!==0) s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(y-5).toFixed(1)+'" font-size="9" font-weight="700" fill="#16232e" text-anchor="middle" class="tnum pii">'+fmt(v)+'</text>';
+    s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(base+22)+'" font-size="9.5" fill="#5a6b78" text-anchor="middle">'+b.label+'</text>';
   });
+  if(netFn){
+    const cx=i=>padL+step*i+step/2;
+    const pts=buckets.map((b,i)=>cx(i).toFixed(1)+','+Y(nets[i]).toFixed(1));
+    s+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#d99e2b" stroke-width="2" stroke-linejoin="round"/>';
+    buckets.forEach((b,i)=>{ s+='<circle cx="'+cx(i).toFixed(1)+'" cy="'+Y(nets[i]).toFixed(1)+'" r="2.6" fill="#d99e2b"/>'; });
+    s+='<g font-size="9.5" fill="#5a6b78"><rect x="'+padL+'" y="5" width="9" height="9" rx="2" fill="url(#gNavy)"/><text x="'+(padL+13)+'" y="13">Revenue</text>';
+    s+='<line x1="'+(padL+74)+'" y1="9.5" x2="'+(padL+92)+'" y2="9.5" stroke="#d99e2b" stroke-width="2"/><circle cx="'+(padL+83)+'" cy="9.5" r="2.6" fill="#d99e2b"/><text x="'+(padL+97)+'" y="13">Net income</text></g>';
+  }
   s+='</svg>';
   return s;
 }
@@ -353,38 +382,37 @@ function barChart(rows, {fmt=usd, height=null, unit='', pii=false}={}){
   return s;
 }
 
-// grouped won/lost columns by month
-function groupCols(monthKeys, {height=250}={}){
-  const W=640,H=height,padL=50,padR=14,padT=26,padB=30;
-  const won=monthKeys.map(k=>g(k).wonV), lost=monthKeys.map(k=>g(k).lostV);
+// grouped won/lost columns over buckets
+function groupCols(buckets, {height=250}={}){
+  const W=640,H=height,padL=50,padR=14,padT=26,padB=34;
+  const won=buckets.map(b=>b.months.reduce((s,m)=>s+g(m).wonV,0)), lost=buckets.map(b=>b.months.reduce((s,m)=>s+g(m).lostV,0));
   const max=niceMax(Math.max(...won,...lost,1));
   const plotH=H-padT-padB, plotW=W-padL-padR, base=padT+plotH;
-  const n=monthKeys.length, step=plotW/n, bw=Math.min(13,step*0.32);
+  const n=buckets.length, step=plotW/n, bw=Math.min(14,step*0.32);
   let s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" role="img">';
   s+='<g stroke="#e8edf2" stroke-width="1">';
   for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'"'+(i===4?' stroke="#c4d0da"':'')+'/>'; }
   s+='</g><g fill="#8a97a3" font-size="10" text-anchor="end" class="tnum">';
   for(let i=0;i<=4;i++){ const y=padT+plotH*i/4; s+='<text x="'+(padL-6)+'" y="'+(y+3)+'" class="pii">'+usd(max*(4-i)/4)+'</text>'; }
   s+='</g>';
-  monthKeys.forEach((k,i)=>{
+  buckets.forEach((b,i)=>{
     const cx=padL+step*i+step/2;
     const hw=won[i]/max*plotH, hl=lost[i]/max*plotH;
     if(hw>0.5) s+='<rect x="'+(cx-bw-1).toFixed(1)+'" y="'+(base-hw).toFixed(1)+'" width="'+bw+'" height="'+hw.toFixed(1)+'" rx="3" fill="url(#gGood)"/>';
     if(hl>0.5) s+='<rect x="'+(cx+1).toFixed(1)+'" y="'+(base-hl).toFixed(1)+'" width="'+bw+'" height="'+hl.toFixed(1)+'" rx="3" fill="url(#gBad)"/>';
-    s+='<text x="'+cx.toFixed(1)+'" y="'+(base+22)+'" font-size="10" fill="#5a6b78" text-anchor="middle">'+MN[+k.slice(5)-1]+'</text>';
+    s+='<text x="'+cx.toFixed(1)+'" y="'+(base+22)+'" font-size="9.5" fill="#5a6b78" text-anchor="middle">'+b.label+'</text>';
   });
-  // legend
   s+='<g font-size="10.5" fill="#5a6b78"><rect x="'+(padL)+'" y="6" width="9" height="9" rx="2" fill="url(#gGood)"/><text x="'+(padL+13)+'" y="14">Won</text>';
   s+='<rect x="'+(padL+58)+'" y="6" width="9" height="9" rx="2" fill="url(#gBad)"/><text x="'+(padL+71)+'" y="14">Lost</text></g>';
   s+='</svg>';
   return s;
 }
 
-// area line for website
-function areaLine(monthKeys, valFn, {fmt=num, height=230}={}){
-  const W=640,H=height,padL=48,padR=14,padT=24,padB=30;
-  const vals=monthKeys.map(valFn); const max=niceMax(Math.max(...vals,1));
-  const plotH=H-padT-padB, plotW=W-padL-padR, base=padT+plotH, n=monthKeys.length;
+// area line for website over buckets
+function areaLine(buckets, mFn, {fmt=num, height=230}={}){
+  const W=640,H=height,padL=48,padR=14,padT=24,padB=34;
+  const vals=buckets.map(b=>mFn(b.months)); const max=niceMax(Math.max(...vals,1));
+  const plotH=H-padT-padB, plotW=W-padL-padR, base=padT+plotH, n=buckets.length;
   const X=i=>padL+(n===1?plotW/2:plotW*i/(n-1)); const Y=v=>base-v/max*plotH;
   let s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" role="img">';
   s+='<g stroke="#e8edf2" stroke-width="1">';
@@ -395,10 +423,10 @@ function areaLine(monthKeys, valFn, {fmt=num, height=230}={}){
   let pts=vals.map((v,i)=>X(i).toFixed(1)+','+Y(v).toFixed(1));
   s+='<polygon points="'+padL+','+base+' '+pts.join(' ')+' '+(X(n-1)).toFixed(1)+','+base+'" fill="url(#gArea)" opacity="0.5"/>';
   s+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#2f80c4" stroke-width="2" stroke-linejoin="round"/>';
-  vals.forEach((v,i)=>{ const inScope=state.__scope.includes(monthKeys[i]);
+  vals.forEach((v,i)=>{ const inScope=buckets[i].inScope;
     s+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(v).toFixed(1)+'" r="'+(inScope?3.4:2.2)+'" fill="'+(inScope?'#044771':'#6ba8d8')+'"/>';
     if(inScope&&v>0) s+='<text x="'+X(i).toFixed(1)+'" y="'+(Y(v)-8).toFixed(1)+'" font-size="9.5" font-weight="700" fill="#16232e" text-anchor="middle" class="tnum">'+fmt(v)+'</text>';
-    s+='<text x="'+X(i).toFixed(1)+'" y="'+(base+22)+'" font-size="10" fill="#5a6b78" text-anchor="middle">'+MN[+monthKeys[i].slice(5)-1]+'</text>';
+    s+='<text x="'+X(i).toFixed(1)+'" y="'+(base+22)+'" font-size="9.5" fill="#5a6b78" text-anchor="middle">'+buckets[i].label+'</text>';
   });
   s+='</svg>';
   return s;
@@ -419,10 +447,11 @@ function render(){
   const a=agg(months);
   const pr=priorScope(year,period,month);
   const pa=pr?agg(scopeMonths(pr.year,pr.period,pr.month)):null;
-  const yearMonths=MONTHS.filter(m=>m.startsWith(year));
+  const yearMonths=year==='All'?MONTHS.slice():MONTHS.filter(m=>m.startsWith(year));
+  const cols=viewBuckets();
 
   // scope label
-  const plabel = period==='FY'?('Full year '+year):period==='MONTH'?(MN[+month-1]+' '+year):(period+' '+year);
+  const plabel = year==='All'?'All time':period==='FY'?('Full year '+year):period==='MONTH'?(MN[+month-1]+' '+year):(period+' '+year);
   $('scopeTag').innerHTML='Showing <b>'+plabel+'</b>'+(months.length?' &middot; '+months.length+' month'+(months.length>1?'s':''):'');
   $('asof').textContent=plabel;
   const cmp = pa?(' vs '+pr.label):'';
@@ -438,15 +467,14 @@ function render(){
   const foll=a.ig.f+a.fb.f+a.tt.f+a.li.f, pfoll=pa?(pa.ig.f+pa.fb.f+pa.tt.f+pa.li.f):null;
   const netAcc=a.net>=0?'acc-good':'acc-red';
   $('kpis').innerHTML=maskMoney(
-    tile('Revenue', usdFull(a.rev), deltaHTML(a.rev,pa&&pa.rev)+cmp, 'acc-good', spark(revSpark))
-   +tile('Net income', usdFull(a.net), (margin)+'% margin &middot; '+deltaHTML(a.net,pa&&pa.net), netAcc)
-   +tile('Deals won', usdFull(a.wonV), a.wonN+' deals &middot; '+deltaHTML(a.wonV,pa&&pa.wonV), 'acc-gold')
-   +tile('Content views', num(socV), deltaHTML(socV,psocV)+cmp, '')
+    tile('Revenue', usdFull(a.rev), deltaHTML(a.rev,pa&&pa.rev,usdFull)+cmp, 'acc-good', spark(revSpark))
+   +tile('Net income', usdFull(a.net), (margin)+'% margin &middot; '+deltaHTML(a.net,pa&&pa.net,usdFull), netAcc)
+   +tile('Deals won', usdFull(a.wonV), a.wonN+' deals &middot; '+deltaHTML(a.wonV,pa&&pa.wonV,usdFull), 'acc-gold')
+   +tile('Content views', num(socV), deltaHTML(socV,psocV,num)+cmp, '')
    +tile('Followers', num(foll), (pfoll!==null?((foll-pfoll>=0?'+':'')+(foll-pfoll)+' net'):'&mdash;'), 'acc-gold'));
 
   // charts
-  const lossKeys=yearMonths.filter(m=>g(m).net<0);
-  $('ch-rev').innerHTML=colChart(yearMonths, m=>g(m).rev, {fmt:usd, lossKeys});
+  $('ch-rev').innerHTML=colChart(cols, ms=>ms.reduce((s,m)=>s+g(m).rev,0), {fmt:usd, netFn:ms=>ms.reduce((s,m)=>s+g(m).net,0)});
   // revenue by offering
   const offColors=['url(#gNavy)','url(#gBlue)','url(#gSky)','url(#gGold)','url(#gHbar)','url(#gGood)'];
   const offRows=Object.entries(a.revoff||{}).map(([k,v])=>({label:k,val:v})).sort((x,y)=>y.val-x.val).map((r,i)=>({...r,color:offColors[i%offColors.length]}));
@@ -458,7 +486,7 @@ function render(){
   // cost structure summary
   $('ch-expsum').innerHTML=maskMoney(costCard(a,pa));
   // deals
-  $('ch-deals').innerHTML=groupCols(yearMonths);
+  $('ch-deals').innerHTML=groupCols(cols);
   // winrate card
   const wr=(a.wonN+a.lostN)?Math.round(a.wonN/(a.wonN+a.lostN)*100):0;
   $('ch-winrate').innerHTML=maskMoney(winCard(a,wr,pa));
@@ -479,7 +507,7 @@ function render(){
   // followers
   $('ch-foll').innerHTML=follCard(a,pa);
   // web
-  $('ch-web').innerHTML=areaLine(yearMonths, m=>g(m).web.pv, {fmt:num});
+  $('ch-web').innerHTML=areaLine(cols, ms=>ms.reduce((s,m)=>s+g(m).web.pv,0), {fmt:num});
   // deal lists
   const won=DATA.deals.filter(x=>months.includes(x.ym)&&x.w===1).sort((x,y)=>y.a-x.a);
   const lost=DATA.deals.filter(x=>months.includes(x.ym)&&x.w===0).sort((x,y)=>y.a-x.a);
@@ -538,13 +566,13 @@ function costCard(a,pa){
   const sw=(a.expcat&&a.expcat['Software'])||0; const swShare=a.exp?Math.round(sw/a.exp*100):0;
   const cm=(a.expcat&&a.expcat['Content & Marketing'])||0;
   return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">'
-   +mini('Total expenses', usdFull(a.exp), (pa?deltaText(a.exp,pa.exp)+' vs prior':'&mdash;'), 'info')
+   +mini('Total expenses', usdFull(a.exp), (pa?deltaText(a.exp,pa.exp,usdFull)+' vs prior':'&mdash;'), 'info')
    +mini('Efficiency ratio', eff+'%', '$'+(eff/100).toFixed(2)+' spent per $1', eff<75?'good':eff<90?'warn':'bad')
    +mini('Software', usdFull(sw), swShare+'% of expenses', swShare<40?'good':'warn')
    +mini('Content spend', usdFull(cm), a.rev?Math.round(cm/a.rev*100)+'% of revenue':'&mdash;','info')
    +'</div>';
 }
-function deltaText(cur,prev){ if(!prev) return 'new'; const p=Math.round((cur-prev)/Math.abs(prev)*100); return (p>=0?'+':'')+p+'%'; }
+function deltaText(cur,prev,fmt){ if(!prev) return 'new'; const diff=cur-prev, p=Math.round(diff/Math.abs(prev)*100); const f=fmt||(x=>''+Math.round(x)); return (p>=0?'+':'')+p+'% ('+(diff>=0?'+':'&minus;')+f(Math.abs(diff))+')'; }
 function winCard(a,wr,pa){
   const net=a.wonV-a.lostV;
   const avg=a.wonN?a.wonV/a.wonN:0;
@@ -586,12 +614,15 @@ function follCard(a,pa){
 
 // ---------- controls ----------
 function buildControls(){
-  $('yearSeg').innerHTML=YEARS.map(y=>'<button data-y="'+y+'"'+(y===state.year?' class="on"':'')+'>'+y+'</button>').join('');
-  $('periodSeg').innerHTML=['FY','Q1','Q2','Q3','Q4'].map(p=>'<button data-p="'+p+'"'+(p===state.period?' class="on"':'')+'>'+(p==='FY'?'Full year':p)+'</button>').join('');
-  const yearMonths=MONTHS.filter(m=>m.startsWith(state.year));
-  $('monthSel').innerHTML='<option value="">— pick month —</option>'+yearMonths.map(m=>'<option value="'+m.slice(5)+'"'+(state.period==='MONTH'&&state.month===m.slice(5)?' selected':'')+'>'+MN[+m.slice(5)-1]+' '+state.year+'</option>').join('');
-  $('yearSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{ state.year=b.dataset.y; if(state.period==='MONTH'){state.period='FY';state.month=null;} buildControls(); render(); });
-  $('periodSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{ state.period=b.dataset.p; state.month=null; setSeg(); render(); $('monthSel').value=''; });
+  const isAll=state.year==='All';
+  $('yearSeg').innerHTML=YEARS.map(y=>'<button data-y="'+y+'"'+(y===state.year?' class="on"':'')+'>'+y+'</button>').join('')
+    +'<button data-y="All"'+(isAll?' class="on"':'')+'>All-time</button>';
+  $('periodSeg').innerHTML=['FY','Q1','Q2','Q3','Q4'].map(p=>'<button data-p="'+p+'"'+(!isAll&&p===state.period?' class="on"':'')+(isAll?' disabled style="opacity:.4;cursor:not-allowed"':'')+'>'+(p==='FY'?'Full year':p)+'</button>').join('');
+  const yearMonths=isAll?[]:MONTHS.filter(m=>m.startsWith(state.year));
+  $('monthSel').disabled=isAll;
+  $('monthSel').innerHTML='<option value="">'+(isAll?'— all-time —':'— pick month —')+'</option>'+yearMonths.map(m=>'<option value="'+m.slice(5)+'"'+(state.period==='MONTH'&&state.month===m.slice(5)?' selected':'')+'>'+MN[+m.slice(5)-1]+' '+state.year+'</option>').join('');
+  $('yearSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{ state.year=b.dataset.y; if(state.year==='All'||state.period==='MONTH'){state.period='FY';state.month=null;} buildControls(); render(); });
+  $('periodSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{ if(isAll) return; state.period=b.dataset.p; state.month=null; setSeg(); render(); $('monthSel').value=''; });
   $('monthSel').onchange=e=>{ if(e.target.value){ state.period='MONTH'; state.month=e.target.value; setSeg(); render(); } };
 }
 function setSeg(){
@@ -605,9 +636,9 @@ const NARRATIVE={
   mkt:'<b>The content engine stopped after May 30.</b> Posts went 179 (Apr) &rarr; 144 (May) &rarr; 19 (Jun), and TikTok + LinkedIn published nothing in June &mdash; the same month revenue hit $960. But the breakout is real: <b>one Apr 25 TikTok ("Rule of Thirds") drove 86% of Q2 TikTok views</b> (28,631 views, 596 shares). The repeatable shape is the short, shareable founder-emotion quote with zero pitch. Protect the cadence (the Marketing SOP shipped Jul 7 is the fix).',
   web:'<b>The website moved opposite to social</b> &mdash; page views grew every month and peaked in June (509) while posting was silent, with 345 views in three days around Jun 11&ndash;13. Something other than social is driving discovery; find and repeat it.',
   review:'<div class="rev-grid"><div class="card"><div class="card-t">Q2 OKR scorecard</div><div class="card-s">Objectives set at the Q1 review &middot; 2 hits, 1 partial, 10 misses</div>'
-   +'<div class="okr-row"><span><b>Close $15K in Q2</b> (Kenny+Eli)</span><span class="chip bad"><span class="cd"></span>Miss</span></div>'
-   +'<div class="okr-row"><span><b>Nail Operator delivery</b> (Eli) &mdash; Lois at ~14 wks vs 8</span><span class="chip bad"><span class="cd"></span>Miss</span></div>'
-   +'<div class="okr-row"><span><b>Build lead-gen engine</b> &mdash; email sequence launched; resource page + HubSpot automation didn\'t</span><span class="chip warn"><span class="cd"></span>Partial</span></div>'
+   +'<div class="okr-row"><span><b>Close $15K in Q2</b> &mdash; landed at $5,884 (39%)</span><span class="chip bad"><span class="cd"></span>Miss</span></div>'
+   +'<div class="okr-row"><span><b>Nail the Operator System delivery</b> &mdash; Lois ran ~14 wks vs the 8-wk playbook</span><span class="chip bad"><span class="cd"></span>Miss</span></div>'
+   +'<div class="okr-row"><span><b>Build the lead-gen engine</b> &mdash; email sequence launched; resource page + HubSpot automation didn\'t</span><span class="chip warn"><span class="cd"></span>Partial</span></div>'
    +'<div class="okr-row"><span><b>Standardize ops</b> &mdash; 4 deck skills shipped; QB recat, Clockify, sprint targets missed</span><span class="chip warn"><span class="cd"></span>Mostly miss</span></div>'
    +'<div class="cap mt12">The pattern is Close-the-Loop: infrastructure ships, revenue-side commitments don\'t finish. Q3: fewer OKRs, all revenue-gated.</div></div>'
    +'<div class="card"><div class="card-t">Client delivery</div><div class="card-s">Status as of the review</div>'
