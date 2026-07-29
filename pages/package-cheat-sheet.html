@@ -20,17 +20,17 @@
   h3{font-size:14px;color:var(--navy);margin:18px 0 7px;font-weight:800;}
   p{margin:0 0 10px;}
 
-  .lead{background:#eef5fb;border:1px solid #cfe0ee;border-radius:12px;padding:17px 21px;}
+  .lead{background:#f6f8fb;border:1px solid var(--line);border-radius:10px;padding:17px 21px;}
   .lead p{font-size:13px;}
   .lead p:last-child{margin-bottom:0;}
   .lead b{color:var(--navy);}
-  .chain{background:#fff;border-radius:8px;padding:13px 16px;margin-top:11px;border:1px solid #dbe7f1;}
+  .chain{background:#fafbfc;border-radius:8px;padding:13px 16px;margin-top:11px;border:1px solid var(--line);}
   .chain-row{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;padding:5px 0;}
-  .chain-row .ar{color:var(--gold-d);font-weight:800;flex:0 0 auto;}
+  .chain-row .ar{color:var(--gold-d);font-weight:700;flex:0 0 auto;}
   .chain-row b{color:var(--navy);}
-  .money{background:#f0f9f3;border-left:3px solid var(--green);border-radius:0 6px 6px 0;padding:10px 15px;font-size:12.5px;color:var(--green-d);margin-top:11px;}
+  .money{background:#f6faf7;border-left:3px solid var(--green);border-radius:0 6px 6px 0;padding:10px 15px;font-size:12.5px;color:var(--green-d);margin-top:11px;}
   .money b{color:var(--green-d);}
-  .never{background:#fdeaea;border-left:4px solid #c0392b;border-radius:0 8px 8px 0;padding:11px 16px;margin-top:11px;font-size:12px;color:#7a2b23;}
+  .never{background:#faf4f4;border-left:3px solid #c98a86;border-radius:0 6px 6px 0;padding:11px 16px;margin-top:11px;font-size:12px;color:#6b4a47;}
   .never b{color:var(--red);}
 
   table{width:100%;border-collapse:collapse;margin-top:9px;font-size:12px;}
@@ -38,49 +38,49 @@
   td{border-bottom:1px solid var(--line);padding:9px 12px;vertical-align:top;line-height:1.5;}
   tr:nth-child(even) td{background:#fafbfc;}
   td.build{font-weight:700;color:var(--navy);width:23%;}
-  td.no{color:var(--red);width:24%;font-style:italic;}
-  td.yes{color:var(--green-d);}
+  td.no{color:var(--soft);width:24%;font-style:italic;}
+  td.yes{color:var(--ink);}
 
-  .pkg{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:16px;}
-  .pkg-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding:14px 20px;color:#fff;}
-  .pkg-top .name{font-size:19px;font-weight:800;}
-  .pkg-top .price{font-size:16px;font-weight:800;margin-left:auto;white-space:nowrap;}
-  .pkg-top .tag{font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;opacity:.92;}
-  .pkg.onramp .pkg-top{background:linear-gradient(135deg,var(--gold-d),#8f6415);}
-  .pkg.sprint .pkg-top{background:linear-gradient(135deg,#6b7f92,#41535f);}
-  .pkg.p1 .pkg-top{background:linear-gradient(135deg,var(--blue),#3f6683);}
-  .pkg.p2 .pkg-top{background:linear-gradient(135deg,var(--navy),var(--navy-d));}
-  .pkg.p3 .pkg-top{background:linear-gradient(135deg,var(--green),#0f7742);}
+  /* uniform navy headers; tier shown by a thin left accent on the card */
+  .pkg{border:1px solid var(--line);border-left:3px solid var(--line);border-radius:12px;overflow:hidden;margin-top:16px;}
+  .pkg-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding:14px 20px;color:#fff;background:var(--navy);}
+  .pkg-top .name{font-size:18px;font-weight:800;}
+  .pkg-top .price{font-size:15px;font-weight:800;margin-left:auto;white-space:nowrap;color:var(--gold);}
+  .pkg-top .tag{font-size:10.5px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:#bcd0e0;}
+  .pkg.onramp{border-left-color:var(--gold-d);}
+  .pkg.sprint{border-left-color:var(--blue);}
+  .pkg.p1{border-left-color:var(--blue);}
+  .pkg.p2{border-left-color:var(--gold);}
+  .pkg.p3{border-left-color:var(--green);}
   .pkg-body{padding:16px 20px;}
-  .blk{margin-bottom:14px;}
+  .blk{margin-bottom:15px;}
   .blk:last-child{margin-bottom:0;}
-  .blk-l{font-size:9.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--navy);margin-bottom:5px;display:flex;align-items:center;gap:7px;}
-  .blk-l::before{content:'';width:14px;height:2px;background:var(--gold);flex:0 0 auto;}
+  .blk-l{font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--gold-d);margin-bottom:5px;}
   .quote{font-style:italic;font-weight:600;color:var(--navy-d);background:var(--cream);border-radius:7px;padding:11px 15px;font-size:13px;line-height:1.6;}
   .quote + .quote{margin-top:7px;}
   .plain{font-size:12.5px;color:var(--ink);}
-  .tech{background:#f5f7f9;border-radius:7px;padding:11px 15px;font-size:12px;}
+  .tech{background:#f7f8fa;border-radius:7px;padding:11px 15px;font-size:12px;}
   .tech ul{margin:0;padding-left:17px;}
   .tech li{margin:4px 0;line-height:1.5;}
   .tech li b{color:var(--navy);}
-  .tech .cap{font-size:11px;color:var(--soft);margin-top:8px;padding-top:8px;border-top:1px dashed #d5dde5;}
-  .worth{background:#f0f9f3;border-radius:7px;padding:11px 15px;font-size:12.5px;color:var(--green-d);}
+  .tech .cap{font-size:11px;color:var(--soft);margin-top:8px;padding-top:8px;border-top:1px dashed #dde3ea;}
+  .worth{background:#f6faf7;border-left:3px solid var(--green);border-radius:0 6px 6px 0;padding:10px 15px;font-size:12.5px;color:var(--green-d);}
   .worth b{color:var(--green-d);}
   .sig{font-size:12px;color:var(--soft);}
   .sig b{color:var(--navy);}
-  .then{background:var(--navy);color:#fff;border-radius:7px;padding:10px 15px;font-size:12.5px;}
-  .then b{color:var(--gold);}
+  .then{background:#f2f6f9;border-left:3px solid var(--navy);border-radius:0 6px 6px 0;padding:10px 15px;font-size:12.5px;color:var(--ink);}
+  .then b{color:var(--navy);}
 
   .obj{border:1px solid var(--line);border-radius:9px;padding:12px 16px;margin-top:9px;}
-  .obj .q{font-weight:800;color:var(--red);font-size:12.5px;margin-bottom:5px;}
+  .obj .q{font-weight:700;color:var(--navy);font-size:12.5px;margin-bottom:5px;}
   .obj .a{font-size:12.5px;color:var(--ink);line-height:1.6;}
   .obj .a b{color:var(--navy);}
 
-  .note{background:#f5f7f9;border-radius:8px;padding:13px 17px;margin-top:12px;font-size:12.5px;color:var(--soft);}
+  .note{background:#f7f8fa;border-radius:8px;padding:13px 17px;margin-top:12px;font-size:12.5px;color:var(--soft);}
   .note b{color:var(--navy);}
-  .badge{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:3px;}
-  .badge.ok{background:#d8f0e2;color:var(--green-d);}
-  .badge.prop{background:#fdeaea;color:var(--red);}
+  .badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid;}
+  .badge.ok{background:#eef7f1;color:var(--green-d);border-color:#cfe6d8;}
+  .badge.prop{background:#f7f0ef;color:var(--red);border-color:#e6cfcc;}
   .steps{counter-reset:s;margin-top:9px;}
   .step{position:relative;padding-left:31px;margin-bottom:11px;font-size:12.5px;line-height:1.6;}
   .step::before{content:counter(s);counter-increment:s;position:absolute;left:0;top:0;width:21px;height:21px;background:var(--gold);color:var(--navy-d);border-radius:50%;font-size:11px;font-weight:800;text-align:center;line-height:21px;}
@@ -258,7 +258,7 @@
 
     <!-- OPERATOR -->
     <div class="pkg p2">
-      <div class="pkg-top"><span class="tag">Tier 2 &middot; Build &middot; Primary focus, most deals land here</span><span class="name">Operator System</span><span class="price">$4,500 + $500/mo <span class="badge ok" style="vertical-align:middle;">Approved</span></span></div>
+      <div class="pkg-top"><span class="tag">Tier 2 &middot; Build &middot; Primary focus, most deals land here</span><span class="name">Operator System</span><span class="price">$5,500 + $500/mo <span class="badge prop" style="vertical-align:middle;">Deciding: $5,500 or $6,500</span></span></div>
       <div class="pkg-body">
         <div class="blk"><div class="blk-l">Say this</div>
           <div class="quote">"Growing, but everything falls apart when you step away? We will organize the whole operation so you stop losing deals to the chaos and get your time back to sell."</div>
@@ -280,13 +280,13 @@
           </div>
         </div>
         <div class="blk"><div class="blk-l">Why it is worth the money</div>
-          <div class="worth">Anchor it against the leak, not against nothing. <b>A business doing $500K that loses even 5% of deals to slow follow-up is losing $25,000 a year.</b> Operator costs $4,500 once. Then add the owner's time back: if it frees 5 hours a week, that is a full working month a year returned to selling. <b>One recovered deal usually pays for the entire engagement.</b></div>
+          <div class="worth">Anchor it against the leak, not against nothing. <b>A business doing $500K that loses even 5% of deals to slow follow-up is losing $25,000 a year.</b> Operator costs $5,500 once. Then add the owner's time back: if it frees 5 hours a week, that is a full working month a year returned to selling. <b>One recovered deal usually pays for the entire engagement.</b></div>
         </div>
         <div class="blk"><div class="blk-l">Listen for</div>
           <div class="sig">Established but chaotic &middot; $250K to $2M &middot; 5 to 25 people &middot; service-based &middot; "I am the bottleneck" &middot; "leads slip through the cracks" &middot; "I cannot take a day off" &middot; already has tools but nothing talks to each other.</div>
         </div>
         <div class="blk"><div class="blk-l">Then</div>
-          <div class="then"><b>$1,000 credits into Scale.</b> This is our primary focus and where most deals should land. If you are unsure which package fits, the honest answer is usually Operator. (Proposed increase to <b>$5,500</b>, do not quote that until the team ratifies it.)</div>
+          <div class="then"><b>$1,000 credits into Scale.</b> This is our primary focus and where most deals should land. If you are unsure which package fits, the honest answer is usually Operator. <b>Price is in flux:</b> the team is deciding whether to hold at <b>$5,500</b> with the v2 additions (AI Pilot moved inside) or move to <b>$6,500</b>. Quote $5,500 until that lands.</div>
         </div>
       </div>
     </div>
@@ -397,7 +397,7 @@
         <tr><td class="build">AI Jumpstart: Workflows</td><td>$1,999</td><td>3&ndash;4 sessions</td><td>Fee credits into any build</td><td><span class="badge prop">Proposed</span></td></tr>
         <tr><td class="build">AI Jumpstart: Pilot</td><td>$2,997</td><td>~2 weeks</td><td>50% into Scale or Operator</td><td><span class="badge prop">Proposed</span></td></tr>
         <tr><td class="build">Launch Pad</td><td>$1,799 + $249/mo</td><td>2&ndash;3 weeks</td><td>50% into Operator</td><td><span class="badge ok">Approved</span></td></tr>
-        <tr><td class="build">Operator System</td><td>$4,500 + $500/mo</td><td>6&ndash;8 weeks</td><td>$1,000 into Scale</td><td><span class="badge ok">Approved</span> <span class="badge prop">$5,500 proposed</span></td></tr>
+        <tr><td class="build">Operator System</td><td>$5,500 + $500/mo</td><td>4&ndash;8 weeks</td><td>$1,000 into Scale</td><td><span class="badge prop">Deciding: $5,500 or $6,500</span></td></tr>
         <tr><td class="build">Strategy &amp; Advisory</td><td>$100/hr &middot; $250 &middot; $699</td><td>1 hr to 2 weeks</td><td>Session and Plan credit into any build</td><td><span class="badge prop">Proposed</span></td></tr>
         <tr><td class="build">Scale System</td><td>$10K&ndash;$15K + $1.5&ndash;2K/mo</td><td>8&ndash;12 weeks</td><td>Custom above $15K</td><td><span class="badge ok">Approved</span></td></tr>
       </tbody>
