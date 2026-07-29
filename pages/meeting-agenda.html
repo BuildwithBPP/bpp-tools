@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Meeting Agenda · BPP Tools Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{--navy:#044771;--navy-d:#033359;--blue:#5987A5;--gold:#F1BE5C;--gold-d:#b8862a;--ink:#1a2436;--soft:#4a5568;--line:#d8e0e8;--bg:#edf1f5;--green:#1a9e5c;--green-d:#14663d;--red:#a1291d;--cream:#FAF6EE;}
+  body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--ink);}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px 60px;}
+  header.hero{background:linear-gradient(135deg,var(--navy),var(--navy-d));color:#fff;padding:30px 34px;border-radius:0 0 4px 4px;}
+  .hero .kick{font-family:'Montserrat',sans-serif;color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+  .hero h1{font-family:'Montserrat',sans-serif;font-size:28px;font-weight:800;margin:6px 0 2px;}
+  .hero .date{color:rgba(255,255,255,.75);font-size:13px;font-weight:500;}
+  .goal{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:14px 18px;margin-top:16px;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.92);}
+  .goal b{color:var(--gold);}
+  .rule{background:var(--cream);border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 18px;margin:18px 0 8px;font-size:13px;color:var(--soft);line-height:1.6;}
+  .rule b{color:var(--navy);}
+  .res{margin:20px 0 4px;}
+  .res-l{font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold-d);margin-bottom:9px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 13px;font-size:12.5px;font-weight:600;color:var(--navy);text-decoration:none;transition:all .15s;}
+  .chip:hover{border-color:var(--navy);box-shadow:0 3px 10px rgba(4,71,113,.12);transform:translateY(-1px);}
+  .chip .i{font-size:14px;}
+  .block{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-top:16px;}
+  .block-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--line);padding-bottom:10px;margin-bottom:12px;}
+  .num{font-family:'Montserrat',sans-serif;font-weight:800;font-size:14px;color:#fff;background:var(--navy);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .block-h h2{font-family:'Montserrat',sans-serif;font-size:17px;font-weight:800;color:var(--navy);flex:1;min-width:200px;}
+  .time{font-size:11px;font-weight:700;color:var(--gold-d);background:var(--cream);border:1px solid #ecd9b0;border-radius:20px;padding:3px 11px;white-space:nowrap;}
+  ul.items{list-style:none;}
+  ul.items li{position:relative;padding-left:20px;margin:9px 0;font-size:13.5px;line-height:1.6;color:var(--ink);}
+  ul.items li::before{content:'';position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--gold);}
+  ul.items li b{color:var(--navy);}
+  ul.items li a{color:var(--navy);font-weight:600;text-decoration:underline;text-decoration-color:#bcd0e0;}
+  ul.items li a:hover{text-decoration-color:var(--navy);}
+  .decide{background:#f0f9f3;border-left:3px solid var(--green);border-radius:0 6px 6px 0;padding:3px 10px;font-size:12px;color:var(--green-d);font-weight:600;display:inline-block;margin-top:4px;}
+  .flag{background:#fdeaea;border-left:3px solid #c0392b;border-radius:0 6px 6px 0;padding:9px 14px;font-size:12.5px;color:#7a2b23;line-height:1.55;margin-top:10px;}
+  .flag b{color:var(--red);}
+  .defer{background:#f5f7f9;border-radius:10px;padding:14px 20px;margin-top:20px;font-size:13px;color:var(--soft);line-height:1.6;}
+  .defer b{color:var(--navy);}
+  footer.ft{text-align:center;margin-top:24px;font-size:12px;color:var(--soft);}
+  @media print{body{background:#fff;}.chip,.block{break-inside:avoid;}.wrap{max-width:100%;}header.hero{border-radius:0;}}
+</style>
+</head>
+<body>
+<div id="hub-nav"></div>
+<div class="wrap">
+  <header class="hero">
+    <div class="kick">BPP Team Meeting</div>
+    <h1>Meeting Agenda</h1>
+    <div class="date">Wednesday, July 29, 2026 · Q2 review + open decisions + Sway reconvene</div>
+    <div class="goal"><b>Goal: leave with ratified answers, not more drafts.</b> If an item can't close in five minutes, we assign an owner and a date and move on. Everything ties to one number: we're at <b>~$16K against the $60K goal</b>, and the books say retention is leaking faster than the top of the funnel is filling.</div>
+  </header>
+
+  <div class="rule"><b>Run the internal decisions first, then bring Sway in.</b> We can't reconvene with him productively until his terms and what he sells are settled.</div>
+
+  <div class="res">
+    <div class="res-l">Pull these up during the meeting</div>
+    <div class="chips">
+      <a class="chip" href="business-plan.html"><span class="i">📊</span>Business Plan</a>
+      <a class="chip" href="service-packages.html"><span class="i">📦</span>Packages &amp; Pricing</a>
+      <a class="chip" href="package-cheat-sheet.html"><span class="i">🎯</span>Sales Playbook</a>
+      <a class="chip" href="icp-profiles.html"><span class="i">👤</span>ICP Profiles</a>
+      <a class="chip" href="free-resources.html"><span class="i">🧲</span>Free Resources</a>
+      <a class="chip" href="case-studies.html"><span class="i">⭐</span>Case Studies</a>
+      <a class="chip" href="q2-2026-dashboard.html"><span class="i">📈</span>Q2 Dashboard</a>
+      <a class="chip" href="q2-2026-agenda.html"><span class="i">🗒️</span>Full Q2 Agenda</a>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-h"><span class="num">1</span><h2>Unblock Sway</h2><span class="time">~25 min</span></div>
+    <ul class="items">
+      <li><b>Ratify comp:</b> flat 22.5% vs the 20/25 split · stipend trigger · up-front payout threshold. <span class="decide">Decision → lets Kenny finalize the scope agreement</span></li>
+      <li><b>Dialer decision</b> (Dialpad, or the criteria to pick one). It blocks SMS logging.</li>
+      <li><b>Warm-list status:</b> is the cleanup done? That's Sway's day-one fuel.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-h"><span class="num">2</span><h2>Settle packaging so Sway pitches ONE offer</h2><span class="time">~20 min</span></div>
+    <ul class="items">
+      <li><b>Resolve the overlap:</b> we have two different "Pilot" meanings live right now — the <a href="package-cheat-sheet.html">AI Jumpstart 3-tier</a> and the pilot-inside-Operator v2. Pick one model before Sway pitches either.</li>
+      <li><b>Approve Operator v2</b> scope + price ($6,500 vs $5,500 founding-client). See the current <a href="service-packages.html">Packages &amp; Pricing</a> page.</li>
+      <li><b>The 5 still-open items:</b> ratify the Jumpstart tiers (or pilot first), the care-retainer number, the owner incentive + whether it stacks with the referral, and confirm the $40K target.</li>
+    </ul>
+    <div class="flag"><b>Heads up:</b> the two "Pilot" framings will confuse a new rep if both stay live. This is the one to resolve before anything else in this block.</div>
+  </div>
+
+  <div class="block">
+    <div class="block-h"><span class="num">3</span><h2>Q2 review — the findings that change behavior</h2><span class="time">~15 min</span></div>
+    <ul class="items">
+      <li>The <a href="q2-2026-dashboard.html">dashboard</a> is built — read it before the call. We only decide on these:</li>
+      <li><b>Retention is the story.</b> 3 of 5 paying customers went to zero; top 3 are 71% of revenue. The retainer motion is the fix — which is exactly why Operator v2 sells the retainer. <span class="decide">Decision → pick one retention move</span></li>
+      <li><b>Content stopped after May 30</b> (June was our $960 month), yet website traffic peaked in June. Who restarts content, and what's actually driving discovery?</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-h"><span class="num">4</span><h2>Client status</h2><span class="time">~35 min</span></div>
+    <ul class="items">
+      <li><b>HALO</b> — retainer is in the pipeline (nail down scope + start), Rodney's free plan-update sessions in motion, and the grant-writing angle if they'll name a specific grant.</li>
+      <li><b>Xtremely Clean</b> — job-costing model in build; blocked on Wanda's current contracts + master list (ask drafted).</li>
+      <li><b>Open proposals</b> — Flava Meets Fusion and Legacy B. Studio: where do they stand, what's the next touch?</li>
+      <li><b>New lead</b> — Twenty Ten Motors sent an apartment proforma / JV ask. Off our ICP; decide whether we qualify it or refer it out.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-h"><span class="num">5</span><h2>Close the loop on parked items</h2><span class="time">~20 min</span></div>
+    <ul class="items" style="margin-bottom:4px;">
+      <li style="font-weight:600;color:var(--soft);">Owner + date on each — no item leaves without one.</li>
+      <li><a href="free-resources.html">Free resources</a> Phase 2 (lead capture) — green-light it. It's built but capturing nothing, and it's our top-of-funnel fix.</li>
+      <li><a href="case-studies.html">Case-study</a> sign-offs (Xtremely Clean, SEEDFOLKids, Financial Acuity) — these are what Sway needs to sell.</li>
+      <li>HubSpot → QuickBooks line-item bug + revenue channels (already on the Monday board) — who and when.</li>
+      <li>Rodney's grants-as-a-service — real service line or ad-hoc? Decide.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-h"><span class="num">6</span><h2>Team &amp; enablement</h2><span class="time">~10 min</span></div>
+    <ul class="items">
+      <li><b>Standing meetings.</b> Institute a regular touchpoint so we surface where each of us needs help before it becomes a blocker.</li>
+      <li><b>Finance training.</b> Walk the team through the basics — reading our numbers, margins, how the money actually moves. Session going on the calendar this week.</li>
+    </ul>
+  </div>
+
+  <div class="defer"><b>Deferring on purpose:</b> a full block-by-block Q2 readout, and detailed retainer pricing (that needs its own packaging session).</div>
+  <footer class="ft">Come ready to decide.</footer>
+</div>
+<script src="../js/nav.js" data-page="strategy"></script>
+</body>
+</html>
