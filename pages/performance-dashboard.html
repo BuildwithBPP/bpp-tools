@@ -93,6 +93,12 @@
   .chip.bad { background:var(--red-soft); color:var(--red); } .chip.bad .cd { background:var(--red); }
   .chip.info { background:#e4eef7; color:var(--navy); } .chip.info .cd { background:var(--blue); }
   .empty { font-size:12px; color:var(--muted); padding:24px 4px; text-align:center; }
+  /* chart hover tooltip */
+  svg .hit { cursor:crosshair; }
+  .ctip { position:fixed; display:none; z-index:60; background:#fff; border:1px solid var(--border-strong); border-radius:8px; box-shadow:0 4px 16px rgba(16,35,46,0.16); padding:9px 12px; pointer-events:none; min-width:150px; }
+  .ctip .ct-h { font-size:11px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+  .ctip .ct-r { display:flex; justify-content:space-between; gap:16px; font-size:12px; color:var(--ink-2); padding:2px 0; }
+  .ctip .ct-r b { color:var(--ink); font-weight:700; }
 
   /* tabs */
   .tabbar { display:flex; gap:4px; margin:22px 0 4px; border-bottom:1px solid var(--border); flex-wrap:wrap; }
@@ -124,6 +130,7 @@
 </head>
 <body data-privacy="on">
 <div id="hub-nav"></div>
+<div id="chart-tip" class="ctip"></div>
 
 <div class="header">
   <div class="h-left">
@@ -177,7 +184,7 @@
   <div class="panel on" id="tab-fin">
     <div class="shead"><span class="n">1</span><span class="t">Financial</span><span class="s" id="s-fin">&mdash;</span></div>
     <div class="grid2 wide-l">
-      <div class="card"><div class="card-t">Revenue &amp; net income by month</div><div class="card-s" id="ct-rev">Cash basis Cash basis &middot; QuickBooks. Selected period highlighted; loss months marked red.middot; QuickBooks. Revenue bars + net income line (gold); line dips below zero on loss months.</div><div id="ch-rev"></div></div>
+      <div class="card"><div class="card-t">Revenue &amp; net income by month</div><div class="card-s" id="ct-rev">Cash basis &middot; QuickBooks. Revenue bars + net income line (gold); line dips below zero on loss months.</div><div id="ch-rev"></div></div>
       <div class="card"><div class="card-t">Revenue by offering</div><div class="card-s">Selected period &middot; each client payment mapped to its service line (estimated for bundled packages)</div><div id="ch-revoff"></div></div>
     </div>
     <div class="grid2 wide-l mt12">
@@ -208,7 +215,7 @@
     <div class="shead"><span class="n">3</span><span class="t">Marketing &amp; content</span><span class="s" id="s-mkt">&mdash;</span></div>
     <div class="grid2">
       <div class="card"><div class="card-t">Content views by platform</div><div class="card-s">Selected period &middot; Metricool</div><div id="ch-social"></div></div>
-      <div class="card"><div class="card-t">Followers by platform</div><div class="card-s">End of selected period &middot; net change shown</div><div id="ch-foll"></div></div>
+      <div class="card"><div class="card-t">Platform performance</div><div class="card-s">Selected period &middot; posts, views, engagement &amp; follower growth by platform</div><div id="ch-foll"></div></div>
     </div>
     <div class="card mt12"><div class="card-t">Instagram Reels performance</div><div class="card-s">Selected period &middot; Metricool reels connector (views, saves, shares, avg watch time)</div><div id="ch-reels"></div></div>
     <div id="nar-mkt"></div>
@@ -360,6 +367,11 @@ function colChart(buckets, mFn, {fmt=usd, height=250, gold=false, netFn=null}={}
     s+='<g font-size="9.5" fill="#5a6b78"><rect x="'+padL+'" y="5" width="9" height="9" rx="2" fill="url(#gNavy)"/><text x="'+(padL+13)+'" y="13">Revenue</text>';
     s+='<line x1="'+(padL+74)+'" y1="9.5" x2="'+(padL+92)+'" y2="9.5" stroke="#d99e2b" stroke-width="2"/><circle cx="'+(padL+83)+'" cy="9.5" r="2.6" fill="#d99e2b"/><text x="'+(padL+97)+'" y="13">Net income</text></g>';
   }
+  // transparent hover hit-areas (full column) — on top so they capture the pointer
+  buckets.forEach((b,i)=>{
+    const x=padL+step*i;
+    s+='<rect class="hit" x="'+x.toFixed(1)+'" y="'+padT+'" width="'+step.toFixed(1)+'" height="'+plotH.toFixed(1)+'" fill="transparent" data-l="'+b.label+'" data-rev="'+vals[i].toFixed(0)+'"'+(netFn?' data-net="'+nets[i].toFixed(0)+'"':'')+'/>';
+  });
   s+='</svg>';
   return s;
 }
@@ -601,14 +613,21 @@ function mini(l,v,s,chip){
   return '<div style="background:var(--bg);border-radius:8px;padding:12px 13px"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)">'+l+'</div><div style="font-size:20px;font-weight:800;color:var(--navy);margin-top:5px;letter-spacing:-.5px" class="tnum">'+v+'</div><div style="margin-top:6px"><span class="chip '+chip+'"><span class="cd"></span>'+s+'</span></div></div>';
 }
 function follCard(a,pa){
-  const P=[['TikTok','tt'],['Instagram','ig'],['Facebook','fb'],['LinkedIn','li']];
+  const P=[['TikTok','tt','#044771'],['Instagram','ig','#2f80c4'],['Facebook','fb','#6ba8d8'],['LinkedIn','li','#d99e2b']];
+  const th='font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#8a97a3';
   let s='<table style="width:100%;border-collapse:collapse" class="tnum">';
-  s+='<tr style="font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#8a97a3"><td style="padding:0 8px 8px">Platform</td><td style="text-align:right;padding:0 8px 8px">Followers</td><td style="text-align:right;padding:0 8px 8px">Net change</td></tr>';
-  P.forEach(([nm,k])=>{ const cur=a[k].f, prev=pa?pa[k].f:null, dc=prev!==null?cur-prev:null;
+  s+='<tr style="'+th+'"><td style="padding:0 6px 8px">Platform</td><td style="text-align:right;padding:0 6px 8px">Posts</td><td style="text-align:right;padding:0 6px 8px">Views</td><td style="text-align:right;padding:0 6px 8px">Engmt</td><td style="text-align:right;padding:0 6px 8px">Followers</td><td style="text-align:right;padding:0 6px 8px">Net</td></tr>';
+  P.forEach(([nm,k,col])=>{ const cur=a[k].f, prev=pa?pa[k].f:null, dc=prev!==null?cur-prev:null;
     const dcol=dc===null?'#8a97a3':dc>0?'#147a46':dc<0?'#c0392b':'#8a97a3';
-    s+='<tr style="border-top:1px solid var(--grid)"><td style="padding:9px 8px;font-size:12.5px">'+nm+'</td><td style="text-align:right;padding:9px 8px;font-weight:700;font-size:12.5px">'+Math.round(cur)+'</td><td style="text-align:right;padding:9px 8px;font-weight:700;font-size:12px;color:'+dcol+'">'+(dc===null?'&mdash;':(dc>0?'+':'')+dc)+'</td></tr>';
+    s+='<tr style="border-top:1px solid var(--grid)">'+
+       '<td style="padding:8px 6px;font-size:12.5px;font-weight:600"><span style="display:inline-block;width:7px;height:7px;border-radius:2px;background:'+col+';margin-right:6px"></span>'+nm+'</td>'+
+       '<td style="text-align:right;padding:8px 6px;font-size:12px">'+Math.round(a[k].p)+'</td>'+
+       '<td style="text-align:right;padding:8px 6px;font-size:12px;font-weight:600">'+num(a[k].v)+'</td>'+
+       '<td style="text-align:right;padding:8px 6px;font-size:12px">'+num(a[k].e)+'</td>'+
+       '<td style="text-align:right;padding:8px 6px;font-weight:700;font-size:12px">'+Math.round(cur)+'</td>'+
+       '<td style="text-align:right;padding:8px 6px;font-weight:700;font-size:11.5px;color:'+dcol+'">'+(dc===null?'&mdash;':(dc>0?'+':'')+dc)+'</td></tr>';
   });
-  s+='</table>';
+  s+='</table><div class="cap">Views = organic video/post views (LinkedIn = impressions). Engmt = interactions (likes, comments, saves, shares).</div>';
   return s;
 }
 
@@ -662,6 +681,19 @@ document.querySelectorAll('#tabbar button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('#privSeg button').forEach(b=>b.onclick=()=>{
   document.body.setAttribute('data-privacy', b.dataset.priv);
   document.querySelectorAll('#privSeg button').forEach(x=>x.classList.toggle('on', x===b));
+});
+// ---------- chart hover tooltip ----------
+const _tip=$('chart-tip');
+document.addEventListener('mousemove', e=>{
+  const h=e.target.closest?e.target.closest('.hit'):null;
+  if(h){
+    const rev=+h.dataset.rev, hasNet='net' in h.dataset, net=+h.dataset.net;
+    let html='<div class="ct-h">'+h.dataset.l+'</div><div class="ct-r"><span>Revenue</span><b class="pii">'+usdFull(rev)+'</b></div>';
+    if(hasNet) html+='<div class="ct-r"><span>Net income</span><b class="pii" style="color:'+(net<0?'#c0392b':'#147a46')+'">'+usdFull(net)+'</b></div>';
+    _tip.innerHTML=html; _tip.style.display='block';
+    let lx=e.clientX+14; if(lx+180>window.innerWidth) lx=e.clientX-180;
+    _tip.style.left=lx+'px'; _tip.style.top=(e.clientY-10)+'px';
+  } else _tip.style.display='none';
 });
 buildControls(); render();
 </script>
