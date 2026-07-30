@@ -27,5 +27,7 @@ Builds `pages/performance-dashboard.html` — the sliceable (year / quarter / mo
 
 `--max-source-age-days 31` is the default freshness guard. Use a tighter number when the review period requires it. The sales and July social records remain intentionally inline and must be refreshed as described above.
 
+Source locations are portable. Pass `--social-dir` and `--financial-dir`, set `BPP_DASHBOARD_SOCIAL_DIR` and `BPP_DASHBOARD_FINANCIAL_DIR`, or run the command from a BPP workspace descendant so the script can safely discover the two data directories. Validation reports the financial and social source families separately.
+
 ## Design system
 Adopted from `financial-position-v2.html`: Inter typography, tabular numerals, refined navy/gold palette, tile accent bars, status chips, and hand-built gradient SVG charts (rendered dynamically here). This is the preferred "sharp" style for BPP dashboards going forward.

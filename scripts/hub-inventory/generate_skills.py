@@ -14,6 +14,10 @@ SENSITIVE_PATTERNS = (
     re.compile(r"(?i)(api[_-]?key|token|secret|password)\s*[:=]\s*\S+"),
     re.compile(r"(?i)bearer\s+\S+"),
 )
+ABSOLUTE_PATH_PATTERNS = (
+    re.compile(r"(?i)(?<![A-Za-z0-9])[A-Z]:[\\/][^\s,;]+"),
+    re.compile(r"(?<![:/A-Za-z0-9])/(?:[^\s/]+/)+[^\s,;]+"),
+)
 
 
 def now_iso() -> str:
@@ -24,6 +28,8 @@ def safe_text(value: object, limit: int = 240) -> str:
     text = " ".join(str(value or "").split())
     for pattern in SENSITIVE_PATTERNS:
         text = pattern.sub("[redacted]", text)
+    for pattern in ABSOLUTE_PATH_PATTERNS:
+        text = pattern.sub("[redacted path]", text)
     return text[:limit].rstrip()
 
 

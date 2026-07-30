@@ -55,3 +55,35 @@ The relative-link audit across touched pages passed. The placeholder `href="#"` 
 1. Confirm the permanent owner or contractor assignment for marketing orchestration and KJ direction after the current Kenny default.
 2. Confirm which additional skill roots should be exposed in the internal generated inventory and their classifications.
 3. Confirm the refresh cadence and whether CI or a scheduled task should run `scripts/refresh_hub.py` before internal deployment.
+
+## Round 1 review fixes
+
+- Replaced the Home page's primary Strategic Plan card with the BPP 2026–2028 Business Plan, labeled Plan of Record.
+- Routed current quarterly review entry through the Performance Dashboard. Static Q1 and Q2 pages now sit in a Historical Quarterly Archives section.
+- Made the Business Plan and Package Cheat Sheet show the approved AI Jumpstart Setup price consistently: $699 standard, $100 launch discount, $599 launch price, and no stacked discount. Tier 2 and Tier 3 remain proposed extensions.
+- Corrected Seller Start Here and Pre-Call Toolkit to use the documented `discovery-call-prep` trigger: “Run pre-call prep for [prospect].”
+- Reworked dashboard source resolution to use CLI arguments, environment variables, or workspace-relative discovery. Source validation now independently checks financial and social source families.
+- Added dashboard month-schema validation and script-safe JSON serialization. The rendered HTML replaces `</` with `<\/` inside embedded data.
+- Added absolute-path redaction for Skill Directory display metadata and deterministic `--generated-at` / `--as-of` snapshot support.
+
+### Round 1 verification
+
+```powershell
+python -m unittest scripts/hub-inventory/tests/test_generators.py scripts/performance-dashboard/tests/test_build_utils.py
+```
+
+Result: 6 tests passed.
+
+```powershell
+python scripts/refresh_hub.py --workspace-root "C:\path\to\workspace" --repo-root . --generated-at "2026-07-30T04:00:00Z" --as-of "2026-07-30T04:00:00Z"
+```
+
+Result: two fixed-timestamp runs produced identical SHA-256 hashes for `skills.json` and `builds-snapshot.json`.
+
+```powershell
+python scripts/performance-dashboard/build_data.py --validate-sources --render
+```
+
+Result: financial and social source families both passed at 7.4 days old; the final dashboard HTML rendered.
+
+Round 1 JSON validation, touched-page relative-link audit, functional `href="#"` search, published-path audit, and `git diff --check` all passed.

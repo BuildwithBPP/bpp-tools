@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import subprocess
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterable
 
@@ -57,12 +57,20 @@ def skill_summary(path: Path | None) -> dict:
     return {"status": "available", "skill_count": len(data.get("skills", [])), "by_classification": counts}
 
 
-def generate(repo_roots: Iterable[Path], skill_inventory_path: Path | None, output_path: Path, generated_at: str | None = None) -> dict:
+def parse_timestamp(value: str) -> datetime:
+    return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
+
+
+def generate(repo_roots: Iterable[Path], skill_inventory_path: Path | None, output_path: Path, generated_at: str | None = None, as_of: str | None = None) -> dict:
+    as_of_value = as_of or generated_at or now_iso()
+    as_of_time = parse_timestamp(as_of_value)
+    window_start = (as_of_time - timedelta(days=30)).isoformat()
+    window_end = as_of_time.isoformat()
     repositories = []
     plugins: list[dict] = []
     for repo in discover_repos(repo_roots):
-        recent_count = git_output(repo, "rev-list", "--count", "--since=30.days", "HEAD")
-        latest = git_output(repo, "log", "-1", "--format=%h|%aI")
+        recent_count = git_output(repo, "rev-list", "--count", f"--since={window_start}", f"--until={window_end}", "HEAD")
+        latest = git_output(repo, "log", "-1", f"--until={window_end}", "--format=%h|%aI")
         latest_commit = None
         if "|" in latest:
             short_id, date = latest.split("|", 1)
@@ -77,6 +85,7 @@ def generate(repo_roots: Iterable[Path], skill_inventory_path: Path | None, outp
     data = {
         "schema_version": 1,
         "generated_at": generated_at or now_iso(),
+        "as_of": as_of_value,
         "source": "Local Git metadata and plugin manifests",
         "freshness_days": 7,
         "repositories": repositories,
@@ -94,8 +103,9 @@ def main() -> int:
     parser.add_argument("--skills-json", type=Path, help="Generated skills.json to summarize.")
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--generated-at", help="ISO-8601 timestamp, useful for reproducible builds.")
+    parser.add_argument("--as-of", help="ISO-8601 cutoff for deterministic 30-day commit windows.")
     args = parser.parse_args()
-    generate(args.repo_root, args.skills_json, args.output, args.generated_at)
+    generate(args.repo_root, args.skills_json, args.output, args.generated_at, args.as_of)
     return 0
 
 

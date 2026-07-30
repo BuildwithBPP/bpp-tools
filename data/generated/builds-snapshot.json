@@ -1,16 +1,17 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-30T03:12:19Z",
+  "generated_at": "2026-07-30T04:00:00Z",
+  "as_of": "2026-07-30T04:00:00Z",
   "source": "Local Git metadata and plugin manifests",
   "freshness_days": 7,
   "repositories": [
     {
       "name": "interim-hub",
       "status": "available",
-      "recent_commit_count": 77,
+      "recent_commit_count": 80,
       "latest_commit": {
-        "id": "e1d5a31",
-        "date": "2026-07-29T23:07:32-04:00"
+        "id": "73c6006",
+        "date": "2026-07-29T23:21:18-04:00"
       }
     }
   ],

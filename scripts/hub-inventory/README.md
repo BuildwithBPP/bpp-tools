@@ -27,6 +27,12 @@ python scripts/hub-inventory/generate_builds.py `
 
 `--repo-root` accepts either a Git repository or a directory whose immediate children are repositories. The snapshot reports only repository names, commit counts, latest commit short IDs and dates, plugin-manifest names and versions, and the generated Skill Directory summary.
 
+For reproducible refreshes, pass the same timestamp to both generators. `--as-of` fixes the end of the 30-day commit window.
+
+```powershell
+python scripts/refresh_hub.py --workspace-root "C:\path\to\workspace" --repo-root . --generated-at "2026-07-30T04:00:00Z" --as-of "2026-07-30T04:00:00Z"
+```
+
 ## Test
 
 ```powershell

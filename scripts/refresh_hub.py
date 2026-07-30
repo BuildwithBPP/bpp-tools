@@ -18,6 +18,8 @@ def main() -> int:
     parser.add_argument("--workspace-root", type=Path, help="BPP workspace root. Adds _claude/skills as bpp-built.")
     parser.add_argument("--repo-root", action="append", type=Path, default=[], help="Git repository or directory containing repositories.")
     parser.add_argument("--output-dir", type=Path, default=REPO_ROOT / "data" / "generated")
+    parser.add_argument("--generated-at", help="ISO-8601 timestamp for reproducible snapshots.")
+    parser.add_argument("--as-of", help="ISO-8601 cutoff for the generated build snapshot.")
     args = parser.parse_args()
 
     skill_roots = list(args.skills_root)
@@ -28,6 +30,8 @@ def main() -> int:
     skills_cmd = [sys.executable, str(INVENTORY_DIR / "generate_skills.py"), "--output", str(skills_json)]
     for root in skill_roots:
         skills_cmd.extend(["--skills-root", root])
+    if args.generated_at:
+        skills_cmd.extend(["--generated-at", args.generated_at])
     subprocess.run(skills_cmd, check=True)
 
     build_cmd = [
@@ -37,6 +41,10 @@ def main() -> int:
     ]
     for root in args.repo_root or [REPO_ROOT]:
         build_cmd.extend(["--repo-root", str(root)])
+    if args.generated_at:
+        build_cmd.extend(["--generated-at", args.generated_at])
+    if args.as_of:
+        build_cmd.extend(["--as-of", args.as_of])
     subprocess.run(build_cmd, check=True)
 
     for path in (skills_json, builds_json):

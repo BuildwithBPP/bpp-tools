@@ -1,16 +1,33 @@
 # -*- coding: utf-8 -*-
 """Build the monthly data model JSON for the dynamic BPP performance dashboard."""
-import argparse, csv, json, os, glob, time
+import argparse, csv, json, os, glob
 from collections import defaultdict
 from pathlib import Path
 
+from build_utils import serialize_for_script, validate_source_families
+
 SCRIPT_DIR = Path(__file__).resolve().parent
-DEFAULT_DA3 = Path(r"C:\Users\dtben\OneDrive - Business Plans Plus\BPP Operations\BPP Workspace\1. Internal Operations\7. Data Analytics\DA-003 - Social Media Database")
-DEFAULT_DA4 = Path(r"C:\Users\dtben\OneDrive - Business Plans Plus\BPP Operations\BPP Workspace\1. Internal Operations\7. Data Analytics\DA-004 - Financial Database")
+
+
+def discover_source_dir(explicit: Path | None, env_name: str, relative_dir: Path) -> Path | None:
+    """Use a CLI path, an environment path, or a workspace-relative discovery result."""
+    if explicit:
+        return explicit.expanduser()
+    if os.getenv(env_name):
+        return Path(os.environ[env_name]).expanduser()
+    seen = set()
+    for anchor in (Path.cwd(), SCRIPT_DIR, *Path.cwd().parents, *SCRIPT_DIR.parents):
+        candidate = anchor / relative_dir
+        if candidate in seen:
+            continue
+        seen.add(candidate)
+        if candidate.is_dir():
+            return candidate
+    return None
 
 parser = argparse.ArgumentParser(description="Build and optionally render the BPP Performance Dashboard.")
-parser.add_argument("--social-dir", type=Path, default=DEFAULT_DA3, help="DA-003 social and website CSV directory.")
-parser.add_argument("--financial-dir", type=Path, default=DEFAULT_DA4, help="DA-004 financial CSV directory.")
+parser.add_argument("--social-dir", type=Path, help="DA-003 social and website CSV directory. Overrides BPP_DASHBOARD_SOCIAL_DIR.")
+parser.add_argument("--financial-dir", type=Path, help="DA-004 financial CSV directory. Overrides BPP_DASHBOARD_FINANCIAL_DIR.")
 parser.add_argument("--output", type=Path, default=SCRIPT_DIR / "monthly_data.json", help="Monthly data JSON output path.")
 parser.add_argument("--render", action="store_true", help="Render the final dashboard HTML after building data.")
 parser.add_argument("--template", type=Path, default=SCRIPT_DIR / "template.html", help="Dashboard template path.")
@@ -18,22 +35,20 @@ parser.add_argument("--render-output", type=Path, default=SCRIPT_DIR.parents[1] 
 parser.add_argument("--validate-sources", action="store_true", help="Fail when required source files are missing or stale.")
 parser.add_argument("--max-source-age-days", type=int, default=31, help="Maximum age for the newest CSV source when validating.")
 args = parser.parse_args()
+args.social_dir = discover_source_dir(args.social_dir, "BPP_DASHBOARD_SOCIAL_DIR", Path("1. Internal Operations") / "7. Data Analytics" / "DA-003 - Social Media Database")
+args.financial_dir = discover_source_dir(args.financial_dir, "BPP_DASHBOARD_FINANCIAL_DIR", Path("1. Internal Operations") / "7. Data Analytics" / "DA-004 - Financial Database")
+if not args.social_dir or not args.financial_dir:
+    parser.error("Provide --social-dir and --financial-dir, set BPP_DASHBOARD_SOCIAL_DIR and BPP_DASHBOARD_FINANCIAL_DIR, or run from a BPP workspace descendant.")
 DA3 = str(args.social_dir)
 DA4 = str(args.financial_dir)
 OUT = str(args.output)
 
 def validate_sources():
-    required = [args.financial_dir / "monthly-pnl.csv", args.financial_dir / "account-by-month.csv", args.financial_dir / "transactions-all.csv"]
-    missing = [str(path) for path in required if not path.is_file()]
-    social_sources = list(args.social_dir.glob("*.csv")) if args.social_dir.is_dir() else []
-    if missing or not social_sources:
-        details = ", ".join(missing or ["no social CSV files"])
-        raise SystemExit(f"Source validation failed: {details}")
-    newest = max([*required, *social_sources], key=lambda path: path.stat().st_mtime)
-    age_days = (time.time() - newest.stat().st_mtime) / 86400
-    if age_days > args.max_source_age_days:
-        raise SystemExit(f"Source validation failed: newest CSV is {age_days:.1f} days old, limit is {args.max_source_age_days}.")
-    print(f"Source validation passed: newest CSV is {age_days:.1f} days old.")
+    try:
+        ages = validate_source_families(args.financial_dir, args.social_dir, args.max_source_age_days)
+    except ValueError as error:
+        raise SystemExit(f"Source validation failed: {error}") from error
+    print("Source validation passed: financial {:.1f} days, social {:.1f} days.".format(ages["financial_age_days"], ages["social_age_days"]))
 
 if args.validate_sources:
     validate_sources()
@@ -252,7 +267,7 @@ for m in months:
         "reels":d.get("reels",{})}
 out={"generated":"2026-07-24","months":months,"data":data,"deals":DEAL_ROWS,"pipeline":PIPELINE}
 args.output.parent.mkdir(parents=True, exist_ok=True)
-serialized=json.dumps(out,separators=(",",":"))
+serialized=serialize_for_script(out)
 args.output.write_text(serialized,encoding="utf-8")
 if args.render:
     template=args.template.read_text(encoding="utf-8")
