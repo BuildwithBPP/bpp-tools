@@ -1,0 +1,31 @@
+---
+import StatusBadge from "./StatusBadge.astro";
+
+interface Props {
+  owner: string;
+  status: string;
+  source: string;
+  verified: string;
+  freshnessDays?: number | null;
+  compact?: boolean;
+}
+
+const { owner, status, source, verified, freshnessDays = null, compact = false } = Astro.props;
+const snapshotDate = new Date("2026-07-29T12:00:00-04:00");
+const verifiedDate = new Date(`${verified}T12:00:00-04:00`);
+const ageDays = Math.floor((snapshotDate.getTime() - verifiedDate.getTime()) / 86_400_000);
+const isHistorical = status.toLowerCase() === "historical";
+const stale = !isHistorical && freshnessDays !== null && ageDays > freshnessDays;
+const freshness = stale ? `Stale by ${ageDays - freshnessDays!} day${ageDays - freshnessDays! === 1 ? "" : "s"}` : isHistorical ? "Historical record" : "Within freshness window";
+---
+<footer class:list={["source-meta", { compact, stale }]} aria-label="Ownership and source details">
+  <div class="source-meta-primary">
+    <StatusBadge status={stale ? "stale" : status} label={stale ? "Stale" : undefined} />
+    <span><strong>Owner</strong> {owner}</span>
+    <span><strong>Verified</strong> {verified}</span>
+  </div>
+  <div class="source-meta-secondary">
+    <span><strong>Source</strong> {source}</span>
+    <span class="freshness-note">{freshness}</span>
+  </div>
+</footer>

@@ -1,0 +1,40 @@
+---
+import StatusBadge from "./StatusBadge.astro";
+
+interface Props {
+  title: string;
+  status: string;
+  verified: string;
+}
+
+const { title, status, verified } = Astro.props;
+---
+<header class="utility-bar">
+  <div class="utility-title">
+    <span class="utility-kicker">BPP HQ</span>
+    <span>{title}</span>
+  </div>
+  <div class="utility-actions">
+    <a class="utility-search" href="/library/?focus=search">Search Library</a>
+    <StatusBadge {status} />
+    <span class="utility-verified">Snapshot {verified}</span>
+    <button
+      class="screen-share-toggle"
+      type="button"
+      aria-pressed="false"
+      aria-controls="main-content"
+      data-screen-share-toggle
+    >
+      Screen-share mode
+    </button>
+  </div>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>("[data-screen-share-toggle]");
+  button?.addEventListener("click", () => {
+    const active = document.documentElement.toggleAttribute("data-screen-share");
+    button.setAttribute("aria-pressed", String(active));
+    button.textContent = active ? "Exit screen-share" : "Screen-share mode";
+  });
+</script>

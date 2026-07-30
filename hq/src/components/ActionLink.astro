@@ -1,0 +1,18 @@
+---
+interface Props {
+  href: string;
+  eyebrow?: string;
+  title: string;
+  description: string;
+  meta?: string;
+}
+
+const { href, eyebrow, title, description, meta } = Astro.props;
+---
+<a class="action-link" href={href}>
+  {eyebrow && <span class="action-eyebrow">{eyebrow}</span>}
+  <span class="action-title">{title}</span>
+  <span class="action-description">{description}</span>
+  {meta && <span class="action-meta">{meta}</span>}
+  <span class="action-arrow" aria-hidden="true">→</span>
+</a>

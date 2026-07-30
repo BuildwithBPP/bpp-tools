@@ -1,0 +1,192 @@
+---
+import HQLayout from "../layouts/HQLayout.astro";
+import ActionLink from "../components/ActionLink.astro";
+import DataState from "../components/DataState.astro";
+import Metric from "../components/Metric.astro";
+import Section from "../components/Section.astro";
+import SourceMeta from "../components/SourceMeta.astro";
+import StatusBadge from "../components/StatusBadge.astro";
+import { offersRegistry } from "../data/registries";
+import { homeSnapshot, monthlySnapshot, money, proofDate } from "../data/snapshot";
+
+const page = {
+  title: "Growth",
+  description: "Demand generation, sales conversion, offer truth, and commercial priorities.",
+  owner: "Kenny",
+  status: "live",
+  source: "HubSpot snapshot, offer registry, and BPP HQ master plan",
+  verified: proofDate
+};
+
+const stageCounts = monthlySnapshot.pipeline.reduce<Record<string, number>>((counts, deal) => {
+  counts[deal.stage] = (counts[deal.stage] ?? 0) + 1;
+  return counts;
+}, {});
+---
+<HQLayout {...page}>
+  <header class="page-intro">
+    <div class="page-intro-copy">
+      <p class="eyebrow">Sales + marketing</p>
+      <h1>Turn demand into dependable revenue</h1>
+      <p>
+        Growth brings sales and marketing into one commercial view while keeping each
+        department's ownership clear.
+      </p>
+    </div>
+    <SourceMeta
+      owner={page.owner}
+      status={page.status}
+      source={page.source}
+      verified={page.verified}
+      freshnessDays={3}
+    />
+  </header>
+
+  <Section eyebrow="Pipeline pulse" title="Current commercial position">
+    <div class="metrics-grid">
+      <Metric
+        label="Open pipeline"
+        value={money(homeSnapshot.stats.pipeline_total, true)}
+        comparison={`${homeSnapshot.stats.pipeline_count} open opportunities`}
+        timeframe="July 29, 2026"
+        source="HubSpot live snapshot"
+      />
+      <Metric
+        label="Hot opportunities"
+        value={String(homeSnapshot.stats.pipeline_hot_count)}
+        comparison="Prioritize next action and close timing"
+        timeframe="July 29, 2026"
+        source="HubSpot live snapshot"
+        tone="warning"
+      />
+      <Metric
+        label="Proposal stage"
+        value={String(stageCounts.Proposal ?? 0)}
+        comparison="Deals in proposal in the dashboard extract"
+        timeframe="Dataset generated July 24"
+        source="Performance Dashboard pipeline extract"
+      />
+      <Metric
+        label="Approved offers"
+        value={String(offersRegistry.offers.filter((offer) => offer.status === "approved").length)}
+        comparison={`${offersRegistry.offers.filter((offer) => offer.status === "proposed").length} proposed offer`}
+        timeframe="Offer registry verified July 29"
+        source="Shared offer registry"
+        tone="positive"
+      />
+    </div>
+  </Section>
+
+  <Section
+    id="offers"
+    eyebrow="Offer truth"
+    title="Approved and proposed offers"
+    description="Pricing and package state come directly from the shared registry."
+  >
+    <div class="offer-list">
+      {offersRegistry.offers.map((offer) => (
+        <article class="offer-row">
+          <div>
+            <h3>{offer.name}</h3>
+            <span class="offer-icp">{offer.timeline}</span>
+          </div>
+          <p class="offer-price">{offer.price_label}</p>
+          <p class="offer-icp">{offer.primary_icp}</p>
+          <StatusBadge status={offer.status} />
+        </article>
+      ))}
+    </div>
+    <div class="decision-box">
+      <strong>AI Jumpstart price presentation</strong>
+      <p>
+        Show <strong>$599 launch price</strong> with <strong>$699 standard</strong> as the anchor.
+        The $100 launch discount is already applied and does not stack with another discount.
+      </p>
+    </div>
+    <SourceMeta
+      owner="Kenny"
+      status="canonical"
+      source={offersRegistry.source}
+      verified={offersRegistry.last_verified}
+      freshnessDays={30}
+      compact
+    />
+  </Section>
+
+  <Section
+    eyebrow="Funnel health"
+    title="Conversion detail needs one governing snapshot"
+    description="The stage count extract and the newer HubSpot total were generated on different dates."
+  >
+    <div class="split-layout">
+      <div class="table-wrap" role="region" aria-label="Pipeline stages" tabindex="0">
+        <table class="simple-table">
+          <thead><tr><th>Stage</th><th>Opportunity count</th><th>Owner</th><th>Status</th></tr></thead>
+          <tbody>
+            {Object.entries(stageCounts).map(([stage, count]) => (
+              <tr>
+                <td>{stage}</td>
+                <td>{count}</td>
+                <td>Kenny + Eli</td>
+                <td><StatusBadge status="needs review" /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <DataState
+        state="stale"
+        title="Stage values need refresh"
+        message="The stage extract was generated July 24, while the pipeline total was verified July 29. Counts remain useful for structure, but values should be reconciled before a forecast decision."
+        source="Performance Dashboard dataset and HubSpot snapshot"
+      />
+    </div>
+  </Section>
+
+  <Section
+    eyebrow="Commercial priorities"
+    title="Work the system in order"
+    description="Three operating moves connect demand, conversion, and offer discipline."
+  >
+    <ul class="brief-list">
+      <li class="brief-item">
+        <strong>Kenny</strong>
+        <p>Confirm a next action, date, and owner on every open opportunity.</p>
+        <StatusBadge status="current" />
+      </li>
+      <li class="brief-item">
+        <strong>Kenny + Eli</strong>
+        <p>Use approved proof and the current service catalog in seller conversations.</p>
+        <StatusBadge status="current" />
+      </li>
+      <li class="brief-item">
+        <strong>All owners</strong>
+        <p>Keep proposed offers visibly separate until the team ratifies price and scope.</p>
+        <StatusBadge status="canonical" />
+      </li>
+    </ul>
+  </Section>
+
+  <Section eyebrow="Growth tools" title="Continue the workflow">
+    <div class="action-grid">
+      <ActionLink
+        href="/performance/#pipeline"
+        eyebrow="Performance"
+        title="Read the revenue signal"
+        description="Compare pipeline coverage with the remaining 2026 base-plan gap."
+      />
+      <ActionLink
+        href="/library/?owner=Kenny"
+        eyebrow="Seller resources"
+        title="Find Growth content"
+        description="Open the registry directory with Kenny's ownership filter applied."
+      />
+      <ActionLink
+        href="/company/#departments"
+        eyebrow="Ownership cockpit"
+        title="Review Sales and Marketing"
+        description="See the department charters, outcomes, dependencies, and current source state."
+      />
+    </div>
+  </Section>
+</HQLayout>

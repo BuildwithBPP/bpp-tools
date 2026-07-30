@@ -1,0 +1,70 @@
+---
+import SideNav from "../components/SideNav.astro";
+import UtilityBar from "../components/UtilityBar.astro";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  owner: string;
+  status: string;
+  source: string;
+  verified: string;
+}
+
+const { title, description, owner, status, source, verified } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#044771" />
+    <title>{title} | BPP HQ</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="app-shell">
+      <aside class="side-panel">
+        <a class="brand" href="/" aria-label="BPP HQ home">
+          <span class="brand-mark">BPP</span>
+          <span class="brand-name">HQ</span>
+        </a>
+        <p class="brand-tagline">Where BPP runs.</p>
+        <SideNav {currentPath} />
+        <div class="side-panel-footer">
+          <span class="protected-dot" aria-hidden="true"></span>
+          <div>
+            <strong>Internal prototype</strong>
+            <span>No production writes</span>
+          </div>
+        </div>
+      </aside>
+      <div class="workspace">
+        <details class="mobile-navigation">
+          <summary>
+            <span class="mobile-brand">BPP HQ</span>
+            <span class="mobile-menu-label">Menu</span>
+          </summary>
+          <SideNav {currentPath} mobile />
+        </details>
+        <UtilityBar {title} {status} {verified} />
+        <main id="main-content" tabindex="-1">
+          <slot />
+        </main>
+        <footer class="site-footer">
+          <div>
+            <strong>BPP HQ proof of concept</strong>
+            <span>Static snapshot. Authentication is a deployment boundary, not part of this build.</span>
+          </div>
+          <dl>
+            <div><dt>Page owner</dt><dd>{owner}</dd></div>
+            <div><dt>Source</dt><dd>{source}</dd></div>
+          </dl>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+---
+import StatusBadge from "./StatusBadge.astro";
+
+interface Props {
+  label: string;
+  value: string;
+  timeframe: string;
+  source: string;
+  comparison?: string;
+  tone?: "default" | "positive" | "warning" | "negative";
+  status?: string;
+}
+
+const {
+  label,
+  value,
+  timeframe,
+  source,
+  comparison,
+  tone = "default",
+  status
+} = Astro.props;
+---
+<article class:list={["metric", `metric-${tone}`]}>
+  <div class="metric-heading">
+    <p>{label}</p>
+    {status && <StatusBadge status={status} />}
+  </div>
+  <p class="metric-value">{value}</p>
+  {comparison && <p class="metric-comparison">{comparison}</p>}
+  <dl class="metric-context">
+    <div>
+      <dt>Timeframe</dt>
+      <dd>{timeframe}</dd>
+    </div>
+    <div>
+      <dt>Source</dt>
+      <dd>{source}</dd>
+    </div>
+  </dl>
+</article>

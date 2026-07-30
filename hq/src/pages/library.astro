@@ -1,0 +1,255 @@
+---
+import HQLayout from "../layouts/HQLayout.astro";
+import DataState from "../components/DataState.astro";
+import Section from "../components/Section.astro";
+import SourceMeta from "../components/SourceMeta.astro";
+import StatusBadge from "../components/StatusBadge.astro";
+import { pagesRegistry } from "../data/registries";
+import { proofDate } from "../data/snapshot";
+
+const page = {
+  title: "Library",
+  description: "A registry-driven directory of authoritative, historical, draft, and archived BPP content.",
+  owner: "Daunte",
+  status: "live",
+  source: "Shared page registry",
+  verified: proofDate
+};
+
+const routeMap: Record<string, string> = {
+  "business-plan": "/company/#plan-of-record",
+  "strategic-plan-v9": "/company/#superseded-plan",
+  "performance-dashboard": "/performance/",
+  "seller-start": "/growth/",
+  "skill-directory": "/library/#directory",
+  "builds": "/company/#build-change"
+};
+
+const types = [...new Set(pagesRegistry.pages.map((record) => record.page_type))].sort();
+const owners = [...new Set(pagesRegistry.pages.map((record) => record.owner))].sort();
+const statuses = [...new Set(pagesRegistry.pages.map((record) => record.status))].sort();
+const confidentialities = [...new Set(pagesRegistry.pages.map((record) => record.confidentiality))].sort();
+const draftOrArchive = pagesRegistry.pages.filter((record) => ["draft", "archived"].includes(record.status));
+---
+<HQLayout {...page}>
+  <header class="page-intro">
+    <div class="page-intro-copy">
+      <p class="eyebrow">Durable knowledge layer</p>
+      <h1>Find the authoritative record</h1>
+      <p>
+        Library is generated from the shared page registry. It points to the current answer
+        and keeps historical material visibly separate without creating duplicate copies.
+      </p>
+    </div>
+    <SourceMeta
+      owner={page.owner}
+      status={page.status}
+      source={page.source}
+      verified={page.verified}
+      freshnessDays={7}
+    />
+  </header>
+
+  <Section
+    id="directory"
+    eyebrow="Universal directory"
+    title="Search and filter"
+    description="Filters run locally in the static page. No query or viewing data leaves the browser."
+  >
+    <form class="filter-bar" data-library-filters>
+      <label>
+        Search
+        <input type="search" name="q" placeholder="Title, owner, source, or type" autocomplete="off" />
+      </label>
+      <label>
+        Type
+        <select name="type">
+          <option value="">All types</option>
+          {types.map((type) => <option value={type}>{type.replaceAll("-", " ")}</option>)}
+        </select>
+      </label>
+      <label>
+        Owner
+        <select name="owner">
+          <option value="">All owners</option>
+          {owners.map((owner) => <option value={owner}>{owner}</option>)}
+        </select>
+      </label>
+      <label>
+        Lifecycle
+        <select name="status">
+          <option value="">All states</option>
+          {statuses.map((status) => <option value={status}>{status}</option>)}
+        </select>
+      </label>
+      <label>
+        Confidentiality
+        <select name="confidentiality">
+          <option value="">All classifications</option>
+          {confidentialities.map((value) => <option value={value}>{value}</option>)}
+        </select>
+      </label>
+    </form>
+
+    <div class="table-wrap" role="region" aria-label="Library directory" tabindex="0">
+      <table class="directory-table">
+        <thead>
+          <tr>
+            <th>Record</th>
+            <th>Type</th>
+            <th>Owner</th>
+            <th>Status</th>
+            <th>Verified</th>
+            <th>Confidentiality</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody data-library-rows>
+          {pagesRegistry.pages.map((record) => (
+            <tr
+              data-library-row
+              data-title={record.title.toLowerCase()}
+              data-type={record.page_type.toLowerCase()}
+              data-owner={record.owner.toLowerCase()}
+              data-status={record.status.toLowerCase()}
+              data-confidentiality={record.confidentiality.toLowerCase()}
+              data-source={record.source_of_truth.toLowerCase()}
+            >
+              <td>
+                <a class="directory-title" href={routeMap[record.id]}>
+                  {record.title}
+                </a>
+              </td>
+              <td>{record.page_type.replaceAll("-", " ")}</td>
+              <td>{record.owner}</td>
+              <td><StatusBadge status={record.status} /></td>
+              <td>{record.last_verified}</td>
+              <td>{record.confidentiality}</td>
+              <td class="directory-source">{record.source_of_truth}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <div class="library-empty" data-library-empty hidden>
+      <DataState
+        state="empty"
+        title="No records match these filters"
+        message="Clear one or more filters to return to the full registry directory."
+      />
+    </div>
+    <SourceMeta
+      owner="Daunte"
+      status="canonical"
+      source={pagesRegistry.source}
+      verified={pagesRegistry.generated_at.slice(0, 10)}
+      freshnessDays={7}
+      compact
+    />
+  </Section>
+
+  <Section
+    eyebrow="Recently verified"
+    title="Current registry set"
+    description="Records are sorted and classified at the source. Historical content does not become stale merely because it is old."
+  >
+    <ul class="brief-list">
+      {pagesRegistry.pages
+        .toSorted((a, b) => b.last_verified.localeCompare(a.last_verified))
+        .slice(0, 4)
+        .map((record) => (
+          <li class="brief-item">
+            <strong>{record.owner}</strong>
+            <p>{record.title} · verified {record.last_verified} · source: {record.source_of_truth}</p>
+            <StatusBadge status={record.status} />
+          </li>
+        ))}
+    </ul>
+  </Section>
+
+  <Section
+    eyebrow="Drafts and archive"
+    title="Separate by lifecycle"
+    description="The directory does not imply that missing lifecycle classes contain content."
+  >
+    {draftOrArchive.length === 0 ? (
+      <DataState
+        state="empty"
+        title="No draft or archived records are registered"
+        message="This is an honest empty state for schema version 1. Historical content remains visible in the main directory with its own lifecycle label."
+        source="data/registry/pages.json"
+      />
+    ) : (
+      <ul class="brief-list">
+        {draftOrArchive.map((record) => (
+          <li class="brief-item">
+            <strong>{record.owner}</strong>
+            <p>{record.title}</p>
+            <StatusBadge status={record.status} />
+          </li>
+        ))}
+      </ul>
+    )}
+  </Section>
+
+  <DataState
+    state="notice"
+    title="Current Hub source files are not bundled"
+    message="Registry records retain their current-Hub source routes for migration, but this standalone proof of concept links only to routes and anchors it owns."
+    source="HQ architecture boundary"
+  />
+
+  <script>
+    const form = document.querySelector<HTMLFormElement>("[data-library-filters]");
+    const rows = [...document.querySelectorAll<HTMLTableRowElement>("[data-library-row]")];
+    const empty = document.querySelector<HTMLElement>("[data-library-empty]");
+
+    function applyFilters() {
+      if (!form) return;
+      const data = new FormData(form);
+      const query = String(data.get("q") ?? "").trim().toLowerCase();
+      const type = String(data.get("type") ?? "").toLowerCase();
+      const owner = String(data.get("owner") ?? "").toLowerCase();
+      const status = String(data.get("status") ?? "").toLowerCase();
+      const confidentiality = String(data.get("confidentiality") ?? "").toLowerCase();
+      let visible = 0;
+
+      for (const row of rows) {
+        const haystack = [
+          row.dataset.title,
+          row.dataset.type,
+          row.dataset.owner,
+          row.dataset.status,
+          row.dataset.confidentiality,
+          row.dataset.source
+        ].join(" ");
+        const matches =
+          (!query || haystack.includes(query)) &&
+          (!type || row.dataset.type === type) &&
+          (!owner || row.dataset.owner === owner) &&
+          (!status || row.dataset.status === status) &&
+          (!confidentiality || row.dataset.confidentiality === confidentiality);
+        row.hidden = !matches;
+        if (matches) visible += 1;
+      }
+
+      if (empty) empty.hidden = visible !== 0;
+    }
+
+    if (form) {
+      const params = new URLSearchParams(window.location.search);
+      for (const name of ["q", "type", "owner", "status", "confidentiality"]) {
+        const control = form.elements.namedItem(name);
+        const value = params.get(name);
+        if (value && control instanceof HTMLInputElement) control.value = value;
+        if (value && control instanceof HTMLSelectElement) control.value = value;
+      }
+      form.addEventListener("input", applyFilters);
+      form.addEventListener("change", applyFilters);
+      applyFilters();
+      if (params.get("focus") === "search") {
+        form.querySelector<HTMLInputElement>('input[name="q"]')?.focus();
+      }
+    }
+  </script>
+</HQLayout>
