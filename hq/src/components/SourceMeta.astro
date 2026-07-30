@@ -1,0 +1,30 @@
+---
+import StatusBadge from "./StatusBadge.astro";
+import { deriveFreshness } from "../data/freshness";
+
+interface Props {
+  owner: string;
+  status: string;
+  source: string;
+  verified: string;
+  freshnessDays?: number | null;
+  compact?: boolean;
+}
+
+const { owner, status, source, verified, freshnessDays = null, compact = false } = Astro.props;
+const freshness = deriveFreshness({ status, verified, freshnessDays });
+---
+<footer class:list={["source-meta", { compact, stale: freshness.state === "stale" }]} aria-label="Ownership and source details">
+  <div class="source-meta-primary">
+    <StatusBadge
+      status={freshness.state === "stale" ? "stale" : status}
+      label={freshness.state === "stale" ? freshness.label : undefined}
+    />
+    <span><strong>Owner</strong> {owner}</span>
+    <span><strong>Verified</strong> {verified}</span>
+  </div>
+  <div class="source-meta-secondary">
+    <span><strong>Source</strong> {source}</span>
+    <span class="freshness-note">{freshness.detail}</span>
+  </div>
+</footer>

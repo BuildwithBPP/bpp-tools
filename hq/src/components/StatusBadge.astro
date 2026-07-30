@@ -1,0 +1,13 @@
+---
+interface Props {
+  status: string;
+  label?: string;
+}
+
+const { status, label } = Astro.props;
+const normalized = status.toLowerCase().replace(/\s+/g, "-");
+---
+<span class:list={["status-badge", `status-${normalized}`]}>
+  <span class="status-mark" aria-hidden="true"></span>
+  {label ?? status}
+</span>

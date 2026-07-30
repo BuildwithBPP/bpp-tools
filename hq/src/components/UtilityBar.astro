@@ -1,0 +1,61 @@
+---
+import StatusBadge from "./StatusBadge.astro";
+import { deriveFreshness } from "../data/freshness";
+
+interface Props {
+  title: string;
+  status: string;
+  source: string;
+  verified: string;
+  freshnessDays?: number | null;
+}
+
+const { title, status, source, verified, freshnessDays = null } = Astro.props;
+const freshness = deriveFreshness({ status, verified, freshnessDays });
+---
+<header
+  class:list={["utility-bar", `utility-bar-${freshness.state}`]}
+  data-page-source={source}
+  data-page-verified={verified}
+  data-freshness-days={freshnessDays ?? "unset"}
+  data-freshness-state={freshness.state}
+>
+  <div class="utility-title">
+    <span class="utility-kicker">BPP HQ</span>
+    <span>{title}</span>
+  </div>
+  <div class="utility-context">
+    <span class="utility-source">
+      <span class="utility-context-label">Source</span>
+      <span class="utility-source-value" title={source}>{source}</span>
+    </span>
+    <span class="utility-freshness">
+      <StatusBadge
+        status={freshness.state}
+        label={freshness.label}
+      />
+      <span class="utility-freshness-label">{freshness.detail} · {verified}</span>
+    </span>
+  </div>
+  <div class="utility-actions">
+    <a class="utility-search" href="/library/?focus=search">Search Library</a>
+    <button
+      class="screen-share-toggle"
+      type="button"
+      aria-pressed="false"
+      aria-controls="main-content"
+      data-screen-share-toggle
+    >
+      Screen-share mode
+    </button>
+  </div>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>("[data-screen-share-toggle]");
+  button?.addEventListener("click", () => {
+    const active = document.documentElement.toggleAttribute("data-screen-share");
+    button.setAttribute("aria-pressed", String(active));
+    button.textContent = active ? "Exit screen-share" : "Screen-share mode";
+  });
+</script>

@@ -1,0 +1,30 @@
+---
+import SourceMeta from "./SourceMeta.astro";
+
+interface Props {
+  kicker: string;
+  title: string;
+  summary: string;
+  owner: string;
+  status: string;
+  source: string;
+  verified: string;
+  version?: string;
+  freshnessDays?: number | null;
+}
+
+const { kicker, title, summary, owner, status, source, verified, version, freshnessDays } = Astro.props;
+---
+<header class="document-header">
+  <p class="eyebrow">{kicker}</p>
+  <h1>{title}</h1>
+  <p class="document-summary">{summary}</p>
+  {version && <p class="document-version">Version {version}</p>}
+  <SourceMeta
+    {owner}
+    {status}
+    {source}
+    {verified}
+    {freshnessDays}
+  />
+</header>

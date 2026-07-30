@@ -1,0 +1,27 @@
+{
+  "name": "bpp-hq-proof-of-concept",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "test": "npm run build && node scripts/validate.mjs",
+    "validate": "node scripts/validate.mjs",
+    "screenshots": "node scripts/capture.mjs"
+  },
+  "dependencies": {
+    "@fontsource/merriweather": "^5.3.0",
+    "@fontsource/montserrat": "^5.3.0",
+    "@fontsource/poppins": "^5.3.0",
+    "astro": "^7.1.6",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@axe-core/playwright": "^4.12.1",
+    "playwright": "^1.54.2",
+    "typescript": "^5.9.2"
+  }
+}

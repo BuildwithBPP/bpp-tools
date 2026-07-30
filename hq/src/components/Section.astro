@@ -1,0 +1,24 @@
+---
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  variant?: "default" | "document" | "flat";
+}
+
+const { id, eyebrow, title, description, variant = "default" } = Astro.props;
+---
+<section {id} class:list={["section-block", `section-${variant}`]}>
+  <header class="section-header">
+    <div>
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h2>{title}</h2>
+      {description && <p>{description}</p>}
+    </div>
+    <slot name="aside" />
+  </header>
+  <div class="section-content">
+    <slot />
+  </div>
+</section>

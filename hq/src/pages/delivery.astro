@@ -1,0 +1,184 @@
+---
+import HQLayout from "../layouts/HQLayout.astro";
+import ActionLink from "../components/ActionLink.astro";
+import DataState from "../components/DataState.astro";
+import Metric from "../components/Metric.astro";
+import Section from "../components/Section.astro";
+import SourceMeta from "../components/SourceMeta.astro";
+import StatusBadge from "../components/StatusBadge.astro";
+import { deliverySnapshot, homeSnapshot, proofDate } from "../data/snapshot";
+
+const page = {
+  title: "Delivery",
+  description: "Active engagement health, milestones, delivery risk, and quality tools.",
+  owner: "Eli",
+  status: "live",
+  source: "Delivery tracker and BPP HQ operating snapshot",
+  verified: "2026-07-24",
+  freshnessDays: 7
+};
+
+const clients = deliverySnapshot.gantt.clients.map((client) => {
+  const openItems = client.items.filter((item) => item.status !== "Done");
+  const datedOpenItems = openItems.filter((item) => item.due);
+  const overdueItems = datedOpenItems.filter((item) => item.due! < proofDate);
+  const lastUpdated = [...client.items].sort((a, b) => b.updated_at.localeCompare(a.updated_at))[0]?.updated_at;
+  return { ...client, openItems, overdueItems, lastUpdated };
+});
+const trackedOpenItems = clients.reduce((sum, client) => sum + client.openItems.length, 0);
+const trackedOverdue = clients.reduce((sum, client) => sum + client.overdueItems.length, 0);
+const lastSprint = deliverySnapshot.velocity.history.at(-1)!;
+---
+<HQLayout {...page}>
+  <header class="page-intro">
+    <div class="page-intro-copy">
+      <p class="eyebrow">Client fulfillment</p>
+      <h1>Deliver the promise with fewer surprises</h1>
+      <p>
+        Delivery summarizes engagement health, deadlines, capacity, and quality controls
+        without exposing client-confidential work product.
+      </p>
+    </div>
+    <SourceMeta
+      owner={page.owner}
+      status={page.status}
+      source={page.source}
+      verified={page.verified}
+      freshnessDays={page.freshnessDays}
+    />
+  </header>
+
+  <Section eyebrow="Delivery health" title="Tracker position">
+    <div class="metrics-grid">
+      <Metric
+        label="Tracked clients"
+        value={String(clients.length)}
+        comparison={`${homeSnapshot.stats.active_clients_count} active clients in the HQ snapshot`}
+        timeframe="Tracker generated July 24"
+        source="Delivery tracker"
+        tone="warning"
+      />
+      <Metric
+        label="Open milestones"
+        value={String(trackedOpenItems)}
+        comparison="Includes review and closeout work"
+        timeframe="Tracker generated July 24"
+        source="Delivery tracker"
+      />
+      <Metric
+        label="Past-due dates"
+        value={String(trackedOverdue)}
+        comparison="Based on open items with a due date before July 29"
+        timeframe="As evaluated July 29"
+        source="Delivery tracker due dates"
+        tone="negative"
+      />
+      <Metric
+        label="Last sprint reliability"
+        value={`${lastSprint.reliability}%`}
+        comparison={`${lastSprint.completed} of ${lastSprint.committed} points completed`}
+        timeframe={`Closed Sprint ${lastSprint.sprint}`}
+        source="Delivery tracker velocity history"
+        tone="negative"
+      />
+    </div>
+  </Section>
+
+  <Section
+    id="engagements"
+    eyebrow="Active engagements"
+    title="Milestone and deadline summary"
+    description="This view reports tracker state. It does not expose client files or confidential deliverables."
+  >
+    <div class="table-wrap" data-sensitive role="region" aria-label="Active engagement tracker" tabindex="0">
+      <table class="simple-table">
+        <thead>
+          <tr><th>Client</th><th>Open work</th><th>Past due</th><th>Last tracker update</th><th>Health</th></tr>
+        </thead>
+        <tbody>
+          {clients.map((client) => (
+            <tr>
+              <td><strong>{client.client}</strong></td>
+              <td>{client.openItems.length}</td>
+              <td>{client.overdueItems.length}</td>
+              <td>{client.lastUpdated}</td>
+              <td><StatusBadge status={client.overdueItems.length ? "at risk" : "current"} /></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <SourceMeta
+      owner="Eli"
+      status="live"
+      source="data/delivery-tracker.json"
+      verified="2026-07-24"
+      freshnessDays={7}
+      compact
+    />
+  </Section>
+
+  <Section
+    id="capacity"
+    eyebrow="Capacity"
+    title="Current sprint capacity is unavailable"
+    description="Closed-sprint history is useful, but it is not a substitute for a current commitment view."
+  >
+    <DataState
+      state="unavailable"
+      title="No active sprint is identified"
+      message="The delivery dataset marks Sprint 3 as closed and does not provide a current sprint assignment. Capacity and workload should remain unavailable until Monday.com is refreshed."
+      source="Delivery tracker velocity.current_sprint"
+    />
+  </Section>
+
+  <Section
+    id="risks"
+    eyebrow="Data quality"
+    title="Resolve tracker coverage before client decisions"
+    description="The mismatch is surfaced as an operating issue, not hidden in the interface."
+  >
+    <div class="split-layout">
+      <aside class="panel">
+        <p class="panel-title">Coverage mismatch</p>
+        <p>
+          The delivery tracker includes {clients.length} clients. The July 29 HQ snapshot
+          reports {homeSnapshot.stats.active_clients_count} active clients. Confirm the missing
+          engagement or correct the active-client count.
+        </p>
+        <StatusBadge status="needs review" />
+      </aside>
+      <aside class="panel">
+        <p class="panel-title">Deadline signal</p>
+        <p>
+          Past-due dates may include items where delivery moved ahead of the board. Owners need
+          to update status and due dates before the risk count drives a client conversation.
+        </p>
+        <StatusBadge status="warning" label="Verify reality" />
+      </aside>
+    </div>
+  </Section>
+
+  <Section eyebrow="Quality system" title="Use the authoritative operating assets">
+    <div class="action-grid">
+      <ActionLink
+        href="/library/?type=playbook"
+        eyebrow="Playbooks"
+        title="Find delivery standards"
+        description="Search authoritative content by type and owner in the registry directory."
+      />
+      <ActionLink
+        href="/company/#cadence"
+        eyebrow="Operating rhythm"
+        title="Review the cadence"
+        description="See the weekly, sprint, and review routines that govern delivery follow-through."
+      />
+      <ActionLink
+        href="/#risks"
+        eyebrow="Leadership brief"
+        title="Escalate a delivery risk"
+        description="Return to the owner risk view. This prototype contains no write or notification action."
+      />
+    </div>
+  </Section>
+</HQLayout>

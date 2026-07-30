@@ -1,0 +1,18 @@
+---
+interface Props {
+  state: "stale" | "unavailable" | "empty" | "notice";
+  title: string;
+  message: string;
+  source?: string;
+}
+
+const { state, title, message, source } = Astro.props;
+---
+<aside class:list={["data-state", `data-state-${state}`]} role={state === "unavailable" ? "status" : undefined}>
+  <span class="data-state-label">{state}</span>
+  <div>
+    <strong>{title}</strong>
+    <p>{message}</p>
+    {source && <p class="data-state-source">Source: {source}</p>}
+  </div>
+</aside>

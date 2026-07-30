@@ -1,0 +1,233 @@
+---
+import HQLayout from "../layouts/HQLayout.astro";
+import ActionLink from "../components/ActionLink.astro";
+import DataState from "../components/DataState.astro";
+import Metric from "../components/Metric.astro";
+import Section from "../components/Section.astro";
+import SourceMeta from "../components/SourceMeta.astro";
+import StatusBadge from "../components/StatusBadge.astro";
+import { pagesRegistry, targetsRegistry } from "../data/registries";
+import { homeSnapshot, monthlySnapshot, money, percent } from "../data/snapshot";
+
+const performanceRecord = pagesRegistry.pages.find((record) => record.id === "performance-dashboard")!;
+const page = {
+  title: "Performance",
+  description: "BPP actuals, targets, period comparisons, and source-quality notes.",
+  owner: performanceRecord.owner,
+  status: performanceRecord.status,
+  source: performanceRecord.source_of_truth,
+  verified: performanceRecord.last_verified,
+  freshnessDays: performanceRecord.freshness_days
+};
+
+const baseTarget = targetsRegistry.targets.find(
+  (target) => target.metric_id === "revenue" && target.period === "2026" && target.scenario === "base"
+)!;
+const teamTarget = targetsRegistry.targets.find(
+  (target) => target.metric_id === "revenue" && target.period === "2026" && target.scenario === "team-target"
+)!;
+const upsideTarget = targetsRegistry.targets.find(
+  (target) => target.metric_id === "revenue" && target.period === "2026" && target.scenario === "upside"
+)!;
+const revenueAttainment = (homeSnapshot.stats.ytd_revenue / baseTarget.value) * 100;
+const margin = (homeSnapshot.stats.ytd_net_income / homeSnapshot.stats.ytd_revenue) * 100;
+const targetGap = baseTarget.value - homeSnapshot.stats.ytd_revenue;
+const pipelineCoverage = (homeSnapshot.stats.pipeline_total / targetGap) * 100;
+const currentMonth = monthlySnapshot.data["2026-07"];
+const priorMonth = monthlySnapshot.data["2026-06"];
+const monthChange = ((currentMonth.rev - priorMonth.rev) / priorMonth.rev) * 100;
+const trendMonths = monthlySnapshot.months.slice(-7).map((key) => ({
+  key,
+  label: new Date(`${key}-02T12:00:00`).toLocaleDateString("en-US", { month: "short" }),
+  value: monthlySnapshot.data[key].rev
+}));
+const trendMax = Math.max(...trendMonths.map((month) => month.value));
+---
+<HQLayout {...page}>
+  <header class="page-intro">
+    <div class="page-intro-copy">
+      <p class="eyebrow">Executive scorecard / Monthly Review view</p>
+      <h1>Are we on plan, and why?</h1>
+      <p>
+        Monthly Review lives here as a view of the Performance Dashboard. Actuals,
+        governing targets, comparisons, and source quality stay in one decision surface.
+      </p>
+    </div>
+    <SourceMeta
+      owner={page.owner}
+      status={page.status}
+      source={page.source}
+      verified={page.verified}
+      freshnessDays={page.freshnessDays}
+    />
+  </header>
+
+  <Section
+    eyebrow="Executive scorecard"
+    title="2026 position"
+    description="Financial and commercial measures use the latest verified snapshot available to this build."
+  >
+    <div class="metrics-grid">
+      <Metric
+        label="Revenue"
+        value={money(homeSnapshot.stats.ytd_revenue, true)}
+        comparison={`${percent(revenueAttainment, 1)} of ${money(baseTarget.value, true)} base plan`}
+        timeframe="2026 YTD through July 29"
+        source="QuickBooks cash-basis snapshot"
+        tone="warning"
+      />
+      <Metric
+        label="Net income"
+        value={money(homeSnapshot.stats.ytd_net_income, true)}
+        comparison={`${percent(margin, 1)} net margin`}
+        timeframe="2026 YTD through July 29"
+        source="QuickBooks cash-basis balance sheet"
+        tone="positive"
+      />
+      <Metric
+        label="Cash available"
+        value={money(homeSnapshot.stats.cash_on_hand, true)}
+        comparison={`${money(Math.abs(homeSnapshot.stats.buffer_gap), true)} operating buffer gap`}
+        timeframe="Available balances July 29"
+        source="QuickBooks bank feed snapshot"
+        tone="warning"
+      />
+      <Metric
+        label="Open pipeline"
+        value={money(homeSnapshot.stats.pipeline_total, true)}
+        comparison={`${homeSnapshot.stats.pipeline_count} opportunities, ${homeSnapshot.stats.pipeline_hot_count} hot`}
+        timeframe="Open deals on July 29"
+        source="HubSpot live snapshot"
+        tone="default"
+      />
+    </div>
+  </Section>
+
+  <Section
+    id="plan-comparison"
+    eyebrow="Actual versus plan"
+    title="The base target is the operating floor"
+    description="The Business Plan target registry is the only source used for these annual scenarios."
+  >
+    <div class="split-layout">
+      <div class="table-wrap" role="region" aria-label="Actual versus plan comparison" tabindex="0">
+        <table class="target-table">
+          <thead>
+            <tr><th>Scenario</th><th>2026 target</th><th>YTD actual</th><th>Attainment</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            {[baseTarget, teamTarget, upsideTarget].map((target) => (
+              <tr>
+                <td>{target.scenario.replace("-", " ")}</td>
+                <td>{money(target.value)}</td>
+                <td>{money(homeSnapshot.stats.ytd_revenue)}</td>
+                <td>{percent((homeSnapshot.stats.ytd_revenue / target.value) * 100, 1)}</td>
+                <td><StatusBadge status={target.status} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <aside class="panel">
+        <p class="panel-title">Decision signal</p>
+        <p>
+          BPP needs {money(targetGap)} more revenue to reach the 2026 base scenario.
+          The current pipeline equals {percent(pipelineCoverage, 0)} of that gap, but open
+          pipeline is not booked revenue.
+        </p>
+        <StatusBadge status="needs review" label="Conversion required" />
+      </aside>
+    </div>
+    <SourceMeta
+      owner="Daunte"
+      status="canonical"
+      source={targetsRegistry.source}
+      verified={targetsRegistry.last_verified}
+      freshnessDays={30}
+      compact
+    />
+  </Section>
+
+  <Section
+    id="monthly-review"
+    eyebrow="Monthly Review"
+    title="Revenue trend"
+    description={`July revenue is ${percent(monthChange, 1)} above June in the July 24 performance dataset.`}
+  >
+    <div class="trend-chart" role="img" aria-label="Monthly revenue from January through July 2026" tabindex="0">
+      {trendMonths.map((month) => (
+        <div class="trend-month">
+          <div
+            class="trend-bar"
+            style={`height:${Math.max(4, (month.value / trendMax) * 135)}px`}
+            title={`${month.label}: ${money(month.value)}`}
+          ></div>
+          <span class="trend-value">{money(month.value, true)}</span>
+          <span class="trend-label">{month.label}</span>
+        </div>
+      ))}
+    </div>
+    <SourceMeta
+      owner="Daunte"
+      status="live"
+      source="Performance Dashboard monthly dataset"
+      verified={monthlySnapshot.generated}
+      freshnessDays={31}
+      compact
+    />
+  </Section>
+
+  <Section
+    id="pipeline"
+    eyebrow="What the numbers say"
+    title="Key insights"
+    description="Interpretation is kept separate from the underlying measures."
+  >
+    <ul class="brief-list">
+      <li class="brief-item">
+        <strong>Revenue</strong>
+        <p>YTD revenue has reached {percent(revenueAttainment, 1)} of the base plan with five months left.</p>
+        <StatusBadge status="warning" label="Gap open" />
+      </li>
+      <li class="brief-item">
+        <strong>Cash</strong>
+        <p>Available cash is positive, but operating funds remain {money(Math.abs(homeSnapshot.stats.buffer_gap))} below the two-month buffer target.</p>
+        <StatusBadge status="at risk" />
+      </li>
+      <li class="brief-item">
+        <strong>Pipeline</strong>
+        <p>Pipeline coverage is material, but the scorecard needs stage conversion and close timing before forecasting revenue.</p>
+        <StatusBadge status="needs review" />
+      </li>
+    </ul>
+    <DataState
+      state="unavailable"
+      title="Margin target comparison is unavailable"
+      message="The shared target registry governs revenue scenarios but does not yet contain a net margin target. The dashboard shows the calculated actual without inventing a plan value."
+      source="data/registry/targets.json"
+    />
+  </Section>
+
+  <Section eyebrow="Related operating views" title="Move from signal to context">
+    <div class="action-grid">
+      <ActionLink
+        href="/growth/"
+        eyebrow="Commercial drivers"
+        title="Inspect Growth"
+        description="Review pipeline shape, approved offers, and the seller priorities behind the revenue signal."
+      />
+      <ActionLink
+        href="/delivery/"
+        eyebrow="Fulfillment"
+        title="Inspect Delivery"
+        description="Review engagement health, open milestones, and tracker coverage."
+      />
+      <ActionLink
+        href="/company/#plan-of-record"
+        eyebrow="Governing plan"
+        title="Read the Plan of Record"
+        description="See the plan authority and the source behind the annual target scenarios."
+      />
+    </div>
+  </Section>
+</HQLayout>

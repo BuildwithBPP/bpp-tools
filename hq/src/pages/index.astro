@@ -1,0 +1,207 @@
+---
+import HQLayout from "../layouts/HQLayout.astro";
+import ActionLink from "../components/ActionLink.astro";
+import DataState from "../components/DataState.astro";
+import Section from "../components/Section.astro";
+import SourceMeta from "../components/SourceMeta.astro";
+import StatusBadge from "../components/StatusBadge.astro";
+import { proofDate, proofDateLabel } from "../data/snapshot";
+
+const page = {
+  title: "Today",
+  description: "The BPP owner brief for priorities, decisions, risks, and the current operating rhythm.",
+  owner: "All owners",
+  status: "live",
+  source: "Current-week operating brief and BPP HQ master plan",
+  verified: "2026-07-13",
+  freshnessDays: 7
+};
+---
+<HQLayout {...page}>
+  <header class="page-intro">
+    <div class="page-intro-copy">
+      <p class="eyebrow">Owner brief / {proofDateLabel}</p>
+      <h1>What matters now</h1>
+      <p>
+        A decision-ready snapshot for the three owners. This proof of concept separates
+        verified business facts from information that needs a fresh system pull.
+      </p>
+    </div>
+    <SourceMeta
+      owner={page.owner}
+      status={page.status}
+      source={page.source}
+      verified={page.verified}
+      freshnessDays={page.freshnessDays}
+    />
+  </header>
+
+  <Section
+    eyebrow="Current focus"
+    title="North star"
+    description="The approved move for this implementation window."
+  >
+    <div class="north-star">
+      <p class="eyebrow">July 29 operating direction</p>
+      <blockquote>
+        Stabilize the Hub the team uses today while building a truthful, protected BPP HQ
+        the owners can evaluate before cutover.
+      </blockquote>
+    </div>
+  </Section>
+
+  <Section
+    id="decisions"
+    eyebrow="Owner attention"
+    title="Decisions needed"
+    description="These choices determine whether the proof of concept moves into migration."
+  >
+    <ul class="brief-list">
+      <li class="brief-item">
+        <strong>All owners</strong>
+        <p>Approve the six-section information architecture and BPP HQ name after the prototype review.</p>
+        <StatusBadge status="needs review" />
+      </li>
+      <li class="brief-item">
+        <strong>All owners</strong>
+        <p>Approve the private HQ and separate external tools boundary before any cutover work.</p>
+        <StatusBadge status="needs review" />
+      </li>
+      <li class="brief-item">
+        <strong>Daunte</strong>
+        <p>Assign owners and dates for Tier 0 protection and Tier 1 sign-in work.</p>
+        <StatusBadge status="open" />
+      </li>
+    </ul>
+    <SourceMeta
+      owner="All owners"
+      status="proposed"
+      source="BPP HQ master plan, owner meeting decisions"
+      verified={proofDate}
+      freshnessDays={7}
+      compact
+    />
+  </Section>
+
+  <Section
+    id="commitments"
+    eyebrow="Ownership"
+    title="Owner commitments"
+    description="The approved review lanes keep the decision clear without duplicating department pages."
+  >
+    <div class="split-layout">
+      <ul class="brief-list">
+        <li class="brief-item">
+          <strong>Daunte</strong>
+          <p>Technical architecture, data governance, protection, and implementation evidence.</p>
+          <StatusBadge status="current" />
+        </li>
+        <li class="brief-item">
+          <strong>Kenny</strong>
+          <p>Growth structure, seller workflow, ICP fit, and offer consistency.</p>
+          <StatusBadge status="current" />
+        </li>
+        <li class="brief-item">
+          <strong>Eli</strong>
+          <p>Visual direction, usability, Delivery experience, and future client translation.</p>
+          <StatusBadge status="current" />
+        </li>
+      </ul>
+      <aside class="panel">
+        <p class="panel-title">Shared acceptance</p>
+        <p>
+          All three owners approve the name, information architecture, public/private boundary,
+          proof-of-concept acceptance, and cutover.
+        </p>
+        <StatusBadge status="needs review" />
+      </aside>
+    </div>
+    <SourceMeta
+      owner="All owners"
+      status="canonical"
+      source="BPP HQ master plan, owner review and governance"
+      verified={proofDate}
+      freshnessDays={30}
+      compact
+    />
+  </Section>
+
+  <Section
+    id="risks"
+    eyebrow="Operating risk"
+    title="What needs confirmation"
+    description="Unknown state is visible here instead of being presented as current."
+  >
+    <div class="stack-list">
+      <DataState
+        state="stale"
+        title="Current-week operating brief is stale"
+        message="The last repository brief was generated July 13. Client, pipeline, and owner-priority details need a fresh source pull before the team treats them as today's operating truth."
+        source="data/monday-prep-latest.json"
+      />
+      <DataState
+        state="unavailable"
+        title="Protection status is not verified in this build"
+        message="The master plan calls for immediate credential containment. This static proof of concept does not claim that rotation, access policy, or repository privacy work is complete."
+        source="BPP HQ master plan, Tier 0"
+      />
+      <DataState
+        state="notice"
+        title="This is a read-only prototype"
+        message="Screen-share mode changes the local display only. There are no production write actions, authentication flows, or client-confidential records in this build."
+        source="BPP HQ proof-of-concept boundary"
+      />
+    </div>
+  </Section>
+
+  <Section
+    eyebrow="Prototype review"
+    title="Current agenda"
+    description="A focused review sequence for deciding whether the replacement architecture is ready."
+  >
+    <ol class="agenda plain-list">
+      <li><span>Confirm plan, price, target, and ownership truth.</span><time>10 min</time></li>
+      <li><span>Walk Today and Company at desktop and phone sizes.</span><time>15 min</time></li>
+      <li><span>Review Performance, Growth, Delivery, and Library structure.</span><time>15 min</time></li>
+      <li><span>Record owner decisions, required changes, and migration sequence.</span><time>20 min</time></li>
+    </ol>
+    <SourceMeta
+      owner="Daunte"
+      status="proposed"
+      source="Proof-of-concept review sequence"
+      verified={proofDate}
+      freshnessDays={7}
+      compact
+    />
+  </Section>
+
+  <Section
+    eyebrow="Next moves"
+    title="Open the operating view you need"
+    description="Each action leads to a working route in this proof of concept."
+  >
+    <div class="action-grid">
+      <ActionLink
+        href="/performance/"
+        eyebrow="BI view"
+        title="Review performance"
+        description="Read actuals against the Business Plan target and inspect the current data-quality notes."
+        meta="Owner: Daunte"
+      />
+      <ActionLink
+        href="/company/"
+        eyebrow="Plan of Record"
+        title="Read company direction"
+        description="Review strategy, ownership, operating cadence, and the superseded plan notice."
+        meta="Owner: All owners"
+      />
+      <ActionLink
+        href="/library/"
+        eyebrow="Authoritative content"
+        title="Search the Library"
+        description="Filter registry-backed content by owner, lifecycle, and confidentiality."
+        meta="Owner: Daunte"
+      />
+    </div>
+  </Section>
+</HQLayout>

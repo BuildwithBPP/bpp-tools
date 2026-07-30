@@ -1,0 +1,327 @@
+---
+import HQLayout from "../layouts/HQLayout.astro";
+import ActionLink from "../components/ActionLink.astro";
+import DataState from "../components/DataState.astro";
+import DocumentHeader from "../components/DocumentHeader.astro";
+import Section from "../components/Section.astro";
+import SourceMeta from "../components/SourceMeta.astro";
+import StatusBadge from "../components/StatusBadge.astro";
+import { pagesRegistry, targetsRegistry } from "../data/registries";
+import { money, proofDate } from "../data/snapshot";
+
+const businessPlan = pagesRegistry.pages.find((record) => record.id === "business-plan")!;
+const strategicPlan = pagesRegistry.pages.find((record) => record.id === "strategic-plan-v9")!;
+const targets = targetsRegistry.targets.filter((target) => target.metric_id === "revenue");
+const page = {
+  title: "Company",
+  description: "BPP strategy, Plan of Record, organization, departments, cadence, and operating system.",
+  owner: businessPlan.owner,
+  status: businessPlan.status,
+  source: businessPlan.source_of_truth,
+  verified: businessPlan.last_verified,
+  freshnessDays: businessPlan.freshness_days
+};
+
+const departments = [
+  {
+    name: "Sales & Business Development",
+    dri: "Kenny",
+    collaborators: "Eli, Daunte",
+    charter: "Create qualified demand, move opportunities to clear decisions, and keep the seller workflow current.",
+    outcomes: "Pipeline coverage, conversion, close discipline",
+    dependency: "Approved offers, ICP truth, delivery capacity"
+  },
+  {
+    name: "Marketing & Content",
+    dri: "Kenny",
+    collaborators: "Eli",
+    charter: "Build consistent awareness and proof that supports the commercial system.",
+    outcomes: "Qualified reach, content consistency, proof library",
+    dependency: "Sales feedback, approved case studies, brand voice"
+  },
+  {
+    name: "Client Delivery & Design",
+    dri: "Eli",
+    collaborators: "Daunte, Kenny",
+    charter: "Turn sold scope into a clear client journey, dependable milestones, and strong work product.",
+    outcomes: "Delivery health, client experience, quality",
+    dependency: "Clean handoff, owner capacity, current tracker"
+  },
+  {
+    name: "Finance & Operations",
+    dri: "Daunte",
+    collaborators: "Kenny, Eli",
+    charter: "Keep BPP financially visible, operationally disciplined, and ready for owner decisions.",
+    outcomes: "Cash visibility, governance, operating rhythm",
+    dependency: "QuickBooks, Monday.com, owner follow-through"
+  },
+  {
+    name: "AI Workforce & Tech",
+    dri: "Daunte",
+    collaborators: "Kenny, Eli",
+    charter: "Build safe, reusable capabilities that shorten recurring work without tying BPP to one model.",
+    outcomes: "Reliable automations, governed capabilities, technical continuity",
+    dependency: "System access, validation rules, clear business owner"
+  },
+  {
+    name: "HR & People Ops",
+    dri: null,
+    status: "parked",
+    researcher: "Daunte researching",
+    collaborators: "Not assigned",
+    charter: "Keep accountability, role clarity, and team decisions aligned with the operating model.",
+    outcomes: "Clear ownership, capacity decisions, working agreements",
+    dependency: "Current roles, compensation decisions, owner alignment"
+  }
+];
+---
+<HQLayout {...page}>
+  <DocumentHeader
+    kicker="Company / Strategy and Plans"
+    title="BPP 2026-2028 Business Plan"
+    summary="The only live company plan. It governs the direction, revenue scenarios, and operating choices referenced across BPP HQ."
+    owner={businessPlan.owner}
+    status={businessPlan.status}
+    source={businessPlan.source_of_truth}
+    verified={businessPlan.last_verified}
+    freshnessDays={businessPlan.freshness_days}
+    version="2026-2028"
+  />
+
+  <div class="document-layout" id="plan-of-record">
+    <nav class="document-toc" aria-label="Company contents">
+      <strong>On this page</strong>
+      <ol>
+        <li><a href="#plan-authority">Plan authority</a></li>
+        <li><a href="#strategy">Strategy snapshot</a></li>
+        <li><a href="#targets">Governing targets</a></li>
+        <li><a href="#departments">Ownership cockpits</a></li>
+        <li><a href="#cadence">Operating cadence</a></li>
+        <li><a href="#systems">Systems and AI</a></li>
+        <li><a href="#build-change">Build and change</a></li>
+      </ol>
+    </nav>
+
+    <article class="document-prose">
+      <section id="plan-authority">
+        <h2><span class="section-number">01</span> Plan authority</h2>
+        <p>
+          The BPP 2026-2028 Business Plan is the Plan of Record. Performance references
+          the target registry attached to this plan instead of repeating annual targets.
+        </p>
+        <div class="decision-box">
+          <strong>Governing decision</strong>
+          <p>
+            One company plan stays live. Historical inputs remain available for context,
+            but they do not compete with current financial or operating truth.
+          </p>
+        </div>
+        <SourceMeta
+          owner={businessPlan.owner}
+          status={businessPlan.status}
+          source={businessPlan.source_of_truth}
+          verified={businessPlan.last_verified}
+          freshnessDays={businessPlan.freshness_days}
+          compact
+        />
+      </section>
+
+      <section id="strategy">
+        <h2><span class="section-number">02</span> Strategy snapshot</h2>
+        <p>
+          BPP helps growth-stage entrepreneurs build the operating systems that make their
+          business easier to run. The immediate constraint is not a lack of internal tools.
+          It is converting the existing knowledge, offers, and process discipline into
+          repeatable demand, consistent sales, and dependable delivery.
+        </p>
+        <ul>
+          <li>Make the current answer easy to find and assign a clear owner.</li>
+          <li>Connect every operating fact to a source and verification date.</li>
+          <li>Protect internal information before the live cutover.</li>
+          <li>Productize the method as an implementation service before considering software.</li>
+        </ul>
+        <SourceMeta
+          owner="All owners"
+          status="canonical"
+          source="BPP HQ master plan, business assessment"
+          verified={proofDate}
+          freshnessDays={30}
+          compact
+        />
+      </section>
+
+      <section id="targets">
+        <h2><span class="section-number">03</span> Governing revenue targets</h2>
+        <div class="table-wrap" role="region" aria-label="Governing revenue targets" tabindex="0">
+          <table class="target-table">
+            <thead><tr><th>Period</th><th>Scenario</th><th>Target</th><th>Status</th></tr></thead>
+            <tbody>
+              {targets.map((target) => (
+                <tr>
+                  <td>{target.period}</td>
+                  <td>{target.scenario.replace("-", " ")}</td>
+                  <td>{money(target.value)}</td>
+                  <td><StatusBadge status={target.status} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <SourceMeta
+          owner="Daunte"
+          status="canonical"
+          source={targetsRegistry.source}
+          verified={targetsRegistry.last_verified}
+          freshnessDays={30}
+          compact
+        />
+      </section>
+
+      <section id="superseded-plan">
+        <h2><span class="section-number">04</span> Historical planning input</h2>
+        <DataState
+          state="notice"
+          title="Strategic Plan v9 is superseded"
+          message="Preserved for historical context only. It is not maintained in parallel, does not govern current targets, and is not a live company plan."
+          source={strategicPlan.source_of_truth}
+        />
+        <SourceMeta
+          owner={strategicPlan.owner}
+          status={strategicPlan.status}
+          source={strategicPlan.source_of_truth}
+          verified={strategicPlan.last_verified}
+          freshnessDays={strategicPlan.freshness_days}
+          compact
+        />
+      </section>
+
+      <section id="departments">
+        <h2><span class="section-number">05</span> Organization and ownership</h2>
+        <p>
+          Departments live under Company as ownership cockpits. Each cockpit links to
+          authoritative material elsewhere instead of copying prices, targets, or full policies.
+        </p>
+        <ul class="department-list">
+          {departments.map((department) => (
+            <li>
+              <div class="department-heading">
+                <h3>{department.name}</h3>
+                {"status" in department && department.status && (
+                  <StatusBadge status={department.status} />
+                )}
+              </div>
+              <p>{department.charter}</p>
+              <div class="department-meta">
+                <span><strong>DRI:</strong> {department.dri ?? "Not assigned"}</span>
+                {"researcher" in department && department.researcher && (
+                  <span><strong>Current state:</strong> {department.researcher}</span>
+                )}
+                <span><strong>Collaborators:</strong> {department.collaborators}</span>
+                <span><strong>Outcomes:</strong> {department.outcomes}</span>
+                <span><strong>Dependencies:</strong> {department.dependency}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <SourceMeta
+          owner="All owners"
+          status="live"
+          source="BPP ownership model and HQ master plan"
+          verified={proofDate}
+          freshnessDays={30}
+          compact
+        />
+      </section>
+
+      <section id="cadence">
+        <h2><span class="section-number">06</span> Operating cadence</h2>
+        <div class="table-wrap" role="region" aria-label="BPP operating cadence" tabindex="0">
+          <table class="simple-table">
+            <thead><tr><th>When</th><th>Routine</th><th>Decision purpose</th><th>Owner</th></tr></thead>
+            <tbody>
+              <tr><td>Monday, sprint start</td><td>Sprint planning</td><td>Set the two-week goal and commit work.</td><td>All owners</td></tr>
+              <tr><td>Daily, async</td><td>Status discipline</td><td>Move work and surface blockers the same day.</td><td>Each owner</td></tr>
+              <tr><td>Wednesday</td><td>Mid-sprint check</td><td>Confirm blockers, shifts, and whether work is on track.</td><td>All owners</td></tr>
+              <tr><td>Saturday, sprint end</td><td>Sprint review</td><td>Archive Done and choose one keep and one change.</td><td>All owners</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <SourceMeta
+          owner="Daunte"
+          status="canonical"
+          source="BPP Monday.com governance and sprint cadence"
+          verified={proofDate}
+          freshnessDays={30}
+          compact
+        />
+      </section>
+
+      <section id="systems">
+        <h2><span class="section-number">07</span> Systems and AI workforce</h2>
+        <p>
+          BPP defines the business capability first, then records the current implementation,
+          alternate implementation, required systems, owner, and validation method. This keeps
+          the operating knowledge stable when a model, plugin, or connector changes.
+        </p>
+        <div class="decision-box">
+          <strong>Capability standard</strong>
+          <p>
+            A useful AI capability states when to use it, required inputs, expected output,
+            systems, ownership, and how the result is checked.
+          </p>
+        </div>
+        <SourceMeta
+          owner="Daunte"
+          status="canonical"
+          source="BPP HQ master plan, LLM-agnostic foundation"
+          verified={proofDate}
+          freshnessDays={30}
+          compact
+        />
+      </section>
+
+      <section id="build-change">
+        <h2><span class="section-number">08</span> Build and change</h2>
+        <p>
+          Hub builds, change records, onboarding guidance, capability inventory, and system notes
+          belong here. The shared page registry identifies What We Built as a live generated
+          directory, but the new HQ does not duplicate its source inventory in this prototype.
+        </p>
+        <ActionLink
+          href="/library/?owner=Daunte"
+          eyebrow="Registry view"
+          title="Find build and system records"
+          description="Open the Library with Daunte's ownership filter applied."
+          meta="Read-only directory"
+        />
+      </section>
+    </article>
+  </div>
+
+  <Section
+    eyebrow="Company shortcuts"
+    title="Continue from the governing context"
+    description="Use the plan to interpret results, not as a separate operating universe."
+  >
+    <div class="action-grid">
+      <ActionLink
+        href="/performance/#plan-comparison"
+        eyebrow="Targets in use"
+        title="Compare actuals with plan"
+        description="See the same registry-backed revenue targets applied to the Performance scorecard."
+      />
+      <ActionLink
+        href="/growth/#offers"
+        eyebrow="Commercial system"
+        title="Review approved offers"
+        description="Confirm current and proposed packages without copying price facts into Company."
+      />
+      <ActionLink
+        href="/library/"
+        eyebrow="Knowledge layer"
+        title="Search governing records"
+        description="Browse canonical, live, and historical records with ownership and source metadata."
+      />
+    </div>
+  </Section>
+</HQLayout>
