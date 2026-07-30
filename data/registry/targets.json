@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "last_verified": "2026-07-29",
+  "source": "BPP 2026-2028 Business Plan and formula-driven financial model",
+  "targets": [
+    {
+      "metric_id": "revenue",
+      "period": "2026",
+      "scenario": "base",
+      "value": 26000,
+      "status": "canonical",
+      "source_plan": "business-plan-2026-2028",
+      "effective_date": "2026-07-29"
+    },
+    {
+      "metric_id": "revenue",
+      "period": "2026",
+      "scenario": "team-target",
+      "value": 40000,
+      "status": "canonical",
+      "source_plan": "business-plan-2026-2028",
+      "effective_date": "2026-07-29"
+    },
+    {
+      "metric_id": "revenue",
+      "period": "2026",
+      "scenario": "upside",
+      "value": 60000,
+      "status": "canonical",
+      "source_plan": "business-plan-2026-2028",
+      "effective_date": "2026-07-29"
+    },
+    {
+      "metric_id": "revenue",
+      "period": "2027",
+      "scenario": "base",
+      "value": 80000,
+      "status": "canonical",
+      "source_plan": "business-plan-2026-2028",
+      "effective_date": "2026-07-29"
+    },
+    {
+      "metric_id": "revenue",
+      "period": "2028",
+      "scenario": "base",
+      "value": 160000,
+      "status": "canonical",
+      "source_plan": "business-plan-2026-2028",
+      "effective_date": "2026-07-29"
+    }
+  ]
+}

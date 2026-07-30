@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-29T00:00:00-04:00",
+  "source": "BPP HQ master plan and current Hub audit",
+  "pages": [
+    {
+      "id": "business-plan",
+      "title": "BPP 2026-2028 Business Plan",
+      "route": "pages/business-plan.html",
+      "section": "company",
+      "page_type": "document",
+      "owner": "Daunte",
+      "status": "canonical",
+      "confidentiality": "team-internal",
+      "source_of_truth": "bpp-business-plan-financial-model-2026-2028.xlsx",
+      "last_verified": "2026-07-29",
+      "freshness_days": 30,
+      "replaces": [
+        "strategic-plan-v9"
+      ],
+      "external_publish": false
+    },
+    {
+      "id": "strategic-plan-v9",
+      "title": "Strategic Plan v9",
+      "route": "pages/strategic-plan.html",
+      "section": "library",
+      "page_type": "historical-document",
+      "owner": "Daunte",
+      "status": "historical",
+      "confidentiality": "team-internal",
+      "source_of_truth": "historical planning input",
+      "last_verified": "2026-05-18",
+      "freshness_days": null,
+      "replaced_by": "business-plan",
+      "external_publish": false
+    },
+    {
+      "id": "performance-dashboard",
+      "title": "Performance Dashboard",
+      "route": "pages/performance-dashboard.html",
+      "section": "performance",
+      "page_type": "dashboard",
+      "owner": "Daunte",
+      "status": "live",
+      "confidentiality": "team-internal",
+      "source_of_truth": "QuickBooks, HubSpot, and Metricool reporting datasets",
+      "last_verified": "2026-07-24",
+      "freshness_days": 31,
+      "external_publish": false
+    },
+    {
+      "id": "seller-start",
+      "title": "Seller Start Here",
+      "route": "pages/seller-start.html",
+      "section": "growth",
+      "page_type": "workflow",
+      "owner": "Kenny",
+      "status": "live",
+      "confidentiality": "team-internal",
+      "source_of_truth": "service catalog, ICP profiles, and sales workflows",
+      "last_verified": "2026-07-29",
+      "freshness_days": 30,
+      "external_publish": false
+    },
+    {
+      "id": "skill-directory",
+      "title": "Skill Directory",
+      "route": "pages/skill-dictionary.html",
+      "section": "library",
+      "page_type": "generated-directory",
+      "owner": "Daunte",
+      "status": "live",
+      "confidentiality": "team-internal",
+      "source_of_truth": "SKILL.md files",
+      "last_verified": "2026-07-29",
+      "freshness_days": 7,
+      "external_publish": false
+    },
+    {
+      "id": "builds",
+      "title": "What We Built",
+      "route": "pages/builds.html",
+      "section": "company",
+      "page_type": "generated-directory",
+      "owner": "Daunte",
+      "status": "live",
+      "confidentiality": "team-internal",
+      "source_of_truth": "Git repositories, skill registry, and plugin manifests",
+      "last_verified": "2026-07-29",
+      "freshness_days": 7,
+      "external_publish": false
+    }
+  ]
+}
