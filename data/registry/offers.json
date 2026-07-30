@@ -35,13 +35,13 @@
       "id": "operator-system",
       "name": "Operator System",
       "status": "approved",
-      "standard_price": 4500,
-      "current_price": 4500,
-      "price_label": "$4,500",
+      "standard_price": 5500,
+      "current_price": 5500,
+      "price_label": "$5,500",
       "timeline": "6-8 weeks",
       "primary_icp": "Established Operator",
-      "effective_date": "2026-04-09",
-      "source_decision": "BPP 2026 service catalog"
+      "effective_date": "2026-07-22",
+      "source_decision": "Ratified owner pricing decision, July 22, 2026"
     },
     {
       "id": "scale-system",
