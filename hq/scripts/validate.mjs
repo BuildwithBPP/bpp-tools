@@ -38,6 +38,12 @@ assert.ok(
   existsSync(join(distRoot, "brand", "bpp-b-mark.png")),
   "The built shell is missing the local canonical BPP mark."
 );
+assert.ok(existsSync(join(distRoot, "_headers")), "The Cloudflare security headers file is missing.");
+assert.ok(existsSync(join(distRoot, "robots.txt")), "The robots exclusion file is missing.");
+assert.ok(
+  readFileSync(join(distRoot, "robots.txt"), "utf8").includes("Disallow: /"),
+  "robots.txt must exclude the entire protected preview."
+);
 for (const route of expectedRoutes) {
   assert.ok(existsSync(join(distRoot, route)), `Missing expected route output: ${route}`);
 }
@@ -113,6 +119,10 @@ for (const htmlPath of htmlPaths) {
   assert.ok(
     html.includes('src="/brand/bpp-b-mark.png"'),
     `${route} does not render the local canonical BPP mark.`
+  );
+  assert.ok(
+    html.includes('<meta name="robots" content="noindex, nofollow, noarchive">'),
+    `${route} is missing the protected-preview robots directive.`
   );
 
   const pageSource = html.match(/data-page-source="([^"]+)"/)?.[1];
@@ -202,5 +212,5 @@ assert.ok(!hrBlock.includes("All owners"), "HR & People Ops must not assign All 
 console.log(
   `Validation passed: ${expectedRoutes.length} routes, ${pages.pages.length} registry records, ` +
   `${htmlPaths.length} HTML files, utility source/freshness metadata, HR ownership truth, ` +
-  "no placeholder links, and all internal routes resolved."
+  "preview security metadata, no placeholder links, and all internal routes resolved."
 );

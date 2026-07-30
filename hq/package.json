@@ -7,9 +7,11 @@
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "test": "npm run build && node scripts/validate.mjs",
+    "test": "npm run build && node scripts/validate.mjs && node --test scripts/access-policy.test.mjs",
     "validate": "node scripts/validate.mjs",
-    "screenshots": "node scripts/capture.mjs"
+    "screenshots": "node scripts/capture.mjs",
+    "verify:access": "node scripts/verify-access.mjs",
+    "deploy:protected-preview": "npm test && npm run verify:access && wrangler pages deploy dist --project-name=bpp-hq-preview --branch=codex/protected-preview"
   },
   "dependencies": {
     "@fontsource/merriweather": "^5.3.0",
@@ -22,6 +24,7 @@
     "@astrojs/check": "^0.9.4",
     "@axe-core/playwright": "^4.12.1",
     "playwright": "^1.54.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "wrangler": "4.115.0"
   }
 }
