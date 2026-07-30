@@ -1,11 +1,42 @@
 # -*- coding: utf-8 -*-
 """Build the monthly data model JSON for the dynamic BPP performance dashboard."""
-import csv, json, os, glob
+import argparse, csv, json, os, glob, time
 from collections import defaultdict
+from pathlib import Path
 
-DA3=r"C:\Users\dtben\OneDrive - Business Plans Plus\BPP Operations\BPP Workspace\1. Internal Operations\7. Data Analytics\DA-003 - Social Media Database"
-DA4=r"C:\Users\dtben\OneDrive - Business Plans Plus\BPP Operations\BPP Workspace\1. Internal Operations\7. Data Analytics\DA-004 - Financial Database"
-OUT=r"C:\Users\dtben\AppData\Local\Temp\claude\c--Users-dtben-OneDrive---Business-Plans-Plus-BPP-Operations-BPP-Workspace\2087373c-e624-43a3-95f8-23812ac30c64\scratchpad\monthly_data.json"
+SCRIPT_DIR = Path(__file__).resolve().parent
+DEFAULT_DA3 = Path(r"C:\Users\dtben\OneDrive - Business Plans Plus\BPP Operations\BPP Workspace\1. Internal Operations\7. Data Analytics\DA-003 - Social Media Database")
+DEFAULT_DA4 = Path(r"C:\Users\dtben\OneDrive - Business Plans Plus\BPP Operations\BPP Workspace\1. Internal Operations\7. Data Analytics\DA-004 - Financial Database")
+
+parser = argparse.ArgumentParser(description="Build and optionally render the BPP Performance Dashboard.")
+parser.add_argument("--social-dir", type=Path, default=DEFAULT_DA3, help="DA-003 social and website CSV directory.")
+parser.add_argument("--financial-dir", type=Path, default=DEFAULT_DA4, help="DA-004 financial CSV directory.")
+parser.add_argument("--output", type=Path, default=SCRIPT_DIR / "monthly_data.json", help="Monthly data JSON output path.")
+parser.add_argument("--render", action="store_true", help="Render the final dashboard HTML after building data.")
+parser.add_argument("--template", type=Path, default=SCRIPT_DIR / "template.html", help="Dashboard template path.")
+parser.add_argument("--render-output", type=Path, default=SCRIPT_DIR.parents[1] / "pages" / "performance-dashboard.html", help="Final dashboard HTML output path.")
+parser.add_argument("--validate-sources", action="store_true", help="Fail when required source files are missing or stale.")
+parser.add_argument("--max-source-age-days", type=int, default=31, help="Maximum age for the newest CSV source when validating.")
+args = parser.parse_args()
+DA3 = str(args.social_dir)
+DA4 = str(args.financial_dir)
+OUT = str(args.output)
+
+def validate_sources():
+    required = [args.financial_dir / "monthly-pnl.csv", args.financial_dir / "account-by-month.csv", args.financial_dir / "transactions-all.csv"]
+    missing = [str(path) for path in required if not path.is_file()]
+    social_sources = list(args.social_dir.glob("*.csv")) if args.social_dir.is_dir() else []
+    if missing or not social_sources:
+        details = ", ".join(missing or ["no social CSV files"])
+        raise SystemExit(f"Source validation failed: {details}")
+    newest = max([*required, *social_sources], key=lambda path: path.stat().st_mtime)
+    age_days = (time.time() - newest.stat().st_mtime) / 86400
+    if age_days > args.max_source_age_days:
+        raise SystemExit(f"Source validation failed: newest CSV is {age_days:.1f} days old, limit is {args.max_source_age_days}.")
+    print(f"Source validation passed: newest CSV is {age_days:.1f} days old.")
+
+if args.validate_sources:
+    validate_sources()
 
 def f(x):
     if x in (None,"","null"): return 0.0
@@ -220,11 +251,20 @@ for m in months:
         "web":{k:round(v,2) for k,v in d["web"].items()},
         "reels":d.get("reels",{})}
 out={"generated":"2026-07-24","months":months,"data":data,"deals":DEAL_ROWS,"pipeline":PIPELINE}
-open(OUT,"w",encoding="utf-8").write(json.dumps(out,separators=(",",":")))
+args.output.parent.mkdir(parents=True, exist_ok=True)
+serialized=json.dumps(out,separators=(",",":"))
+args.output.write_text(serialized,encoding="utf-8")
+if args.render:
+    template=args.template.read_text(encoding="utf-8")
+    if "__DATA__" not in template:
+        raise SystemExit("Render failed: template does not contain the __DATA__ placeholder.")
+    args.render_output.parent.mkdir(parents=True, exist_ok=True)
+    args.render_output.write_text(template.replace("__DATA__",serialized),encoding="utf-8")
+    print(f"Rendered dashboard: {args.render_output}")
 # sanity print
 print("months:",months[0],"->",months[-1],"count",len(months))
 for m in ["2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"]:
     d=data.get(m,{})
     print(f'{m} rev {d.get("rev")} net {d.get("net")} wonV {d.get("wonV")} lostV {d.get("lostV")} '
           f'IGv {d["ig"]["v"]:.0f} TTv {d["tt"]["v"]:.0f} web {d["web"]["pv"]:.0f}')
-print("bytes:",os.path.getsize(OUT))
+print("bytes:",args.output.stat().st_size)
