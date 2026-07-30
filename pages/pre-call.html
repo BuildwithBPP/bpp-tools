@@ -1,76 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pre-Call Toolkit - BPP Tools Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-<div id="hub-nav"></div>
-
-<main>
-
-  <div class="sec-header">
-    <div class="sec-eyebrow">Sales Prep</div>
-    <div class="sec-title">Pre-Call <span>Toolkit</span></div>
-    <div class="sec-desc">Everything you need before getting on a discovery call or sending a proposal.</div>
-  </div>
-
-  <div class="card-grid">
-    <a class="link-card" href="#" target="_blank" data-person="eli kenny">
-      <div class="lc-icon">&#127912;</div>
-      <div class="lc-body"><div class="lc-title">Discovery Deck</div><div class="lc-desc">Slide deck for initial prospect conversations</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="icp-profiles.html" target="_blank" data-person="kenny eli">
-      <div class="lc-icon">&#127919;</div>
-      <div class="lc-body"><div class="lc-title">ICP Profiles</div><div class="lc-desc">Ideal client profiles by tier and segment</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="service-packages.html" target="_blank" data-person="kenny eli daunte">
-      <div class="lc-icon">&#128230;</div>
-      <div class="lc-body"><div class="lc-title">Service Packages</div><div class="lc-desc">Launch Pad, Operator System, Scale System</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="https://app.hubspot.com" target="_blank" data-person="kenny">
-      <div class="lc-icon">&#128200;</div>
-      <div class="lc-body"><div class="lc-title">HubSpot Pipeline</div><div class="lc-desc">Active deals and proposal tracking</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="#" target="_blank" data-person="kenny daunte">
-      <div class="lc-icon">&#128196;</div>
-      <div class="lc-body"><div class="lc-title">Proposal Template</div><div class="lc-desc">Standard BPP proposal format</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-    <a class="link-card" href="#" target="_blank" data-person="daunte">
-      <div class="lc-icon">&#129518;</div>
-      <div class="lc-body"><div class="lc-title">Pricing Calculator</div><div class="lc-desc">Scope and pricing estimation tool</div></div>
-      <div class="lc-arrow">&rarr;</div>
-    </a>
-  </div>
-
-</main>
-
-<div class="hub-footer">
-  <div class="footer-brand">Business Plans <span>Plus</span></div>
-  <div class="footer-note">Internal Tools Hub &middot; Tampa Bay &middot; 2026</div>
-</div>
-
-<script src="../js/nav.js" data-page="departments"></script>
-<script>
-// -- Date display --
-function setDates() {
-  var d = new Date();
-  var opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  var el = document.getElementById('home-date');
-  if (el) el.textContent = d.toLocaleDateString('en-US', opts);
-}
-
-// -- Init --
-setDates();
-</script>
-
-</body>
-</html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Pre-Call Toolkit · BPP Tools Hub</title><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../css/styles.css"><style>
+.workflow-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.workflow-card{background:#fff;border:1px solid #d9e0e7;border-radius:10px;padding:20px}.workflow-card h2{color:var(--navy);font:800 16px Montserrat,sans-serif;margin:0 0 8px}.workflow-card p{color:#334155;font-size:13px;line-height:1.55;margin:0 0 12px}.workflow-card dl{font-size:12px;line-height:1.5;margin:0}.workflow-card dt{color:#526579;font-weight:700;margin-top:7px}.workflow-card dd{color:#1a2b3c;margin:0}.status{display:inline-block;background:#e7f5ed;border-radius:4px;color:#17653d;font:700 10px Inter,sans-serif;letter-spacing:.06em;margin-top:13px;padding:4px 7px;text-transform:uppercase}.status.unavailable{background:#edf1f4;color:#526579}.link-card:focus-visible,.workflow-card:focus-within{outline:3px solid var(--gold);outline-offset:3px}@media print{.hub-nav,.hub-footer{display:none}.workflow-card{break-inside:avoid}}
+</style></head><body><div id="hub-nav"></div><main>
+<header class="sec-header"><div class="sec-eyebrow">Sales prep</div><h1 class="sec-title">Pre-Call <span>Toolkit</span></h1><div class="sec-desc">Current references and skill-backed workflow actions for discovery preparation.</div></header>
+<p style="font-size:11px;color:var(--gray);margin:-8px 0 20px">Owner: Kenny · Status: Live · Source: current sales workflows · Last verified: Jul 29, 2026</p>
+<section class="workflow-grid" aria-label="Pre-call workflow actions">
+<article class="workflow-card"><h2>Run pre-call prep</h2><p>Use the <strong>discovery-call-prep</strong> workflow to research the lead and enter the conversation with a decision-ready brief.</p><dl><dt>Trigger</dt><dd>“Run pre-call prep for [prospect].”</dd><dt>Inputs</dt><dd>Prospect name, company, industry, referral source, presenter name, CRM record, and ICP criteria.</dd><dt>Output</dt><dd>Fit, risks, hypotheses, questions, and a recommended package.</dd><dt>Destination</dt><dd>Use in the call and attach notes to the HubSpot record.</dd></dl><span class="status">Workflow action available in Claude</span></article>
+<article class="workflow-card"><h2>Create a discovery deck</h2><p>Turn the call brief into a client-facing conversation deck when the opportunity needs one.</p><dl><dt>Trigger</dt><dd>“Create a discovery deck for [company].”</dd><dt>Inputs</dt><dd>Decision-ready call brief, offer context, and meeting goal.</dd><dt>Output</dt><dd>Editable discovery deck.</dd><dt>Destination</dt><dd>Review before sharing with the prospect.</dd></dl><span class="status">Workflow action available in Claude</span></article>
+<article class="workflow-card"><h2>Draft a proposal</h2><p>Prepare a scoped proposal only after discovery confirms the offer and next step.</p><dl><dt>Trigger</dt><dd>“Draft a proposal for [company] using these call notes.”</dd><dt>Inputs</dt><dd>Call notes, approved package, scope, pricing, and timeline.</dd><dt>Output</dt><dd>Proposal draft for owner review.</dd><dt>Destination</dt><dd>Review, then log the next step in HubSpot.</dd></dl><span class="status">Workflow action available in Claude</span></article>
+<article class="workflow-card"><h2>Pricing calculator</h2><p>A standalone calculator is not published in the current Hub.</p><dl><dt>Use instead</dt><dd>Confirm the approved package and pricing reference before quoting.</dd><dt>Destination</dt><dd>Service Packages and HubSpot.</dd></dl><span class="status unavailable">Unavailable: no calculator link</span></article>
+</section>
+<section class="card-grid" style="margin-top:22px" aria-label="Pre-call references"><a class="link-card" href="icp-profiles.html"><div class="lc-icon">&#127919;</div><div class="lc-body"><div class="lc-title">ICP Profiles</div><div class="lc-desc">Qualification criteria by segment and tier.</div></div><div class="lc-arrow">&rarr;</div></a><a class="link-card" href="service-packages.html"><div class="lc-icon">&#128230;</div><div class="lc-body"><div class="lc-title">Service Packages</div><div class="lc-desc">Approved pricing, scope, and package status.</div></div><div class="lc-arrow">&rarr;</div></a><a class="link-card" href="https://app.hubspot.com" target="_blank" rel="noopener"><div class="lc-icon">&#128200;</div><div class="lc-body"><div class="lc-title">HubSpot Pipeline</div><div class="lc-desc">Record the opportunity and next action.</div></div><div class="lc-arrow">&rarr;</div></a></section>
+</main><div class="hub-footer"><div class="footer-brand">Business Plans <span>Plus</span></div><div class="footer-note">Internal Tools Hub</div></div><script src="../js/nav.js" data-page="departments"></script></body></html>

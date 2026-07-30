@@ -15,14 +15,19 @@ Builds `pages/performance-dashboard.html` — the sliceable (year / quarter / mo
 ## Regenerate (each quarter, after DA-003/DA-004 are refreshed)
 1. Refresh DA-003 (Metricool pull) and DA-004 (QB transaction report → analyzer).
 2. Re-pull HubSpot closed-won + closed-lost for the new range; update the `won`/`lost` lists in `build_data.py`. Add the new quarter's social to the July-style inline block if not yet in DA-003.
-3. `python build_data.py` → writes `monthly_data.json`.
-4. Inject: replace `__DATA__` in `template.html` with the JSON contents, write to `../../pages/performance-dashboard.html`.
-   ```python
-   tpl=open("template.html",encoding="utf-8").read()
-   data=open("monthly_data.json",encoding="utf-8").read()
-   open("../../pages/performance-dashboard.html","w",encoding="utf-8").write(tpl.replace("__DATA__",data))
+3. Run the all-in-one local command. It validates the required CSV inputs, checks freshness, writes `monthly_data.json`, and renders `pages/performance-dashboard.html`.
+   ```powershell
+   python build_data.py --validate-sources --render
    ```
-5. Screenshot-verify a couple of slices, commit, push.
+   On a different machine, pass portable source paths explicitly:
+   ```powershell
+   python build_data.py --social-dir "C:\path\to\DA-003" --financial-dir "C:\path\to\DA-004" --validate-sources --render
+   ```
+4. Screenshot-verify a couple of slices, commit, push.
+
+`--max-source-age-days 31` is the default freshness guard. Use a tighter number when the review period requires it. The sales and July social records remain intentionally inline and must be refreshed as described above.
+
+Source locations are portable. Pass `--social-dir` and `--financial-dir`, set `BPP_DASHBOARD_SOCIAL_DIR` and `BPP_DASHBOARD_FINANCIAL_DIR`, or run the command from a BPP workspace descendant so the script can safely discover the two data directories. Validation reports the financial and social source families separately.
 
 ## Design system
 Adopted from `financial-position-v2.html`: Inter typography, tabular numerals, refined navy/gold palette, tile accent bars, status chips, and hand-built gradient SVG charts (rendered dynamically here). This is the preferred "sharp" style for BPP dashboards going forward.

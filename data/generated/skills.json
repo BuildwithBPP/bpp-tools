@@ -1,0 +1,626 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-30T04:00:00Z",
+  "source": "Local SKILL.md metadata scan",
+  "freshness_days": 7,
+  "skill_count": 77,
+  "skills": [
+    {
+      "id": "board-deck-builder",
+      "title": "Board Deck Builder",
+      "description": "Assembles comprehensive board and investor update decks by pulling perspectives from all C-suite roles. Use when preparing board meetings, investor updates, quarterly business reviews, or fundraising narratives. Covers structure, narrative",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-ar-chaser",
+      "title": "Bpp Ar Chaser",
+      "description": "Chase BPP's overdue invoices. Pulls the Aged Receivable report from QuickBooks (reusing bpp-quickbooks auth), and for each overdue invoice past a follow-up milestone, reconstructs the client email thread via Gmail, applies an escalation lad",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-claude-onboarding",
+      "title": "Bpp Claude Onboarding",
+      "description": "Build a complete Claude workspace gift for a client, prospect, or friend. Produces a pre-built workspace zip, a BPP-branded HTML setup guide tailored to their OS/cloud/install path/lanes, a single delivery bundle, and an Outlook draft with",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-client-delivery",
+      "title": "Bpp Client Delivery",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-client-retrospective",
+      "title": "Bpp Client Retrospective",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-closeout-deck",
+      "title": "Bpp Closeout Deck",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-content-script",
+      "title": "Bpp Content Script",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-delivery-tracker",
+      "title": "Bpp Delivery Tracker",
+      "description": "Refresh the BPP Delivery Tracker (Health + Gantt + velocity). Pulls the Client Delivery and BPP Internal Monday boards, rebuilds data/delivery-tracker.json via build.py, and commits it so the tools-hub page and home module update. Use when",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-discovery-deck",
+      "title": "Bpp Discovery Deck",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-hubspot-audit",
+      "title": "Bpp Hubspot Audit",
+      "description": "Weekly HubSpot CRM data-quality + pipeline-hygiene audit. Pulls live deal data, computes fill rates and scoreboard baselines, flags stuck deals, and saves a dated report. Triggers: \"run the hubspot audit\", \"/bpp-hubspot-audit\". Scheduled: e",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-kickoff-deck",
+      "title": "Bpp Kickoff Deck",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-linkedin-engagement",
+      "title": "Bpp Linkedin Engagement",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-meeting-sync",
+      "title": "Bpp Meeting Sync",
+      "description": "Pulls Microsoft Teams meeting transcripts programmatically, classifies each meeting (internal / client / discovery), generates a BPP-format summary, archives it to the right folder automatically, logs client and discovery meetings to HubSpo",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-midpoint-milestone-deck",
+      "title": "Bpp Midpoint Milestone Deck",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-monday-prep",
+      "title": "Bpp Monday Prep",
+      "description": "Generates the Monday CEO meeting prep brief by pulling live data from QuickBooks (forecast file), HubSpot MCP, Monday.com MCP, and git. Runs every Sunday at 8pm to seed a 30-minute Decision-First meeting. Replaces the \"let's go through the",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-monday-recap",
+      "title": "Bpp Monday Recap",
+      "description": "After the Monday CEO meeting, sends a plain-text email recap (in Eli's brand voice) to all meeting attendees with where we are, numbered decisions, per-person deliverables, and open items. Step 1b pulls and redacts the Teams meeting transcr",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-monday-save-decisions",
+      "title": "Bpp Monday Save Decisions",
+      "description": "Merges decisions captured in the Monday CEO meeting into monday-decisions.json so next week's brief surfaces them under \"Prior week's decisions \u2014 status check.\" Triggered when the user clicks \"Save Decisions\" on ops.html and pastes the JSON",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-monthly-close",
+      "title": "Bpp Monthly Close",
+      "description": "Repeatable monthly financial close workflow for BPP. Parses QuickBooks \"All Transactions\" CSV exports, calculates Rodney's 5% revenue share, produces a multi-tab analysis xlsx with data quality flags. Use for monthly close, Q1/Q2/Q3/Q4 Rodn",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-newsletter-rotation",
+      "title": "Bpp Newsletter Rotation",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-quickbooks",
+      "title": "Bpp Quickbooks",
+      "description": "Pull transactions and financial reports from BPP's QuickBooks Online account via the Intuit API. Use for monthly close, Rodney 5% calculations, P&L pulls, reconciliation prep, and dashboard data updates. Trigger when user asks to \"pull QB d",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-team-onboarding",
+      "title": "Bpp Team Onboarding",
+      "description": "Onboard a new internal BPP teammate onto the real shared workspace with a role-scoped on-ramp. Produces a role pack (their skills tiered by week, their cadence, their 30-60-90, their guardrails), a BPP-branded HTML setup guide covering Clau",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-todoist",
+      "title": "Bpp Todoist",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-virtual-board",
+      "title": "Bpp Virtual Board",
+      "description": "Convenes a routed panel of 2-3 board members from a pool of 8 respected operator-investors (Munger, Buffett, Grove, Campbell, Christensen, Horowitz, Naval, Hormozi) to sparring-test a BPP decision. Use when the team is about to act on somet",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-webflow",
+      "title": "Bpp Webflow",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "bpp-youtube-seo",
+      "title": "Bpp Youtube Seo",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "brand-guidelines",
+      "title": "Brand Guidelines",
+      "description": "Builds a structurally consistent client brand-guidelines PowerPoint deck from a brand config. Same 15-slide structure every time, themed per client (colors, fonts, content, logo). Handles both locked brands and in-development drafts (option",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "campaign-analytics",
+      "title": "Campaign Analytics",
+      "description": "Analyzes campaign performance with multi-touch attribution, funnel conversion analysis, and ROI calculation for marketing optimization. Use when analyzing marketing campaigns, ad performance, attribution models, conversion rates, or calcula",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "ceo-advisor",
+      "title": "Ceo Advisor",
+      "description": "Executive leadership guidance for strategic decision-making, organizational development, and stakeholder management. Use when planning strategy, preparing board presentations, managing investors, developing organizational culture, making ex",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "cfo-advisor",
+      "title": "Cfo Advisor",
+      "description": "Financial leadership for startups and scaling companies. Financial modeling, unit economics, fundraising strategy, cash management, and board financial packages. Use when building financial models, analyzing unit economics, planning fundrai",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "client-onboarding",
+      "title": "Client Onboarding",
+      "description": "Skill metadata is available in the workspace.",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "cmo-advisor",
+      "title": "Cmo Advisor",
+      "description": "Marketing leadership for scaling companies. Brand positioning, growth model design, marketing budget allocation, and marketing org design. Use when designing brand strategy, selecting growth models (PLG vs sales-led vs community-led), alloc",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "cold-email",
+      "title": "Cold Email",
+      "description": "When the user wants to write, improve, or build a sequence of B2B cold outreach emails to prospects who haven't asked to hear from them. Use when the user mentions 'cold email,' 'cold outreach,' 'prospecting emails,' 'SDR emails,' 'sales em",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "company-os",
+      "title": "Company Os",
+      "description": "The meta-framework for how a company runs \u2014 the connective tissue between all C-suite roles. Covers operating system selection (EOS, Scaling Up, OKR-native, hybrid), accountability charts, scorecards, meeting pulse, issue resolution, and 90",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "competitive-intel",
+      "title": "Competitive Intel",
+      "description": "Systematic competitor tracking that feeds CMO positioning, CRO battlecards, and CPO roadmap decisions. Use when analyzing competitors, building sales battlecards, tracking market moves, positioning against alternatives, or when user mention",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "content-creator",
+      "title": "Content Creator",
+      "description": "Deprecated redirect skill that routes legacy 'content creator' requests to the correct specialist. Use when a user invokes 'content creator', asks to write a blog post, article, guide, or brand voice analysis (routes to content-production),",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "content-humanizer",
+      "title": "Content Humanizer",
+      "description": "Makes AI-generated content sound genuinely human \u2014 not just cleaned up, but alive. Use when content feels robotic, uses too many AI clich\u00e9s, lacks personality, or reads like it was written by committee. Triggers: 'this sounds like AI', 'mak",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "content-production",
+      "title": "Content Production",
+      "description": "Full content production pipeline \u2014 takes a topic from blank page to published-ready piece. Use when you need to execute content: write a blog post, article, or guide end-to-end. Triggers: 'write a post about', 'draft an article', 'create co",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "content-strategy",
+      "title": "Content Strategy",
+      "description": "When the user wants to plan a content strategy, decide what content to create, or figure out what topics to cover. Also use when the user mentions \\\"content strategy,\\\" \\\"what should I write about,\\\" \\\"content ideas,\\\" \\\"blog strategy,\\\" \\\"",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "contract-and-proposal-writer",
+      "title": "Contract And Proposal Writer",
+      "description": "Contract & Proposal Writer",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "copy-editing",
+      "title": "Copy Editing",
+      "description": "When the user wants to edit, review, or improve existing marketing copy. Also use when the user mentions 'edit this copy,' 'review my copy,' 'copy feedback,' 'proofread,' 'polish this,' 'make this better,' or 'copy sweep.' This skill provid",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "copywriting",
+      "title": "Copywriting",
+      "description": "When the user wants to write, rewrite, or improve marketing copy for any page \u2014 including homepage, landing pages, pricing pages, feature pages, about pages, or product pages. Also use when the user says \\\"write copy for,\\\" \\\"improve this c",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "customer-success-manager",
+      "title": "Customer Success Manager",
+      "description": "Monitors customer health, predicts churn risk, and identifies expansion opportunities using weighted scoring models for SaaS customer success. Use when analyzing customer accounts, reviewing retention metrics, scoring at-risk customers, or",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "design-qa-gate",
+      "title": "Design Qa Gate",
+      "description": "Pre-ship design QA gate for BPP client deliverables \u2014 the CHECKER that runs before any design leaves the team, catching the tells that make work look AI-generated and running a delivery checklist (icons, spacing rhythm, contrast, responsive",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "designer-tools",
+      "title": "Designer Tools",
+      "description": "Build and manage pages, elements, components, and styles in Webflow Designer. Use when adding sections, creating layouts, building elements, inspecting or updating components, viewing what's inside a component, restructuring pages, creating",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "discovery-call-pptx",
+      "title": "Discovery Call Pptx",
+      "description": "Skill metadata is available in the workspace.",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "discovery-call-prep",
+      "title": "Discovery Call Prep",
+      "description": "Skill metadata is available in the workspace.",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "email-sequence",
+      "title": "Email Sequence",
+      "description": "When the user wants to create or optimize an email sequence, drip campaign, automated email flow, or lifecycle email program. Also use when the user mentions \"email sequence,\" \"drip campaign,\" \"nurture sequence,\" \"onboarding emails,\" \"welco",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "excalidraw-diagram",
+      "title": "Excalidraw Diagram",
+      "description": "Create Excalidraw diagram JSON files that make visual arguments. Use when the user wants to visualize workflows, architectures, or concepts.",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "financial-analyst",
+      "title": "Financial Analyst",
+      "description": "Performs financial ratio analysis, DCF valuation, budget variance analysis, and rolling forecast construction for strategic decision-making. Use when analyzing financial statements, building valuation models, assessing budget variances, or",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "google-drive-provision",
+      "title": "Google Drive Provision",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "hubspot-deal-snapshot",
+      "title": "Hubspot Deal Snapshot",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "launch-strategy",
+      "title": "Launch Strategy",
+      "description": "When the user wants to plan a product launch, feature announcement, or release strategy. Also use when the user mentions 'launch,' 'Product Hunt,' 'feature release,' 'announcement,' 'go-to-market,' 'beta launch,' 'early access,' 'waitlist,'",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "lead-scraping",
+      "title": "Lead Scraping",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "meeting-analyzer",
+      "title": "Meeting Analyzer",
+      "description": "Analyzes meeting transcripts and recordings to surface behavioral patterns, communication anti-patterns, and actionable coaching feedback. Use this skill whenever the user uploads or points to meeting transcripts (.txt, .md, .vtt, .srt, .do",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "meeting-notes",
+      "title": "Meeting Notes",
+      "description": "Skill metadata is available in the workspace.",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "monday-group-spawn",
+      "title": "Monday Group Spawn",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "outlook-draft",
+      "title": "Outlook Draft",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "outreach-review",
+      "title": "Outreach Review",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "pricing-strategy",
+      "title": "Pricing Strategy",
+      "description": "Design, optimize, and communicate SaaS pricing \u2014 tier structure, value metrics, pricing pages, and price increase strategy. Use when building a pricing model from scratch, redesigning existing pricing, planning a price increase, or improvin",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "proposal-gen",
+      "title": "Proposal Gen",
+      "description": "Proposal Gen (AI Agent Skill) \u2014 auto-generate a full BPP sales proposal (problem pitch, solution pitch, 4 milestones with timelines, pricing) from post-discovery-call notes, and produce a ready-to-send PandaDoc from BPP's template. Use when",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "raid-log-builder",
+      "title": "Raid Log Builder",
+      "description": "Skill metadata is available in the workspace.",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "referral-program",
+      "title": "Referral Program",
+      "description": "When the user wants to design, launch, or optimize a referral or affiliate program. Use when they mention 'referral program,' 'affiliate program,' 'word of mouth,' 'refer a friend,' 'incentive program,' 'customer referrals,' 'brand ambassad",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "revenue-operations",
+      "title": "Revenue Operations",
+      "description": "Analyzes sales pipeline health, revenue forecasting accuracy, and go-to-market efficiency metrics for SaaS revenue optimization. Use when analyzing sales pipeline coverage, forecasting revenue, evaluating go-to-market performance, reviewing",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "saas-metrics-coach",
+      "title": "Saas Metrics Coach",
+      "description": "SaaS financial health advisor. Use when a user shares revenue or customer numbers, or mentions ARR, MRR, churn, LTV, CAC, NRR, or asks how their SaaS business is doing.",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "safe-publish",
+      "title": "Safe Publish",
+      "description": "Publish a Webflow site with a plan-confirm-publish workflow. Shows what changed since last publish, runs pre-publish checks, and requires explicit confirmation before going live.",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "sales-engineer",
+      "title": "Sales Engineer",
+      "description": "Analyzes RFP/RFI responses for coverage gaps, builds competitive feature comparison matrices, and plans proof-of-concept (POC) engagements for pre-sales engineering. Use when responding to RFPs, bids, or proposal requests; comparing product",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "sales-sprint-pulse",
+      "title": "Sales Sprint Pulse",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "senior-pm",
+      "title": "Senior Pm",
+      "description": "Senior Project Manager for enterprise software, SaaS, and digital transformation projects. Specializes in portfolio management, quantitative risk analysis, resource optimization, stakeholder alignment, and executive reporting. Uses advanced",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "seo-audit",
+      "title": "Seo Audit",
+      "description": "When the user wants to audit, review, or diagnose SEO issues on their site. Also use when the user mentions \"SEO audit,\" \"technical SEO,\" \"why am I not ranking,\" \"SEO issues,\" \"on-page SEO,\" \"meta tags review,\" or \"SEO health check.\" For bu",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "site-audit",
+      "title": "Site Audit",
+      "description": "Comprehensive audit of a Webflow site including pages, CMS collections, health scoring, and actionable insights. Use for site analysis, migration planning, or understanding site structure.",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "social-content",
+      "title": "Social Content",
+      "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' '",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "social-media-analyzer",
+      "title": "Social Media Analyzer",
+      "description": "Social media campaign analysis and performance tracking. Calculates engagement rates, ROI, and benchmarks across platforms. Use for analyzing social media performance, calculating engagement rate, measuring campaign ROI, comparing platform",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "social-media-manager",
+      "title": "Social Media Manager",
+      "description": "When the user wants to develop social media strategy, plan content calendars, manage community engagement, or grow their social presence across platforms. Also use when the user mentions 'social media strategy,' 'social calendar,' 'communit",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "team-communications",
+      "title": "Team Communications",
+      "description": "Write internal company communications \u2014 3P updates (Progress/Plans/Problems), company-wide newsletters, FAQ roundups, incident reports, leadership updates, status reports, project updates, and general internal comms. Use this skill any time",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "video-content-strategist",
+      "title": "Video Content Strategist",
+      "description": "Use when planning video content strategy, writing video scripts, optimizing YouTube channels, building short-form video pipelines (Reels, TikTok, Shorts), or repurposing long-form content into video. Triggers: 'start a YouTube channel', 'vi",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "webflow-development",
+      "title": "Webflow Development",
+      "description": ">",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    },
+    {
+      "id": "xcjs-proposal-builder",
+      "title": "Xcjs Proposal Builder",
+      "description": "|",
+      "classification": "bpp-built",
+      "source": "SKILL.md metadata",
+      "availability": "available"
+    }
+  ],
+  "unavailable_sources": []
+}
