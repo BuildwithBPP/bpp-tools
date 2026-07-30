@@ -12,9 +12,9 @@
    - No replacement credential was added.
 
 2. Recap and decision date validation added:
-   - worker/src/index.js now validates week_of with the anchored pattern ^\\d{4}-\\d{2}-\\d{2}$.
+   - worker/src/index.js now validates week_of with the anchored pattern ^\\d{4}-\\d{2}-\\d{2}$ and a UTC calendar round-trip check.
    - Both save-recap and save-decisions reject malformed values with HTTP 400 before any GitHub request or recap-path construction.
-   - This blocks slash, traversal-shaped, extension-suffixed, and non-zero-padded inputs.
+   - This blocks slash, traversal-shaped, extension-suffixed, non-zero-padded, impossible month/day, and non-leap-year February 29 inputs.
 
 3. Worker handoff note corrected:
    - worker/RESUME-HERE.md now states that browser writes are disabled in this branch.
@@ -24,7 +24,8 @@
 4. Deterministic regression harness added:
    - worker/test/week-of-validation.test.mjs imports and executes the real Worker module using Node VM modules.
    - It verifies malformed recap and decision dates return HTTP 400 without reaching the GitHub fetch layer.
-   - It verifies a valid YYYY-MM-DD recap retains the existing GitHub read/write flow.
+   - It verifies impossible month/day values and a non-leap-year February 29 are rejected on both routes.
+   - It verifies a valid leap-day date retains the existing GitHub read/write flow on both routes.
 
 ## Test evidence
 
@@ -32,6 +33,7 @@ Red phase, before validation:
 
 - Recap traversal-shaped week_of returned HTTP 500 after the harness blocked an attempted GitHub call. Expected HTTP 400.
 - Decision traversal-shaped week_of returned HTTP 500 after the harness blocked an attempted GitHub call. Expected HTTP 400.
+- Impossible date 2026-02-30 matched the shape regex, reached the recap GitHub flow, and returned HTTP 500. Expected HTTP 400.
 
 Green phase, after validation:
 

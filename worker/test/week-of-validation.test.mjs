@@ -41,26 +41,35 @@ async function postToWorker(path, weekOf, fetchImpl) {
   );
 }
 
-for (const invalidWeekOf of ["2026-07-29/../../pages/index", "2026-7-29", "2026-07-29.md"]) {
-  const response = await postToWorker("/save-recap", invalidWeekOf, async () => {
-    throw new Error("Invalid week_of must be rejected before GitHub is called");
-  });
-  assert.equal(response.status, 400, `rejects malformed week_of: ${invalidWeekOf}`);
-  assert.deepEqual(await response.json(), { error: "week_of must be YYYY-MM-DD" });
+const protectedRoutes = ["/save-recap", "/save-decisions"];
+const invalidWeekOfValues = [
+  "2026-07-29/../../pages/index",
+  "2026-7-29",
+  "2026-07-29.md",
+  "2026-02-30",
+  "2026-04-31",
+  "2026-13-01",
+  "2025-02-29",
+];
+
+for (const path of protectedRoutes) {
+  for (const invalidWeekOf of invalidWeekOfValues) {
+    const response = await postToWorker(path, invalidWeekOf, async () => {
+      throw new Error("Invalid week_of must be rejected before GitHub is called");
+    });
+    assert.equal(response.status, 400, `rejects invalid week_of on ${path}: ${invalidWeekOf}`);
+    assert.deepEqual(await response.json(), { error: "week_of must be YYYY-MM-DD" });
+  }
 }
 
-const decisionResponse = await postToWorker("/save-decisions", "2026-07-29/../../pages/index", async () => {
-  throw new Error("Invalid decision week_of must be rejected before GitHub is called");
-});
-assert.equal(decisionResponse.status, 400, "rejects malformed week_of for decision saves");
-assert.deepEqual(await decisionResponse.json(), { error: "week_of must be YYYY-MM-DD" });
-
-let githubCalls = 0;
-const validResponse = await postToWorker("/save-recap", "2026-07-29", async () => {
-  githubCalls += 1;
-  return new Response(JSON.stringify({ content: "", sha: "test-sha" }), { status: 200 });
-});
-assert.equal(validResponse.status, 200, "accepts a YYYY-MM-DD week_of");
-assert.equal(githubCalls, 4, "valid recap follows the existing GitHub read/write flow");
+for (const [path, expectedCalls] of [["/save-recap", 4], ["/save-decisions", 2]]) {
+  let githubCalls = 0;
+  const validResponse = await postToWorker(path, "2024-02-29", async () => {
+    githubCalls += 1;
+    return new Response(JSON.stringify({ content: "", sha: "test-sha" }), { status: 200 });
+  });
+  assert.equal(validResponse.status, 200, `accepts a leap-day week_of on ${path}`);
+  assert.equal(githubCalls, expectedCalls, `valid ${path} follows its existing GitHub flow`);
+}
 
 console.log("week_of validation tests passed");
