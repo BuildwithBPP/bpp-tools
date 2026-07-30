@@ -1,66 +1,27 @@
-# Resume Here — Worker Token Fix Needed
+# Resume Here: Worker Containment Required
 
-**Status as of 2026-05-10:** Cloudflare Worker is deployed and live at `https://bpp-recap-worker.buildwithbpp.workers.dev`. Worker auth (SHARED_SECRET) is correct. The only remaining issue is the GitHub PAT — it has read access but write attempts return 403 "Resource not accessible by personal access token" despite the UI claiming Contents is "Read and write."
+## Current branch status
 
-## Root cause
+Browser-to-Worker writes are disabled in this branch. pages/ops.html has no Worker URL or shared secret, so Save Recap and Save Decisions use the existing clipboard and Claude Code fallback.
 
-The current PAT was created and then **regenerated** (in response to the org's 366-day-lifetime restriction). GitHub has a known bug where regenerating a fine-grained PAT preserves the UI-displayed permissions but doesn't update the underlying stored grant. The token authenticates as `bpp-admin` (verified by `/user` endpoint) and `bpp-admin` has full admin permissions on `bpp-tools` (verified by `/repos/.../bpp-tools` — admin: true, push: true). User-level perms are fine. Token-level perms are stuck on read-only.
+This is local source containment only. No credential was rotated, no Worker was deployed, and no GitHub or Cloudflare setting was changed by this branch.
 
-## Fix (takes ~90 seconds)
+## External actions required before any restoration
 
-### 1. Delete the broken token
+1. Revoke or rotate the old Worker GitHub PAT outside the repository.
+2. Rotate the old Worker shared secret outside the repository. Do not put a replacement in browser code.
+3. Disable or replace the existing deployed Worker write routes until an authenticated design is approved.
+4. Confirm a controlled request using the old shared secret returns HTTP 401 before sign-off. Do not record the secret value in a test, issue, log, or commit.
+5. Keep direct browser writes disabled until Cloudflare Access identity validation, fixed destination allowlists, request validation, and audit logging are implemented.
 
-1. Open: https://github.com/settings/personal-access-tokens
-2. Find `bpp-recap-worker` (the regenerated one, expiration ~Aug 2026)
-3. Click into it → click the red **Delete** button at the bottom → confirm
+## Local safeguards now in place
 
-### 2. Create a fresh new fine-grained PAT (not regenerate)
+- The Worker validates week_of as an exact YYYY-MM-DD value before a recap path is constructed.
+- The same validation is applied to decision saves so malformed dates cannot enter persisted decision data.
+- The clipboard fallback remains the operational route while direct writes are disabled.
 
-1. From the same page, click **Generate new token** (top right)
-2. Fill in:
-   - **Token name:** `bpp-recap-worker-v2`
-   - **Expiration:** 90 days (org max is 366 days; pick anything ≤ that)
-   - **Resource owner:** BuildwithBPP
-   - **Repository access:** "Only select repositories" → `bpp-tools`
-   - **Repository permissions:**
-     - **Contents:** Read and write
-     - (Metadata: Read auto-selects)
-3. Click **Generate token** → copy the `github_pat_...` value
+## Do not do
 
-### 3. Send the new value to Claude
-
-Paste it back in chat. Claude will:
-- Update `worker/.env`
-- Push to Cloudflare via `wrangler secret put GITHUB_TOKEN`
-- Re-run the E2E test
-- If green, re-enable the Worker URL in `pages/ops.html`
-- Push so the Hub is 1-click again
-
-## What was tested and works
-
-- ✅ Cloudflare Worker deployed and live (`bpp-recap-worker.buildwithbpp.workers.dev`)
-- ✅ `SHARED_SECRET` correctly bound (auth works after `printf` fix that bypassed Windows CRLF issue)
-- ✅ Worker handler executes (gets past auth, reaches GitHub API call)
-- ✅ Read-only GitHub API calls succeed (GET on `monday-decisions.json` returns 200)
-- ✅ Org policy: fine-grained PATs allowed, no admin approval required
-- ✅ `bpp-admin` user has admin/push perms on `bpp-tools` repo
-
-## What's NOT working
-
-- ❌ Token write capability — GitHub returns 403 "Resource not accessible by personal access token" on PUT despite UI showing Contents: Read and write
-
-## What's currently in place (so nothing's broken)
-
-- `pages/ops.html` Worker URL/secret temporarily blanked → "Save Recap" + "Save Decisions" buttons fall back to Claude Code paste flow (clean UX, no error popups)
-- `worker/.env` has the live values for both secrets — delete and rewrite once new token arrives
-- Worker on Cloudflare side stays exactly as-is; only the GITHUB_TOKEN secret needs replacement
-
-## Files touched while diagnosing
-
-- `worker/src/index.js` — final save-only version (no MS Graph)
-- `worker/wrangler.toml` — minimal config
-- `worker/README.md` — setup walkthrough
-- `worker/.env` — local mirror of secrets (gitignored)
-- `pages/ops.html` — Worker integration with clean fallback to Claude Code paste
-
-No skill changes since the simplification commit. The next push will be the re-enable of `pages/ops.html` after the token is fixed.
+- Do not add a new shared secret to pages/ops.html.
+- Do not paste a PAT or shared secret into chat, source, documentation, or browser storage.
+- Do not re-enable the deployed Worker from this branch without the external containment actions and an owner-approved authenticated-write design.
