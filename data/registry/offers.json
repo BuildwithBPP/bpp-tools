@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "last_verified": "2026-07-29",
+  "source": "BPP service catalog, Business Plan, and owner pricing decision",
+  "currency": "USD",
+  "offers": [
+    {
+      "id": "launch-pad",
+      "name": "Launch Pad",
+      "status": "approved",
+      "standard_price": 1799,
+      "current_price": 1799,
+      "price_label": "$1,799",
+      "timeline": "2-3 weeks",
+      "primary_icp": "Growth-Ready Founder",
+      "effective_date": "2026-04-09",
+      "source_decision": "BPP 2026 service catalog"
+    },
+    {
+      "id": "ai-jumpstart",
+      "name": "AI Jumpstart",
+      "status": "approved",
+      "standard_price": 699,
+      "launch_discount": 100,
+      "current_price": 599,
+      "price_label": "$599 launch price",
+      "price_context": "$699 standard, $100 launch discount",
+      "timeline": "scope-dependent",
+      "primary_icp": "Owner who needs one practical AI workflow",
+      "effective_date": "2026-07-29",
+      "source_decision": "Daunte owner decision, July 29, 2026",
+      "stackable_discount": false
+    },
+    {
+      "id": "operator-system",
+      "name": "Operator System",
+      "status": "approved",
+      "standard_price": 5500,
+      "current_price": 5500,
+      "price_label": "$5,500",
+      "timeline": "6-8 weeks",
+      "primary_icp": "Established Operator",
+      "effective_date": "2026-07-22",
+      "source_decision": "Ratified owner pricing decision, July 22, 2026"
+    },
+    {
+      "id": "scale-system",
+      "name": "Scale System",
+      "status": "proposed",
+      "standard_price_min": 10000,
+      "standard_price_max": 15000,
+      "price_label": "$10K-$15K proposed",
+      "timeline": "8-12 weeks",
+      "primary_icp": "Scale-Ready Executive",
+      "effective_date": null,
+      "source_decision": "Business Plan proposed offer"
+    }
+  ]
+}
