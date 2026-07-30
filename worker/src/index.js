@@ -18,6 +18,12 @@
  * Env (secrets): GITHUB_TOKEN, SHARED_SECRET
  */
 
+const WEEK_OF_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+
+function isValidWeekOf(value) {
+  return typeof value === "string" && WEEK_OF_PATTERN.test(value);
+}
+
 export default {
   async fetch(request, env) {
     const corsHeaders = {
@@ -74,7 +80,9 @@ export default {
 // ---------- Save Recap (markdown + decisions) ----------
 
 async function handleSaveRecap(payload, env, cors) {
-  if (!payload.week_of) return json({ error: "week_of required" }, 400, cors);
+  if (!isValidWeekOf(payload?.week_of)) {
+    return json({ error: "week_of must be YYYY-MM-DD" }, 400, cors);
+  }
 
   // 1. Append decisions to monday-decisions.json
   const commitResult = await commitDecisionsToGitHub(env, payload);
@@ -99,7 +107,9 @@ async function handleSaveRecap(payload, env, cors) {
 // ---------- Save Decisions Only ----------
 
 async function handleSaveDecisions(payload, env, cors) {
-  if (!payload.week_of) return json({ error: "week_of required" }, 400, cors);
+  if (!isValidWeekOf(payload?.week_of)) {
+    return json({ error: "week_of must be YYYY-MM-DD" }, 400, cors);
+  }
   const result = await commitDecisionsToGitHub(env, payload);
   return json({ ok: true, decisions_committed: result.count }, 200, cors);
 }
