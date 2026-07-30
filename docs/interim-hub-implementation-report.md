@@ -87,3 +87,7 @@ python scripts/performance-dashboard/build_data.py --validate-sources --render
 Result: financial and social source families both passed at 7.4 days old; the final dashboard HTML rendered.
 
 Round 1 JSON validation, touched-page relative-link audit, functional `href="#"` search, published-path audit, and `git diff --check` all passed.
+
+## Re-review follow-up
+
+- Seller Start Here now labels the discovery conversation as a non-skill call-execution step. The documented `Run pre-call prep for [prospect]` trigger remains the only workflow action on that page.
