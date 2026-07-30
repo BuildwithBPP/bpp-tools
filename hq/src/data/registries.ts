@@ -85,6 +85,17 @@ if (
   throw new Error("AI Jumpstart registry terms do not match the approved pricing decision.");
 }
 
+const operatorSystem = offersRegistry.offers.find((offer) => offer.id === "operator-system");
+if (
+  !operatorSystem ||
+  operatorSystem.status !== "approved" ||
+  operatorSystem.standard_price !== 5500 ||
+  operatorSystem.current_price !== 5500 ||
+  operatorSystem.effective_date !== "2026-07-22"
+) {
+  throw new Error("Operator System registry terms do not match the ratified July 22 pricing decision.");
+}
+
 const businessPlan = pagesRegistry.pages.find((page) => page.id === "business-plan");
 const strategicPlan = pagesRegistry.pages.find((page) => page.id === "strategic-plan-v9");
 if (businessPlan?.status !== "canonical" || strategicPlan?.status !== "historical") {

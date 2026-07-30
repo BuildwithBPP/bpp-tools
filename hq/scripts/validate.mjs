@@ -78,6 +78,12 @@ assert.equal(aiJumpstart?.current_price, 599, "AI Jumpstart launch price is inco
 assert.equal(aiJumpstart?.launch_discount, 100, "AI Jumpstart launch discount is incorrect.");
 assert.equal(aiJumpstart?.stackable_discount, false, "AI Jumpstart launch discount cannot stack.");
 
+const operatorSystem = offers.offers.find((offer) => offer.id === "operator-system");
+assert.equal(operatorSystem?.status, "approved", "Operator System must remain approved.");
+assert.equal(operatorSystem?.standard_price, 5500, "Operator System standard price is incorrect.");
+assert.equal(operatorSystem?.current_price, 5500, "Operator System current price is incorrect.");
+assert.equal(operatorSystem?.effective_date, "2026-07-22", "Operator System effective date is incorrect.");
+
 assert.ok(
   targets.targets.some(
     (target) =>
