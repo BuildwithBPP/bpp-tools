@@ -34,6 +34,7 @@
 - `src/data/registries.ts`: build-time Zod validation of the read-only shared registries
 - `src/data/snapshot.ts`: validation of representative performance and delivery snapshots
 - `src/styles/global.css`: BPP tokens, shell, page patterns, focus, responsive rules, screen-share treatment, and print rules
+- `public/brand/bpp-b-mark.png`: local copy of the canonical transparent BPP mark
 - `scripts/validate.mjs`: route, schema, semantic structure, brand wording, link, and placeholder validation
 - `scripts/capture.mjs`: responsive browser, horizontal overflow, navigation, and WCAG A/AA checks
 
@@ -45,6 +46,16 @@
 - Today visibly demonstrates the stale state because its current-week operating brief was last verified July 13 against a seven-day threshold.
 - HR & People Ops is Parked. Daunte is researching the function, and no ratified DRI is assigned.
 - Static validation now fails if a route omits visible utility source/freshness metadata, lacks a derived stale example, drifts from applicable page registry metadata, or assigns HR ownership that has not been ratified.
+
+## Visual refinement
+
+- Removed the graph-paper texture and moved the interface to the canonical `#FCFCFC` canvas.
+- Reworked the shell as a quieter modern product navigation with the canonical BPP B mark and a restrained gold selected line.
+- Bundled Montserrat for interface titles, Poppins for body and data, and Merriweather only for major Company document headings. No runtime font request leaves the application.
+- Reduced repeated metadata boxes to compact source and freshness footnotes while keeping the same information visible.
+- Changed action cards, department tiles, panels, and document containers into lighter divided surfaces with less radius, border weight, and status-chip noise.
+- Increased section spacing and editorial rhythm across Today and Company.
+- Preserved semantic structure, visible focus, responsive behavior, print rules, source/timeframe labels, and WCAG A/AA results.
 
 ## Registry boundary
 
@@ -59,7 +70,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 ## Verification evidence
 
 - `npm run build`: Astro 7.1.6 static build passed. Astro Check reported 0 errors, 0 warnings, and 0 hints across 22 files. Six HTML routes were generated.
-- `npm run validate`: passed for six routes and six registry records. Utility source/freshness metadata and HR ownership truth are enforced. All internal routes and anchors resolve. No placeholder links, empty links, `javascript:` links, em dashes, or prohibited brand wording were found.
+- `npm run validate`: passed for six routes and six registry records. Utility source/freshness metadata, HR ownership truth, the canonical local BPP mark, and the clean canvas invariant are enforced. All internal routes and anchors resolve. No placeholder links, empty links, `javascript:` links, em dashes, or prohibited brand wording were found.
 - Browser QA: passed on all six routes at 1440, 1024, 768, and 390 pixels. No page-level horizontal overflow was detected.
 - Accessibility: automated WCAG 2 A/AA and WCAG 2.1 A/AA checks passed on all six routes at 1440 and 390 pixels.
 - Metrics: validation confirms every rendered metric includes a source and timeframe.

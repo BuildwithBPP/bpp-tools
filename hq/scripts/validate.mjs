@@ -34,6 +34,10 @@ function routeFile(pathname) {
 }
 
 assert.ok(existsSync(distRoot), "dist/ is missing. Run npm run build first.");
+assert.ok(
+  existsSync(join(distRoot, "brand", "bpp-b-mark.png")),
+  "The built shell is missing the local canonical BPP mark."
+);
 for (const route of expectedRoutes) {
   assert.ok(existsSync(join(distRoot, route)), `Missing expected route output: ${route}`);
 }
@@ -89,6 +93,9 @@ const prohibitedHref = /^(?:#|javascript:|about:blank)$/i;
 const placeholderHost = /(?:example\.com|placeholder\.test)/i;
 const htmlPaths = htmlFiles(distRoot);
 const renderedFreshnessStates = [];
+const globalStyles = readFileSync(join(hqRoot, "src", "styles", "global.css"), "utf8");
+assert.ok(globalStyles.includes("--canvas: #fcfcfc;"), "The canonical clean canvas token is missing.");
+assert.ok(!globalStyles.includes("background-size: 64px 64px"), "The old graph-paper texture returned.");
 
 for (const htmlPath of htmlPaths) {
   const html = readFileSync(htmlPath, "utf8");
@@ -97,6 +104,10 @@ for (const htmlPath of htmlPaths) {
   assert.equal(h1Count, 1, `${route} must contain exactly one h1.`);
   assert.ok(!html.includes("—"), `${route} contains an em dash.`);
   assert.ok(!/\bleverage\b/i.test(html), `${route} uses prohibited brand wording.`);
+  assert.ok(
+    html.includes('src="/brand/bpp-b-mark.png"'),
+    `${route} does not render the local canonical BPP mark.`
+  );
 
   const pageSource = html.match(/data-page-source="([^"]+)"/)?.[1];
   const freshnessState = html.match(/data-freshness-state="([^"]+)"/)?.[1];

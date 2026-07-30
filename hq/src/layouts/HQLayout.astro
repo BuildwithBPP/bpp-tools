@@ -1,6 +1,12 @@
 ---
 import SideNav from "../components/SideNav.astro";
 import UtilityBar from "../components/UtilityBar.astro";
+import "@fontsource/montserrat/700.css";
+import "@fontsource/montserrat/800.css";
+import "@fontsource/merriweather/700.css";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/600.css";
 import "../styles/global.css";
 
 interface Props {
@@ -30,8 +36,13 @@ const currentPath = Astro.url.pathname;
     <div class="app-shell">
       <aside class="side-panel">
         <a class="brand" href="/" aria-label="BPP HQ home">
-          <span class="brand-mark">BPP</span>
-          <span class="brand-name">HQ</span>
+          <span class="brand-symbol" aria-hidden="true">
+            <img src="/brand/bpp-b-mark.png" alt="" width="30" height="30" />
+          </span>
+          <span class="brand-wordmark">
+            <span class="brand-mark">BPP</span>
+            <span class="brand-name">HQ</span>
+          </span>
         </a>
         <p class="brand-tagline">Where BPP runs.</p>
         <SideNav {currentPath} />

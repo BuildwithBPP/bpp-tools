@@ -56,6 +56,7 @@ The browser check exercises every route at 1440, 1024, 768, and 390 pixels. It s
 - The current Hub HTML, CSS, JavaScript, and Worker remain outside this application and are not copied into the build.
 - Registry source routes describe current-Hub records. Library maps them only to routes and anchors owned by this standalone proof of concept, so it does not create broken links.
 - Authentication, access policies, live data refreshes, and audited write actions belong to later migration tiers.
+- Canonical Montserrat, Merriweather, and Poppins font files are bundled at build time. The site does not make runtime font or image requests to external hosts.
 
 ## Main implementation surfaces
 
@@ -63,6 +64,7 @@ The browser check exercises every route at 1440, 1024, 768, and 390 pixels. It s
 - `src/components/`: status, metric, action, source/freshness, document, section, data-state, navigation, and utility components
 - `src/pages/`: six static routes
 - `src/styles/global.css`: BPP design tokens, responsive behavior, visible focus, screen-share treatment, and print rules
+- `public/brand/bpp-b-mark.png`: local copy of the canonical transparent BPP mark used in the product shell
 - `scripts/validate.mjs`: static route, registry, content, and link validation
 - `scripts/capture.mjs`: responsive browser checks and screenshot capture
 - `docs/implementation-report.md`: delivered scope, evidence, limitations, and owner decisions
