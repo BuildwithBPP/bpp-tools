@@ -12,8 +12,9 @@ const page = {
   description: "The BPP owner brief for priorities, decisions, risks, and the current operating rhythm.",
   owner: "All owners",
   status: "live",
-  source: "BPP HQ master plan and shared registries",
-  verified: proofDate
+  source: "Current-week operating brief and BPP HQ master plan",
+  verified: "2026-07-13",
+  freshnessDays: 7
 };
 ---
 <HQLayout {...page}>
@@ -31,7 +32,7 @@ const page = {
       status={page.status}
       source={page.source}
       verified={page.verified}
-      freshnessDays={7}
+      freshnessDays={page.freshnessDays}
     />
   </header>
 

@@ -9,18 +9,18 @@ import StatusBadge from "../components/StatusBadge.astro";
 import { pagesRegistry, targetsRegistry } from "../data/registries";
 import { money, proofDate } from "../data/snapshot";
 
-const page = {
-  title: "Company",
-  description: "BPP strategy, Plan of Record, organization, departments, cadence, and operating system.",
-  owner: "All owners",
-  status: "canonical",
-  source: "BPP 2026-2028 Business Plan, HQ master plan, and shared registries",
-  verified: proofDate
-};
-
 const businessPlan = pagesRegistry.pages.find((record) => record.id === "business-plan")!;
 const strategicPlan = pagesRegistry.pages.find((record) => record.id === "strategic-plan-v9")!;
 const targets = targetsRegistry.targets.filter((target) => target.metric_id === "revenue");
+const page = {
+  title: "Company",
+  description: "BPP strategy, Plan of Record, organization, departments, cadence, and operating system.",
+  owner: businessPlan.owner,
+  status: businessPlan.status,
+  source: businessPlan.source_of_truth,
+  verified: businessPlan.last_verified,
+  freshnessDays: businessPlan.freshness_days
+};
 
 const departments = [
   {
@@ -65,8 +65,10 @@ const departments = [
   },
   {
     name: "HR & People Ops",
-    dri: "All owners",
-    collaborators: "Role-based",
+    dri: null,
+    status: "parked",
+    researcher: "Daunte researching",
+    collaborators: "Not assigned",
     charter: "Keep accountability, role clarity, and team decisions aligned with the operating model.",
     outcomes: "Clear ownership, capacity decisions, working agreements",
     dependency: "Current roles, compensation decisions, owner alignment"
@@ -202,10 +204,18 @@ const departments = [
         <ul class="department-list">
           {departments.map((department) => (
             <li>
-              <h3>{department.name}</h3>
+              <div class="department-heading">
+                <h3>{department.name}</h3>
+                {"status" in department && department.status && (
+                  <StatusBadge status={department.status} />
+                )}
+              </div>
               <p>{department.charter}</p>
               <div class="department-meta">
-                <span><strong>DRI:</strong> {department.dri}</span>
+                <span><strong>DRI:</strong> {department.dri ?? "Not assigned"}</span>
+                {"researcher" in department && department.researcher && (
+                  <span><strong>Current state:</strong> {department.researcher}</span>
+                )}
                 <span><strong>Collaborators:</strong> {department.collaborators}</span>
                 <span><strong>Outcomes:</strong> {department.outcomes}</span>
                 <span><strong>Dependencies:</strong> {department.dependency}</span>

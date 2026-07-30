@@ -6,16 +6,18 @@ import Metric from "../components/Metric.astro";
 import Section from "../components/Section.astro";
 import SourceMeta from "../components/SourceMeta.astro";
 import StatusBadge from "../components/StatusBadge.astro";
-import { targetsRegistry } from "../data/registries";
-import { homeSnapshot, monthlySnapshot, money, percent, proofDate } from "../data/snapshot";
+import { pagesRegistry, targetsRegistry } from "../data/registries";
+import { homeSnapshot, monthlySnapshot, money, percent } from "../data/snapshot";
 
+const performanceRecord = pagesRegistry.pages.find((record) => record.id === "performance-dashboard")!;
 const page = {
   title: "Performance",
   description: "BPP actuals, targets, period comparisons, and source-quality notes.",
-  owner: "Daunte",
-  status: "live",
-  source: "QuickBooks, HubSpot, performance dataset, and target registry",
-  verified: proofDate
+  owner: performanceRecord.owner,
+  status: performanceRecord.status,
+  source: performanceRecord.source_of_truth,
+  verified: performanceRecord.last_verified,
+  freshnessDays: performanceRecord.freshness_days
 };
 
 const baseTarget = targetsRegistry.targets.find(
@@ -56,7 +58,7 @@ const trendMax = Math.max(...trendMonths.map((month) => month.value));
       status={page.status}
       source={page.source}
       verified={page.verified}
-      freshnessDays={3}
+      freshnessDays={page.freshnessDays}
     />
   </header>
 

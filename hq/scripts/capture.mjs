@@ -30,12 +30,16 @@ try {
         h1: document.querySelectorAll("h1").length,
         overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
         sideNavVisible: getComputedStyle(document.querySelector(".side-panel")).display !== "none",
-        mobileNavVisible: getComputedStyle(document.querySelector(".mobile-navigation")).display !== "none"
+        mobileNavVisible: getComputedStyle(document.querySelector(".mobile-navigation")).display !== "none",
+        utilitySourceVisible: getComputedStyle(document.querySelector(".utility-source")).display !== "none",
+        utilityFreshnessVisible: getComputedStyle(document.querySelector(".utility-freshness")).display !== "none"
       }));
       assert.equal(checks.h1, 1, `${route} has an invalid h1 count at ${viewport.width}px.`);
       assert.equal(checks.overflow, false, `${route} has horizontal page overflow at ${viewport.width}px.`);
       if (viewport.width > 900) assert.equal(checks.sideNavVisible, true, `Desktop nav missing at ${viewport.width}px.`);
       if (viewport.width <= 900) assert.equal(checks.mobileNavVisible, true, `Mobile nav missing at ${viewport.width}px.`);
+      assert.equal(checks.utilitySourceVisible, true, `Utility source missing at ${viewport.width}px.`);
+      assert.equal(checks.utilityFreshnessVisible, true, `Utility freshness missing at ${viewport.width}px.`);
 
       if (viewport.name === "desktop" || viewport.name === "mobile") {
         const accessibility = await new AxeBuilder({ page })

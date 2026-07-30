@@ -6,16 +6,18 @@ import Metric from "../components/Metric.astro";
 import Section from "../components/Section.astro";
 import SourceMeta from "../components/SourceMeta.astro";
 import StatusBadge from "../components/StatusBadge.astro";
-import { offersRegistry } from "../data/registries";
-import { homeSnapshot, monthlySnapshot, money, proofDate } from "../data/snapshot";
+import { offersRegistry, pagesRegistry } from "../data/registries";
+import { homeSnapshot, monthlySnapshot, money } from "../data/snapshot";
 
+const growthRecord = pagesRegistry.pages.find((record) => record.id === "seller-start")!;
 const page = {
   title: "Growth",
   description: "Demand generation, sales conversion, offer truth, and commercial priorities.",
-  owner: "Kenny",
-  status: "live",
-  source: "HubSpot snapshot, offer registry, and BPP HQ master plan",
-  verified: proofDate
+  owner: growthRecord.owner,
+  status: growthRecord.status,
+  source: growthRecord.source_of_truth,
+  verified: growthRecord.last_verified,
+  freshnessDays: growthRecord.freshness_days
 };
 
 const stageCounts = monthlySnapshot.pipeline.reduce<Record<string, number>>((counts, deal) => {
@@ -38,7 +40,7 @@ const stageCounts = monthlySnapshot.pipeline.reduce<Record<string, number>>((cou
       status={page.status}
       source={page.source}
       verified={page.verified}
-      freshnessDays={3}
+      freshnessDays={page.freshnessDays}
     />
   </header>
 

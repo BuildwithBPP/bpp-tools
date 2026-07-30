@@ -5,15 +5,15 @@ import Section from "../components/Section.astro";
 import SourceMeta from "../components/SourceMeta.astro";
 import StatusBadge from "../components/StatusBadge.astro";
 import { pagesRegistry } from "../data/registries";
-import { proofDate } from "../data/snapshot";
 
 const page = {
   title: "Library",
   description: "A registry-driven directory of authoritative, historical, draft, and archived BPP content.",
   owner: "Daunte",
   status: "live",
-  source: "Shared page registry",
-  verified: proofDate
+  source: pagesRegistry.source,
+  verified: pagesRegistry.generated_at.slice(0, 10),
+  freshnessDays: 7
 };
 
 const routeMap: Record<string, string> = {
@@ -46,7 +46,7 @@ const draftOrArchive = pagesRegistry.pages.filter((record) => ["draft", "archive
       status={page.status}
       source={page.source}
       verified={page.verified}
-      freshnessDays={7}
+      freshnessDays={page.freshnessDays}
     />
   </header>
 

@@ -14,7 +14,8 @@ const page = {
   owner: "Eli",
   status: "live",
   source: "Delivery tracker and BPP HQ operating snapshot",
-  verified: "2026-07-24"
+  verified: "2026-07-24",
+  freshnessDays: 7
 };
 
 const clients = deliverySnapshot.gantt.clients.map((client) => {
@@ -43,7 +44,7 @@ const lastSprint = deliverySnapshot.velocity.history.at(-1)!;
       status={page.status}
       source={page.source}
       verified={page.verified}
-      freshnessDays={7}
+      freshnessDays={page.freshnessDays}
     />
   </header>
 

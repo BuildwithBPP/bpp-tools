@@ -37,6 +37,15 @@
 - `scripts/validate.mjs`: route, schema, semantic structure, brand wording, link, and placeholder validation
 - `scripts/capture.mjs`: responsive browser, horizontal overflow, navigation, and WCAG A/AA checks
 
+## Review fix round 1
+
+- The utility bar now renders the page source, verification date, freshness threshold, and derived current, stale, historical, or unavailable state.
+- Performance, Growth, and Company utility metadata comes directly from their matching shared page registry records.
+- Mobile layouts retain visible source and freshness context instead of hiding the verification signal.
+- Today visibly demonstrates the stale state because its current-week operating brief was last verified July 13 against a seven-day threshold.
+- HR & People Ops is Parked. Daunte is researching the function, and no ratified DRI is assigned.
+- Static validation now fails if a route omits visible utility source/freshness metadata, lacks a derived stale example, drifts from applicable page registry metadata, or assigns HR ownership that has not been ratified.
+
 ## Registry boundary
 
 The application imports these existing source files without editing them:
@@ -50,7 +59,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 ## Verification evidence
 
 - `npm run build`: Astro 7.1.6 static build passed. Astro Check reported 0 errors, 0 warnings, and 0 hints across 22 files. Six HTML routes were generated.
-- `npm run validate`: passed for six routes and six registry records. All internal routes and anchors resolve. No placeholder links, empty links, `javascript:` links, em dashes, or prohibited brand wording were found.
+- `npm run validate`: passed for six routes and six registry records. Utility source/freshness metadata and HR ownership truth are enforced. All internal routes and anchors resolve. No placeholder links, empty links, `javascript:` links, em dashes, or prohibited brand wording were found.
 - Browser QA: passed on all six routes at 1440, 1024, 768, and 390 pixels. No page-level horizontal overflow was detected.
 - Accessibility: automated WCAG 2 A/AA and WCAG 2.1 A/AA checks passed on all six routes at 1440 and 390 pixels.
 - Metrics: validation confirms every rendered metric includes a source and timeframe.

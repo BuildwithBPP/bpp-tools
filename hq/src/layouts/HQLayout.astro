@@ -10,9 +10,10 @@ interface Props {
   status: string;
   source: string;
   verified: string;
+  freshnessDays?: number | null;
 }
 
-const { title, description, owner, status, source, verified } = Astro.props;
+const { title, description, owner, status, source, verified, freshnessDays = null } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 <!doctype html>
@@ -50,7 +51,7 @@ const currentPath = Astro.url.pathname;
           </summary>
           <SideNav {currentPath} mobile />
         </details>
-        <UtilityBar {title} {status} {verified} />
+        <UtilityBar {title} {status} {source} {verified} {freshnessDays} />
         <main id="main-content" tabindex="-1">
           <slot />
         </main>
