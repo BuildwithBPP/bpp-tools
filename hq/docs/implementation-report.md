@@ -128,7 +128,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 - GitHub automation: `.github/workflows/hq-quality.yml` runs the locked install, complete test suite, production dependency audit, and Worker dry-run for relevant pull requests and main-branch changes.
 - Live boundary command: `npm run verify:staging` requires Access redirects for stable and generated Pages routes and a direct 403 from the Worker.
 - Worker deployment: `bpp-hq-refresh-staging` is live with an 88.76 KiB bundle before gzip. The direct API returns 403 anonymously.
-- Pages deployment: `2274b646.bpp-hq-preview.pages.dev` uploaded the Functions bundle from commit `7ebb9fe`; Cloudflare's project API confirms the production `REFRESH_SERVICE` binding.
+- Pages deployment: `f55f855a.bpp-hq-preview.pages.dev` uploaded the Functions bundle from commit `888ee48`; Cloudflare's project API confirms the production `REFRESH_SERVICE` binding.
 - Staging D1: `bpp-hq-staging-data` was created in ENAM. Migrations 0001 and 0002 applied successfully and the remote schema contains `refresh_jobs`, `snapshots`, `source_status`, and `connector_credentials`.
 - Responsive check: the Technical Landscape has no page-level horizontal overflow at 1440 or 390 pixels. The mobile shell and wide repository tables remain usable.
 - Browser QA: passed on all 14 routes at 1440, 1024, 768, and 390 pixels. No page-level horizontal overflow was detected.

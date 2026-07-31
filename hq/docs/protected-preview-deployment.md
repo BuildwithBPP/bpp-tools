@@ -64,7 +64,7 @@ The command rebuilds and validates the site, verifies the Access boundary throug
 - Static build: 14 routes
 - Validation and focused tests: 48 passed, 0 failed
 - Access API verification: Microsoft Entra ID only, three exact owner emails, implicit default deny
-- Pages deployment: `2274b646.bpp-hq-preview.pages.dev` from commit `7ebb9fe`
+- Pages deployment: `f55f855a.bpp-hq-preview.pages.dev` from commit `888ee48`
 - Anonymous stable, generated, and same-origin API requests: HTTP 302 to Cloudflare Access
 - Direct refresh Worker request: HTTP 403
 - Pages Function: governed `/api/*` routes only, using private `REFRESH_SERVICE` binding
