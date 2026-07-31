@@ -1,8 +1,33 @@
+import { decryptCredential, encryptCredential } from "./credential-crypto.mjs";
+
 export class D1R2Store {
   constructor(env) {
     if (!env.HQ_DB || !env.HQ_RAW) throw new Error("HQ_DB and HQ_RAW bindings are required.");
     this.db = env.HQ_DB;
     this.raw = env.HQ_RAW;
+    this.credentialEncryptionKey = env.CREDENTIAL_ENCRYPTION_KEY;
+  }
+
+  async writeCredential(source, name, plaintext) {
+    if (!this.credentialEncryptionKey) throw new Error("CREDENTIAL_ENCRYPTION_KEY is required for connector credential storage.");
+    const encrypted = await encryptCredential(plaintext, this.credentialEncryptionKey);
+    await this.db.prepare(
+      `INSERT INTO connector_credentials (source, name, version, ciphertext, iv, updated_at)
+       VALUES (?, ?, ?, ?, ?, datetime('now'))
+       ON CONFLICT(source, name) DO UPDATE SET
+         version = excluded.version,
+         ciphertext = excluded.ciphertext,
+         iv = excluded.iv,
+         updated_at = excluded.updated_at`
+    ).bind(source, name, encrypted.version, encrypted.ciphertext, encrypted.iv).run();
+  }
+
+  async readCredential(source, name) {
+    if (!this.credentialEncryptionKey) return null;
+    const row = await this.db.prepare(
+      "SELECT version, ciphertext, iv FROM connector_credentials WHERE source = ? AND name = ?"
+    ).bind(source, name).first();
+    return row ? decryptCredential(row, this.credentialEncryptionKey) : null;
   }
 
   async startJob(job) {

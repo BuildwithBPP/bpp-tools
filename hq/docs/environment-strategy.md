@@ -10,6 +10,8 @@ Feature work runs locally from a branch. Local work can use fixture or staging d
 
 `bpp-hq-preview.pages.dev` is the protected review environment. It is where responsive, accessibility, security, content, migration, and refresh behavior is verified before an approved merge. Staging receives separate D1, R2, and connector configuration when the refresh service is activated.
 
+The target integrated staging hostname is `hq-staging.buildwithbpp.com`. Pages serves the application while the refresh Worker owns `/api/*` on the same hostname. This avoids cross-origin credential behavior and lets one Cloudflare Access application protect both the page and API. The existing `pages.dev` address remains a build-review alias, not the final integration boundary.
+
 Cloudflare Pages creates separate hash and branch preview aliases. Those preview URLs are public by default even when the stable project domain has its own Access application. The Pages project setting **Settings > General > Enable access policy** must be enabled before a preview URL is treated as private or shared with the team. Verify both the stable domain and a generated preview URL after every protection change.
 
 ## Private production

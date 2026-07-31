@@ -1,6 +1,6 @@
 # BPP HQ proof-of-concept implementation report
 
-**Status:** STAGING_READY_WITH_EXTERNAL_ACTIVATION_REMAINING
+**Status:** STAGING_CONNECTOR_ACTIVATION_IN_PROGRESS
 
 **Implementation date:** July 29-31, 2026
 
@@ -92,6 +92,20 @@
 - Added scheduled and owner-triggered refresh paths that validate data, archive the raw response, preserve the last-known-good snapshot on failure, and expose snapshot history.
 - Kept all connector controls visibly disabled until real staging credentials, D1, R2, same-origin routing, and Cloudflare Access values are configured.
 
+## July 31 connector activation extension
+
+- Replaced generic source-gateway placeholders with direct, read-only adapters for QuickBooks Online, HubSpot, Monday.com, GitHub, and the private BPP Workspace.
+- Kept Metricool behind a governed bridge until BPP's plan entitlement and exact API contract are confirmed.
+- Added complete pagination for HubSpot deals, Monday items, and GitHub repositories. Monday subitems remain part of the snapshot.
+- Added GitHub App authentication as the preferred route. The Worker mints short-lived installation tokens and does not require an owner's GitHub CLI token.
+- Added QuickBooks OAuth refresh and four cash-basis reports: Profit and Loss, Balance Sheet, Cash Flow, and Aged Receivables.
+- Added AES-GCM encryption for rotated QuickBooks refresh tokens and a second D1 migration for encrypted connector credentials.
+- Created staging D1 `bpp-hq-staging-data`, applied both migrations remotely, and verified all four expected tables.
+- Added a staging Wrangler configuration, a local secure-prompt upload script, and the owner activation runbook at `docs/friday-connector-activation.md`.
+- Updated the Refresh Center to query live source status, enable only configured sources, and show last-success or last-error evidence.
+- Selected a same-origin staging target: Pages serves `hq-staging.buildwithbpp.com` while the Worker owns only `/api/*`.
+- R2 remains blocked because the Cloudflare account has not enabled the service. No Worker or provider credential was deployed around that control.
+
 ## Registry boundary
 
 The application imports these shared source files:
@@ -107,8 +121,9 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 
 - `npm run build`: Astro 7.1.6 static build passed. Astro Check reported 0 errors, 0 warnings, and 0 hints across 43 files. Fourteen HTML routes were generated.
 - `npm run validate`: passed for 14 routes. Utility source/freshness metadata, HR ownership truth, preview security metadata, CSP rules, and internal routes are enforced. No placeholder links, empty links, `javascript:` links, inline scripts, or inline styles were found.
-- Unit tests: 19/19 passed across Cloudflare Access policy, freshness behavior, exact 72-file catalog coverage, proposed department routing, refresh history, failure recovery, connector-disabled behavior, exact-owner authorization, and daily/weekly schedule routing.
-- Worker packaging: `wrangler deploy --config refresh-worker/wrangler.example.toml --dry-run` passed. The Worker bundle was 54.44 KiB before gzip and no live deployment occurred.
+- Unit tests: 37/37 passed across Cloudflare Access policy, freshness behavior, exact 72-file catalog coverage, proposed department routing, refresh history, failure recovery, source-envelope integrity, connector-disabled behavior, exact-owner authorization, schedules, direct adapters, pagination, GitHub App authentication, encrypted credentials, and live-status UI behavior.
+- Worker packaging: `wrangler deploy --config refresh-worker/wrangler.staging.toml --dry-run` passed. The Worker bundle was 88.61 KiB before gzip and no live deployment occurred.
+- Staging D1: `bpp-hq-staging-data` was created in ENAM. Migrations 0001 and 0002 applied successfully and the remote schema contains `refresh_jobs`, `snapshots`, `source_status`, and `connector_credentials`.
 - Responsive check: the Technical Landscape has no page-level horizontal overflow at 1440 or 390 pixels. The mobile shell and wide repository tables remain usable.
 - Browser QA: passed on all 14 routes at 1440, 1024, 768, and 390 pixels. No page-level horizontal overflow was detected.
 - Accessibility: automated WCAG 2 A/AA and WCAG 2.1 A/AA checks passed on all 14 routes at 1440 and 390 pixels.
@@ -130,7 +145,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 3. The July 24 delivery tracker contains three clients while the July 29 HQ snapshot reports four active clients. Delivery surfaces the mismatch and withholds a current capacity claim.
 4. The 72-file inventory is complete, but its proposed department assignments and migration decisions still require owner review before they become canonical routing.
 5. Inventory source links still open the current Hub. A future migration will replace them with approved HQ routes or explicit redirects without erasing historical source records.
-6. The refresh service is packaged and tested but intentionally not deployed. It still needs staging D1/R2 resources, Cloudflare Access values, connector gateways, and credentials configured outside the repository.
+6. The refresh service is packaged, tested, and has a live staging D1 database. It still needs account-level R2 enablement, the staging R2 bucket, same-origin Worker routing, a Worker Access audience, and provider authorization entered outside the repository.
 7. Screen-share mode is a local visual mask, not security. Client-confidential content still requires access controls and separate client spaces.
 8. The browser check is automated. Owner usability review, print preview review, and testing with Kenny and Eli's authenticated identities remain future acceptance steps.
 9. The repository map records business classification and direction, but it does not authorize deletion. Each cleanup candidate still needs dependency, retention, and client-obligation checks.
@@ -142,6 +157,6 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 3. Approve the private HQ and separate external tools boundary.
 4. Assign owners and dates for Tier 0 protection and Tier 1 sign-in work.
 5. Review all 72 Library records and approve or change their proposed department and migration decision.
-6. Select the first refresh connector to activate in staging; QuickBooks is the recommended first financial source if API access is available.
+6. Authorize each available staging connector through the provider-specific read-only setup. Keep Metricool unavailable if the account does not expose a supported API route.
 7. Reconcile the active-client count and current sprint source before Delivery becomes an operating dashboard.
 8. Approve the content migration order after the proof-of-concept review.

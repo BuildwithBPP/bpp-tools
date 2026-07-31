@@ -12,18 +12,21 @@ export function authorizeManualRefresh(email, allowedEmails) {
 
 export function sourcesForCron(cron, records) {
   if (cron === "15 10 * * *") return records.filter((record) => record.schedule === "daily");
-  if (cron === "30 10 * * MON") {
+  if (cron === "30 16 * * MON") {
     return records.filter((record) => record.schedule === "weekly" || record.schedule === "weekly-after-monday-brief");
   }
   return [];
 }
 
-function validateEnvelope(payload) {
+function validateEnvelope(payload, expectedSource) {
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
     throw new Error("Refresh payload must be a JSON object.");
   }
   if (!Number.isInteger(payload.schema_version) || payload.schema_version < 1) {
     throw new Error("Refresh payload has an invalid schema_version.");
+  }
+  if (payload.source !== expectedSource) {
+    throw new Error(`Refresh payload source does not match ${expectedSource}.`);
   }
   if (!payload.captured_at || Number.isNaN(Date.parse(payload.captured_at))) {
     throw new Error("Refresh payload has an invalid captured_at timestamp.");
@@ -55,7 +58,7 @@ export async function runRefresh({ source, trigger, actor, now, idFactory, adapt
   await store.startJob({ id, source, trigger, actor, started_at: startedAt });
 
   try {
-    const payload = validateEnvelope(await adapter.pull({ source, trigger, actor, now }));
+    const payload = validateEnvelope(await adapter.pull({ source, trigger, actor, now }), source);
     const r2Key = rawKey(source, now, id);
     await store.putRaw(r2Key, JSON.stringify(payload));
 

@@ -32,7 +32,7 @@ async function handleApi(request, env) {
     return json({
       sources: sourceRecords().map((record) => ({
         ...record,
-        configured: createAdapter(record, env).configured,
+        configured: createAdapter(record, env, { credentialStore: store }).configured,
         latest: stored.find((status) => status.source === record.id) ?? null
       }))
     }, 200, request, env);
@@ -51,7 +51,7 @@ async function handleApi(request, env) {
       actor,
       now: new Date(),
       idFactory: crypto.randomUUID,
-      adapter: createAdapter(record, env),
+      adapter: createAdapter(record, env, { credentialStore: store }),
       store
     });
     return json(result, result.status === "disabled" ? 409 : 202, request, env);
@@ -87,7 +87,7 @@ export default {
   async scheduled(controller, env, ctx) {
     const store = new D1R2Store(env);
     for (const record of sourcesForCron(controller.cron, sourceRecords())) {
-      const adapter = createAdapter(record, env);
+      const adapter = createAdapter(record, env, { credentialStore: store });
       if (!adapter.configured) continue;
       ctx.waitUntil(runRefresh({
         source: record.id,

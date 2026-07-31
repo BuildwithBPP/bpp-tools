@@ -1,0 +1,28 @@
+name = "bpp-hq-refresh-staging"
+main = "index.mjs"
+compatibility_date = "2026-07-31"
+
+[triggers]
+crons = ["15 10 * * *", "30 16 * * MON"]
+
+[vars]
+ALLOWED_ORIGIN = "https://hq-staging.buildwithbpp.com"
+ACCESS_TEAM_DOMAIN = "black-moon-6cec"
+OWNER_EMAILS = "daunte@buildwithbpp.com,kenny@buildwithbpp.com,eli@buildwithbpp.com"
+MONDAY_BOARD_IDS = "18406003425,18406004595,18406004600"
+GITHUB_ORG = "BuildwithBPP"
+WORKSPACE_REPOSITORY = "BuildwithBPP/bpp-workspace"
+WORKSPACE_REF = "main"
+
+[[d1_databases]]
+binding = "HQ_DB"
+database_name = "bpp-hq-staging-data"
+database_id = "50a0770b-3c38-469f-84bc-1cb0e779aae9"
+
+[[r2_buckets]]
+binding = "HQ_RAW"
+bucket_name = "bpp-hq-staging-snapshots"
+
+# ACCESS_AUD is set only after a Cloudflare Access application protects the
+# Worker hostname. Connector credentials and CREDENTIAL_ENCRYPTION_KEY are
+# always uploaded with `wrangler secret put`; they never belong in this file.

@@ -1,15 +1,18 @@
-name = "bpp-hq-refresh"
+name = "bpp-hq-refresh-environment"
 main = "index.mjs"
 compatibility_date = "2026-07-31"
 
 [triggers]
-crons = ["15 10 * * *", "30 10 * * MON"]
+crons = ["15 10 * * *", "30 16 * * MON"]
 
 [vars]
 ALLOWED_ORIGIN = "https://hq.buildwithbpp.com"
 ACCESS_TEAM_DOMAIN = "replace-with-bpp-team-domain"
-ACCESS_AUD = "replace-with-access-application-audience"
 OWNER_EMAILS = "replace-with-exact-owner-email-1,replace-with-exact-owner-email-2,replace-with-exact-owner-email-3"
+MONDAY_BOARD_IDS = "replace-with-comma-separated-board-ids"
+GITHUB_ORG = "replace-with-github-organization"
+WORKSPACE_REPOSITORY = "replace-with-owner/private-repository"
+WORKSPACE_REF = "main"
 
 [[d1_databases]]
 binding = "HQ_DB"
@@ -20,10 +23,17 @@ database_id = "replace-after-resource-creation"
 binding = "HQ_RAW"
 bucket_name = "bpp-hq-snapshots"
 
-# Connector gateway URLs are ordinary environment variables. Tokens are secrets.
-# QUICKBOOKS_SNAPSHOT_URL = "https://..."
-# HUBSPOT_SNAPSHOT_URL = "https://..."
-# MONDAY_SNAPSHOT_URL = "https://..."
+# Direct connectors use these secrets:
+# ACCESS_AUD
+# CREDENTIAL_ENCRYPTION_KEY (base64-encoded 32 bytes)
+# QUICKBOOKS_CLIENT_ID
+# QUICKBOOKS_CLIENT_SECRET
+# QUICKBOOKS_REALM_ID
+# QUICKBOOKS_REFRESH_TOKEN (bootstrap only; rotations are encrypted in D1)
+# HUBSPOT_ACCESS_TOKEN
+# MONDAY_ACCESS_TOKEN
+# GITHUB_TOKEN
+#
+# Metricool stays behind a governed gateway until the account's API contract
+# and entitlement are confirmed. Its URL is an ordinary variable; token is a secret.
 # METRICOOL_SNAPSHOT_URL = "https://..."
-# GITHUB_SNAPSHOT_URL = "https://..."
-# WORKSPACE_SNAPSHOT_URL = "https://..."

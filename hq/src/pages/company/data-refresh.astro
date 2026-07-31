@@ -48,14 +48,16 @@ const page = {
   <Section
     eyebrow="Source registry"
     title="Refresh coverage"
-    description="These are the six production data contracts. Connector gateways remain disabled until staging credentials and storage bindings are configured."
+    description="These are the six production data contracts. Each control stays disabled until the staging service confirms that source is configured."
   >
     <div class="refresh-source-list" data-refresh-api={refreshApiUrl}>
       {refreshRegistry.sources.map((source) => (
         <article class="refresh-source" data-refresh-source={source.id}>
           <div class="refresh-source-heading">
             <div><h3>{source.label}</h3><p>{source.owns}</p></div>
-            <StatusBadge status={refreshEnabled ? "needs review" : "unavailable"} label={refreshEnabled ? "Verify connector" : "Connector required"} />
+            <span data-refresh-status={source.id}>
+              <StatusBadge status={refreshEnabled ? "needs review" : "unavailable"} label={refreshEnabled ? "Checking connector" : "Connector required"} />
+            </span>
           </div>
           <dl>
             <div><dt>Schedule</dt><dd>{source.schedule.replaceAll("-", " ")}</dd></div>
@@ -63,12 +65,15 @@ const page = {
             <div><dt>History</dt><dd>{source.history}</dd></div>
           </dl>
           {refreshEnabled ? (
-            <button type="button" class="refresh-button" data-refresh-enabled="true" data-refresh-trigger={source.id}>
-              Refresh now
+            <button type="button" class="refresh-button" data-refresh-button={source.id} data-refresh-trigger={source.id} disabled>
+              Checking connector
             </button>
           ) : (
-            <button type="button" class="refresh-button" disabled>Connector configuration required</button>
+            <button type="button" class="refresh-button" data-refresh-button={source.id} disabled>Connector configuration required</button>
           )}
+          <p class="refresh-result" data-refresh-evidence={source.id}>
+            {refreshEnabled ? "Waiting for staging status." : "No staging API is connected."}
+          </p>
           <p class="refresh-result" data-refresh-result={source.id} aria-live="polite"></p>
         </article>
       ))}

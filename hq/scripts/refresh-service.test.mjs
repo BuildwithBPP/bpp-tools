@@ -42,7 +42,7 @@ test("archives a validated pull before advancing the latest snapshot", async () 
     adapter: {
       configured: true,
       async pull() {
-        return { schema_version: 1, captured_at: "2026-07-31T16:00:00Z", records: [{ revenue: 15143 }] };
+        return { source: "quickbooks", schema_version: 1, captured_at: "2026-07-31T16:00:00Z", records: [{ revenue: 15143 }] };
       }
     },
     store
@@ -55,6 +55,29 @@ test("archives a validated pull before advancing the latest snapshot", async () 
     store.state.events.indexOf(`raw:${store.state.raw.key}`) < store.state.events.indexOf("commit:job-001"),
     "Raw history must be durable before latest advances."
   );
+});
+
+test("rejects a payload labeled as a different source", async () => {
+  const store = memoryStore();
+  await assert.rejects(
+    runRefresh({
+      source: "quickbooks",
+      trigger: "manual",
+      actor: "owner1@bpp.test",
+      now: new Date("2026-07-31T16:00:00Z"),
+      idFactory: () => "job-source-mismatch",
+      adapter: {
+        configured: true,
+        async pull() {
+          return { source: "hubspot", schema_version: 1, captured_at: "2026-07-31T16:00:00Z", records: [] };
+        }
+      },
+      store
+    }),
+    /does not match/
+  );
+  assert.ok(store.state.events.includes("job:failed:job-source-mismatch"));
+  assert.ok(!store.state.events.some((event) => event.startsWith("commit:")));
 });
 
 test("keeps the last-known-good snapshot when a source pull fails", async () => {
@@ -113,6 +136,6 @@ test("runs daily and weekly sources only on their assigned schedules", () => {
     { id: "workspace", schedule: "weekly-after-monday-brief" }
   ];
   assert.deepEqual(sourcesForCron("15 10 * * *", records).map((record) => record.id), ["quickbooks", "hubspot"]);
-  assert.deepEqual(sourcesForCron("30 10 * * MON", records).map((record) => record.id), ["metricool", "workspace"]);
+  assert.deepEqual(sourcesForCron("30 16 * * MON", records).map((record) => record.id), ["metricool", "workspace"]);
   assert.deepEqual(sourcesForCron("0 0 1 * *", records), []);
 });
