@@ -294,12 +294,12 @@ for (const source of refreshSources.sources) {
   assert.ok(refreshHtml.includes(`data-refresh-source="${source.id}"`), `Refresh Center is missing ${source.id}.`);
 }
 assert.ok(
-  refreshHtml.includes("Connector configuration required"),
-  "Staging must show an honest disabled refresh state until connector gateways are configured."
+  refreshHtml.includes('data-refresh-api="."'),
+  "The deployed Refresh Center must call the protected same-origin API proxy."
 );
 assert.ok(
-  !refreshHtml.includes("data-refresh-enabled=\"true\""),
-  "A refresh control cannot be enabled without a configured refresh API URL."
+  refreshHtml.includes("Checking connector") && refreshHtml.includes("Waiting for staging status"),
+  "Refresh controls must remain disabled while live connector status is being checked."
 );
 assert.ok(
   landscapeHtml.includes("Twelve repositories does not mean twelve core systems"),

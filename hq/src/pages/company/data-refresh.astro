@@ -6,7 +6,7 @@ import SourceMeta from "../../components/SourceMeta.astro";
 import StatusBadge from "../../components/StatusBadge.astro";
 import refreshRegistry from "../../data/refresh-sources.json";
 
-const refreshApiUrl = import.meta.env.PUBLIC_REFRESH_API_URL ?? "";
+const refreshApiUrl = import.meta.env.PUBLIC_REFRESH_API_URL ?? (import.meta.env.PROD ? "." : "");
 const refreshEnabled = Boolean(refreshApiUrl);
 const page = {
   title: "Data Refresh Center",

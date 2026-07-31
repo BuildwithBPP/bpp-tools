@@ -103,8 +103,11 @@
 - Created staging D1 `bpp-hq-staging-data`, applied both migrations remotely, and verified all four expected tables.
 - Added a staging Wrangler configuration, a local secure-prompt upload script, and the owner activation runbook at `docs/friday-connector-activation.md`.
 - Updated the Refresh Center to query live source status, enable only configured sources, and show last-success or last-error evidence.
-- Selected a same-origin staging target: Pages serves `hq-staging.buildwithbpp.com` while the Worker owns only `/api/*`.
-- R2 remains blocked because the Cloudflare account has not enabled the service. No Worker or provider credential was deployed around that control.
+- Enabled R2 and created the isolated Standard-class staging bucket `bpp-hq-staging-snapshots`.
+- Deployed `bpp-hq-refresh-staging` with D1, R2, daily and Monday schedules, Access JWT verification, exact-owner authorization, and AES-GCM credential encryption.
+- Added a narrow same-origin Pages Function for governed `/api/*` requests and bound it privately to the refresh Worker as `REFRESH_SERVICE`.
+- Enabled Pages Preview Access and verified anonymous HTTP 302 redirects for the stable site, a generated deployment URL, and the Pages API. The Worker direct URL returns HTTP 403.
+- Added `hq-staging.buildwithbpp.com` to Pages. Validation is pending the GoDaddy CNAME because the domain's authoritative DNS is outside Cloudflare.
 
 ## Registry boundary
 
@@ -121,8 +124,9 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 
 - `npm run build`: Astro 7.1.6 static build passed. Astro Check reported 0 errors, 0 warnings, and 0 hints across 43 files. Fourteen HTML routes were generated.
 - `npm run validate`: passed for 14 routes. Utility source/freshness metadata, HR ownership truth, preview security metadata, CSP rules, and internal routes are enforced. No placeholder links, empty links, `javascript:` links, inline scripts, or inline styles were found.
-- Unit tests: 38/38 passed across Cloudflare Access policy, custom-domain validation, freshness behavior, exact 72-file catalog coverage, proposed department routing, refresh history, failure recovery, source-envelope integrity, connector-disabled behavior, exact-owner authorization, schedules, direct adapters, pagination, GitHub App authentication, encrypted credentials, and live-status UI behavior.
-- Worker packaging: `wrangler deploy --config refresh-worker/wrangler.staging.toml --dry-run` passed. The Worker bundle was 88.61 KiB before gzip and no live deployment occurred.
+- Unit tests: 41/41 passed across Cloudflare Access policy, custom-domain validation, freshness behavior, exact 72-file catalog coverage, proposed department routing, refresh history, failure recovery, source-envelope integrity, connector-disabled behavior, exact-owner authorization, schedules, direct adapters, pagination, GitHub App authentication, encrypted credentials, live-status UI behavior, and the same-origin Pages proxy.
+- Worker deployment: `bpp-hq-refresh-staging` is live with an 88.76 KiB bundle before gzip. The direct API returns 403 anonymously.
+- Pages deployment: `f8b099c1.bpp-hq-preview.pages.dev` uploaded the Functions bundle; Cloudflare's project API confirms the production `REFRESH_SERVICE` binding.
 - Staging D1: `bpp-hq-staging-data` was created in ENAM. Migrations 0001 and 0002 applied successfully and the remote schema contains `refresh_jobs`, `snapshots`, `source_status`, and `connector_credentials`.
 - Responsive check: the Technical Landscape has no page-level horizontal overflow at 1440 or 390 pixels. The mobile shell and wide repository tables remain usable.
 - Browser QA: passed on all 14 routes at 1440, 1024, 768, and 390 pixels. No page-level horizontal overflow was detected.
@@ -145,7 +149,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 3. The July 24 delivery tracker contains three clients while the July 29 HQ snapshot reports four active clients. Delivery surfaces the mismatch and withholds a current capacity claim.
 4. The 72-file inventory is complete, but its proposed department assignments and migration decisions still require owner review before they become canonical routing.
 5. Inventory source links still open the current Hub. A future migration will replace them with approved HQ routes or explicit redirects without erasing historical source records.
-6. The refresh service is packaged, tested, and has a live staging D1 database. It still needs account-level R2 enablement, the staging R2 bucket, same-origin Worker routing, a Worker Access audience, and provider authorization entered outside the repository.
+6. The refresh service, D1, R2, schedules, Access audience, and same-origin service binding are live in staging. It still needs provider authorizations entered outside the repository and authenticated owner acceptance of the Refresh Center.
 7. Screen-share mode is a local visual mask, not security. Client-confidential content still requires access controls and separate client spaces.
 8. The browser check is automated. Owner usability review, print preview review, and testing with Kenny and Eli's authenticated identities remain future acceptance steps.
 9. The repository map records business classification and direction, but it does not authorize deletion. Each cleanup candidate still needs dependency, retention, and client-obligation checks.

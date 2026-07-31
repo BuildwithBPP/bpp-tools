@@ -249,6 +249,19 @@ HQ actions -----------------------------> authoritative source system
 
 The refresh layer may preserve raw history and a last-known-good snapshot. It does not make HQ the accounting, CRM, or project-execution database.
 
+The staging request path is:
+
+```text
+Protected Pages site
+  -> same-origin /api/* Pages Function
+  -> private REFRESH_SERVICE binding
+  -> scheduled refresh Worker
+  -> staging D1 metadata + encrypted credentials
+  -> staging R2 raw snapshot history
+```
+
+The Pages Function exposes only the governed refresh-status, manual-refresh, latest-snapshot, and snapshot-history routes. The Worker verifies the Cloudflare Access assertion and exact owner allowlist, checks the request origin for manual refreshes, and returns 403 when called anonymously. This keeps the static HQ simple without moving provider credentials or source-system writes into the browser.
+
 ## Orientation period
 
 Pause structural expansion while the owners learn the interface.
@@ -282,7 +295,7 @@ If a page has no recurring trigger, named owner, or decision purpose, it should 
 - Six stable sections require discipline inside each section, but they provide clearer mental models than department-first navigation.
 - A complete Library can feel dense, but keeping it separate prevents the main interface from becoming a 72-link directory.
 - Summaries improve speed but can hide nuance, so every signal must link to its source.
-- Static output is simple and reliable, but live refreshes require a separate authenticated service.
+- Static output stays simple and reliable; a narrow Pages Function and private service binding provide live refreshes without turning HQ into a general application server.
 - One reusable architecture helps future client delivery, but BPP should prove adoption internally before adding multi-client software complexity.
 
 ## Revisit as the system grows
@@ -304,4 +317,3 @@ Reconsider the architecture only when evidence supports it:
 - department pages link to governing content instead of copying it
 - task, CRM, accounting, and document execution remain in their authoritative systems
 - all preview and production URLs require approved authentication
-

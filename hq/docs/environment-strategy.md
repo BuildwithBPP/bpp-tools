@@ -8,11 +8,13 @@ Feature work runs locally from a branch. Local work can use fixture or staging d
 
 ## Private staging
 
-`bpp-hq-preview.pages.dev` is the protected review environment. It is where responsive, accessibility, security, content, migration, and refresh behavior is verified before an approved merge. Staging receives separate D1, R2, and connector configuration when the refresh service is activated.
+`bpp-hq-preview.pages.dev` is the protected review and current integration environment. It is where responsive, accessibility, security, content, migration, and refresh behavior is verified before an approved merge. Staging has separate D1 and R2 resources plus a separately deployed refresh Worker.
 
-The target integrated staging hostname is `hq-staging.buildwithbpp.com`. Pages serves the application while the refresh Worker owns `/api/*` on the same hostname. This avoids cross-origin credential behavior and lets one Cloudflare Access application protect both the page and API. The existing `pages.dev` address remains a build-review alias, not the final integration boundary.
+Pages serves the application and a narrow Pages Function owns `/api/*`. That Function calls `bpp-hq-refresh-staging` through the private `REFRESH_SERVICE` service binding. The browser therefore stays on one protected hostname and sends no reusable Worker credential. The refresh Worker remains separate so Cloudflare Cron Triggers can run scheduled pulls.
 
-Cloudflare Pages creates separate hash and branch preview aliases. Those preview URLs are public by default even when the stable project domain has its own Access application. The Pages project setting **Settings > General > Enable access policy** must be enabled before a preview URL is treated as private or shared with the team. Verify both the stable domain and a generated preview URL after every protection change.
+The friendly staging hostname is `hq-staging.buildwithbpp.com`. It has been added to the Pages project but remains pending until GoDaddy DNS adds a CNAME from `hq-staging` to `bpp-hq-preview.pages.dev`. Because `buildwithbpp.com` DNS is not hosted in Cloudflare, a normal Cloudflare Worker route cannot own `/api/*`; the Pages Function and service binding are the governed same-origin boundary instead. Protect the custom hostname with its own exact-owner Access application before treating it as available.
+
+Cloudflare Pages creates separate hash and branch preview aliases. The Pages project setting **Settings > General > Enable access policy** is enabled. On July 31, 2026, anonymous requests to the stable domain, the generated deployment domain, and the same-origin API all returned HTTP 302 to Cloudflare Access. Reverify both URL types after every protection change.
 
 ## Private production
 
