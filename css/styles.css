@@ -37,6 +37,24 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 /* -- NAV -- */
 .hub-nav{position:sticky;top:0;z-index:100;background:var(--navy);display:flex;align-items:center;padding:0 28px;height:56px;gap:20px;box-shadow:0 2px 8px rgba(0,0,0,0.15);}
 .nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+/* .nav-collapse is display:contents on desktop so tabs/people/privacy lay out in the bar
+   exactly as before; at <=768px it becomes the slide-in drawer. Single DOM instance either way. */
+.nav-collapse{display:contents;}
+.nav-logo{order:1;}
+.nav-tabs{order:2;}
+.nav-search{order:3;}
+.nav-people{order:4;}
+.privacy-toggle{order:5;}
+/* Mobile-only nav chrome — hidden until the 768px breakpoint */
+.nav-icon-btn,.nav-backdrop,.nav-drawer-head,.nav-drawer-label{display:none;}
+/* Keyboard focus must stay visible on every nav control, including the drawer ones.
+   The .nav-collapse-scoped variants are needed because the mobile block scopes those same
+   selectors, and an equal-specificity rule later in the file would otherwise win. */
+.nav-icon-btn:focus-visible,.nav-drawer-close:focus-visible,.hub-tab:focus-visible,
+.person-btn:focus-visible,.privacy-toggle:focus-visible,.nav-search-input:focus-visible,
+.nav-collapse .hub-tab:focus-visible,.nav-collapse .person-btn:focus-visible,
+.nav-collapse .privacy-toggle:focus-visible,.hub-nav .nav-search-input:focus-visible{
+  outline:2px solid var(--gold);outline-offset:2px;}
 .nav-logo-mark{width:32px;height:32px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:16px;font-weight:800;color:var(--navy);}
 .nav-brand{font-family:var(--head);font-size:14px;font-weight:700;color:#fff;}
 .nav-brand span{color:var(--gold);}
@@ -349,23 +367,135 @@ body[data-person="eli"] .link-card[data-person*="eli"]{border-color:var(--eli);b
 /* -- TWO-COL QUICK LINKS -- */
 .links-section-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;margin-top:4px;}
 
-/* -- RESPONSIVE -- */
+/* -- RESPONSIVE --
+   Mobile pass 2026-07-31. Three rules govern this block:
+   1. Nothing scrolls sideways except a genuinely tabular grid inside its own container.
+   2. Every tappable thing is >=44px tall.
+   3. Every form field is >=16px so iOS does not zoom the page on focus.
+   Tables are stacked into label/value cards by stackTables() in js/nav.js.        */
 @media(max-width:768px){
-  .hub-nav{padding:0 12px;height:auto;flex-wrap:wrap;gap:8px;padding:10px 12px;}
-  .nav-tabs{order:3;width:100%;margin:0;gap:4px;}
-  .nav-people{order:2;}
-  .nav-search{order:4;width:100%;}
-  .nav-search-dropdown{left:0;right:0;min-width:0;max-width:none;}
-  .card-grid{grid-template-columns:1fr;}
+
+  /* ---- NAV BAR: one 56px row, everything else behind the drawer ----
+     z-index must beat .nav-backdrop (125). The drawer lives INSIDE .hub-nav, and .hub-nav is
+     position:sticky with a z-index, so it creates a stacking context: the drawer's own z-index
+     is resolved within it, not against the backdrop. Left at the default 100 the backdrop
+     covers the open drawer and swallows every tap on it. */
+  .hub-nav{padding:0 14px;height:56px;gap:10px;flex-wrap:nowrap;z-index:140;}
+  .hub-nav .nav-logo{flex:1 1 auto;min-width:0;}
+  .hub-nav .nav-brand{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .hub-nav .nav-icon-btn{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:44px;height:44px;padding:0;background:transparent;border:1px solid rgba(255,255,255,0.22);border-radius:8px;color:#fff;font-size:17px;line-height:1;cursor:pointer;transition:background .15s,border-color .15s;}
+  .hub-nav .nav-icon-btn:hover,.hub-nav .nav-icon-btn[aria-expanded="true"]{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.45);}
+  .hub-nav .nav-search-btn{order:8;}
+  .hub-nav .nav-menu-btn{order:9;}
+
+  /* ---- SEARCH: collapses to an icon, expands to a sheet under the bar ---- */
+  .hub-nav .nav-search{order:10;position:fixed;top:56px;left:0;right:0;width:auto;display:none;padding:10px 14px;background:var(--navy);box-shadow:0 8px 18px rgba(0,0,0,0.22);z-index:120;}
+  body[data-navsearch="open"] .hub-nav .nav-search{display:block;}
+  .hub-nav .nav-search-icon{left:26px;font-size:13px;}
+  .hub-nav .nav-search-input{font-size:16px;padding:12px 14px 12px 40px;}
+  .hub-nav .nav-search-hint{display:none;}
+  .hub-nav .nav-search-dropdown{top:calc(100% - 4px);left:14px;right:14px;min-width:0;max-width:none;max-height:min(60vh,420px);}
+  .hub-nav .nav-search-result{padding:13px 14px;}
+  .hub-nav .nav-search-result .nsr-title{font-size:15px;}
+  .hub-nav .nav-search-result .nsr-desc{font-size:12px;}
+
+  /* ---- DRAWER ---- */
+  .nav-collapse{display:flex;flex-direction:column;align-items:stretch;gap:0;position:fixed;top:0;right:0;width:min(320px,86vw);height:100dvh;background:var(--card);box-shadow:-10px 0 30px rgba(0,0,0,0.25);transform:translateX(102%);transition:transform .22s ease;z-index:130;overflow-y:auto;overscroll-behavior:contain;padding-bottom:28px;}
+  body[data-nav="open"] .nav-collapse{transform:translateX(0);}
+  body[data-nav="open"]{overflow:hidden;}
+  .nav-backdrop{display:block;position:fixed;inset:0;background:rgba(4,71,113,0.45);opacity:0;pointer-events:none;transition:opacity .22s;z-index:125;}
+  body[data-nav="open"] .nav-backdrop{opacity:1;pointer-events:auto;}
+  .nav-drawer-head{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--border);padding:14px 16px;z-index:2;}
+  .nav-drawer-title{font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .nav-drawer-close{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-10px;background:transparent;border:none;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;border-radius:8px;}
+  .nav-drawer-close:hover{background:var(--bg);color:var(--navy);}
+  .nav-drawer-label{display:block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:18px 18px 8px;}
+
+  /* Tabs become 48px rows on a light surface */
+  .nav-collapse .nav-tabs{order:0;flex-direction:column;width:auto;margin:0;gap:2px;padding:10px;overflow:visible;}
+  .nav-collapse .hub-tab{width:100%;justify-content:flex-start;gap:12px;min-height:48px;padding:12px 14px;font-size:15px;font-weight:500;color:var(--text2);border-radius:8px;white-space:normal;}
+  .nav-collapse .hub-tab:hover{background:var(--bg);color:var(--navy);}
+  .nav-collapse .hub-tab.on{background:var(--gold-glow);color:var(--navy);font-weight:700;box-shadow:inset 3px 0 0 var(--gold);}
+  .nav-collapse .tab-emoji{font-size:17px;}
+
+  /* Person filter + privacy toggle live in the drawer */
+  .nav-collapse .nav-people{gap:8px;padding:0 14px;}
+  .nav-collapse .person-btn{flex:1 1 0;min-height:44px;font-size:13px;color:var(--text2);border-color:var(--border);border-radius:8px;}
+  .nav-collapse .person-btn:hover{border-color:var(--navy);color:var(--navy);}
+  .nav-collapse .privacy-toggle{justify-content:center;min-height:44px;margin:18px 14px 0;font-size:13px;color:var(--text2);border-color:var(--border);border-radius:8px;}
+  .nav-collapse .privacy-toggle:hover{border-color:var(--navy);}
+
+  /* ---- LAYOUT ---- */
+  main{padding:20px 16px 56px;}
+  .card-grid,.wow-grid,.p-cols,.metric-grid,.scenario-grid,.client-grid,
+  .quick-actions,.dept-tiles,.whatsnew-grid,.norms-list{grid-template-columns:1fr;}
   .stat-grid{grid-template-columns:1fr 1fr;}
-  .wow-grid,.p-cols{grid-template-columns:1fr;}
-  .metric-grid{grid-template-columns:1fr;}
   .agenda-block{flex-direction:column;gap:8px;}
   .a-timebar{min-width:auto;}
-  main{padding:16px 12px 40px;}
-  .scenario-grid{grid-template-columns:1fr;}
-  .client-grid{grid-template-columns:1fr;}
-  .quick-actions,.dept-tiles{grid-template-columns:1fr;}
+  .guide-row{flex-direction:column;gap:6px;}
+  .guide-metric{min-width:0;}
+  .decision-prior{grid-template-columns:1fr;gap:6px;}
+  .dec-row{flex-wrap:wrap;}
+  .dec-text{flex:1 1 100%;}
+  .hub-footer{flex-direction:column;align-items:flex-start;gap:6px;padding:16px 18px;}
+  .iframe-wrap iframe{height:min(70dvh,620px);}
+
+  /* ---- READABILITY: the hub was built at desktop density ---- */
+  .sec-title{font-size:26px;}
+  .sec-desc{font-size:15px;}
+  .lc-title,.client-name{font-size:15px;}
+  .lc-desc{font-size:13px;}
+  .qa-text{font-size:15px;}
+  .dept-tile-owns,.wow-item,.norm-item,.risk-item,.ck-txt{font-size:14px;}
+  .stat-val{font-size:24px;}
+  .stat-sub,.client-row,.brief-row{font-size:12px;}
+
+  /* ---- TOUCH TARGETS ----
+     !important is deliberate below: several pages set font-size and padding in inline style=
+     attributes (ops.html .dec-due, delivery-tracker .seg buttons), and nothing else outranks
+     those. Scoped to the mobile breakpoint only, so desktop density is untouched. */
+  .btn,.focus-btn{min-height:44px;padding:12px 18px;}
+  button,[role="button"],.nav-logo{min-height:44px;}
+  input:not([type="checkbox"]):not([type="radio"]),select,textarea{min-height:44px!important;}
+  input[type="checkbox"],input[type="radio"]{width:24px;height:24px;}
+  .cbox{width:26px;height:26px;}
+  .cbox.checked::after{width:7px;height:12px;}
+  .ck-item{padding:11px 0;}
+  .link-card,.qa-card{min-height:60px;}
+
+  /* ---- iOS ZOOM-ON-FOCUS: any field under 16px zooms the whole page on focus ---- */
+  input,select,textarea,.field,.textarea,.metric-input,.metric-select,
+  .dec-text,.dec-own,.decision-status-select,.park-text{font-size:16px!important;}
+
+  /* Chips, pills, badges and tags must wrap rather than push the row past the screen edge. */
+  [class*="chip"],[class*="pill"],[class*="badge"],[class*="tag"],.ppill,.brief-pill{white-space:normal;}
+  /* A long URL or unbroken token is enough on its own to widen the page past the viewport. */
+  body{overflow-wrap:break-word;}
+
+  /* ---- TABLES -> stacked label/value cards (stamped by js/nav.js) ---- */
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;}
+  table[data-mobile="stack"]{display:block;width:100%;border:0;}
+  table[data-mobile="stack"] thead{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  table[data-mobile="stack"] tbody,table[data-mobile="stack"] tr,table[data-mobile="stack"] td,table[data-mobile="stack"] tbody th{display:block;width:100%;}
+  table[data-mobile="stack"] tr{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:4px 14px;margin-bottom:10px;}
+  table[data-mobile="stack"] td,table[data-mobile="stack"] tbody th{display:flex;justify-content:space-between;align-items:baseline;gap:16px;text-align:right;padding:10px 0;border:0;border-bottom:1px solid var(--bg);font-size:14px;}
+  table[data-mobile="stack"] tr td:last-child{border-bottom:0;}
+  table[data-mobile="stack"] tbody th{text-align:right;font-size:14px;}
+  table[data-mobile="stack"] td::before,table[data-mobile="stack"] tbody th::before{content:attr(data-l);flex:0 1 auto;max-width:45%;text-align:left;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--muted);}
+  table[data-mobile="stack"] td[data-l=""]{justify-content:flex-start;text-align:left;}
+  table[data-mobile="stack"] td[data-l=""]::before{display:none;}
+}
+
+/* The drawer is the only new motion in the hub. Honour a reduced-motion preference. */
+@media(prefers-reduced-motion:reduce){
+  .nav-collapse,.nav-backdrop{transition:none;}
+  html{scroll-behavior:auto;}
+}
+
+@media(max-width:420px){
+  main{padding:18px 14px 48px;}
+  .stat-grid{grid-template-columns:1fr;}
+  .sec-title{font-size:23px;}
 }
 
 /* ===== HUB RESTRUCTURE COMPONENTS ===== */
