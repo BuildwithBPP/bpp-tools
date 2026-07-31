@@ -126,7 +126,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 - `npm run validate`: passed for 14 routes. Utility source/freshness metadata, HR ownership truth, preview security metadata, CSP rules, and internal routes are enforced. No placeholder links, empty links, `javascript:` links, inline scripts, or inline styles were found.
 - Unit tests: 41/41 passed across Cloudflare Access policy, custom-domain validation, freshness behavior, exact 72-file catalog coverage, proposed department routing, refresh history, failure recovery, source-envelope integrity, connector-disabled behavior, exact-owner authorization, schedules, direct adapters, pagination, GitHub App authentication, encrypted credentials, live-status UI behavior, and the same-origin Pages proxy.
 - Worker deployment: `bpp-hq-refresh-staging` is live with an 88.76 KiB bundle before gzip. The direct API returns 403 anonymously.
-- Pages deployment: `f8b099c1.bpp-hq-preview.pages.dev` uploaded the Functions bundle; Cloudflare's project API confirms the production `REFRESH_SERVICE` binding.
+- Pages deployment: `2274b646.bpp-hq-preview.pages.dev` uploaded the Functions bundle from commit `7ebb9fe`; Cloudflare's project API confirms the production `REFRESH_SERVICE` binding.
 - Staging D1: `bpp-hq-staging-data` was created in ENAM. Migrations 0001 and 0002 applied successfully and the remote schema contains `refresh_jobs`, `snapshots`, `source_status`, and `connector_credentials`.
 - Responsive check: the Technical Landscape has no page-level horizontal overflow at 1440 or 390 pixels. The mobile shell and wide repository tables remain usable.
 - Browser QA: passed on all 14 routes at 1440, 1024, 768, and 390 pixels. No page-level horizontal overflow was detected.
