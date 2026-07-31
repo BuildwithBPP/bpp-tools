@@ -18,7 +18,7 @@ The code, D1 schema, R2 history bucket, encryption, staging Worker, protected sa
 | Access protection | Stable and generated Pages hostnames protected | Anonymous page and API requests return 302 to Access; exact-policy API reinspection needs an Access-read token |
 | Same-origin API | Live in staging | Pages Function uses private `REFRESH_SERVICE` binding to the Worker |
 | Browser controls | Live, connector-gated | Controls query live status and enable only sources with configured credentials |
-| Friendly hostname | Pending GoDaddy DNS | Add CNAME `hq-staging` to `bpp-hq-preview.pages.dev`, then protect the custom hostname |
+| Friendly hostname | DNS ready, detached fail-closed | GoDaddy CNAME is correct; create exact-owner Access first, then reattach and require HTTP 302 |
 
 ## Cloudflare first
 
@@ -26,8 +26,9 @@ The code, D1 schema, R2 history bucket, encryption, staging Worker, protected sa
 2. Completed: Pages Preview Access is enabled; stable, generated, and API URLs redirect anonymous requests to Access.
 3. Completed: `bpp-hq-refresh-staging` is deployed with D1, R2, two schedules, an Access audience, an exact-owner allowlist, and an encryption key.
 4. Completed: the Pages Function sends governed `/api/*` requests to the Worker through the private `REFRESH_SERVICE` binding.
-5. Pending outside Cloudflare: add GoDaddy CNAME `hq-staging` to `bpp-hq-preview.pages.dev`.
-6. Pending after DNS: protect `hq-staging.buildwithbpp.com` with a Cloudflare Access self-hosted application using Microsoft Entra ID and exactly Daunte, Kenny, and Eli.
+5. Completed: GoDaddy CNAME `hq-staging` points to `bpp-hq-preview.pages.dev`.
+6. Completed safety response: the custom hostname was detached after an activation test returned public HTTP 200.
+7. Pending: create a Cloudflare Access self-hosted application for `hq-staging.buildwithbpp.com` using Microsoft Entra ID and exactly Daunte, Kenny, and Eli. Only then reattach the Pages custom hostname and require an anonymous HTTP 302 before sharing it.
 
 Verify the custom-domain policy with `BPP_HQ_PROTECTED_DOMAIN=hq-staging.buildwithbpp.com` plus the existing Cloudflare verification environment variables before enabling the browser controls.
 

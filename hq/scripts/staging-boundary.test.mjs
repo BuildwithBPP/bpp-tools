@@ -11,6 +11,7 @@ try {
 const stableBase = "https://bpp-hq-preview.pages.dev";
 const deploymentBase = "https://example-hash.bpp-hq-preview.pages.dev";
 const workerBase = "https://bpp-hq-refresh-staging.example.workers.dev";
+const customBase = "https://hq-staging.buildwithbpp.com";
 
 function protectedFetch(overrides = {}) {
   const statuses = new Map([
@@ -19,6 +20,8 @@ function protectedFetch(overrides = {}) {
     [`${deploymentBase}/`, 302],
     [`${deploymentBase}/api/refresh/status`, 302],
     [`${workerBase}/api/refresh/status`, 403],
+    [`${customBase}/`, 302],
+    [`${customBase}/api/refresh/status`, 302],
     ...Object.entries(overrides)
   ]);
 
@@ -65,4 +68,19 @@ test("staging boundary requires a generated deployment URL", async () => {
     }),
     /HQ_DEPLOYMENT_URL is required/
   );
+});
+
+test("staging boundary verifies the friendly hostname when it is configured", async () => {
+  const evidence = await verifyStagingBoundary({
+    stableBase,
+    deploymentBase,
+    workerBase,
+    customBase,
+    fetchImpl: protectedFetch()
+  });
+
+  assert.deepEqual(evidence.slice(-2), [
+    { name: "custom staging site", status: 302, expected: 302 },
+    { name: "custom staging API", status: 302, expected: 302 }
+  ]);
 });

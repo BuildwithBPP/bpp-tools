@@ -62,7 +62,7 @@ The command rebuilds and validates the site, verifies the Access boundary throug
 
 - Astro check: 0 errors, 0 warnings, 0 hints
 - Static build: 14 routes
-- Validation and focused tests: 46 passed, 0 failed
+- Validation and focused tests: 47 passed, 0 failed
 - Access API verification: Microsoft Entra ID only, three exact owner emails, implicit default deny
 - Pages deployment: `2274b646.bpp-hq-preview.pages.dev` from commit `7ebb9fe`
 - Anonymous stable, generated, and same-origin API requests: HTTP 302 to Cloudflare Access
@@ -84,6 +84,14 @@ Remove-Item Env:HQ_DEPLOYMENT_URL
 ```
 
 The check requires HTTP 302 for the stable site, stable API, generated site, and generated API. It requires HTTP 403 from the Worker's direct API. Any public HTTP 200 result fails the check.
+
+After the friendly hostname has a verified Access application, include it in the same check:
+
+```powershell
+$env:HQ_CUSTOM_URL = "https://hq-staging.buildwithbpp.com"
+```
+
+The July 31 first activation returned public HTTP 200, so the custom hostname was detached from Pages immediately. Its GoDaddy CNAME remains correct. Do not reattach it until an exact-owner Access application is ready and the custom checks return HTTP 302.
 
 Kenny and Eli's owner acceptance and one observed non-owner denial remain operational acceptance checks. The exact-policy verifier already rejects extra emails and broad domain, group, everyone, IP, and service-token rules.
 

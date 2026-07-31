@@ -107,7 +107,7 @@
 - Deployed `bpp-hq-refresh-staging` with D1, R2, daily and Monday schedules, Access JWT verification, exact-owner authorization, and AES-GCM credential encryption.
 - Added a narrow same-origin Pages Function for governed `/api/*` requests and bound it privately to the refresh Worker as `REFRESH_SERVICE`.
 - Enabled Pages Preview Access and verified anonymous HTTP 302 redirects for the stable site, a generated deployment URL, and the Pages API. The Worker direct URL returns HTTP 403.
-- Added `hq-staging.buildwithbpp.com` to Pages. Validation is pending the GoDaddy CNAME because the domain's authoritative DNS is outside Cloudflare.
+- Verified that GoDaddy CNAME `hq-staging` correctly resolves to the Pages project. The first activation returned public HTTP 200 because Pages Preview Access does not protect the custom hostname. The custom hostname was immediately detached and serves no HQ content. Reattachment is blocked until its exact-owner Access application is verified.
 
 ## Registry boundary
 
@@ -124,7 +124,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 
 - `npm run build`: Astro 7.1.6 static build passed. Astro Check reported 0 errors, 0 warnings, and 0 hints across 43 files. Fourteen HTML routes were generated.
 - `npm run validate`: passed for 14 routes. Utility source/freshness metadata, HR ownership truth, preview security metadata, CSP rules, and internal routes are enforced. No placeholder links, empty links, `javascript:` links, inline scripts, or inline styles were found.
-- Unit tests: 46/46 passed across Cloudflare Access policy, custom-domain validation, freshness behavior, exact 72-file catalog coverage, proposed department routing, refresh history, failure recovery, source-envelope integrity, connector-disabled behavior, exact-owner authorization, exact multi-host origin policy, schedules, direct adapters, pagination, GitHub App authentication, encrypted credentials, live-status UI behavior, the same-origin Pages proxy, and fail-closed staging-boundary checks.
+- Unit tests: 47/47 passed across Cloudflare Access policy, custom-domain validation, freshness behavior, exact 72-file catalog coverage, proposed department routing, refresh history, failure recovery, source-envelope integrity, connector-disabled behavior, exact-owner authorization, exact multi-host origin policy, schedules, direct adapters, pagination, GitHub App authentication, encrypted credentials, live-status UI behavior, the same-origin Pages proxy, and fail-closed staging-boundary checks including an optional custom hostname.
 - GitHub automation: `.github/workflows/hq-quality.yml` runs the locked install, complete test suite, production dependency audit, and Worker dry-run for relevant pull requests and main-branch changes.
 - Live boundary command: `npm run verify:staging` requires Access redirects for stable and generated Pages routes and a direct 403 from the Worker.
 - Worker deployment: `bpp-hq-refresh-staging` is live with an 88.76 KiB bundle before gzip. The direct API returns 403 anonymously.

@@ -7,7 +7,7 @@ function requiredBase(value, name) {
   return url.toString().replace(/\/$/, "");
 }
 
-export async function verifyStagingBoundary({ stableBase, deploymentBase, workerBase, fetchImpl = fetch }) {
+export async function verifyStagingBoundary({ stableBase, deploymentBase, workerBase, customBase, fetchImpl = fetch }) {
   const stable = requiredBase(stableBase, "HQ_STABLE_URL");
   const deployment = requiredBase(deploymentBase, "HQ_DEPLOYMENT_URL");
   const worker = requiredBase(workerBase, "HQ_WORKER_URL");
@@ -18,6 +18,13 @@ export async function verifyStagingBoundary({ stableBase, deploymentBase, worker
     { name: "generated deployment API", url: `${deployment}/api/refresh/status`, expected: 302 },
     { name: "direct refresh Worker", url: `${worker}/api/refresh/status`, expected: 403 }
   ];
+  if (customBase) {
+    const custom = requiredBase(customBase, "HQ_CUSTOM_URL");
+    checks.push(
+      { name: "custom staging site", url: `${custom}/`, expected: 302 },
+      { name: "custom staging API", url: `${custom}/api/refresh/status`, expected: 302 }
+    );
+  }
   const evidence = [];
 
   for (const check of checks) {
@@ -35,7 +42,8 @@ async function main() {
   const evidence = await verifyStagingBoundary({
     stableBase: process.env.HQ_STABLE_URL ?? "https://bpp-hq-preview.pages.dev",
     deploymentBase: process.env.HQ_DEPLOYMENT_URL,
-    workerBase: process.env.HQ_WORKER_URL ?? "https://bpp-hq-refresh-staging.buildwithbpp.workers.dev"
+    workerBase: process.env.HQ_WORKER_URL ?? "https://bpp-hq-refresh-staging.buildwithbpp.workers.dev",
+    customBase: process.env.HQ_CUSTOM_URL
   });
   for (const check of evidence) {
     console.log(`${check.name}: HTTP ${check.status}`);
