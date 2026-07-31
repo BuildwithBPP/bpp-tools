@@ -124,7 +124,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 
 - `npm run build`: Astro 7.1.6 static build passed. Astro Check reported 0 errors, 0 warnings, and 0 hints across 43 files. Fourteen HTML routes were generated.
 - `npm run validate`: passed for 14 routes. Utility source/freshness metadata, HR ownership truth, preview security metadata, CSP rules, and internal routes are enforced. No placeholder links, empty links, `javascript:` links, inline scripts, or inline styles were found.
-- Unit tests: 47/47 passed across Cloudflare Access policy, custom-domain validation, freshness behavior, exact 72-file catalog coverage, proposed department routing, refresh history, failure recovery, source-envelope integrity, connector-disabled behavior, exact-owner authorization, exact multi-host origin policy, schedules, direct adapters, pagination, GitHub App authentication, encrypted credentials, live-status UI behavior, the same-origin Pages proxy, and fail-closed staging-boundary checks including an optional custom hostname.
+- Unit tests: 48/48 passed across Cloudflare Access policy, custom-domain validation, freshness behavior, exact 72-file catalog coverage, proposed department routing, refresh history, failure recovery, source-envelope integrity, connector-disabled behavior, exact-owner authorization, exact multi-host origin policy, schedules, direct adapters, pagination, GitHub App authentication, encrypted credentials, live-status UI behavior, the same-origin Pages proxy, fail-closed staging-boundary checks including an optional custom hostname, and static shell assets.
 - GitHub automation: `.github/workflows/hq-quality.yml` runs the locked install, complete test suite, production dependency audit, and Worker dry-run for relevant pull requests and main-branch changes.
 - Live boundary command: `npm run verify:staging` requires Access redirects for stable and generated Pages routes and a direct 403 from the Worker.
 - Worker deployment: `bpp-hq-refresh-staging` is live with an 88.76 KiB bundle before gzip. The direct API returns 403 anonymously.
@@ -133,6 +133,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 - Responsive check: the Technical Landscape has no page-level horizontal overflow at 1440 or 390 pixels. The mobile shell and wide repository tables remain usable.
 - Browser QA: passed on all 14 routes at 1440, 1024, 768, and 390 pixels. No page-level horizontal overflow was detected.
 - Accessibility: automated WCAG 2 A/AA and WCAG 2.1 A/AA checks passed on all 14 routes at 1440 and 390 pixels.
+- Lighthouse: Today, Performance, Company, and Library scored 98-100 for performance and 100 for accessibility. Adding the declared BPP favicon removed the only browser-console 404 and raised the representative Best Practices score to 100. SEO indexing remains intentionally disabled for the private HQ.
 - Metrics: validation confirms every rendered metric includes a source and timeframe.
 - Dependency audit: `npm audit --omit=dev` reports 0 vulnerabilities after upgrading to Astro 7.1.6 and updating the lockfile.
 - Screenshots:

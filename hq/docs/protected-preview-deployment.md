@@ -62,7 +62,7 @@ The command rebuilds and validates the site, verifies the Access boundary throug
 
 - Astro check: 0 errors, 0 warnings, 0 hints
 - Static build: 14 routes
-- Validation and focused tests: 47 passed, 0 failed
+- Validation and focused tests: 48 passed, 0 failed
 - Access API verification: Microsoft Entra ID only, three exact owner emails, implicit default deny
 - Pages deployment: `2274b646.bpp-hq-preview.pages.dev` from commit `7ebb9fe`
 - Anonymous stable, generated, and same-origin API requests: HTTP 302 to Cloudflare Access
@@ -73,6 +73,7 @@ The command rebuilds and validates the site, verifies the Access boundary throug
 - Approved-owner request: Daunte's Microsoft identity loaded the protected staging routes with HTTP 200 before the refresh extension
 - Security headers: CSP, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, restrictive referrer and permissions policies
 - Search indexing: `noindex, nofollow, noarchive` on every route
+- Lighthouse acceptance: 98-100 performance and 100 accessibility on the four representative primary routes; representative Best Practices score 100 after the favicon correction
 - Entra credential hygiene: two unused setup secrets deleted; the single active secret expires January 27, 2027
 
 Repeat the live boundary check after every deployment:
