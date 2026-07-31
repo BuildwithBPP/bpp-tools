@@ -86,13 +86,13 @@ Remove-Item Env:HQ_DEPLOYMENT_URL
 
 The check requires HTTP 302 for the stable site, stable API, generated site, and generated API. It requires HTTP 403 from the Worker's direct API. Any public HTTP 200 result fails the check.
 
-After the friendly hostname has a verified Access application, include it in the same check:
+If the owners later approve onboarding `buildwithbpp.com` as a Cloudflare zone and the friendly hostname receives a verified Access application, include it in the same check:
 
 ```powershell
 $env:HQ_CUSTOM_URL = "https://hq-staging.buildwithbpp.com"
 ```
 
-The July 31 first activation returned public HTTP 200, so the custom hostname was detached from Pages immediately. Its GoDaddy CNAME remains correct. Do not reattach it until an exact-owner Access application is ready and the custom checks return HTTP 302.
+The July 31 first activation returned public HTTP 200, so the custom hostname was detached from Pages immediately. Its GoDaddy CNAME remains correct. An authenticated Access API attempt then returned error `12130`, `domain does not belong to zone`, and confirmed that no `buildwithbpp.com` zone exists in the Cloudflare account. Do not reattach it unless authoritative DNS is deliberately onboarded to Cloudflare, exact-owner Access is ready, and the custom checks return HTTP 302.
 
 Kenny and Eli's owner acceptance and one observed non-owner denial remain operational acceptance checks. The exact-policy verifier already rejects extra emails and broad domain, group, everyone, IP, and service-token rules.
 

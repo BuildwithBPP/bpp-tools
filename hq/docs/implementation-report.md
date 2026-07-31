@@ -107,7 +107,7 @@
 - Deployed `bpp-hq-refresh-staging` with D1, R2, daily and Monday schedules, Access JWT verification, exact-owner authorization, and AES-GCM credential encryption.
 - Added a narrow same-origin Pages Function for governed `/api/*` requests and bound it privately to the refresh Worker as `REFRESH_SERVICE`.
 - Enabled Pages Preview Access and verified anonymous HTTP 302 redirects for the stable site, a generated deployment URL, and the Pages API. The Worker direct URL returns HTTP 403.
-- Verified that GoDaddy CNAME `hq-staging` correctly resolves to the Pages project. The first activation returned public HTTP 200 because Pages Preview Access does not protect the custom hostname. The custom hostname was immediately detached and serves no HQ content. Reattachment is blocked until its exact-owner Access application is verified.
+- Verified that GoDaddy CNAME `hq-staging` correctly resolves to the Pages project. The first activation returned public HTTP 200 because Pages Preview Access does not protect the custom hostname. The custom hostname was immediately detached and serves no HQ content. A later authenticated Access API attempt returned error `12130`, `domain does not belong to zone`; the Cloudflare account has no `buildwithbpp.com` zone. Reattachment now requires an explicit authoritative-DNS decision, not another Access-permission attempt.
 
 ## Registry boundary
 

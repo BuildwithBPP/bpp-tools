@@ -36,7 +36,7 @@ npm run verify:staging
 Remove-Item Env:HQ_DEPLOYMENT_URL
 ```
 
-Set `HQ_CUSTOM_URL=https://hq-staging.buildwithbpp.com` only after that hostname has its own verified Access application. The check then requires the friendly site and API to redirect to Access too.
+Set `HQ_CUSTOM_URL=https://hq-staging.buildwithbpp.com` only after `buildwithbpp.com` is an active Cloudflare zone and that hostname has its own verified Access application. The check then requires the friendly site and API to redirect to Access too. Until the DNS architecture changes, use the protected `bpp-hq-preview.pages.dev` hostname.
 
 Pull requests that change `hq/` or the shared registries automatically run the same build and tests, audit production dependencies, and package the Worker without deploying it.
 
