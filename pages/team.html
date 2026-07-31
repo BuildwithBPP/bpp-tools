@@ -117,13 +117,27 @@
   .dept-list.hire li::before { background: var(--blue); }
   .dept-list strong { color: var(--navy-dark); font-weight: 600; }
 
-  /* DEPARTMENTAL ORG (FULL-WIDTH HORIZONTAL ROW OF VERTICAL DEPT FLOWS) */
-  .dept-section-fullwidth { width: 100vw; position: relative; left: 50%; margin-left: -50vw; padding: 8px 32px 40px; background: var(--bg); box-sizing: border-box; }
-  .dept-section-fullwidth .section-bar { max-width: 1400px; margin: 24px auto 14px; }
-  .dept-row { display: flex; flex-direction: row; gap: 16px; overflow-x: auto; padding: 8px 0 20px; align-items: flex-start; justify-content: center; }
-  .dept-row::-webkit-scrollbar { height: 8px; }
-  .dept-row::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
-  .dept-column { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--card-border); padding: 14px 14px 18px; min-width: 320px; max-width: 360px; flex-shrink: 0; display: flex; flex-direction: column; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  /* DEPARTMENTAL ORG (WRAPPING GRID OF VERTICAL DEPT FLOWS: 3-up / 2-up / 1-up) */
+  /* Was a 100vw breakout to make room for the horizontal rail. 100vw counts the
+     scrollbar, so it overhung the document and scrolled the whole page sideways.
+     The grid is capped at 1200px now, so the breakout has no job left. */
+  .dept-section-fullwidth { padding: 8px 32px 40px; box-sizing: border-box; }
+  .dept-section-fullwidth .section-bar { max-width: 1200px; margin: 24px auto 14px; }
+  /* Grid, not a scrolling flex rail. A centered flex row that overflows puts its
+     left-hand overflow at a negative offset, and scrollLeft can never go below 0,
+     so that column is unreachable at any scroll position. That is what hid the
+     Marketing department. Wrapping removes the horizontal axis entirely. */
+  .dept-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 8px 0 20px; align-items: start; }
+  .dept-column { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--card-border); padding: 14px 14px 18px; display: flex; flex-direction: column; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  @media (max-width: 1100px) {
+    .dept-row { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 800px; }
+    .dept-section-fullwidth .section-bar { max-width: 800px; }
+  }
+  @media (max-width: 760px) {
+    .dept-row { grid-template-columns: minmax(0, 1fr); max-width: 420px; gap: 16px; }
+    .dept-section-fullwidth .section-bar { max-width: 420px; }
+    .dept-section-fullwidth { padding: 8px 16px 32px; }
+  }
   .dept-tier-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 8px; }
   .dept-tier-cards.single { grid-template-columns: 1fr; }
   .dept-column.gold { border-top: 5px solid var(--gold); }
@@ -341,7 +355,7 @@
   <div class="dept-section-fullwidth">
     <div class="section-bar">
       <div class="section-bar-title">Org Chart by Department</div>
-      <div class="section-bar-sub">Each department is a vertical flow. Centered. Tier cards lay out in 2-col grids when there are 2+ in a tier.</div>
+      <div class="section-bar-sub">All six departments. Each one reads top to bottom: DRI, then team, then AI plugins, then future hires.</div>
     </div>
 
     <div class="dept-row">
