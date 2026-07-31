@@ -72,4 +72,6 @@ The browser check exercises every route at 1440, 1024, 768, and 390 pixels. It s
 - `public/brand/bpp-b-mark.png`: local copy of the canonical transparent BPP mark used in the product shell
 - `scripts/validate.mjs`: static route, registry, content, and link validation
 - `scripts/capture.mjs`: responsive browser checks and screenshot capture
+- `docs/information-architecture.md`: navigation contract, congestion guardrails, content disposition, system boundaries, and adoption triggers
+- `docs/environment-strategy.md`: local, staging, production, and preview-access boundaries
 - `docs/implementation-report.md`: delivered scope, evidence, limitations, and owner decisions
