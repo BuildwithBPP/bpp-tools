@@ -4,7 +4,8 @@ import DataState from "../components/DataState.astro";
 import Section from "../components/Section.astro";
 import SourceMeta from "../components/SourceMeta.astro";
 import StatusBadge from "../components/StatusBadge.astro";
-import { pagesRegistry } from "../data/registries";
+import { pageCatalog, pagesRegistry } from "../data/registries";
+import { departmentForPage, proposedDepartments } from "../data/page-routing.mjs";
 
 const page = {
   title: "Library",
@@ -16,21 +17,16 @@ const page = {
   freshnessDays: 7
 };
 
-const routeMap: Record<string, string> = {
-  "business-plan": "/company/#plan-of-record",
-  "strategic-plan-v9": "/company/#superseded-plan",
-  "performance-dashboard": "/performance/",
-  "seller-start": "/growth/",
-  "skill-directory": "/library/#directory",
-  "builds": "/company/#build-change",
-  "technical-landscape": "/company/technical-landscape/"
-};
-
-const types = [...new Set(pagesRegistry.pages.map((record) => record.page_type))].sort();
-const owners = [...new Set(pagesRegistry.pages.map((record) => record.owner))].sort();
-const statuses = [...new Set(pagesRegistry.pages.map((record) => record.status))].sort();
-const confidentialities = [...new Set(pagesRegistry.pages.map((record) => record.confidentiality))].sort();
-const draftOrArchive = pagesRegistry.pages.filter((record) => ["draft", "archived"].includes(record.status));
+const sections = [...new Set(pageCatalog.pages.map((record) => record.section))].sort();
+const departments = proposedDepartments;
+const owners = [...new Set(pageCatalog.pages.map((record) => record.owner))].sort();
+const statuses = [...new Set(pageCatalog.pages.map((record) => record.status))].sort();
+const migrations = [...new Set(pageCatalog.pages.map((record) => record.migration))].sort();
+const confidentialities = [...new Set(pageCatalog.pages.map((record) => record.confidentiality))].sort();
+const migrationCounts = Object.fromEntries(
+  migrations.map((migration) => [migration, pageCatalog.pages.filter((record) => record.migration === migration).length])
+);
+const currentHubBase = "https://buildwithbpp.github.io/bpp-tools/";
 ---
 <HQLayout {...page}>
   <header class="page-intro">
@@ -38,8 +34,9 @@ const draftOrArchive = pagesRegistry.pages.filter((record) => ["draft", "archive
       <p class="eyebrow">Durable knowledge layer</p>
       <h1>Find the authoritative record</h1>
       <p>
-        Library is generated from the shared page registry. It points to the current answer
-        and keeps historical material visibly separate without creating duplicate copies.
+        Library combines the governing registry with a reviewed inventory of every current
+        and historical Hub page. Nothing disappears during migration, and old pages cannot
+        quietly present themselves as the current answer.
       </p>
     </div>
     <SourceMeta
@@ -53,20 +50,26 @@ const draftOrArchive = pagesRegistry.pages.filter((record) => ["draft", "archive
 
   <Section
     id="directory"
-    eyebrow="Universal directory"
-    title="Search and filter"
-    description="Filters run locally in the static page. No query or viewing data leaves the browser."
+    eyebrow="Complete migration directory"
+    title={`${pageCatalog.pages.length} Hub pages, one governed view`}
+    description="Filters run locally. HQ section, department, owner, lifecycle, confidentiality, and migration are separate decisions. Current routing is proposed for owner review."
   >
+    <div class="migration-summary" aria-label="Hub page migration summary">
+      <article><strong>{migrationCounts["carry-forward"] ?? 0}</strong><span>Carry forward</span></article>
+      <article><strong>{migrationCounts.historical ?? 0}</strong><span>Historical</span></article>
+      <article><strong>{migrationCounts["retire-after-cutover"] ?? 0}</strong><span>Retire after cutover</span></article>
+      <article><strong>{sections.length}</strong><span>HQ sections</span></article>
+    </div>
     <form class="filter-bar" data-library-filters>
       <label>
         Search
         <input type="search" name="q" placeholder="Title, owner, source, or type" autocomplete="off" />
       </label>
       <label>
-        Type
-        <select name="type">
-          <option value="">All types</option>
-          {types.map((type) => <option value={type}>{type.replaceAll("-", " ")}</option>)}
+        HQ section
+        <select name="section">
+          <option value="">All sections</option>
+          {sections.map((section) => <option value={section}>{section}</option>)}
         </select>
       </label>
       <label>
@@ -84,6 +87,20 @@ const draftOrArchive = pagesRegistry.pages.filter((record) => ["draft", "archive
         </select>
       </label>
       <label>
+        Department
+        <select name="department">
+          <option value="">All departments</option>
+          {departments.map((department) => <option value={department}>{department}</option>)}
+        </select>
+      </label>
+      <label>
+        Migration
+        <select name="migration">
+          <option value="">All decisions</option>
+          {migrations.map((migration) => <option value={migration}>{migration.replaceAll("-", " ")}</option>)}
+        </select>
+      </label>
+      <label>
         Confidentiality
         <select name="confidentiality">
           <option value="">All classifications</option>
@@ -97,38 +114,54 @@ const draftOrArchive = pagesRegistry.pages.filter((record) => ["draft", "archive
         <thead>
           <tr>
             <th>Record</th>
-            <th>Type</th>
+            <th>HQ section</th>
+            <th>Proposed department</th>
             <th>Owner</th>
             <th>Status</th>
-            <th>Verified</th>
+            <th>Migration</th>
             <th>Confidentiality</th>
-            <th>Source</th>
+            <th>Source page</th>
           </tr>
         </thead>
         <tbody data-library-rows>
-          {pagesRegistry.pages.map((record) => (
+          {pageCatalog.pages.map((record) => {
+            const department = departmentForPage(record);
+            return (
             <tr
               data-library-row
+              data-catalog-id={record.id}
               data-title={record.title.toLowerCase()}
-              data-type={record.page_type.toLowerCase()}
+              data-description={record.description.toLowerCase()}
+              data-section={record.section.toLowerCase()}
+              data-department={department.toLowerCase()}
               data-owner={record.owner.toLowerCase()}
               data-status={record.status.toLowerCase()}
+              data-migration={record.migration.toLowerCase()}
               data-confidentiality={record.confidentiality.toLowerCase()}
-              data-source={record.source_of_truth.toLowerCase()}
+              data-source={record.source_path.toLowerCase()}
             >
               <td>
-                <a class="directory-title" href={routeMap[record.id]}>
-                  {record.title}
+                <a
+                  class="directory-title"
+                  href={`${currentHubBase}${record.source_path}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>{record.title}</span>
+                  <span class="directory-title-note">Current Hub &#8599;</span>
                 </a>
+                <span class="directory-description">{record.description}</span>
               </td>
-              <td>{record.page_type.replaceAll("-", " ")}</td>
+              <td>{record.section}</td>
+              <td><span class="proposed-route">Proposed</span>{department}</td>
               <td>{record.owner}</td>
               <td><StatusBadge status={record.status} /></td>
-              <td>{record.last_verified}</td>
+              <td>{record.migration.replaceAll("-", " ")}</td>
               <td>{record.confidentiality}</td>
-              <td class="directory-source">{record.source_of_truth}</td>
+              <td class="directory-source">{record.source_path}</td>
             </tr>
-          ))}
+            );
+          })}
         </tbody>
       </table>
     </div>
@@ -141,10 +174,10 @@ const draftOrArchive = pagesRegistry.pages.filter((record) => ["draft", "archive
     </div>
     <SourceMeta
       owner="Daunte"
-      status="canonical"
-      source={pagesRegistry.source}
-      verified={pagesRegistry.generated_at.slice(0, 10)}
-      freshnessDays={7}
+      status="live"
+      source={pageCatalog.source}
+      verified={pageCatalog.generated_at.slice(0, 10)}
+      freshnessDays={30}
       compact
     />
   </Section>
@@ -169,88 +202,34 @@ const draftOrArchive = pagesRegistry.pages.filter((record) => ["draft", "archive
   </Section>
 
   <Section
-    eyebrow="Drafts and archive"
-    title="Separate by lifecycle"
-    description="The directory does not imply that missing lifecycle classes contain content."
+    eyebrow="Migration rule"
+    title="Carry forward before redesigning"
+    description="Working tools remain available while their destination pages are built. Historical and retirement labels prevent duplicate answers from competing with current truth."
   >
-    {draftOrArchive.length === 0 ? (
-      <DataState
-        state="empty"
-        title="No draft or archived records are registered"
-        message="This is an honest empty state for schema version 1. Historical content remains visible in the main directory with its own lifecycle label."
-        source="data/registry/pages.json"
-      />
-    ) : (
-      <ul class="brief-list">
-        {draftOrArchive.map((record) => (
-          <li class="brief-item">
-            <strong>{record.owner}</strong>
-            <p>{record.title}</p>
-            <StatusBadge status={record.status} />
-          </li>
-        ))}
-      </ul>
-    )}
+    <div class="split-layout">
+      <aside class="panel">
+        <p class="panel-title">Carry forward</p>
+        <p>Keep the working page reachable from HQ, then replace it only when a native route preserves its useful workflow and data.</p>
+      </aside>
+      <aside class="panel">
+        <p class="panel-title">Retire after cutover</p>
+        <p>Keep the source during transition. Retire it only after its canonical replacement is live, tested, linked, and approved.</p>
+      </aside>
+    </div>
+    <DataState
+      state="notice"
+      title="Owner review is the next routing step"
+      message="Use the Department and Migration filters to review the proposed assignments. Nothing is deleted by this list, and retire-after-cutover means keep until a tested replacement exists."
+      source="72-file HTML review inventory"
+    />
   </Section>
 
   <DataState
     state="notice"
-    title="Current Hub source files are not bundled"
-    message="Registry records retain their current-Hub source routes for migration, but this standalone proof of concept links only to routes and anchors it owns."
-    source="HQ architecture boundary"
+    title="Legacy pages still open on the current Hub"
+    message="The protected staging build now catalogs every Hub page and links to the working source. Moving those assets behind BPP HQ Access is a cutover step, not a reason to duplicate or prematurely rewrite them."
+    source="BPP HQ migration catalog"
   />
 
-  <script>
-    const form = document.querySelector<HTMLFormElement>("[data-library-filters]");
-    const rows = [...document.querySelectorAll<HTMLTableRowElement>("[data-library-row]")];
-    const empty = document.querySelector<HTMLElement>("[data-library-empty]");
-
-    function applyFilters() {
-      if (!form) return;
-      const data = new FormData(form);
-      const query = String(data.get("q") ?? "").trim().toLowerCase();
-      const type = String(data.get("type") ?? "").toLowerCase();
-      const owner = String(data.get("owner") ?? "").toLowerCase();
-      const status = String(data.get("status") ?? "").toLowerCase();
-      const confidentiality = String(data.get("confidentiality") ?? "").toLowerCase();
-      let visible = 0;
-
-      for (const row of rows) {
-        const haystack = [
-          row.dataset.title,
-          row.dataset.type,
-          row.dataset.owner,
-          row.dataset.status,
-          row.dataset.confidentiality,
-          row.dataset.source
-        ].join(" ");
-        const matches =
-          (!query || haystack.includes(query)) &&
-          (!type || row.dataset.type === type) &&
-          (!owner || row.dataset.owner === owner) &&
-          (!status || row.dataset.status === status) &&
-          (!confidentiality || row.dataset.confidentiality === confidentiality);
-        row.hidden = !matches;
-        if (matches) visible += 1;
-      }
-
-      if (empty) empty.hidden = visible !== 0;
-    }
-
-    if (form) {
-      const params = new URLSearchParams(window.location.search);
-      for (const name of ["q", "type", "owner", "status", "confidentiality"]) {
-        const control = form.elements.namedItem(name);
-        const value = params.get(name);
-        if (value && control instanceof HTMLInputElement) control.value = value;
-        if (value && control instanceof HTMLSelectElement) control.value = value;
-      }
-      form.addEventListener("input", applyFilters);
-      form.addEventListener("change", applyFilters);
-      applyFilters();
-      if (params.get("focus") === "search") {
-        form.querySelector<HTMLInputElement>('input[name="q"]')?.focus();
-      }
-    }
-  </script>
+  <script is:inline src="/scripts/library-filters.js" defer></script>
 </HQLayout>

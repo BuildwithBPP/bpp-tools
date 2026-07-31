@@ -7,6 +7,7 @@ import Section from "../components/Section.astro";
 import SourceMeta from "../components/SourceMeta.astro";
 import StatusBadge from "../components/StatusBadge.astro";
 import { pagesRegistry, targetsRegistry } from "../data/registries";
+import { departments } from "../data/departments";
 import { money, proofDate } from "../data/snapshot";
 
 const businessPlan = pagesRegistry.pages.find((record) => record.id === "business-plan")!;
@@ -22,58 +23,6 @@ const page = {
   freshnessDays: businessPlan.freshness_days
 };
 
-const departments = [
-  {
-    name: "Sales & Business Development",
-    dri: "Kenny",
-    collaborators: "Eli, Daunte",
-    charter: "Create qualified demand, move opportunities to clear decisions, and keep the seller workflow current.",
-    outcomes: "Pipeline coverage, conversion, close discipline",
-    dependency: "Approved offers, ICP truth, delivery capacity"
-  },
-  {
-    name: "Marketing & Content",
-    dri: "Kenny",
-    collaborators: "Eli",
-    charter: "Build consistent awareness and proof that supports the commercial system.",
-    outcomes: "Qualified reach, content consistency, proof library",
-    dependency: "Sales feedback, approved case studies, brand voice"
-  },
-  {
-    name: "Client Delivery & Design",
-    dri: "Eli",
-    collaborators: "Daunte, Kenny",
-    charter: "Turn sold scope into a clear client journey, dependable milestones, and strong work product.",
-    outcomes: "Delivery health, client experience, quality",
-    dependency: "Clean handoff, owner capacity, current tracker"
-  },
-  {
-    name: "Finance & Operations",
-    dri: "Daunte",
-    collaborators: "Kenny, Eli",
-    charter: "Keep BPP financially visible, operationally disciplined, and ready for owner decisions.",
-    outcomes: "Cash visibility, governance, operating rhythm",
-    dependency: "QuickBooks, Monday.com, owner follow-through"
-  },
-  {
-    name: "AI Workforce & Tech",
-    dri: "Daunte",
-    collaborators: "Kenny, Eli",
-    charter: "Build safe, reusable capabilities that shorten recurring work without tying BPP to one model.",
-    outcomes: "Reliable automations, governed capabilities, technical continuity",
-    dependency: "System access, validation rules, clear business owner"
-  },
-  {
-    name: "HR & People Ops",
-    dri: null,
-    status: "parked",
-    researcher: "Daunte researching",
-    collaborators: "Not assigned",
-    charter: "Keep accountability, role clarity, and team decisions aligned with the operating model.",
-    outcomes: "Clear ownership, capacity decisions, working agreements",
-    dependency: "Current roles, compensation decisions, owner alignment"
-  }
-];
 ---
 <HQLayout {...page}>
   <DocumentHeader
@@ -205,20 +154,20 @@ const departments = [
           {departments.map((department) => (
             <li>
               <div class="department-heading">
-                <h3>{department.name}</h3>
-                {"status" in department && department.status && (
+                <h3><a href={`/company/departments/${department.slug}/`}>{department.name}</a></h3>
+                {department.status && (
                   <StatusBadge status={department.status} />
                 )}
               </div>
               <p>{department.charter}</p>
               <div class="department-meta">
                 <span><strong>DRI:</strong> {department.dri ?? "Not assigned"}</span>
-                {"researcher" in department && department.researcher && (
+                {department.researcher && (
                   <span><strong>Current state:</strong> {department.researcher}</span>
                 )}
-                <span><strong>Collaborators:</strong> {department.collaborators}</span>
-                <span><strong>Outcomes:</strong> {department.outcomes}</span>
-                <span><strong>Dependencies:</strong> {department.dependency}</span>
+                <span><strong>Collaborators:</strong> {department.collaborators.join(", ") || "Not assigned"}</span>
+                <span><strong>Outcomes:</strong> {department.outcomes.join(", ")}</span>
+                <span><strong>Dependencies:</strong> {department.dependencies.join(", ")}</span>
               </div>
             </li>
           ))}
@@ -276,6 +225,12 @@ const departments = [
           title="Explore the BPP technical landscape"
           description="See what the main repositories do, how information moves, and which assets can become part of the client command-center method."
           meta="Nontechnical architecture map"
+        />
+        <ActionLink
+          href="/company/data-refresh/"
+          eyebrow="Data operations"
+          title="Open the Refresh Center"
+          description="Review scheduled and owner-initiated refresh contracts, history behavior, and connector readiness."
         />
         <SourceMeta
           owner="Daunte"

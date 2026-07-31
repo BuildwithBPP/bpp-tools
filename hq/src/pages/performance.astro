@@ -3,6 +3,7 @@ import HQLayout from "../layouts/HQLayout.astro";
 import ActionLink from "../components/ActionLink.astro";
 import DataState from "../components/DataState.astro";
 import Metric from "../components/Metric.astro";
+import RevenueTrendChart from "../components/RevenueTrendChart.astro";
 import Section from "../components/Section.astro";
 import SourceMeta from "../components/SourceMeta.astro";
 import StatusBadge from "../components/StatusBadge.astro";
@@ -41,7 +42,6 @@ const trendMonths = monthlySnapshot.months.slice(-7).map((key) => ({
   label: new Date(`${key}-02T12:00:00`).toLocaleDateString("en-US", { month: "short" }),
   value: monthlySnapshot.data[key].rev
 }));
-const trendMax = Math.max(...trendMonths.map((month) => month.value));
 ---
 <HQLayout {...page}>
   <header class="page-intro">
@@ -154,19 +154,11 @@ const trendMax = Math.max(...trendMonths.map((month) => month.value));
     title="Revenue trend"
     description={`July revenue is ${percent(monthChange, 1)} above June in the July 24 performance dataset.`}
   >
-    <div class="trend-chart" role="img" aria-label="Monthly revenue from January through July 2026" tabindex="0">
-      {trendMonths.map((month) => (
-        <div class="trend-month">
-          <div
-            class="trend-bar"
-            style={`height:${Math.max(4, (month.value / trendMax) * 135)}px`}
-            title={`${month.label}: ${money(month.value)}`}
-          ></div>
-          <span class="trend-value">{money(month.value, true)}</span>
-          <span class="trend-label">{month.label}</span>
-        </div>
-      ))}
-    </div>
+    <RevenueTrendChart
+      points={trendMonths}
+      title="Monthly revenue from January through July 2026"
+      description="Revenue is shown by month using the July 24 Performance Dashboard dataset. Every column includes a value label and the chart scale begins at zero."
+    />
     <SourceMeta
       owner="Daunte"
       status="live"

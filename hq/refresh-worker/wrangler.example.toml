@@ -1,0 +1,29 @@
+name = "bpp-hq-refresh"
+main = "index.mjs"
+compatibility_date = "2026-07-31"
+
+[triggers]
+crons = ["15 10 * * *", "30 10 * * MON"]
+
+[vars]
+ALLOWED_ORIGIN = "https://hq.buildwithbpp.com"
+ACCESS_TEAM_DOMAIN = "replace-with-bpp-team-domain"
+ACCESS_AUD = "replace-with-access-application-audience"
+OWNER_EMAILS = "replace-with-exact-owner-email-1,replace-with-exact-owner-email-2,replace-with-exact-owner-email-3"
+
+[[d1_databases]]
+binding = "HQ_DB"
+database_name = "bpp-hq-data"
+database_id = "replace-after-resource-creation"
+
+[[r2_buckets]]
+binding = "HQ_RAW"
+bucket_name = "bpp-hq-snapshots"
+
+# Connector gateway URLs are ordinary environment variables. Tokens are secrets.
+# QUICKBOOKS_SNAPSHOT_URL = "https://..."
+# HUBSPOT_SNAPSHOT_URL = "https://..."
+# MONDAY_SNAPSHOT_URL = "https://..."
+# METRICOOL_SNAPSHOT_URL = "https://..."
+# GITHUB_SNAPSHOT_URL = "https://..."
+# WORKSPACE_SNAPSHOT_URL = "https://..."

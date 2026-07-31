@@ -1,6 +1,6 @@
 # BPP HQ proof of concept
 
-BPP HQ is a self-contained Astro static-site proof of concept for the next BPP internal command center. It contains six routes:
+BPP HQ is the protected Astro foundation for the next BPP internal command center. The six primary sections remain stable while governed detail routes are added beneath them:
 
 - `/` Today
 - `/performance/`
@@ -8,6 +8,8 @@ BPP HQ is a self-contained Astro static-site proof of concept for the next BPP i
 - `/delivery/`
 - `/company/`
 - `/library/`
+
+Company also owns the six department cockpits, Technical Landscape, and Data Refresh Center.
 
 ## Run locally
 
@@ -24,7 +26,7 @@ npm run validate
 npm test
 ```
 
-`npm test` performs a clean type check and static build, then validates the required routes, shared registry shape, internal links and anchors, one-H1 structure, brand wording, metric source/timeframe labels, and prohibited placeholder links.
+`npm test` performs a clean type check and 14-route static build, then validates the required routes, shared registries, exact 72-file catalog coverage, proposed routing, internal links and anchors, one-H1 structure, CSP rules, metric source/timeframe labels, and refresh behavior.
 
 Preview the built site:
 
@@ -45,7 +47,7 @@ In a second terminal:
 npm run screenshots
 ```
 
-The browser check exercises every route at 1440, 1024, 768, and 390 pixels. It saves desktop and mobile screenshots for Today and Company in `artifacts/`.
+The browser check exercises every route at 1440, 1024, 768, and 390 pixels. It saves review screenshots for Today, Company, Performance, Library, and the Refresh Center in `artifacts/`.
 
 ## Architecture boundaries
 
@@ -55,14 +57,17 @@ The browser check exercises every route at 1440, 1024, 768, and 390 pixels. It s
 - `src/data/snapshot.ts` imports existing repository snapshots for representative BI and delivery views. It validates the fields the proof of concept uses.
 - The current Hub HTML, CSS, JavaScript, and Worker remain outside this application and are not copied into the build.
 - Registry source routes describe current-Hub records. Library maps them only to routes and anchors owned by this standalone proof of concept, so it does not create broken links.
-- Authentication, access policies, live data refreshes, and audited write actions belong to later migration tiers.
+- Cloudflare Access protects the staging deployment. Live data refreshes and audited data writes stay disabled until their separate staging resources and connector credentials are configured.
+- The refresh service foundation lives in `refresh-worker/`. It preserves raw history before advancing latest, validates Cloudflare Access identity for manual refresh, and stays disabled until staging bindings and connector gateways are configured.
+- `src/data/page-catalog.json` inventories all 72 HTML source artifacts with proposed routing and migration decisions for owner review.
+- Local, private staging, and private production use one codebase with separate deployment and data configuration. See `docs/environment-strategy.md`.
 - Canonical Montserrat, Merriweather, and Poppins font files are bundled at build time. The site does not make runtime font or image requests to external hosts.
 
 ## Main implementation surfaces
 
 - `src/layouts/HQLayout.astro`: shared shell and page metadata
 - `src/components/`: status, metric, action, source/freshness, document, section, data-state, navigation, and utility components
-- `src/pages/`: six static routes
+- `src/pages/`: six primary routes plus six department cockpits, Technical Landscape, and Data Refresh Center
 - `src/styles/global.css`: BPP design tokens, responsive behavior, visible focus, screen-share treatment, and print rules
 - `public/brand/bpp-b-mark.png`: local copy of the canonical transparent BPP mark used in the product shell
 - `scripts/validate.mjs`: static route, registry, content, and link validation

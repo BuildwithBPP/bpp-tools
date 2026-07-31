@@ -6,7 +6,7 @@ import Metric from "../components/Metric.astro";
 import Section from "../components/Section.astro";
 import SourceMeta from "../components/SourceMeta.astro";
 import StatusBadge from "../components/StatusBadge.astro";
-import { deliverySnapshot, homeSnapshot, proofDate } from "../data/snapshot";
+import { deliverySnapshot, homeSnapshot, proofDate, proofDateLabel } from "../data/snapshot";
 
 const page = {
   title: "Delivery",
@@ -68,8 +68,8 @@ const lastSprint = deliverySnapshot.velocity.history.at(-1)!;
       <Metric
         label="Past-due dates"
         value={String(trackedOverdue)}
-        comparison="Based on open items with a due date before July 29"
-        timeframe="As evaluated July 29"
+        comparison={`Based on open items with a due date before ${proofDateLabel}`}
+        timeframe={`As evaluated ${proofDateLabel}`}
         source="Delivery tracker due dates"
         tone="negative"
       />

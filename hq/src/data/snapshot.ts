@@ -84,8 +84,13 @@ export const homeSnapshot = homeSchema.parse(homeSource);
 export const deliverySnapshot = deliverySchema.parse(deliverySource);
 export const monthlySnapshot = monthlySchema.parse(monthlySource);
 
-export const proofDate = "2026-07-29";
-export const proofDateLabel = "July 29, 2026";
+export const proofDate = new Date().toISOString().slice(0, 10);
+export const proofDateLabel = new Date(`${proofDate}T12:00:00Z`).toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC"
+});
 
 export function money(value: number, compact = false) {
   return new Intl.NumberFormat("en-US", {

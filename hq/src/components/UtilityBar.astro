@@ -51,11 +51,4 @@ const freshness = deriveFreshness({ status, verified, freshnessDays });
   </div>
 </header>
 
-<script>
-  const button = document.querySelector<HTMLButtonElement>("[data-screen-share-toggle]");
-  button?.addEventListener("click", () => {
-    const active = document.documentElement.toggleAttribute("data-screen-share");
-    button.setAttribute("aria-pressed", String(active));
-    button.textContent = active ? "Exit screen-share" : "Screen-share mode";
-  });
-</script>
+<script is:inline src="/scripts/screen-share.js" defer></script>

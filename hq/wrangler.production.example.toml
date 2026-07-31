@@ -1,0 +1,8 @@
+# Production example only. Do not deploy until owner cutover approval.
+name = "bpp-hq"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-07-31"
+send_metrics = false
+
+[vars]
+PUBLIC_HQ_ENVIRONMENT = "production"

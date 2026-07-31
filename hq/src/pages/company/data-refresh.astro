@@ -1,0 +1,115 @@
+---
+import HQLayout from "../../layouts/HQLayout.astro";
+import DataState from "../../components/DataState.astro";
+import Section from "../../components/Section.astro";
+import SourceMeta from "../../components/SourceMeta.astro";
+import StatusBadge from "../../components/StatusBadge.astro";
+import refreshRegistry from "../../data/refresh-sources.json";
+
+const refreshApiUrl = import.meta.env.PUBLIC_REFRESH_API_URL ?? "";
+const refreshEnabled = Boolean(refreshApiUrl);
+const page = {
+  title: "Data Refresh Center",
+  description: "BPP HQ scheduled and owner-initiated data refresh architecture, source status, and history controls.",
+  owner: "Daunte",
+  status: "proposed",
+  source: "BPP HQ refresh source registry and Worker contract",
+  verified: refreshRegistry.last_verified,
+  freshnessDays: 30
+};
+---
+<HQLayout {...page}>
+  <header class="page-intro">
+    <div class="page-intro-copy">
+      <p class="eyebrow">Company / Data system</p>
+      <h1>Refresh without losing history</h1>
+      <p>
+        Scheduled pulls and an authenticated Refresh now action use the same validated path.
+        A failure keeps the last-known-good snapshot active instead of blanking the dashboard.
+      </p>
+    </div>
+    <SourceMeta {...page} />
+  </header>
+
+  <Section eyebrow="Operating model" title="One refresh path, two triggers">
+    <div class="refresh-flow" aria-label="BPP HQ data refresh flow">
+      <article><span>01</span><strong>Trigger</strong><p>Cloudflare schedule or approved owner action.</p></article>
+      <b aria-hidden="true">&#8594;</b>
+      <article><span>02</span><strong>Protect</strong><p>Access JWT, exact owner allowlist, and origin check.</p></article>
+      <b aria-hidden="true">&#8594;</b>
+      <article><span>03</span><strong>Validate</strong><p>Source gateway returns a versioned snapshot envelope.</p></article>
+      <b aria-hidden="true">&#8594;</b>
+      <article><span>04</span><strong>Preserve</strong><p>Raw history lands before latest advances.</p></article>
+      <b aria-hidden="true">&#8594;</b>
+      <article><span>05</span><strong>Serve</strong><p>HQ reads latest and can query prior snapshots.</p></article>
+    </div>
+  </Section>
+
+  <Section
+    eyebrow="Source registry"
+    title="Refresh coverage"
+    description="These are the six production data contracts. Connector gateways remain disabled until staging credentials and storage bindings are configured."
+  >
+    <div class="refresh-source-list" data-refresh-api={refreshApiUrl}>
+      {refreshRegistry.sources.map((source) => (
+        <article class="refresh-source" data-refresh-source={source.id}>
+          <div class="refresh-source-heading">
+            <div><h3>{source.label}</h3><p>{source.owns}</p></div>
+            <StatusBadge status={refreshEnabled ? "needs review" : "unavailable"} label={refreshEnabled ? "Verify connector" : "Connector required"} />
+          </div>
+          <dl>
+            <div><dt>Schedule</dt><dd>{source.schedule.replaceAll("-", " ")}</dd></div>
+            <div><dt>Freshness</dt><dd>{source.freshness_hours} hours</dd></div>
+            <div><dt>History</dt><dd>{source.history}</dd></div>
+          </dl>
+          {refreshEnabled ? (
+            <button type="button" class="refresh-button" data-refresh-enabled="true" data-refresh-trigger={source.id}>
+              Refresh now
+            </button>
+          ) : (
+            <button type="button" class="refresh-button" disabled>Connector configuration required</button>
+          )}
+          <p class="refresh-result" data-refresh-result={source.id} aria-live="polite"></p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <Section eyebrow="Failure behavior" title="Last known good stays live">
+    <div class="stack-list">
+      <DataState
+        state="notice"
+        title="Successful refresh"
+        message="The raw payload is archived, snapshot metadata is committed, and the source's latest pointer advances atomically."
+        source="refresh-worker/core.mjs and storage.mjs"
+      />
+      <DataState
+        state="stale"
+        title="Failed refresh"
+        message="The failure is logged, freshness continues aging, and the prior successful snapshot remains available with a visible stale warning."
+        source="BPP HQ last-known-good contract"
+      />
+      <DataState
+        state="unavailable"
+        title="Connector not configured"
+        message="The interface stays disabled. It does not claim a refresh happened and it never asks an AI chat to carry a production credential."
+        source="BPP HQ connector boundary"
+      />
+    </div>
+  </Section>
+
+  <Section eyebrow="Environment safety" title="Staging and production stay separate">
+    <div class="split-layout">
+      <aside class="panel">
+        <p class="panel-title">Private staging</p>
+        <p>Uses staging storage, test connector credentials, and the protected preview site. Failed experiments cannot rewrite production history.</p>
+      </aside>
+      <aside class="panel">
+        <p class="panel-title">Private production</p>
+        <p>Uses separate storage and secrets. Deployment follows an approved merge only after staging tests and owner review.</p>
+      </aside>
+    </div>
+  </Section>
+
+  <script is:inline src="/scripts/refresh-center.js" defer></script>
+</HQLayout>

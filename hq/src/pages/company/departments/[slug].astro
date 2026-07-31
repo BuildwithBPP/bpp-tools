@@ -1,0 +1,97 @@
+---
+import HQLayout from "../../../layouts/HQLayout.astro";
+import ActionLink from "../../../components/ActionLink.astro";
+import Section from "../../../components/Section.astro";
+import SourceMeta from "../../../components/SourceMeta.astro";
+import StatusBadge from "../../../components/StatusBadge.astro";
+import { departments, type Department } from "../../../data/departments";
+
+export function getStaticPaths() {
+  return departments.map((department) => ({ params: { slug: department.slug }, props: { department } }));
+}
+
+interface Props {
+  department: Department;
+}
+
+const { department } = Astro.props;
+const page = {
+  title: department.name,
+  description: `${department.name} ownership, outcomes, KPIs, routines, assets, and dependencies.`,
+  owner: department.dri ?? department.researcher ?? "Not assigned",
+  status: department.status,
+  source: "BPP ownership model and operating context",
+  verified: "2026-07-31",
+  freshnessDays: 30
+};
+---
+<HQLayout {...page}>
+  <header class="page-intro cockpit-intro">
+    <div class="page-intro-copy">
+      <p class="eyebrow">Company / Department cockpit</p>
+      <h1>{department.name}</h1>
+      <p>{department.charter}</p>
+    </div>
+    <SourceMeta {...page} />
+  </header>
+
+  <div class="cockpit-grid">
+    <Section eyebrow="Mandate" title="Charter" data-cockpit-section="charter">
+      <div data-cockpit-section="charter"><p class="cockpit-statement">{department.charter}</p></div>
+    </Section>
+
+    <Section eyebrow="Accountability" title="Ownership">
+      <div class="ownership-card" data-cockpit-section="ownership">
+        <div><span>Directly responsible</span><strong>{department.dri ?? "Not assigned"}</strong></div>
+        <div><span>Collaborators</span><strong>{department.collaborators.join(", ") || "Not assigned"}</strong></div>
+        <StatusBadge status={department.status} />
+        {department.researcher && <p>{department.researcher}</p>}
+      </div>
+    </Section>
+  </div>
+
+  <Section eyebrow="Business result" title="Outcomes owned">
+    <ul class="cockpit-list" data-cockpit-section="outcomes">
+      {department.outcomes.map((outcome) => <li>{outcome}</li>)}
+    </ul>
+  </Section>
+
+  <Section eyebrow="Measurement" title="KPIs">
+    <div data-cockpit-section="kpis">
+      <ul class="cockpit-list cockpit-list-numbered">
+        {department.kpis.map((kpi) => <li>{kpi}</li>)}
+      </ul>
+      <p class="cockpit-note">This cockpit defines what the department watches. Current values remain in Performance, Growth, or Delivery so metrics are not duplicated here.</p>
+    </div>
+  </Section>
+
+  <div class="cockpit-grid">
+    <Section eyebrow="Cadence" title="Recurring routines">
+      <ul class="cockpit-list" data-cockpit-section="routines">
+        {department.routines.map((routine) => <li>{routine}</li>)}
+      </ul>
+    </Section>
+
+    <Section eyebrow="Operating boundary" title="Dependencies">
+      <ul class="cockpit-list" data-cockpit-section="dependencies">
+        {department.dependencies.map((dependency) => <li>{dependency}</li>)}
+      </ul>
+    </Section>
+  </div>
+
+  <Section eyebrow="Authoritative tools" title="Assets and operating views">
+    <div class="action-grid" data-cockpit-section="assets">
+      {department.assets.map((asset) => (
+        <ActionLink href={asset.href} eyebrow="Department asset" title={asset.title} description={asset.description} />
+      ))}
+    </div>
+  </Section>
+
+  <SourceMeta
+    owner={page.owner}
+    status={page.status}
+    source={page.source}
+    verified={page.verified}
+    freshnessDays={page.freshnessDays}
+  />
+</HQLayout>

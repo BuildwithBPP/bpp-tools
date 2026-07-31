@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "last_verified": "2026-07-31",
+  "sources": [
+    {"id":"quickbooks","label":"QuickBooks","owns":"Revenue, expenses, net income, cash, and receivables","schedule":"daily","freshness_hours":24,"history":"Every successful refresh","env_prefix":"QUICKBOOKS","status":"connector-required"},
+    {"id":"hubspot","label":"HubSpot","owns":"Pipeline, stages, deal history, and closed-won activity","schedule":"daily","freshness_hours":24,"history":"Every successful refresh plus quarter-close snapshot","env_prefix":"HUBSPOT","status":"connector-required"},
+    {"id":"monday","label":"Monday.com","owns":"Client delivery, milestones, ownership, sprint work, and capacity","schedule":"daily","freshness_hours":24,"history":"Every successful refresh","env_prefix":"MONDAY","status":"connector-required"},
+    {"id":"metricool","label":"Metricool","owns":"Social publishing and content performance","schedule":"weekly","freshness_hours":168,"history":"Every successful refresh","env_prefix":"METRICOOL","status":"connector-required"},
+    {"id":"github","label":"GitHub","owns":"Repository, build, page, and capability inventory","schedule":"weekly","freshness_hours":168,"history":"Every successful refresh","env_prefix":"GITHUB","status":"connector-required"},
+    {"id":"workspace","label":"BPP Workspace","owns":"Current-week brief, governed context, and operating documents","schedule":"weekly-after-monday-brief","freshness_hours":168,"history":"Every successful refresh","env_prefix":"WORKSPACE","status":"connector-required"}
+  ]
+}

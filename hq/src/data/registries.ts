@@ -3,6 +3,7 @@ import pagesSource from "../../../data/registry/pages.json";
 import offersSource from "../../../data/registry/offers.json";
 import targetsSource from "../../../data/registry/targets.json";
 import repositoriesSource from "../../../data/registry/repositories.json";
+import pageCatalogSource from "./page-catalog.json";
 
 const lifecycleSchema = z.enum([
   "canonical",
@@ -103,10 +104,30 @@ const repositoriesRegistrySchema = z.object({
   repositories: z.array(repositorySchema).length(12)
 });
 
+const pageCatalogRecordSchema = z.object({
+  id: z.string().min(1),
+  title: z.string().min(1),
+  description: z.string().min(1),
+  source_path: z.string().min(1),
+  section: z.enum(["today", "performance", "growth", "delivery", "company", "library"]),
+  owner: z.string().min(1),
+  status: lifecycleSchema,
+  confidentiality: z.string().min(1),
+  migration: z.enum(["native", "carry-forward", "historical", "retire-after-cutover"])
+});
+
+const pageCatalogSchema = z.object({
+  schema_version: z.literal(1),
+  generated_at: z.string().datetime({ offset: true }),
+  source: z.string().min(1),
+  pages: z.array(pageCatalogRecordSchema).min(1)
+});
+
 export const pagesRegistry = pagesRegistrySchema.parse(pagesSource);
 export const offersRegistry = offersRegistrySchema.parse(offersSource);
 export const targetsRegistry = targetsRegistrySchema.parse(targetsSource);
 export const repositoriesRegistry = repositoriesRegistrySchema.parse(repositoriesSource);
+export const pageCatalog = pageCatalogSchema.parse(pageCatalogSource);
 
 const aiJumpstart = offersRegistry.offers.find((offer) => offer.id === "ai-jumpstart");
 if (
@@ -140,3 +161,4 @@ export type PageRecord = z.infer<typeof pageSchema>;
 export type OfferRecord = z.infer<typeof offerSchema>;
 export type TargetRecord = z.infer<typeof targetSchema>;
 export type RepositoryRecord = z.infer<typeof repositorySchema>;
+export type PageCatalogRecord = z.infer<typeof pageCatalogRecordSchema>;

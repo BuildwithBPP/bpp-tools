@@ -8,7 +8,22 @@ import { chromium } from "playwright";
 const hqRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const artifactRoot = resolve(hqRoot, "artifacts");
 const baseURL = process.env.HQ_BASE_URL ?? "http://127.0.0.1:4321";
-const routes = ["/", "/performance/", "/growth/", "/delivery/", "/company/", "/library/"];
+const routes = [
+  "/",
+  "/performance/",
+  "/growth/",
+  "/delivery/",
+  "/company/",
+  "/company/data-refresh/",
+  "/company/technical-landscape/",
+  "/company/departments/sales-business-development/",
+  "/company/departments/marketing-content/",
+  "/company/departments/client-delivery-design/",
+  "/company/departments/finance-operations/",
+  "/company/departments/ai-workforce-tech/",
+  "/company/departments/hr-people-ops/",
+  "/library/"
+];
 const viewports = [
   { name: "desktop", width: 1440, height: 1000 },
   { name: "laptop", width: 1024, height: 900 },

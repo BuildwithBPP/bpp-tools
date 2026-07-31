@@ -1,10 +1,10 @@
 # BPP HQ proof-of-concept implementation report
 
-**Status:** DONE_WITH_CONCERNS
+**Status:** STAGING_READY_WITH_EXTERNAL_ACTIVATION_REMAINING
 
-**Implementation date:** July 29, 2026
+**Implementation date:** July 29-31, 2026
 
-**Branch:** `feat/bpp-hq-poc`
+**Branch:** `codex/protected-preview`
 
 **Application boundary:** `hq/`
 
@@ -17,8 +17,10 @@
 | `/growth/` | Pipeline, approved offers, and commercial priorities | Structured first pass |
 | `/delivery/` | Engagement health, milestones, capacity state, and quality tools | Structured first pass |
 | `/company/` | Plan of Record, strategy, targets, ownership cockpits, cadence, and systems | Detailed first pass |
+| `/company/data-refresh/` | Refresh contracts, schedules, controls, history model, and failure behavior | Production-oriented foundation |
+| `/company/departments/[slug]/` | Six department charters, owners, outcomes, KPIs, routines, assets, and dependencies | Detailed first pass |
 | `/company/technical-landscape/` | Nontechnical repository architecture, system flow, consolidation queue, and client value | Detailed first pass |
-| `/library/` | Registry-driven search, filters, lifecycle, ownership, and source directory | Structured first pass |
+| `/library/` | Complete 72-artifact HTML inventory with search, filters, proposed department, lifecycle, disposition, ownership, confidentiality, and source links | Owner review workspace |
 
 ## Main files
 
@@ -32,7 +34,13 @@
 - `src/components/DocumentHeader.astro`: restrained consulting document treatment
 - `src/components/Section.astro`: reusable content section
 - `src/components/DataState.astro`: stale, unavailable, empty, and notice states
+- `src/components/RevenueTrendChart.astro`: accessible, CSP-safe SVG chart with a zero baseline and visible monthly values
 - `src/data/registries.ts`: build-time Zod validation of the read-only shared registries
+- `src/data/page-catalog.json`: complete catalog of all 72 current and historical HTML artifacts
+- `src/data/page-routing.mjs`: proposed department routing kept separate from current source truth
+- `src/data/departments.ts`: shared definition of the six department cockpits
+- `src/data/refresh-sources.json`: six production refresh contracts and their proposed schedules
+- `refresh-worker/`: authenticated refresh API, connector boundary, D1/R2 history storage, scheduled triggers, and last-known-good behavior
 - `data/registry/repositories.json`: reviewed classification of the 12 repositories visible to the connected BPP GitHub account
 - `src/data/snapshot.ts`: validation of representative performance and delivery snapshots
 - `src/styles/global.css`: BPP tokens, shell, page patterns, focus, responsive rules, screen-share treatment, and print rules
@@ -72,6 +80,18 @@
 - Explained BPP's client differentiation as a four-step method: diagnose, design, build, and adopt.
 - Added the Technical Landscape to Company and the Library registry.
 
+## July 31 production-readiness extension
+
+- Cataloged every HTML artifact in the repository exactly once: 72 total, including current, historical, archived, client-guide, root, and generated-template files.
+- Added an owner-review Library table with filters for HQ section, proposed department, lifecycle, migration decision, owner, and confidentiality. Department assignments are explicitly proposed until the owners approve them. Nothing is deleted.
+- Added six department cockpit routes generated from one shared department definition.
+- Rebuilt the Performance revenue trend as an accessible SVG chart with a true zero baseline, readable month values, and responsive horizontal scrolling when needed.
+- Removed inline scripts and inline styles so the deployed site can enforce `script-src 'self'` without `unsafe-inline`.
+- Added separate staging and production configuration guidance. The current shell identifies itself as private staging, and no production cutover is included.
+- Added the Refresh Center and a separate Worker foundation for QuickBooks, HubSpot, Monday.com, Metricool, GitHub, and the BPP Workspace.
+- Added scheduled and owner-triggered refresh paths that validate data, archive the raw response, preserve the last-known-good snapshot on failure, and expose snapshot history.
+- Kept all connector controls visibly disabled until real staging credentials, D1, R2, same-origin routing, and Cloudflare Access values are configured.
+
 ## Registry boundary
 
 The application imports these shared source files:
@@ -85,12 +105,13 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 
 ## Verification evidence
 
-- `npm run build`: Astro 7.1.6 static build passed. Astro Check reported 0 errors, 0 warnings, and 0 hints across 28 files. Seven HTML routes were generated.
-- `npm run validate`: passed for seven routes, seven page-registry records, and 12 repository records. Utility source/freshness metadata, HR ownership truth, repository classification, the canonical local BPP mark, and the clean canvas invariant are enforced. All internal routes and anchors resolve. No placeholder links, empty links, `javascript:` links, em dashes, or prohibited brand wording were found.
-- Unit tests: 10/10 passed across Cloudflare Access policy and freshness behavior.
+- `npm run build`: Astro 7.1.6 static build passed. Astro Check reported 0 errors, 0 warnings, and 0 hints across 43 files. Fourteen HTML routes were generated.
+- `npm run validate`: passed for 14 routes. Utility source/freshness metadata, HR ownership truth, preview security metadata, CSP rules, and internal routes are enforced. No placeholder links, empty links, `javascript:` links, inline scripts, or inline styles were found.
+- Unit tests: 19/19 passed across Cloudflare Access policy, freshness behavior, exact 72-file catalog coverage, proposed department routing, refresh history, failure recovery, connector-disabled behavior, exact-owner authorization, and daily/weekly schedule routing.
+- Worker packaging: `wrangler deploy --config refresh-worker/wrangler.example.toml --dry-run` passed. The Worker bundle was 54.44 KiB before gzip and no live deployment occurred.
 - Responsive check: the Technical Landscape has no page-level horizontal overflow at 1440 or 390 pixels. The mobile shell and wide repository tables remain usable.
-- Browser QA: passed on all six routes at 1440, 1024, 768, and 390 pixels. No page-level horizontal overflow was detected.
-- Accessibility: automated WCAG 2 A/AA and WCAG 2.1 A/AA checks passed on all six routes at 1440 and 390 pixels.
+- Browser QA: passed on all 14 routes at 1440, 1024, 768, and 390 pixels. No page-level horizontal overflow was detected.
+- Accessibility: automated WCAG 2 A/AA and WCAG 2.1 A/AA checks passed on all 14 routes at 1440 and 390 pixels.
 - Metrics: validation confirms every rendered metric includes a source and timeframe.
 - Dependency audit: `npm audit --omit=dev` reports 0 vulnerabilities after upgrading to Astro 7.1.6 and updating the lockfile.
 - Screenshots:
@@ -98,17 +119,21 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
   - `artifacts/today-mobile.png`
   - `artifacts/company-desktop.png`
   - `artifacts/company-mobile.png`
+  - `artifacts/performance-desktop.png`
+  - `artifacts/library-desktop.png`
+  - `artifacts/data-refresh-desktop.png`
 
 ## Known limitations and concerns
 
 1. Authentication and Cloudflare Access are deployment boundaries. This local static proof of concept does not claim that sign-in, credential rotation, repository privacy, or deny-by-default policy work is complete.
 2. The current-week operating brief in the repository was last generated July 13. Today surfaces that source as stale and does not repeat its client or pipeline details as current truth.
 3. The July 24 delivery tracker contains three clients while the July 29 HQ snapshot reports four active clients. Delivery surfaces the mismatch and withholds a current capacity claim.
-4. The page registry currently contains seven source records. It is enough to prove the directory and filters, but not enough for a complete content migration.
-5. Shared page registry routes still point to current-Hub HTML sources. The standalone Library maps them to owned HQ routes and anchors. A future migration needs canonical HQ route fields or a governed route adapter.
-6. Screen-share mode is a local visual mask, not security. Client-confidential content still requires access controls and separate client spaces.
-7. The browser check is automated. Owner usability review, print preview review, and testing with real authenticated identities remain future acceptance steps.
-8. The repository map records business classification and direction, but it does not authorize deletion. Each cleanup candidate still needs dependency, retention, and client-obligation checks.
+4. The 72-file inventory is complete, but its proposed department assignments and migration decisions still require owner review before they become canonical routing.
+5. Inventory source links still open the current Hub. A future migration will replace them with approved HQ routes or explicit redirects without erasing historical source records.
+6. The refresh service is packaged and tested but intentionally not deployed. It still needs staging D1/R2 resources, Cloudflare Access values, connector gateways, and credentials configured outside the repository.
+7. Screen-share mode is a local visual mask, not security. Client-confidential content still requires access controls and separate client spaces.
+8. The browser check is automated. Owner usability review, print preview review, and testing with Kenny and Eli's authenticated identities remain future acceptance steps.
+9. The repository map records business classification and direction, but it does not authorize deletion. Each cleanup candidate still needs dependency, retention, and client-obligation checks.
 
 ## Owner decisions required
 
@@ -116,6 +141,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 2. Approve the consulting shell, BI treatment, and Company document treatment.
 3. Approve the private HQ and separate external tools boundary.
 4. Assign owners and dates for Tier 0 protection and Tier 1 sign-in work.
-5. Decide whether the shared page registry should add a canonical HQ route while preserving the current-Hub migration source.
-6. Reconcile the active-client count and current sprint source before Delivery becomes an operating dashboard.
-7. Approve the content migration order after the proof-of-concept review.
+5. Review all 72 Library records and approve or change their proposed department and migration decision.
+6. Select the first refresh connector to activate in staging; QuickBooks is the recommended first financial source if API access is available.
+7. Reconcile the active-client count and current sprint source before Delivery becomes an operating dashboard.
+8. Approve the content migration order after the proof-of-concept review.

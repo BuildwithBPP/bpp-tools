@@ -15,6 +15,13 @@ const expectedRoutes = [
   "delivery/index.html",
   "company/index.html",
   "company/technical-landscape/index.html",
+  "company/data-refresh/index.html",
+  "company/departments/sales-business-development/index.html",
+  "company/departments/marketing-content/index.html",
+  "company/departments/client-delivery-design/index.html",
+  "company/departments/finance-operations/index.html",
+  "company/departments/ai-workforce-tech/index.html",
+  "company/departments/hr-people-ops/index.html",
   "library/index.html"
 ];
 
@@ -40,6 +47,8 @@ assert.ok(
   "The built shell is missing the local canonical BPP mark."
 );
 assert.ok(existsSync(join(distRoot, "_headers")), "The Cloudflare security headers file is missing.");
+const securityHeaders = readFileSync(join(distRoot, "_headers"), "utf8");
+assert.ok(!securityHeaders.includes("'unsafe-inline'"), "The protected HQ CSP must not allow inline scripts or styles.");
 assert.ok(existsSync(join(distRoot, "robots.txt")), "The robots exclusion file is missing.");
 assert.ok(
   readFileSync(join(distRoot, "robots.txt"), "utf8").includes("Disallow: /"),
@@ -53,6 +62,8 @@ const pages = readJson(join(registryRoot, "pages.json"));
 const offers = readJson(join(registryRoot, "offers.json"));
 const targets = readJson(join(registryRoot, "targets.json"));
 const repositories = readJson(join(registryRoot, "repositories.json"));
+const pageCatalog = readJson(join(hqRoot, "src", "data", "page-catalog.json"));
+const refreshSources = readJson(join(hqRoot, "src", "data", "refresh-sources.json"));
 
 assert.equal(pages.schema_version, 1, "Unsupported page registry schema.");
 assert.ok(Array.isArray(pages.pages) && pages.pages.length > 0, "Page registry is empty.");
@@ -151,6 +162,13 @@ for (const htmlPath of htmlPaths) {
     html.includes('<meta name="robots" content="noindex, nofollow, noarchive">'),
     `${route} is missing the protected-preview robots directive.`
   );
+  assert.ok(html.includes('data-environment="staging"'), `${route} is missing the explicit staging marker.`);
+  assert.ok(!html.includes("Internal prototype"), `${route} still uses obsolete prototype environment copy.`);
+  assert.ok(
+    !/<script(?![^>]*\bsrc=)[^>]*>/i.test(html),
+    `${route} contains an inline script that requires an unsafe CSP exception.`
+  );
+  assert.ok(!/\sstyle="/i.test(html), `${route} contains an inline style blocked by the HQ CSP.`);
 
   const pageSource = html.match(/data-page-source="([^"]+)"/)?.[1];
   const freshnessState = html.match(/data-freshness-state="([^"]+)"/)?.[1];
@@ -207,15 +225,28 @@ assert.ok(
 );
 
 const performanceHtml = readFileSync(join(distRoot, "performance", "index.html"), "utf8");
+const todayHtml = readFileSync(join(distRoot, "index.html"), "utf8");
 const growthHtml = readFileSync(join(distRoot, "growth", "index.html"), "utf8");
+const libraryHtml = readFileSync(join(distRoot, "library", "index.html"), "utf8");
 const companyHtml = readFileSync(join(distRoot, "company", "index.html"), "utf8");
 const landscapeHtml = readFileSync(join(distRoot, "company", "technical-landscape", "index.html"), "utf8");
+const refreshHtml = readFileSync(join(distRoot, "company", "data-refresh", "index.html"), "utf8");
 const performanceRecord = pages.pages.find((record) => record.id === "performance-dashboard");
 const growthRecord = pages.pages.find((record) => record.id === "seller-start");
 assert.ok(
   performanceHtml.includes(`data-page-source="${performanceRecord.source_of_truth}"`) &&
     performanceHtml.includes(`data-page-verified="${performanceRecord.last_verified}"`),
   "Performance utility metadata must use the page registry record."
+);
+assert.ok(
+  performanceHtml.includes('<svg class="trend-chart"'),
+  "Performance revenue trend must render as a CSP-safe SVG chart."
+);
+assert.ok(todayHtml.includes("Protected preview access is verified"), "Today must show the verified preview access state.");
+assert.ok(!todayHtml.includes("Protection status is not verified"), "Today contains superseded protection copy.");
+assert.ok(
+  !performanceHtml.includes('class="trend-bar" style='),
+  "Performance revenue bars must not depend on inline styles blocked by the preview CSP."
 );
 assert.ok(
   growthHtml.includes(`data-page-source="${growthRecord.source_of_truth}"`) &&
@@ -233,6 +264,43 @@ for (const repository of repositories.repositories) {
     `Technical Landscape does not render repository ${repository.name}.`
   );
 }
+assert.equal(pageCatalog.pages.length, 72, "The HTML review inventory must contain all 72 source artifacts.");
+for (const record of pageCatalog.pages) {
+  assert.ok(
+    libraryHtml.includes(`data-catalog-id="${record.id}"`),
+    `Library does not render migration record ${record.id}.`
+  );
+}
+const departmentSlugs = [
+  "sales-business-development",
+  "marketing-content",
+  "client-delivery-design",
+  "finance-operations",
+  "ai-workforce-tech",
+  "hr-people-ops"
+];
+for (const slug of departmentSlugs) {
+  const href = `/company/departments/${slug}/`;
+  assert.ok(companyHtml.includes(`href="${href}"`), `Company does not link to ${slug}.`);
+  const departmentHtml = readFileSync(routeFile(href), "utf8");
+  for (const section of ["charter", "ownership", "outcomes", "kpis", "routines", "assets", "dependencies"]) {
+    assert.ok(
+      departmentHtml.includes(`data-cockpit-section="${section}"`),
+      `${slug} is missing the ${section} cockpit section.`
+    );
+  }
+}
+for (const source of refreshSources.sources) {
+  assert.ok(refreshHtml.includes(`data-refresh-source="${source.id}"`), `Refresh Center is missing ${source.id}.`);
+}
+assert.ok(
+  refreshHtml.includes("Connector configuration required"),
+  "Staging must show an honest disabled refresh state until connector gateways are configured."
+);
+assert.ok(
+  !refreshHtml.includes("data-refresh-enabled=\"true\""),
+  "A refresh control cannot be enabled without a configured refresh API URL."
+);
 assert.ok(
   landscapeHtml.includes("Twelve repositories does not mean twelve core systems"),
   "Technical Landscape must explain that the inventory is not twelve equal core systems."

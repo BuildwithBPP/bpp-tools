@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "test": "npm run build && node scripts/validate.mjs && node --test scripts/access-policy.test.mjs scripts/freshness.test.mjs",
+    "test": "npm run build && node scripts/validate.mjs && node --test scripts/access-policy.test.mjs scripts/freshness.test.mjs scripts/page-catalog.test.mjs scripts/refresh-service.test.mjs",
     "validate": "node scripts/validate.mjs",
     "screenshots": "node scripts/capture.mjs",
     "verify:access": "node scripts/verify-access.mjs",
@@ -18,6 +18,7 @@
     "@fontsource/montserrat": "^5.3.0",
     "@fontsource/poppins": "^5.3.0",
     "astro": "^7.1.6",
+    "jose": "^6.2.5",
     "zod": "^3.25.76"
   },
   "devDependencies": {
