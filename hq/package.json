@@ -11,6 +11,7 @@
     "validate": "node scripts/validate.mjs",
     "screenshots": "node scripts/capture.mjs",
     "verify:access": "node scripts/verify-access.mjs",
+    "verify:staging": "node scripts/verify-staging-boundary.mjs",
     "deploy:protected-preview": "npm test && npm run verify:access && wrangler pages deploy dist --project-name=bpp-hq-preview --branch=codex/protected-preview"
   },
   "dependencies": {

@@ -6,7 +6,7 @@ compatibility_date = "2026-07-31"
 crons = ["15 10 * * *", "30 16 * * MON"]
 
 [vars]
-ALLOWED_ORIGIN = "https://hq.buildwithbpp.com"
+ALLOWED_ORIGINS = "https://hq.buildwithbpp.com"
 ACCESS_TEAM_DOMAIN = "replace-with-bpp-team-domain"
 OWNER_EMAILS = "replace-with-exact-owner-email-1,replace-with-exact-owner-email-2,replace-with-exact-owner-email-3"
 MONDAY_BOARD_IDS = "replace-with-comma-separated-board-ids"

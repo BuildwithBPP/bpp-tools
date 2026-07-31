@@ -3,6 +3,19 @@ import { verifyOwner } from "./auth.mjs";
 import { runRefresh, sourcesForCron } from "./core.mjs";
 import { D1R2Store } from "./storage.mjs";
 
+export function isAllowedOrigin(origin, configuredOrigins) {
+  if (!origin || !configuredOrigins) return false;
+  const allowed = String(configuredOrigins)
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
+  return allowed.includes(origin);
+}
+
+function configuredOrigins(env) {
+  return env?.ALLOWED_ORIGINS ?? env?.ALLOWED_ORIGIN;
+}
+
 function json(data, status = 200, request, env) {
   const headers = new Headers({
     "Content-Type": "application/json; charset=utf-8",
@@ -10,7 +23,7 @@ function json(data, status = 200, request, env) {
     "X-Content-Type-Options": "nosniff"
   });
   const origin = request?.headers.get("Origin");
-  if (origin && env?.ALLOWED_ORIGIN && origin === env.ALLOWED_ORIGIN) {
+  if (isAllowedOrigin(origin, configuredOrigins(env))) {
     headers.set("Access-Control-Allow-Origin", origin);
     headers.set("Vary", "Origin");
   }
@@ -18,8 +31,9 @@ function json(data, status = 200, request, env) {
 }
 
 function assertOrigin(request, env) {
-  if (!env.ALLOWED_ORIGIN) return;
-  if (request.headers.get("Origin") !== env.ALLOWED_ORIGIN) throw new Error("Request origin is not approved.");
+  if (!isAllowedOrigin(request.headers.get("Origin"), configuredOrigins(env))) {
+    throw new Error("Request origin is not approved.");
+  }
 }
 
 async function handleApi(request, env) {

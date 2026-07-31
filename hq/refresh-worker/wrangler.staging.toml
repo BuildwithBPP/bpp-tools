@@ -6,7 +6,7 @@ compatibility_date = "2026-07-31"
 crons = ["15 10 * * *", "30 16 * * MON"]
 
 [vars]
-ALLOWED_ORIGIN = "https://bpp-hq-preview.pages.dev"
+ALLOWED_ORIGINS = "https://bpp-hq-preview.pages.dev,https://hq-staging.buildwithbpp.com"
 ACCESS_TEAM_DOMAIN = "black-moon-6cec"
 OWNER_EMAILS = "daunte@buildwithbpp.com,kenny@buildwithbpp.com,eli@buildwithbpp.com"
 MONDAY_BOARD_IDS = "18406003425,18406004595,18406004600"

@@ -26,7 +26,17 @@ npm run validate
 npm test
 ```
 
-`npm test` performs a clean type check and 14-route static build, then validates the required routes, shared registries, exact 72-file catalog coverage, proposed routing, internal links and anchors, one-H1 structure, CSP rules, metric source/timeframe labels, and refresh behavior.
+`npm test` performs a clean type check and 14-route static build, then validates the required routes, shared registries, exact 72-file catalog coverage, proposed routing, internal links and anchors, one-H1 structure, CSP rules, metric source/timeframe labels, refresh behavior, and the protected same-origin API boundary.
+
+After a staging deployment, verify that the stable site, generated deployment, Pages API, and direct Worker still fail closed:
+
+```powershell
+$env:HQ_DEPLOYMENT_URL = "https://<deployment-id>.bpp-hq-preview.pages.dev"
+npm run verify:staging
+Remove-Item Env:HQ_DEPLOYMENT_URL
+```
+
+Pull requests that change `hq/` or the shared registries automatically run the same build and tests, audit production dependencies, and package the Worker without deploying it.
 
 Preview the built site:
 
@@ -57,8 +67,9 @@ The browser check exercises every route at 1440, 1024, 768, and 390 pixels. It s
 - `src/data/snapshot.ts` imports existing repository snapshots for representative BI and delivery views. It validates the fields the proof of concept uses.
 - The current Hub HTML, CSS, JavaScript, and Worker remain outside this application and are not copied into the build.
 - Registry source routes describe current-Hub records. Library maps them only to routes and anchors owned by this standalone proof of concept, so it does not create broken links.
-- Cloudflare Access protects the staging deployment. Live data refreshes and audited data writes stay disabled until their separate staging resources and connector credentials are configured.
-- The refresh service foundation lives in `refresh-worker/`. It preserves raw history before advancing latest, validates Cloudflare Access identity for manual refresh, and stays disabled until staging bindings and connector gateways are configured.
+- Cloudflare Access protects the stable staging hostname, generated deployments, and the Pages API route.
+- The refresh service lives in `refresh-worker/`. Staging D1, R2, encryption, schedules, and the Worker are live. Provider-specific refreshes remain disabled until their read-only credentials are authorized locally.
+- `functions/api/[[path]].js` exposes only governed refresh routes and calls the Worker through the private `REFRESH_SERVICE` binding. The browser receives no reusable Worker credential.
 - `src/data/page-catalog.json` inventories all 72 HTML source artifacts with proposed routing and migration decisions for owner review.
 - Local, private staging, and private production use one codebase with separate deployment and data configuration. See `docs/environment-strategy.md`.
 - Canonical Montserrat, Merriweather, and Poppins font files are bundled at build time. The site does not make runtime font or image requests to external hosts.
@@ -72,6 +83,7 @@ The browser check exercises every route at 1440, 1024, 768, and 390 pixels. It s
 - `public/brand/bpp-b-mark.png`: local copy of the canonical transparent BPP mark used in the product shell
 - `scripts/validate.mjs`: static route, registry, content, and link validation
 - `scripts/capture.mjs`: responsive browser checks and screenshot capture
+- `scripts/verify-staging-boundary.mjs`: live fail-closed check for stable, generated, API, and Worker staging URLs
 - `docs/information-architecture.md`: navigation contract, congestion guardrails, content disposition, system boundaries, and adoption triggers
 - `docs/environment-strategy.md`: local, staging, production, and preview-access boundaries
 - `docs/implementation-report.md`: delivered scope, evidence, limitations, and owner decisions

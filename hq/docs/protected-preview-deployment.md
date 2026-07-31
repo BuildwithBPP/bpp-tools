@@ -58,18 +58,32 @@ npm run deploy:protected-preview
 
 The command rebuilds and validates the site, verifies the Access boundary through the Cloudflare API, and only then uploads the generated static files.
 
-## July 31 deployment evidence
+## July 31 current deployment evidence
 
 - Astro check: 0 errors, 0 warnings, 0 hints
-- Static build: 7 routes
-- Validation and focused tests: 10 passed, 0 failed
+- Static build: 14 routes
+- Validation and focused tests: 46 passed, 0 failed
 - Access API verification: Microsoft Entra ID only, three exact owner emails, implicit default deny
-- Upload: 58 files
-- Anonymous request: HTTP 302 to Cloudflare Access, with no site HTML returned
-- Approved-owner request: Daunte's Microsoft identity loaded all seven routes with HTTP 200
+- Pages deployment: `2274b646.bpp-hq-preview.pages.dev` from commit `7ebb9fe`
+- Anonymous stable, generated, and same-origin API requests: HTTP 302 to Cloudflare Access
+- Direct refresh Worker request: HTTP 403
+- Pages Function: governed `/api/*` routes only, using private `REFRESH_SERVICE` binding
+- Staging data resources: D1 `bpp-hq-staging-data` and R2 `bpp-hq-staging-snapshots`
+- Scheduled service: `bpp-hq-refresh-staging` with daily and Monday Cron Triggers
+- Approved-owner request: Daunte's Microsoft identity loaded the protected staging routes with HTTP 200 before the refresh extension
 - Security headers: CSP, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, restrictive referrer and permissions policies
 - Search indexing: `noindex, nofollow, noarchive` on every route
 - Entra credential hygiene: two unused setup secrets deleted; the single active secret expires January 27, 2027
+
+Repeat the live boundary check after every deployment:
+
+```powershell
+$env:HQ_DEPLOYMENT_URL = "https://<deployment-id>.bpp-hq-preview.pages.dev"
+npm run verify:staging
+Remove-Item Env:HQ_DEPLOYMENT_URL
+```
+
+The check requires HTTP 302 for the stable site, stable API, generated site, and generated API. It requires HTTP 403 from the Worker's direct API. Any public HTTP 200 result fails the check.
 
 Kenny and Eli's owner acceptance and one observed non-owner denial remain operational acceptance checks. The exact-policy verifier already rejects extra emails and broad domain, group, everyone, IP, and service-token rules.
 
@@ -80,10 +94,11 @@ After deployment:
 1. An anonymous request redirects to Cloudflare Access and never returns site HTML.
 2. Each approved owner can authenticate with Microsoft 365.
 3. A non-approved identity is denied.
-4. Today, Performance, Growth, Delivery, Company, and Library load after authentication.
+4. Today, Performance, Growth, Delivery, Company, Library, all department cockpits, Technical Landscape, and Data Refresh Center load after authentication.
 5. Static assets load after authentication.
 6. Responses include noindex, no-sniff, deny-framing, restricted-permissions, referrer, and content-security headers.
 7. No write action or browser-delivered credential is present.
+8. The authenticated Refresh Center loads connector status through the Pages service binding.
 
 ## Important limitation
 
