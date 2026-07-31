@@ -69,6 +69,7 @@ The command rebuilds and validates the site, verifies the Access boundary throug
 - Approved-owner request: Daunte's Microsoft identity loaded all seven routes with HTTP 200
 - Security headers: CSP, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, restrictive referrer and permissions policies
 - Search indexing: `noindex, nofollow, noarchive` on every route
+- Entra credential hygiene: two unused setup secrets deleted; the single active secret expires January 27, 2027
 
 Kenny and Eli's owner acceptance and one observed non-owner denial remain operational acceptance checks. The exact-policy verifier already rejects extra emails and broad domain, group, everyone, IP, and service-token rules.
 
