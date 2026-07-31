@@ -1,13 +1,13 @@
 # BPP HQ Protected Preview
 
-**Status:** Cloudflare Pages project created, build validated, content intentionally not deployed  
+**Status:** Deployed and verified behind Cloudflare Access on July 31, 2026
 **Project:** `bpp-hq-preview`  
-**Reserved hostname:** `bpp-hq-preview.pages.dev`  
+**Protected hostname:** `bpp-hq-preview.pages.dev`
 **Current production Hub:** unchanged
 
 ## Safety boundary
 
-The preview remains empty until Cloudflare Access is configured and verified. The current BPP API token can manage Pages but cannot read or change Access applications, policies, or identity providers. This prevents an accidental public upload.
+The preview was deployed only after Cloudflare Access was configured and the repository verifier passed. The BPP API token now has the minimum Pages and Access permissions needed by the guarded command.
 
 The deployment command fails closed unless it can verify all of the following:
 
@@ -57,6 +57,20 @@ npm run deploy:protected-preview
 ```
 
 The command rebuilds and validates the site, verifies the Access boundary through the Cloudflare API, and only then uploads the generated static files.
+
+## July 31 deployment evidence
+
+- Astro check: 0 errors, 0 warnings, 0 hints
+- Static build: 7 routes
+- Validation and focused tests: 10 passed, 0 failed
+- Access API verification: Microsoft Entra ID only, three exact owner emails, implicit default deny
+- Upload: 58 files
+- Anonymous request: HTTP 302 to Cloudflare Access, with no site HTML returned
+- Approved-owner request: Daunte's Microsoft identity loaded all seven routes with HTTP 200
+- Security headers: CSP, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, restrictive referrer and permissions policies
+- Search indexing: `noindex, nofollow, noarchive` on every route
+
+Kenny and Eli's owner acceptance and one observed non-owner denial remain operational acceptance checks. The exact-policy verifier already rejects extra emails and broad domain, group, everyone, IP, and service-token rules.
 
 ## Acceptance tests
 
