@@ -11,7 +11,6 @@ const assignments = {
   "roles-survey": "HR & People Ops",
   "builds": "AI Workforce & Tech",
   "business-plan": "Company-wide",
-  "care-plan-proposal": "Sales & Business Development",
   "case-studies": "Sales & Business Development",
   "content-dashboard": "Marketing & Content",
   "content-pipeline": "Marketing & Content",

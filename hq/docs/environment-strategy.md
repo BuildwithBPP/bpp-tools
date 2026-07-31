@@ -26,7 +26,7 @@ The intended production address is `hq.buildwithbpp.com`. Production remains und
 2. Confirm the stable domain and all preview aliases are protected.
 3. Publish the branch to private staging.
 4. Run automated and visual checks.
-5. Review the 72-file migration inventory and any data changes.
+5. Review the 71-file migration inventory and any data changes.
 6. Merge the approved pull request.
 7. Deploy production from the approved branch.
 8. Keep rollback to the previous production deployment available.

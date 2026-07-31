@@ -26,7 +26,7 @@ npm run validate
 npm test
 ```
 
-`npm test` performs a clean type check and 14-route static build, then validates the required routes, shared registries, exact 72-file catalog coverage, proposed routing, internal links and anchors, one-H1 structure, CSP rules, metric source/timeframe labels, refresh behavior, and the protected same-origin API boundary.
+`npm test` performs a clean type check and 14-route static build, then validates the required routes, shared registries, exact 71-file catalog coverage, proposed routing, internal links and anchors, one-H1 structure, CSP rules, metric source/timeframe labels, refresh behavior, and the protected same-origin API boundary.
 
 After a staging deployment, verify that the stable site, generated deployment, Pages API, and direct Worker still fail closed:
 
@@ -72,7 +72,7 @@ The browser check exercises every route at 1440, 1024, 768, and 390 pixels. It s
 - Cloudflare Access protects the stable staging hostname, generated deployments, and the Pages API route.
 - The refresh service lives in `refresh-worker/`. Staging D1, R2, encryption, schedules, and the Worker are live. Provider-specific refreshes remain disabled until their read-only credentials are authorized locally.
 - `functions/api/[[path]].js` exposes only governed refresh routes and calls the Worker through the private `REFRESH_SERVICE` binding. The browser receives no reusable Worker credential.
-- `src/data/page-catalog.json` inventories all 72 HTML source artifacts with proposed routing and migration decisions for owner review.
+- `src/data/page-catalog.json` inventories all 71 HTML source artifacts with proposed routing and migration decisions for owner review.
 - Local, private staging, and private production use one codebase with separate deployment and data configuration. See `docs/environment-strategy.md`.
 - Canonical Montserrat, Merriweather, and Poppins font files are bundled at build time. The site does not make runtime font or image requests to external hosts.
 

@@ -264,7 +264,7 @@ for (const repository of repositories.repositories) {
     `Technical Landscape does not render repository ${repository.name}.`
   );
 }
-assert.equal(pageCatalog.pages.length, 72, "The HTML review inventory must contain all 72 source artifacts.");
+assert.equal(pageCatalog.pages.length, 71, "The HTML review inventory must contain all 71 source artifacts.");
 for (const record of pageCatalog.pages) {
   assert.ok(
     libraryHtml.includes(`data-catalog-id="${record.id}"`),

@@ -20,7 +20,7 @@
 | `/company/data-refresh/` | Refresh contracts, schedules, controls, history model, and failure behavior | Production-oriented foundation |
 | `/company/departments/[slug]/` | Six department charters, owners, outcomes, KPIs, routines, assets, and dependencies | Detailed first pass |
 | `/company/technical-landscape/` | Nontechnical repository architecture, system flow, consolidation queue, and client value | Detailed first pass |
-| `/library/` | Complete 72-artifact HTML inventory with search, filters, proposed department, lifecycle, disposition, ownership, confidentiality, and source links | Owner review workspace |
+| `/library/` | Complete 71-artifact HTML inventory with search, filters, proposed department, lifecycle, disposition, ownership, confidentiality, and source links | Owner review workspace |
 
 ## Main files
 
@@ -36,7 +36,7 @@
 - `src/components/DataState.astro`: stale, unavailable, empty, and notice states
 - `src/components/RevenueTrendChart.astro`: accessible, CSP-safe SVG chart with a zero baseline and visible monthly values
 - `src/data/registries.ts`: build-time Zod validation of the read-only shared registries
-- `src/data/page-catalog.json`: complete catalog of all 72 current and historical HTML artifacts
+- `src/data/page-catalog.json`: complete catalog of all 71 current and historical HTML artifacts
 - `src/data/page-routing.mjs`: proposed department routing kept separate from current source truth
 - `src/data/departments.ts`: shared definition of the six department cockpits
 - `src/data/refresh-sources.json`: six production refresh contracts and their proposed schedules
@@ -82,7 +82,7 @@
 
 ## July 31 production-readiness extension
 
-- Cataloged every HTML artifact in the repository exactly once: 72 total, including current, historical, archived, client-guide, root, and generated-template files.
+- Cataloged every HTML artifact in the repository exactly once: 71 total, including current, historical, archived, client-guide, root, and generated-template files. The Care Plan v1 draft was removed on `main` and is intentionally absent.
 - Added an owner-review Library table with filters for HQ section, proposed department, lifecycle, migration decision, owner, and confidentiality. Department assignments are explicitly proposed until the owners approve them. Nothing is deleted.
 - Added six department cockpit routes generated from one shared department definition.
 - Rebuilt the Performance revenue trend as an accessible SVG chart with a true zero baseline, readable month values, and responsive horizontal scrolling when needed.
@@ -124,7 +124,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 
 - `npm run build`: Astro 7.1.6 static build passed. Astro Check reported 0 errors, 0 warnings, and 0 hints across 43 files. Fourteen HTML routes were generated.
 - `npm run validate`: passed for 14 routes. Utility source/freshness metadata, HR ownership truth, preview security metadata, CSP rules, and internal routes are enforced. No placeholder links, empty links, `javascript:` links, inline scripts, or inline styles were found.
-- Unit tests: 48/48 passed across Cloudflare Access policy, custom-domain validation, freshness behavior, exact 72-file catalog coverage, proposed department routing, refresh history, failure recovery, source-envelope integrity, connector-disabled behavior, exact-owner authorization, exact multi-host origin policy, schedules, direct adapters, pagination, GitHub App authentication, encrypted credentials, live-status UI behavior, the same-origin Pages proxy, fail-closed staging-boundary checks including an optional custom hostname, and static shell assets.
+- Unit tests: 48/48 passed across Cloudflare Access policy, custom-domain validation, freshness behavior, exact 71-file catalog coverage, proposed department routing, refresh history, failure recovery, source-envelope integrity, connector-disabled behavior, exact-owner authorization, exact multi-host origin policy, schedules, direct adapters, pagination, GitHub App authentication, encrypted credentials, live-status UI behavior, the same-origin Pages proxy, fail-closed staging-boundary checks including an optional custom hostname, and static shell assets.
 - GitHub automation: `.github/workflows/hq-quality.yml` runs the locked install, complete test suite, production dependency audit, and Worker dry-run for relevant pull requests and main-branch changes.
 - Live boundary command: `npm run verify:staging` requires Access redirects for stable and generated Pages routes and a direct 403 from the Worker.
 - Worker deployment: `bpp-hq-refresh-staging` is live with an 88.76 KiB bundle before gzip. The direct API returns 403 anonymously.
@@ -150,7 +150,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 1. Authentication and Cloudflare Access are deployment boundaries. This local static proof of concept does not claim that sign-in, credential rotation, repository privacy, or deny-by-default policy work is complete.
 2. The current-week operating brief in the repository was last generated July 13. Today surfaces that source as stale and does not repeat its client or pipeline details as current truth.
 3. The July 24 delivery tracker contains three clients while the July 29 HQ snapshot reports four active clients. Delivery surfaces the mismatch and withholds a current capacity claim.
-4. The 72-file inventory is complete, but its proposed department assignments and migration decisions still require owner review before they become canonical routing.
+4. The 71-file inventory is complete, but its proposed department assignments and migration decisions still require owner review before they become canonical routing.
 5. Inventory source links still open the current Hub. A future migration will replace them with approved HQ routes or explicit redirects without erasing historical source records.
 6. The refresh service, D1, R2, schedules, Access audience, and same-origin service binding are live in staging. It still needs provider authorizations entered outside the repository and authenticated owner acceptance of the Refresh Center.
 7. Screen-share mode is a local visual mask, not security. Client-confidential content still requires access controls and separate client spaces.
@@ -163,7 +163,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 2. Approve the consulting shell, BI treatment, and Company document treatment.
 3. Approve the private HQ and separate external tools boundary.
 4. Assign owners and dates for Tier 0 protection and Tier 1 sign-in work.
-5. Review all 72 Library records and approve or change their proposed department and migration decision.
+5. Review all 71 Library records and approve or change their proposed department and migration decision.
 6. Authorize each available staging connector through the provider-specific read-only setup. Keep Metricool unavailable if the account does not expose a supported API route.
 7. Reconcile the active-client count and current sprint source before Delivery becomes an operating dashboard.
 8. Approve the content migration order after the proof-of-concept review.

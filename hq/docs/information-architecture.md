@@ -26,7 +26,7 @@ Monday.com continues to own project execution. HubSpot owns the sales pipeline. 
 
 - BPP has three owners and limited administrative capacity.
 - The team primarily updates code and content with AI assistance.
-- The current repository contains 72 HTML artifacts with mixed lifecycle states.
+- The current repository contains 71 HTML artifacts with mixed lifecycle states.
 - Internal content must stay behind authentication.
 - The interface must remain useful before every data connector is automated.
 - BPP should not build a replacement CRM, project manager, accounting system, or document store.
@@ -192,7 +192,7 @@ Guardrails:
 
 ## Content disposition
 
-The 72-artifact catalog is an audit layer. It is not the target navigation.
+The 71-artifact catalog is an audit layer. It is not the target navigation.
 
 ### Carry forward
 
@@ -293,7 +293,7 @@ If a page has no recurring trigger, named owner, or decision purpose, it should 
 ## Trade-offs
 
 - Six stable sections require discipline inside each section, but they provide clearer mental models than department-first navigation.
-- A complete Library can feel dense, but keeping it separate prevents the main interface from becoming a 72-link directory.
+- A complete Library can feel dense, but keeping it separate prevents the main interface from becoming a 71-link directory.
 - Summaries improve speed but can hide nuance, so every signal must link to its source.
 - Static output stays simple and reliable; a narrow Pages Function and private service binding provide live refreshes without turning HQ into a general application server.
 - One reusable architecture helps future client delivery, but BPP should prove adoption internally before adding multi-client software complexity.
