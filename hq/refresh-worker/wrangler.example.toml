@@ -1,4 +1,4 @@
-name = "bpp-hq-refresh-environment"
+name = "bpp-hq-refresh"
 main = "index.mjs"
 compatibility_date = "2026-07-31"
 
@@ -6,7 +6,7 @@ compatibility_date = "2026-07-31"
 crons = ["15 10 * * *", "30 16 * * MON"]
 
 [vars]
-ALLOWED_ORIGINS = "https://hq.buildwithbpp.com"
+ALLOWED_ORIGINS = "https://bpp-hq.pages.dev,https://hq.buildwithbpp.com"
 ACCESS_TEAM_DOMAIN = "replace-with-bpp-team-domain"
 OWNER_EMAILS = "replace-with-exact-owner-email-1,replace-with-exact-owner-email-2,replace-with-exact-owner-email-3"
 MONDAY_BOARD_IDS = "replace-with-comma-separated-board-ids"
@@ -32,7 +32,9 @@ bucket_name = "bpp-hq-snapshots"
 # QUICKBOOKS_REFRESH_TOKEN (bootstrap only; rotations are encrypted in D1)
 # HUBSPOT_ACCESS_TOKEN
 # MONDAY_ACCESS_TOKEN
-# GITHUB_TOKEN
+# GITHUB_APP_ID
+# GITHUB_APP_INSTALLATION_ID
+# GITHUB_APP_PRIVATE_KEY
 #
 # Metricool stays behind a governed gateway until the account's API contract
 # and entitlement are confirmed. Its URL is an ordinary variable; token is a secret.

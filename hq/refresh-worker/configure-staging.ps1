@@ -1,5 +1,6 @@
 param(
-  [string]$Config = (Join-Path $PSScriptRoot "wrangler.staging.toml")
+  [string]$Config = (Join-Path $PSScriptRoot "wrangler.staging.toml"),
+  [switch]$InitializeInfrastructure
 )
 
 $ErrorActionPreference = "Stop"
@@ -32,12 +33,38 @@ function Read-And-PublishSecret {
 Write-Host "BPP HQ staging connector setup"
 Write-Host "Values are sent directly to Cloudflare. They are not written to disk."
 
-$keyBytes = New-Object byte[] 32
-[Security.Cryptography.RandomNumberGenerator]::Fill($keyBytes)
-Publish-SecretValue -Name "CREDENTIAL_ENCRYPTION_KEY" -Value ([Convert]::ToBase64String($keyBytes))
-[Array]::Clear($keyBytes, 0, $keyBytes.Length)
+$existingSecretJson = (& npx wrangler secret list --config $Config | Out-String)
+if ($LASTEXITCODE -ne 0) { throw "Wrangler could not inspect existing staging secrets." }
+$existingSecretNames = @($existingSecretJson | ConvertFrom-Json | ForEach-Object { $_.name })
+$planArgs = @(
+  (Join-Path $PSScriptRoot "..\scripts\staging-secret-plan.mjs"),
+  "--existing",
+  ($existingSecretNames -join ",")
+)
+if ($InitializeInfrastructure) { $planArgs += "--initialize" }
+$secretPlan = (& node @planArgs | Out-String) | ConvertFrom-Json
 
-Read-And-PublishSecret "ACCESS_AUD" "Cloudflare Access application audience"
+if ($secretPlan.missingInfrastructureSecrets.Count -gt 0 -and -not $InitializeInfrastructure) {
+  $missing = $secretPlan.missingInfrastructureSecrets -join ", "
+  throw "Missing infrastructure secrets: $missing. Rerun with -InitializeInfrastructure; existing values are never overwritten."
+}
+
+if ($secretPlan.generateCredentialEncryptionKey) {
+  $keyBytes = New-Object byte[] 32
+  [Security.Cryptography.RandomNumberGenerator]::Fill($keyBytes)
+  Publish-SecretValue -Name "CREDENTIAL_ENCRYPTION_KEY" -Value ([Convert]::ToBase64String($keyBytes))
+  [Array]::Clear($keyBytes, 0, $keyBytes.Length)
+}
+else {
+  Write-Host "Preserved existing CREDENTIAL_ENCRYPTION_KEY."
+}
+
+if ($secretPlan.promptAccessAudience) {
+  Read-And-PublishSecret "ACCESS_AUD" "Cloudflare Access application audience"
+}
+else {
+  Write-Host "Preserved existing ACCESS_AUD."
+}
 
 Read-And-PublishSecret "HUBSPOT_ACCESS_TOKEN" "HubSpot private-app access token"
 Read-And-PublishSecret "MONDAY_ACCESS_TOKEN" "Monday API token"

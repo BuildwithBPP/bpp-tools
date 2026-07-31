@@ -48,6 +48,8 @@ The intended staging hostname is `hq-staging.buildwithbpp.com`. Pages serves the
 7. Build HQ with `PUBLIC_REFRESH_API_URL=.` and deploy staging.
 8. Repeat with separate production resources after owner approval.
 
+`configure-staging.ps1` is safe to rerun for provider additions. It preserves the existing Access audience and credential-encryption key. The `-InitializeInfrastructure` switch creates only missing infrastructure secrets and never rotates an existing value.
+
 The complete owner checklist is in `docs/friday-connector-activation.md`.
 
 Official references: Cloudflare Cron Triggers, D1 bindings, R2 bindings, and Access JWT validation.

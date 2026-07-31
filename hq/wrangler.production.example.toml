@@ -6,3 +6,7 @@ send_metrics = false
 
 [vars]
 PUBLIC_HQ_ENVIRONMENT = "production"
+
+[[services]]
+binding = "REFRESH_SERVICE"
+service = "bpp-hq-refresh"

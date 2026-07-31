@@ -18,7 +18,7 @@ Cloudflare Pages creates separate hash and branch preview aliases. The Pages pro
 
 ## Private production
 
-The intended production address is `hq.buildwithbpp.com`. Production remains undeployed until owner cutover approval. It receives separate storage, secrets, Access configuration, and deployment history. The current Hub stays available until the replacement passes the cutover checklist.
+The initial production address is `bpp-hq.pages.dev` behind its own exact-owner Access application. `hq.buildwithbpp.com` is a later optional alias after an approved DNS migration; it is not a cutover dependency. Production remains undeployed until owner cutover approval. It receives a separate Pages project, Worker, D1 database, R2 bucket, secrets, Access configuration, and deployment history. The current Hub stays available until the replacement passes the cutover checklist.
 
 ## Release path
 

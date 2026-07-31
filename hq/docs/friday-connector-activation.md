@@ -77,6 +77,8 @@ cd "C:\Users\dtben\OneDrive - Business Plans Plus\BPP Operations\BPP Workspace\1
 
 The script prompts locally, uploads values with Wrangler, and does not write them to a file. Leave a prompt blank when that provider is not ready.
 
+The script inspects existing Worker secret names before prompting. It preserves `ACCESS_AUD` and `CREDENTIAL_ENCRYPTION_KEY` during ordinary connector additions, so adding HubSpot or Monday later cannot invalidate encrypted rotating credentials. Use `-InitializeInfrastructure` only for a new environment with missing infrastructure secrets; even then, existing values are never overwritten.
+
 ## Acceptance order
 
 1. Complete: the direct Worker status endpoint returns 403 anonymously, and the Pages API redirects to Access.

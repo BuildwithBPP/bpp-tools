@@ -40,6 +40,8 @@ Set `HQ_CUSTOM_URL=https://hq-staging.buildwithbpp.com` only after `buildwithbpp
 
 Pull requests that change `hq/` or the shared registries automatically run the same build and tests, audit production dependencies, and package the Worker without deploying it.
 
+`npm run verify:production-config` confirms that production can launch on protected `bpp-hq.pages.dev`, uses a separate Worker, D1 database, and R2 bucket, and does not depend on the deferred custom domain.
+
 Preview the built site:
 
 ```sh

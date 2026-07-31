@@ -87,7 +87,8 @@
 - Added six department cockpit routes generated from one shared department definition.
 - Rebuilt the Performance revenue trend as an accessible SVG chart with a true zero baseline, readable month values, and responsive horizontal scrolling when needed.
 - Removed inline scripts and inline styles so the deployed site can enforce `script-src 'self'` without `unsafe-inline`.
-- Added separate staging and production configuration guidance. The current shell identifies itself as private staging, and no production cutover is included.
+- Added separate staging and production configuration guidance. Production now has an executable configuration contract that requires protected `bpp-hq.pages.dev`, a separate Worker, D1 database, and R2 bucket, while treating the custom hostname as optional. The current shell identifies itself as private staging, and no production cutover is included.
+- Hardened the staging credential uploader so later provider additions preserve the existing Access audience and AES-GCM encryption key. New-environment initialization creates only missing infrastructure secrets and cannot silently rotate an existing key.
 - Added the Refresh Center and a separate Worker foundation for QuickBooks, HubSpot, Monday.com, Metricool, GitHub, and the BPP Workspace.
 - Added scheduled and owner-triggered refresh paths that validate data, archive the raw response, preserve the last-known-good snapshot on failure, and expose snapshot history.
 - Kept all connector controls visibly disabled until real staging credentials, D1, R2, same-origin routing, and Cloudflare Access values are configured.
