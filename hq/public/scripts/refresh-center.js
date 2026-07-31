@@ -30,7 +30,10 @@ if (root && api) {
         }
         if (!source.configured) {
           setBadge(source.id, "unavailable", "Setup required");
-          if (evidence) evidence.textContent = "Credentials or account access are not configured.";
+          if (evidence) {
+            evidence.textContent = source.configuration_reason
+              ?? "Credentials or account access are not configured.";
+          }
         } else if (source.latest?.last_error) {
           setBadge(source.id, "at-risk", "Needs attention");
           if (evidence) evidence.textContent = `Last error: ${source.latest.last_error}`;
@@ -61,7 +64,12 @@ if (root && api) {
       const response = await fetch(apiUrl(`/api/refresh/${source}`), { method: "POST", credentials: "include" });
       const payload = await response.json();
       if (!response.ok) throw new Error(payload.error ?? payload.reason ?? "Refresh failed.");
-      if (result) result.textContent = `Refresh complete. ${payload.snapshot?.record_count ?? 0} records preserved.`;
+      const historyResponse = await fetch(apiUrl(`/api/data/${source}/history?limit=1`), { credentials: "include" });
+      const history = historyResponse.ok ? await historyResponse.json() : null;
+      const historyVerified = Boolean(history?.snapshots?.length);
+      if (result) {
+        result.textContent = `Refresh complete. ${payload.snapshot?.record_count ?? 0} records preserved.${historyVerified ? " Historical snapshot verified." : ""}`;
+      }
       await loadStatus();
     } catch (error) {
       if (result) result.textContent = error instanceof Error ? error.message : "Refresh failed.";

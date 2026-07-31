@@ -22,6 +22,8 @@ Scheduled refresh uses the same path with `system:schedule` as the actor. Cloudf
 
 All endpoints are private. Manual refresh also requires an exact allowed origin. No browser-delivered system credential is used.
 
+The protected status response returns only readiness metadata. It names missing configuration fields, never values. QuickBooks is not marked ready until either the one-time bootstrap refresh token or an encrypted rotated token actually exists. After a successful manual pull, the browser verifies that the snapshot is queryable through the history endpoint.
+
 ## Connector boundary
 
 - QuickBooks Online uses OAuth refresh, pulls four accounting reports, and stores rotated refresh tokens encrypted with AES-GCM in D1.

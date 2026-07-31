@@ -36,6 +36,21 @@ function assertOrigin(request, env) {
   }
 }
 
+export async function buildSourceStatus(record, env, latest, credentialStore) {
+  let availableCredentialStore = credentialStore;
+  if (record.id === "quickbooks" && !env.QUICKBOOKS_REFRESH_TOKEN && credentialStore?.readCredential) {
+    const storedRefreshToken = await credentialStore.readCredential("quickbooks", "refresh_token");
+    if (!storedRefreshToken) availableCredentialStore = null;
+  }
+  const adapter = createAdapter(record, env, { credentialStore: availableCredentialStore });
+  return {
+    ...record,
+    configured: adapter.configured,
+    configuration_reason: adapter.configured ? null : adapter.reason,
+    latest: latest ?? null
+  };
+}
+
 async function handleApi(request, env) {
   const actor = await verifyOwner(request, env);
   const url = new URL(request.url);
@@ -44,11 +59,12 @@ async function handleApi(request, env) {
   if (request.method === "GET" && url.pathname === "/api/refresh/status") {
     const stored = await store.listStatus();
     return json({
-      sources: sourceRecords().map((record) => ({
-        ...record,
-        configured: createAdapter(record, env, { credentialStore: store }).configured,
-        latest: stored.find((status) => status.source === record.id) ?? null
-      }))
+      sources: await Promise.all(sourceRecords().map((record) => buildSourceStatus(
+        record,
+        env,
+        stored.find((status) => status.source === record.id),
+        store
+      )))
     }, 200, request, env);
   }
 

@@ -19,3 +19,9 @@ test("Refresh Center shows snapshot success and failure evidence", () => {
   assert.ok(browser.includes("last_success_at"));
   assert.ok(browser.includes("last_error"));
 });
+
+test("Refresh Center explains missing setup and confirms preserved history", () => {
+  assert.ok(browser.includes("configuration_reason"));
+  assert.ok(browser.includes("/history?limit=1"));
+  assert.ok(browser.includes("snapshots?.length"));
+});
