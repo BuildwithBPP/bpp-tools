@@ -90,6 +90,20 @@
       "last_verified": "2026-07-29",
       "freshness_days": 7,
       "external_publish": false
+    },
+    {
+      "id": "technical-landscape",
+      "title": "BPP Technical Landscape",
+      "route": "company/technical-landscape/",
+      "section": "company",
+      "page_type": "architecture-guide",
+      "owner": "Daunte",
+      "status": "live",
+      "confidentiality": "team-internal",
+      "source_of_truth": "data/registry/repositories.json",
+      "last_verified": "2026-07-31",
+      "freshness_days": 30,
+      "external_publish": false
     }
   ]
 }

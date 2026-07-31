@@ -2,6 +2,7 @@ import { z } from "zod";
 import pagesSource from "../../../data/registry/pages.json";
 import offersSource from "../../../data/registry/offers.json";
 import targetsSource from "../../../data/registry/targets.json";
+import repositoriesSource from "../../../data/registry/repositories.json";
 
 const lifecycleSchema = z.enum([
   "canonical",
@@ -70,9 +71,42 @@ const targetsRegistrySchema = z.object({
   targets: z.array(targetSchema).min(1)
 });
 
+const repositorySchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  classification: z.enum([
+    "business-brain",
+    "internal-hq",
+    "ai-capabilities",
+    "public-growth",
+    "governance",
+    "reusable-delivery",
+    "experimental",
+    "client-implementation"
+  ]),
+  importance: z.enum(["essential", "important", "supporting", "limited", "experimental", "client-specific"]),
+  status: z.enum(["active", "deprioritized", "review"]),
+  visibility: z.enum(["public", "private"]),
+  origin: z.enum(["bpp-built", "upstream-fork", "client-project"]),
+  business_owner: z.string().min(1),
+  technical_owner: z.string().min(1),
+  purpose: z.string().min(1),
+  contains: z.array(z.string().min(1)).min(1),
+  client_value: z.string().min(1),
+  next_action: z.string().min(1)
+});
+
+const repositoriesRegistrySchema = z.object({
+  schema_version: z.literal(1),
+  last_verified: z.string().date(),
+  source: z.string().min(1),
+  repositories: z.array(repositorySchema).length(12)
+});
+
 export const pagesRegistry = pagesRegistrySchema.parse(pagesSource);
 export const offersRegistry = offersRegistrySchema.parse(offersSource);
 export const targetsRegistry = targetsRegistrySchema.parse(targetsSource);
+export const repositoriesRegistry = repositoriesRegistrySchema.parse(repositoriesSource);
 
 const aiJumpstart = offersRegistry.offers.find((offer) => offer.id === "ai-jumpstart");
 if (
@@ -105,3 +139,4 @@ if (businessPlan?.status !== "canonical" || strategicPlan?.status !== "historica
 export type PageRecord = z.infer<typeof pageSchema>;
 export type OfferRecord = z.infer<typeof offerSchema>;
 export type TargetRecord = z.infer<typeof targetSchema>;
+export type RepositoryRecord = z.infer<typeof repositorySchema>;

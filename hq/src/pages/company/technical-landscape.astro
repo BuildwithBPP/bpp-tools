@@ -1,0 +1,293 @@
+---
+import HQLayout from "../../layouts/HQLayout.astro";
+import ActionLink from "../../components/ActionLink.astro";
+import DataState from "../../components/DataState.astro";
+import Section from "../../components/Section.astro";
+import SourceMeta from "../../components/SourceMeta.astro";
+import StatusBadge from "../../components/StatusBadge.astro";
+import { pagesRegistry, repositoriesRegistry } from "../../data/registries";
+
+const pageRecord = pagesRegistry.pages.find((record) => record.id === "technical-landscape")!;
+const page = {
+  title: "Technical Landscape",
+  description: "A nontechnical map of BPP repositories, business systems, information flow, and reusable client value.",
+  owner: pageRecord.owner,
+  status: pageRecord.status,
+  source: pageRecord.source_of_truth,
+  verified: pageRecord.last_verified,
+  freshnessDays: pageRecord.freshness_days
+};
+
+const repositories = repositoriesRegistry.repositories;
+const coreIds = ["bpp-workspace", "bpp-tools", "bpp-plugins", "bpp-free-tools", "organization-github"];
+const coreRepositories = coreIds.map((id) => repositories.find((repository) => repository.id === id)!);
+const reviewRepositories = repositories.filter((repository) => repository.status !== "active");
+
+const groupOrder = [
+  ["business-brain", "Business brain"],
+  ["internal-hq", "Internal headquarters"],
+  ["ai-capabilities", "AI capabilities"],
+  ["public-growth", "Public growth"],
+  ["governance", "Governance"],
+  ["reusable-delivery", "Reusable delivery assets"],
+  ["client-implementation", "Client implementations"],
+  ["experimental", "Experimental technology"]
+] as const;
+
+const labels: Record<string, string> = {
+  essential: "Core keep",
+  important: "Important",
+  supporting: "Supporting",
+  limited: "Needs a decision",
+  experimental: "Experiment",
+  "client-specific": "Client-specific"
+};
+
+function repoUrl(name: string) {
+  return `https://github.com/BuildwithBPP/${name}`;
+}
+---
+<HQLayout {...page}>
+  <header class="page-intro landscape-intro">
+    <div class="page-intro-copy">
+      <p class="eyebrow">Company / Operating System</p>
+      <h1>The BPP technical landscape</h1>
+      <p>
+        This is the map behind the map. It explains where BPP knowledge lives, what each
+        repository does, how information reaches HQ, and which pieces can become reusable
+        client systems.
+      </p>
+    </div>
+    <SourceMeta
+      owner={page.owner}
+      status={page.status}
+      source={page.source}
+      verified={page.verified}
+      freshnessDays={page.freshnessDays}
+    />
+  </header>
+
+  <DataState
+    state="notice"
+    title="Twelve repositories does not mean twelve core systems"
+    message="Five repositories form the working foundation. The rest are supporting assets, client implementations, paused tools, or experiments that need an explicit keep, consolidate, or archive decision."
+    source="Connected GitHub organization inventory"
+  />
+
+  <Section
+    id="core"
+    eyebrow="Start here"
+    title="The five repositories the team should understand"
+    description="These form the clearest version of BPP's operating and delivery stack today."
+  >
+    <ol class="core-repo-list">
+      {coreRepositories.map((repository, index) => (
+        <li>
+          <span class="repo-sequence">{String(index + 1).padStart(2, "0")}</span>
+          <div>
+            <div class="repo-title-row">
+              <h3>{repository.name}</h3>
+              <StatusBadge status={repository.importance} label={labels[repository.importance]} />
+            </div>
+            <p>{repository.purpose}</p>
+            <dl class="repo-facts">
+              <div><dt>Think of it as</dt><dd>{[
+                "BPP's filing cabinet and institutional memory",
+                "The front door into BPP's internal operating system",
+                "The shelf of reusable AI workers",
+                "The public diagnostic and lead-generation toolbox",
+                "The rulebook shared by BPP repositories"
+              ][index]}</dd></div>
+              <div><dt>Client value</dt><dd>{repository.client_value}</dd></div>
+            </dl>
+            <a class="text-link" href={repoUrl(repository.name)}>Open repository <span aria-hidden="true">→</span></a>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </Section>
+
+  <Section
+    id="flow"
+    eyebrow="How the pieces connect"
+    title="From business systems to owner decisions"
+    description="The repositories hold code and governed knowledge. QuickBooks, HubSpot, Monday.com, and Microsoft 365 remain the operating systems of record."
+  >
+    <div class="landscape-flow" role="img" aria-label="BPP information flow from business systems through governed knowledge and AI capabilities into BPP HQ, public tools, and client command centers">
+      <article class="flow-layer flow-source">
+        <span class="flow-step">01</span>
+        <h3>Business systems</h3>
+        <p>QuickBooks, HubSpot, Monday.com, Teams, SharePoint, Metricool, and approved client systems.</p>
+        <small>Where transactions and operating activity begin</small>
+      </article>
+      <span class="flow-arrow" aria-hidden="true">→</span>
+      <article class="flow-layer flow-brain">
+        <span class="flow-step">02</span>
+        <h3>Governed knowledge</h3>
+        <p><strong>bpp-workspace</strong> holds context, plans, client source files, operating rules, and durable business memory.</p>
+        <small>Where BPP defines the current answer</small>
+      </article>
+      <span class="flow-arrow" aria-hidden="true">→</span>
+      <article class="flow-layer flow-capability">
+        <span class="flow-step">03</span>
+        <h3>AI capabilities</h3>
+        <p><strong>bpp-plugins</strong> and governed workflows turn repeatable business tasks into tested capabilities.</p>
+        <small>Where knowledge becomes repeatable work</small>
+      </article>
+      <span class="flow-arrow" aria-hidden="true">→</span>
+      <article class="flow-layer flow-experience">
+        <span class="flow-step">04</span>
+        <h3>Decision experiences</h3>
+        <p><strong>bpp-tools</strong> presents the internal HQ. Public tools and client hubs use separate, approved publishing boundaries.</p>
+        <small>Where owners see, decide, and act</small>
+      </article>
+    </div>
+    <div class="boundary-notes">
+      <p><strong>Source rule:</strong> HQ summarizes systems of record. It does not silently replace them.</p>
+      <p><strong>Security rule:</strong> Internal, public, and client information use separate access and publishing boundaries.</p>
+      <p><strong>Reuse rule:</strong> Client-specific facts stay separate from the templates and capabilities BPP reuses.</p>
+    </div>
+  </Section>
+
+  <Section
+    id="inventory"
+    eyebrow="Repository directory"
+    title="What exists and why"
+    description="Each repository is classified by business role, not by how technically impressive it looks."
+  >
+    <div class="repo-groups">
+      {groupOrder.map(([classification, title]) => {
+        const records = repositories.filter((repository) => repository.classification === classification);
+        if (records.length === 0) return null;
+        return (
+          <section class="repo-group">
+            <header>
+              <h3>{title}</h3>
+              <span>{records.length} {records.length === 1 ? "repository" : "repositories"}</span>
+            </header>
+            <div class="repo-table-wrap" role="region" aria-label={`${title} repositories`} tabindex="0">
+              <table class="repo-table">
+                <thead>
+                  <tr>
+                    <th>Repository</th>
+                    <th>Purpose and contents</th>
+                    <th>Ownership</th>
+                    <th>Current direction</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {records.map((repository) => (
+                    <tr>
+                      <td>
+                        <a href={repoUrl(repository.name)}>{repository.name}</a>
+                        <div class="repo-badges">
+                          <StatusBadge status={repository.status} />
+                          <span class="repo-visibility">{repository.visibility}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <p>{repository.purpose}</p>
+                        <small><strong>Contains:</strong> {repository.contains.join(", ")}</small>
+                      </td>
+                      <td>
+                        <small><strong>Business:</strong> {repository.business_owner}</small>
+                        <small><strong>Technical:</strong> {repository.technical_owner}</small>
+                      </td>
+                      <td><p>{repository.next_action}</p></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        );
+      })}
+    </div>
+  </Section>
+
+  <Section
+    id="product"
+    eyebrow="Why this matters for clients"
+    title="BPP is assembling a delivery method, not selling a pile of software"
+    description="The value comes from connecting business diagnosis, operating design, AI workflows, decision visibility, and adoption."
+  >
+    <div class="value-chain">
+      <article>
+        <span>01</span>
+        <h3>Diagnose</h3>
+        <p>Find where the owner, team, information, and follow-up are getting stuck.</p>
+      </article>
+      <article>
+        <span>02</span>
+        <h3>Design</h3>
+        <p>Define ownership, workflows, systems of record, and the decisions the owner needs to make.</p>
+      </article>
+      <article>
+        <span>03</span>
+        <h3>Build</h3>
+        <p>Configure the business systems, AI capabilities, dashboards, documents, and command-center experience.</p>
+      </article>
+      <article>
+        <span>04</span>
+        <h3>Adopt</h3>
+        <p>Train the team, establish refresh rules, and make the headquarters part of recurring operating routines.</p>
+      </article>
+    </div>
+    <div class="decision-box">
+      <strong>The differentiator</strong>
+      <p>
+        Most dashboard projects stop at showing information. BPP connects the source systems,
+        defines who owns the work, adds AI-assisted workflows, and gives the owner one place to
+        understand what is happening and what needs attention next.
+      </p>
+    </div>
+  </Section>
+
+  <Section
+    id="consolidation"
+    eyebrow="Repository cleanup"
+    title="Review, consolidate, or archive"
+    description="No repository should be removed until dependencies, retention needs, client obligations, and useful intellectual property are checked."
+  >
+    <ul class="consolidation-list">
+      {reviewRepositories.map((repository) => (
+        <li>
+          <div class="repo-title-row">
+            <h3>{repository.name}</h3>
+            <StatusBadge status={repository.status} />
+          </div>
+          <p>{repository.next_action}</p>
+        </li>
+      ))}
+    </ul>
+    <SourceMeta
+      owner="Daunte"
+      status="live"
+      source={repositoriesRegistry.source}
+      verified={repositoriesRegistry.last_verified}
+      freshnessDays={30}
+      compact
+    />
+  </Section>
+
+  <Section
+    eyebrow="Continue"
+    title="Use the map"
+    description="Return to Company for governance and ownership, or use Library to find the authoritative record."
+  >
+    <div class="action-grid">
+      <ActionLink
+        href="/company/#systems"
+        eyebrow="Operating model"
+        title="Return to systems and AI"
+        description="See how capabilities are defined independently from one AI model or connector."
+      />
+      <ActionLink
+        href="/library/?type=architecture-guide"
+        eyebrow="Source registry"
+        title="Find architecture records"
+        description="Open the Library with the architecture-guide filter applied."
+      />
+    </div>
+  </Section>
+</HQLayout>

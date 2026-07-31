@@ -14,6 +14,7 @@ const expectedRoutes = [
   "growth/index.html",
   "delivery/index.html",
   "company/index.html",
+  "company/technical-landscape/index.html",
   "library/index.html"
 ];
 
@@ -51,6 +52,7 @@ for (const route of expectedRoutes) {
 const pages = readJson(join(registryRoot, "pages.json"));
 const offers = readJson(join(registryRoot, "offers.json"));
 const targets = readJson(join(registryRoot, "targets.json"));
+const repositories = readJson(join(registryRoot, "repositories.json"));
 
 assert.equal(pages.schema_version, 1, "Unsupported page registry schema.");
 assert.ok(Array.isArray(pages.pages) && pages.pages.length > 0, "Page registry is empty.");
@@ -101,13 +103,38 @@ assert.ok(
   "Canonical 2026 base revenue target is missing."
 );
 
+assert.equal(repositories.schema_version, 1, "Unsupported repository registry schema.");
+assert.equal(repositories.repositories?.length, 12, "The repository inventory must contain 12 reviewed records.");
+const repositoryIds = new Set(repositories.repositories.map((record) => record.id));
+for (const id of ["bpp-workspace", "bpp-tools", "bpp-plugins", "bpp-free-tools", "organization-github"]) {
+  assert.ok(repositoryIds.has(id), `Core repository ${id} is missing from the technical landscape.`);
+}
+assert.equal(
+  repositories.repositories.find((record) => record.id === "bpp-free-tools")?.importance,
+  "essential",
+  "BPP Free Tools must remain classified as an essential repository."
+);
+assert.equal(
+  repositories.repositories.find((record) => record.id === "bpp-webflow-site")?.status,
+  "deprioritized",
+  "The Webflow repository must reflect the current hold state."
+);
+assert.equal(
+  repositories.repositories.find((record) => record.id === "ruflo")?.origin,
+  "upstream-fork",
+  "Ruflo must remain clearly identified as an upstream fork."
+);
+
 const prohibitedHref = /^(?:#|javascript:|about:blank)$/i;
 const placeholderHost = /(?:example\.com|placeholder\.test)/i;
 const htmlPaths = htmlFiles(distRoot);
 const renderedFreshnessStates = [];
 const globalStyles = readFileSync(join(hqRoot, "src", "styles", "global.css"), "utf8");
+const freshnessSource = readFileSync(join(hqRoot, "src", "data", "freshness.ts"), "utf8");
 assert.ok(globalStyles.includes("--canvas: #fcfcfc;"), "The canonical clean canvas token is missing.");
 assert.ok(!globalStyles.includes("background-size: 64px 64px"), "The old graph-paper texture returned.");
+assert.ok(!freshnessSource.includes("proofSnapshot"), "Freshness must not use a frozen proof snapshot.");
+assert.ok(freshnessSource.includes("new Date()"), "Freshness must default to the current build date.");
 
 for (const htmlPath of htmlPaths) {
   const html = readFileSync(htmlPath, "utf8");
@@ -182,6 +209,7 @@ assert.ok(
 const performanceHtml = readFileSync(join(distRoot, "performance", "index.html"), "utf8");
 const growthHtml = readFileSync(join(distRoot, "growth", "index.html"), "utf8");
 const companyHtml = readFileSync(join(distRoot, "company", "index.html"), "utf8");
+const landscapeHtml = readFileSync(join(distRoot, "company", "technical-landscape", "index.html"), "utf8");
 const performanceRecord = pages.pages.find((record) => record.id === "performance-dashboard");
 const growthRecord = pages.pages.find((record) => record.id === "seller-start");
 assert.ok(
@@ -198,6 +226,16 @@ assert.ok(
   companyHtml.includes(`data-page-source="${businessPlan.source_of_truth}"`) &&
     companyHtml.includes(`data-page-verified="${businessPlan.last_verified}"`),
   "Company utility metadata must use the Business Plan registry record."
+);
+for (const repository of repositories.repositories) {
+  assert.ok(
+    landscapeHtml.includes(repository.name),
+    `Technical Landscape does not render repository ${repository.name}.`
+  );
+}
+assert.ok(
+  landscapeHtml.includes("Twelve repositories does not mean twelve core systems"),
+  "Technical Landscape must explain that the inventory is not twelve equal core systems."
 );
 
 const hrStart = companyHtml.indexOf("HR &amp; People Ops");

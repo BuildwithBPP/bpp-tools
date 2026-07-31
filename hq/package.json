@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "test": "npm run build && node scripts/validate.mjs && node --test scripts/access-policy.test.mjs",
+    "test": "npm run build && node scripts/validate.mjs && node --test scripts/access-policy.test.mjs scripts/freshness.test.mjs",
     "validate": "node scripts/validate.mjs",
     "screenshots": "node scripts/capture.mjs",
     "verify:access": "node scripts/verify-access.mjs",
