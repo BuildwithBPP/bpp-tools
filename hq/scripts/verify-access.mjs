@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
-import { validateAccessConfiguration } from "./access-policy.mjs";
+import { resolveProtectedDomain, validateAccessConfiguration } from "./access-policy.mjs";
 
 const projectName = "bpp-hq-preview";
-const protectedDomain = `${projectName}.pages.dev`;
+const protectedDomain = resolveProtectedDomain(
+  process.env.BPP_HQ_PROTECTED_DOMAIN,
+  `${projectName}.pages.dev`
+);
 const apiBase = "https://api.cloudflare.com/client/v4";
 
 const token = process.env.CLOUDFLARE_API_TOKEN;

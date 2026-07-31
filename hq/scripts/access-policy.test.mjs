@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { validateAccessConfiguration } from "./access-policy.mjs";
+import { resolveProtectedDomain, validateAccessConfiguration } from "./access-policy.mjs";
 
 const domain = "bpp-hq-preview.pages.dev";
 const emails = ["owner1@bpp.test", "owner2@bpp.test", "owner3@bpp.test"];
@@ -62,4 +62,10 @@ test("rejects a missing Access application", () => {
   const fixture = validFixture();
   fixture.applications = [];
   assert.throws(() => validateAccessConfiguration(fixture), /No Access application protects/);
+});
+
+test("supports an explicit staging custom domain without accepting a URL or path", () => {
+  assert.equal(resolveProtectedDomain("hq-staging.buildwithbpp.com", domain), "hq-staging.buildwithbpp.com");
+  assert.equal(resolveProtectedDomain("", domain), domain);
+  assert.throws(() => resolveProtectedDomain("https://hq-staging.buildwithbpp.com/api", domain), /hostname/);
 });

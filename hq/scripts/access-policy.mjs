@@ -4,6 +4,16 @@ function policyEmail(rule) {
   return rule?.email?.email?.trim().toLowerCase() ?? null;
 }
 
+export function resolveProtectedDomain(value, fallback) {
+  const domain = String(value ?? "").trim().toLowerCase() || fallback;
+  assert.match(
+    domain,
+    /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/,
+    "The protected domain must be a hostname without a scheme, path, query, or port."
+  );
+  return domain;
+}
+
 export function validateAccessConfiguration({
   applications,
   identityProviders,

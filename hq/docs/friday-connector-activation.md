@@ -25,6 +25,8 @@ The code, D1 schema, encryption, and staging configuration are ready. Provider a
 4. Protect that hostname with a Cloudflare Access self-hosted application using Microsoft Entra ID and exactly these three emails: Daunte, Kenny, and Eli at `@buildwithbpp.com`.
 5. After the Worker deploys, route `hq-staging.buildwithbpp.com/api/*` to `bpp-hq-refresh-staging`. The page and API then share one hostname, login session, and Access audience.
 
+Verify the custom-domain policy with `BPP_HQ_PROTECTED_DOMAIN=hq-staging.buildwithbpp.com` plus the existing Cloudflare verification environment variables before enabling the browser controls.
+
 Do not point the Worker at production storage and do not add a broad `@buildwithbpp.com` allow rule.
 
 ## Provider authorization
