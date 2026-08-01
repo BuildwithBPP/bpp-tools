@@ -38,9 +38,11 @@ Do not point the Worker at production storage and do not add a broad `@buildwith
 
 ### HubSpot
 
-Create a BPP private app named `BPP HQ Read-Only`. Grant exactly one scope: `crm.objects.deals.read`. HubSpot documents that scope for deal retrieval, and it also authorizes the deal-pipeline read used by this adapter. Do not grant deal write, delete, workflow, marketing-send, contact, company, or user-management scopes. Store its token as `HUBSPOT_ACCESS_TOKEN`.
+Create a HubSpot Service Key named `BPP HQ Read-Only` under **Settings > Integrations > Service Keys**. Service Keys are HubSpot's current path for single-account system-to-system reporting and are intended to replace legacy credentials for this use case. Grant exactly one scope: `crm.objects.deals.read`. HubSpot documents that scope for deal retrieval, and it also authorizes the deal-pipeline read used by this adapter. Do not grant deal write, delete, workflow, marketing-send, contact, company, or user-management scopes. Store the key as `HUBSPOT_ACCESS_TOKEN`; the Worker sends it as a Bearer token.
 
 Official scope reference: <https://developers.hubspot.com/docs/api-reference/latest/crm/objects/deals/guide>
+
+Official Service Key reference: <https://developers.hubspot.com/docs/apps/developer-platform/build-apps/authentication/account-service-keys>
 
 Acceptance check: pipelines and all paginated deals load; no source-system record changes.
 

@@ -66,7 +66,7 @@ else {
   Write-Host "Preserved existing ACCESS_AUD."
 }
 
-Read-And-PublishSecret "HUBSPOT_ACCESS_TOKEN" "HubSpot private-app access token"
+Read-And-PublishSecret "HUBSPOT_ACCESS_TOKEN" "HubSpot Service Key"
 Read-And-PublishSecret "MONDAY_ACCESS_TOKEN" "Monday API token"
 
 Read-And-PublishSecret "QUICKBOOKS_CLIENT_ID" "QuickBooks client ID"
