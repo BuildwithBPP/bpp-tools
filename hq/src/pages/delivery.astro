@@ -57,6 +57,7 @@ const lastSprint = deliverySnapshot.velocity.history.at(-1)!;
         timeframe="Tracker generated July 24"
         source="Delivery tracker"
         tone="warning"
+        liveMondayMetric="tracked_client_count"
       />
       <Metric
         label="Open milestones"
@@ -64,6 +65,7 @@ const lastSprint = deliverySnapshot.velocity.history.at(-1)!;
         comparison="Includes review and closeout work"
         timeframe="Tracker generated July 24"
         source="Delivery tracker"
+        liveMondayMetric="open_deliverable_count"
       />
       <Metric
         label="Past-due dates"
@@ -72,6 +74,7 @@ const lastSprint = deliverySnapshot.velocity.history.at(-1)!;
         timeframe={`As evaluated ${proofDateLabel}`}
         source="Delivery tracker due dates"
         tone="negative"
+        liveMondayMetric="overdue_work_count"
       />
       <Metric
         label="Last sprint reliability"
@@ -90,16 +93,20 @@ const lastSprint = deliverySnapshot.velocity.history.at(-1)!;
     title="Milestone and deadline summary"
     description="This view reports tracker state. It does not expose client files or confidential deliverables."
   >
+    <p class="refresh-result" data-monday-bi-status>
+      Showing the July 24 static fallback until a successful Monday.com snapshot exists.
+    </p>
     <div class="table-wrap" data-sensitive role="region" aria-label="Active engagement tracker" tabindex="0">
       <table class="simple-table">
         <thead>
-          <tr><th>Client</th><th>Open work</th><th>Past due</th><th>Last tracker update</th><th>Health</th></tr>
+          <tr><th>Client</th><th>Open deliverables</th><th>Open tasks</th><th>Past due</th><th>Last tracker update</th><th>Health</th></tr>
         </thead>
-        <tbody>
+        <tbody data-monday-client-table>
           {clients.map((client) => (
             <tr>
               <td><strong>{client.client}</strong></td>
               <td>{client.openItems.length}</td>
+              <td>Not in snapshot</td>
               <td>{client.overdueItems.length}</td>
               <td>{client.lastUpdated}</td>
               <td><StatusBadge status={client.overdueItems.length ? "at risk" : "current"} /></td>
@@ -181,4 +188,6 @@ const lastSprint = deliverySnapshot.velocity.history.at(-1)!;
       />
     </div>
   </Section>
+
+  <script is:inline src="/scripts/live-monday-bi.js" defer></script>
 </HQLayout>

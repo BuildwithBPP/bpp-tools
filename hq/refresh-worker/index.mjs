@@ -2,6 +2,8 @@ import { createAdapter, sourceRecord, sourceRecords } from "./adapters.mjs";
 import { verifyOwner } from "./auth.mjs";
 import { runRefresh, sourcesForCron } from "./core.mjs";
 import { summarizeHubSpotSnapshot } from "./hubspot-bi.mjs";
+import { summarizeMondaySnapshot } from "./monday-bi.mjs";
+import { summarizeQuickBooksSnapshot } from "./quickbooks-bi.mjs";
 import { D1R2Store } from "./storage.mjs";
 
 export function isAllowedOrigin(origin, configuredOrigins) {
@@ -79,6 +81,24 @@ async function handleApi(request, env) {
     return json({
       snapshot_id: latest.metadata.id,
       ...summarizeHubSpotSnapshot(latest.data)
+    }, 200, request, env);
+  }
+
+  if (request.method === "GET" && url.pathname === "/api/bi/monday") {
+    const latest = await store.latest("monday");
+    if (!latest) return json({ error: "No successful Monday snapshot exists." }, 404, request, env);
+    return json({
+      snapshot_id: latest.metadata.id,
+      ...summarizeMondaySnapshot(latest.data)
+    }, 200, request, env);
+  }
+
+  if (request.method === "GET" && url.pathname === "/api/bi/quickbooks") {
+    const latest = await store.latest("quickbooks");
+    if (!latest) return json({ error: "No successful QuickBooks snapshot exists." }, 404, request, env);
+    return json({
+      snapshot_id: latest.metadata.id,
+      ...summarizeQuickBooksSnapshot(latest.data)
     }, 200, request, env);
   }
 

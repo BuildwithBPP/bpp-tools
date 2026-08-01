@@ -10,6 +10,10 @@ interface Props {
   tone?: "default" | "positive" | "warning" | "negative";
   status?: string;
   liveHubSpotMetric?: "open_pipeline_amount" | "hot_deal_count";
+  liveMondayMetric?: "tracked_client_count" | "open_deliverable_count" | "overdue_work_count";
+  liveQuickBooksMetric?: "revenue_ytd" | "net_income_ytd" | "cash_available";
+  livePlanTarget?: number;
+  liveBufferTarget?: number;
 }
 
 const {
@@ -20,10 +24,21 @@ const {
   comparison,
   tone = "default",
   status,
-  liveHubSpotMetric
+  liveHubSpotMetric,
+  liveMondayMetric,
+  liveQuickBooksMetric,
+  livePlanTarget,
+  liveBufferTarget
 } = Astro.props;
 ---
-<article class:list={["metric", `metric-${tone}`]} data-live-hubspot-metric={liveHubSpotMetric}>
+<article
+  class:list={["metric", `metric-${tone}`]}
+  data-live-hubspot-metric={liveHubSpotMetric}
+  data-live-monday-metric={liveMondayMetric}
+  data-live-quickbooks-metric={liveQuickBooksMetric}
+  data-live-plan-target={livePlanTarget}
+  data-live-buffer-target={liveBufferTarget}
+>
   <div class="metric-heading">
     <p>{label}</p>
     {status && <StatusBadge status={status} />}

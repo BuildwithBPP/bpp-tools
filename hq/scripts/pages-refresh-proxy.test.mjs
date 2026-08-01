@@ -43,7 +43,9 @@ test("Pages refresh proxy enforces route methods", async () => {
   assert.equal((await onRequest({ request: request("/api/data/monday/latest"), env })).status, 200);
   assert.equal((await onRequest({ request: request("/api/data/monday/history?limit=5"), env })).status, 200);
   assert.equal((await onRequest({ request: request("/api/bi/hubspot"), env })).status, 200);
-  assert.equal(calls, 4);
+  assert.equal((await onRequest({ request: request("/api/bi/monday"), env })).status, 200);
+  assert.equal((await onRequest({ request: request("/api/bi/quickbooks"), env })).status, 200);
+  assert.equal(calls, 6);
 });
 
 test("Pages refresh proxy fails closed when the service binding is missing", async () => {

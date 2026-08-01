@@ -75,6 +75,8 @@ const trendMonths = monthlySnapshot.months.slice(-7).map((key) => ({
         timeframe="2026 YTD through July 29"
         source="QuickBooks cash-basis snapshot"
         tone="warning"
+        liveQuickBooksMetric="revenue_ytd"
+        livePlanTarget={baseTarget.value}
       />
       <Metric
         label="Net income"
@@ -83,6 +85,7 @@ const trendMonths = monthlySnapshot.months.slice(-7).map((key) => ({
         timeframe="2026 YTD through July 29"
         source="QuickBooks cash-basis balance sheet"
         tone="positive"
+        liveQuickBooksMetric="net_income_ytd"
       />
       <Metric
         label="Cash available"
@@ -91,6 +94,8 @@ const trendMonths = monthlySnapshot.months.slice(-7).map((key) => ({
         timeframe="Available balances July 29"
         source="QuickBooks bank feed snapshot"
         tone="warning"
+        liveQuickBooksMetric="cash_available"
+        liveBufferTarget={homeSnapshot.stats.buffer_target}
       />
       <Metric
         label="Open pipeline"
@@ -225,4 +230,5 @@ const trendMonths = monthlySnapshot.months.slice(-7).map((key) => ({
   </Section>
 
   <script is:inline src="/scripts/live-hubspot-bi.js" defer></script>
+  <script is:inline src="/scripts/live-quickbooks-bi.js" defer></script>
 </HQLayout>
