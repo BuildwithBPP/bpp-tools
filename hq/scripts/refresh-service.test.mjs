@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { authorizeManualRefresh, runRefresh, sourcesForCron } from "../refresh-worker/core.mjs";
+import { createRuntimeIdFactory } from "../refresh-worker/index.mjs";
 
 const ownerEmails = ["owner1@bpp.test", "owner2@bpp.test", "owner3@bpp.test"];
 
@@ -138,4 +139,15 @@ test("runs daily and weekly sources only on their assigned schedules", () => {
   assert.deepEqual(sourcesForCron("15 10 * * *", records).map((record) => record.id), ["quickbooks", "hubspot"]);
   assert.deepEqual(sourcesForCron("30 16 * * MON", records).map((record) => record.id), ["metricool", "workspace"]);
   assert.deepEqual(sourcesForCron("0 0 1 * *", records), []);
+});
+
+test("runtime ID generation preserves the crypto method receiver", () => {
+  const cryptoApi = {
+    randomUUID() {
+      assert.equal(this, cryptoApi);
+      return "runtime-id";
+    }
+  };
+
+  assert.equal(createRuntimeIdFactory(cryptoApi)(), "runtime-id");
 });

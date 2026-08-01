@@ -16,6 +16,10 @@ function configuredOrigins(env) {
   return env?.ALLOWED_ORIGINS ?? env?.ALLOWED_ORIGIN;
 }
 
+export function createRuntimeIdFactory(cryptoApi = crypto) {
+  return () => cryptoApi.randomUUID();
+}
+
 function json(data, status = 200, request, env) {
   const headers = new Headers({
     "Content-Type": "application/json; charset=utf-8",
@@ -80,7 +84,7 @@ async function handleApi(request, env) {
       trigger: "manual",
       actor,
       now: new Date(),
-      idFactory: crypto.randomUUID,
+      idFactory: createRuntimeIdFactory(),
       adapter: createAdapter(record, env, { credentialStore: store }),
       store
     });
@@ -124,7 +128,7 @@ export default {
         trigger: "schedule",
         actor: "system:schedule",
         now: new Date(controller.scheduledTime),
-        idFactory: crypto.randomUUID,
+        idFactory: createRuntimeIdFactory(),
         adapter,
         store
       }));
