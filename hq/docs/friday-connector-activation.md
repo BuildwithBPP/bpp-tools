@@ -11,6 +11,7 @@ The code, D1 schema, R2 history bucket, encryption, staging Worker, protected sa
 | Layer | State | Evidence |
 |---|---|---|
 | Direct connector code | Ready | QuickBooks, HubSpot, Monday, GitHub, and Workspace adapter tests pass |
+| Governed BI summaries | HubSpot live; Monday and QuickBooks code deployed, awaiting credentials | `/api/bi/hubspot`, `/api/bi/monday`, and `/api/bi/quickbooks`; Delivery and Performance retain dated fallbacks until the matching snapshot exists |
 | Metricool bridge | Ready, entitlement dependent | Governed gateway contract is tested; account API access still needs confirmation |
 | D1 metadata | Live in staging | `bpp-hq-staging-data`, migrations 0001 and 0002 applied |
 | R2 raw history | Live in staging | `bpp-hq-staging-snapshots`, Standard storage class |
@@ -46,11 +47,15 @@ Official Service Key reference: <https://developers.hubspot.com/docs/apps/develo
 
 Acceptance check: pipelines and all paginated deals load; no source-system record changes.
 
+Current evidence: three manual HubSpot jobs completed with 67 records each. The first daily scheduled job is not yet observed and must remain pending until D1 records `trigger_type=schedule` and `actor=system:schedule`.
+
 ### Monday.com
 
 Monday personal API tokens inherit everything the issuing user can do in the Monday interface. Use a dedicated user restricted to the three governed boards if the plan permits it. Otherwise use Daunte's token for staging, document the inherited access, and replace it with a dedicated integration identity before production. Store it as `MONDAY_ACCESS_TOKEN`.
 
 The governed boards are BPP Operations (`18406003425`), Client Projects (`18406004595`), and Client Overview (`18406004600`). The adapter contains GraphQL queries only, follows item pagination, and includes subitems.
+
+After the first successful pull, `/api/bi/monday` will populate Delivery from the preserved snapshot. Acceptance requires client groups, parent deliverables, and subitems to appear in the summary; the `⭐ NEW CLIENT TEMPLATE` group must not count as an active client.
 
 Official permission reference: <https://developer.monday.com/api-reference/docs/authentication>
 
@@ -59,6 +64,8 @@ Official permission reference: <https://developer.monday.com/api-reference/docs/
 Create or use an Intuit app with `com.intuit.quickbooks.accounting`. Intuit does not offer a narrower read-only accounting OAuth scope, so BPP compensates with a GET-only connector, isolated Worker secret, separate staging data, and no accounting write routes. Authorize the BPP company and capture client ID, client secret, realm ID, and one bootstrap refresh token. The Worker exchanges it for short-lived access tokens and encrypts every rotated refresh token in D1 using AES-GCM.
 
 The initial reports are Profit and Loss, Balance Sheet, Cash Flow, and Aged Receivables on the cash basis. The connector never writes an accounting transaction.
+
+After the first successful pull, `/api/bi/quickbooks` will populate Performance revenue, net income, and cash from the preserved reports. Acceptance requires the displayed totals to match the same QuickBooks reports for the same dates and cash basis. Missing totals remain unavailable rather than inferred.
 
 Official scope reference: <https://developer.intuit.com/app/developer/qbo/docs/learn/scopes>
 

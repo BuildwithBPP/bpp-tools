@@ -244,7 +244,11 @@ For HubSpot, the first governed summary provides:
 
 HubSpot closed-won activity must never be labeled booked revenue. QuickBooks remains the accounting authority. Growth and Performance use a static fallback only when the protected summary cannot load, and they show the snapshot capture time when live values replace that fallback.
 
-The browser receives a derived summary instead of becoming the transformation engine. Raw history stays available to approved owners for inspection and recovery, but routine dashboards request only the smallest useful operating shape.
+For Monday.com, the governed summary uses the Client Projects board and includes both parent deliverables and subitems. It provides tracked clients, open deliverables, open subitem tasks, overdue work, at-risk clients, in-progress work, and a client-level health table. Template groups are excluded. Delivery keeps its dated static fallback until a successful Monday.com snapshot exists.
+
+For QuickBooks, the governed summary reads the preserved cash-basis Profit and Loss, Balance Sheet, Cash Flow, and Aged Receivables reports. It exposes only the executive measures needed by Performance: revenue, gross profit, expenses, net income, cash, and accounts receivable. Missing report totals remain unavailable instead of being inferred. The browser never receives OAuth credentials or performs accounting calculations from raw vendor payloads.
+
+The browser receives a derived summary instead of becoming the transformation engine. Raw history stays available to approved owners for inspection and recovery, but routine dashboards request only the smallest useful operating shape. Each operating page keeps a dated static fallback until its source completes a real governed pull.
 
 ## What not to build now
 

@@ -8,6 +8,18 @@
 
 **Application boundary:** `hq/`
 
+## August 1 connector continuation
+
+- Added governed Monday.com and QuickBooks summary endpoints at `/api/bi/monday` and `/api/bi/quickbooks`.
+- Monday.com now transforms the governed Client Projects board into tracked-client, open-deliverable, open-subitem, overdue-work, at-risk-client, and in-progress measures. Client subitems are treated as first-class work.
+- Delivery automatically replaces its July 24 fallback metrics and client table after the first successful Monday.com snapshot. Until then, the dated fallback remains visible and explicitly labeled.
+- QuickBooks now transforms the four preserved reports into cash-basis revenue, gross profit, expenses, net income, cash, and accounts-receivable measures.
+- Performance automatically replaces its dated revenue, net-income, and cash metrics after the first successful QuickBooks snapshot. QuickBooks remains the accounting authority.
+- Provider credentials remain absent for Monday.com and QuickBooks. The code is active, but neither source is labeled connected before a real successful staging pull.
+- Commit `ae56231` is deployed through Worker version `903351f5-55d9-4f4d-8a47-37a28de8dea5` and Pages deployment `61c87d5a-18aa-416d-86cb-a35dad950281`.
+- Verification: 68/68 tests passed, Astro reported zero diagnostics across 68 files, 14 routes built, browser QA passed at four widths with WCAG A/AA checks, `npm audit --omit=dev` found zero vulnerabilities, GitHub run `30686948006` passed, and stable/generated Pages plus API routes returned 302 while the direct Worker returned 403.
+- The first 10:15 UTC HubSpot scheduled run is still pending observation. At 05:56 UTC, D1 contained only the three verified manual 67-record HubSpot jobs.
+
 ## Delivered routes
 
 | Route | Purpose | Delivery level |
