@@ -302,6 +302,19 @@ assert.ok(
   "Refresh controls must remain disabled while live connector status is being checked."
 );
 assert.ok(
+  refreshHtml.includes("data-hubspot-bi-preview") && refreshHtml.includes("/scripts/live-hubspot-bi.js"),
+  "Refresh Center must expose a readable HubSpot BI preview."
+);
+assert.ok(
+  growthHtml.includes('data-live-hubspot-metric="open_pipeline_amount"') &&
+    performanceHtml.includes('data-live-hubspot-metric="open_pipeline_amount"'),
+  "Growth and Performance must provide live HubSpot metric targets with static fallback."
+);
+assert.ok(
+  growthHtml.includes("data-hubspot-stage-table") && growthHtml.includes("data-hubspot-stage-evidence"),
+  "Growth must expose live HubSpot stage detail and freshness evidence."
+);
+assert.ok(
   landscapeHtml.includes("Twelve repositories does not mean twelve core systems"),
   "Technical Landscape must explain that the inventory is not twelve equal core systems."
 );

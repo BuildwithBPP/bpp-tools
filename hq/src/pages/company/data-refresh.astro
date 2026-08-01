@@ -46,6 +46,29 @@ const page = {
   </Section>
 
   <Section
+    eyebrow="Live data verification"
+    title="See what HubSpot delivered"
+    description="This readable view is calculated from the latest preserved HubSpot snapshot. It does not write back to HubSpot."
+  >
+    <div class="hubspot-bi-preview" data-hubspot-bi-preview>
+      <p class="refresh-result" data-hubspot-bi-status>Loading the latest HubSpot summary.</p>
+      <div class="hubspot-bi-metrics" aria-label="Latest HubSpot measures">
+        <article><span>Open pipeline</span><strong data-hubspot-bi-value="open_pipeline_amount">Unavailable</strong></article>
+        <article><span>Weighted pipeline</span><strong data-hubspot-bi-value="weighted_pipeline_amount">Unavailable</strong></article>
+        <article><span>Open opportunities</span><strong data-hubspot-bi-value="open_deal_count">Unavailable</strong></article>
+        <article><span>Closed won YTD</span><strong data-hubspot-bi-value="closed_won_ytd_amount">Unavailable</strong></article>
+      </div>
+      <div class="table-wrap" role="region" aria-label="Latest open HubSpot deals" tabindex="0">
+        <table class="simple-table hubspot-bi-table">
+          <thead><tr><th>Deal</th><th>Stage</th><th>Amount</th><th>Probability</th><th>Target close</th></tr></thead>
+          <tbody data-hubspot-bi-deals><tr><td colspan="5">Waiting for the protected data service.</td></tr></tbody>
+        </table>
+      </div>
+      <p class="refresh-result">Closed-won is a HubSpot sales measure, not booked QuickBooks revenue.</p>
+    </div>
+  </Section>
+
+  <Section
     eyebrow="Source registry"
     title="Refresh coverage"
     description="These are the six production data contracts. Each control stays disabled until the staging service confirms that source is configured."
@@ -117,4 +140,5 @@ const page = {
   </Section>
 
   <script is:inline src="/scripts/refresh-center.js" defer></script>
+  <script is:inline src="/scripts/live-hubspot-bi.js" defer></script>
 </HQLayout>

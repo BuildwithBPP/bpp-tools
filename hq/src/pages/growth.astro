@@ -1,7 +1,6 @@
 ---
 import HQLayout from "../layouts/HQLayout.astro";
 import ActionLink from "../components/ActionLink.astro";
-import DataState from "../components/DataState.astro";
 import Metric from "../components/Metric.astro";
 import Section from "../components/Section.astro";
 import SourceMeta from "../components/SourceMeta.astro";
@@ -50,16 +49,18 @@ const stageCounts = monthlySnapshot.pipeline.reduce<Record<string, number>>((cou
         label="Open pipeline"
         value={money(homeSnapshot.stats.pipeline_total, true)}
         comparison={`${homeSnapshot.stats.pipeline_count} open opportunities`}
-        timeframe="July 29, 2026"
-        source="HubSpot live snapshot"
+        timeframe="Fallback verified July 29"
+        source="HubSpot static fallback snapshot"
+        liveHubSpotMetric="open_pipeline_amount"
       />
       <Metric
         label="Hot opportunities"
         value={String(homeSnapshot.stats.pipeline_hot_count)}
         comparison="Prioritize next action and close timing"
-        timeframe="July 29, 2026"
-        source="HubSpot live snapshot"
+        timeframe="Fallback verified July 29"
+        source="HubSpot static fallback snapshot"
         tone="warning"
+        liveHubSpotMetric="hot_deal_count"
       />
       <Metric
         label="Proposal stage"
@@ -117,31 +118,30 @@ const stageCounts = monthlySnapshot.pipeline.reduce<Record<string, number>>((cou
 
   <Section
     eyebrow="Funnel health"
-    title="Conversion detail needs one governing snapshot"
-    description="The stage count extract and the newer HubSpot total were generated on different dates."
+    title="Current stage detail"
+    description="The protected HubSpot summary supplies current stage counts and values. The July 24 extract remains visible only as a fallback."
   >
     <div class="split-layout">
       <div class="table-wrap" role="region" aria-label="Pipeline stages" tabindex="0">
         <table class="simple-table">
-          <thead><tr><th>Stage</th><th>Opportunity count</th><th>Owner</th><th>Status</th></tr></thead>
-          <tbody>
+          <thead><tr><th>Stage</th><th>Opportunity count</th><th>Amount</th><th>Probability</th></tr></thead>
+          <tbody data-hubspot-stage-table>
             {Object.entries(stageCounts).map(([stage, count]) => (
               <tr>
                 <td>{stage}</td>
                 <td>{count}</td>
-                <td>Kenny + Eli</td>
-                <td><StatusBadge status="needs review" /></td>
+                <td>Not in fallback</td>
+                <td>Not in fallback</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <DataState
-        state="stale"
-        title="Stage values need refresh"
-        message="The stage extract was generated July 24, while the pipeline total was verified July 29. Counts remain useful for structure, but values should be reconciled before a forecast decision."
-        source="Performance Dashboard dataset and HubSpot snapshot"
-      />
+      <aside class="panel" data-hubspot-stage-evidence>
+        <p class="panel-title">Protected live summary</p>
+        <p data-hubspot-stage-message>The table is showing its July 24 static fallback until the protected HubSpot summary loads.</p>
+        <StatusBadge status="needs review" label="Loading current snapshot" />
+      </aside>
     </div>
   </Section>
 
@@ -191,4 +191,6 @@ const stageCounts = monthlySnapshot.pipeline.reduce<Record<string, number>>((cou
       />
     </div>
   </Section>
+
+  <script is:inline src="/scripts/live-hubspot-bi.js" defer></script>
 </HQLayout>

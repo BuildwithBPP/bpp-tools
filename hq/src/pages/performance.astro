@@ -96,9 +96,10 @@ const trendMonths = monthlySnapshot.months.slice(-7).map((key) => ({
         label="Open pipeline"
         value={money(homeSnapshot.stats.pipeline_total, true)}
         comparison={`${homeSnapshot.stats.pipeline_count} opportunities, ${homeSnapshot.stats.pipeline_hot_count} hot`}
-        timeframe="Open deals on July 29"
-        source="HubSpot live snapshot"
+        timeframe="Fallback verified July 29"
+        source="HubSpot static fallback snapshot"
         tone="default"
+        liveHubSpotMetric="open_pipeline_amount"
       />
     </div>
   </Section>
@@ -222,4 +223,6 @@ const trendMonths = monthlySnapshot.months.slice(-7).map((key) => ({
       />
     </div>
   </Section>
+
+  <script is:inline src="/scripts/live-hubspot-bi.js" defer></script>
 </HQLayout>

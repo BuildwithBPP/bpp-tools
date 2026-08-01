@@ -1,6 +1,7 @@
 const routes = [
   { method: "GET", pattern: /^\/api\/refresh\/status$/ },
   { method: "POST", pattern: /^\/api\/refresh\/[a-z0-9-]+$/ },
+  { method: "GET", pattern: /^\/api\/bi\/hubspot$/ },
   { method: "GET", pattern: /^\/api\/data\/[a-z0-9-]+\/(?:latest|history)$/ }
 ];
 

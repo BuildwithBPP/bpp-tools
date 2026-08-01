@@ -1684,6 +1684,47 @@ tbody tr:last-child td {
   font-size: 0.68rem;
 }
 
+.hubspot-bi-preview {
+  display: grid;
+  gap: 18px;
+}
+
+.hubspot-bi-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--border-strong);
+}
+
+.hubspot-bi-metrics article {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.hubspot-bi-metrics span {
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.hubspot-bi-metrics strong {
+  color: var(--navy-dark);
+  font-size: clamp(1.15rem, 2vw, 1.65rem);
+}
+
+.hubspot-bi-table tbody td:first-child {
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .hubspot-bi-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .site-footer {
   display: flex;
   width: min(100%, var(--content-max));

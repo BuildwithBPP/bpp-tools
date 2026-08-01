@@ -219,6 +219,33 @@ Prioritize only capabilities that shorten a recurring workflow:
 5. Safe scheduled and owner-triggered refresh history
 6. Favorites or recent items only after real usage demonstrates the need
 
+## Live data and BI boundary
+
+Connected source data moves through four distinct steps:
+
+```text
+System of record
+  -> preserved raw snapshot
+      -> validated business summary
+          -> dashboard metric, table, or decision signal
+```
+
+The raw snapshot is evidence and recovery history. It is not the dashboard contract. Each source needs a small transformation that applies documented business rules before a number reaches an operating page.
+
+For HubSpot, the first governed summary provides:
+
+- open pipeline amount and opportunity count
+- probability-weighted pipeline
+- hot opportunities, defined as open stages at 60% probability or higher
+- open stage counts, values, and probabilities
+- closed-won activity for the snapshot year
+- a readable open-deal preview
+- snapshot ID, record count, and capture time
+
+HubSpot closed-won activity must never be labeled booked revenue. QuickBooks remains the accounting authority. Growth and Performance use a static fallback only when the protected summary cannot load, and they show the snapshot capture time when live values replace that fallback.
+
+The browser receives a derived summary instead of becoming the transformation engine. Raw history stays available to approved owners for inspection and recovery, but routine dashboards request only the smallest useful operating shape.
+
 ## What not to build now
 
 - internal social feed

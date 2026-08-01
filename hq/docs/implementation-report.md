@@ -110,6 +110,17 @@
 - Enabled Pages Preview Access and verified anonymous HTTP 302 redirects for the stable site, a generated deployment URL, and the Pages API. The Worker direct URL returns HTTP 403.
 - Verified that GoDaddy CNAME `hq-staging` correctly resolves to the Pages project. The first activation returned public HTTP 200 because Pages Preview Access does not protect the custom hostname. The custom hostname was immediately detached and serves no HQ content. A later authenticated Access API attempt returned error `12130`, `domain does not belong to zone`; the Cloudflare account has no `buildwithbpp.com` zone. Reattachment now requires an explicit authoritative-DNS decision, not another Access-permission attempt.
 
+## August 1 HubSpot BI extension
+
+- Confirmed three successful owner-triggered HubSpot jobs in staging. Jobs `e207b995-f9d2-410c-ab44-506fb22de579`, `63a9784b-a999-4ded-9676-4cc2b072b86e`, and `24722f56-93b7-47b3-93df-2146a8914e2a` each preserved 67 records with no recorded error.
+- Added a governed HubSpot transformation between raw source history and the operating interface. The live 67-record snapshot produces $9,997 open pipeline, $4,498.80 probability-weighted pipeline, five open opportunities, one hot opportunity, and $18,648.25 of 2026 closed-won HubSpot activity across 11 deals.
+- Added protected `GET /api/bi/hubspot`. The endpoint returns derived metrics, open-stage detail, an open-deal preview, snapshot time, and record count. It does not write to HubSpot.
+- Added a readable HubSpot data preview to the Refresh Center. Deal names and amounts participate in Screen-share mode.
+- Growth and Performance now replace supported static pipeline values with the protected summary at runtime while retaining an honest dated fallback if the API is unavailable.
+- Growth stage counts, values, and probabilities now come from the same snapshot as the headline pipeline metrics. The prior July 24 stage extract remains only as fallback content.
+- Kept accounting and CRM meaning separate. HubSpot closed-won activity is labeled as a sales measure and is not presented as booked QuickBooks revenue.
+- Added test-first coverage for summary calculations, invalid envelopes, proxy routing, generated live-metric targets, and stage-detail targets. The live transformation was also executed against the preserved R2 object without printing deal names.
+
 ## Registry boundary
 
 The application imports these shared source files:

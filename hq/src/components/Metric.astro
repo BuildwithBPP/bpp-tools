@@ -9,6 +9,7 @@ interface Props {
   comparison?: string;
   tone?: "default" | "positive" | "warning" | "negative";
   status?: string;
+  liveHubSpotMetric?: "open_pipeline_amount" | "hot_deal_count";
 }
 
 const {
@@ -18,24 +19,25 @@ const {
   source,
   comparison,
   tone = "default",
-  status
+  status,
+  liveHubSpotMetric
 } = Astro.props;
 ---
-<article class:list={["metric", `metric-${tone}`]}>
+<article class:list={["metric", `metric-${tone}`]} data-live-hubspot-metric={liveHubSpotMetric}>
   <div class="metric-heading">
     <p>{label}</p>
     {status && <StatusBadge status={status} />}
   </div>
-  <p class="metric-value">{value}</p>
-  {comparison && <p class="metric-comparison">{comparison}</p>}
+  <p class="metric-value" data-live-value>{value}</p>
+  {comparison && <p class="metric-comparison" data-live-comparison>{comparison}</p>}
   <dl class="metric-context">
     <div>
       <dt>Timeframe</dt>
-      <dd>{timeframe}</dd>
+      <dd data-live-timeframe>{timeframe}</dd>
     </div>
     <div>
       <dt>Source</dt>
-      <dd>{source}</dd>
+      <dd data-live-source>{source}</dd>
     </div>
   </dl>
 </article>

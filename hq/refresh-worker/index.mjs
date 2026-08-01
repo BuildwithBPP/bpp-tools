@@ -1,6 +1,7 @@
 import { createAdapter, sourceRecord, sourceRecords } from "./adapters.mjs";
 import { verifyOwner } from "./auth.mjs";
 import { runRefresh, sourcesForCron } from "./core.mjs";
+import { summarizeHubSpotSnapshot } from "./hubspot-bi.mjs";
 import { D1R2Store } from "./storage.mjs";
 
 export function isAllowedOrigin(origin, configuredOrigins) {
@@ -69,6 +70,15 @@ async function handleApi(request, env) {
         stored.find((status) => status.source === record.id),
         store
       )))
+    }, 200, request, env);
+  }
+
+  if (request.method === "GET" && url.pathname === "/api/bi/hubspot") {
+    const latest = await store.latest("hubspot");
+    if (!latest) return json({ error: "No successful HubSpot snapshot exists." }, 404, request, env);
+    return json({
+      snapshot_id: latest.metadata.id,
+      ...summarizeHubSpotSnapshot(latest.data)
     }, 200, request, env);
   }
 

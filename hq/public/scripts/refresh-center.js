@@ -70,6 +70,7 @@ if (root && api) {
       if (result) {
         result.textContent = `Refresh complete. ${payload.snapshot?.record_count ?? 0} records preserved.${historyVerified ? " Historical snapshot verified." : ""}`;
       }
+      window.dispatchEvent(new CustomEvent("bpp:source-refreshed", { detail: { source } }));
       await loadStatus();
     } catch (error) {
       if (result) result.textContent = error instanceof Error ? error.message : "Refresh failed.";
