@@ -120,6 +120,9 @@
 - Growth stage counts, values, and probabilities now come from the same snapshot as the headline pipeline metrics. The prior July 24 stage extract remains only as fallback content.
 - Kept accounting and CRM meaning separate. HubSpot closed-won activity is labeled as a sales measure and is not presented as booked QuickBooks revenue.
 - Added test-first coverage for summary calculations, invalid envelopes, proxy routing, generated live-metric targets, and stage-detail targets. The live transformation was also executed against the preserved R2 object without printing deal names.
+- Deployed the summary endpoint in Worker version `abca2caa-1610-4f17-9626-4aabf0312c6e` and the consuming Pages build at `355d96b7.bpp-hq-preview.pages.dev` from commit `b62ff29`.
+- Reverified the fail-closed boundary after deployment: stable and generated Pages site/API routes returned HTTP 302 to Access, and the direct Worker returned HTTP 403.
+- GitHub quality run `30683563208` passed on commit `b62ff29`.
 
 ## Registry boundary
 
@@ -136,7 +139,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 
 - `npm run build`: Astro 7.1.6 static build passed. Astro Check reported 0 errors, 0 warnings, and 0 hints across 59 files. Fourteen HTML routes were generated.
 - `npm run validate`: passed for 14 routes. Utility source/freshness metadata, HR ownership truth, preview security metadata, CSP rules, and internal routes are enforced. No placeholder links, empty links, `javascript:` links, inline scripts, or inline styles were found.
-- Unit tests: 61/61 passed across Cloudflare Access policy, custom-domain validation, freshness behavior, exact 71-file catalog coverage, proposed department routing, refresh history, failure recovery, source-envelope integrity, connector-disabled behavior, exact-owner authorization, exact multi-host origin policy, schedules, direct adapters, pagination, GitHub App authentication, encrypted credentials, protected missing-configuration diagnostics, QuickBooks stored-token readiness, Cloudflare runtime method binding, post-refresh history confirmation, the same-origin Pages proxy, fail-closed staging-boundary checks, production environment separation, infrastructure-secret preservation, and static shell assets.
+- Unit tests: 63/63 passed across Cloudflare Access policy, custom-domain validation, freshness behavior, exact 71-file catalog coverage, proposed department routing, refresh history, failure recovery, source-envelope integrity, connector-disabled behavior, exact-owner authorization, exact multi-host origin policy, schedules, direct adapters, pagination, GitHub App authentication, encrypted credentials, protected missing-configuration diagnostics, QuickBooks stored-token readiness, Cloudflare runtime method binding, HubSpot BI calculation, post-refresh history confirmation, the same-origin Pages proxy, fail-closed staging-boundary checks, production environment separation, infrastructure-secret preservation, and static shell assets.
 - GitHub automation: `.github/workflows/hq-quality.yml` runs the locked install, complete test suite, production dependency audit, and Worker dry-run for relevant pull requests and main-branch changes.
 - Live boundary command: `npm run verify:staging` requires Access redirects for stable and generated Pages routes and a direct 403 from the Worker.
 - Staging deployment: Pages deployment `39ab34be` and Worker version `eea846d2-dca8-49e9-8063-800a1da93cfa` are live. The 90.03 KiB Worker accepts only the protected Pages origin; the detached custom hostname is excluded. Stable and generated Pages site/API routes return 302 anonymously, and the direct Worker returns 403.
