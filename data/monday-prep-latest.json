@@ -9,10 +9,10 @@
   "QB": "OK via 7/29 bank-feed refresh (4 days old)",
   "Git": "OK (bpp-tools)"
  },
- "north_star": "Collect, don't sell. $4,685 of committed AR against a $1,656 operating buffer gap - the hole closes without a single new deal.",
+ "north_star": "Collection is done - FA and HALO finals are in. After Lois closes 8/8 committed AR is near zero. The lever is now the $13K Lois phase 2, worth more than the rest of the open pipeline combined.",
  "suggested_move": {
-  "headline": "Confirm and chase the Financial Acuity final invoice (~$2,345, sent 7/10, 23 days out). On its own it clears the buffer gap.",
-  "reasoning": "Operating is $1,993 against a $3,649 two-month buffer. June closed ~$300 negative, the second negative month, while paying $150 guaranteed to each partner. YTD net is $3,349 so the business is profitable on paper - the problem is collection latency, not demand. FA's closeout ran 7/31 and Maxine was happy enough to refer Christine, so this is a follow-up gap, not a relationship one."
+  "headline": "Take the $13,000 Lois phase 2 to Phil. Scope is drafted; MS 6 is the demo that sells it.",
+  "reasoning": "FA and HALO finals collected. Only Lois (~$1,350) remains outstanding and that project closes 8/8, so committed AR goes to roughly zero next week. Meanwhile the confirmed MS 6 strategy - stand up Phil's AIOS and hand him the skills and MCPs - makes the overdue milestone the working proof of concept for a package worth ~3x the original $4,500 engagement. Risk: the whiteboard flags that Lois needs one more team player, starred critical. The build assumes an operator."
  },
  "sprint": {
   "number": null,
@@ -25,19 +25,19 @@
  },
  "top_three": [
   {
-   "title": "Lois MS 6 - 1 AI Automation (OVERDUE 8/1) - blocks Internal Review 8/4, Client Review 8/6, Close Out 8/8",
+   "title": "Lois phase 2 - take the ~$13K scope to Phil (reconcile with the 7/26 drafts first)",
+   "owner": "Eli",
+   "status": "Scoped",
+   "priority": "Critical"
+  },
+  {
+   "title": "Lois MS 6 - stand up Phil's AIOS + skills/MCPs. Overdue 8/1, blocks the 8/4-8/6-8/8 chain, and is the demo that sells phase 2.",
    "owner": "Eli",
    "status": "Overdue",
    "priority": "Critical"
   },
   {
-   "title": "Confirm + collect the FA final invoice (~$2,345, sent 7/10)",
-   "owner": "Daunte",
-   "status": "Open",
-   "priority": "Critical"
-  },
-  {
-   "title": "Assign the Christine referral (from Maxine, 8/1) - no HubSpot deal exists",
+   "title": "Assign the Christine referral (from Maxine) - still no HubSpot deal",
    "owner": "Unassigned",
    "status": "Not started",
    "priority": "High"
@@ -45,48 +45,30 @@
  ],
  "overdue": [
   {
-   "title": "Lois MS 6 - 1 AI Automation",
+   "title": "Lois MS 6 - 1 AI Automation (AIOS + skills/MCPs)",
    "owner": "Eli",
    "due_date": "2026-08-01",
    "days_overdue": 1
-  },
-  {
-   "title": "Sipsies Lemonade - close date passed, still in Negotiation",
-   "owner": "Eli",
-   "due_date": "2026-07-14",
-   "days_overdue": 19
-  },
-  {
-   "title": "All State - close date passed, still Qualified & Working, unpriced",
-   "owner": "Kenny",
-   "due_date": "2026-07-16",
-   "days_overdue": 17
   }
  ],
- "overdue_note": "HALO's 8/8 Close Out / Referral Ask / Project Review rows on Client Delivery are STALE - that closeout already happened. Close them so the board stops lying.",
+ "overdue_note": "All State and Sipsies marked Deal Lost 8/2. HALO delivery is complete - Eli is closing the stale Monday.com rows. The HALO RETAINER deal stays open and is unaffected.",
  "clients_at_risk": [
   {
-   "name": "Financial Acuity",
-   "flag_reason": "~$2,345 invoiced 7/10 and still showing uncollected at the 7/29 pull - 23 days. Nearest cash in the company and the single biggest lever on the buffer gap. Closeout meeting ran 7/31; Maxine referred Christine, so the relationship is healthy.",
-   "owner": "Daunte",
-   "close_target": "This week - confirm collected, else book the call"
-  },
-  {
    "name": "Lois Marketing",
-   "flag_reason": "MS 6 overdue since 8/1 with three dated milestones stacked behind it (8/4, 8/6, 8/8). If MS 6 slips past Tuesday the whole closeout chain moves.",
+   "flag_reason": "MS 6 overdue since 8/1 with three dated milestones stacked behind it. It is also the phase-2 proof of concept, so shipping something throwaway costs a ~$13K opportunity, not just a milestone.",
    "owner": "Eli",
    "close_target": "MS 6 Mon/Tue, closeout Sat 8/8"
   }
  ],
  "cold_deals": [],
  "pipeline": {
-  "total": 9997,
-  "count": 5,
+  "total": 7497,
+  "count": 2,
   "hot_count": 2,
   "hot_value": 7497,
-  "cold_count": 2,
-  "cold_value": 2500,
-  "note": "Down from $12,497 on 7/29 - the entire delta is Legacy B ($2,500) moving to Closed Won 7/30. Two proposals carry close dates inside this week ($7,497 combined). Two deals are stale past their close dates and are inflating the total.",
+  "cold_count": 0,
+  "cold_value": 0,
+  "note": "Down from $9,997 - All State and Sipsies marked lost 8/2 (duds, not forecast). Both remaining deals close inside this week. The $13K Lois phase 2 is NOT yet in HubSpot and is larger than both combined.",
   "deals": [
    {
     "name": "Flava Meets Fusion",
@@ -102,63 +84,23 @@
     "stage": "Proposal Sent",
     "amount": 3000,
     "close_date": "2026-08-10",
-    "note": "Raise it in person Wed 8/5 at the HALO session."
-   },
-   {
-    "name": "Sipsies Lemonade - Custom Package",
-    "owner": "Eli",
-    "stage": "Negotiation",
-    "amount": 2500,
-    "close_date": "2026-07-14",
-    "note": "19 days past close date. Client says the money isn't there. Objection call targeted Tue 8/11. Close it or kill it."
-   },
-   {
-    "name": "Aurelia Tech",
-    "owner": "Kenny",
-    "stage": "Lead Captured",
-    "amount": null,
-    "close_date": "2026-08-09",
-    "note": "Unpriced."
-   },
-   {
-    "name": "All State",
-    "owner": "Kenny",
-    "stage": "Qualified & Working",
-    "amount": null,
-    "close_date": "2026-07-16",
-    "note": "17 days past close date, still unpriced."
+    "note": "Raise in person Wed 8/5. HALO delivery being marked done on Monday.com does NOT close this - it is a live opportunity."
    }
   ]
  },
  "cash": {
-  "operating": 1993,
-  "savings": 3625,
-  "rodney_envelope": 0,
-  "total": 5618,
-  "buffer_target": 3649,
-  "buffer_gap": -1656,
-  "as_of_date": "2026-07-29",
-  "source": "Live QuickBooks bank feed (available balances), carried in hub-home-stats.json. The monthly snapshot EMAIL is 34 days stale; this number is not.",
-  "savings_pct_to_phase": 72
+  "as_of_date": "2026-08-02",
+  "source": "DAUNTE OWNS THIS NUMBER - he brings live cash and collected-this-week to the meeting. Do not read a stale dashboard figure.",
+  "note": "Prior dashboard values (7/29 bank feed: $5,618 total, operating $1,993) are superseded and should not be quoted as current."
  },
  "ar_layers": {
-  "committed_total": 4685,
-  "note": "FA ~$2,345 (invoiced 7/10) + HALO ~$990 (closeout) + Lois ~$1,350 (final). FA alone exceeds the $1,656 buffer gap.",
+  "committed_total": 1350,
+  "note": "Financial Acuity and HALO finals are COLLECTED (confirmed by Eli 2026-08-02). Only Lois remains, and it closes 8/8.",
   "layers": [
-   {
-    "name": "FA final invoice",
-    "amount": 2345,
-    "status": "Invoiced 7/10, collection unconfirmed"
-   },
-   {
-    "name": "HALO final",
-    "amount": 990,
-    "status": "Collectible at closeout"
-   },
    {
     "name": "Lois final",
     "amount": 1350,
-    "status": "Lands at 8/8 closeout"
+    "status": "Outstanding - lands at the 8/8 closeout"
    }
   ]
  },
@@ -185,7 +127,7 @@
  "drift_signals": [
   "The scheduled claude.ai routine (trig_01JtFzLRJ2pPV9nnq5kHevMH, declared live 2026-07-26, Sundays ~7:53pm ET) has NEVER delivered a brief. 14-day search of erfcampbell0704@gmail.com and eli@buildwithbpp.com returns nothing under any sender or subject.",
   "Last markdown brief on disk: 2026-07-13. Last monday-prep-latest.json: 2026-07-13. The prep chain has been dark for three weeks (7/20 and 7/27 produced nothing).",
-  "current-priorities.md carries Financial Acuity as 'PAID / closed'; the 7/29 hub data shows ~$2,345 invoiced and awaiting payment. One of them is wrong.",
+  "RESOLVED 8/2: Financial Acuity and HALO finals are collected. Earlier briefs carrying FA as outstanding AR were wrong. Daunte owns the live financial numbers going forward - the brief should not compute them.",
   "Meeting format changed 2026-08-02: Monday moves to Scoreboard -> Verdict -> 3 Decisions -> standup round -> blockers-become-meetings -> commitments. Every blocker must exit as a calendar invite."
  ],
  "prior_decisions": [],
@@ -199,26 +141,14 @@
  },
  "ar_scenarios": [
   {
-   "name": "FA final collects",
-   "receivables_in": 2345,
-   "ending_operating": 4338,
+   "name": "Lois final collects at 8/8 closeout",
+   "receivables_in": 1350,
+   "ending_operating": null,
    "highlight": true,
-   "note": "Invoiced 7/10, 23 days out. Clears the $1,656 buffer gap on its own."
-  },
-  {
-   "name": "+ Sipsies closes",
-   "receivables_in": 4845,
-   "ending_operating": 6838,
-   "note": "Objection call targeted Tue 8/11. Client says the money isn't there - may need a smaller scope."
-  },
-  {
-   "name": "+ HALO + Lois finals",
-   "receivables_in": 7185,
-   "ending_operating": 9178,
-   "note": "HALO ~$990 and Lois ~$1,350 land as those projects close (Lois closeout 8/8)."
+   "note": "The last committed receivable. After this, AR is effectively zero until new work closes."
   }
  ],
- "capacity_alert": "Eli carries every dated delivery milestone this week (Lois MS 6 overdue, plus Internal 8/4, Client 8/6, Close Out 8/8) on top of a full-time contract. Legacy B kickoff and the HALO in-person are both weeknights. This is the concentration risk on the page.",
+ "capacity_alert": "Eli carries every dated delivery milestone this week plus a full-time contract, AND owns the two biggest revenue opportunities (Lois phase 2 ~$13K, HALO retainer $3K). That is the concentration risk on the page.",
  "capacity_per_owner": [
   {
    "owner": "Eli",
@@ -241,9 +171,9 @@
    "note": "Warm intros only, by prior decision."
   },
   {
-   "owner": "Josue / Sway",
+   "owner": "Sway (Josue Batista)",
    "load": "Onboarding",
-   "note": "Credentials live 7/23; sales skill unfinished, training unconfirmed."
+   "note": "Same person - one seat, not two. Credentials live 7/23; sales skill unfinished, training unconfirmed."
   }
  ],
  "operating_norms": [
@@ -261,6 +191,7 @@
  "parking_lot": [
   "BPP Claude Partner Network application - scoping only, needs Daunte sign-off",
   "Case studies + case-study page - likely a Partner Network prerequisite",
-  "Fix the bpp-monday-prep scheduled routine (declared live 7/26, has never delivered)"
+  "Fix the bpp-monday-prep scheduled routine (declared live 7/26, has never delivered)",
+  "Lois: confirm the second figure on the $13K whiteboard, and whether Lois or BPP supplies the additional team player"
  ]
 }
