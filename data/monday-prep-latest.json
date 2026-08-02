@@ -162,7 +162,7 @@
    }
   ]
  },
- "carry_forward": "No monday-recap file exists for the prior week - the recap chain is broken along with the prep chain. Last markdown brief on disk is 2026-06-15.",
+ "carry_forward": "No monday-recap file exists for the prior week - the recap chain is broken along with the prep chain. Last brief produced: 2026-07-13. Nothing for 7/20 or 7/27.",
  "shipped_last_week": [
   "Legacy B. Studio - Website CLOSED WON ($2,500, 7/30). Kickoff Mon 8/3 6:30 PM.",
   "HALO business plan delivered + project closeout complete",
@@ -184,7 +184,7 @@
  },
  "drift_signals": [
   "The scheduled claude.ai routine (trig_01JtFzLRJ2pPV9nnq5kHevMH, declared live 2026-07-26, Sundays ~7:53pm ET) has NEVER delivered a brief. 14-day search of erfcampbell0704@gmail.com and eli@buildwithbpp.com returns nothing under any sender or subject.",
-  "Last markdown brief on disk: 2026-06-15. Last monday-prep-latest.json: 2026-07-13. The prep chain has been degrading for seven weeks.",
+  "Last markdown brief on disk: 2026-07-13. Last monday-prep-latest.json: 2026-07-13. The prep chain has been dark for three weeks (7/20 and 7/27 produced nothing).",
   "current-priorities.md carries Financial Acuity as 'PAID / closed'; the 7/29 hub data shows ~$2,345 invoiced and awaiting payment. One of them is wrong.",
   "Meeting format changed 2026-08-02: Monday moves to Scoreboard -> Verdict -> 3 Decisions -> standup round -> blockers-become-meetings -> commitments. Every blocker must exit as a calendar invite."
  ],
@@ -261,6 +261,6 @@
  "parking_lot": [
   "BPP Claude Partner Network application - scoping only, needs Daunte sign-off",
   "Case studies + case-study page - likely a Partner Network prerequisite",
-  "Fix the bpp-monday-prep scheduled routine (has never delivered)"
+  "Fix the bpp-monday-prep scheduled routine (declared live 7/26, has never delivered)"
  ]
 }
