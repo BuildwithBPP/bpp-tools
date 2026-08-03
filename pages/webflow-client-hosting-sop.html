@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webflow Client Hosting SOP - BPP</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771; --navy-dark: #033359; --blue: #5987A5; --blue-mid: #3a6d8f;
+    --gold: #F1BE5C; --gold-dark: #d4a43e; --bg: #edf1f5; --card-bg: #ffffff;
+    --card-border: #c8d3dc; --gray: #4a4a4a; --gray-light: #6B6B6B;
+    --green: #1a9e5c; --amber: #d4920a; --red: #c0392b;
+  }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #14222f; min-height: 100vh; }
+
+  .header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(4,71,113,0.3); flex-wrap: wrap; gap: 14px; }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .header-logo { width: 44px; height: 44px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: var(--navy-dark); box-shadow: 0 2px 8px rgba(241,190,92,0.4); }
+  .header-text { color: white; }
+  .header-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; }
+  .header-sub { font-size: 11px; font-weight: 300; opacity: 0.7; margin-top: 3px; }
+
+  .page { max-width: 920px; margin: 0 auto; padding: 32px 24px 64px; }
+  .back-link { display: inline-block; font-size: 11px; color: var(--blue-mid); text-decoration: none; margin-bottom: 18px; font-weight: 600; }
+  .back-link:hover { color: var(--navy); }
+
+  .rule { background: linear-gradient(135deg, var(--navy-dark), var(--navy)); color: #fff; border-radius: 10px; padding: 24px 28px; margin-bottom: 22px; box-shadow: 0 3px 14px rgba(4,71,113,0.25); }
+  .rule-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .rule-text { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 700; line-height: 1.45; }
+  .rule-sub { font-size: 12px; line-height: 1.6; opacity: 0.82; margin-top: 10px; }
+
+  h2 { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); margin: 30px 0 12px; padding-bottom: 8px; border-bottom: 2px solid var(--gold); }
+  .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 20px 24px; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  p { font-size: 13px; line-height: 1.65; color: var(--gray); margin-bottom: 10px; }
+  p:last-child { margin-bottom: 0; }
+  b, strong { color: #14222f; font-weight: 700; }
+  code { background: #eef2f6; border: 1px solid #dde5ec; border-radius: 4px; padding: 1px 6px; font-size: 12px; font-family: ui-monospace, Menlo, monospace; color: var(--navy); }
+
+  .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 520px; }
+  th { background: var(--navy); color: #fff; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-align: left; padding: 10px 14px; letter-spacing: 0.03em; }
+  td { padding: 11px 14px; border-bottom: 1px solid #e6ecf1; color: var(--gray); line-height: 1.55; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: #f7fafc; }
+
+  ol.steps { list-style: none; counter-reset: s; }
+  ol.steps li { counter-increment: s; position: relative; padding-left: 40px; margin-bottom: 14px; font-size: 13px; line-height: 1.6; color: var(--gray); }
+  ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 7px; background: var(--navy); color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+  ol.steps li:last-child { margin-bottom: 0; }
+
+  .flag { border-left: 4px solid var(--red); background: #fdf3f2; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; font-size: 12.5px; line-height: 1.6; color: var(--gray); }
+  .flag b { color: var(--red); }
+  .note { border-left: 4px solid var(--gold); background: #fffaf0; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; font-size: 12.5px; line-height: 1.6; color: var(--gray); }
+  .note b { color: var(--gold-dark); }
+  .quote { border-left: 4px solid var(--blue); background: #f4f8fb; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; font-size: 13px; line-height: 1.65; color: #14222f; font-style: italic; }
+
+  .footer { background: var(--navy-dark); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; margin-top: 40px; flex-wrap: wrap; gap: 8px; }
+  .footer-text { color: rgba(255,255,255,0.6); font-size: 10px; }
+  .footer-gold { color: var(--gold); font-size: 12px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+
+  @media (max-width: 640px) {
+    .header { padding: 20px 22px; }
+    .page { padding: 24px 16px 48px; }
+    .rule-text { font-size: 16px; }
+    .footer { padding: 18px 22px; }
+  }
+</style>
+</head>
+<body>
+<div id="hub-nav"></div>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">BPP</div>
+    <div class="header-text">
+      <div class="header-title">Webflow Client Hosting SOP</div>
+      <div class="header-sub">Who pays for the site plan, when, and how the client gets edit access</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <a class="back-link" href="dept-delivery.html">&larr; Back to Delivery</a>
+
+  <div class="rule">
+    <div class="rule-label">The rule</div>
+    <div class="rule-text">BPP never fronts a client's website hosting. The client's card goes on the site plan before the custom domain is ever connected.</div>
+    <div class="rule-sub">Written after the HALO Commons engagement, where BPP paid the Basic annual plan as a convenience. That one shortcut cost two working sessions, put the client in front of a $180 charge they believed they had already paid, and stranded a prepaid year in the wrong workspace.</div>
+  </div>
+
+  <h2>The distinction everyone gets wrong</h2>
+  <div class="card">
+    <p>Two different Webflow charges get confused constantly. Keep them separate in your head and most of this SOP becomes obvious.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:22%">What</th><th style="width:26%">Who it belongs to</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><b>Workspace plan</b></td><td>BPP (Freelancer tier)</td><td>Lets BPP build client sites, transfer them, and use Client Payments. Paid by BPP, always. This is a cost of doing business.</td></tr>
+          <tr><td><b>Site plan</b></td><td>The client</td><td>The recurring fee that keeps one site live on its custom domain. Basic is roughly <b>$180/yr</b>. This is the client's cost, always.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px;">Upgrading the workspace does <b>not</b> make hosting free, and a site plan does <b>not</b> travel with a site transfer. Someone always pays Webflow to keep a site live. The only question this SOP answers is who, and how it gets set up so nobody pays twice.</p>
+  </div>
+
+  <h2>Standard path: new engagements</h2>
+  <div class="card">
+    <ol class="steps">
+      <li><b>Name the number in the proposal, not at launch.</b> Hosting is out of scope in the BPP website agreement. Put "hosting approximately $180/yr, billed to you directly" in the SOW so the request at launch is a formality instead of a surprise fee.</li>
+      <li><b>Repeat it at kickoff with a real figure.</b> $180/yr works out to about $15/mo billed annually. The domain is separate and small, usually around $20/yr at the registrar.</li>
+      <li><b>Build on the free staging subdomain.</b> No site plan is needed while the site is on <code>*.webflow.io</code>. Do not buy a plan to build.</li>
+      <li><b>When the site is client-approved and ready to go live, send the payment request.</b> Webflow dashboard &rarr; <b>Client management</b> &rarr; <b>Clients</b> &rarr; <b>Send a payment request</b>. Select the site, send it to the client's email.</li>
+      <li><b>Client accepts, creates a free Webflow account, adds their card.</b> The site plan activates on their card. BPP's card never touches it.</li>
+      <li><b>Now connect the custom domain and publish.</b> Domain connection requires an active site plan, which is why this step comes last.</li>
+      <li><b>Separately, add the client as a content editor.</b> Paying for hosting and having edit access are two different toggles. Granting one does not grant the other.</li>
+    </ol>
+  </div>
+
+  <h2>Remediation path: BPP already paid</h2>
+  <div class="card">
+    <p>If a site plan is already on BPP's card, <b>do not send a payment request mid-cycle to fix it.</b> Read the order summary carefully before sending anything. Webflow's own wording on that screen confirms the trap:</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:38%">What the screen says</th><th>What it actually means</th></tr></thead>
+        <tbody>
+          <tr><td>"You will be credited for unused time remaining on the existing subscription"</td><td>The leftover value goes back to <b>BPP</b> as Webflow account credit. Not to the client, and not as cash.</td></tr>
+          <tr><td>"We'll charge the client $180.00 ... minus existing credits on their account"</td><td>The client is charged the <b>full amount today</b>. BPP's credit does not reduce their bill.</td></tr>
+          <tr><td>"Billed every year starting from the date the client makes the payment"</td><td>The renewal date <b>resets to today</b>, so the client pays for months already covered.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px;"><b>Do this instead:</b> give the client a free content-editor seat now so they can update their own site, then send the Client Payments request <b>shortly before the existing plan renews</b>. At that point the prepaid year is consumed, the credit is near zero, and the client's card cleanly picks up the next year. No double charge, no stranded money.</p>
+    <div class="flag"><b>Timing is the whole game.</b> The request has to go out <b>before</b> the renewal date, not after. Miss it and BPP's card gets charged for another full year and you are right back where you started. Put the renewal date on a calendar the day you identify it.</div>
+  </div>
+
+  <h2>Edit access vs. ownership transfer</h2>
+  <div class="card">
+    <p>When a client says "I want to be able to update my own site," they almost never mean "I want to own the Webflow account." Pick the smaller tool.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:22%">Tool</th><th style="width:28%">Use when</th><th>What happens</th></tr></thead>
+        <tbody>
+          <tr><td><b>Content editor seat</b></td><td>The client wants to update text and images. This is the default.</td><td>Free. Site stays in BPP's workspace, BPP keeps design control, our guides still apply. Scope the seat to that one site so they cannot see other clients' work.</td></tr>
+          <tr><td><b>Client Payments</b></td><td>The client should pay for their own hosting, which is every engagement.</td><td>Site stays in BPP's workspace. Only the billing moves. Requires BPP on Freelancer or Agency.</td></tr>
+          <tr><td><b>Full site transfer</b></td><td>The client must legally hold the account in their own name. Rare.</td><td>Ownership moves to their workspace and BPP loses design control. Any prepaid time is stranded. If you must do it, do it at renewal.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>What not to do</h2>
+  <div class="card">
+    <div class="flag"><b>Never take a client's card details verbally.</b> Not on a call, not on a recorded call, not read aloud in chunks. On the HALO engagement the founders dictated a live card number, expiry, and CVC during a recorded working session, and it had to be manually scrubbed from the archived transcript. Client Payments exists precisely so the client enters their own card and BPP never handles it.</div>
+    <div class="flag"><b>Never put the client's card on BPP's workspace as a payment method.</b> That is a different action from Client Payments and it scopes their card to the whole workspace instead of one site.</div>
+    <div class="flag"><b>Never buy a site plan "just to get started."</b> Build on the free staging subdomain. The plan is only required to connect a custom domain, and by then the client should be paying.</div>
+  </div>
+
+  <h2>Client-facing script</h2>
+  <div class="card">
+    <p><b>Naming the cost at kickoff:</b></p>
+    <div class="quote">"Hosting runs about $180 a year, which works out to $15 a month if you pay annually. That's billed to your card directly, not through me. The account goes in your name so you own it outright. I'm not holding your website hostage, and you're not waiting on me to pay a bill. The domain is separate and small, usually around $20 a year at the registrar."</div>
+    <p><b>If they push back on the price:</b></p>
+    <div class="quote">"That's the same range as Wix or Squarespace, so you're not paying a premium. The difference is what we can build. Those platforms are template-based and they cap how far you can customize because you can't get under the hood. Here we're not fighting a template, so your site looks like your business instead of looking like everybody else's."</div>
+  </div>
+
+  <h2>Sourcing and open items</h2>
+  <div class="card">
+    <div class="note"><b>Verified from the live Webflow order-summary screen (2026-08-03):</b> Basic Hosting $180.00/yr shown as $15/month; billing frequency must be maintained at yearly when the client accepts; the unused-time credit goes to the requesting workspace; the client is charged the full amount and the renewal date resets to the payment date.</div>
+    <div class="note"><b>Verified by walking the dashboard:</b> the Client Payments path is Client management &rarr; Clients &rarr; Send a payment request. No agency markup field appears on the request screen, so there is currently no margin to add on client hosting.</div>
+    <div class="note"><b>Not independently verified.</b> The $25/mo month-to-month rate is from Eli, not confirmed against a Webflow page. Webflow's help docs are login-walled, so the Freelancer/Agency requirement for Client Payments comes from public summaries. Content-editor seat counts per site-plan tier have not been confirmed. <b>Check the seat availability on the invite screen before promising a client edit access.</b></div>
+  </div>
+
+  <h2>Related</h2>
+  <div class="card">
+    <p><a href="lessons-learned-clients.html" style="color:var(--blue-mid);font-weight:600;">Client Lessons Learned &rarr;</a> &middot; the HALO entry carries the full account of what went wrong.</p>
+    <p><a href="delivery-playbook.html" style="color:var(--blue-mid);font-weight:600;">Delivery Playbook &rarr;</a> &middot; where this SOP sits in the client journey.</p>
+    <p><a href="kickoff.html" style="color:var(--blue-mid);font-weight:600;">Kickoff &rarr;</a> &middot; the hosting number belongs on the kickoff deck for every website engagement.</p>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-text">Business Plans Plus LLC &middot; Temple Terrace, FL &middot; Internal Use Only &middot; Written 2026-08-03</div>
+  <div class="footer-gold">buildwithbpp.com</div>
+</div>
+
+<script src="../js/nav.js" data-page="departments"></script>
+</body>
+</html>
