@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-24T22:59:44Z",
+  "generated_at": "2026-08-03T21:13:37Z",
   "gantt": {
     "clients": [
       {
@@ -54,6 +54,16 @@
             "due": null,
             "status": "Done",
             "updated_at": "2026-06-09"
+          },
+          {
+            "name": "Halfway Milestone - Meeting and Invoice",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-05-19",
+            "to": "2026-05-19",
+            "due": null,
+            "status": "Done",
+            "updated_at": "2026-05-27"
           },
           {
             "name": "MS 3 - CRM Audit, Setup + Training",
@@ -144,6 +154,151 @@
             "due": "2026-08-08",
             "status": "Not Started",
             "updated_at": "2026-06-29"
+          }
+        ]
+      },
+      {
+        "client": "Legacy B. Studio",
+        "items": [
+          {
+            "name": "Internal Project Setup",
+            "phase": "Initiation",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-08-03",
+            "due": "2026-08-03",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
+          },
+          {
+            "name": "Project Kickoff",
+            "phase": "Initiation",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-08-03",
+            "due": "2026-08-03",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
+          },
+          {
+            "name": "Project Planning",
+            "phase": "Planning",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-08-07",
+            "due": "2026-08-07",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
+          },
+          {
+            "name": "Review Service Playbook",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-08-07",
+            "due": "2026-08-07",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
+          },
+          {
+            "name": "Design Concept + Client Approval",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-08-14",
+            "due": "2026-08-14",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
+          },
+          {
+            "name": "Home + About Pages Built",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-08-24",
+            "due": "2026-08-24",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
+          },
+          {
+            "name": "Halfway Milestone - Meeting and Invoice",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-08-24",
+            "due": "2026-08-24",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
+          },
+          {
+            "name": "Services + Gallery Pages Built",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-09-02",
+            "due": "2026-09-02",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
+          },
+          {
+            "name": "Contact Form + Site Launch",
+            "phase": "Execution",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-09-11",
+            "due": "2026-09-11",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
+          },
+          {
+            "name": "Internal Review",
+            "phase": "Monitoring",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-09-11",
+            "due": "2026-09-11",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
+          },
+          {
+            "name": "Client Review",
+            "phase": "Monitoring",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-09-14",
+            "due": "2026-09-14",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
+          },
+          {
+            "name": "Project Close Out",
+            "phase": "Closure",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-09-18",
+            "due": "2026-09-18",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
+          },
+          {
+            "name": "Ask for Referral and Upsell",
+            "phase": "Closure",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-09-21",
+            "due": "2026-09-21",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
+          },
+          {
+            "name": "Project Review",
+            "phase": "Closure",
+            "owner": "Eli",
+            "from": "2026-08-02",
+            "to": "2026-09-21",
+            "due": "2026-09-21",
+            "status": "Not Started",
+            "updated_at": "2026-08-02"
           }
         ]
       },
@@ -261,121 +416,6 @@
             "updated_at": "2026-06-29"
           }
         ]
-      },
-      {
-        "client": "HALO Commons",
-        "items": [
-          {
-            "name": "Internal Project Setup",
-            "phase": "Initiation",
-            "owner": "Eli",
-            "from": "2026-04-27",
-            "to": "2026-04-28",
-            "due": "2026-04-28",
-            "status": "Done",
-            "updated_at": "2026-06-02"
-          },
-          {
-            "name": "Project Kickoff",
-            "phase": "Initiation",
-            "owner": "Eli",
-            "from": "2026-04-27",
-            "to": "2026-05-01",
-            "due": "2026-05-01",
-            "status": "Done",
-            "updated_at": "2026-06-02"
-          },
-          {
-            "name": "Project Planning",
-            "phase": "Planning",
-            "owner": "Eli",
-            "from": "2026-04-30",
-            "to": "2026-05-04",
-            "due": "2026-05-04",
-            "status": "Done",
-            "updated_at": "2026-06-02"
-          },
-          {
-            "name": "Business Plan",
-            "phase": "Execution",
-            "owner": null,
-            "from": "2026-06-02",
-            "to": "2026-07-31",
-            "due": "2026-07-31",
-            "status": "Done",
-            "updated_at": "2026-07-14"
-          },
-          {
-            "name": "Landing Page",
-            "phase": "Execution",
-            "owner": "Eli",
-            "from": "2026-06-02",
-            "to": "2026-07-31",
-            "due": "2026-07-31",
-            "status": "Done",
-            "updated_at": "2026-07-14"
-          },
-          {
-            "name": "Internal Review",
-            "phase": "Monitoring",
-            "owner": "Eli",
-            "from": "2026-06-23",
-            "to": "2026-08-04",
-            "due": "2026-08-04",
-            "status": "Done",
-            "updated_at": "2026-07-14"
-          },
-          {
-            "name": "Client Review",
-            "phase": "Monitoring",
-            "owner": "Eli",
-            "from": "2026-06-24",
-            "to": "2026-08-06",
-            "due": "2026-08-06",
-            "status": "Done",
-            "updated_at": "2026-07-14"
-          },
-          {
-            "name": "Project Close Out",
-            "phase": "Closure",
-            "owner": "Eli",
-            "from": "2026-06-25",
-            "to": "2026-08-08",
-            "due": "2026-08-08",
-            "status": "In Progress",
-            "updated_at": "2026-07-14"
-          },
-          {
-            "name": "Ask for Referral and Upsell",
-            "phase": "Closure",
-            "owner": "Eli",
-            "from": "2026-06-26",
-            "to": "2026-08-08",
-            "due": "2026-08-08",
-            "status": "Not Started",
-            "updated_at": "2026-06-29"
-          },
-          {
-            "name": "Project Review",
-            "phase": "Closure",
-            "owner": "Eli",
-            "from": "2026-06-26",
-            "to": "2026-08-08",
-            "due": "2026-08-08",
-            "status": "Not Started",
-            "updated_at": "2026-06-29"
-          },
-          {
-            "name": "Google Business Profile",
-            "phase": "Execution",
-            "owner": "Eli",
-            "from": "2026-06-29",
-            "to": "2026-07-03",
-            "due": "2026-07-03",
-            "status": "Done",
-            "updated_at": "2026-07-13"
-          }
-        ]
       }
     ]
   },
@@ -441,13 +481,13 @@
         "throughput": 3,
         "health": "red",
         "by_owner": {
-          "Eli": {
-            "committed": 10,
-            "completed": 10
-          },
           "Kenny": {
             "committed": 3,
             "completed": 3
+          },
+          "Eli": {
+            "committed": 10,
+            "completed": 10
           }
         }
       }
