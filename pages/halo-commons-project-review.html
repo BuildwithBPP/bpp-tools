@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HALO Commons Project Review &amp; Retrospective - BPP Internal</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771; --navy-dark: #033359; --blue: #5987A5; --blue-mid: #3a6d8f;
+    --gold: #F1BE5C; --gold-dark: #d4a43e; --bg: #edf1f5; --card-bg: #ffffff;
+    --card-border: #c8d3dc; --section-bg: #e2e9f0; --gray: #4a4a4a; --gray-light: #6B6B6B;
+    --green: #1a9e5c; --green-light: #d4f0e1; --red: #c0392b; --red-light: #f5d5d1;
+    --amber: #d4920a; --amber-light: #fdf0d0;
+    --daunte: #5987A5; --kenny: #1a9e5c; --eli: #d4a43e;
+  }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #14222f; min-height: 100vh; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(4,71,113,0.3); flex-wrap: wrap; gap: 14px; }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .header-logo { width: 44px; height: 44px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: var(--navy-dark); box-shadow: 0 2px 8px rgba(241,190,92,0.4); }
+  .header-text { color: white; }
+  .header-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+  .header-sub { font-size: 11px; font-weight: 300; opacity: 0.7; margin-top: 3px; }
+  .header-right { text-align: right; color: white; }
+  .header-period { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: var(--gold); }
+  .header-date { font-size: 10px; opacity: 0.55; margin-top: 3px; }
+
+  .page { max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px; }
+  .back-link { display: inline-block; font-size: 11px; color: var(--blue-mid); text-decoration: none; margin-bottom: 18px; font-weight: 600; }
+  .back-link:hover { color: var(--navy); }
+
+  /* SECTION HEADERS */
+  .section-bar { background: var(--navy); border-radius: 8px; padding: 14px 24px; margin: 38px 0 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
+  .section-bar-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.1em; }
+  .section-bar-sub { font-size: 10px; color: rgba(255,255,255,0.65); }
+  .section-note { font-size: 10px; color: var(--gray-light); margin: 4px 4px 16px; line-height: 1.5; }
+
+  /* KPI CARDS */
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .kpi-card { background: var(--card-bg); border-radius: 10px; padding: 18px; border: 1px solid var(--card-border); text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .kpi-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-light); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; color: var(--navy); }
+  .kpi-sub { font-size: 11px; color: var(--gray-light); margin-top: 4px; }
+  .kpi-card.gold { border-left: 5px solid var(--gold); }
+  .kpi-card.green { border-left: 5px solid var(--green); }
+  .kpi-card.red { border-left: 5px solid var(--red); }
+  .kpi-card.amber { border-left: 5px solid var(--amber); }
+
+  /* SHIPPED LIST */
+  .ship-group { margin-bottom: 18px; }
+  .ship-item { background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--green); border-radius: 8px; padding: 13px 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); flex-wrap: wrap; }
+  .ship-icon { flex-shrink: 0; width: 40px; height: 40px; border-radius: 8px; background: var(--green-light); color: var(--green); font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+  .ship-body { flex: 1; min-width: 180px; }
+  .ship-title { font-size: 13px; font-weight: 600; color: #14222f; }
+  .ship-desc { font-size: 11px; color: var(--gray-light); margin-top: 2px; line-height: 1.5; }
+  .ship-owner { flex-shrink: 0; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 12px; }
+  .owner-daunte { background: rgba(89,135,165,0.15); color: var(--daunte); }
+  .owner-kenny { background: var(--green-light); color: var(--kenny); }
+  .owner-eli { background: var(--amber-light); color: var(--gold-dark); }
+  .owner-rodney { background: rgba(4,71,113,0.12); color: var(--navy); }
+
+  /* RETRO (4Ls) */
+  .retro-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .retro-col { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 0 0 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden; }
+  .retro-head { padding: 14px 18px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; }
+  .retro-head.liked { background: var(--green); }
+  .retro-head.learned { background: var(--blue); }
+  .retro-head.lacked { background: var(--amber); }
+  .retro-head.longed { background: var(--navy); }
+  .retro-item { padding: 11px 18px; font-size: 12px; line-height: 1.5; color: var(--gray); border-bottom: 1px solid #eef2f5; }
+  .retro-item:last-child { border-bottom: none; }
+  .retro-item b { color: #14222f; font-weight: 700; }
+  .retro-item.empty { color: var(--gray-light); font-style: italic; }
+
+  /* DAKI block */
+  .daki-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .daki-col { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 0 0 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden; }
+  .daki-head { padding: 13px 18px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: white; }
+  .daki-head.drop { background: var(--red); }
+  .daki-head.add { background: var(--green); }
+  .daki-head.keep { background: var(--blue); }
+  .daki-head.improve { background: var(--gold-dark); }
+  .daki-item { padding: 11px 18px; font-size: 12px; line-height: 1.5; color: var(--gray); border-bottom: 1px solid #eef2f5; }
+  .daki-item:last-child { border-bottom: none; }
+  .daki-item b { color: #14222f; font-weight: 700; }
+  .daki-owner { font-size: 10px; font-weight: 700; color: var(--blue-mid); }
+
+  /* LESSONS */
+  .lesson { display: flex; gap: 12px; margin-bottom: 12px; font-size: 13px; line-height: 1.55; color: var(--gray); background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--gold); border-radius: 8px; padding: 14px 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .lesson-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 6px; background: var(--navy); color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+  .lesson b { color: #14222f; font-weight: 700; }
+  .lesson-also { font-size: 12px; line-height: 1.6; color: var(--gray-light); margin: 2px 4px 0; }
+  .lesson-also b { color: var(--navy); }
+
+  .footer { background: var(--navy-dark); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; margin-top: 40px; flex-wrap: wrap; gap: 8px; }
+  .footer-text { color: rgba(255,255,255,0.6); font-size: 10px; }
+  .footer-gold { color: var(--gold); font-size: 12px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+
+  @media (max-width: 820px) {
+    .kpi-row, .retro-grid, .daki-grid { grid-template-columns: 1fr; }
+    .header { padding: 20px 24px; }
+    .footer { padding: 18px 24px; }
+  }
+</style>
+</head>
+<body>
+<div id="hub-nav"></div>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">BPP</div>
+    <div class="header-text">
+      <div class="header-title">HALO Commons Project Review &amp; Retrospective</div>
+      <div class="header-sub">Internal closeout retro &middot; Launch Pad &middot; HALO Commons LLC + HALO Pathways 501(c)(3)</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-period">Apr 20 &ndash; Aug 3, 2026</div>
+    <div class="header-date">Retro run August 3, 2026</div>
+  </div>
+</div>
+
+<div class="page">
+  <a class="back-link" href="reviews.html">&larr; Back to Reviews</a>
+
+  <!-- ENGAGEMENT SNAPSHOT -->
+  <div class="section-bar">
+    <div class="section-bar-title">Engagement Snapshot</div>
+    <div class="section-bar-sub">Launch Pad &middot; $1,500&ndash;2,000 &middot; Eli owner, Kenny on business model, Rodney on the plan</div>
+  </div>
+  <div class="section-note">The HALO group is no longer on the Monday Client Delivery board, so there are no Done-item or velocity counts for this engagement. These KPIs are qualitative, drawn from the workspace record and the closeout interview.</div>
+  <div class="kpi-row">
+    <div class="kpi-card gold">
+      <div class="kpi-label">Duration</div>
+      <div class="kpi-value">3.5 mo</div>
+      <div class="kpi-sub">Discovery Apr 20 to close Aug 3</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Deliverables Shipped</div>
+      <div class="kpi-value">8</div>
+      <div class="kpi-sub">Plan, site, GBP, guides, briefings</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">On Time?</div>
+      <div class="kpi-value">2 slips</div>
+      <div class="kpi-sub">Targeted Jul 17, moved to Aug 8, closed Aug 3</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Client Sentiment</div>
+      <div class="kpi-value">Strong</div>
+      <div class="kpi-sub">Will refer &middot; review + testimonial still owed</div>
+    </div>
+  </div>
+  <div style="background:#fdf0d0;border:1px solid #e8cf90;border-left:4px solid var(--amber);border-radius:8px;padding:14px 18px;margin:14px 0 4px;font-size:12px;line-height:1.6;color:#6b5618;"><b>Headline outcome:</b> took a pre-revenue nonprofit from nothing to a complete operating launch pad. Live website, verified Google Business Profile, a grant-ready dual-entity business plan, and a costed tech-stack roadmap. <b>The honest counterweight:</b> the engagement was underpriced. Launch Pad assumes one entity, HALO needed two firewalled business plans, and that roughly doubled the plan work for a ~$200 credit.</div>
+
+  <!-- WHAT WE DELIVERED -->
+  <div class="section-bar">
+    <div class="section-bar-title">What We Delivered</div>
+    <div class="section-bar-sub">8 deliverables</div>
+  </div>
+  <div class="section-note">Compiled from the client Deliverables folder and the client-memory record. Owner tags reflect who did the work, not who owned the account.</div>
+  <div class="ship-group">
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">Grant-ready dual-entity business plan</div><div class="ship-desc">~80 pages, split into HALO Commons LLC (housing operation) and HALO Pathways 501(c)(3) (services and grants) so funding routes to the right entity. Two post-project edit rounds committed, at 30 and 90 days.</div></div>
+      <div class="ship-owner owner-rodney">Rodney</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">halocommons.com live with on-page SEO</div><div class="ship-desc">Built natively in Webflow. Titles, meta, and OG cards on Home and Donate, a "What HALO Stands For" section, WCAG AA pass on both pages, hover motion system, and a full mobile responsive pass. Published to the custom domain June 19.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">Native contact form, wired and corrected</div><div class="ship-desc">Six fields with unique names, routing select for "a Place or a Plan," notification inbox set. Fixed a real defect where all six fields shared the internal name "field," which would have made every submission unreadable.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">Google Business Profile, verified</div><div class="ship-desc">Set up under Felicia as primary owner, configured as a service-area business with the home address hidden. Filed under HALO Commons (the LLC) with a housing category, deliberately not "nonprofit," to avoid a duplicate-listing suspension against a future Pathways profile.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">Tech-stack and CRM reference guide</div><div class="ship-desc">Client-facing, entity-tagged per tool. Landed on a split architecture rather than a unified CRM: supporters in Givebutter, youth case data in a separate access-restricted tool, because free-tier all-in-ones cannot do record-level permissions and youth PII has to be firewalled.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">Website and Google profile client guide</div><div class="ship-desc">Standalone HTML guide covering site editing, Google Business Profile edits, team account management, and the brand color and font reference.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">Halfway milestone briefing pack</div><div class="ship-desc">Briefing page, follow-up email, and talking points for the June 18 halfway checkpoint.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">Closeout pack</div><div class="ship-desc">Closeout deck, follow-up email, and talking points. Carries the retainer and HALO Copilot options as awareness only, per the call that this closeout is not an upsell ambush.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+  </div>
+
+  <!-- 4Ls RETROSPECTIVE -->
+  <div class="section-bar">
+    <div class="section-bar-title">Retrospective &middot; 4Ls</div>
+    <div class="section-bar-sub">Liked &middot; Learned &middot; Lacked &middot; Longed-for</div>
+  </div>
+  <div class="section-note">Internal team reflection. Honest read, not marketing copy.</div>
+  <div class="retro-grid">
+    <div class="retro-col">
+      <div class="retro-head liked">Liked</div>
+      <div class="retro-item"><b>Dual-entity firewall discipline held.</b> Books, email, Google orgs, donor data versus youth data. The separation stayed clean the whole way through, and that discipline is exactly what makes the plan grant-ready.</div>
+      <div class="retro-item"><b>Tool recommendations came from research, not a vendor list.</b> The CRM answer ran through parallel research passes and named real nonprofit analogs as proof points instead of guessing.</div>
+      <div class="retro-item"><b>Working sessions closed decisions.</b> The June 11 website review settled the entity rename, the domain, the two-plan split, the ownership model, and a full set of copy changes in one sitting.</div>
+    </div>
+    <div class="retro-col">
+      <div class="retro-head learned">Learned</div>
+      <div class="retro-item"><b>State incorporation is not federal exemption, and the gap costs twice.</b> Once when nonprofit perks silently fail verification, and again when a public page carries a tax-status claim the organization cannot yet make.</div>
+      <div class="retro-item"><b>Launch Pad breaks on dual-entity clients.</b> The package prices one business plan. Two firewalled plans is close to double the work and does not fit inside a $200 credit.</div>
+      <div class="retro-item"><b>A pre-revenue nonprofit in an IRS waiting period has almost no unblocked revenue levers.</b> Donor marketing and Ad Grants are IRS-gated, grant writing was already outsourced, and the Form 1023 sat with their attorney. Do not manufacture a package to fill that gap.</div>
+    </div>
+    <div class="retro-col">
+      <div class="retro-head lacked">Lacked</div>
+      <div class="retro-item"><b>No 501(c)(3) verification gate.</b> Florida incorporation plus an EIN got treated as federal exemption. Google for Nonprofits stalled mid-setup, and a false "registered 501(c)(3)" claim with the EIN sat live on a public donation page until the board caught it July 14.</div>
+      <div class="retro-item"><b>Webflow platform churn.</b> Built on the free plan, hit walls on custom code, native forms, and page creation, upgraded to Basic mid-build, then spent two sessions untangling hosting ownership at handoff.</div>
+      <div class="retro-item"><b>Entity and naming churn.</b> The 501(c)(3) was filed as HALO Pathways, not HACO Pathways, mid-engagement. Nav, footer, donate-page SEO, the workspace folder, and the logo prompt all carried the wrong spelling for weeks.</div>
+      <div class="retro-item"><b>Timeline slipped twice.</b> Closeout targeted July 17, moved to August 8, landed August 3. Root cause was a revision cycle opening on an ~80-page document with no review window budgeted in the original plan.</div>
+    </div>
+    <div class="retro-col">
+      <div class="retro-head longed">Longed-for</div>
+      <div class="retro-item"><b>A compliance gate at intake.</b> One checklist run before any build that answers what this organization can legally claim, sell, and solicit today.</div>
+      <div class="retro-item"><b>A nonprofit and dual-entity package tier.</b> Something priced for the real work instead of discounting a single-entity package to fit.</div>
+      <div class="retro-item"><b>A pre-publish review for regulated claims.</b> A gate that would have caught the tax-status language before it went live rather than three weeks after.</div>
+    </div>
+  </div>
+
+  <!-- DAKI -->
+  <div class="section-bar">
+    <div class="section-bar-title">Action Plan &middot; DAKI</div>
+    <div class="section-bar-sub">Drop &middot; Add &middot; Keep &middot; Improve</div>
+  </div>
+  <div class="section-note">Each Add and Improve carries an owner and a "before the next engagement" trigger.</div>
+  <div class="daki-grid">
+    <div class="daki-col">
+      <div class="daki-head drop">Drop</div>
+      <div class="daki-item"><b>Fronting client hosting.</b> BPP never puts its card on a client's site plan. Two sessions lost, a prepaid year stranded in the wrong workspace, and the client asked to pay for a year they believed they had already bought. Now codified in the <a href="webflow-client-hosting-sop.html" style="color:var(--blue-mid);font-weight:600;">Webflow Client Hosting SOP</a>.</div>
+      <div class="daki-item"><b>Starting nonprofit setup before the IRS letter.</b> No Google for Nonprofits, TechSoup, donor tooling, or donation surface until the determination letter is physically in hand.</div>
+      <div class="daki-item"><b>Taking card details verbally.</b> The founders read a live card number, expiry, and CVC aloud on a recorded session. The automated digit scan missed it because the number came in four-digit chunks, and it had to be scrubbed by hand.</div>
+    </div>
+    <div class="daki-col">
+      <div class="daki-head add">Add</div>
+      <div class="daki-item"><b>A nonprofit compliance gate at intake.</b> Determination letter status, state charitable-solicitation registration, what is legally claimable in public today, and Form 1023 scoped as a paid add-on. <span class="daki-owner">Owner: Eli &middot; before the next 501(c)(3) engagement</span></div>
+      <div class="daki-item"><b>A dual-entity and nonprofit package tier.</b> Priced above Launch Pad to reflect two firewalled plans and the extra compliance work. <span class="daki-owner">Owner: Eli + Daunte &middot; before the next nonprofit proposal</span></div>
+      <div class="daki-item"><b>A legal review before anything client-facing publishes.</b> Tax status, licensure, credentials, and solicitation language checked against evidence, not against what the client believes is true. <span class="daki-owner">Owner: Rodney (board) + Eli &middot; every regulated client</span></div>
+    </div>
+    <div class="daki-col">
+      <div class="daki-head keep">Keep</div>
+      <div class="daki-item"><b>Dual-entity firewall discipline.</b> Separate the for-profit and nonprofit entities everywhere: books, email, Google orgs, CRM. Blending them muddies grant compliance and is expensive to unwind.</div>
+      <div class="daki-item"><b>Research-backed tool recommendations.</b> Answer tool questions with sourced research and real analogs, and reject options on a specific named constraint rather than on preference.</div>
+      <div class="daki-item"><b>Working sessions that end in decisions.</b> Run client sessions that close decisions with owners attached, not sessions that only gather feedback.</div>
+    </div>
+    <div class="daki-col">
+      <div class="daki-head improve">Improve</div>
+      <div class="daki-item"><b>Budget revision windows into the timeline.</b> Size the review window to the deliverable up front. An ~80-page plan needs weeks built in, not discovered after the closeout date is committed. <span class="daki-owner">Owner: Eli</span></div>
+      <div class="daki-item"><b>Lock entity naming before assets carry it.</b> Confirm the legal name from the filed documents first. Naming churn ripples into copy, SEO, domains, logos, and folder structure. <span class="daki-owner">Owner: Eli</span></div>
+      <div class="daki-item"><b>Closeout date discipline.</b> Treat the closeout date as a commitment with a named blocker list, not a rolling target. Two slips on one engagement is a signal even when each move is individually defensible. <span class="daki-owner">Owner: Eli</span></div>
+      <div class="daki-item"><b>Verify handoff training live.</b> Walk the client through with the guide open beside the real interface, so drift between the doc and the platform surfaces with the client present. <span class="daki-owner">Owner: Eli</span></div>
+    </div>
+  </div>
+
+  <!-- LESSONS LEARNED -->
+  <div class="section-bar">
+    <div class="section-bar-title">Lessons We Carry Forward</div>
+    <div class="section-bar-sub">Also logged in Client Lessons Learned</div>
+  </div>
+  <div class="section-note">These mirror this client's entry in the cumulative <a href="lessons-learned-clients.html" style="color:var(--blue-mid);font-weight:600;">Client Lessons Learned log &rarr;</a></div>
+  <div class="lesson"><div class="lesson-num">1</div><div><b>Confirm the IRS 501(c)(3) determination letter before promising nonprofit perks and before making any public tax-status claim.</b> Google, TechSoup, and the rest verify against IRS federal databases, so state incorporation plus an EIN fails. That gap cost twice here: the Google for Nonprofits setup stalled mid-flight, and a false "registered 501(c)(3)" claim with the EIN sat on a live public donation page until the board ordered it stripped on July 14. Soliciting in Florida also triggers an FDACS charitable-solicitation registration duty regardless of IRS status. Correct sequence: state formation and EIN, then Form 1023, then the determination letter, then perks and any public claim.</div></div>
+  <div class="lesson"><div class="lesson-num">2</div><div><b>Sell the Form 1023 filing as a paid add-on for every 501(c)(3) client.</b> The filing is a real prerequisite for all the nonprofit tech perks, the IRS process is slow, and an attorney charges far more than BPP needs to. Scoping it up front is both a genuine value-add and a margin line.</div></div>
+  <div class="lesson"><div class="lesson-num">3</div><div><b>Never front a client's website hosting. Put their card on it from day one.</b> BPP paid HALO's Webflow site plan as a convenience. That shortcut cost two working sessions, produced a client-facing moment where HALO was asked to pay for a year they believed they had already bought, and left a prepaid year stranded in the wrong workspace. It also meant taking card details verbally on a recorded call.</div></div>
+  <div class="lesson"><div class="lesson-num">4</div><div><b>A prepaid site plan does not travel with a site transfer, and "transfer" is usually the wrong tool anyway.</b> The workspace plan and the site plan are different things. When the goal is "the client can update their own site," the answer is a free content-editor seat. Reserve an ownership transfer for when the client must legally hold the account, and time it at renewal.</div></div>
+  <div class="lesson"><div class="lesson-num">5</div><div><b>Dual-entity nonprofits need their own package tier.</b> Launch Pad prices one business plan. HALO needed two firewalled plans, one for the LLC and one for the 501(c)(3), which roughly doubled the plan effort and was absorbed for a ~$200 credit. Price the structure, not just the deliverable count.</div></div>
+  <div class="lesson-also"><b>+ also:</b> lock the legal entity name from the filed documents before any asset carries it &middot; budget the revision window into the original timeline, sized to the deliverable &middot; never collect payment details on a call.</div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-text">Business Plans Plus LLC &middot; Temple Terrace, FL &middot; Internal Use Only &middot; Retro run August 3, 2026</div>
+  <div class="footer-gold">buildwithbpp.com</div>
+</div>
+
+<script src="../js/nav.js" data-page="strategy"></script>
+</body>
+</html>
