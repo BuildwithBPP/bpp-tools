@@ -26,6 +26,7 @@ CLIENT_NAMES = {
     "group_mm22b0fs": "Financial Acuity",
     "group_mm2cctgg": "Lois Marketing",
     "group_mm2v952v": "HALO Commons",
+    "group_mm5vja6y": "Legacy B. Studio",
 }
 SKIP_GROUPS = {"new_group29179"}   # client board: NEW CLIENT TEMPLATE
 BACKLOG_GROUP = "new_group29179"   # internal board: Product Backlog

@@ -1,197 +1,202 @@
 {
- "generated_at": "2026-08-02T14:00:00",
- "week_of": "2026-08-03",
- "run_type": "Manual run by Claude Code (Sunday Review session). The scheduled claude.ai routine has never delivered - see drift_signals.",
- "sources_status": {
-  "Forecast": "STALE - last snapshot email 6/29 (34 days). Cash instead taken from the 7/29 live QB bank-feed refresh in hub-home-stats.json.",
-  "HubSpot": "OK (live 2026-08-02)",
-  "Monday": "OK (live 2026-08-02 - Client Delivery + Internal boards)",
-  "QB": "OK via 7/29 bank-feed refresh (4 days old)",
-  "Git": "OK (bpp-tools)"
- },
- "north_star": "Collection is done - FA and HALO finals are in. After Lois closes 8/8 committed AR is near zero. The lever is now the $13K Lois phase 2, worth more than the rest of the open pipeline combined.",
- "suggested_move": {
-  "headline": "Take the $13,000 Lois phase 2 to Phil. Scope is drafted; MS 6 is the demo that sells it.",
-  "reasoning": "FA and HALO finals collected. Only Lois (~$1,350) remains outstanding and that project closes 8/8, so committed AR goes to roughly zero next week. Meanwhile the confirmed MS 6 strategy - stand up Phil's AIOS and hand him the skills and MCPs - makes the overdue milestone the working proof of concept for a package worth ~3x the original $4,500 engagement. Risk: the whiteboard flags that Lois needs one more team player, starred critical. The build assumes an operator."
- },
- "sprint": {
-  "number": null,
-  "goal": "Generate leads, reduce friction to close, close more deals",
-  "day": null,
-  "note": "PENDING - Sprint 3 ended ~7/18 (extended). No sprint anchor recorded for Sprint 4; the Internal board's Product Backlog has no dated items. Set a sprint anchor or drop the field.",
-  "pct_done": null,
-  "items_done": null,
-  "items_total": null
- },
- "top_three": [
-  {
-   "title": "Lois phase 2 - take the ~$13K scope to Phil (reconcile with the 7/26 drafts first)",
-   "owner": "Eli",
-   "status": "Scoped",
-   "priority": "Critical"
+  "week_of": "2026-08-17",
+  "generated_at": "2026-08-16T15:30:00",
+  "run_type": "manual (Claude Code, Eli's Mac) - the Sunday 8pm cloud routine was killed 2026-08-16 after five consecutive weeks of never firing",
+
+  "sources_status": {
+    "HubSpot": "OK - pipeline + closed-won pulled live 2026-08-16",
+    "Monday": "OK - Client Delivery (18406004595) + BPP Internal (18406003425) pulled live 2026-08-16",
+    "Forecast": "MISSING - no *forecast*.md exists in Monthly Reporting. Latest financial artifact is 2026-07-22-financial-analysis.xlsx (25 days old).",
+    "QB": "STALE - cash below is the 2026-07-29 live bank-feed refresh, now 18 days old. Not re-pulled this run.",
+    "Git": "OK - bpp-tools, zero commits in the last 7 days, working tree clean",
+    "Outlook": "SKIPPED - read-only MS365 connector on this runner, inbox digest not attempted"
   },
-  {
-   "title": "Lois MS 6 - stand up Phil's AIOS + skills/MCPs. Overdue 8/1, blocks the 8/4-8/6-8/8 chain, and is the demo that sells phase 2.",
-   "owner": "Eli",
-   "status": "Overdue",
-   "priority": "Critical"
+
+  "north_star": "HALO's $7,450 proposal is sitting in Proposal Sent with a 9/2 close date. It is worth more than the other four open deals combined. Close it, then close Lois.",
+
+  "cash": {
+    "operating": 1993,
+    "savings": 3625,
+    "rodney_envelope": 0,
+    "total": 5618,
+    "buffer_target": 3649,
+    "buffer_gap": -1656,
+    "as_of_date": "2026-07-29",
+    "days_stale": 18,
+    "source": "QuickBooks live bank feed, 2026-07-29 (available balances, not posted)",
+    "note": "DAUNTE OWNS THE LIVE NUMBER. This figure is 18 days old and predates all of August. Do not quote it as current cash - ask him at the top of the meeting. It is carried here only so the buffer gap has a reference point."
   },
-  {
-   "title": "Assign the Christine referral (from Maxine) - still no HubSpot deal",
-   "owner": "Unassigned",
-   "status": "Not started",
-   "priority": "High"
-  }
- ],
- "overdue": [
-  {
-   "title": "Lois MS 6 - 1 AI Automation (AIOS + skills/MCPs)",
-   "owner": "Eli",
-   "due_date": "2026-08-01",
-   "days_overdue": 1
-  }
- ],
- "overdue_note": "All State and Sipsies marked Deal Lost 8/2. HALO delivery is complete - Eli is closing the stale Monday.com rows. The HALO RETAINER deal stays open and is unaffected.",
- "clients_at_risk": [
-  {
-   "name": "Lois Marketing",
-   "flag_reason": "MS 6 overdue since 8/1 with three dated milestones stacked behind it. It is also the phase-2 proof of concept, so shipping something throwaway costs a ~$13K opportunity, not just a milestone.",
-   "owner": "Eli",
-   "close_target": "MS 6 Mon/Tue, closeout Sat 8/8"
-  }
- ],
- "cold_deals": [],
- "pipeline": {
-  "total": 7497,
-  "count": 2,
-  "hot_count": 2,
-  "hot_value": 7497,
-  "cold_count": 0,
-  "cold_value": 0,
-  "note": "Down from $9,997 - All State and Sipsies marked lost 8/2 (duds, not forecast). Both remaining deals close inside this week. The $13K Lois phase 2 is NOT yet in HubSpot and is larger than both combined.",
-  "deals": [
-   {
-    "name": "Flava Meets Fusion",
-    "owner": "Kenny",
-    "stage": "Proposal Sent",
-    "amount": 4497,
-    "close_date": "2026-08-09",
-    "note": "Closes inside the week."
-   },
-   {
-    "name": "HALO Retainer",
-    "owner": "Eli",
-    "stage": "Proposal Sent",
-    "amount": 3000,
-    "close_date": "2026-08-10",
-    "note": "Raise in person Wed 8/5. HALO delivery being marked done on Monday.com does NOT close this - it is a live opportunity."
-   }
+
+  "ar_layers": {
+    "source_of_record": "HubSpot",
+    "model": "Each closed-won deal carries a quote with up to 3 milestone invoices; invoice 1 activates at signing and flows to QuickBooks, invoices 2-3 stay in draft and show only in HubSpot. HubSpot is AR of record; QuickBooks only reflects activated invoices.",
+    "layer_qb_activated": {
+      "status": "NOT PULLED",
+      "note": "QB transaction-report email not pulled this run. Non-blocking."
+    },
+    "layer_hubspot_committed": {
+      "status": "OK",
+      "deals": [
+        {
+          "name": "Lois Marketing LLC - Operator System",
+          "amount": 4500,
+          "payment_status": "final milestone outstanding",
+          "estimated_remaining": 1350,
+          "note": "Gated behind the closeout, which is on its fourth attempt. Board items dated 2026-08-14, all still open."
+        },
+        {
+          "name": "Legacy B. Studio - Website",
+          "amount": 0,
+          "payment_status": "$750 paid, $750 owed",
+          "estimated_remaining": 750,
+          "note": "HubSpot amount reads 0 and SHOULD READ 2500. Second time the quote tooling has zeroed this deal; the 2026-08-03 restore did not hold. The $1,000 'Marketing Discount' in the signed contract is an unpapered barter that obligates the client to nothing - it is NOT revenue and is not counted here."
+        },
+        {
+          "name": "Financial Acuity - Growth Package Custom",
+          "amount": 3350,
+          "payment_status": "COLLECTED",
+          "estimated_remaining": 0,
+          "note": "Final confirmed collected 2026-08-02."
+        },
+        {
+          "name": "Halo Commons, LLC/HACO Pathways - Launch Pad",
+          "amount": 1649,
+          "payment_status": "COLLECTED",
+          "estimated_remaining": 0,
+          "note": "Final confirmed collected 2026-08-02. The new $7,450 website build is PIPELINE, not AR."
+        }
+      ],
+      "estimated_remaining_known": 2100,
+      "note": "~$2,100 of committed AR left, both pieces gated behind a client who is not currently responding or a closeout that has slipped four times. The shelf is close to bare."
+    }
+  },
+
+  "pipeline": {
+    "total": 18947,
+    "count": 5,
+    "hot_count": 2,
+    "hot_value": 11950,
+    "cold_count": 0,
+    "cold_note": "Nothing crosses the 14-day untouched line. Sipsies at 12 days is the closest.",
+    "verified_date": "2026-08-16",
+    "deals": [
+      {"name": "HALO Pathways - Full Website Build", "amount": 7450, "stage": "Proposal Sent", "owner": "Eli", "close_date": "2026-09-02", "last_modified": "2026-08-16", "note": "Created 8/13 off the Felicia + Larry Glanton discovery call. Largest live number on the board."},
+      {"name": "Tiffany Davis - Operator", "amount": 4500, "stage": "Discovery Scheduled", "owner": "Josue Batista", "close_date": "2026-08-23", "last_modified": "2026-08-15", "note": "Closes in 7 days and sits at Discovery Scheduled. Either the date is wrong or the stage is."},
+      {"name": "Flava Meets Fusion", "amount": 4497, "stage": "Proposal Sent", "owner": "Kenny", "close_date": "2026-08-09", "last_modified": "2026-08-15", "note": "PAST DUE by 7 days, not re-dated."},
+      {"name": "Sipsies Lemonade - Custom Package", "amount": 2500, "stage": "Negotiation", "owner": "Eli", "close_date": null, "last_modified": "2026-08-04", "note": "No close date set. AIOS memory records a downsell to a $1,799 Launch Pad around 8/4; HubSpot still says $2,500. One of the two is wrong."},
+      {"name": "Aurelia Tech", "amount": null, "stage": "Lead Captured", "owner": "Kenny", "close_date": "2026-08-09", "last_modified": "2026-08-14", "note": "Unpriced and past its close date."}
+    ]
+  },
+
+  "cold_deals": [],
+
+  "sprint": {
+    "number": null,
+    "goal": "Generate leads, reduce friction to close, close more deals",
+    "day": null,
+    "pct_done": null,
+    "items_done": null,
+    "items_total": null,
+    "note": "NO ACTIVE SPRINT. Every non-Done item on the BPP Internal board sits in Product Backlog with an empty Sprint dropdown. The last sprint carrying Done items is Sprint 3 (June). No Sprint 4 was ever opened and no sprint anchor exists. Sprint tracking has been dark for roughly two months - report it as dead, not as pending."
+  },
+
+  "top_three": [
+    {"title": "Close the HALO Pathways website build ($7,450)", "owner": "Eli", "status": "Proposal Sent", "points": null, "note": "Follow up Tuesday and convert the warm discovery call into a written commitment."},
+    {"title": "Run the Lois Marketing closeout", "owner": "Eli", "status": "Not Started (dated 2026-08-14)", "points": null, "note": "Fourth attempt. Message Phil Tuesday, run it Thursday. Unlocks ~$1,350."},
+    {"title": "Call Benji at Legacy B. Studio", "owner": "Eli", "status": "Blocked - client non-responsive 13 days", "points": null, "note": "Two open asks. Follow the call with a written timeline reset citing the contract's 2-business-day response terms."}
+  ],
+
+  "capacity_per_owner": {
+    "Daunte": {"in_flight": 6, "overdue": 8, "points": null, "commits_last_7d": 0, "shipped_last_wk": 0},
+    "Eli": {"in_flight": 2, "overdue": 10, "points": null, "commits_last_7d": 0, "shipped_last_wk": 0},
+    "Kenny": {"in_flight": 2, "overdue": 4, "points": null, "commits_last_7d": 0, "shipped_last_wk": 0}
+  },
+  "capacity_alert": "Daunte is at 6 items In Progress against a ratified WIP limit of 2 - three on the Internal board (Update HubSpot Pipelines, Develop Free Resources, Finish BPP Business Plan, all Critical or High) and three on Client Delivery (both Financial Acuity reviews plus Lois MS 6). Eli and Kenny are at the limit, not over it. Points are null because no non-Done item carries a Story Points value on a sprint.",
+
+  "wip_violations": [
+    {"owner": "Daunte", "in_flight": 6, "limit": 2}
+  ],
+
+  "overdue": [
+    {"title": "Financial Acuity - MS 4 GBP Setup", "owner": "Kenny", "days_overdue": 44},
+    {"title": "Lois Marketing - MS 5 Website Audit", "owner": "Eli", "days_overdue": 40},
+    {"title": "Financial Acuity - Internal Review", "owner": "Daunte", "days_overdue": 40},
+    {"title": "Financial Acuity - Client Review", "owner": "Daunte", "days_overdue": 38},
+    {"title": "Financial Acuity - Project Close Out", "owner": "Daunte", "days_overdue": 36},
+    {"title": "Financial Acuity - Ask for Referral and Upsell", "owner": "Daunte", "days_overdue": 36},
+    {"title": "Financial Acuity - Project Review", "owner": "Daunte", "days_overdue": 36},
+    {"title": "Lois Marketing - MS 6 1 AI Automation", "owner": "Daunte, Kenny", "days_overdue": 15},
+    {"title": "Legacy B. Studio - Internal Project Setup", "owner": "Eli", "days_overdue": 13},
+    {"title": "Legacy B. Studio - Project Kickoff", "owner": "Eli", "days_overdue": 13},
+    {"title": "Lois Marketing - Internal Review", "owner": "Eli, Daunte, Kenny", "days_overdue": 12},
+    {"title": "Lois Marketing - Client Review", "owner": "Eli, Daunte, Kenny", "days_overdue": 10},
+    {"title": "Legacy B. Studio - Project Planning", "owner": "Eli", "days_overdue": 9},
+    {"title": "Legacy B. Studio - Review Service Playbook", "owner": "Eli", "days_overdue": 9},
+    {"title": "Lois Marketing - Project Close Out", "owner": "Eli", "days_overdue": 2},
+    {"title": "Lois Marketing - Ask for Referral and Upsell", "owner": "Eli", "days_overdue": 2},
+    {"title": "Lois Marketing - Project Review", "owner": "Eli", "days_overdue": 2}
+  ],
+  "overdue_note": "17 overdue items, and that number should not be read at face value. At least two of them already happened in the real world - the Legacy B. Studio kickoff ran on 8/3 and the internal setup with it - but the board still says Not Started. The Financial Acuity block has been open since early July on a project whose closeout ran 7/31. The honest read is that the board is not being maintained, so 'overdue' is measuring board hygiene as much as it is measuring delivery. Close the ones that are actually done before treating this queue as work.",
+
+  "clients_at_risk": [
+    {"name": "Financial Acuity", "reason": "Six items open since early July on a project whose closeout already ran 7/31. Only the GBP is genuinely outstanding, and it was deleted 8/3 and needs rebuilding. Eli committed to ending this Wed 8/19."},
+    {"name": "Legacy B. Studio", "reason": "Client non-responsive 13 days on two asks. $750 owed. Design Concept date deliberately cleared 8/9 and still clear - correct. The next dated milestone, Home + About Pages Built on 8/24, will slip unless Benji answers this week."},
+    {"name": "Lois Marketing", "reason": "Closeout on its fourth attempt, all three closure items dated 8/14 and still open. ~$1,350 gated behind it."}
+  ],
+
+  "shipped_last_week": [
+    {"repo": "-", "commit_summary": "HALO Pathways discovery call ran 8/13 with Felicia and Larry Glanton; the $7,450 website build was scoped, created in HubSpot and moved to Proposal Sent the same day", "author": "Eli"},
+    {"repo": "bpp-tools", "commit_summary": "No commits in the last 7 days", "author": "-"}
+  ],
+
+  "carry_forward": {
+    "open_decisions": [],
+    "incomplete_commits": [],
+    "deferred_parking_lot": [],
+    "note": "EMPTY BY CAUSE, NOT BY LUCK. No monday-decisions file since 2026-07-13 and no recap since 2026-06-29. The /monday-recap into /monday-save-decisions chain has not run in over a month, so every Monday brief starts cold and nothing from last week is being held to account."
+  },
+
+  "prior_decisions": [],
+
+  "suggested_move": {
+    "headline": "Close HALO.",
+    "reasoning": "The proposal is already in Proposal Sent with a 9/2 close date, the discovery call ran three days ago while the relationship was still warm, and $7,450 is worth more than the realistic near-term value of the other four open deals combined. Committed AR is down to roughly $2,100 and both pieces of it are stuck behind a non-responsive client and a four-times-slipped closeout. Pipeline is the only lever with real money on it, and HALO is the biggest thing in the pipeline."
+  },
+
+  "drift_signals": [
+    "No forecast.md exists at all. Cash on this brief is the 7/29 bank feed, 18 days old, and predates every dollar of August.",
+    "Legacy B. Studio reads amount 0 in HubSpot and should read $2,500. The 8/3 restore did not hold - this is the second time the quote tooling has zeroed the deal.",
+    "Sprint tracking is dead. No Sprint 4 was ever opened; the last sprint with Done items is Sprint 3 in June.",
+    "Decision persistence is broken - no decisions file since 7/13, no recap since 6/29.",
+    "Client Delivery board hygiene has failed. Items that happened in reality (Legacy B kickoff 8/3) still read Not Started, which inflates the overdue count to 17.",
+    "Two of Kenny's deals are past their close dates and have not been re-dated: Flava Meets Fusion ($4,497, was 8/9) and Aurelia Tech (unpriced, was 8/9).",
+    "Tiffany Davis ($4,500) closes 8/23 but sits at Discovery Scheduled. The stage and the date disagree.",
+    "Sipsies price is unresolved - HubSpot says $2,500, AIOS memory says a downsell to $1,799 was agreed around 8/4. Resolve before quoting a number to the client.",
+    "Josue Batista is an active HubSpot owner carrying a $4,500 deal while BPP doctrine still reads 'team of four'. That needs a decision, not a note.",
+    "delivery-tracker.json is 13 days stale (last built 8/3) and its builder silently drops Legacy B. Studio - the group mapping was never added. Mapping fixed this run; the tracker itself still needs a rebuild.",
+    "bpp-tools: zero commits in 7 days."
+  ],
+
+  "inbox_digest": {
+    "status": "SKIPPED",
+    "note": "MS365 connector is read-only on this runner and the digest was not attempted."
+  },
+
+  "operating_norms": [
+    "WIP limit is 2 items In Progress per owner.",
+    "No silent weeks - every active client gets a touch.",
+    "Every blocker leaves the Monday meeting as a calendar invite with a name and a date, or it is explicitly dropped.",
+    "Anything needing more than 3 minutes of discussion goes to Saturday."
+  ],
+
+  "parking_lot": [
+    "HALO Webflow transfer troubleshoot - still blocking the Glanton card ask",
+    "HALO retainer outcome - raised 8/5, never logged",
+    "Claude Partner Network scoping - was due 8/19, slipping",
+    "Sipsies Lemonade pursue-or-close decision - five weeks slipped, due Mon 8/17"
+  ],
+
+  "out_of_scope": [
+    "BPP website audit, case studies and the case-study page, BPP Hub UX, referral partners, warm-cash revival, HubSpot pipeline cleanup, BPP business plan - all team-owned. Eli does not solo-build these."
   ]
- },
- "cash": {
-  "as_of_date": "2026-08-02",
-  "source": "DAUNTE OWNS THIS NUMBER - he brings live cash and collected-this-week to the meeting. Do not read a stale dashboard figure.",
-  "note": "Prior dashboard values (7/29 bank feed: $5,618 total, operating $1,993) are superseded and should not be quoted as current."
- },
- "ar_layers": {
-  "committed_total": 1350,
-  "note": "Financial Acuity and HALO finals are COLLECTED (confirmed by Eli 2026-08-02). Only Lois remains, and it closes 8/8.",
-  "layers": [
-   {
-    "name": "Lois final",
-    "amount": 1350,
-    "status": "Outstanding - lands at the 8/8 closeout"
-   }
-  ]
- },
- "carry_forward": "No monday-recap file exists for the prior week - the recap chain is broken along with the prep chain. Last brief produced: 2026-07-13. Nothing for 7/20 or 7/27.",
- "shipped_last_week": [
-  "Legacy B. Studio - Website CLOSED WON ($2,500, 7/30). Kickoff Mon 8/3 6:30 PM.",
-  "HALO business plan delivered + project closeout complete",
-  "Financial Acuity closeout meeting (7/31) + recap - produced a referral (Christine)",
-  "Xtremely Clean job costing proposal meeting (7/30)",
-  "Q2 review (7/29)",
-  "Josue Batista onboarded 7/23 - Outlook, Copilot, HubSpot Sales Pro"
- ],
- "inbox_digest": {
-  "note": "Scanned eli@buildwithbpp.com.",
-  "vip_items": [
-   {
-    "from": "daunte@buildwithbpp.com",
-    "subject": "Financial Acuity: recap, links, and next steps",
-    "received": "2026-08-01",
-    "snippet": "Maxine referred CHRISTINE - no HubSpot deal exists for her. Unowned warm referral."
-   }
-  ]
- },
- "drift_signals": [
-  "The scheduled claude.ai routine (trig_01JtFzLRJ2pPV9nnq5kHevMH, declared live 2026-07-26, Sundays ~7:53pm ET) has NEVER delivered a brief. 14-day search of erfcampbell0704@gmail.com and eli@buildwithbpp.com returns nothing under any sender or subject.",
-  "Last markdown brief on disk: 2026-07-13. Last monday-prep-latest.json: 2026-07-13. The prep chain has been dark for three weeks (7/20 and 7/27 produced nothing).",
-  "RESOLVED 8/2: Financial Acuity and HALO finals are collected. Earlier briefs carrying FA as outstanding AR were wrong. Daunte owns the live financial numbers going forward - the brief should not compute them.",
-  "Meeting format changed 2026-08-02: Monday moves to Scoreboard -> Verdict -> 3 Decisions -> standup round -> blockers-become-meetings -> commitments. Every blocker must exit as a calendar invite."
- ],
- "prior_decisions": [],
- "phase": {
-  "current": "Phase 2",
-  "hit_date": "2026-06-29",
-  "detail": "Savings crossed $3K. $50/partner closed-deal bonus live ($150 per paid deal, from operating). Guaranteed payments $150 each. Profit share paused until Phase 3.",
-  "next_trigger": "Phase 3 = Savings >= $5K AND a quarter over $5K profit",
-  "transitioning_to": "Phase 3",
-  "gap_note": "Savings $3,625 - $1,375 short of the $5K savings leg."
- },
- "ar_scenarios": [
-  {
-   "name": "Lois final collects at 8/8 closeout",
-   "receivables_in": 1350,
-   "ending_operating": null,
-   "highlight": true,
-   "note": "The last committed receivable. After this, AR is effectively zero until new work closes."
-  }
- ],
- "capacity_alert": "Eli carries every dated delivery milestone this week plus a full-time contract, AND owns the two biggest revenue opportunities (Lois phase 2 ~$13K, HALO retainer $3K). That is the concentration risk on the page.",
- "capacity_per_owner": [
-  {
-   "owner": "Eli",
-   "load": "Heavy",
-   "note": "4 dated Lois milestones + Legacy B kickoff + HALO in-person, alongside a 9-5 contract."
-  },
-  {
-   "owner": "Kenny",
-   "load": "Medium",
-   "note": "Two proposals closing 8/9 (Flava Meets Fusion $4,497, Aurelia Tech) + All State to price or kill."
-  },
-  {
-   "owner": "Daunte",
-   "load": "Medium",
-   "note": "FA collection is the single biggest cash lever; Xtremely Clean proposal in flight."
-  },
-  {
-   "owner": "Rodney",
-   "load": "Light",
-   "note": "Warm intros only, by prior decision."
-  },
-  {
-   "owner": "Sway (Josue Batista)",
-   "load": "Onboarding",
-   "note": "Same person - one seat, not two. Credentials live 7/23; sales skill unfinished, training unconfirmed."
-  }
- ],
- "operating_norms": [
-  "Monday is 30 minutes: scoreboard, verdict, three decisions, standup round, blockers, commitments.",
-  "Anything needing more than 3 minutes of discussion goes to Saturday.",
-  "Every blocker leaves the room as a calendar invite with a date and a name, or it is explicitly dropped.",
-  "One owner per commitment.",
-  "Sprints only hold work that drives income or leads, or solves a major problem (decided 7/23)."
- ],
- "out_of_scope": [
-  "Sprint walkthroughs",
-  "Pipeline tours",
-  "Anything that belongs to the 90-minute Saturday Weekly Business Meeting"
- ],
- "parking_lot": [
-  "BPP Claude Partner Network application - scoping only, needs Daunte sign-off",
-  "Case studies + case-study page - likely a Partner Network prerequisite",
-  "Fix the bpp-monday-prep scheduled routine (declared live 7/26, has never delivered)",
-  "Lois: confirm the second figure on the $13K whiteboard, and whether Lois or BPP supplies the additional team player"
- ]
 }
