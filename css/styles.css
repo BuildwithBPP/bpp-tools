@@ -543,3 +543,6 @@ body[data-privacy="off"] .mask{display:none;}
 .privacy-toggle .pt-dot{width:7px;height:7px;border-radius:50%;background:#1a9e5c;transition:background .15s;}
 .privacy-toggle.revealed{background:var(--gold);border-color:var(--gold);color:var(--navy);}
 .privacy-toggle.revealed .pt-dot{background:#c0392b;}
+
+/* Monday brief: a source skipped by design is grey, not red. Red is for real failures. */
+.brief-pill.skipped{background:var(--bg);color:var(--muted);border:1px solid var(--border);}
