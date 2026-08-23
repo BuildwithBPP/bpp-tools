@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lois Marketing Project Review &amp; Retrospective - BPP Internal</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #044771; --navy-dark: #033359; --blue: #5987A5; --blue-mid: #3a6d8f;
+    --gold: #F1BE5C; --gold-dark: #d4a43e; --bg: #edf1f5; --card-bg: #ffffff;
+    --card-border: #c8d3dc; --section-bg: #e2e9f0; --gray: #4a4a4a; --gray-light: #6B6B6B;
+    --green: #1a9e5c; --green-light: #d4f0e1; --red: #c0392b; --red-light: #f5d5d1;
+    --amber: #d4920a; --amber-light: #fdf0d0;
+    --daunte: #5987A5; --kenny: #1a9e5c; --eli: #d4a43e;
+  }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #14222f; min-height: 100vh; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(4,71,113,0.3); flex-wrap: wrap; gap: 14px; }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .header-logo { width: 44px; height: 44px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: var(--navy-dark); box-shadow: 0 2px 8px rgba(241,190,92,0.4); }
+  .header-text { color: white; }
+  .header-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+  .header-sub { font-size: 11px; font-weight: 300; opacity: 0.7; margin-top: 3px; }
+  .header-right { text-align: right; color: white; }
+  .header-period { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: var(--gold); }
+  .header-date { font-size: 10px; opacity: 0.55; margin-top: 3px; }
+
+  .page { max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px; }
+  .back-link { display: inline-block; font-size: 11px; color: var(--blue-mid); text-decoration: none; margin-bottom: 18px; font-weight: 600; }
+  .back-link:hover { color: var(--navy); }
+
+  /* SECTION HEADERS */
+  .section-bar { background: var(--navy); border-radius: 8px; padding: 14px 24px; margin: 38px 0 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
+  .section-bar-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.1em; }
+  .section-bar-sub { font-size: 10px; color: rgba(255,255,255,0.65); }
+  .section-note { font-size: 10px; color: var(--gray-light); margin: 4px 4px 16px; line-height: 1.5; }
+
+  /* KPI CARDS */
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .kpi-card { background: var(--card-bg); border-radius: 10px; padding: 18px; border: 1px solid var(--card-border); text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .kpi-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-light); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; color: var(--navy); }
+  .kpi-sub { font-size: 11px; color: var(--gray-light); margin-top: 4px; }
+  .kpi-card.gold { border-left: 5px solid var(--gold); }
+  .kpi-card.green { border-left: 5px solid var(--green); }
+  .kpi-card.red { border-left: 5px solid var(--red); }
+  .kpi-card.amber { border-left: 5px solid var(--amber); }
+
+  /* SHIPPED LIST */
+  .ship-group { margin-bottom: 18px; }
+  .ship-item { background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--green); border-radius: 8px; padding: 13px 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); flex-wrap: wrap; }
+  .ship-icon { flex-shrink: 0; width: 40px; height: 40px; border-radius: 8px; background: var(--green-light); color: var(--green); font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+  .ship-body { flex: 1; min-width: 180px; }
+  .ship-title { font-size: 13px; font-weight: 600; color: #14222f; }
+  .ship-desc { font-size: 11px; color: var(--gray-light); margin-top: 2px; line-height: 1.5; }
+  .ship-owner { flex-shrink: 0; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 12px; }
+  .owner-daunte { background: rgba(89,135,165,0.15); color: var(--daunte); }
+  .owner-kenny { background: var(--green-light); color: var(--kenny); }
+  .owner-eli { background: var(--amber-light); color: var(--gold-dark); }
+  .owner-rodney { background: rgba(4,71,113,0.12); color: var(--navy); }
+
+  /* RETRO (4Ls) */
+  .retro-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .retro-col { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 0 0 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden; }
+  .retro-head { padding: 14px 18px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: white; }
+  .retro-head.liked { background: var(--green); }
+  .retro-head.learned { background: var(--blue); }
+  .retro-head.lacked { background: var(--amber); }
+  .retro-head.longed { background: var(--navy); }
+  .retro-item { padding: 11px 18px; font-size: 12px; line-height: 1.5; color: var(--gray); border-bottom: 1px solid #eef2f5; }
+  .retro-item:last-child { border-bottom: none; }
+  .retro-item b { color: #14222f; font-weight: 700; }
+  .retro-item.empty { color: var(--gray-light); font-style: italic; }
+
+  /* DAKI block */
+  .daki-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .daki-col { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 0 0 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden; }
+  .daki-head { padding: 13px 18px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: white; }
+  .daki-head.drop { background: var(--red); }
+  .daki-head.add { background: var(--green); }
+  .daki-head.keep { background: var(--blue); }
+  .daki-head.improve { background: var(--gold-dark); }
+  .daki-item { padding: 11px 18px; font-size: 12px; line-height: 1.5; color: var(--gray); border-bottom: 1px solid #eef2f5; }
+  .daki-item:last-child { border-bottom: none; }
+  .daki-item b { color: #14222f; font-weight: 700; }
+  .daki-owner { font-size: 10px; font-weight: 700; color: var(--blue-mid); }
+
+  /* LESSONS */
+  .lesson { display: flex; gap: 12px; margin-bottom: 12px; font-size: 13px; line-height: 1.55; color: var(--gray); background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--gold); border-radius: 8px; padding: 14px 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .lesson-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 6px; background: var(--navy); color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+  .lesson b { color: #14222f; font-weight: 700; }
+  .lesson-also { font-size: 12px; line-height: 1.6; color: var(--gray-light); margin: 2px 4px 0; }
+  .lesson-also b { color: var(--navy); }
+
+  .footer { background: var(--navy-dark); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; margin-top: 40px; flex-wrap: wrap; gap: 8px; }
+  .footer-text { color: rgba(255,255,255,0.6); font-size: 10px; }
+  .footer-gold { color: var(--gold); font-size: 12px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+
+  @media (max-width: 820px) {
+    .kpi-row, .retro-grid, .daki-grid { grid-template-columns: 1fr; }
+    .header { padding: 20px 24px; }
+    .footer { padding: 18px 24px; }
+  }
+</style>
+</head>
+<body>
+<div id="hub-nav"></div>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">BPP</div>
+    <div class="header-text">
+      <div class="header-title">Lois Marketing Project Review &amp; Retrospective</div>
+      <div class="header-sub">Internal closeout retro &middot; Operator System &middot; Lois Marketing LLC</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-period">Apr 11 &ndash; Aug 20, 2026</div>
+    <div class="header-date">Retro run August 23, 2026</div>
+  </div>
+</div>
+
+<div class="page">
+  <a class="back-link" href="reviews.html">&larr; Back to Reviews</a>
+
+  <!-- ENGAGEMENT SNAPSHOT -->
+  <div class="section-bar">
+    <div class="section-bar-title">Engagement Snapshot</div>
+    <div class="section-bar-sub">Operator System &middot; $4,500 &middot; Eli owner, Kenny on CRM, Daunte on finance</div>
+  </div>
+  <div class="section-note">Counts are drawn from the Monday Client Delivery board (Lois Marketing group) and the client workspace. Completion dates for MS 5 and MS 6 were back-filled at closeout because status was never moved when the work actually shipped.</div>
+  <div class="kpi-row">
+    <div class="kpi-card gold">
+      <div class="kpi-label">Duration</div>
+      <div class="kpi-value">4.3 mo</div>
+      <div class="kpi-sub">Closed Won Apr 11 to closeout Aug 20</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Milestones Shipped</div>
+      <div class="kpi-value">6 of 6</div>
+      <div class="kpi-sub">Plus one untracked workstream</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">On Time?</div>
+      <div class="kpi-value">2 slips</div>
+      <div class="kpi-sub">MS 5 due Jul 7, MS 6 due Aug 1</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Self-Rating</div>
+      <div class="kpi-value">6 / 10</div>
+      <div class="kpi-sub">Client latency plus internal alignment gaps</div>
+    </div>
+  </div>
+  <div style="background:#fdf0d0;border:1px solid #e8cf90;border-left:4px solid var(--amber);border-radius:8px;padding:14px 18px;margin:14px 0 4px;font-size:12px;line-height:1.6;color:#6b5618;"><b>Headline outcome:</b> took an owner-run commodity brokerage that lived entirely inside one person's head and put it into systems the client owns. HubSpot with two live pipelines, a documented current-state value stream, a marketing playbook with trained operators, a revenue and margin dashboard, an improved site wired to the CRM, and one working AI automation. <b>The honest counterweight:</b> two milestones shipped weeks past their due dates and nobody moved the board, a full workspace-setup workstream ran unscoped and untracked, and the balance was still outstanding on closeout day.</div>
+  <div style="background:#f5d5d1;border:1px solid #e0a9a2;border-left:4px solid var(--red);border-radius:8px;padding:14px 18px;margin:10px 0 4px;font-size:12px;line-height:1.6;color:#7a2b20;"><b>Not closed yet.</b> Balance outstanding, closing invoice with Kenny. Survey and Google review were both asked at closeout and both are still owed. The free retainer month runs to <b>September 19</b>, and the <b>September 15 check-in</b> is the actual close. It is the single most forgettable item on this account.</div>
+
+  <!-- WHAT WE DELIVERED -->
+  <div class="section-bar">
+    <div class="section-bar-title">What We Delivered</div>
+    <div class="section-bar-sub">6 milestones + 1 untracked workstream</div>
+  </div>
+  <div class="section-note">Compiled from the Monday board, the client Deliverables folder and the closeout deck. Owner tags reflect who did the work, not who owned the account.</div>
+  <div class="ship-group">
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">MS 1 &middot; Process mapping and current-state value stream</div><div class="ship-desc">Discovery interviews across marketing, sales and finance. One flowing map with handoffs called out, friction points and automation candidates flagged, signed off by the client. Completed May 22.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">MS 2 &middot; Marketing playbook, templates and sequence</div><div class="ship-desc">Strategy research, email and LinkedIn templates, sequence built in HubSpot, playbook doc delivered and the team trained. Includes the outreach guide and run-of-show for the client's outreach lead. Completed June 9.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">MS 3 &middot; CRM audit, HubSpot buildout and training</div><div class="ship-desc">License decision, portal setup and account config, two deal pipelines with lifecycle stages and a company/contact property schema, email templates loaded with tracking enabled, live training session. Their largest account built out as the working example. Completed June 16.</div></div>
+      <div class="ship-owner owner-kenny">Kenny</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">MS 4 &middot; Financial clarity session and margin dashboard</div><div class="ship-desc">Financials and service-line breakdown collected, working session run, revenue and margin by service line dashboard built and handed off. The direct answer to margins being worked out by hand on a calculator at discovery. Completed July 14.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">MS 5 &middot; Website audit and implemented improvements</div><div class="ship-desc">UX, SEO, conversion and technical audit, prioritized improvement list, expanded landing page built, top improvements implemented and QA'd, site connected to HubSpot with form and tracking. Shipped; exact date not captured, back-filled at closeout.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+    <div class="ship-item">
+      <div class="ship-icon">&#10003;</div>
+      <div class="ship-body"><div class="ship-title">MS 6 &middot; One AI automation, built and handed off</div><div class="ship-desc">Automation candidate selected out of the process-mapping output, scope confirmed with the client, built, tested, documented and handed off. Shipped; exact date not captured, back-filled at closeout.</div></div>
+      <div class="ship-owner owner-daunte">Daunte</div>
+    </div>
+    <div class="ship-item" style="border-left-color:var(--amber);">
+      <div class="ship-icon" style="background:var(--amber-light);color:var(--amber);">!</div>
+      <div class="ship-body"><div class="ship-title">AI workspace setup and training <span style="color:var(--amber);font-weight:700;">(untracked)</span></div><div class="ship-desc">A full Claude workspace built for the client with folder structure, connected tooling and working skills, delivered across multiple sessions with live training. Never scoped, never priced, never on the board. It is also where the engagement's largest failure happened.</div></div>
+      <div class="ship-owner owner-eli">Eli</div>
+    </div>
+  </div>
+
+  <!-- 4Ls -->
+  <div class="section-bar">
+    <div class="section-bar-title">Retrospective &middot; 4Ls</div>
+    <div class="section-bar-sub">Source: internal retro call, August 22, 2026</div>
+  </div>
+  <div class="section-note">Client-specific behavioral detail is held in the client workspace record rather than published here. What follows is the pattern-level read.</div>
+  <div class="retro-grid">
+    <div class="retro-col">
+      <div class="retro-head liked">Liked</div>
+      <div class="retro-item"><b>Why before what.</b> Reframing the build around what it specifically pays off for this owner, and how he would use it, moved him from polite to engaged. The turn landed 30 to 45 minutes into a session, roughly 40 to 60 percent of the way through.</div>
+      <div class="retro-item"><b>Live demo as the teaching method.</b> Answering the client's question by asking the system in front of him, out loud. That teaches prompting by doing. It is the most transferable thing that came out of the setup work.</div>
+      <div class="retro-item"><b>The mid-project expectation reset.</b> A second BPP voice having a separate conversation to realign expectations is what made the back half of the work land.</div>
+      <div class="retro-item"><b>The financial clarity session.</b> Closed a discovery-stage pain point out loud, in front of the client. Exactly what a closeout should be able to point back at.</div>
+      <div class="retro-item"><b>The closeout package.</b> Ten-slide deck, pre-call gates, per-slide objection handling and a scope sheet. Reusable as-is.</div>
+    </div>
+    <div class="retro-col">
+      <div class="retro-head learned">Learned</div>
+      <div class="retro-item"><b>Set expectations before the action-plan conversation, not during it.</b> The named top lesson. The miss was no agenda and no internal touch-base on what the other BPP voice had already told the client, so the room was not on the same page.</div>
+      <div class="retro-item"><b>We assume prerequisite knowledge clients do not have.</b> No free disk or RAM to run anything natively, no membership, and no mental model of what a local file even is. <b>The same pattern appeared on the previous workspace setup at another client.</b> This is the service, not one client.</div>
+      <div class="retro-item"><b>Environment decides whether technical delivery lands.</b> Sessions where the decision-maker sat at a table with the laptop worked. Sessions the client hosted in an informal setting, distracted and running long, transferred nothing. Relationship building survives that. Instruction does not.</div>
+      <div class="retro-item"><b>The technical seat is not delegable mid-session.</b> Handing the work down to an unprepared team member spends the session on login troubleshooting and transfers no knowledge.</div>
+      <div class="retro-item"><b>Retainers sell easier at proposal than at closeout.</b> Switching from delivery to upsell at the close is a hiccup for us and bad psychology for them.</div>
+      <div class="retro-item"><b>Prompt engineering is a weak 2026 lead magnet.</b> The models do the role framing themselves now, unprompted. <b>Skills</b> is the stronger training module and the stronger magnet.</div>
+    </div>
+    <div class="retro-col">
+      <div class="retro-head lacked">Lacked</div>
+      <div class="retro-item"><b>A pre-setup technical readiness check.</b> Device specs, free disk, RAM, active subscription. None of it verified before the session was booked. All of it blocked the work.</div>
+      <div class="retro-item"><b>A plain explanation of what running natively means.</b> It took about 35 minutes, delivered twice, to land the idea that the model has to look at the file and the file has to be there to look at.</div>
+      <div class="retro-item"><b>A "do not delete this" guardrail.</b> Nothing told the client the workspace folder was the product.</div>
+      <div class="retro-item"><b>In-the-moment objection handling.</b> Self-identified. Reading the room live and answering resistance as it happens.</div>
+      <div class="retro-item"><b>Meetings booked at kickoff.</b> The client-side latency that drove the 6 was structural, not personal. This owner responds to a calendar invite and leaves texts and email unread.</div>
+      <div class="retro-item"><b>An internal pre-brief before client-facing planning calls.</b> Two BPP people carried two versions of the story into one conversation.</div>
+      <div class="retro-item"><b>A trustworthy board.</b> Two milestones shipped and nobody moved status. Second engagement in a row with this exact problem.</div>
+    </div>
+    <div class="retro-col">
+      <div class="retro-head longed">Longed-for</div>
+      <div class="retro-item"><b>An AI workspace setup SOP.</b> Prerequisites checklist, run-of-show, the standard explanations that actually work, and a one-page client-side "what this is and what not to touch."</div>
+      <div class="retro-item"><b>A packaged Skills and prompting 101 module</b> that doubles as a lead magnet and as the training we currently improvise.</div>
+      <div class="retro-item"><b>A standing rule on setting.</b> Where technical sessions happen, and who has to be in the seat when they do.</div>
+      <div class="retro-item"><b>Watch tape as a routine.</b> We record and transcribe everything already. Reviewing our own calls for weak CTAs and missed objections is a habit we talk about and do not run.</div>
+      <div class="retro-item"><b>The setup scoped as a real deliverable</b> with a definition of done, a price, and a line on the board.</div>
+    </div>
+  </div>
+
+  <!-- DAKI -->
+  <div class="section-bar">
+    <div class="section-bar-title">Action Plan &middot; DAKI</div>
+    <div class="section-bar-sub">Drop &middot; Add &middot; Keep &middot; Improve</div>
+  </div>
+  <div class="daki-grid">
+    <div class="daki-col">
+      <div class="daki-head drop">Drop</div>
+      <div class="daki-item">Running technical setup sessions in venues chosen for social reasons rather than for work.</div>
+      <div class="daki-item">Assuming a client's hardware and subscriptions can run what we are about to install.</div>
+      <div class="daki-item">Letting the client reassign the technical seat mid-session.</div>
+      <div class="daki-item">Pitching the retainer for the first time at closeout.</div>
+    </div>
+    <div class="daki-col">
+      <div class="daki-head add">Add</div>
+      <div class="daki-item"><b>1. A gated technical readiness check.</b> Specs, free disk, RAM, active subscription. No setup session books until it passes. <span class="daki-owner">Eli</span></div>
+      <div class="daki-item"><b>2. Book every project meeting inside the kickoff</b>, before the kickoff call ends, with their availability taken in the room. <span class="daki-owner">Eli + Kenny</span></div>
+      <div class="daki-item"><b>3. An internal pre-brief</b> before any client-facing action-plan call, so both BPP voices carry the same story. <span class="daki-owner">Eli + Kenny</span></div>
+      <div class="daki-item"><b>4. Retainer priced into the proposal</b>, month one included, as already done on the HALO Pathways quote. <span class="daki-owner">Eli + Daunte</span></div>
+      <div class="daki-item"><b>5. A client "what not to delete" one-pager</b> handed over at every workspace handoff. <span class="daki-owner">Eli</span></div>
+    </div>
+    <div class="daki-col">
+      <div class="daki-head keep">Keep</div>
+      <div class="daki-item">Why-before-what framing on every technical explanation.</div>
+      <div class="daki-item">Live-demo teaching instead of narrated instruction.</div>
+      <div class="daki-item">The mid-project expectation-reset conversation from a second BPP voice.</div>
+      <div class="daki-item">The financial clarity session as a standard Operator System milestone.</div>
+      <div class="daki-item">The closeout deck plus talking-points plus scope-sheet format.</div>
+    </div>
+    <div class="daki-col">
+      <div class="daki-head improve">Improve</div>
+      <div class="daki-item"><b>Objection handling, worked from our own tape.</b> Pull the recorded calls, mark where an objection went unhandled or a CTA went soft, and drill those specific moments. <span class="daki-owner">Eli</span></div>
+      <div class="daki-item"><b>Training that teaches prerequisites</b> rather than assuming them. Start at what a file is, not at what the system does. <span class="daki-owner">Eli</span></div>
+      <div class="daki-item"><b>Move Monday status as work changes.</b> Not at close, not in bulk. Second engagement in a row. <span class="daki-owner">All 3</span></div>
+    </div>
+  </div>
+
+  <!-- LESSONS -->
+  <div class="section-bar">
+    <div class="section-bar-title">Lessons We Carry Forward</div>
+    <div class="section-bar-sub">5 numbered &middot; mirrored in the Client Lessons Learned log</div>
+  </div>
+  <div class="lesson"><div class="lesson-num">1</div><div><b>Gate every AI workspace setup behind a technical readiness check.</b> The client had no free storage, no RAM headroom and no active membership, and the session ran anyway. It turned a productized setup into hours of unbilled labor. Verify device specs, free disk and an active subscription before the session goes on a calendar.</div></div>
+  <div class="lesson"><div class="lesson-num">2</div><div><b>Teach what a local file is before teaching what the system does, then hand over a "do not delete" sheet.</b> The client deleted his entire workspace folder believing it was a leftover download artifact, and it only surfaced at closeout during a rabbit chase over a skill that would not run. Recovery cost roughly 35 minutes of explanation on top of the troubleshooting time.</div></div>
+  <div class="lesson"><div class="lesson-num">3</div><div><b>Book every meeting at kickoff.</b> Client-side latency was the top driver of the 6 rating and it was structural. This owner respects a calendar invite and leaves texts and email unread for days. Send the full meeting set and take availability before the kickoff call ends. Applies immediately to every open engagement.</div></div>
+  <div class="lesson"><div class="lesson-num">4</div><div><b>Technical delivery needs a technical setting, and the technical seat is not delegable.</b> A session where the decision-maker is distracted and hands the laptop to an unprepared team member is not a working session. Reschedule it. Pushing through produces a client who cannot use what he bought, which is exactly what happened here.</div></div>
+  <div class="lesson"><div class="lesson-num">5</div><div><b>Sell the retainer at proposal, not at closeout.</b> An extra $250 on an $8,000 package is invisible while the client is already saying yes. The same $250 asked at the close is a fresh decision made after the buying energy is gone, and it forces us to switch from delivery mode into sales mode in front of them.</div></div>
+  <div class="lesson-also"><b>+ also:</b> pre-brief internally before client-facing planning calls &middot; move Monday status as work changes, this is the second engagement in a row where the board could not be trusted &middot; scope and price the workspace setup as a real deliverable &middot; Skills, not prompt engineering, is the 2026 training and lead-magnet play &middot; give written termination notice whenever a contract calls for one.</div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-text">Business Plans Plus LLC &middot; Temple Terrace, FL &middot; Internal Use Only &middot; Retro run August 23, 2026</div>
+  <div class="footer-gold">buildwithbpp.com</div>
+</div>
+
+<script src="../js/nav.js" data-page="strategy"></script>
+</body>
+</html>
