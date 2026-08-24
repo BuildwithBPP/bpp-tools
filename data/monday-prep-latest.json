@@ -10,7 +10,7 @@
     "QB": "STALE (32d - last transaction report 2026-07-22)",
     "Outlook": "SKIPPED - read-only connector"
   },
-  "north_star": "HALO Pathways closed at $7,450. Finance measures cash this week and invoices milestone one, or the largest win in BPP's history sits uncollected behind an unknown balance.",
+  "north_star": "HALO Pathways closed at $7,450. Get Daunte's cash numbers into the BPP tools and invoice milestone one, so the largest win in BPP's history is tracked and collected on the same surface as everything else.",
   "cash": {
     "operating": 1993,
     "savings": 3625,
@@ -20,8 +20,8 @@
     "buffer_gap": -1656,
     "as_of_date": "2026-07-29",
     "days_stale": 25,
-    "source": "QuickBooks live bank feed, 2026-07-29 (available balances). Carried unchanged from last week - nothing was re-pulled.",
-    "note": "STILL UNMEASURED, SECOND WEEK. 25 days old and it predates all of August, the HALO close, and the Financial Acuity and HALO Launch Pad collections. It also conflicts with the 2026-07-14 QB balance sheet on disk, which shows $7,687 across bank accounts. Nobody has reconciled the two. Do not quote either as current cash.",
+    "source": "QuickBooks live bank feed, 2026-07-29 (available balances). Carried unchanged from last week; nothing new has reached the hub.",
+    "note": "The numbers are being reviewed outside the BPP tool hub, so this is a connection gap, not a missing-work gap. The hub feed is 25 days old and predates all of August, the HALO close, and the Financial Acuity and HALO Launch Pad collections. It also conflicts with the 2026-07-14 QB balance sheet on disk, which shows $7,687 across bank accounts. Ask Daunte for the current figure at the top of the meeting.",
     "savings_pct_to_phase2": 100
   },
   "ar_layers": {
@@ -99,7 +99,7 @@
       "points": null
     },
     {
-      "title": "Re-pull the bank feed and reconcile the two numbers on disk",
+      "title": "Get the current cash figure from Daunte into the BPP tools",
       "owner": "Daunte",
       "status": "Not Started",
       "points": null
@@ -247,7 +247,7 @@
       "The 2026-08-17 decisions file exists but is completely empty. No decisions, no commits, no blockers recorded. The meeting either did not happen or produced nothing written down."
     ],
     "incomplete_commits": [
-      "Cash was not re-pulled. It won the deep dive and moved zero.",
+      "Cash still has not reached the tool hub. It won the deep dive last week and the hub feed did not move.",
       "Flava ($4,497) and Aurelia were not re-dated or killed. Both were touched 8/19 and left as-is.",
       "The Sipsies $2,500 vs $1,799 number was not settled. Deal touched 8/21, still no close date.",
       "The Marketing hold-or-drift question was booked to Saturday and never answered.",
@@ -299,11 +299,11 @@
     "Comp and strategic-shift conversations"
   ],
   "week_of_prior": "2026-08-17",
-  "theme": "The biggest deal BPP has ever booked just closed, and Finance still cannot tell you what it did to the balance.",
-  "theme_rationale": "HALO Pathways closed won at $7,450 on 8/21 and Client Delivery ran a real hygiene pass. Both of last week's Eli-owned calls landed. Everything Daunte owns is exactly where it was, and he is DRI on both remaining red lanes.",
+  "theme": "The biggest deal BPP has ever booked just closed. We just need updated numbers from Daunte in the BPP tools, because we have been going over them outside the tool hub and it is not connected right now for whatever reason.",
+  "theme_rationale": "HALO Pathways closed won at $7,450 on 8/21 and Client Delivery ran a real hygiene pass. Both of last week's Eli-owned calls landed. The cash conversation has been happening outside the tool hub, so the numbers exist, they are just not flowing into the surface every other lane on this page reports against.",
   "stale_flags": [
-    "Cash is 25 days old and no forecast file exists. Second consecutive week.",
-    "The 7/29 bank feed ($1,993 operating) and the 7/14 QB balance sheet ($7,687 in bank accounts) disagree by $5,694 and neither has been reconciled.",
+    "The hub's cash feed is 25 days old and no forecast file is feeding it. Numbers are being reviewed outside the hub.",
+    "The 7/29 bank feed ($1,993 operating) and the 7/14 QB balance sheet ($7,687 in bank accounts) disagree by $5,694 and neither has been reconciled into the hub.",
     "delivery-tracker.json last rebuilt 2026-08-03, 20 days stale.",
     "monday-decisions.json last written 2026-06-22, 62 days stale.",
     "The 2026-08-17 decisions file is empty - nothing was recorded from last week's meeting.",
@@ -418,29 +418,29 @@
       "dri_code": "d",
       "health": "red",
       "headline": {
-        "value": "unmeasured",
+        "value": "not in the hub",
         "label": "cash position",
-        "sub": "25 days since the last number, and it conflicts with the balance sheet on disk"
+        "sub": "numbers are being reviewed outside the tool hub; the hub feed is 25 days old"
       },
       "trend": {
-        "direction": "down",
-        "note": "was 18 days. This won the deep dive last week and produced no recorded decision."
+        "direction": "flat",
+        "note": "same as last week. The cash conversation is happening, it is just not landing in the BPP tools."
       },
       "decision": {
-        "question": "Cash won the deep dive last week and is one week staler. Who re-pulls the bank feed, by what date, and does the monthly close start producing a forecast file again?",
-        "why_now": "AR just went from ~$2,100 to ~$9,550 on the HALO close and nobody can say what the balance is. The $2K threshold routes every decision in this company and it cannot be applied by people who do not know the cash. Two numbers on disk disagree by $5,694 and neither has been reconciled.",
+        "question": "We just need updated numbers from Daunte in the BPP tools. What does he need in order to get them in, and by when?",
+        "why_now": "We have been going over cash outside the tool hub, so the numbers exist and the calls are getting made. The hub just is not connected right now for whatever reason. That matters because the $2K routing rule and every figure on this page run off the hub feed, so right now the brief reports against a number nobody can see. This is a plumbing job, not an accountability one, and it is cheap once someone names what is actually broken.",
         "routing": "blocks_revenue",
         "decider": "full team"
       },
       "watching": [
-        "The 7/29 bank feed says $1,993 operating. The 7/14 QB balance sheet says $7,687 across bank accounts. Nobody has reconciled them.",
+        "Two figures sit on disk and disagree by $5,694: the 7/29 bank feed reads $1,993 operating, the 7/14 QB balance sheet reads $7,687 across bank accounts. Whichever is right, neither is in the hub.",
         "HALO milestone 1 is roughly $2,235 and invoices at Tuesday's kickoff. That is the collect action of the week.",
         "Legacy B reads $0 in HubSpot and should read $2,500. Third consecutive week flagged, no owner on the permanent fix."
       ],
       "needs_depth": true,
       "silent_weeks": 4,
       "evidence": {
-        "source": "QuickBooks bank feed 2026-07-29, QB balance sheet 2026-07-14, HubSpot closed-won",
+        "source": "QB bank feed 2026-07-29, QB balance sheet 2026-07-14, HubSpot closed-won. No forecast file feeding the hub.",
         "as_of": "2026-07-29"
       }
     },
@@ -516,8 +516,8 @@
   "deep_dive": {
     "lane_key": "finance",
     "lane_name": "Finance & Operations",
-    "topic": "Daunte is DRI on both red lanes, and the one thing only he can do did not happen again.",
-    "why": "This is the second week Finance wins this block, and re-asking last week's question unchanged is how a meeting stops working. So ask the real one instead. Last week Eli's two calls both landed: Client Delivery got its hygiene pass and Lois closed out. Everything on Daunte's side is exactly where it was, and he carries five items In Progress against a WIP limit of two while owning both remaining red lanes. The question is not whether cash should be measured. It is what comes off his plate this week so it can be. That answer unblocks the $2K routing rule, the decisions chain, the delivery tracker, and the HALO invoice all at once. It leaves this room with a name and a date, or Finance gets a different DRI.",
+    "topic": "Get Daunte's cash numbers into the BPP tools.",
+    "why": "We have been going over cash outside the tool hub, so the numbers exist and the decisions are getting made. The hub just is not connected right now for whatever reason. That is worth seven minutes because the hub is the shared surface: the $2K routing rule, the AR scenarios, the home page stat cards and every figure in this brief all read from it, so today they report against a number nobody else can see. Ask Daunte what the actual blocker is, whether it is the forecast file, the QB pull, or just that nobody owns the handoff, and put a name and a date on it. Cheap to fix, and it makes the other four lanes trustworthy again.",
     "minutes": 7
   },
   "meetings_to_book": [
