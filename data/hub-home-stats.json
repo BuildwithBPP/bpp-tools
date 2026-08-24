@@ -1,114 +1,80 @@
 {
-  "generated_at": "2026-08-16T15:30:00",
-  "as_of_date": "Aug 16",
+  "generated_at": "2026-08-23T14:30:00",
+  "as_of_date": "Jul 29 (cash) / Aug 23 (everything else)",
   "generation_mode": "manual",
   "test_mode": false,
   "_format": "Auto-refreshed by bpp-monday-prep skill (Step 11.5). index.html fetches this on load. Falls back to hardcoded values if stale.",
-
   "as_of_note": "Pipeline, closed-won and both Monday boards pulled live 2026-08-16. CASH IS NOT LIVE - there is no forecast file and the QuickBooks bank feed has not been refreshed since 2026-07-29, so the cash figure below is 18 days old and predates all of August. Daunte owns the live number.",
-
   "stats": {
     "cash_on_hand": 5618,
-    "cash_breakdown": {
-      "operating": 1993,
-      "savings": 3625,
-      "rodney_envelope": 0
-    },
-    "cash_note": "STALE - 18 days old. Live QB bank feed as of 2026-07-29 (available balances, not posted): ~$5,618 total = QuickBooks Checking $5,565 (operating $1,939 + envelopes $3,627, of which Savings Reserve $3,625) + Chase Complete Chk $51 + Chase Sav $2. No monthly forecast file exists and no refresh has happened since. Treat this as a reference point, not as current cash.",
-    "cash_stale_days": 18,
-    "buffer_target": 3649,
-    "buffer_gap": -1656,
-    "savings_pct_to_phase2": 100,
-    "phase2_hit": true,
-
-    "ar_total": 2100,
-    "ar_note": "~$2,100 of committed milestones still owed: Lois Marketing ~$1,350 (gated behind a closeout on its fourth attempt) and Legacy B. Studio $750 (client non-responsive 13 days). Financial Acuity and the HALO Launch Pad finals were both COLLECTED as of 8/2. The $1,000 Legacy B 'Marketing Discount' is an unpapered barter, not revenue, and is excluded. Estimate - HubSpot has no amount_paid field.",
-
-    "ytd_revenue": 13200,
-    "ytd_net_income": 3349,
-    "profitable_every_month": true,
-    "ytd_note": "YTD figures carried from the 8/2 reporting cycle. Not re-derived this run - no forecast or QB pull.",
-
-    "active_clients_count": 3,
+    "ar_total": 9550,
+    "ar_note": "Estimate. HubSpot has no amount_paid field, so this is committed milestones still owed. $7,450 of it is the HALO Pathways build that closed 8/21 and has not been invoiced yet.",
+    "active_clients_count": 4,
     "active_clients_names": [
-      "Lois Marketing",
+      "HALO Pathways",
       "Legacy B. Studio",
+      "Lois Marketing",
       "Financial Acuity"
     ],
-
-    "pipeline_total": 18947,
-    "pipeline_count": 5,
-    "pipeline_hot_count": 2,
-    "pipeline_hot_value": 11950,
-    "pipeline_cold_count": 0,
-    "pipeline_verified_date": "2026-08-16"
+    "pipeline_total": 6997,
+    "pipeline_count": 4
   },
-
   "ar_scenarios": [
     {
-      "name": "HALO Pathways website closes",
-      "receivables_in": 7450,
-      "ending_operating": 9443,
+      "name": "HALO milestone 1 invoiced at kickoff",
+      "receivables_in": 2235,
+      "ending_operating": 4228,
+      "hits_phase2": true,
       "highlight": true,
-      "note": "Proposal Sent, 9/2 close date, scoped off the 8/13 discovery call with Felicia and Larry Glanton. Worth more than the other four open deals combined. This is the single move that changes the quarter."
+      "detail": "30% of $7,450 at signing. Kickoff is Tue 8/25. This is the collect action of the week."
     },
     {
-      "name": "+ Lois final collects at closeout",
-      "receivables_in": 8800,
-      "ending_operating": 10793,
-      "note": "~$1,350 gated behind the Lois closeout, now on its fourth attempt. Message Phil Tuesday, run it Thursday."
+      "name": "+ Lois final at closeout",
+      "receivables_in": 3585,
+      "ending_operating": 5578,
+      "hits_phase2": true,
+      "highlight": false,
+      "detail": "~$1,350. Close Out is In Progress and due 8/29."
     },
     {
-      "name": "+ Legacy B. Studio second half",
-      "receivables_in": 9550,
-      "ending_operating": 11543,
-      "note": "$750 owed of the $2,500 contract. Client has been non-responsive 13 days on two asks. Eli is calling Benji personally, then resetting the timeline in writing."
+      "name": "+ Legacy B second half",
+      "receivables_in": 4335,
+      "ending_operating": 6328,
+      "hits_phase2": true,
+      "highlight": false,
+      "detail": "$750 at the halfway milestone, now dated 9/8 on the reset timeline."
     }
   ],
-
   "active_clients": [
     {
-      "name": "Lois Marketing",
-      "subtitle": "Phil Tirado · Operator System ($4,500)",
+      "name": "HALO Pathways",
+      "phase": "Initiation",
       "owner": "Eli",
-      "owner_color": "eli",
-      "phase": "Closeout",
-      "next_milestone": "Fourth attempt at the closeout. All three closure items (Project Close Out, Ask for Referral and Upsell, Project Review) are dated 2026-08-14 and still open. Message Phil Tuesday, run it Thursday. ~$1,350 final behind it.",
-      "at_risk": true,
-      "risk_note": "Has slipped three times. It does not move again - put it on a calendar rather than on a list."
+      "next_milestone": "Kickoff Tue 8/25 + milestone 1 invoice (~$2,235)",
+      "owner_color": "eli"
     },
     {
       "name": "Legacy B. Studio",
-      "subtitle": "Benji · Website ($2,500)",
+      "phase": "Execution",
       "owner": "Eli",
-      "owner_color": "eli",
-      "phase": "Execution - stalled",
-      "next_milestone": "Client non-responsive 13 days on two asks. Design Concept date deliberately cleared 8/9 and still clear, which is correct. Next dated milestone is Home + About Pages Built on 8/24 and it will slip unless he answers this week.",
-      "at_risk": true,
-      "risk_note": "$750 owed. Eli is calling him personally, then sending a written timeline reset citing the contract's 2-business-day response and 5-day approval terms, which he is in breach of. The $1,000 'Marketing Discount' obligates him to nothing and is not revenue."
+      "next_milestone": "Design concept approval 8/25",
+      "owner_color": "eli"
+    },
+    {
+      "name": "Lois Marketing",
+      "phase": "Closure",
+      "owner": "Eli",
+      "next_milestone": "Close out 8/29, final payment owed",
+      "owner_color": "eli"
     },
     {
       "name": "Financial Acuity",
-      "subtitle": "Maxine · Growth Package ($3,350)",
-      "owner": "Kenny/Daunte",
-      "owner_color": "daunte",
-      "phase": "Closeout - overrun",
-      "next_milestone": "Closeout ran 7/31 and payment is collected, but six board items have been open since early July. The only genuinely outstanding piece is the Google Business Profile, which was deleted 8/3 and needs rebuilding. Ending Wed 8/19 by Eli's commitment.",
-      "at_risk": true,
-      "risk_note": "Fifth week carried. Most of the overdue queue here is board hygiene, not work - close the items that are actually done."
-    },
-    {
-      "name": "HALO Pathways",
-      "subtitle": "Felicia + Larry Glanton · Full Website Build ($7,450)",
-      "owner": "Eli",
-      "owner_color": "eli",
-      "phase": "Pipeline - Proposal Sent",
-      "next_milestone": "Reopened 8/13 at the Pathways discovery call. Proposal Sent, 9/2 close date. Follow up Tuesday and move it to a written commitment. The Launch Pad project before it is closed and collected.",
-      "at_risk": false,
-      "risk_note": "Not a delivery client yet - this is the largest live number in the pipeline. The Webflow transfer troubleshoot is still parked and still blocks the Glanton card ask."
+      "phase": "Monitoring",
+      "owner": "Daunte",
+      "next_milestone": "GBP blocked on Maxine video verify, 6 items overdue",
+      "owner_color": "daunte"
     }
   ],
-
   "phase": {
     "current": "Phase 2",
     "hit_date": "2026-06-29",
@@ -117,23 +83,20 @@
     "transitioning_to": "Phase 3",
     "note": "Phase status not re-verified this run - no forecast or QB pull. Carried from the 7/13 reading."
   },
-
   "cash_flow_watch": "Committed AR is down to roughly $2,100 and both pieces of it are stuck - one behind a client who has not answered in 13 days, the other behind a closeout that has slipped four times. Financial Acuity and HALO's Launch Pad finals are already collected, so there is very little left on the shelf. That flips the problem from collection to pipeline, and the pipeline has one thing that matters: the HALO Pathways website at $7,450. Separately, cash itself has not been measured since 7/29 - no forecast file exists and the bank feed has not been re-pulled. Get a live number before making any spending decision.",
-
   "operating_norms_compact": [
-    "WIP limit: 2 items In Progress per owner",
-    "No silent weeks - every active client gets a touch",
-    "Blockers leave the meeting as calendar invites, or get dropped",
-    "Over 3 minutes of discussion goes to Saturday"
+    "WIP limit is 2 items In Progress per owner.",
+    "No silent weeks - every active client gets a touch.",
+    "Every blocker leaves the Monday meeting as a calendar invite with a name and a date, or it is explicitly dropped.",
+    "Anything needing more than 3 minutes of discussion goes to Saturday."
   ],
-
   "what_changed_recent": [
-    "HALO Pathways REOPENED 8/13 - $7,450 website build scoped at the discovery call with Felicia and Larry Glanton, in HubSpot and in Proposal Sent the same day",
-    "Committed AR fell to ~$2,100 - Financial Acuity and HALO Launch Pad finals both collected",
-    "Sprint tracking confirmed dead - no Sprint 4 was ever opened, last Done items are Sprint 3 in June",
-    "Sunday 8pm cloud routine for the Monday brief KILLED 8/16 after five weeks of never firing; the skill now runs at the close of Sunday Review"
+    "HALO Pathways closed won at $7,450 on 8/21 - the largest deal BPP has booked",
+    "HALO Retainer $3,000 logged Closed Lost, 'Not a Fit'",
+    "Lois Marketing closed out; final payment still owed",
+    "Client Delivery overdue dropped 17 to 6 after the 8/23 hygiene pass",
+    "Tiffany Davis $4,500 disappeared from HubSpot with no disposition"
   ],
-
   "whats_new": {
     "ratified_date": "2026-08-16",
     "headline": "Collection is finished and the shelf is nearly bare - about $2,100 of committed AR left, both pieces stuck. The week has one number that matters: HALO Pathways at $7,450, already in Proposal Sent. Close it, then close Lois.",
