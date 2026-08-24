@@ -105,9 +105,9 @@
       "points": null
     },
     {
-      "title": "Collect the Lois final payment before the 8/29 closeout date",
-      "owner": "Eli",
-      "status": "In Progress",
+      "title": "Start both funnel motions: Eli on the re-engagement list, Josue on cold outreach",
+      "owner": "Eli + Josue",
+      "status": "Not Started",
       "points": null
     }
   ],
@@ -146,9 +146,18 @@
       "commits_last_7d": 0,
       "shipped_last_wk": 0,
       "shipped_last_wk_items": []
+    },
+    "Josue": {
+      "in_flight": null,
+      "overdue": null,
+      "points": null,
+      "commits_last_7d": 0,
+      "shipped_last_wk": null,
+      "shipped_last_wk_items": [],
+      "note": "Sales, onboarded 2026-07-23. Starts cold outreach this week. Owns zero deals in HubSpot and carries no Monday items, so there is nothing to measure yet - self-report at the meeting."
     }
   },
-  "capacity_alert": "Eli is at 6 In Progress and Daunte at 5, both against a ratified WIP limit of 2. The difference is direction: Eli's six are all live client work that started this week, and he shipped 10 items. Daunte's five have not moved and carry 5 of the company's 6 overdue items. Kenny is at 2, at the limit. Story points stay null because no open item is tagged to a sprint.",
+  "capacity_alert": "Eli is at 6 In Progress and Daunte at 5, both against a ratified WIP limit of 2. The difference is direction: Eli's six are all live client work that started this week, and he shipped 10 items. Daunte's five have not moved and carry 5 of the company's 6 overdue items. Kenny is at 2, at the limit. Josue starts cold outreach this week and has nothing tracked yet, so he self-reports. Rodney is warm intros only and carries no board work. Story points stay null because no open item is tagged to a sprint. NOTE: ops.html renders only Daunte, Kenny and Eli - Josue appears in this data and in the markdown brief but not yet on the page.",
   "wip_violations": [
     {
       "owner": "Eli",
@@ -272,9 +281,11 @@
     "detail": "It is roughly $2,235, it is the largest single collectable in BPP's history, and the kickoff is already booked for 8/25 with Felicia and Larry Glanton. Every other move this week is cheaper if that invoice goes out first."
   },
   "drift_signals": [
-    "Tiffany Davis ($4,500) was an open deal on 8/16 and does not exist in HubSpot today. No closed-lost reason, no rename, no record. A deal that size should not be able to leave the CRM silently.",
+    "Tiffany Davis ($4,500) was an open deal on 8/16 and does not exist in HubSpot today. No closed-lost reason, no rename, no record. Josue was recorded last week as carrying $4,500 and now owns zero deals, so this is very likely his. A deal that size should not be able to leave the CRM silently.",
     "Zero open deals carry a valid future close date. Two are 14 days past theirs, two never had one.",
     "Legacy B. Studio still reads amount 0 in HubSpot and should read $2,500. Third consecutive week flagged, still no owner on the permanent fix.",
+    "Monday's 'Revive warm cash' item (the re-engagement list) is owned by Kenny and In Progress, but Eli is picking it up this week. One owner per task - reconcile it on the board rather than letting two people think they have it.",
+    "Josue has been on the team since 2026-07-23 and still carries no Monday items and no HubSpot deals. Cold outreach starting this week is the first thing that will be measurable.",
     "One BPP Internal item still carries no Department value (Automate Social Media Dashboard Reporting).",
     "No open item on the BPP Internal board has a due date, which is why that board reports zero overdue.",
     "Sales has never produced a single Done item on the BPP Internal board.",
@@ -352,27 +363,27 @@
       "headline": {
         "value": "$6,997",
         "label": "open pipeline",
-        "sub": "4 deals · zero with a valid close date · zero cold"
+        "sub": "4 deals · zero with a valid close date · two funnel motions start this week"
       },
       "trend": {
         "direction": "down",
-        "note": "was $18,947. HALO closed won ($7,450), Tiffany Davis ($4,500) vanished from the CRM."
+        "note": "was $18,947. HALO closed won ($7,450), Tiffany Davis ($4,500) vanished from the CRM. Refill starts this week."
       },
       "decision": {
-        "question": "The pipeline halved and nothing replaced it. What goes in the top of the funnel in the next fourteen days, and who owns it?",
-        "why_now": "The $11,950 drop is mostly a win, which is why it is easy to miss that BPP now has $6,997 open and not one deal with a future close date on it. Every lead in there came from a referral. HALO buys about ten weeks; the replacement work has to start while the money is good, not after.",
+        "question": "Two funnel motions start this week: Eli picks up the re-engagement list, Josue starts cold outreach. What number is each one accountable for, and when is the first check?",
+        "why_now": "The ownership half of this question is already answered walking in, which leaves a different risk. The last time this lane ran outreach it produced one Done item on 6/19 and then nine weeks of silence. A motion with an owner but no target and no check date is exactly how that happened. Set both while both motions are still at day zero, and the pipeline has a real chance of being refilled before HALO's runway is spent.",
         "routing": "over_2k",
         "decider": "full team"
       },
       "watching": [
-        "Tiffany Davis $4,500 was in the pipeline on 8/16 and is not in HubSpot at all today. No closed-lost reason, no rename, no trace. Somebody deleted a deal.",
+        "Josue owns zero deals in HubSpot today. Last week's brief recorded him carrying $4,500, and the deal that vanished was $4,500 - almost certainly the same one. Worth confirming before he starts cold outreach on a clean slate.",
         "Flava Meets Fusion $4,497 sat at Negotiation 14 days past its 8/9 close date, was touched 8/19, and still was not re-dated. That was last week's decision.",
         "Sipsies is still $2,500 in HubSpot against the $1,799 downsell from 8/4, with no close date. Six weeks slipped."
       ],
       "needs_depth": true,
       "silent_weeks": 0,
       "evidence": {
-        "source": "HubSpot",
+        "source": "HubSpot (deals + owners)",
         "as_of": "2026-08-23"
       }
     },
@@ -523,8 +534,8 @@
   "meetings_to_book": [
     {
       "lane": "Sales",
-      "topic": "Refill the top of the funnel. Settle Flava and Aurelia, fix the Sipsies number, and find out who deleted the Tiffany Davis deal.",
-      "who": "Kenny + Eli",
+      "topic": "Set the target and first-check date for both funnel motions. Settle Flava and Aurelia, fix the Sipsies number, and find out who deleted the Tiffany Davis deal.",
+      "who": "Kenny + Eli + Josue",
       "suggested_when": "Tue"
     },
     {
