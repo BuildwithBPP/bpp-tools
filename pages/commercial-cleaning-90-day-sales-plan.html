@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Business Plans Plus commercial cleaning beachhead evidence and 90-day sales operating plan.">
+  <title>BPP Commercial Cleaning | 90-Day Sales Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&amp;family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#044771;
+      --navy-dark:#033359;
+      --navy-deep:#02283f;
+      --gold:#F1BE5C;
+      --gold-dim:#D4A63E;
+      --gold-ink:#725100;
+      --steel:#5987A5;
+      --steel-pale:#E9F0F4;
+      --paper:#F6F3EC;
+      --paper-deep:#EDE7DB;
+      --ink:#152530;
+      --muted:#526571;
+      --line:#D5DEE2;
+      --white:#FFFFFF;
+      --success:#2D6A4F;
+      --warning:#9A5A00;
+      --danger:#9B3A34;
+      --radius:10px;
+      --shadow:0 14px 40px rgba(3,51,89,.10);
+      --head:"Montserrat",ui-sans-serif,system-ui,sans-serif;
+      --body:"Poppins",ui-sans-serif,system-ui,sans-serif;
+      --serif:"Merriweather",Georgia,serif;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:76px}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.62}
+    a{color:var(--navy);text-decoration-thickness:1px;text-underline-offset:3px}
+    button,a,summary{cursor:pointer}
+    button{font:inherit}
+    :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+    .skip-link{position:fixed;left:16px;top:-80px;z-index:999;background:var(--gold);color:var(--navy-deep);padding:10px 14px;font-weight:800;border-radius:0 0 8px 8px}
+    .skip-link:focus{top:0}
+
+    .reading-progress{position:fixed;left:0;top:0;z-index:300;width:0;height:4px;background:var(--gold)}
+    .meeting-nav{position:sticky;top:0;z-index:200;height:68px;background:rgba(3,51,89,.98);color:var(--white);display:flex;align-items:center;gap:24px;padding:0 max(24px,calc((100vw - 1240px)/2));box-shadow:0 6px 18px rgba(2,40,63,.18)}
+    .brand{font-family:var(--head);font-weight:800;letter-spacing:-.03em;white-space:nowrap;color:var(--white);text-decoration:none}
+    .brand span{color:var(--gold)}
+    .nav-links{display:flex;align-items:center;gap:4px;flex:1;overflow-x:auto;scrollbar-width:none}
+    .nav-links::-webkit-scrollbar{display:none}
+    .nav-links a{color:rgba(255,255,255,.76);text-decoration:none;font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:9px 10px;border-bottom:2px solid transparent;white-space:nowrap;transition:color .18s ease,border-color .18s ease}
+    .nav-links a:hover,.nav-links a[aria-current="location"]{color:var(--white);border-color:var(--gold)}
+    .print-btn{border:1px solid rgba(255,255,255,.35);background:transparent;color:var(--white);padding:8px 12px;border-radius:7px;font-size:.78rem;font-weight:700;white-space:nowrap;transition:background .18s ease,color .18s ease}
+    .print-btn:hover{background:var(--gold);color:var(--navy-deep);border-color:var(--gold)}
+
+    .hero{background:var(--navy-deep);color:var(--white);position:relative;overflow:hidden}
+    .hero::after{content:"90";position:absolute;right:-24px;bottom:-125px;font-family:var(--head);font-size:22rem;font-weight:800;line-height:1;color:rgba(255,255,255,.035);pointer-events:none}
+    .hero-inner{width:min(1240px,calc(100% - 48px));margin:0 auto;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.55fr);gap:70px;padding:92px 0 82px;position:relative;z-index:1}
+    .kicker{font-family:var(--head);font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+    .hero h1{font-family:var(--head);font-size:clamp(2.65rem,6vw,5.9rem);line-height:.94;letter-spacing:-.055em;margin:0 0 26px;max-width:900px}
+    .hero-copy{font-family:var(--serif);font-size:clamp(1.05rem,1.8vw,1.34rem);line-height:1.65;color:rgba(255,255,255,.78);max-width:780px;margin:0}
+    .hero-meta{margin-top:28px;display:flex;gap:18px;flex-wrap:wrap;font-size:.78rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+    .hero-score{align-self:center;border-left:1px solid rgba(255,255,255,.18);padding-left:44px}
+    .hero-score .number{display:block;font-family:var(--head);font-size:6.8rem;line-height:.82;font-weight:800;color:var(--gold);letter-spacing:-.08em}
+    .hero-score .out-of{display:block;font-family:var(--head);font-weight:800;font-size:1rem;margin:14px 0 8px}
+    .hero-score p{margin:0;color:rgba(255,255,255,.62);font-size:.88rem}
+
+    main{width:min(1240px,calc(100% - 48px));margin:0 auto}
+    .section{padding:82px 0;border-bottom:1px solid var(--line)}
+    .section-head{display:grid;grid-template-columns:72px minmax(0,1fr);gap:24px;margin-bottom:38px;align-items:start}
+    .section-no{font-family:var(--head);font-weight:800;font-size:1rem;color:var(--gold-ink);border-top:4px solid var(--gold);padding-top:8px}
+    .section h2{font-family:var(--head);font-size:clamp(1.9rem,3.5vw,3.35rem);line-height:1.06;letter-spacing:-.045em;margin:0 0 12px;color:var(--navy-dark)}
+    .section-intro{font-family:var(--serif);font-size:1.05rem;color:var(--muted);max-width:790px;margin:0}
+    .eyebrow{font-family:var(--head);font-size:.67rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:7px}
+    h3{font-family:var(--head);line-height:1.22;color:var(--navy-dark)}
+    .source-note{font-size:.76rem;color:var(--muted);margin-top:16px}
+
+    .evidence-intro{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(320px,.7fr);gap:28px;align-items:stretch;margin-bottom:28px}
+    .evidence-thesis{background:var(--white);border-left:8px solid var(--gold);padding:30px 34px;box-shadow:var(--shadow)}
+    .evidence-thesis h3{font-size:1.65rem;margin:0 0 12px}
+    .evidence-thesis p{margin:0;color:var(--muted)}
+    .challenge-card{background:var(--navy);color:var(--white);padding:30px 32px}
+    .challenge-card .eyebrow{color:var(--gold)}
+    .challenge-card h3{color:var(--white);font-size:1.2rem;margin:0 0 12px}
+    .challenge-card p{margin:0;color:rgba(255,255,255,.74);font-size:.9rem}
+
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:var(--white);margin-bottom:42px}
+    .metric{padding:24px 26px;border-right:1px solid var(--line)}
+    .metric:last-child{border-right:0}
+    .metric small{display:block;font-family:var(--head);font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-size:.63rem}
+    .metric strong{display:block;font-family:var(--head);font-size:2.15rem;line-height:1.1;color:var(--navy);letter-spacing:-.045em;margin:8px 0 5px}
+    .metric span{display:block;font-size:.74rem;color:var(--muted);line-height:1.45}
+
+    .ranking-wrap{background:var(--white);border:1px solid var(--line);box-shadow:0 8px 26px rgba(3,51,89,.06);overflow:auto}
+    table{width:100%;border-collapse:collapse;font-size:.84rem}
+    th{background:var(--navy-dark);color:var(--white);font-family:var(--head);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;text-align:left;padding:13px 14px;white-space:nowrap}
+    td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+    tbody tr:last-child td{border-bottom:0}
+    tbody tr:nth-child(even){background:#F9FAF9}
+    .selected td{background:#FFF7E2;border-top:2px solid var(--gold);border-bottom:2px solid var(--gold)}
+    .rank{display:inline-grid;place-items:center;width:26px;height:26px;background:var(--navy);color:var(--white);border-radius:50%;font-family:var(--head);font-weight:800}
+    .selected .rank{background:var(--gold);color:var(--navy-deep)}
+    .num{text-align:right;font-variant-numeric:tabular-nums}
+    .score{font-family:var(--head);font-weight:800;color:var(--navy)}
+
+    .why-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:30px}
+    .why-panel{padding:24px 25px;border-top:5px solid var(--steel);background:var(--white);min-height:210px}
+    .why-panel:nth-child(2){border-color:var(--gold)}
+    .why-panel:nth-child(3){border-color:var(--navy)}
+    .why-panel h3{font-size:1.05rem;margin:0 0 10px}
+    .why-panel p,.why-panel li{font-size:.82rem;color:var(--muted)}
+    .why-panel ul{margin:0;padding-left:18px}
+
+    .power-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:20px}
+    .power{background:var(--white);padding:19px 16px;min-height:158px}
+    .power .level{font-family:var(--head);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--danger);font-weight:800}
+    .power.edge .level{color:var(--success)}
+    .power h3{font-size:.82rem;margin:7px 0}
+    .power p{font-size:.71rem;color:var(--muted);margin:0;line-height:1.48}
+
+    .research-bridge{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding:64px max(24px,calc((100vw - 1120px)/2));background:var(--gold);color:var(--navy-deep);position:relative}
+    .research-bridge::before{content:"";position:absolute;left:max(24px,calc((100vw - 1240px)/2));top:0;width:84px;height:8px;background:var(--navy)}
+    .research-bridge p{font-family:var(--head);font-size:clamp(1.65rem,4vw,3.55rem);line-height:1.08;letter-spacing:-.04em;font-weight:800;margin:0;max-width:1050px}
+    .research-bridge span{display:block;margin-top:18px;font-family:var(--body);font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+
+    .decision-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:18px}
+    .decision{background:var(--white);border:1px solid var(--line);padding:30px 28px;position:relative;min-height:290px}
+    .decision:first-child{background:var(--navy);color:var(--white);border-color:var(--navy)}
+    .decision:first-child h3{color:var(--white)}
+    .decision:first-child p{color:rgba(255,255,255,.72)}
+    .decision-index{font-family:var(--head);font-size:3.2rem;font-weight:800;color:rgba(89,135,165,.23);line-height:1;position:absolute;right:20px;top:18px}
+    .decision:first-child .decision-index{color:rgba(255,255,255,.12)}
+    .decision h3{font-size:1.28rem;margin:32px 0 10px;max-width:260px}
+    .decision p{font-size:.84rem;color:var(--muted);margin:0 0 20px}
+    .decision-meta{position:absolute;left:28px;right:28px;bottom:24px;padding-top:12px;border-top:1px solid var(--line);font-size:.69rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+    .decision:first-child .decision-meta{border-color:rgba(255,255,255,.2);color:var(--gold)}
+    .decision-status{display:inline-block;background:#FFF0C5;color:var(--gold-ink);font-family:var(--head);font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;margin-bottom:8px}
+
+    .close-path{display:grid;grid-template-columns:repeat(5,1fr);background:var(--navy-deep);color:var(--white);margin-top:38px;overflow:hidden}
+    .path-step{padding:24px 18px;position:relative;border-right:1px solid rgba(255,255,255,.16);min-height:155px}
+    .path-step:last-child{border-right:0;background:var(--gold);color:var(--navy-deep)}
+    .path-step::after{content:"";position:absolute;right:-7px;top:36px;width:14px;height:14px;background:var(--gold);transform:rotate(45deg);z-index:2}
+    .path-step:nth-last-child(-n+2)::after{display:none}
+    .path-step small{font-family:var(--head);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:800}
+    .path-step:last-child small{color:var(--navy)}
+    .path-step h3{color:inherit;font-size:.91rem;margin:11px 0 7px}
+    .path-step p{font-size:.7rem;color:rgba(255,255,255,.66);margin:0}
+    .path-step:last-child p{color:rgba(2,40,63,.76)}
+
+    .hold-banner{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;background:#FFF4E5;border-left:6px solid var(--warning);padding:20px 24px;margin-bottom:32px}
+    .hold-mark{font-family:var(--head);font-size:.73rem;font-weight:800;color:var(--warning);border:2px solid var(--warning);padding:4px 7px}
+    .hold-banner strong{display:block;color:#653C00;margin-bottom:4px}
+    .hold-banner p{margin:0;font-size:.82rem;color:#76501A}
+
+    .day-path{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative}
+    .phase{background:var(--white);border:1px solid var(--line);padding:28px 26px;position:relative;min-height:360px}
+    .phase::before{content:"";position:absolute;top:-8px;left:26px;width:52px;height:8px;background:var(--steel)}
+    .phase:nth-child(2)::before{background:var(--gold)}
+    .phase:nth-child(3)::before{background:var(--navy)}
+    .phase-time{font-family:var(--head);font-size:.68rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+    .phase h3{font-size:1.34rem;margin:9px 0 14px}
+    .phase ul{padding-left:18px;margin:0}
+    .phase li{font-size:.82rem;color:var(--muted);margin-bottom:8px}
+    .phase-gate{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);font-size:.74rem}
+    .phase-gate strong{color:var(--navy)}
+
+    .gate-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:24px}
+    .gate{background:var(--white);padding:24px 24px}
+    .gate.scale{border-top:5px solid var(--success)}
+    .gate.diagnose{border-top:5px solid var(--gold-dim)}
+    .gate.kill{border-top:5px solid var(--danger)}
+    .gate h3{font-size:1rem;margin:7px 0 10px}
+    .gate ul{padding-left:18px;margin:0}
+    .gate li{font-size:.75rem;color:var(--muted);margin-bottom:5px}
+
+    .audit-shell{display:grid;grid-template-columns:minmax(280px,.58fr) minmax(0,1.42fr);background:var(--white);border:1px solid var(--line);box-shadow:var(--shadow)}
+    .audit-price{background:var(--navy-deep);color:var(--white);padding:38px 34px;display:flex;flex-direction:column;justify-content:space-between}
+    .audit-price small{font-family:var(--head);font-size:.65rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--gold)}
+    .audit-price strong{display:block;font-family:var(--head);font-size:4.8rem;line-height:.9;letter-spacing:-.07em;color:var(--gold);margin:18px 0 12px}
+    .audit-price p{font-size:.82rem;color:rgba(255,255,255,.68);margin:0}
+    .audit-credit{margin-top:30px;padding-top:18px;border-top:1px solid rgba(255,255,255,.18);font-size:.76rem;color:rgba(255,255,255,.72)}
+    .audit-credit b{display:block;color:var(--white);font-family:var(--head);font-size:1.05rem;margin-bottom:5px}
+    .audit-outputs{padding:28px 32px}
+    .audit-output{display:grid;grid-template-columns:42px 1fr;gap:16px;padding:15px 0;border-bottom:1px solid var(--line)}
+    .audit-output:last-child{border-bottom:0}
+    .audit-output .audit-no{font-family:var(--head);font-weight:800;color:var(--gold-ink)}
+    .audit-output strong{display:block;color:var(--navy-dark);font-size:.88rem}
+    .audit-output span{display:block;color:var(--muted);font-size:.74rem;margin-top:3px}
+    .operator-handoff{margin-top:24px;background:var(--steel-pale);border-top:6px solid var(--steel);padding:28px 30px}
+    .operator-handoff h3{font-size:1.15rem;margin:0 0 6px}
+    .operator-handoff>p{font-family:var(--serif);color:var(--muted);font-size:.88rem;margin:0 0 22px}
+    .operator-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+    .operator-item{background:var(--white);padding:18px 16px;min-height:145px}
+    .operator-item small{font-family:var(--head);font-size:.57rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--steel)}
+    .operator-item strong{display:block;font-size:.77rem;color:var(--navy);margin:7px 0}
+    .operator-item span{display:block;font-size:.68rem;color:var(--muted);line-height:1.45}
+
+    .sway-grid{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:26px}
+    .owner-card{background:var(--navy);color:var(--white);padding:34px}
+    .owner-card h3{color:var(--white);font-size:1.65rem;margin:0 0 4px}
+    .owner-card .role{font-family:var(--serif);font-style:italic;color:var(--gold);margin-bottom:24px}
+    .owner-card dl{margin:0}
+    .owner-card dt{font-family:var(--head);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:16px}
+    .owner-card dd{margin:4px 0 0;font-size:.88rem}
+    .handoff-flow{background:var(--white);border:1px solid var(--line);padding:28px 30px}
+    .handoff-flow h3{font-size:1.1rem;margin:0 0 8px}
+    .handoff-flow>p{font-size:.78rem;color:var(--muted);margin:0 0 12px}
+    .handoff-row{display:grid;grid-template-columns:92px 1fr;gap:18px;padding:13px 0;border-bottom:1px solid var(--line)}
+    .handoff-row:last-child{border-bottom:0}
+    .handoff-owner{font-family:var(--head);font-weight:800;font-size:.66rem;color:var(--navy);text-transform:uppercase;letter-spacing:.06em}
+    .handoff-copy strong{display:block;font-size:.82rem}
+    .handoff-copy span{display:block;font-size:.73rem;color:var(--muted)}
+
+    .scoreboard{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--line);margin-top:26px;background:var(--white)}
+    .score-item{padding:19px 17px;border-right:1px solid var(--line)}
+    .score-item:last-child{border-right:0}
+    .score-item strong{display:block;font-family:var(--head);font-size:1.55rem;color:var(--navy)}
+    .score-item span{display:block;font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+
+    .sequence-board{display:grid;grid-template-columns:78px 110px minmax(140px,.75fr) minmax(240px,1.4fr) minmax(160px,.8fr);background:var(--white);border:1px solid var(--line)}
+    .seq-cell{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;font-size:.79rem}
+    .seq-cell.head{background:var(--navy-dark);color:var(--white);font-family:var(--head);font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+    .seq-cell:nth-last-child(-n+5){border-bottom:0}
+    .touch{font-family:var(--head);font-size:1.15rem;font-weight:800;color:var(--navy)}
+    .channel{font-weight:700;color:var(--navy-dark)}
+    .manual{display:inline-block;background:var(--steel-pale);color:var(--navy);padding:3px 7px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+    .auto{display:inline-block;background:#FFF0C5;color:var(--gold-ink);padding:3px 7px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+
+    .crm-rules{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
+    .crm-rule{background:var(--white);border-top:4px solid var(--steel);padding:19px 18px}
+    .crm-rule strong{display:block;font-size:.78rem;color:var(--navy);margin-bottom:5px}
+    .crm-rule span{display:block;font-size:.7rem;color:var(--muted)}
+
+    .script-stack{display:grid;gap:12px}
+    details{background:var(--white);border:1px solid var(--line)}
+    summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 22px;font-family:var(--head);font-weight:800;color:var(--navy);transition:background .18s ease}
+    summary::-webkit-details-marker{display:none}
+    summary::after{content:"+";font-size:1.35rem;line-height:1;color:var(--gold-ink)}
+    details[open] summary{background:var(--steel-pale)}
+    details[open] summary::after{content:"-"}
+    .script-body{padding:0 22px 24px}
+    .script-body h4{font-family:var(--head);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 8px}
+    .script{font-family:var(--serif);font-size:.93rem;line-height:1.7;background:var(--paper);border-left:5px solid var(--gold);padding:18px 20px;margin:0}
+    .objections{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .objection{border-left:4px solid var(--steel);padding:12px 15px;background:#F8FAFB}
+    .objection strong{display:block;font-size:.78rem;color:var(--navy);margin-bottom:3px}
+    .objection p{font-size:.77rem;margin:0;color:var(--muted)}
+
+    .resource-list{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+    .resource{display:flex;gap:15px;align-items:flex-start;background:var(--white);border:1px solid var(--line);padding:18px;text-decoration:none;transition:border-color .18s ease,transform .18s ease}
+    .resource:hover{border-color:var(--navy);transform:translateY(-1px)}
+    .resource-mark{width:32px;height:32px;display:grid;place-items:center;background:var(--navy);color:var(--gold);font-family:var(--head);font-weight:800;font-size:.72rem;flex:0 0 auto}
+    .resource strong{display:block;color:var(--navy);font-size:.82rem}
+    .resource span{display:block;color:var(--muted);font-size:.7rem;margin-top:3px}
+
+    .meeting-close{background:var(--navy-deep);color:var(--white);margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding:80px max(24px,calc((100vw - 1240px)/2))}
+    .meeting-close h2{color:var(--white)}
+    .close-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:35px}
+    .decision-list{display:grid;gap:12px}
+    .decision-line{display:grid;grid-template-columns:32px 1fr;gap:13px;align-items:start;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.16)}
+    .box{width:22px;height:22px;border:2px solid var(--gold);margin-top:2px}
+    .decision-line strong{display:block;color:var(--white);font-size:.84rem}
+    .decision-line span{display:block;color:rgba(255,255,255,.6);font-size:.72rem;margin-top:2px}
+    .north-star{background:var(--gold);color:var(--navy-deep);padding:30px}
+    .north-star .eyebrow{color:var(--navy)}
+    .north-star strong{font-family:var(--head);display:block;font-size:2.6rem;line-height:1;letter-spacing:-.05em}
+    .north-star p{font-family:var(--serif);margin:12px 0 0;font-size:.9rem}
+
+    footer{background:var(--navy-deep);color:rgba(255,255,255,.5);border-top:1px solid rgba(255,255,255,.13);padding:24px max(24px,calc((100vw - 1240px)/2));display:flex;justify-content:space-between;gap:20px;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em}
+    .mobile-only{display:none}
+
+    @media(max-width:1100px){
+      .hero-inner{grid-template-columns:1fr;gap:45px}
+      .hero-score{border-left:0;border-top:1px solid rgba(255,255,255,.18);padding:28px 0 0;display:flex;align-items:end;gap:24px}
+      .hero-score .number{font-size:5rem}
+      .hero-score .out-of{margin:0}
+      .evidence-intro,.audit-shell,.sway-grid{grid-template-columns:1fr}
+      .metrics{grid-template-columns:1fr 1fr}
+      .metric:nth-child(2){border-right:0}
+      .metric:nth-child(-n+2){border-bottom:1px solid var(--line)}
+      .why-grid,.day-path,.gate-grid{grid-template-columns:1fr}
+      .operator-grid{grid-template-columns:1fr 1fr}
+      .power-strip{grid-template-columns:1fr 1fr 1fr}
+      .decision-grid{grid-template-columns:1fr}
+      .decision{min-height:0}
+      .decision-meta{position:static;margin-top:22px}
+      .close-path{grid-template-columns:1fr}
+      .path-step{min-height:0;border-right:0;border-bottom:1px solid rgba(255,255,255,.15)}
+      .path-step::after{display:none}
+      .scoreboard{grid-template-columns:1fr 1fr 1fr}
+      .score-item:nth-child(3){border-right:0}
+      .score-item:nth-child(-n+3){border-bottom:1px solid var(--line)}
+      .sequence-board{grid-template-columns:66px 88px minmax(120px,.7fr) minmax(220px,1.3fr) minmax(130px,.7fr);overflow:auto}
+    }
+
+    @media(max-width:720px){
+      html{scroll-padding-top:58px}
+      body{font-size:15px}
+      .meeting-nav{height:58px;padding:0 16px;gap:12px}
+      .brand{font-size:.82rem}
+      .nav-links{display:none}
+      .print-btn{margin-left:auto}
+      .hero-inner,main{width:min(100% - 30px,1240px)}
+      .hero-inner{padding:66px 0 58px}
+      .hero h1{font-size:3.05rem}
+      .hero-score{display:block}
+      .section{padding:58px 0}
+      .section-head{grid-template-columns:42px 1fr;gap:14px}
+      .section h2{font-size:2rem}
+      .metrics{grid-template-columns:1fr}
+      .metric{border-right:0;border-bottom:1px solid var(--line)}
+      .metric:nth-child(2){border-bottom:1px solid var(--line)}
+      .metric:last-child{border-bottom:0}
+      .evidence-thesis,.challenge-card{padding:24px 22px}
+      .ranking-wrap{margin:0 -15px}
+      table{font-size:.72rem}
+      th,td{padding:11px 10px}
+      .power-strip{grid-template-columns:1fr 1fr}
+      .decision{padding:25px 22px}
+      .day-path{gap:14px}
+      .audit-price,.audit-outputs,.operator-handoff{padding:24px 22px}
+      .audit-price strong{font-size:4rem}
+      .operator-grid{grid-template-columns:1fr}
+      .operator-item{min-height:0}
+      .scoreboard{grid-template-columns:1fr 1fr}
+      .score-item:nth-child(2n){border-right:0}
+      .score-item:nth-child(-n+4){border-bottom:1px solid var(--line)}
+      .sequence-board{display:block;background:transparent;border:0}
+      .seq-cell{display:none}
+      .seq-card{display:block!important;background:var(--white);border:1px solid var(--line);padding:18px;margin-bottom:10px}
+      .seq-card-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+      .seq-card p{font-size:.76rem;color:var(--muted);margin:5px 0 0}
+      .crm-rules{grid-template-columns:1fr 1fr}
+      .objections,.resource-list,.close-grid{grid-template-columns:1fr}
+      .script-body{padding:0 16px 18px}
+      summary{padding:17px 16px}
+      .meeting-close{padding-top:62px;padding-bottom:62px}
+      footer{display:block}
+      footer span{display:block;margin-top:5px}
+      .desktop-only{display:none!important}
+      .mobile-only{display:block}
+    }
+
+    @media print{
+      @page{size:letter;margin:.48in}
+      *{box-shadow:none!important}
+      html{scroll-padding-top:0}
+      body{background:var(--white);font-size:9.2pt;line-height:1.42;color:#111}
+      .reading-progress,.meeting-nav,.skip-link{display:none!important}
+      .hero{background:var(--navy-deep)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .hero-inner{width:100%;grid-template-columns:1.5fr .5fr;padding:38px 0 32px;gap:30px}
+      .hero h1{font-size:34pt}
+      .hero-score{border-left:1px solid rgba(255,255,255,.3);border-top:0;padding:0 0 0 24px;display:block}
+      .hero-score .number{font-size:52pt}
+      main{width:100%}
+      .section{padding:30px 0;break-before:auto}
+      .section-head{margin-bottom:18px}
+      .section h2{font-size:22pt}
+      .metrics,.evidence-intro,.why-grid,.decision-grid,.day-path,.gate-grid,.audit-shell,.operator-handoff,.sway-grid,.scoreboard,.close-grid{break-inside:avoid}
+      .research-bridge,.meeting-close{margin-left:-.48in;margin-right:-.48in;padding-left:.48in;padding-right:.48in;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .research-bridge{padding-top:28px;padding-bottom:28px}
+      .meeting-close{break-before:page;break-inside:avoid;padding-top:36px;padding-bottom:36px}
+      .research-bridge p{font-size:20pt}
+      .decision-grid{grid-template-columns:1fr 1fr 1fr}
+      .decision{min-height:270px}
+      .close-path{grid-template-columns:repeat(5,1fr);break-inside:avoid}
+      .path-step{min-height:130px}
+      .day-path{grid-template-columns:repeat(3,1fr)}
+      .operator-grid{grid-template-columns:repeat(5,1fr)}
+      .power-strip{grid-template-columns:repeat(6,1fr)}
+      .scoreboard{grid-template-columns:repeat(6,1fr)}
+      details{break-inside:avoid}
+      details:not([open])>.script-body{display:block!important}
+      summary::after{display:none}
+      .resource-list{grid-template-columns:1fr 1fr}
+      a{color:inherit;text-decoration:none}
+      footer{background:var(--white);color:#555;border-top:1px solid #bbb;padding:12px 0}
+    }
+
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to meeting brief</a>
+  <div class="reading-progress" aria-hidden="true"></div>
+  <header class="meeting-nav">
+    <a class="brand" href="dept-sales.html" aria-label="Back to BPP Sales and Business Development">Business Plans <span>Plus</span></a>
+    <nav class="nav-links" aria-label="Meeting sections">
+      <a href="#evidence">Evidence</a>
+      <a href="#decision">Decisions</a>
+      <a href="#audit">Audit</a>
+      <a href="#plan">90 days</a>
+      <a href="#sway">Sway</a>
+      <a href="#sequence">Sequence</a>
+      <a href="#scripts">Scripts</a>
+      <a href="#close">Close</a>
+    </nav>
+    <button class="print-btn" type="button" data-print>Print / PDF</button>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-inner">
+      <div>
+        <div class="kicker">Sales strategy meeting / August 24, 2026</div>
+        <h1 id="hero-title">Win one market before chasing every market.</h1>
+        <p class="hero-copy">The market analysis points to Tampa Bay commercial janitorial. The next 90 days decide whether BPP has a repeatable, profitable right to win.</p>
+        <div class="hero-meta"><span>Commercial cleaning beachhead</span><span>Sway-led execution</span><span>Tampa Bay first</span></div>
+      </div>
+      <aside class="hero-score" aria-label="Weighted niche score">
+        <span class="number">92</span>
+        <span class="out-of">92/100 weighted score</span>
+        <p>Highest of eight niches evaluated. A strategic judgment, not proof of demand.</p>
+      </aside>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="section" id="evidence" aria-labelledby="evidence-title">
+      <div class="section-head">
+        <div class="section-no">01</div>
+        <div><h2 id="evidence-title">Why this beachhead</h2><p class="section-intro">The recommendation starts with market size, but commercial janitorial wins because BPP has relevant proof, visible contract triggers, and a local referral channel.</p></div>
+      </div>
+
+      <div class="evidence-intro">
+        <article class="evidence-thesis">
+          <div class="eyebrow">Working recommendation</div>
+          <h3>Commercial janitorial is the first market worth testing.</h3>
+          <p>Focus on owner-led Tampa Bay firms selling recurring commercial, government, education, medical-office, property-management, or HOA contracts. Keep HOA and commercial landscaping as the adjacent backup.</p>
+        </article>
+        <aside class="challenge-card">
+          <div class="eyebrow">Challenge before commitment</div>
+          <h3>A niche is not permission to overbuild.</h3>
+          <p>No vertical brand, website, product suite, or package expansion before one full-price Operator close, controlled delivery hours, and one usable result.</p>
+        </aside>
+      </div>
+
+      <div class="metrics" aria-label="Market metrics">
+        <div class="metric"><small>Tampa core buyers</small><strong>173</strong><span>Employer establishments in the available 5-19 employee band</span></div>
+        <div class="metric"><small>Tampa offer SAM</small><strong>$951,500</strong><span>One-time value at $5,500 per Operator engagement</span></div>
+        <div class="metric"><small>Florida expansion</small><strong>$6.79M</strong><span>1,235 core employer establishments</span></div>
+        <div class="metric"><small>First 90-day SOM</small><strong>$7.5K</strong><span>One Operator plus two paid audits, with converted audit credit not additive</span></div>
+      </div>
+
+      <div class="ranking-wrap" role="region" aria-label="Ranked beachhead niches" tabindex="0">
+        <table>
+          <thead><tr><th>Rank</th><th>Niche</th><th class="num">Score</th><th class="num">Tampa buyers</th><th class="num">Offer SAM</th><th>Strategic read</th></tr></thead>
+          <tbody>
+            <tr class="selected"><td><span class="rank">1</span></td><td><strong>Commercial janitorial</strong></td><td class="num score">92</td><td class="num">173</td><td class="num"><strong>$951.5K</strong></td><td>Repeated BPP proof, contract triggers, proposal pain, property-manager channel</td></tr>
+            <tr><td><span class="rank">2</span></td><td>HOA/commercial landscaping</td><td class="num score">78</td><td class="num">288</td><td class="num">$1.58M</td><td>Larger pool and shared channel, weaker repeated proof</td></tr>
+            <tr><td><span class="rank">3</span></td><td>Plumbing/HVAC</td><td class="num score">71</td><td class="num">373</td><td class="num">$2.05M</td><td>Acute pain, but mature coaching and software incumbents</td></tr>
+            <tr><td><span class="rank">4</span></td><td>Residential property management</td><td class="num score">68</td><td class="num">188</td><td class="num">$1.03M</td><td>Strong channel power, no current BPP delivery proof</td></tr>
+            <tr><td><span class="rank">5</span></td><td>Community/human services</td><td class="num score">67</td><td class="num">77</td><td class="num">$423.5K</td><td>Warm proof, custom scopes consume owner-hours</td></tr>
+            <tr><td><span class="rank">6</span></td><td>Insurance agencies</td><td class="num score">62</td><td class="num">342</td><td class="num">$1.88M</td><td>Large pool, established agency-management ecosystem</td></tr>
+            <tr><td><span class="rank">7</span></td><td>Advertising agencies</td><td class="num score">59</td><td class="num">50</td><td class="num">$275K</td><td>Familiar buyer, crowded consultant market</td></tr>
+            <tr><td><span class="rank">8</span></td><td>Outpatient behavioral health</td><td class="num score">58</td><td class="num">24</td><td class="num">$132K</td><td>Real need, small pool and higher scope risk</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="source-note">Scores weight proof/right-to-win, repeatability and owner-hours, pain and price fit, Tampa pool, triggers, referral leverage, and competitive whitespace. Census counts are establishments, not unique parent companies. Market values are Operator offer value, not industry revenue.</p>
+
+      <div class="why-grid">
+        <article class="why-panel"><div class="eyebrow">Why us</div><h3>Relevant implementation proof</h3><ul><li>Four facilities-services wins in HubSpot</li><li>Commercial and government pipeline experience</li><li>Proposal, bid-audit, process, and CRM assets</li><li>Local Tampa presence</li></ul></article>
+        <article class="why-panel"><div class="eyebrow">Why now</div><h3>Visible contract triggers</h3><ul><li>Public solicitations and awards</li><li>Vendor registrations and new territories</li><li>Hiring, second crews, and institutional pushes</li><li>Property-manager and procurement networks</li></ul></article>
+        <article class="why-panel"><div class="eyebrow">Why not yet</div><h3>Demand and margin are unproved</h3><ul><li>Specialists already sell coaching, CRM, and AI</li><li>Buyers compare bids and switch vendors</li><li>Owner delivery hours may erase margin</li><li>No signed referral partner exists today</li></ul></article>
+      </div>
+
+      <div class="power-strip" aria-label="Commercial cleaning power analysis">
+        <article class="power"><div class="level">High</div><h3>Rivalry</h3><p>67,799 U.S. janitorial employers and vertical specialists create noise.</p></article>
+        <article class="power"><div class="level">High</div><h3>Buyer leverage</h3><p>Facility and property managers compare bids and can switch vendors.</p></article>
+        <article class="power"><div class="level">High</div><h3>New entrants</h3><p>Low entry barriers sustain price pressure and under-systemized firms.</p></article>
+        <article class="power"><div class="level">Medium-high</div><h3>Labor</h3><p>Scheduling, wage pressure, and replacement hiring make margins fragile.</p></article>
+        <article class="power"><div class="level">Medium</div><h3>Substitutes</h3><p>Software and facilities vendors solve parts, not the operating system.</p></article>
+        <article class="power edge"><div class="level">BPP edge</div><h3>Right-to-win</h3><p>Proof, local presence, and implementation depth earn a controlled test.</p></article>
+      </div>
+
+      <p class="source-note">Source: BPP beachhead research brief and evidence snapshot, August 23, 2026.</p>
+    </section>
+
+    <aside class="research-bridge" aria-label="Research to action bridge">
+      <p>The research does not prove this market. It proves this is the market worth testing first.</p>
+      <span>Evidence earns the experiment. Results earn expansion.</span>
+    </aside>
+
+    <section class="section" id="decision" aria-labelledby="decision-title">
+      <div class="section-head">
+        <div class="section-no">02</div>
+        <div><h2 id="decision-title">Three decisions unlock execution</h2><p class="section-intro">The strategy is still a working recommendation until the team ratifies the offer, the owner transfer, and the HubSpot motion.</p></div>
+      </div>
+
+      <div class="decision-grid">
+        <article class="decision">
+          <span class="decision-status">Pending ratification</span><span class="decision-index">01</span>
+          <h3>Ratify the paid audit wedge</h3>
+          <p>Commercial Cleaning Growth Systems Audit at $1,000, fully credited toward the $5,500 Operator System when implementation begins within 30 days.</p>
+          <div class="decision-meta">Owner decision: Eli + Kenny + Daunte</div>
+        </article>
+        <article class="decision">
+          <span class="decision-status">Pending approval</span><span class="decision-index">02</span>
+          <h3>Transfer the first cleaning cohort</h3>
+          <p>Move Bay Janitorial, Cleaned Pristine, BBK Janitorial, and Prestige Janitorial from Kenny to Sway. One owner, no duplicate outreach.</p>
+          <div class="decision-meta">Current owner: Kenny / proposed owner: Sway</div>
+        </article>
+        <article class="decision">
+          <span class="decision-status">Pending build</span><span class="decision-index">03</span>
+          <h3>Authorize one HubSpot sequence</h3>
+          <p>Seven touches, one message, no A/B test, business-day timing, manual call tasks, automatic reply and meeting unenrollment.</p>
+          <div class="decision-meta">Build owner: Kenny / execution owner: Sway</div>
+        </article>
+      </div>
+
+      <div class="close-path" aria-label="Commercial cleaning close path">
+        <article class="path-step"><small>Signal</small><h3>Triggered account</h3><p>Contract, bid, hiring, vendor registration, or expansion evidence.</p></article>
+        <article class="path-step"><small>Conversation</small><h3>Diagnose the leak</h3><p>Walkthrough, proposal, follow-up, pricing, or margin visibility.</p></article>
+        <article class="path-step"><small>Front door</small><h3>$1,000 paid audit</h3><p>Map the contract-to-cash system and 90-day fix order.</p></article>
+        <article class="path-step"><small>Conversion</small><h3>Audit readout</h3><p>Show the cost, priorities, and implementation path.</p></article>
+        <article class="path-step"><small>Outcome</small><h3>$5,500 Operator</h3><p>$1,000 credit applied. $4,500 balance to implement.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="audit" aria-labelledby="audit-title">
+      <div class="section-head">
+        <div class="section-no">03</div>
+        <div><h2 id="audit-title">What the $1,000 audit delivers</h2><p class="section-intro">The Commercial Cleaning Growth Systems Audit is a fixed-scope, one-to-two-week diagnosis. It identifies where contracts and margin leak, then gives the client the implementation order.</p></div>
+      </div>
+
+      <div class="audit-shell">
+        <aside class="audit-price">
+          <div>
+            <small>Front-door engagement</small>
+            <strong>$1K</strong>
+            <p>Paid diagnosis of the commercial-cleaning contract-to-cash system. This is not free consulting and not a smaller Operator package.</p>
+          </div>
+          <div class="audit-credit"><b>100% implementation credit</b>Apply the full $1,000 toward the $5,500 Operator System when implementation begins within 30 days. Remaining balance: $4,500.</div>
+        </aside>
+        <div class="audit-outputs" aria-label="Five audit deliverables">
+          <div class="audit-output"><span class="audit-no">01</span><div><strong>Bid/proposal pipeline and win/loss map</strong><span>Shows open opportunities, decision stages, ownership, stalled bids, and preventable loss points.</span></div></div>
+          <div class="audit-output"><span class="audit-no">02</span><div><strong>Contract-level job-costing and margin visibility review</strong><span>Tests whether the owner can see which contracts, crews, or accounts actually make money.</span></div></div>
+          <div class="audit-output"><span class="audit-no">03</span><div><strong>Lead-to-walkthrough-to-proposal-to-follow-up process map</strong><span>Documents how an opportunity moves today and where speed, handoffs, or follow-up break.</span></div></div>
+          <div class="audit-output"><span class="audit-no">04</span><div><strong>CRM and follow-up gap score</strong><span>Scores pipeline stages, data quality, ownership, reminders, automation, and management visibility.</span></div></div>
+          <div class="audit-output"><span class="audit-no">05</span><div><strong>Prioritized 90-day implementation plan</strong><span>Orders the fixes by revenue impact, urgency, effort, and dependency so implementation starts with the right work.</span></div></div>
+        </div>
+      </div>
+
+      <div class="operator-handoff">
+        <h3>The audit becomes the Operator implementation blueprint</h3>
+        <p>The client keeps the diagnosis. If BPP is selected to implement it, the findings move directly into the existing Operator System instead of starting discovery over.</p>
+        <div class="operator-grid">
+          <div class="operator-item"><small>Process</small><strong>Bid-through-onboarding playbook</strong><span>Turn the process map into clear stages, handoffs, owners, and standard work.</span></div>
+          <div class="operator-item"><small>CRM</small><strong>Pipeline and follow-up controls</strong><span>Build the required stages, fields, ownership rules, tasks, automation, and reporting.</span></div>
+          <div class="operator-item"><small>Workflow</small><strong>First automation opportunity</strong><span>Automate or assist the highest-value repeatable gap, such as proposal follow-up or internal handoff.</span></div>
+          <div class="operator-item"><small>Credibility</small><strong>Procurement-ready presence</strong><span>Address website or buyer-confidence gaps only when the audit shows they block institutional sales.</span></div>
+          <div class="operator-item"><small>Financial clarity</small><strong>Margin visibility requirements</strong><span>Define the reporting needed by contract, crew, or account before selecting the implementation method.</span></div>
+        </div>
+      </div>
+      <p class="source-note">Pending team ratification: $1,000 price, one-to-two-week scope, full credit within 30 days, and the fixed five-output boundary.</p>
+    </section>
+
+    <section class="section" id="plan" aria-labelledby="plan-title">
+      <div class="section-head">
+        <div class="section-no">04</div>
+        <div><h2 id="plan-title">The 90-day operating test</h2><p class="section-intro">Start with a controlled cohort, repair the old outreach debt, and expand only when response, conversion, and economics are visible.</p></div>
+      </div>
+
+      <div class="hold-banner">
+        <div class="hold-mark">HOLD</div>
+        <div><strong>The prior-batch control gate is not clear.</strong><p>Disposition Blake Williams and Micheal Eubanks at Bank of Tampa, then assign and work Patrick Wright at Cleaned Pristine. Do not pull a larger list until those untouched records have an owner and outcome.</p></div>
+      </div>
+
+      <div class="day-path">
+        <article class="phase"><div class="phase-time">Days 1-30 / Prove response</div><h3>Clean launch</h3><ul><li>40 qualified cleaning owners</li><li>20 high-value referral partners</li><li>One message and one paid audit</li><li>Three to four touches across email, phone, and LinkedIn</li><li>Maximum 12 owner-hours and $250 cash spend</li></ul><div class="phase-gate"><strong>Gate:</strong> bounce below 3%, every follow-up completed, 3 positive conversations, 1 paid audit.</div></article>
+        <article class="phase"><div class="phase-time">Days 31-60 / Prove conversion</div><h3>Find the working path</h3><ul><li>Complete 80 qualified cleaning-account exposures</li><li>Run audit readouts within the 30-day credit window</li><li>Track reply-to-call and call-to-audit conversion</li><li>Separate direct, partner, and revival sources</li><li>Record acquisition and delivery hours</li></ul><div class="phase-gate"><strong>Gate:</strong> at least 2 audits, a visible conversion path, and no client-service capacity breach.</div></article>
+        <article class="phase"><div class="phase-time">Days 61-90 / Prove economics</div><h3>Earn expansion</h3><ul><li>120 qualified cleaning accounts completed</li><li>40 referral partners worked</li><li>8 qualified conversations</li><li>3 paid audits</li><li>1 full-price $5,500 Operator</li><li>One quantified result or case study</li></ul><div class="phase-gate"><strong>Gate:</strong> CAC at or below $1,100 and controlled delivery hours before Florida expansion.</div></article>
+      </div>
+
+      <div class="gate-grid">
+        <article class="gate scale"><div class="eyebrow">Scale</div><h3>Evidence earns expansion</h3><ul><li>8 qualified conversations</li><li>3 paid audits</li><li>1 full-price Operator</li><li>CAC at or below $1,100</li><li>Controlled delivery hours</li></ul></article>
+        <article class="gate diagnose"><div class="eyebrow">Diagnose</div><h3>Find the broken stage</h3><ul><li>Replies, no audit: trust or offer</li><li>Audits, no Operator: conversion bridge</li><li>Closes, delivery overruns: operating model</li><li>Zero response: list, copy, or deliverability</li></ul></article>
+        <article class="gate kill"><div class="eyebrow">Change or kill</div><h3>Do not rationalize failure</h3><ul><li>Zero audits after full exposure</li><li>Fewer than 4 qualified conversations</li><li>Negative delivery economics</li><li>Client-service capacity breached</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section" id="sway" aria-labelledby="sway-title">
+      <div class="section-head">
+        <div class="section-no">05</div>
+        <div><h2 id="sway-title">BPP builds the system. Sway executes it.</h2><p class="section-intro">BPP builds and approves the qualified list, HubSpot sequence, automation, and task queue. Sway / Josue Batista works the tasks that arrive, handles live responses, records outcomes, and advances qualified conversations.</p></div>
+      </div>
+
+      <div class="sway-grid">
+        <aside class="owner-card">
+          <h3>Sway / Josue Batista</h3>
+          <div class="role">Sales and Account Executive</div>
+          <dl>
+            <dt>Win condition</dt><dd>Qualified conversations that become paid audits.</dd>
+            <dt>Execution lane</dt><dd>Complete assigned calls and LinkedIn touches, handle replies, and keep every outcome current in HubSpot.</dd>
+            <dt>Response standard</dt><dd>Reply to inbound interest as fast as practical. Target under five minutes during working blocks.</dd>
+            <dt>Compensation lens</dt><dd>20% commission makes throughput and clean ownership his money.</dd>
+            <dt>Guardrail</dt><dd>No cold SMS. No lead with AI. No free custom diagnosis.</dd>
+          </dl>
+        </aside>
+        <div class="handoff-flow">
+          <h3>How the HubSpot handoff works</h3>
+          <p>The operating cadence can be agreed separately. The responsibility boundary is fixed.</p>
+          <div class="handoff-row"><div class="handoff-owner">BPP builds</div><div class="handoff-copy"><strong>Qualified account list</strong><span>Research the company, decision-maker, trigger, source, contact data, and suppression status.</span></div></div>
+          <div class="handoff-row"><div class="handoff-owner">BPP builds</div><div class="handoff-copy"><strong>Sequence and automation</strong><span>Load approved emails, timing, call tasks, LinkedIn tasks, ownership, and unenrollment rules.</span></div></div>
+          <div class="handoff-row"><div class="handoff-owner">HubSpot</div><div class="handoff-copy"><strong>Tasks enter Sway's queue</strong><span>The CRM presents the next call or LinkedIn action with the account context already attached.</span></div></div>
+          <div class="handoff-row"><div class="handoff-owner">Sway executes</div><div class="handoff-copy"><strong>Calls, LinkedIn, and responses</strong><span>Complete the assigned touch, use the approved script, and take over personally when someone replies.</span></div></div>
+          <div class="handoff-row"><div class="handoff-owner">Sway records</div><div class="handoff-copy"><strong>Outcome and next action</strong><span>Log disposition, update Lead Status, advance qualified conversations, and flag objections for coaching.</span></div></div>
+        </div>
+      </div>
+
+      <div class="scoreboard" aria-label="Sway execution scorecard">
+        <div class="score-item"><strong>100%</strong><span>Grounded openers</span></div>
+        <div class="score-item"><strong>100%</strong><span>Tasks completed</span></div>
+        <div class="score-item"><strong>&lt;3%</strong><span>Bounce rate</span></div>
+        <div class="score-item"><strong>3+</strong><span>30-day conversations</span></div>
+        <div class="score-item"><strong>1+</strong><span>30-day paid audit</span></div>
+        <div class="score-item"><strong>$5.5K</strong><span>90-day Operator</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="sequence" aria-labelledby="sequence-title">
+      <div class="section-head">
+        <div class="section-no">06</div>
+        <div><h2 id="sequence-title">What BPP will build in HubSpot</h2><p class="section-intro">After approval, BPP will build the qualified list and this proposed seven-touch sequence. HubSpot will automate the emails and assign the calls and LinkedIn work to Sway.</p></div>
+      </div>
+
+      <div class="sequence-board desktop-only" role="table" aria-label="HubSpot sequence steps">
+        <div class="seq-cell head" role="columnheader">Touch</div><div class="seq-cell head" role="columnheader">Day</div><div class="seq-cell head" role="columnheader">Channel</div><div class="seq-cell head" role="columnheader">Purpose</div><div class="seq-cell head" role="columnheader">Mode</div>
+        <div class="seq-cell touch">01</div><div class="seq-cell">Day 0</div><div class="seq-cell channel">Email</div><div class="seq-cell">Specific trigger and contract-process question</div><div class="seq-cell"><span class="auto">Automated</span></div>
+        <div class="seq-cell touch">02</div><div class="seq-cell">Day 1</div><div class="seq-cell channel">Call</div><div class="seq-cell">Human contact and short contextual voicemail</div><div class="seq-cell"><span class="manual">Pause task</span></div>
+        <div class="seq-cell touch">03</div><div class="seq-cell">Day 3</div><div class="seq-cell channel">Email</div><div class="seq-cell">Cleaning proof and one qualifying question</div><div class="seq-cell"><span class="auto">Automated</span></div>
+        <div class="seq-cell touch">04</div><div class="seq-cell">Day 5</div><div class="seq-cell channel">LinkedIn</div><div class="seq-cell">Research, connection, or role confirmation</div><div class="seq-cell"><span class="manual">General task</span></div>
+        <div class="seq-cell touch">05</div><div class="seq-cell">Day 8</div><div class="seq-cell channel">Email</div><div class="seq-cell">Offer the cleaning-owner checklist</div><div class="seq-cell"><span class="auto">Automated</span></div>
+        <div class="seq-cell touch">06</div><div class="seq-cell">Day 13</div><div class="seq-cell channel">Call</div><div class="seq-cell">Direct qualification and fit-call ask</div><div class="seq-cell"><span class="manual">Pause task</span></div>
+        <div class="seq-cell touch">07</div><div class="seq-cell">Day 20</div><div class="seq-cell channel">Email</div><div class="seq-cell">Close the loop and request referral if misrouted</div><div class="seq-cell"><span class="auto">Automated</span></div>
+      </div>
+
+      <div class="mobile-only" aria-label="HubSpot sequence steps">
+        <article class="seq-card"><div class="seq-card-top"><strong>01 / Day 0 / Email</strong><span class="auto">Automated</span></div><p>Specific trigger and contract-process question.</p></article>
+        <article class="seq-card"><div class="seq-card-top"><strong>02 / Day 1 / Call</strong><span class="manual">Pause task</span></div><p>Human contact and short contextual voicemail.</p></article>
+        <article class="seq-card"><div class="seq-card-top"><strong>03 / Day 3 / Email</strong><span class="auto">Automated</span></div><p>Cleaning proof and one qualifying question.</p></article>
+        <article class="seq-card"><div class="seq-card-top"><strong>04 / Day 5 / LinkedIn</strong><span class="manual">General task</span></div><p>Research, connection, or role confirmation.</p></article>
+        <article class="seq-card"><div class="seq-card-top"><strong>05 / Day 8 / Email</strong><span class="auto">Automated</span></div><p>Offer the cleaning-owner checklist.</p></article>
+        <article class="seq-card"><div class="seq-card-top"><strong>06 / Day 13 / Call</strong><span class="manual">Pause task</span></div><p>Direct qualification and fit-call ask.</p></article>
+        <article class="seq-card"><div class="seq-card-top"><strong>07 / Day 20 / Email</strong><span class="auto">Automated</span></div><p>Close the loop and request referral if misrouted.</p></article>
+      </div>
+
+      <div class="crm-rules">
+        <div class="crm-rule"><strong>BPP prepares</strong><span>Approve the list, copy, timing, ownership, and suppression rules before enrollment.</span></div>
+        <div class="crm-rule"><strong>HubSpot assigns</strong><span>Calls and LinkedIn actions arrive as tasks in Sway's queue with account context.</span></div>
+        <div class="crm-rule"><strong>Auto-unenroll</strong><span>Keep reply and booked-meeting triggers enabled.</span></div>
+        <div class="crm-rule"><strong>Compliance</strong><span>Valid postal address, honest subject, opt-out, no cold SMS.</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="scripts" aria-labelledby="scripts-title">
+      <div class="section-head">
+        <div class="section-no">07</div>
+        <div><h2 id="scripts-title">Execution kit</h2><p class="section-intro">Short, problem-led, and specific. Use the prospect's world. Do not lead with BPP, AI, CRM, or an all-in-one promise.</p></div>
+      </div>
+
+      <div class="script-stack">
+        <details open>
+          <summary>Email 1 / trigger and problem</summary>
+          <div class="script-body"><h4>Subject: [first], bid follow-up</h4><p class="script">[First], saw [specific contract, hiring, territory, or vendor-registration trigger].<br><br>Quick question: when [Company] pursues larger commercial contracts, where does the process leak most often: walkthrough scheduling, proposal turnaround, or follow-up after the quote?<br><br>We help Tampa cleaning operators map that chain and find the contracts or margins falling through it. Worth sending over the five-point audit outline?</p></div>
+        </details>
+        <details>
+          <summary>Email 2 / cleaning proof</summary>
+          <div class="script-body"><h4>Subject: proposal follow-up</h4><p class="script">One reason I asked: we helped a Tampa janitorial operator replace owner-memory with separate commercial and government pipelines, proposal follow-up, and bid checks.<br><br>The point was not more software. It was fewer contracts dying between walkthrough and decision.<br><br>Does [Company] already have that chain visible in one place?</p><p class="source-note">Internal one-to-one proof only. The $32M airport bid package was submitted and verified. Never say won.</p></div>
+        </details>
+        <details>
+          <summary>Email 3 / resource offer</summary>
+          <div class="script-body"><h4>Subject: cleaning owner checklist</h4><p class="script">We built a 25-point Run-Without-You checklist specifically for commercial cleaning owners. It covers bids, renewals, crew handoffs, account margins, and the systems that usually live in the owner's head.<br><br>I can send the PDF if useful. Which section matters more right now: sales follow-up or margin by account?</p></div>
+        </details>
+        <details>
+          <summary>Email 4 / breakup</summary>
+          <div class="script-body"><h4>Subject: close the loop</h4><p class="script">I'll close the loop after this.<br><br>If bid follow-up or account-margin visibility becomes a priority at [Company], reply “audit” and I'll send the five-point scope.<br><br>If I have the wrong person, a name would help. Either way, I won't keep filling your inbox.</p></div>
+        </details>
+        <details>
+          <summary>Cold call and voicemail</summary>
+          <div class="script-body"><h4>Call opener</h4><p class="script">Hey [First], Josue with Business Plans Plus here in Tampa. I sent a note because I saw [trigger]. Quick question: when a commercial-cleaning bid goes quiet, is the bigger leak proposal speed, follow-up, or confidence in the price?</p><h4>Five diagnostic questions</h4><ol><li>How many open bids do you have?</li><li>What is an average contract worth?</li><li>Who owns follow-up after the proposal?</li><li>How quickly does a walkthrough become a proposal?</li><li>Can you see margin by account today?</li></ol><h4>Voicemail</h4><p class="script">[First], Josue with Business Plans Plus in Tampa. I sent you a short email about [trigger]. I'm not calling to pitch software. I had one question about what happens between a walkthrough, proposal, and follow-up at [Company]. Reply to the email if it is worth comparing notes. Josue at [number].</p></div>
+        </details>
+        <details>
+          <summary>Paid audit close</summary>
+          <div class="script-body"><p class="script">You told me [revenue leak], [operating gap], and [cost or contract value]. The Commercial Cleaning Growth Systems Audit maps your bid pipeline, follow-up, account-margin visibility, CRM gaps, and 90-day fix order.<br><br>It is $1,000 and takes one to two weeks. If you have BPP implement the plan within 30 days, the entire $1,000 credits toward the $5,500 Operator System.<br><br>I can send the fixed-scope agreement and payment link today. Do you want to start the audit?</p><p class="source-note">Then stop talking. Do not write a custom proposal before a qualified paid diagnosis.</p></div>
+        </details>
+        <details>
+          <summary>Objection responses</summary>
+          <div class="script-body"><div class="objections">
+            <div class="objection"><strong>“Send information.”</strong><p>Absolutely. Is the bigger concern missed follow-up, proposal turnaround, or margin by account? I'll send the section that matches.</p></div>
+            <div class="objection"><strong>“We already have a CRM.”</strong><p>Good. This is not a CRM sale. We test whether the walkthrough, proposal, follow-up, renewals, and account margins actually connect.</p></div>
+            <div class="objection"><strong>“$1,000 is too much.”</strong><p>If one missed contract or underpriced account is not worth $1,000, we should not sell you the audit. Is the problem too small, or is the value still unclear?</p></div>
+            <div class="objection"><strong>“I need to think.”</strong><p>Of course. What specifically needs thinking: priority, trust, or cash?</p></div>
+            <div class="objection"><strong>“We need more leads.”</strong><p>Maybe. But if proposals and follow-up leak, more leads amplify the waste. We should measure the handoff first.</p></div>
+            <div class="objection"><strong>“Not right now.”</strong><p>Understood. What event would make this a priority: a new contract, another crew, or a margin problem? I'll set one real follow-up date.</p></div>
+          </div></div>
+        </details>
+      </div>
+
+      <div class="resource-list" aria-label="Sales resources">
+        <div class="resource"><span class="resource-mark">PDF</span><span><strong>Run-Without-You Guide</strong><span>Team source file. Send after interest. Commercial-cleaning specific.</span></span></div>
+        <div class="resource"><span class="resource-mark">DOC</span><span><strong>Process Map Starter</strong><span>Team source file. Use after discovery, not in the first cold touch.</span></span></div>
+        <div class="resource"><span class="resource-mark">1:1</span><span><strong>Xtremely Clean proof story</strong><span>Internal sales use only. Never claim the airport bid was won.</span></span></div>
+        <div class="resource"><span class="resource-mark">NEW</span><span><strong>Paid audit one-pager</strong><span>Still needed after team ratifies the audit structure.</span></span></div>
+      </div>
+    </section>
+
+    <section class="meeting-close" id="close" aria-labelledby="close-title">
+      <div class="section-head">
+        <div class="section-no">08</div>
+        <div><h2 id="close-title">Leave with owners, not agreement theater</h2><p class="section-intro" style="color:rgba(255,255,255,.68)">The meeting is complete when the offer, owner transfer, and launch controls have named decisions.</p></div>
+      </div>
+      <div class="close-grid">
+        <div class="decision-list">
+          <div class="decision-line"><span class="box" aria-hidden="true"></span><span><strong>Ratify or reject the $1,000 audit and credit</strong><span>Owner: all three BPP owners / decision today</span></span></div>
+          <div class="decision-line"><span class="box" aria-hidden="true"></span><span><strong>Approve the four-contact transfer to Sway</strong><span>Owner: Kenny / complete before enrollment</span></span></div>
+          <div class="decision-line"><span class="box" aria-hidden="true"></span><span><strong>Clear the HOLD records</strong><span>Owner: Kenny + Sway / no new pull before cleanup</span></span></div>
+          <div class="decision-line"><span class="box" aria-hidden="true"></span><span><strong>Authorize the sequence build</strong><span>Owner: Kenny / Sway enrolls and executes</span></span></div>
+          <div class="decision-line"><span class="box" aria-hidden="true"></span><span><strong>Agree on the control-review cadence</strong><span>Owner: Sway + Kenny / inspect real conversations</span></span></div>
+        </div>
+        <aside class="north-star"><div class="eyebrow">90-day north star</div><strong>1 Operator</strong><p>Plus three paid audits, eight qualified conversations, CAC at or below $1,100, controlled delivery hours, and one quantified proof asset.</p></aside>
+      </div>
+    </section>
+  </main>
+
+  <footer><strong>Business Plans Plus / Internal sales strategy</strong><span>Prepared August 24, 2026 / Tampa Bay first / Static evidence snapshot</span></footer>
+
+  <script>
+    (()=>{
+      const printButton=document.querySelector('[data-print]');
+      if(printButton)printButton.addEventListener('click',()=>window.print());
+
+      const printDetails=[...document.querySelectorAll('details')];
+      window.addEventListener('beforeprint',()=>{
+        printDetails.forEach(detail=>{
+          detail.dataset.wasOpen=detail.open?'true':'false';
+          detail.open=true;
+        });
+      });
+      window.addEventListener('afterprint',()=>{
+        printDetails.forEach(detail=>{
+          detail.open=detail.dataset.wasOpen==='true';
+          delete detail.dataset.wasOpen;
+        });
+      });
+
+      const progress=document.querySelector('.reading-progress');
+      const updateProgress=()=>{
+        if(!progress)return;
+        const height=document.documentElement.scrollHeight-window.innerHeight;
+        const ratio=height>0?window.scrollY/height:0;
+        progress.style.width=`${Math.min(100,Math.max(0,ratio*100))}%`;
+      };
+      updateProgress();
+      window.addEventListener('scroll',updateProgress,{passive:true});
+
+      const links=[...document.querySelectorAll('.nav-links a[href^="#"]')];
+      const sections=links.map(link=>document.querySelector(link.getAttribute('href'))).filter(Boolean);
+      if('IntersectionObserver' in window){
+        const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+          if(!entry.isIntersecting)return;
+          links.forEach(link=>link.removeAttribute('aria-current'));
+          const active=links.find(link=>link.getAttribute('href')===`#${entry.target.id}`);
+          if(active)active.setAttribute('aria-current','location');
+        }),{rootMargin:'-30% 0px -60% 0px'});
+        sections.forEach(section=>observer.observe(section));
+      }
+    })();
+  </script>
+</body>
+</html>
