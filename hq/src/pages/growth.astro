@@ -55,9 +55,9 @@ const stageCounts = monthlySnapshot.pipeline.reduce<Record<string, number>>((cou
       />
       <Metric
         label="Hot opportunities"
-        value={String(homeSnapshot.stats.pipeline_hot_count)}
-        comparison="Prioritize next action and close timing"
-        timeframe="July 29, 2026"
+        value={homeSnapshot.stats.pipeline_hot_count === null ? "Unavailable" : String(homeSnapshot.stats.pipeline_hot_count)}
+        comparison="The current snapshot does not classify hot opportunities"
+        timeframe={homeSnapshot.as_of_date}
         source="HubSpot live snapshot"
         tone="warning"
       />

@@ -9,23 +9,23 @@ const homeSchema = z.object({
   as_of_note: z.string(),
   stats: z.object({
     cash_on_hand: z.number(),
-    buffer_target: z.number(),
-    buffer_gap: z.number(),
-    ytd_revenue: z.number(),
-    ytd_net_income: z.number(),
+    buffer_target: z.number().nullable().default(null),
+    buffer_gap: z.number().nullable().default(null),
+    ytd_revenue: z.number().nullable().default(null),
+    ytd_net_income: z.number().nullable().default(null),
     active_clients_count: z.number().int(),
     pipeline_total: z.number(),
     pipeline_count: z.number().int(),
-    pipeline_hot_count: z.number().int(),
-    pipeline_verified_date: z.string().date()
+    pipeline_hot_count: z.number().int().nullable().default(null),
+    pipeline_verified_date: z.string().date().nullable().default(null)
   }),
   active_clients: z.array(z.object({
     name: z.string(),
     owner: z.string(),
     phase: z.string(),
     next_milestone: z.string(),
-    at_risk: z.boolean(),
-    risk_note: z.string()
+    at_risk: z.boolean().nullable().default(null),
+    risk_note: z.string().nullable().default(null)
   }).passthrough())
 }).passthrough();
 

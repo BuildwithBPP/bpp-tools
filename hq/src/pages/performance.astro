@@ -29,9 +29,12 @@ const teamTarget = targetsRegistry.targets.find(
 const upsideTarget = targetsRegistry.targets.find(
   (target) => target.metric_id === "revenue" && target.period === "2026" && target.scenario === "upside"
 )!;
-const revenueAttainment = (homeSnapshot.stats.ytd_revenue / baseTarget.value) * 100;
-const margin = (homeSnapshot.stats.ytd_net_income / homeSnapshot.stats.ytd_revenue) * 100;
-const targetGap = baseTarget.value - homeSnapshot.stats.ytd_revenue;
+const financialMonths = monthlySnapshot.months.filter((month) => month.startsWith("2026-"));
+const ytdRevenue = financialMonths.reduce((sum, month) => sum + monthlySnapshot.data[month].rev, 0);
+const ytdNetIncome = financialMonths.reduce((sum, month) => sum + monthlySnapshot.data[month].net, 0);
+const revenueAttainment = (ytdRevenue / baseTarget.value) * 100;
+const margin = (ytdNetIncome / ytdRevenue) * 100;
+const targetGap = baseTarget.value - ytdRevenue;
 const pipelineCoverage = (homeSnapshot.stats.pipeline_total / targetGap) * 100;
 const currentMonth = monthlySnapshot.data["2026-07"];
 const priorMonth = monthlySnapshot.data["2026-06"];
@@ -70,33 +73,33 @@ const trendMax = Math.max(...trendMonths.map((month) => month.value));
     <div class="metrics-grid">
       <Metric
         label="Revenue"
-        value={money(homeSnapshot.stats.ytd_revenue, true)}
+        value={money(ytdRevenue, true)}
         comparison={`${percent(revenueAttainment, 1)} of ${money(baseTarget.value, true)} base plan`}
-        timeframe="2026 YTD through July 29"
-        source="QuickBooks cash-basis snapshot"
+        timeframe={`2026 YTD through ${monthlySnapshot.generated}`}
+        source="Performance Dashboard monthly dataset"
         tone="warning"
       />
       <Metric
         label="Net income"
-        value={money(homeSnapshot.stats.ytd_net_income, true)}
+        value={money(ytdNetIncome, true)}
         comparison={`${percent(margin, 1)} net margin`}
-        timeframe="2026 YTD through July 29"
-        source="QuickBooks cash-basis balance sheet"
+        timeframe={`2026 YTD through ${monthlySnapshot.generated}`}
+        source="Performance Dashboard monthly dataset"
         tone="positive"
       />
       <Metric
         label="Cash available"
         value={money(homeSnapshot.stats.cash_on_hand, true)}
-        comparison={`${money(Math.abs(homeSnapshot.stats.buffer_gap), true)} operating buffer gap`}
-        timeframe="Available balances July 29"
+        comparison="Operating buffer comparison unavailable"
+        timeframe={homeSnapshot.as_of_date}
         source="QuickBooks bank feed snapshot"
         tone="warning"
       />
       <Metric
         label="Open pipeline"
         value={money(homeSnapshot.stats.pipeline_total, true)}
-        comparison={`${homeSnapshot.stats.pipeline_count} opportunities, ${homeSnapshot.stats.pipeline_hot_count} hot`}
-        timeframe="Open deals on July 29"
+        comparison={`${homeSnapshot.stats.pipeline_count} opportunities; hot count unavailable`}
+        timeframe={homeSnapshot.as_of_date}
         source="HubSpot live snapshot"
         tone="default"
       />
@@ -120,8 +123,8 @@ const trendMax = Math.max(...trendMonths.map((month) => month.value));
               <tr>
                 <td>{target.scenario.replace("-", " ")}</td>
                 <td>{money(target.value)}</td>
-                <td>{money(homeSnapshot.stats.ytd_revenue)}</td>
-                <td>{percent((homeSnapshot.stats.ytd_revenue / target.value) * 100, 1)}</td>
+                <td>{money(ytdRevenue)}</td>
+                <td>{percent((ytdRevenue / target.value) * 100, 1)}</td>
                 <td><StatusBadge status={target.status} /></td>
               </tr>
             ))}
@@ -191,8 +194,8 @@ const trendMax = Math.max(...trendMonths.map((month) => month.value));
       </li>
       <li class="brief-item">
         <strong>Cash</strong>
-        <p>Available cash is positive, but operating funds remain {money(Math.abs(homeSnapshot.stats.buffer_gap))} below the two-month buffer target.</p>
-        <StatusBadge status="at risk" />
+        <p>Available cash is present, but the refreshed source no longer includes a governing operating-buffer target or gap.</p>
+        <StatusBadge status="unavailable" />
       </li>
       <li class="brief-item">
         <strong>Pipeline</strong>
