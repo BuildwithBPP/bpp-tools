@@ -1,10 +1,10 @@
 # BPP HQ proof-of-concept implementation report
 
-**Status:** DONE_WITH_CONCERNS
+**Status:** LOCAL RELEASE CANDIDATE
 
-**Implementation date:** July 29, 2026
+**Implementation date:** August 27, 2026
 
-**Branch:** `feat/bpp-hq-poc`
+**Branch:** `eli/client-delivery-command-center`
 
 **Application boundary:** `hq/`
 
@@ -15,7 +15,11 @@
 | `/` | Today leadership brief | Detailed first pass |
 | `/performance/` | Executive scorecard and Monthly Review view | Structured first pass |
 | `/growth/` | Pipeline, approved offers, and commercial priorities | Structured first pass |
-| `/delivery/` | Engagement health, milestones, capacity state, and quality tools | Structured first pass |
+| `/delivery/` | Eli's checkpoint-first delivery command view | Detailed operating view |
+| `/delivery/week/` | Current week tasks, movable cards, add-task flow, and collision state | Detailed operating view |
+| `/delivery/timeline/` | Baseline, forecast, today marker, and checkpoints | Detailed operating view |
+| `/delivery/projects/` | Legacy B and HALO deliverables, checkpoints, and control gaps | Detailed operating view |
+| `/delivery/raid/` | Risks, assumptions, issues, dependencies, responses, and evidence | Detailed operating view |
 | `/company/` | Plan of Record, strategy, targets, ownership cockpits, cadence, and systems | Detailed first pass |
 | `/library/` | Registry-driven search, filters, lifecycle, ownership, and source directory | Structured first pass |
 
@@ -37,6 +41,16 @@
 - `public/brand/bpp-b-mark.png`: local copy of the canonical transparent BPP mark
 - `scripts/validate.mjs`: route, schema, semantic structure, brand wording, link, and placeholder validation
 - `scripts/capture.mjs`: responsive browser, horizontal overflow, navigation, and WCAG A/AA checks
+
+## Client delivery command center
+
+- Uses a Zod-validated snapshot of Monday board `18406004595` limited to Legacy B. Studio and HALO Pathways.
+- Calculates checkpoint readiness, latest-safe dates, current KPIs, pull-forward ranking, workload collisions, and explicit control gaps without inventing owners, meetings, dependencies, or evidence.
+- Keeps baseline dates fixed at the approved Aug 26 snapshot and renders current forecast separately.
+- Provides mouse drag and keyboard-equivalent Move controls. The confirmation preview includes old date, new date, latest-safe date, checkpoint impact, and the source Monday link.
+- Add Task defaults to Eli Fisher, Not Started, and today's date, requires an approved parent deliverable, and allows the owner name to change.
+- Includes a loopback-only Monday adapter that validates board/group membership, resolves live columns and owners, uses version checks, performs create/date/archive mutations, and returns Confirmed only after exact read-back.
+- Includes a deterministic snapshot refresh pipeline that preserves baselines and checkpoint mappings while refreshing Monday forecast state.
 
 ## Review fix round 1
 
@@ -69,6 +83,15 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 
 ## Verification evidence
 
+### August 27 delivery release candidate
+
+- `npm test`: 16 tests passed; Astro Check returned 0 errors, 0 warnings, and 0 hints; 10 static routes built and validated.
+- `npm run delivery:check`: 2 projects, 41 deliverables, and 36 tasks passed the committed snapshot schema.
+- `npm audit` and `npm audit --omit=dev`: 0 vulnerabilities after the lockfile remediation.
+- Browser QA: all 10 routes passed at 1440, 1024, 768, 390, and 320 pixels with no page overflow or console errors.
+- Accessibility: WCAG 2 A/AA and WCAG 2.1 A/AA automated checks passed at 1440, 390, and 320 pixels.
+- Delivery journey: Add Task defaults, Cancel, Move, latest-safe conflict warning, checkpoint markers, source metadata, and read-only public fallback passed.
+
 - `npm run build`: Astro 7.1.6 static build passed. Astro Check reported 0 errors, 0 warnings, and 0 hints across 22 files. Six HTML routes were generated.
 - `npm run validate`: passed for six routes and six registry records. Utility source/freshness metadata, HR ownership truth, the canonical local BPP mark, and the clean canvas invariant are enforced. All internal routes and anchors resolve. No placeholder links, empty links, `javascript:` links, em dashes, or prohibited brand wording were found.
 - Browser QA: passed on all six routes at 1440, 1024, 768, and 390 pixels. No page-level horizontal overflow was detected.
@@ -83,20 +106,16 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 
 ## Known limitations and concerns
 
-1. Authentication and Cloudflare Access are deployment boundaries. This local static proof of concept does not claim that sign-in, credential rotation, repository privacy, or deny-by-default policy work is complete.
-2. The current-week operating brief in the repository was last generated July 13. Today surfaces that source as stale and does not repeat its client or pipeline details as current truth.
-3. The July 24 delivery tracker contains three clients while the July 29 HQ snapshot reports four active clients. Delivery surfaces the mismatch and withholds a current capacity claim.
-4. The page registry currently contains six source records. It is enough to prove the directory and filters, but not enough for a complete content migration.
-5. Shared page registry routes still point to current-Hub HTML sources. The standalone Library maps them to owned HQ routes and anchors. A future migration needs canonical HQ route fields or a governed route adapter.
-6. Screen-share mode is a local visual mask, not security. Client-confidential content still requires access controls and separate client spaces.
-7. The browser check is automated. Owner usability review, print preview review, and testing with real authenticated identities remain future acceptance steps.
+1. This is a local-only release candidate. Push, merge, public deployment, hosted authentication, and hosted Monday writes were not authorized or performed.
+2. The committed delivery data is an Aug 26 Monday snapshot. `npm run delivery:refresh` exists, but the live refresh query has not been smoke-tested with a real token in this release.
+3. The loopback adapter passed fake upstream tests only. A live create, move, read-back, and archive sequence still requires explicit approval because it changes the shared Monday board.
+4. Outlook event IDs are unavailable. Meeting control gaps are visible; the interface does not claim calendar sync.
+5. Monday dependency mappings and completion evidence are sparse. The interface exposes those gaps instead of inferring false dependencies or approvals.
+6. Authentication and Cloudflare Access remain deployment boundaries. Screen-share mode is a visual aid, not security.
 
 ## Owner decisions required
 
-1. Approve BPP HQ as the interface name and approve the six-section information architecture.
-2. Approve the consulting shell, BI treatment, and Company document treatment.
-3. Approve the private HQ and separate external tools boundary.
-4. Assign owners and dates for Tier 0 protection and Tier 1 sign-in work.
-5. Decide whether the shared page registry should add a canonical HQ route while preserving the current-Hub migration source.
-6. Reconcile the active-client count and current sprint source before Delivery becomes an operating dashboard.
-7. Approve the content migration order after the proof-of-concept review.
+1. Approve or defer the exact live Monday smoke test record and archive cleanup.
+2. Choose whether to keep the feature branch, merge locally, or authorize a pull request.
+3. Define the hosted authentication and server-side write boundary before any public deployment with client delivery data.
+4. Decide whether Outlook event mapping is a next release or remains a visible manual control gap.

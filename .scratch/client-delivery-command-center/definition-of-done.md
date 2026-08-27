@@ -20,44 +20,44 @@
 - [x] Tracer-bullet issue files created.
 
 ## 2. WRITE
-- [ ] Clean feature branch used in small batches.
-- [ ] UI built against approved BPP alignment layer.
-- [ ] No speculative integrations or public writes added.
-- [ ] Change compiles.
+- [x] Clean feature branch used in small batches.
+- [x] UI built against approved BPP alignment layer.
+- [x] No speculative integrations or public writes added.
+- [x] Change compiles.
 
 ## 3. TEST
-- [ ] Critical calculations and mutation/read-back seams tested incrementally.
-- [ ] Failures diagnosed to root cause.
-- [ ] Format check or N/A reason recorded.
-- [ ] Lint/static analysis or N/A reason recorded.
-- [ ] Type/schema check green.
-- [ ] Build and project validation green.
-- [ ] Pre-commit bootstrap decision recorded.
+- [x] Critical calculations and mutation/read-back seams tested incrementally.
+- [x] Failures diagnosed to root cause.
+- [x] Format check N/A: repository has no formatter script; Astro Check and deterministic static validation cover changed source.
+- [x] Lint/static analysis N/A: repository has no lint script; Astro Check returned 0 errors, warnings, or hints.
+- [x] Type/schema check green.
+- [x] Build and project validation green.
+- [x] Pre-commit bootstrap N/A: no hook added for this isolated feature; the full local gate ran before commit.
 
 ## 4. REVIEW + UAT
-- [ ] Code review clean.
-- [ ] Security audit clean for API/env surface.
-- [ ] Design QA verdict SHIP.
-- [ ] UX-01 through UX-09 each record actual evidence and PASS/FAIL.
-- [ ] Local real-app journey exercised.
+- [x] Code review clean.
+- [x] Security audit PASS for local-only target; public deployment remains blocked.
+- [x] Design QA verdict SHIP.
+- [x] UX-01 through UX-09 each record actual evidence and PASS/FAIL.
+- [x] Local real-app journey exercised.
 
 ## 4.5. GAUNTLET GATE
-- [ ] Mark N/A unless Eli supplies a named comparison bar and hard ceiling.
+- [x] N/A: no named comparison bar or hard ceiling supplied.
 
 ## 5. DEPLOY
-- [ ] Local-only release authority recorded.
-- [ ] Rollback triggers recorded.
-- [ ] Conventional commits complete.
-- [ ] Local production build verified.
-- [ ] Push/merge/production marked N/A without authority.
+- [x] Local-only release authority recorded.
+- [x] Rollback triggers recorded.
+- [x] Conventional commits complete.
+- [x] Local production build verified.
+- [x] Push/merge/production marked N/A without authority.
 
 ## 6. MONITOR
-- [ ] Local destination checked, not only build status.
-- [ ] Critical journey repeated after final build.
-- [ ] Success metric remains inside threshold.
+- [x] Local destination checked, not only build status.
+- [x] Critical journey repeated after final build.
+- [x] Success metric remains inside threshold.
 
 ## 7. CONTROL
-- [ ] README and implementation report current.
-- [ ] Release evidence receipt complete.
-- [ ] Surprise from baseline schema drift captured in project docs.
-- [ ] Portfolio eligibility marked.
+- [x] README and implementation report current.
+- [x] Release and security evidence receipts complete.
+- [x] Surprise from baseline schema drift captured in project docs.
+- [x] Portfolio eligibility marked internal-only because screenshots contain client delivery data.

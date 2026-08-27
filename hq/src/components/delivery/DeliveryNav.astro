@@ -1,0 +1,18 @@
+---
+const links = [
+  { href: "/delivery/", label: "Today" },
+  { href: "/delivery/week/", label: "Week" },
+  { href: "/delivery/timeline/", label: "Timeline" },
+  { href: "/delivery/projects/", label: "Projects" },
+  { href: "/delivery/raid/", label: "RAID" }
+];
+const currentPath = Astro.url.pathname;
+---
+<nav class="delivery-nav" aria-label="Client delivery views">
+  <span class="delivery-nav-label">Control views</span>
+  <div class="delivery-nav-links">
+    {links.map((link) => (
+      <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>
+    ))}
+  </div>
+</nav>

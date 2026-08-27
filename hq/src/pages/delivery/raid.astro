@@ -1,0 +1,37 @@
+---
+import HQLayout from "../../layouts/HQLayout.astro";
+import SourceMeta from "../../components/SourceMeta.astro";
+import StatusBadge from "../../components/StatusBadge.astro";
+import DeliveryNav from "../../components/delivery/DeliveryNav.astro";
+import SyncState from "../../components/delivery/SyncState.astro";
+import { deliveryCommand } from "../../data/delivery-command";
+const page = { title: "Delivery RAID", description: "Risks, assumptions, issues, and dependencies across client delivery.", owner: "Eli Fisher", status: "live", source: `Monday Client Delivery board ${deliveryCommand.source.boardId}`, verified: deliveryCommand.source.sourceUpdatedAt.slice(0, 10), freshnessDays: 2 };
+const projectName = (id: string) => deliveryCommand.projects.find((project) => project.id === id)?.name ?? id;
+const counts = ["risk", "assumption", "issue", "dependency"].map((type) => ({ type, count: deliveryCommand.raid.filter((item) => item.type === type && item.status !== "closed").length }));
+---
+<HQLayout {...page}>
+  <header class="page-intro delivery-intro"><div class="page-intro-copy"><p class="eyebrow">Client delivery command center</p><h1>See the threats before they become misses</h1><p>Each open record has a response, owner state, review date, and link back to delivery evidence.</p></div><SyncState state="snapshot" sourceUpdatedAt={deliveryCommand.source.sourceUpdatedAt} /></header>
+  <DeliveryNav />
+  <div class="raid-counts">{counts.map((item) => <div><span>{item.type}</span><strong>{item.count}</strong></div>)}</div>
+  <div class="table-wrap raid-table-wrap" role="region" aria-label="Delivery RAID log" tabindex="0">
+    <table class="simple-table raid-table">
+      <thead><tr><th>Type</th><th>Project and threat</th><th>Exposure</th><th>Owner</th><th>Affected checkpoint</th><th>Response</th><th>Review</th><th>Evidence</th></tr></thead>
+      <tbody>
+        {deliveryCommand.raid.map((item) => (
+          <tr>
+            <td><span class={`gap-kind gap-${item.type}`}>{item.type}</span></td>
+            <td><strong>{item.title}</strong><span>{projectName(item.projectId)}</span><p>{item.description}</p></td>
+            <td><StatusBadge status={item.status} /><span>{item.probability ? `${item.probability} probability` : "Probability not used"}</span><span>{item.impact} impact</span></td>
+            <td>{item.owner ?? "External dependency"}</td>
+            <td>{item.checkpointIds.length ? item.checkpointIds.map((id) => deliveryCommand.checkpoints.find((checkpoint) => checkpoint.id === id)?.name ?? id).join("; ") : "No checkpoint mapped"}</td>
+            <td>{item.response}</td>
+            <td>{item.reviewDate ?? "Event driven"}</td>
+            <td><a href={item.sourceUrl} target="_blank" rel="noreferrer">Monday</a></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <aside class="write-boundary"><strong>RAID behavior</strong><p>No risk is created by this dashboard. Add and update RAID records in Monday until an authenticated adapter is approved.</p></aside>
+  <SourceMeta owner={page.owner} status={page.status} source={page.source} verified={page.verified} freshnessDays={page.freshnessDays} />
+</HQLayout>

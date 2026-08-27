@@ -8,9 +8,9 @@ Make the existing HQ accept the current lean home snapshot without inventing ret
 
 ## Acceptance criteria
 
-- [ ] Current `hub-home-stats.json` parses without restoring removed fields.
-- [ ] Performance/Growth never calculate from null or display fabricated zero values.
-- [ ] `npm test` passes on the current source files.
+- [x] Current `hub-home-stats.json` parses without restoring removed fields.
+- [x] Performance/Growth never calculate from null or display fabricated zero values.
+- [x] `npm test` passes on the current source files.
 
 ## Blocked by
 

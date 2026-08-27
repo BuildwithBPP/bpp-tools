@@ -1,0 +1,37 @@
+---
+import type { DeliveryProject, DeliveryTask } from "../../domain/delivery/types";
+interface Props { task: DeliveryTask; project: DeliveryProject; checkpointNames?: string[]; compact?: boolean; }
+const { task, project, checkpointNames = [], compact = false } = Astro.props;
+const dueLabel = task.currentDue
+  ? new Date(`${task.currentDue}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" })
+  : "No date";
+---
+<article
+  class:list={["delivery-task", `project-${project.color}`, `task-${task.status}`, { compact }]}
+  draggable={task.status !== "done" && task.status !== "cancelled"}
+  data-task-id={task.id}
+  data-monday-item-id={task.mondayItemId}
+  data-task-name={task.name}
+  data-task-date={task.currentDue ?? ""}
+  data-task-owner={task.owner ?? ""}
+  data-source-updated-at={task.sourceUpdatedAt}
+  data-latest-safe-date={task.latestSafeDate ?? ""}
+  data-checkpoint-names={checkpointNames.join("; ")}
+  data-monday-url={task.mondayUrl}
+>
+  <div class="delivery-task-topline">
+    <span class="project-swatch" aria-hidden="true"></span>
+    <span>{project.name}</span>
+    <span class:list={["task-priority", `priority-${task.priority}`]}>{task.priority}</span>
+  </div>
+  <h3>{task.name}</h3>
+  <div class="delivery-task-meta">
+    <span>{task.owner ?? (task.clientOwned ? "Client" : "Owner missing")}</span>
+    <span>{dueLabel}</span>
+    <span>{task.status.replaceAll("-", " ")}</span>
+  </div>
+  <div class="delivery-task-actions">
+    {task.status !== "done" && task.status !== "cancelled" && <button class="text-button move-task" type="button" data-move-task={task.id}>Move</button>}
+    <a href={task.mondayUrl} target="_blank" rel="noreferrer">Monday</a>
+  </div>
+</article>

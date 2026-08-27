@@ -1,0 +1,53 @@
+---
+import type { Checkpoint, CheckpointAssessment, DeliveryProject, DeliveryTask } from "../../domain/delivery/types";
+interface Props { checkpoint: Checkpoint; assessment: CheckpointAssessment; project: DeliveryProject; tasks: DeliveryTask[]; }
+const { checkpoint, assessment, project, tasks } = Astro.props;
+const openTasks = tasks.filter((task) => task.status !== "done" && task.status !== "cancelled");
+const primaryThreat = openTasks.find((task) => task.status === "blocked")?.name
+  ?? openTasks.find((task) => task.clientOwned)?.name
+  ?? assessment.reasons.find((reason) => !reason.toLowerCase().includes("evidence"))
+  ?? assessment.reasons[0]
+  ?? "No active threat";
+const dateLabel = checkpoint.plannedDate
+  ? new Date(`${checkpoint.plannedDate}T12:00:00`).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })
+  : "Date unavailable";
+---
+<article class:list={["checkpoint-hero", `readiness-${assessment.readiness}`, `project-${project.color}`]}>
+  <div class="checkpoint-kicker">
+    <span>Next checkpoint</span>
+    <span class="readiness-label">{assessment.readiness.replaceAll("-", " ")}</span>
+  </div>
+  <div class="checkpoint-heading">
+    <div>
+      <p class="checkpoint-project">{project.name}</p>
+      <h2>{checkpoint.name}</h2>
+      <p>{dateLabel}{checkpoint.startsAt ? ` at ${new Date(checkpoint.startsAt).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/New_York" })} ET` : " · Outlook time not mapped"}</p>
+    </div>
+    <div class="readiness-score" aria-label={`${assessment.completionPercent}% complete`}>
+      <strong>{assessment.completionPercent}%</strong>
+      <span>{assessment.completedRequired}/{assessment.totalRequired} ready</span>
+    </div>
+  </div>
+  <div class="checkpoint-progress" aria-hidden="true"><span style={`width:${assessment.completionPercent}%`}></span></div>
+  <div class="checkpoint-grid">
+    <div>
+      <span class="field-label">Latest safe date</span>
+      <strong>{assessment.latestSafeDate ?? "Unavailable"}</strong>
+    </div>
+    <div>
+      <span class="field-label">Open prerequisites</span>
+      <strong>{openTasks.length}</strong>
+    </div>
+    <div>
+      <span class="field-label">Primary threat</span>
+      <strong>{primaryThreat}</strong>
+    </div>
+  </div>
+  {openTasks[0] && (
+    <div class="checkpoint-next-action">
+      <span class="field-label">Next action</span>
+      <strong>{openTasks[0].name}</strong>
+      <a href={openTasks[0].mondayUrl} target="_blank" rel="noreferrer">Open in Monday</a>
+    </div>
+  )}
+</article>

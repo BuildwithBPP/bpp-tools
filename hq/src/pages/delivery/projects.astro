@@ -1,0 +1,58 @@
+---
+import HQLayout from "../../layouts/HQLayout.astro";
+import SourceMeta from "../../components/SourceMeta.astro";
+import StatusBadge from "../../components/StatusBadge.astro";
+import ControlGapList from "../../components/delivery/ControlGapList.astro";
+import DeliveryNav from "../../components/delivery/DeliveryNav.astro";
+import SyncState from "../../components/delivery/SyncState.astro";
+import { deliveryCommand } from "../../data/delivery-command";
+import { assessCheckpoint, findControlGaps } from "../../domain/delivery/control";
+const today = "2026-08-27";
+const gaps = findControlGaps(deliveryCommand);
+const page = { title: "Delivery Projects", description: "Project-level delivery controls, checkpoints, and missing data.", owner: "Eli Fisher", status: "live", source: `Monday Client Delivery board ${deliveryCommand.source.boardId}`, verified: deliveryCommand.source.sourceUpdatedAt.slice(0, 10), freshnessDays: 2 };
+---
+<HQLayout {...page}>
+  <header class="page-intro delivery-intro"><div class="page-intro-copy"><p class="eyebrow">Client delivery command center</p><h1>Control each website build</h1><p>Deliverables, checkpoints, owner coverage, and acceptance evidence without losing the Monday source record.</p></div><SyncState state="snapshot" sourceUpdatedAt={deliveryCommand.source.sourceUpdatedAt} /></header>
+  <DeliveryNav />
+  <div class="project-control-grid">
+    {deliveryCommand.projects.map((project) => {
+      const deliverables = deliveryCommand.deliverables.filter((item) => item.projectId === project.id);
+      const tasks = deliveryCommand.tasks.filter((item) => item.projectId === project.id);
+      const checkpoints = deliveryCommand.checkpoints.filter((item) => item.projectId === project.id);
+      const projectGaps = gaps.filter((item) => item.projectId === project.id);
+      const open = deliverables.filter((item) => item.status !== "done" && item.status !== "cancelled");
+      const next = checkpoints.filter((item) => item.plannedDate && item.plannedDate >= today).sort((a, b) => (a.plannedDate ?? "").localeCompare(b.plannedDate ?? ""))[0];
+      const readiness = next ? assessCheckpoint(deliveryCommand, next.id, today) : null;
+      return (
+        <article class:list={["project-control", `project-${project.color}`]}>
+          <header class="project-control-header">
+            <div><p class="eyebrow">Active website build</p><h2>{project.name}</h2><p>Owner: {project.owner}</p></div>
+            <a class="button" href={project.mondayUrl} target="_blank" rel="noreferrer">Open Monday group</a>
+          </header>
+          <div class="project-scoreline">
+            <div><span>Open deliverables</span><strong>{open.length}</strong></div>
+            <div><span>Open tasks</span><strong>{tasks.filter((item) => item.status !== "done" && item.status !== "cancelled").length}</strong></div>
+            <div><span>Control gaps</span><strong>{projectGaps.length}</strong></div>
+            <div><span>Next readiness</span>{readiness ? <StatusBadge status={readiness.readiness} /> : <strong>Unavailable</strong>}</div>
+          </div>
+          {next && <div class="project-next"><span>Next checkpoint</span><strong>{next.name}</strong><time datetime={next.plannedDate ?? undefined}>{next.plannedDate}</time></div>}
+          <div class="checkpoint-sequence">
+            <h3>Checkpoint sequence</h3>
+            <ol>{checkpoints.map((checkpoint) => <li><div><strong>{checkpoint.name}</strong><span>{checkpoint.acceptanceCriteria.join("; ")}</span></div><time datetime={checkpoint.plannedDate ?? undefined}>{checkpoint.plannedDate ?? "Date missing"}</time><StatusBadge status={checkpoint.outlookEventId ? "mapped" : "meeting gap"} /></li>)}</ol>
+          </div>
+          <div class="project-deliverables">
+            <h3>Open deliverables</h3>
+            <div class="table-wrap" role="region" aria-label={`${project.name} deliverables`} tabindex="0">
+              <table class="simple-table">
+                <thead><tr><th>Deliverable</th><th>Phase</th><th>Baseline</th><th>Forecast</th><th>Status</th><th>Source</th></tr></thead>
+                <tbody>{open.map((item) => <tr><td><strong>{item.name}</strong></td><td>{item.phase}</td><td>{item.baselineDue ?? "Missing"}</td><td>{item.currentDue ?? "Missing"}</td><td><StatusBadge status={item.status} /></td><td><a href={item.mondayUrl} target="_blank" rel="noreferrer">Monday</a></td></tr>)}</tbody>
+              </table>
+            </div>
+          </div>
+          <div class="project-gaps"><h3>Missing controls</h3><ControlGapList gaps={projectGaps} projects={deliveryCommand.projects} limit={4} /></div>
+        </article>
+      );
+    })}
+  </div>
+  <SourceMeta owner={page.owner} status={page.status} source={page.source} verified={page.verified} freshnessDays={page.freshnessDays} />
+</HQLayout>

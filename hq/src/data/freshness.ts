@@ -13,7 +13,8 @@ interface FreshnessResult {
   ageDays: number;
 }
 
-const proofSnapshot = new Date("2026-07-29T12:00:00-04:00");
+const now = new Date();
+const freshnessAsOf = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12);
 
 export function deriveFreshness({
   status,
@@ -27,7 +28,7 @@ export function deriveFreshness({
 
   const ageDays = Math.max(
     0,
-    Math.floor((proofSnapshot.getTime() - verifiedDate.getTime()) / 86_400_000)
+    Math.floor((freshnessAsOf.getTime() - verifiedDate.getTime()) / 86_400_000)
   );
 
   if (status.toLowerCase() === "historical") {

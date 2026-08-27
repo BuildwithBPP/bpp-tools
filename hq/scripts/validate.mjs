@@ -13,6 +13,10 @@ const expectedRoutes = [
   "performance/index.html",
   "growth/index.html",
   "delivery/index.html",
+  "delivery/week/index.html",
+  "delivery/timeline/index.html",
+  "delivery/projects/index.html",
+  "delivery/raid/index.html",
   "company/index.html",
   "library/index.html"
 ];
@@ -172,6 +176,11 @@ assert.ok(
 const performanceHtml = readFileSync(join(distRoot, "performance", "index.html"), "utf8");
 const growthHtml = readFileSync(join(distRoot, "growth", "index.html"), "utf8");
 const companyHtml = readFileSync(join(distRoot, "company", "index.html"), "utf8");
+const deliveryHtml = readFileSync(join(distRoot, "delivery", "index.html"), "utf8");
+const deliveryWeekHtml = readFileSync(join(distRoot, "delivery", "week", "index.html"), "utf8");
+const deliveryTimelineHtml = readFileSync(join(distRoot, "delivery", "timeline", "index.html"), "utf8");
+const deliveryProjectsHtml = readFileSync(join(distRoot, "delivery", "projects", "index.html"), "utf8");
+const deliveryRaidHtml = readFileSync(join(distRoot, "delivery", "raid", "index.html"), "utf8");
 const performanceRecord = pages.pages.find((record) => record.id === "performance-dashboard");
 const growthRecord = pages.pages.find((record) => record.id === "seller-start");
 assert.ok(
@@ -199,8 +208,23 @@ assert.ok(hrBlock.includes("Daunte researching"), "HR & People Ops must show Dau
 assert.ok(hrBlock.includes("Not assigned"), "HR & People Ops must not claim a ratified DRI.");
 assert.ok(!hrBlock.includes("All owners"), "HR & People Ops must not assign All owners as DRI.");
 
+assert.ok(deliveryHtml.includes("Latest safe date") && deliveryHtml.includes("Best work to pull forward"), "Delivery Today must render checkpoint readiness and ranked next work.");
+assert.ok(deliveryHtml.includes("Fix in Monday") && deliveryHtml.includes("Monday snapshot"), "Delivery Today must expose control-gap fallbacks and source state.");
+assert.equal((deliveryWeekHtml.match(/class="week-day(?:\s|\")/g) ?? []).length, 7, "Delivery Week must render Monday through Sunday.");
+assert.ok(deliveryWeekHtml.includes("Add task") && deliveryWeekHtml.includes("data-move-task"), "Delivery Week must provide Add Task and keyboard-equivalent Move controls.");
+assert.ok(
+  /data-api-url(?:\s|>)/.test(deliveryWeekHtml) &&
+    !/data-api-url="https?:/.test(deliveryWeekHtml) &&
+    deliveryWeekHtml.includes("This public build cannot write to Monday"),
+  "Public Delivery Week must not expose a working mutation route."
+);
+assert.ok(deliveryTimelineHtml.includes("Approved snapshot baseline") && deliveryTimelineHtml.includes("Current forecast") && deliveryTimelineHtml.includes("Checkpoint") && deliveryTimelineHtml.includes("Today"), "Delivery Timeline must distinguish baseline, forecast, checkpoints, and today.");
+assert.ok(deliveryProjectsHtml.includes("Legacy B. Studio") && deliveryProjectsHtml.includes("HALO Pathways") && deliveryProjectsHtml.includes("Checkpoint sequence") && deliveryProjectsHtml.includes("Baseline") && deliveryProjectsHtml.includes("Missing controls"), "Delivery Projects must render both approved builds, checkpoint sequences, baseline dates, and control gaps.");
+assert.ok(deliveryRaidHtml.includes("Affected checkpoint") && deliveryRaidHtml.includes("Evidence"), "Delivery RAID must link threats to checkpoints and evidence.");
+for (const type of ["risk", "assumption", "issue", "dependency"]) assert.ok(deliveryRaidHtml.includes(`>${type}<`), `Delivery RAID must render the ${type} category.`);
+
 console.log(
   `Validation passed: ${expectedRoutes.length} routes, ${pages.pages.length} registry records, ` +
-  `${htmlPaths.length} HTML files, utility source/freshness metadata, HR ownership truth, ` +
+  `${htmlPaths.length} HTML files, utility source/freshness metadata, delivery control contracts, HR ownership truth, ` +
   "no placeholder links, and all internal routes resolved."
 );

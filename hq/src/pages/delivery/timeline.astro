@@ -1,0 +1,17 @@
+---
+import HQLayout from "../../layouts/HQLayout.astro";
+import SourceMeta from "../../components/SourceMeta.astro";
+import DeliveryNav from "../../components/delivery/DeliveryNav.astro";
+import SyncState from "../../components/delivery/SyncState.astro";
+import TimelineGantt from "../../components/delivery/TimelineGantt.astro";
+import { deliveryCommand } from "../../data/delivery-command";
+const page = { title: "Delivery Timeline", description: "Baseline and current forecast across active client delivery.", owner: "Eli Fisher", status: "live", source: `Monday Client Delivery board ${deliveryCommand.source.boardId}`, verified: deliveryCommand.source.sourceUpdatedAt.slice(0, 10), freshnessDays: 2 };
+---
+<HQLayout {...page}>
+  <header class="page-intro delivery-intro"><div class="page-intro-copy"><p class="eyebrow">Client delivery command center</p><h1>See how every deliverable aligns</h1><p>Baseline is the approved Aug 26 snapshot. Current forecast reflects the same Monday evidence until a controlled replan is confirmed.</p></div><SyncState state="snapshot" sourceUpdatedAt={deliveryCommand.source.sourceUpdatedAt} /></header>
+  <DeliveryNav />
+  <div class="timeline-summary"><div><span>Range</span><strong>Aug 26 to Nov 16</strong></div><div><span>Projects</span><strong>{deliveryCommand.projects.length}</strong></div><div><span>Open deliverables</span><strong>{deliveryCommand.deliverables.filter((item) => item.status !== "done" && item.status !== "cancelled").length}</strong></div><div><span>Forecast variance</span><strong>0 days</strong></div></div>
+  <TimelineGantt deliverables={deliveryCommand.deliverables} checkpoints={deliveryCommand.checkpoints} projects={deliveryCommand.projects} start="2026-08-26" end="2026-11-16" today="2026-08-27" />
+  <aside class="write-boundary"><strong>Milestone guardrail</strong><p>Timeline bars open the authoritative Monday item. They do not support casual milestone dragging. Replanning needs dependency review and read-back verification.</p></aside>
+  <SourceMeta owner={page.owner} status={page.status} source={page.source} verified={page.verified} freshnessDays={page.freshnessDays} />
+</HQLayout>

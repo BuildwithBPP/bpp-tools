@@ -5,9 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "dev:delivery-api": "node scripts/delivery-dev-api.mjs",
+    "dev:delivery": "PUBLIC_DELIVERY_API_URL=http://127.0.0.1:8788 astro dev",
+    "delivery:refresh": "node scripts/build-delivery-snapshot.mjs",
+    "delivery:check": "node scripts/build-delivery-snapshot.mjs --check",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "test": "npm run build && node scripts/validate.mjs",
+    "test:unit": "node --test src/domain/delivery/*.test.ts src/lib/*.test.ts scripts/*.test.mjs",
+    "test": "npm run test:unit && npm run build && node scripts/validate.mjs",
     "validate": "node scripts/validate.mjs",
     "screenshots": "node scripts/capture.mjs"
   },
@@ -21,6 +26,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@axe-core/playwright": "^4.12.1",
+    "@types/node": "^26.3.0",
     "playwright": "^1.54.2",
     "typescript": "^5.9.2"
   }

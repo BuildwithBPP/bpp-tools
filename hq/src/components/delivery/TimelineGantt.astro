@@ -1,0 +1,54 @@
+---
+import type { Checkpoint, Deliverable, DeliveryProject } from "../../domain/delivery/types";
+interface Props { deliverables: Deliverable[]; checkpoints: Checkpoint[]; projects: DeliveryProject[]; start: string; end: string; today: string; }
+const { deliverables, checkpoints, projects, start, end, today } = Astro.props;
+const dayMs = 86_400_000;
+const time = (date: string) => new Date(`${date}T12:00:00Z`).getTime();
+const total = Math.max(1, Math.round((time(end) - time(start)) / dayMs) + 1);
+const position = (date: string) => Math.max(0, Math.min(100, ((time(date) - time(start)) / dayMs / total) * 100));
+const width = (from: string, to: string) => Math.max(1.2, (((time(to) - time(from)) / dayMs + 1) / total) * 100);
+const open = deliverables
+  .filter((item) => item.status !== "done" && item.status !== "cancelled" && item.currentStart && item.currentDue)
+  .sort((a, b) => (a.currentStart ?? "").localeCompare(b.currentStart ?? ""));
+const projectFor = (id: string) => projects.find((project) => project.id === id)!;
+const markers = [start, "2026-09-01", "2026-09-15", "2026-10-01", "2026-10-15", "2026-11-01", end];
+---
+<div class="gantt-shell" role="region" aria-label="Client delivery timeline" tabindex="0">
+  <div class="gantt-header">
+    <div class="gantt-label-heading">Deliverable</div>
+    <div class="gantt-scale">
+      {markers.map((marker) => <span style={`left:${position(marker)}%`}>{new Date(`${marker}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>)}
+    </div>
+  </div>
+  <div class="gantt-body">
+    <div class="gantt-today" style={`left:calc(310px + (100% - 310px) * ${position(today) / 100})`}><span>Today</span></div>
+    {open.map((item) => {
+      const project = projectFor(item.projectId);
+      const variance = item.baselineDue && item.currentDue ? Math.round((time(item.currentDue) - time(item.baselineDue)) / dayMs) : null;
+      return (
+        <div class="gantt-row">
+          <div class="gantt-row-label">
+            <span class={`project-swatch project-${project.color}`} aria-hidden="true"></span>
+            <div><strong>{item.name}</strong><span>{project.name} · {item.status.replaceAll("-", " ")}</span></div>
+          </div>
+          <div class="gantt-track">
+            {item.baselineStart && item.baselineDue && <span class="gantt-baseline" style={`left:${position(item.baselineStart)}%;width:${width(item.baselineStart, item.baselineDue)}%`} title={`Baseline ${item.baselineStart} to ${item.baselineDue}`}></span>}
+            <a class:list={["gantt-bar", `project-${project.color}`]} style={`left:${position(item.currentStart!)}%;width:${width(item.currentStart!, item.currentDue!)}%`} href={item.mondayUrl} target="_blank" rel="noreferrer" title={`${item.name}: ${item.currentStart} to ${item.currentDue}`}>
+              <span>{variance && variance > 0 ? `+${variance}d` : "On baseline"}</span>
+            </a>
+          </div>
+        </div>
+      );
+    })}
+    {checkpoints.filter((checkpoint) => checkpoint.plannedDate).map((checkpoint) => {
+      const project = projectFor(checkpoint.projectId);
+      return (
+        <div class="gantt-row gantt-checkpoint-row">
+          <div class="gantt-row-label"><span class={`project-swatch project-${project.color}`} aria-hidden="true"></span><div><strong>{checkpoint.name}</strong><span>{project.name} · checkpoint</span></div></div>
+          <div class="gantt-track"><span class:list={["gantt-checkpoint-marker", `project-${project.color}`]} style={`left:${position(checkpoint.plannedDate!)}%`} title={`${checkpoint.name}: ${checkpoint.plannedDate}`}><span aria-hidden="true">◆</span><span class="sr-only">{checkpoint.name} on {checkpoint.plannedDate}</span></span></div>
+        </div>
+      );
+    })}
+  </div>
+</div>
+<div class="gantt-legend"><span><i class="legend-current"></i>Current forecast</span><span><i class="legend-baseline"></i>Approved snapshot baseline</span><span><i class="legend-checkpoint">◆</i>Checkpoint</span><span>Open a bar to update Monday</span></div>

@@ -1,0 +1,22 @@
+---
+interface Props {
+  state?: "snapshot" | "pending" | "confirmed" | "conflict" | "failed" | "unavailable";
+  sourceUpdatedAt: string;
+}
+const { state = "snapshot", sourceUpdatedAt } = Astro.props;
+const labels = {
+  snapshot: "Monday snapshot",
+  pending: "Sync pending",
+  confirmed: "Confirmed in Monday",
+  conflict: "Monday changed",
+  failed: "Sync failed",
+  unavailable: "Write unavailable"
+};
+---
+<div class:list={["sync-state", `sync-${state}`]} data-sync-state={state}>
+  <span class="sync-state-dot" aria-hidden="true"></span>
+  <div>
+    <strong>{labels[state]}</strong>
+    <span>Source updated {new Date(sourceUpdatedAt).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZone: "America/New_York" })} ET</span>
+  </div>
+</div>

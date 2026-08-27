@@ -1,0 +1,188 @@
+---
+import TaskCard from "./TaskCard.astro";
+import type { Checkpoint, Deliverable, DeliveryProject, DeliveryTask } from "../../domain/delivery/types";
+interface Props { weekStart: string; tasks: DeliveryTask[]; checkpoints: Checkpoint[]; projects: DeliveryProject[]; deliverables: Deliverable[]; defaultOwner: string; apiUrl?: string; }
+const { weekStart, tasks, checkpoints, projects, deliverables, defaultOwner, apiUrl = "" } = Astro.props;
+const start = new Date(`${weekStart}T12:00:00`);
+const days = Array.from({ length: 7 }, (_, offset) => {
+  const date = new Date(start);
+  date.setDate(start.getDate() + offset);
+  const key = date.toISOString().slice(0, 10);
+  return {
+    key,
+    weekday: date.toLocaleDateString("en-US", { weekday: "short" }),
+    label: date.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+    tasks: tasks.filter((task) => task.currentDue === key),
+    checkpoints: checkpoints.filter((checkpoint) => checkpoint.plannedDate === key)
+  };
+});
+const projectFor = (task: DeliveryTask) => projects.find((project) => project.id === task.projectId)!;
+---
+<div class="week-toolbar">
+  <div>
+    <strong>{days[0].label} to {days[6].label}</strong>
+    <span>{tasks.length} dated task{tasks.length === 1 ? "" : "s"}</span>
+  </div>
+  <button class="button button-primary add-task" type="button">Add task</button>
+</div>
+
+<div class="week-board" data-week-board data-api-url={apiUrl} data-board-id="18406004595">
+  {days.map((day) => (
+    <section class:list={["week-day", { "is-today": day.key === "2026-08-27" }]} data-day={day.key} aria-label={`${day.weekday}, ${day.label}`}>
+      <header>
+        <div><strong>{day.weekday}</strong><span>{day.label}</span></div>
+        <span class="day-count">{day.tasks.length}</span>
+      </header>
+      {day.checkpoints.map((checkpoint) => <div class="week-checkpoint"><span>Checkpoint</span>{checkpoint.name}</div>)}
+      <div class="week-day-tasks">
+        {day.tasks.map((task) => <TaskCard task={task} project={projectFor(task)} checkpointNames={task.checkpointIds.map((id) => checkpoints.find((checkpoint) => checkpoint.id === id)?.name ?? id)} compact />)}
+      </div>
+      {day.tasks.length === 0 && <p class="week-empty">Open capacity</p>}
+    </section>
+  ))}
+</div>
+
+<dialog class="delivery-dialog" id="move-task-dialog">
+  <form method="dialog" data-move-form>
+    <div class="dialog-heading"><p class="eyebrow">Confirm change</p><h2>Move task</h2></div>
+    <p data-move-summary>Select a task and date.</p>
+    <dl class="move-impact">
+      <div><dt>Latest safe date</dt><dd data-move-latest-safe>Unavailable</dd></div>
+      <div><dt>Checkpoint impact</dt><dd data-move-checkpoint>No checkpoint mapped</dd></div>
+    </dl>
+    <input type="hidden" name="taskId" />
+    <label>New due date<input type="date" name="dueDate" required /></label>
+    <div class="sync-notice" data-mutation-message>This public build cannot write to Monday. You can review the change, then continue in Monday.</div>
+    <a data-move-monday href="https://businessplansplus.monday.com/boards/18406004595" target="_blank" rel="noreferrer">Open source task in Monday</a>
+    <div class="dialog-actions"><button class="button" value="cancel" formnovalidate>Cancel</button><button class="button button-primary" value="confirm">Confirm move</button></div>
+  </form>
+</dialog>
+
+<dialog class="delivery-dialog" id="add-task-dialog">
+  <form method="dialog" data-add-form>
+    <div class="dialog-heading"><p class="eyebrow">Missing action</p><h2>Add task</h2></div>
+    <label>Task name<input type="text" name="name" required /></label>
+    <label>Project<select name="projectId" required>{projects.map((project) => <option value={project.id}>{project.name}</option>)}</select></label>
+    <label>Parent deliverable<select name="deliverableId" required><option value="">Choose a deliverable</option>{deliverables.filter((item) => item.status !== "done" && item.status !== "cancelled").map((item) => <option value={item.mondayItemId} data-project-id={item.projectId}>{projects.find((project) => project.id === item.projectId)?.name}: {item.name}</option>)}</select></label>
+    <div class="form-grid">
+      <label>Owner<input type="text" name="owner" value={defaultOwner} required /></label>
+      <label>Status<select name="status"><option value="not-started">Not started</option><option value="working">Working</option></select></label>
+    </div>
+    <label>Due date<input type="date" name="dueDate" value="2026-08-27" required /></label>
+    <div class="sync-notice" data-add-message>Task creation needs a real parent deliverable and live Monday adapter. This public build will not create records.</div>
+    <div class="dialog-actions"><button class="button" value="cancel" formnovalidate>Cancel</button><button class="button button-primary" value="confirm">Review in Monday</button></div>
+  </form>
+</dialog>
+
+<script>
+  import { createDeliveryTask, moveDeliveryTask } from "../../lib/delivery-api";
+  const board = document.querySelector<HTMLElement>('[data-week-board]');
+  const moveDialog = document.querySelector<HTMLDialogElement>('#move-task-dialog');
+  const addDialog = document.querySelector<HTMLDialogElement>('#add-task-dialog');
+  let dragged: HTMLElement | null = null;
+  let activeMoveCard: HTMLElement | null = null;
+
+  function field(form: HTMLFormElement, name: string) {
+    const control = form.elements.namedItem(name);
+    if (!(control instanceof HTMLInputElement) && !(control instanceof HTMLSelectElement)) throw new Error(`Missing form field: ${name}`);
+    return control;
+  }
+
+  function impactText(card: HTMLElement, targetDate: string) {
+    const checkpointNames = card.dataset.checkpointNames || "No checkpoint mapped";
+    const timingImpact = card.dataset.latestSafeDate && targetDate > card.dataset.latestSafeDate
+      ? "Target lands after the latest-safe date"
+      : "No latest-safe conflict detected";
+    return `${checkpointNames}. ${timingImpact}.`;
+  }
+
+  function openMove(card: HTMLElement | null, dueDate = "") {
+    if (!card || !moveDialog) return;
+    const form = moveDialog.querySelector<HTMLFormElement>('[data-move-form]');
+    const summary = form?.querySelector<HTMLElement>('[data-move-summary]');
+    const latestSafe = form?.querySelector<HTMLElement>('[data-move-latest-safe]');
+    const checkpoint = form?.querySelector<HTMLElement>('[data-move-checkpoint]');
+    const monday = form?.querySelector<HTMLAnchorElement>('[data-move-monday]');
+    if (!form || !summary || !latestSafe || !checkpoint || !monday) return;
+    activeMoveCard = card;
+    field(form, "taskId").value = card.dataset.taskId ?? "";
+    field(form, "dueDate").value = dueDate || card.dataset.taskDate || "";
+    summary.textContent = `${card.dataset.taskName} from ${card.dataset.taskDate || 'no date'} to ${field(form, "dueDate").value || 'a new date'}.`;
+    latestSafe.textContent = card.dataset.latestSafeDate || "Unavailable";
+    checkpoint.textContent = impactText(card, field(form, "dueDate").value);
+    monday.href = card.dataset.mondayUrl || monday.href;
+    moveDialog.showModal();
+  }
+
+  moveDialog?.querySelector<HTMLInputElement>('input[name="dueDate"]')?.addEventListener("change", (event) => {
+    const dueDate = (event.currentTarget as HTMLInputElement).value;
+    const checkpoint = moveDialog.querySelector<HTMLElement>('[data-move-checkpoint]');
+    const summary = moveDialog.querySelector<HTMLElement>('[data-move-summary]');
+    if (activeMoveCard && checkpoint) checkpoint.textContent = impactText(activeMoveCard, dueDate);
+    if (activeMoveCard && summary) summary.textContent = `${activeMoveCard.dataset.taskName} from ${activeMoveCard.dataset.taskDate || "no date"} to ${dueDate}.`;
+  });
+
+  board?.querySelectorAll<HTMLElement>('[draggable="true"]').forEach((card) => {
+    card.addEventListener('dragstart', () => { dragged = card; card.classList.add('is-dragging'); });
+    card.addEventListener('dragend', () => { card.classList.remove('is-dragging'); dragged = null; });
+  });
+  board?.querySelectorAll<HTMLElement>('[data-day]').forEach((day) => {
+    day.addEventListener('dragover', (event) => { event.preventDefault(); day.classList.add('is-drop-target'); });
+    day.addEventListener('dragleave', () => day.classList.remove('is-drop-target'));
+    day.addEventListener('drop', (event) => { event.preventDefault(); day.classList.remove('is-drop-target'); openMove(dragged, day.dataset.day); });
+  });
+  document.querySelectorAll<HTMLElement>('[data-move-task]').forEach((button) => button.addEventListener('click', () => openMove(button.closest<HTMLElement>('[data-task-id]'))));
+  document.querySelector<HTMLElement>('.add-task')?.addEventListener('click', () => addDialog?.showModal());
+  const addForm = addDialog?.querySelector<HTMLFormElement>('[data-add-form]');
+  const projectField = addForm ? field(addForm, "projectId") : null;
+  const deliverableField = addForm ? field(addForm, "deliverableId") : null;
+  projectField?.addEventListener("change", () => {
+    if (!(deliverableField instanceof HTMLSelectElement)) return;
+    deliverableField.value = "";
+    [...deliverableField.options].forEach((option) => {
+      const matches = !option.value || option.dataset.projectId === projectField.value;
+      option.hidden = !matches;
+      option.disabled = !matches;
+    });
+  });
+  projectField?.dispatchEvent(new Event("change"));
+  moveDialog?.querySelector<HTMLFormElement>('[data-move-form]')?.addEventListener('submit', async (event) => {
+    if ((event.submitter as HTMLButtonElement | null)?.value === "cancel") return;
+    event.preventDefault();
+    const apiUrl = board?.dataset.apiUrl;
+    const form = event.currentTarget as HTMLFormElement;
+    const message = moveDialog.querySelector<HTMLElement>('[data-mutation-message]');
+    if (!message) return;
+    if (!apiUrl) {
+      message.textContent = 'Write unavailable. No Monday record changed. Open the source task in Monday to make this move.';
+      return;
+    }
+    const card = board.querySelector<HTMLElement>(`[data-task-id="${field(form, "taskId").value}"]`);
+    if (!card) return;
+    message.textContent = 'Sync pending. Waiting for Monday read-back.';
+    const dueDate = field(form, "dueDate").value;
+    const result = await moveDeliveryTask({ apiUrl }, { mondayItemId: card.dataset.mondayItemId ?? "", dueDate, expectedUpdatedAt: card.dataset.sourceUpdatedAt ?? "" });
+    message.textContent = result.message;
+    message.dataset.syncState = result.syncState;
+    if (result.syncState === 'confirmed') {
+      card.dataset.taskDate = dueDate;
+      board.querySelector<HTMLElement>(`[data-day="${dueDate}"] .week-day-tasks`)?.append(card);
+    }
+  });
+  addDialog?.querySelector<HTMLFormElement>('[data-add-form]')?.addEventListener('submit', async (event) => {
+    if ((event.submitter as HTMLButtonElement | null)?.value === "cancel") return;
+    event.preventDefault();
+    const apiUrl = board?.dataset.apiUrl;
+    const form = event.currentTarget as HTMLFormElement;
+    const message = addDialog.querySelector<HTMLElement>('[data-add-message]');
+    if (!message) return;
+    if (!apiUrl) {
+      message.textContent = 'Write unavailable. No task was created. Use Monday to create it under the selected deliverable.';
+      return;
+    }
+    message.textContent = 'Sync pending. Waiting for Monday read-back.';
+    const result = await createDeliveryTask({ apiUrl }, { parentItemId: field(form, "deliverableId").value, projectId: field(form, "projectId").value, name: field(form, "name").value, dueDate: field(form, "dueDate").value, ownerName: field(form, "owner").value, status: field(form, "status").value === 'not-started' ? 'Not Started' : 'Working on it' });
+    message.textContent = result.message;
+    message.dataset.syncState = result.syncState;
+  });
+</script>

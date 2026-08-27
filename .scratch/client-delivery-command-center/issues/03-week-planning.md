@@ -1,6 +1,6 @@
 # Plan and adjust Monday-to-Sunday work safely
 
-Status: ready-for-agent
+Status: resolved
 
 ## What to build
 
@@ -8,12 +8,14 @@ Add the Week route with seven-day task placement, checkpoint/review markers, col
 
 ## Acceptance criteria
 
-- [ ] Week satisfies UX-02, UX-03, and UX-04.
-- [ ] Drag has a keyboard-equivalent Move action and confirmation preview.
-- [ ] Confirmed appears only after matching read-back; failure reverts and preserves a Monday link.
+- [x] Week satisfies UX-02, UX-03, and UX-04.
+- [x] Drag has a keyboard-equivalent Move action and confirmation preview.
+- [x] Confirmed appears only after matching read-back; failure reverts and preserves a Monday link.
 
 ## Blocked by
 
 - 02
 
 ## Comments
+
+2026-08-27: Seven-day planning, Add Task defaults, accessible Move, impact preview, and safe Monday fallback passed automated browser and adapter tests.

@@ -1,0 +1,24 @@
+---
+import HQLayout from "../../layouts/HQLayout.astro";
+import SourceMeta from "../../components/SourceMeta.astro";
+import DeliveryNav from "../../components/delivery/DeliveryNav.astro";
+import SyncState from "../../components/delivery/SyncState.astro";
+import WeekBoard from "../../components/delivery/WeekBoard.astro";
+import { deliveryCommand } from "../../data/delivery-command";
+import { findWorkloadCollisions, tasksForWeek } from "../../domain/delivery/control";
+const weekStart = "2026-08-24";
+const tasks = tasksForWeek(deliveryCommand, weekStart);
+const collisions = findWorkloadCollisions(deliveryCommand).filter((item) => item.dueDate >= weekStart && item.dueDate <= "2026-08-30");
+const page = { title: "Delivery Week", description: "A movable weekly client delivery plan backed by Monday.", owner: "Eli Fisher", status: "live", source: `Monday Client Delivery board ${deliveryCommand.source.boardId}`, verified: deliveryCommand.source.sourceUpdatedAt.slice(0, 10), freshnessDays: 2 };
+---
+<HQLayout {...page}>
+  <header class="page-intro delivery-intro">
+    <div class="page-intro-copy"><p class="eyebrow">Client delivery command center</p><h1>Plan the week, protect the meetings</h1><p>Drag a task or use Move to stage a date change. Monday remains the system of record.</p></div>
+    <SyncState state="snapshot" sourceUpdatedAt={deliveryCommand.source.sourceUpdatedAt} />
+  </header>
+  <DeliveryNav />
+  {collisions.length > 0 && <aside class="collision-alert"><strong>{collisions.length} cross-project collision{collisions.length === 1 ? "" : "s"}</strong><span>Multiple Eli-owned tasks land on the same date across Legacy B. Studio and HALO Pathways.</span></aside>}
+  <WeekBoard weekStart={weekStart} tasks={tasks} checkpoints={deliveryCommand.checkpoints} projects={deliveryCommand.projects} deliverables={deliveryCommand.deliverables} defaultOwner={deliveryCommand.activeProfile.displayName} apiUrl={import.meta.env.PUBLIC_DELIVERY_API_URL ?? ""} />
+  <aside class="write-boundary"><strong>Write boundary</strong><p>This static public build can stage move and add-task decisions, but cannot write them. Confirmed only means a future adapter has written to Monday and read the changed record back. Until then, use each task's Monday link.</p></aside>
+  <SourceMeta owner={page.owner} status={page.status} source={page.source} verified={page.verified} freshnessDays={page.freshnessDays} />
+</HQLayout>
