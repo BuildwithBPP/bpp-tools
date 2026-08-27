@@ -1,6 +1,7 @@
 ---
 import StatusBadge from "./StatusBadge.astro";
 import { deriveFreshness } from "../data/freshness";
+import { appPath } from "../lib/app-path";
 
 interface Props {
   title: string;
@@ -38,7 +39,7 @@ const freshness = deriveFreshness({ status, verified, freshnessDays });
     </span>
   </div>
   <div class="utility-actions">
-    <a class="utility-search" href="/library/?focus=search">Search Library</a>
+    <a class="utility-search" href={appPath("/library/?focus=search")}>Search Library</a>
     <button
       class="screen-share-toggle"
       type="button"

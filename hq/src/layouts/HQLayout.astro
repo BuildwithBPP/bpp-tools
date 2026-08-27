@@ -1,6 +1,7 @@
 ---
 import SideNav from "../components/SideNav.astro";
 import UtilityBar from "../components/UtilityBar.astro";
+import { appPath } from "../lib/app-path";
 import "@fontsource/montserrat/700.css";
 import "@fontsource/montserrat/800.css";
 import "@fontsource/merriweather/700.css";
@@ -35,9 +36,9 @@ const currentPath = Astro.url.pathname;
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="app-shell">
       <aside class="side-panel">
-        <a class="brand" href="/" aria-label="BPP HQ home">
+        <a class="brand" href={appPath("/")} aria-label="BPP HQ home">
           <span class="brand-symbol" aria-hidden="true">
-            <img src="/brand/bpp-b-mark.png" alt="" width="30" height="30" />
+            <img src={appPath("/brand/bpp-b-mark.png")} alt="" width="30" height="30" />
           </span>
           <span class="brand-wordmark">
             <span class="brand-mark">BPP</span>
@@ -49,8 +50,8 @@ const currentPath = Astro.url.pathname;
         <div class="side-panel-footer">
           <span class="protected-dot" aria-hidden="true"></span>
           <div>
-            <strong>Internal prototype</strong>
-            <span>No production writes</span>
+            <strong>Public Hub preview</strong>
+            <span>No Monday writes</span>
           </div>
         </div>
       </aside>
@@ -69,7 +70,7 @@ const currentPath = Astro.url.pathname;
         <footer class="site-footer">
           <div>
             <strong>BPP HQ proof of concept</strong>
-            <span>Static snapshot. Authentication is a deployment boundary, not part of this build.</span>
+            <span>Public static snapshot. No sign-in. Monday remains the source of truth.</span>
           </div>
           <dl>
             <div><dt>Page owner</dt><dd>{owner}</dd></div>

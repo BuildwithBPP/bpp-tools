@@ -6,6 +6,7 @@ import Section from "../components/Section.astro";
 import SourceMeta from "../components/SourceMeta.astro";
 import StatusBadge from "../components/StatusBadge.astro";
 import { proofDate, proofDateLabel } from "../data/snapshot";
+import { appPath } from "../lib/app-path";
 
 const page = {
   title: "Today",
@@ -147,9 +148,9 @@ const page = {
       />
       <DataState
         state="notice"
-        title="This is a read-only prototype"
-        message="Screen-share mode changes the local display only. There are no production write actions, authentication flows, or client-confidential records in this build."
-        source="BPP HQ proof-of-concept boundary"
+        title="This public build is read-only"
+        message="Delivery includes the Legacy B and HALO project snapshot approved for this public Hub. There are no browser write routes or embedded Monday credentials."
+        source="Public legacy-Hub release decision, 2026-08-27"
       />
     </div>
   </Section>
@@ -182,21 +183,21 @@ const page = {
   >
     <div class="action-grid">
       <ActionLink
-        href="/performance/"
+        href={appPath("/performance/")}
         eyebrow="BI view"
         title="Review performance"
         description="Read actuals against the Business Plan target and inspect the current data-quality notes."
         meta="Owner: Daunte"
       />
       <ActionLink
-        href="/company/"
+        href={appPath("/company/")}
         eyebrow="Plan of Record"
         title="Read company direction"
         description="Review strategy, ownership, operating cadence, and the superseded plan notice."
         meta="Owner: All owners"
       />
       <ActionLink
-        href="/library/"
+        href={appPath("/library/")}
         eyebrow="Authoritative content"
         title="Search the Library"
         description="Filter registry-backed content by owner, lifecycle, and confidentiality."

@@ -8,6 +8,7 @@ import SourceMeta from "../components/SourceMeta.astro";
 import StatusBadge from "../components/StatusBadge.astro";
 import { pagesRegistry, targetsRegistry } from "../data/registries";
 import { money, proofDate } from "../data/snapshot";
+import { appPath } from "../lib/app-path";
 
 const businessPlan = pagesRegistry.pages.find((record) => record.id === "business-plan")!;
 const strategicPlan = pagesRegistry.pages.find((record) => record.id === "strategic-plan-v9")!;
@@ -288,7 +289,7 @@ const departments = [
           directory, but the new HQ does not duplicate its source inventory in this prototype.
         </p>
         <ActionLink
-          href="/library/?owner=Daunte"
+          href={appPath("/library/?owner=Daunte")}
           eyebrow="Registry view"
           title="Find build and system records"
           description="Open the Library with Daunte's ownership filter applied."
@@ -305,19 +306,19 @@ const departments = [
   >
     <div class="action-grid">
       <ActionLink
-        href="/performance/#plan-comparison"
+        href={appPath("/performance/#plan-comparison")}
         eyebrow="Targets in use"
         title="Compare actuals with plan"
         description="See the same registry-backed revenue targets applied to the Performance scorecard."
       />
       <ActionLink
-        href="/growth/#offers"
+        href={appPath("/growth/#offers")}
         eyebrow="Commercial system"
         title="Review approved offers"
         description="Confirm current and proposed packages without copying price facts into Company."
       />
       <ActionLink
-        href="/library/"
+        href={appPath("/library/")}
         eyebrow="Knowledge layer"
         title="Search governing records"
         description="Browse canonical, live, and historical records with ownership and source metadata."

@@ -10,6 +10,7 @@
     "delivery:refresh": "node scripts/build-delivery-snapshot.mjs",
     "delivery:check": "node scripts/build-delivery-snapshot.mjs --check",
     "build": "astro check && astro build",
+    "build:legacy": "astro check && HQ_PUBLIC_BASE=/bpp-tools/bpp-hq HQ_PUBLIC_OUT_DIR=../bpp-hq astro build && HQ_DIST_ROOT=../bpp-hq HQ_PUBLIC_BASE=/bpp-tools/bpp-hq node scripts/validate.mjs",
     "preview": "astro preview",
     "test:unit": "node --test src/domain/delivery/*.test.ts src/lib/*.test.ts scripts/*.test.mjs",
     "test": "npm run test:unit && npm run build && node scripts/validate.mjs",

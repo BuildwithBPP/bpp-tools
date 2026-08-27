@@ -2,10 +2,10 @@
 
 **Audit date:** 2026-08-27
 
-**Release target:** local-only
-**Verdict:** PASS for local use; BLOCKED for public deployment
+**Release target:** public legacy GitHub Pages Hub, read-only, no sign-in
+**Verdict:** PUBLIC DATA-EXPOSURE RISK ACCEPTED; PASS for read-only browser boundary
 
-The static dashboard contains client delivery information. It has no sign-in layer by design, so it must not be published until access control exists. Monday mutations are available only through a separate loopback process that requires a server-side token and an exact allowed browser origin.
+The static dashboard contains client delivery information and has no sign-in layer. Eli explicitly approved publishing that snapshot to the older public BPP Tool Hub on 2026-08-27. This acceptance does not authorize public Monday writes: mutations remain available only through a separate loopback process that requires a server-side token and an exact allowed browser origin.
 
 ## 1. Secrets and configuration
 
@@ -23,13 +23,13 @@ The static dashboard contains client delivery information. It has no sign-in lay
 | Check | Verdict | Evidence |
 |---|---|---|
 | Database permissions, tenant isolation, and row policies | N/A | This feature has no database. |
-| Client data exposure | PARTIAL | The built static files contain the committed delivery snapshot. Acceptable only on Eli's local machine; this blocks public hosting. |
+| Client data exposure | ACCEPTED RISK | The built static files publicly expose the committed Legacy B and HALO delivery snapshot by explicit owner direction. |
 
 ## 3. Authentication and authorization
 
 | Check | Verdict | Evidence |
 |---|---|---|
-| User authentication | N/A for local release | Sign-in was explicitly deferred. Public deployment remains blocked. |
+| User authentication | ACCEPTED RISK | Sign-in was explicitly deferred and the no-sign-in legacy-Hub release was explicitly approved. |
 | Mutation authorization | PARTIAL | The adapter validates the exact board, group, item, owner, and expected update timestamp, but it does not authenticate a human user. Containment is loopback plus exact-origin CORS. |
 | Least-privilege operations | PASS | Only create subitem, change due date, and archive subitem are implemented. Delete is not implemented. |
 | Optimistic concurrency and read-back | PASS | Mutations require `expectedUpdatedAt` and are confirmed only after a matching Monday read-back. |
@@ -71,11 +71,11 @@ The static dashboard contains client delivery information. It has no sign-in lay
 
 All file-upload checks are N/A. The command center does not accept files.
 
-## Public-deployment blockers
+## Requirements before any write-enabled or private-data release
 
 1. Protect all client-delivery routes with authenticated, authorized access.
 2. Move Monday writes to an authenticated server boundary with user-level authorization, audit logging, and rate limiting.
 3. Stop embedding the full client snapshot in publicly retrievable static assets.
 4. Repeat this audit against the actual hosting and identity configuration.
 
-Until all four are verified, the approved release remains local-only.
+Until all four are verified, this release must remain a public read-only snapshot with no browser mutation route or credential.

@@ -1,10 +1,12 @@
 ---
+import { appPath } from "../../lib/app-path";
+
 const links = [
-  { href: "/delivery/", label: "Today" },
-  { href: "/delivery/week/", label: "Week" },
-  { href: "/delivery/timeline/", label: "Timeline" },
-  { href: "/delivery/projects/", label: "Projects" },
-  { href: "/delivery/raid/", label: "RAID" }
+  { href: appPath("/delivery/"), label: "Today" },
+  { href: appPath("/delivery/week/"), label: "Week" },
+  { href: appPath("/delivery/timeline/"), label: "Timeline" },
+  { href: appPath("/delivery/projects/"), label: "Projects" },
+  { href: appPath("/delivery/raid/"), label: "RAID" }
 ];
 const currentPath = Astro.url.pathname;
 ---

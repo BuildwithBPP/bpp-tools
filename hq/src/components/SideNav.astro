@@ -4,18 +4,20 @@ interface Props {
   mobile?: boolean;
 }
 
+import { appPath } from "../lib/app-path";
+
 const { currentPath, mobile = false } = Astro.props;
 const links = [
-  { href: "/", label: "Today", key: "01" },
-  { href: "/performance/", label: "Performance", key: "02" },
-  { href: "/growth/", label: "Growth", key: "03" },
-  { href: "/delivery/", label: "Delivery", key: "04" },
-  { href: "/company/", label: "Company", key: "05" },
-  { href: "/library/", label: "Library", key: "06" }
+  { href: appPath("/"), label: "Today", key: "01" },
+  { href: appPath("/performance/"), label: "Performance", key: "02" },
+  { href: appPath("/growth/"), label: "Growth", key: "03" },
+  { href: appPath("/delivery/"), label: "Delivery", key: "04" },
+  { href: appPath("/company/"), label: "Company", key: "05" },
+  { href: appPath("/library/"), label: "Library", key: "06" }
 ];
 
 function isCurrent(href: string) {
-  return href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+  return href === appPath("/") ? currentPath === appPath("/") : currentPath.startsWith(href);
 }
 ---
 <nav class:list={["primary-nav", { "primary-nav-mobile": mobile }]} aria-label="BPP HQ">

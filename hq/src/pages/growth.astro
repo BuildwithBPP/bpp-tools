@@ -8,6 +8,7 @@ import SourceMeta from "../components/SourceMeta.astro";
 import StatusBadge from "../components/StatusBadge.astro";
 import { offersRegistry, pagesRegistry } from "../data/registries";
 import { homeSnapshot, monthlySnapshot, money } from "../data/snapshot";
+import { appPath } from "../lib/app-path";
 
 const growthRecord = pagesRegistry.pages.find((record) => record.id === "seller-start")!;
 const page = {
@@ -172,19 +173,19 @@ const stageCounts = monthlySnapshot.pipeline.reduce<Record<string, number>>((cou
   <Section eyebrow="Growth tools" title="Continue the workflow">
     <div class="action-grid">
       <ActionLink
-        href="/performance/#pipeline"
+        href={appPath("/performance/#pipeline")}
         eyebrow="Performance"
         title="Read the revenue signal"
         description="Compare pipeline coverage with the remaining 2026 base-plan gap."
       />
       <ActionLink
-        href="/library/?owner=Kenny"
+        href={appPath("/library/?owner=Kenny")}
         eyebrow="Seller resources"
         title="Find Growth content"
         description="Open the registry directory with Kenny's ownership filter applied."
       />
       <ActionLink
-        href="/company/#departments"
+        href={appPath("/company/#departments")}
         eyebrow="Ownership cockpit"
         title="Review Sales and Marketing"
         description="See the department charters, outcomes, dependencies, and current source state."

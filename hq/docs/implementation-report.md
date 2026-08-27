@@ -1,6 +1,6 @@
 # BPP HQ proof-of-concept implementation report
 
-**Status:** LOCAL RELEASE CANDIDATE
+**Status:** PUBLIC LEGACY-HUB RELEASE CANDIDATE
 
 **Implementation date:** August 27, 2026
 
@@ -51,6 +51,8 @@
 - Add Task defaults to Eli Fisher, Not Started, and today's date, requires an approved parent deliverable, and allows the owner name to change.
 - Includes a loopback-only Monday adapter that validates board/group membership, resolves live columns and owners, uses version checks, performs create/date/archive mutations, and returns Confirmed only after exact read-back.
 - Includes a deterministic snapshot refresh pipeline that preserves baselines and checkpoint mappings while refreshing Monday forecast state.
+- Publishes a generated read-only artifact under repository path `bpp-hq/`, using GitHub Pages base path `/bpp-tools/bpp-hq/` while leaving the older Hub pages intact.
+- The older Hub Home delivery module and Client Delivery department page link into the new command center.
 
 ## Review fix round 1
 
@@ -106,7 +108,7 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 
 ## Known limitations and concerns
 
-1. This is a local-only release candidate. Push, merge, public deployment, hosted authentication, and hosted Monday writes were not authorized or performed.
+1. Eli authorized a public, no-sign-in deployment to the older GitHub Pages Hub on August 27. Hosted Monday writes remain unauthorized and unavailable.
 2. The committed delivery data is an Aug 26 Monday snapshot. `npm run delivery:refresh` exists, but the live refresh query has not been smoke-tested with a real token in this release.
 3. The loopback adapter passed fake upstream tests only. A live create, move, read-back, and archive sequence still requires explicit approval because it changes the shared Monday board.
 4. Outlook event IDs are unavailable. Meeting control gaps are visible; the interface does not claim calendar sync.
@@ -117,5 +119,5 @@ The Astro build fails when required fields are missing, AI Jumpstart terms drift
 
 1. Approve or defer the exact live Monday smoke test record and archive cleanup.
 2. Choose whether to keep the feature branch, merge locally, or authorize a pull request.
-3. Define the hosted authentication and server-side write boundary before any public deployment with client delivery data.
+3. Define the hosted authentication and server-side write boundary before adding private-only records or any public mutation capability.
 4. Decide whether Outlook event mapping is a next release or remains a visible manual control gap.

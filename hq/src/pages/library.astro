@@ -5,6 +5,7 @@ import Section from "../components/Section.astro";
 import SourceMeta from "../components/SourceMeta.astro";
 import StatusBadge from "../components/StatusBadge.astro";
 import { pagesRegistry } from "../data/registries";
+import { appPath } from "../lib/app-path";
 
 const page = {
   title: "Library",
@@ -17,12 +18,12 @@ const page = {
 };
 
 const routeMap: Record<string, string> = {
-  "business-plan": "/company/#plan-of-record",
-  "strategic-plan-v9": "/company/#superseded-plan",
-  "performance-dashboard": "/performance/",
-  "seller-start": "/growth/",
-  "skill-directory": "/library/#directory",
-  "builds": "/company/#build-change"
+  "business-plan": appPath("/company/#plan-of-record"),
+  "strategic-plan-v9": appPath("/company/#superseded-plan"),
+  "performance-dashboard": appPath("/performance/"),
+  "seller-start": appPath("/growth/"),
+  "skill-directory": appPath("/library/#directory"),
+  "builds": appPath("/company/#build-change")
 };
 
 const types = [...new Set(pagesRegistry.pages.map((record) => record.page_type))].sort();

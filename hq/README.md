@@ -55,6 +55,14 @@ The browser check exercises every route at 1440, 1024, 768, 390, and 320 pixels.
 
 The hosted static build is read-only. It contains no Monday token and no working mutation URL. Task cards always retain a direct Monday source link.
 
+The public legacy-Hub artifact is generated at the repository root under `bpp-hq/`:
+
+```sh
+npm run build:legacy
+```
+
+That command builds with the GitHub Pages base path `/bpp-tools/bpp-hq`, validates the generated routes and links, and leaves the original Hub pages intact.
+
 Refresh the checked-in Monday snapshot from a terminal-only token:
 
 ```sh
@@ -86,7 +94,7 @@ No live create, move, or archive smoke test is part of the automated suite. That
 - `src/data/snapshot.ts` imports existing repository snapshots for representative BI and delivery views. It validates the fields the proof of concept uses.
 - The current Hub HTML, CSS, JavaScript, and Worker remain outside this application and are not copied into the build.
 - Registry source routes describe current-Hub records. Library maps them only to routes and anchors owned by this standalone proof of concept, so it does not create broken links.
-- Authentication and hosted audited write actions remain later migration tiers. This release remains local-only.
+- Authentication and hosted audited write actions remain later migration tiers. The legacy-Hub release is public, read-only, and intentionally has no sign-in.
 - Canonical Montserrat, Merriweather, and Poppins font files are bundled at build time. The site does not make runtime font or image requests to external hosts.
 
 ## Main implementation surfaces

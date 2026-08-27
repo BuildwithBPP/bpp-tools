@@ -10,6 +10,7 @@ import SyncState from "../components/delivery/SyncState.astro";
 import TaskCard from "../components/delivery/TaskCard.astro";
 import { deliveryCommand } from "../data/delivery-command";
 import { assessCheckpoint, calculateKpis, findControlGaps, rankPullForwardTasks } from "../domain/delivery/control";
+import { appPath } from "../lib/app-path";
 
 const today = "2026-08-27";
 const page = {
@@ -61,7 +62,7 @@ const projectFor = (id: string) => deliveryCommand.projects.find((project) => pr
       <div class="task-stack">
         {pullForward.map((task) => <TaskCard task={task} project={projectFor(task.projectId)} />)}
       </div>
-      <a class="section-link" href="/delivery/week/">Open the full week</a>
+      <a class="section-link" href={appPath("/delivery/week/")}>Open the full week</a>
     </Section>
     <Section eyebrow="Threat radar" title="What could break the plan" description="Open risks, issues, and dependencies tied to the two website builds.">
       <div class="threat-list">
@@ -73,7 +74,7 @@ const projectFor = (id: string) => deliveryCommand.projects.find((project) => pr
           </article>
         ))}
       </div>
-      <a class="section-link" href="/delivery/raid/">Open the RAID log</a>
+      <a class="section-link" href={appPath("/delivery/raid/")}>Open the RAID log</a>
     </Section>
   </div>
 

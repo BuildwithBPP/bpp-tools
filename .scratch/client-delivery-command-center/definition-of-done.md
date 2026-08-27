@@ -3,8 +3,8 @@
 **What we're building:** A checkpoint-first delivery command center for Eli's Legacy B and HALO website projects inside the Astro HQ.
 **Out of scope:** Outlook ingestion, authenticated production writes, D1, permanent delete, team capacity percentages, other package templates.
 **Done means:** The five views pass UX-01 through UX-09, the local-only Monday adapter passes read-back tests, and the release candidate is verified in a real browser.
-**Release target:** local-only
-**Release authority:** Eli approved feature-branch files and local verification on 2026-08-26. Push, merge, public deployment, production credentials, and shared Monday mutation remain outside current authority.
+**Release target:** public legacy GitHub Pages Hub, read-only, no sign-in
+**Release authority:** Eli approved feature-branch files and local verification on 2026-08-26, then explicitly authorized the public older-Hub release without sign-in on 2026-08-27. Production credentials and shared Monday mutation remain outside current authority.
 **Success metric:** 100% of UX-01 through UX-09 pass; zero console or WCAG A/AA failures; zero mutation path can show Confirmed without matching read-back.
 **Monitoring window:** One complete local critical-journey pass after the final build plus repeat route health check.
 **Rollback triggers:** Build/test regression, any public credential/write path, any false Confirmed state, client data leakage, page overflow at tested widths, or two-plus AI-design tells.
@@ -36,7 +36,7 @@
 
 ## 4. REVIEW + UAT
 - [x] Code review clean.
-- [x] Security audit PASS for local-only target; public deployment remains blocked.
+- [x] Security audit records the explicitly accepted public data exposure and preserves the read-only browser boundary.
 - [x] Design QA verdict SHIP.
 - [x] UX-01 through UX-09 each record actual evidence and PASS/FAIL.
 - [x] Local real-app journey exercised.

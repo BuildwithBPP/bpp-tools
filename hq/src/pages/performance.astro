@@ -8,6 +8,7 @@ import SourceMeta from "../components/SourceMeta.astro";
 import StatusBadge from "../components/StatusBadge.astro";
 import { pagesRegistry, targetsRegistry } from "../data/registries";
 import { homeSnapshot, monthlySnapshot, money, percent } from "../data/snapshot";
+import { appPath } from "../lib/app-path";
 
 const performanceRecord = pagesRegistry.pages.find((record) => record.id === "performance-dashboard")!;
 const page = {
@@ -214,19 +215,19 @@ const trendMax = Math.max(...trendMonths.map((month) => month.value));
   <Section eyebrow="Related operating views" title="Move from signal to context">
     <div class="action-grid">
       <ActionLink
-        href="/growth/"
+        href={appPath("/growth/")}
         eyebrow="Commercial drivers"
         title="Inspect Growth"
         description="Review pipeline shape, approved offers, and the seller priorities behind the revenue signal."
       />
       <ActionLink
-        href="/delivery/"
+        href={appPath("/delivery/")}
         eyebrow="Fulfillment"
         title="Inspect Delivery"
         description="Review engagement health, open milestones, and tracker coverage."
       />
       <ActionLink
-        href="/company/#plan-of-record"
+        href={appPath("/company/#plan-of-record")}
         eyebrow="Governing plan"
         title="Read the Plan of Record"
         description="See the plan authority and the source behind the annual target scenarios."

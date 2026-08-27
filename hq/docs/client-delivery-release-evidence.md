@@ -4,7 +4,7 @@
 
 **Evidence date:** 2026-08-27
 
-**Release target:** local-only
+**Release target:** public legacy GitHub Pages Hub, read-only, no sign-in
 
 **Comparison point:** `cd8105c`
 **Live Monday mutation:** not run; shared-board change requires a separate exact-record approval
@@ -31,9 +31,12 @@
 - Dependency audit: 0 vulnerabilities in full and production-only audits.
 - Browser QA: 10 routes at five widths, no horizontal page overflow or console errors.
 - Accessibility: no WCAG 2/2.1 A/AA violations at desktop, mobile, or 320px small mobile.
+- Public artifact: `npm run build:legacy` generated and validated all 10 routes at `/bpp-tools/bpp-hq/`.
+- Public-subpath browser QA: all 10 routes passed at five widths with the exact GitHub Pages URL shape.
+- Legacy Hub entry points: Home Delivery at a Glance and Client Delivery department links resolved to the command center.
 
 ## Review notes
 
 - Code review ran inline because the current runtime forbids the subagent split normally used by the code-review workflow. Standards and spec were reviewed separately against the approved UX handoff and implementation plan.
-- Security posture is acceptable for local-only use. Public deployment is blocked until client data is protected and Monday writes move behind an authenticated server boundary.
-- Design QA verdict: SHIP for the local-only target. The operator-control-room direction is consistent across all five views, source truth is visible, and the interface avoids false completion states.
+- Security posture: browser writes and credentials remain blocked. Eli explicitly accepted public visibility of the Legacy B and HALO delivery snapshot for the older Hub on 2026-08-27.
+- Design QA verdict: SHIP for the public read-only target. The operator-control-room direction is consistent across all five views, source truth is visible, and the interface avoids false completion states.

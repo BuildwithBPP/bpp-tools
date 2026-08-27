@@ -1,5 +1,6 @@
 ---
 import type { ControlGap, DeliveryProject } from "../../domain/delivery/types";
+import { appPath } from "../../lib/app-path";
 interface Props { gaps: ControlGap[]; projects: DeliveryProject[]; limit?: number; }
 const { gaps, projects, limit = 6 } = Astro.props;
 const shown = gaps.slice(0, limit);
@@ -18,5 +19,5 @@ const projectName = (id: string) => projects.find((project) => project.id === id
       {gap.mondayUrl && <a href={gap.mondayUrl} target="_blank" rel="noreferrer">Fix in Monday</a>}
     </article>
   ))}
-  {gaps.length > limit && <a class="control-gap-more" href="/delivery/projects/">View {gaps.length - limit} more gaps</a>}
+  {gaps.length > limit && <a class="control-gap-more" href={appPath("/delivery/projects/")}>View {gaps.length - limit} more gaps</a>}
 </div>

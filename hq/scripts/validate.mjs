@@ -5,7 +5,8 @@ import { fileURLToPath } from "node:url";
 
 const hqRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const repoRoot = resolve(hqRoot, "..");
-const distRoot = join(hqRoot, "dist");
+const distRoot = resolve(hqRoot, process.env.HQ_DIST_ROOT ?? "dist");
+const publicBase = (process.env.HQ_PUBLIC_BASE ?? "").replace(/\/$/, "");
 const registryRoot = join(repoRoot, "data", "registry");
 
 const expectedRoutes = [
@@ -33,7 +34,10 @@ function htmlFiles(directory) {
 }
 
 function routeFile(pathname) {
-  const clean = pathname.replace(/^\/+|\/+$/g, "");
+  const appPathname = publicBase && pathname.startsWith(publicBase)
+    ? pathname.slice(publicBase.length)
+    : pathname;
+  const clean = appPathname.replace(/^\/+|\/+$/g, "");
   return clean ? join(distRoot, clean, "index.html") : join(distRoot, "index.html");
 }
 
@@ -115,7 +119,7 @@ for (const htmlPath of htmlPaths) {
   assert.ok(!html.includes("—"), `${route} contains an em dash.`);
   assert.ok(!/\bleverage\b/i.test(html), `${route} uses prohibited brand wording.`);
   assert.ok(
-    html.includes('src="/brand/bpp-b-mark.png"'),
+    html.includes(`src="${publicBase}/brand/bpp-b-mark.png"`),
     `${route} does not render the local canonical BPP mark.`
   );
 
@@ -149,6 +153,9 @@ for (const htmlPath of htmlPaths) {
     assert.ok(!prohibitedHref.test(href), `${route} contains prohibited placeholder link ${href}.`);
     assert.ok(!placeholderHost.test(href), `${route} contains placeholder host ${href}.`);
     if (!href.startsWith("/") && !href.startsWith("#")) continue;
+    if (publicBase && href.startsWith("/") && !href.startsWith(`${publicBase}/`)) {
+      assert.fail(`${route} contains an unscoped public route ${href}.`);
+    }
     if (href.startsWith("/_astro/") || /\.[a-z0-9]+(?:[?#]|$)/i.test(href)) continue;
 
     const [hrefWithoutQuery] = href.split("?");
