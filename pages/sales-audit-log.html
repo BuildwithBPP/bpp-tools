@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HubSpot Audit Log &middot; BPP Tools Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  .audit-entry{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:20px 22px;margin-bottom:16px;}
+  .audit-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:10px;}
+  .audit-date{font-family:var(--head);font-size:15px;font-weight:800;color:var(--navy);}
+  .audit-pills{display:flex;flex-wrap:wrap;gap:6px;}
+  .a-pill{font-size:10px;font-weight:700;letter-spacing:.03em;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+  .a-pill.won{background:var(--green-bg);color:var(--green);}
+  .a-pill.lost{background:var(--red-bg);color:var(--red);}
+  .a-pill.open{background:var(--steel-glow);color:var(--steel);}
+  .a-pill.rate{background:var(--gold-glow);color:var(--gold-dim);}
+  .audit-headline{font-size:13.5px;color:var(--text2);line-height:1.55;margin-bottom:2px;}
+  .audit-entry details{margin-top:12px;border-top:1px solid var(--border);padding-top:12px;}
+  .audit-entry summary{cursor:pointer;font-size:11.5px;font-weight:700;color:var(--navy);letter-spacing:.02em;list-style:none;}
+  .audit-entry summary::-webkit-details-marker{display:none;}
+  .audit-entry summary::before{content:"▸ ";color:var(--gold-dim);}
+  .audit-entry details[open] summary::before{content:"▾ ";}
+  .audit-block{margin-top:12px;}
+  .audit-block h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;}
+  .audit-block ul{padding-left:18px;}
+  .audit-block li{font-size:12.5px;color:var(--text2);line-height:1.55;margin-bottom:5px;}
+  .audit-block p{font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:8px;}
+  .audit-empty{font-size:13px;color:var(--muted);font-style:italic;padding:20px 0;}
+</style>
+</head>
+<body>
+
+<div id="hub-nav"></div>
+
+<main>
+
+  <div class="dept-page-head">
+    <h1>HubSpot Audit Log</h1>
+    <div class="dept-dri">Auto-generated &middot; bpp-hubspot-audit skill</div>
+    <div class="dept-owns">Weekly pipeline hygiene and data-quality audit, read only. Runs every Friday, newest at the top. No HubSpot records are ever changed by this skill.</div>
+  </div>
+
+  <div class="dept-section">
+    <div id="audit-log-root"><div class="audit-empty">Loading audit log&hellip;</div></div>
+  </div>
+
+</main>
+
+<div class="hub-footer">
+  <div class="footer-brand">Business Plans <span>Plus</span></div>
+  <div class="footer-note">Internal Tools Hub &middot; Tampa Bay &middot; 2026</div>
+</div>
+
+<script src="../js/nav.js" data-page="library"></script>
+<script>
+// AUDIT_LOG: newest entry first. The bpp-hubspot-audit skill prepends a new
+// object here every Friday. Do not hand-edit history, only prepend.
+const AUDIT_LOG = [
+  {
+    date: "2026-08-28",
+    stats: { total: 66, won: 22, wonAmt: 37472.75, lost: 41, lostAmt: 73570.15, open: 3, openAmt: 4500, closeRate: 34.9 },
+    headline: "Flava Meets Fusion is decided, closed lost. Aurelia Tech picked up a $2,000 amount. Service Interest's fill rate looks a lot better this week, but the evidence says last week's report undercounted it rather than anyone doing new backfill work.",
+    changes: [
+      "Flava Meets Fusion closed lost this week (Stopped Communicating, $4,497). It was flagged last audit as actively worked but past due. That single change explains the whole week's movement: lost count up 1, lost dollars up $4,497, close rate down half a point.",
+      "Aurelia Tech now has an amount entered ($2,000, was blank). It's still 19 days past its August 9 close date, and still missing ICP Tier, Service Interest, and Engagement Type. Source of Business still reads Direct Traffic despite a Specific Referral Source already on the record, that mismatch is unresolved.",
+      "Service Interest fill rate reads 52% this week (13 of 25 open+won) vs. last week's reported 31% (8 of 26). Checked last-modified timestamps on every won deal currently showing Service Interest filled: none were touched this week, most recent edit was August 20, most are mid-July. Nothing in the data actually changed. Read: last week's count was wrong, not this week's jump real.",
+      "Tiffany Davis-Operator ($4,500) is still missing from the CRM entirely, second straight audit, not won, lost, or open anywhere in a full 66-deal pull or a direct name search.",
+      "Everything else flagged last audit is unchanged: All State still open with a stale Not a Fit reason (now 24 days idle), Sipsies Lemonade still undecided (touched yesterday but no decision), HALO Pathways still shows a future September 1 close date on an already-closed-won deal, Legacy B. Studio's amount is still $0 instead of $2,500 (third report), Lois Marketing's amount is still unconfirmed at $1,350, Twanda Bradley's lost reason is still blank."
+    ],
+    revivable: { count: 28, amount: 43352.15 },
+    actionsNew: [
+      "Confirm the Flava Meets Fusion loss reasoning is final, no action needed if so"
+    ],
+    actionsCarried: [
+      "Find out what happened to Tiffany Davis-Operator, $4,500 (2nd audit missing)",
+      "Decide All State for real, stale Not a Fit reason, 24 days idle",
+      "Fix HALO Pathways - Full Website Build's close date (shows Sept 1, already Closed Won)",
+      "Confirm Lois Marketing LLC - Operator System's amount ($1,350 vs. possible prior $4,500)",
+      "Restore Legacy B. Studio's amount to $2,500 (3rd report)",
+      "Decide Sipsies Lemonade, Budget reason, no close date (3rd report)",
+      "Move or decide Aurelia Tech's close date, 19 days past due",
+      "Name a DRI and date for the ICP Tier backfill, still 0% on all 66 deals",
+      "Confirm Twanda Bradley's lost reason, $5,197, blank across every audit",
+      "Batch fill Engagement Type on the 3 open deals",
+      "Add Specific Referral Source on Xtremely Clean Hourly Consulting",
+      "Fix Aurelia Tech's Source of Business to Referrals"
+    ]
+  },
+  {
+    date: "2026-08-21",
+    stats: { total: 66, won: 22, wonAmt: 37472.75, lost: 40, lostAmt: 69073.15, open: 4, openAmt: 6997, closeRate: 35.5 },
+    headline: "Tiffany Davis-Operator ($4,500) vanished from the CRM outright. All State reopened carrying a stale Not a Fit reason. A won deal's amount likely dropped $3,150 with no confirmed cause.",
+    changes: [
+      "Tiffany Davis-Operator, $4,500, the largest open deal in the prior audit, is gone: not won, lost, or archived under a new name, just absent from a full 66-deal pull. First time a deal has disappeared outright rather than moved stages.",
+      "All State is back open in Qualified & Working after being reported closed lost (Not a Fit) previously, but it still carries that same Not a Fit reason with no close date and no amount, the same 'stale lost-reason on a reopened deal' pattern Sipsies Lemonade already had.",
+      "Sipsies Lemonade unresolved for a second straight audit: open, Negotiation, Budget lost reason, no close date.",
+      "HALO landed a bigger deal (HALO Pathways - Full Website Build, $7,450, Closed Won) four days after losing a smaller one (HALO Retainer, $3,000, Not a Fit). The new deal has its own issue: closed won already, but its close date is set to September 1, which hadn't happened yet.",
+      "Lois Marketing LLC - Operator System's amount reads $1,350; the week's won-total arithmetic only reconciles if it used to read $4,500, unconfirmed from a stored record, flagged for a look.",
+      "Legacy B. Studio's amount is still $0 instead of $2,500, second straight report.",
+      "Two deals moved forward a stage (Aurelia Tech, Flava Meets Fusion), both still sitting on past-due close dates."
+    ],
+    revivable: { count: 27, amount: 38855.15 },
+    actionsNew: [
+      "Find out what happened to Tiffany Davis-Operator, $4,500",
+      "Decide All State, stale Not a Fit reason on a reopened deal",
+      "Fix HALO Pathways - Full Website Build's close date",
+      "Confirm Lois Marketing LLC - Operator System's amount"
+    ],
+    actionsCarried: [
+      "Restore Legacy B. Studio's amount to $2,500",
+      "Decide Sipsies Lemonade",
+      "Move or decide Flava Meets Fusion and Aurelia Tech's past-due close dates",
+      "Name a DRI and date for the ICP Tier backfill",
+      "Confirm Twanda Bradley's lost reason",
+      "Batch fill Service Interest and Engagement Type on the 4 open deals",
+      "Add Specific Referral Source on Xtremely Clean Hourly Consulting",
+      "Fix Aurelia Tech's Source of Business"
+    ]
+  }
+];
+
+function fmtMoney(n){ return "$" + Number(n).toLocaleString("en-US", {maximumFractionDigits: 0}); }
+function fmtDate(iso){
+  const [y,m,d] = iso.split("-").map(Number);
+  return new Date(y, m-1, d).toLocaleDateString("en-US", {month:"long", day:"numeric", year:"numeric"});
+}
+function renderEntry(e, idx){
+  const changes = (e.changes||[]).map(c => "<li>"+c+"</li>").join("");
+  const revivable = e.revivable ? "<p>Clean revivable lost pool: <strong>"+e.revivable.count+" deals, "+fmtMoney(e.revivable.amount)+"</strong> (reason includes Timing, Budget, or Stopped Communicating, nothing disqualifying).</p>" : "";
+  const actionsNew = (e.actionsNew||[]).map(a => "<li>"+a+"</li>").join("");
+  const actionsCarried = (e.actionsCarried||[]).map(a => "<li>"+a+"</li>").join("");
+  return `
+  <div class="audit-entry">
+    <div class="audit-head">
+      <div class="audit-date">${fmtDate(e.date)}</div>
+      <div class="audit-pills">
+        <span class="a-pill won">${e.stats.won} won &middot; ${fmtMoney(e.stats.wonAmt)}</span>
+        <span class="a-pill lost">${e.stats.lost} lost &middot; ${fmtMoney(e.stats.lostAmt)}</span>
+        <span class="a-pill open">${e.stats.open} open &middot; ${fmtMoney(e.stats.openAmt)}</span>
+        <span class="a-pill rate">${e.stats.closeRate}% close rate</span>
+      </div>
+    </div>
+    <div class="audit-headline">${e.headline}</div>
+    <details${idx === 0 ? " open" : ""}>
+      <summary>Full audit notes</summary>
+      <div class="audit-block">
+        <h4>What changed</h4>
+        <ul>${changes}</ul>
+      </div>
+      <div class="audit-block">
+        <h4>Revivable lost pool</h4>
+        ${revivable}
+      </div>
+      <div class="audit-block">
+        <h4>Action items &middot; new this week</h4>
+        <ul>${actionsNew || "<li>None</li>"}</ul>
+      </div>
+      <div class="audit-block">
+        <h4>Action items &middot; carried over</h4>
+        <ul>${actionsCarried || "<li>None</li>"}</ul>
+      </div>
+    </details>
+  </div>`;
+}
+function renderAuditLog(){
+  const root = document.getElementById("audit-log-root");
+  if(!AUDIT_LOG.length){ root.innerHTML = '<div class="audit-empty">No audits logged yet.</div>'; return; }
+  const sorted = [...AUDIT_LOG].sort((a,b) => b.date.localeCompare(a.date));
+  root.innerHTML = sorted.map((e,i) => renderEntry(e,i)).join("");
+}
+renderAuditLog();
+</script>
+
+</body>
+</html>
