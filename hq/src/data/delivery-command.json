@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-26T00:24:52Z",
+  "generatedAt": "2026-08-31T00:39:25.410Z",
   "source": {
     "boardId": "18406004595",
     "boardName": "Client Delivery",
-    "sourceUpdatedAt": "2026-08-26T00:24:52Z"
+    "sourceUpdatedAt": "2026-08-28T20:58:28Z"
   },
   "activeProfile": {
     "id": "eli",
@@ -30,24 +30,6 @@
   ],
   "deliverables": [
     {
-      "id": "deliverable-12694726978",
-      "mondayItemId": "12694726978",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12694726978",
-      "projectId": "legacy-b-studio",
-      "name": "Internal Project Setup",
-      "owner": "Eli Fisher",
-      "status": "done",
-      "priority": "normal",
-      "phase": "initiation",
-      "baselineStart": "2026-08-02",
-      "baselineDue": "2026-08-03",
-      "currentStart": "2026-08-02",
-      "currentDue": "2026-08-03",
-      "dependencyIds": [],
-      "definitionOfDone": null,
-      "sourceUpdatedAt": "2026-08-23T13:21:41Z"
-    },
-    {
       "id": "deliverable-12694582811",
       "mondayItemId": "12694582811",
       "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12694582811",
@@ -64,6 +46,24 @@
       "dependencyIds": [],
       "definitionOfDone": null,
       "sourceUpdatedAt": "2026-08-23T13:21:58Z"
+    },
+    {
+      "id": "deliverable-12694726978",
+      "mondayItemId": "12694726978",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12694726978",
+      "projectId": "legacy-b-studio",
+      "name": "Internal Project Setup",
+      "owner": "Eli Fisher",
+      "status": "done",
+      "priority": "normal",
+      "phase": "initiation",
+      "baselineStart": "2026-08-02",
+      "baselineDue": "2026-08-03",
+      "currentStart": "2026-08-02",
+      "currentDue": "2026-08-03",
+      "dependencyIds": [],
+      "definitionOfDone": null,
+      "sourceUpdatedAt": "2026-08-23T13:21:41Z"
     },
     {
       "id": "deliverable-12694582813",
@@ -120,6 +120,24 @@
       "sourceUpdatedAt": "2026-08-26T00:00:15Z"
     },
     {
+      "id": "deliverable-12898114422",
+      "mondayItemId": "12898114422",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12898114422",
+      "projectId": "legacy-b-studio",
+      "name": "Business Email Setup - benji@legacybstudio.com",
+      "owner": "Eli Fisher",
+      "status": "not-started",
+      "priority": "normal",
+      "phase": "execution",
+      "baselineStart": "2026-09-01",
+      "baselineDue": "2026-09-05",
+      "currentStart": "2026-09-01",
+      "currentDue": "2026-09-05",
+      "dependencyIds": [],
+      "definitionOfDone": "SCOPE FENCE: NOT IN THE SIGNED QUOTE. Eli offered the setup free on the 8/25 call ('I won't even charge you for that') with no boundary stated. Google Workspace at $7/month on BENJI'S card, not BPP's. ONE mailbox only; admin and team addresses come later when he has a team. Do not overcomplicate. Blocked until Benji confirms he wants it built. Rationale given: a gmail address costs him credibility. Domain is legacybstudio.com, registered at WIX, renewal confirmed. ALWAYS KEEP THE B, Benji corrected the spelling twice and asked that it be respected.",
+      "sourceUpdatedAt": "2026-08-26T00:02:49Z"
+    },
+    {
       "id": "deliverable-12694582816",
       "mondayItemId": "12694582816",
       "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12694582816",
@@ -154,24 +172,6 @@
       "dependencyIds": [],
       "definitionOfDone": null,
       "sourceUpdatedAt": "2026-08-26T00:00:34Z"
-    },
-    {
-      "id": "deliverable-12694620424",
-      "mondayItemId": "12694620424",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12694620424",
-      "projectId": "legacy-b-studio",
-      "name": "Contact Form + Site Launch",
-      "owner": "Eli Fisher",
-      "status": "not-started",
-      "priority": "high",
-      "phase": "execution",
-      "baselineStart": "2026-09-16",
-      "baselineDue": "2026-09-17",
-      "currentStart": "2026-09-16",
-      "currentDue": "2026-09-17",
-      "dependencyIds": [],
-      "definitionOfDone": null,
-      "sourceUpdatedAt": "2026-08-26T00:16:11Z"
     },
     {
       "id": "deliverable-12694582818",
@@ -210,6 +210,24 @@
       "sourceUpdatedAt": "2026-08-26T00:01:02Z"
     },
     {
+      "id": "deliverable-12694620424",
+      "mondayItemId": "12694620424",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12694620424",
+      "projectId": "legacy-b-studio",
+      "name": "Contact Form + Site Launch",
+      "owner": "Eli Fisher",
+      "status": "not-started",
+      "priority": "high",
+      "phase": "execution",
+      "baselineStart": "2026-09-16",
+      "baselineDue": "2026-09-17",
+      "currentStart": "2026-09-16",
+      "currentDue": "2026-09-17",
+      "dependencyIds": [],
+      "definitionOfDone": null,
+      "sourceUpdatedAt": "2026-08-26T00:16:11Z"
+    },
+    {
       "id": "deliverable-12694726971",
       "mondayItemId": "12694726971",
       "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12694726971",
@@ -226,24 +244,6 @@
       "dependencyIds": [],
       "definitionOfDone": null,
       "sourceUpdatedAt": "2026-08-26T00:23:00Z"
-    },
-    {
-      "id": "deliverable-12694726973",
-      "mondayItemId": "12694726973",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12694726973",
-      "projectId": "legacy-b-studio",
-      "name": "Ask for Referral and Upsell",
-      "owner": "Eli Fisher",
-      "status": "not-started",
-      "priority": "normal",
-      "phase": "closure",
-      "baselineStart": "2026-09-17",
-      "baselineDue": "2026-09-17",
-      "currentStart": "2026-09-17",
-      "currentDue": "2026-09-17",
-      "dependencyIds": [],
-      "definitionOfDone": null,
-      "sourceUpdatedAt": "2026-08-26T00:24:52Z"
     },
     {
       "id": "deliverable-12694726972",
@@ -264,22 +264,22 @@
       "sourceUpdatedAt": "2026-08-26T00:24:52Z"
     },
     {
-      "id": "deliverable-12898114422",
-      "mondayItemId": "12898114422",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12898114422",
+      "id": "deliverable-12694726973",
+      "mondayItemId": "12694726973",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12694726973",
       "projectId": "legacy-b-studio",
-      "name": "Business Email Setup - benji@legacybstudio.com",
+      "name": "Ask for Referral and Upsell",
       "owner": "Eli Fisher",
       "status": "not-started",
       "priority": "normal",
-      "phase": "execution",
-      "baselineStart": "2026-09-01",
-      "baselineDue": "2026-09-05",
-      "currentStart": "2026-09-01",
-      "currentDue": "2026-09-05",
+      "phase": "closure",
+      "baselineStart": "2026-09-17",
+      "baselineDue": "2026-09-17",
+      "currentStart": "2026-09-17",
+      "currentDue": "2026-09-17",
       "dependencyIds": [],
-      "definitionOfDone": "SCOPE FENCE: NOT IN THE SIGNED QUOTE. Eli offered the setup free on the 8/25 call ('I won't even charge you for that') with no boundary stated. Google Workspace at $7/month on BENJI'S card, not BPP's. ONE mailbox only; admin and team addresses come later when he has a team. Do not overcomplicate. Blocked until Benji confirms he wants it built. Rationale given: a gmail address costs him credibility. Domain is legacybstudio.com, registered at WIX, renewal confirmed. ALWAYS KEEP THE B, Benji corrected the spelling twice and asked that it be respected.",
-      "sourceUpdatedAt": "2026-08-26T00:02:49Z"
+      "definitionOfDone": null,
+      "sourceUpdatedAt": "2026-08-26T00:24:52Z"
     },
     {
       "id": "deliverable-12875010177",
@@ -324,7 +324,7 @@
       "projectId": "halo-pathways",
       "name": "Project Planning - Site Architecture + Sitemap",
       "owner": "Eli Fisher",
-      "status": "not-started",
+      "status": "done",
       "priority": "high",
       "phase": "planning",
       "baselineStart": "2026-08-26",
@@ -333,7 +333,25 @@
       "currentDue": "2026-09-03",
       "dependencyIds": [],
       "definitionOfDone": "Deliver site-architecture-halo-pathways-v1.md to the client BEFORE the session so they arrive having marked it up. Session locks the sitemap, every page and section, the 13-to-8 content map, and the CMS plan. Also replaces every provisional date on this board with what the client actually committed to at kickoff. Two open FLAGs to close: Pathways Mentors on Get Involved vs Programs, and whether Contact is a counted page or just a form.",
-      "sourceUpdatedAt": "2026-08-26T00:01:43Z"
+      "sourceUpdatedAt": "2026-08-28T20:58:26Z"
+    },
+    {
+      "id": "deliverable-12898119625",
+      "mondayItemId": "12898119625",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12898119625",
+      "projectId": "halo-pathways",
+      "name": "Palette Options + Pathways Logo Review",
+      "owner": "Eli Fisher",
+      "status": "not-started",
+      "priority": "high",
+      "phase": "planning",
+      "baselineStart": "2026-09-01",
+      "baselineDue": "2026-09-05",
+      "currentStart": "2026-09-01",
+      "currentDue": "2026-09-05",
+      "dependencyIds": [],
+      "definitionOfDone": "PALETTE WAS REOPENED AT THE 8/25 KICKOFF. Felicia had previously wanted a more playful palette distinct from HALO Commons. She has since tested colors herself, did not like the result, and is now leaning toward keeping it simple. Eli committed to bringing MULTIPLE palette options to the design phase so she is not locked into one direction. Ship in advance of the 9/8 session for markup. OPEN: a palette change may also change the LOGO COLOR. Felicia has sent the multicolor Pathways logo and confirmed she has several alternate multicolor palettes and hues that would still work. Assess the logo against each candidate palette.",
+      "sourceUpdatedAt": "2026-08-26T00:03:24Z"
     },
     {
       "id": "deliverable-12875010020",
@@ -352,6 +370,24 @@
       "dependencyIds": [],
       "definitionOfDone": "Three palette options built on the measured Children's Network structure: deep navy #0F2445 foundation, ivory ground, metallic gold, and ONE bright accent. Sunrise coral #D2542F (recommended), Horizon teal #0F7B82, Citrus orange #C25E10. NONE of the three accents passes AA at body size on ivory, so each ships with a paired darker ink for text; values are in the architecture doc section 8. Plus the Home page and one interior page designed. Build does not start until the paired Acceptance item is signed.",
       "sourceUpdatedAt": "2026-08-25T00:25:37Z"
+    },
+    {
+      "id": "deliverable-12887504874",
+      "mondayItemId": "12887504874",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12887504874",
+      "projectId": "halo-pathways",
+      "name": "Acceptance: Site Architecture Sign-Off",
+      "owner": "Eli Fisher",
+      "status": "not-started",
+      "priority": "critical",
+      "phase": "planning",
+      "baselineStart": "2026-09-08",
+      "baselineDue": "2026-09-12",
+      "currentStart": "2026-09-08",
+      "currentDue": "2026-09-12",
+      "dependencyIds": [],
+      "definitionOfDone": "HARD GATE. Contract Section 1.3: build does not begin without written client sign-off on the site architecture. Deliverable Acceptance Form covering the sitemap, every page and section, the 13-to-8 content map, and the CMS collection plan. Not Done until the signed form is back from the named Authorized Approver and filed in the client folder.",
+      "sourceUpdatedAt": "2026-08-26T00:01:46Z"
     },
     {
       "id": "deliverable-12887504877",
@@ -408,22 +444,22 @@
       "sourceUpdatedAt": "2026-08-26T00:01:54Z"
     },
     {
-      "id": "deliverable-12887504874",
-      "mondayItemId": "12887504874",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12887504874",
+      "id": "deliverable-12898133643",
+      "mondayItemId": "12898133643",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12898133643",
       "projectId": "halo-pathways",
-      "name": "Acceptance: Site Architecture Sign-Off",
+      "name": "Schedule Remaining 3 Sessions (Donate/Forms, Full Site Review, Training)",
       "owner": "Eli Fisher",
       "status": "not-started",
-      "priority": "critical",
+      "priority": "high",
       "phase": "planning",
-      "baselineStart": "2026-09-08",
-      "baselineDue": "2026-09-12",
-      "currentStart": "2026-09-08",
-      "currentDue": "2026-09-12",
+      "baselineStart": "2026-09-28",
+      "baselineDue": "2026-09-28",
+      "currentStart": "2026-09-28",
+      "currentDue": "2026-09-28",
       "dependencyIds": [],
-      "definitionOfDone": "HARD GATE. Contract Section 1.3: build does not begin without written client sign-off on the site architecture. Deliverable Acceptance Form covering the sitemap, every page and section, the 13-to-8 content map, and the CMS collection plan. Not Done until the signed form is back from the named Authorized Approver and filed in the client folder.",
-      "sourceUpdatedAt": "2026-08-26T00:01:46Z"
+      "definitionOfDone": "KICKOFF DECISION #6: Donate and Forms, Full Site Review, and Training and Handoff were DEFERRED, not booked. They get scheduled around the 9/28 halfway review. This is why the Project Kickoff item is NOT Done: its definition of done required the entire meeting sequence booked before hanging up, and only 9/8 and 9/28 were secured. All October dates on this board remain PROVISIONAL until this item closes. ALSO ASK AT THE 9/28 REVIEW, not before: is anyone besides Felicia and Larry going to want to review the site before it goes live, a board member or the attorney? That question was never asked on the kickoff call.",
+      "sourceUpdatedAt": "2026-08-26T00:03:30Z"
     },
     {
       "id": "deliverable-12887504880",
@@ -606,6 +642,24 @@
       "sourceUpdatedAt": "2026-08-25T00:25:43Z"
     },
     {
+      "id": "deliverable-12875010209",
+      "mondayItemId": "12875010209",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12875010209",
+      "projectId": "halo-pathways",
+      "name": "Project Close Out - Invoice + Collect $2,370",
+      "owner": "Eli Fisher",
+      "status": "not-started",
+      "priority": "high",
+      "phase": "closure",
+      "baselineStart": "2026-10-26",
+      "baselineDue": "2026-10-27",
+      "currentStart": "2026-10-26",
+      "currentDue": "2026-10-27",
+      "dependencyIds": [],
+      "definitionOfDone": "Payment 3 of $2,370 invoiced AND collected. This is the $2,160 project balance plus Website Care month one at $250, LESS the $40 the client overpaid on the deposit ($2,200 cleared against a $2,160 invoice). Total contract $7,450. Also: Google review requested, survey collected, and written completion notice sent AND logged in HubSpot. The Lois closeout missed that last step.",
+      "sourceUpdatedAt": "2026-08-25T00:25:44Z"
+    },
+    {
       "id": "deliverable-12887504911",
       "mondayItemId": "12887504911",
       "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12887504911",
@@ -640,24 +694,6 @@
       "dependencyIds": [],
       "definitionOfDone": "Client signs off that every contracted deliverable is received: 7 content pages, Donate built, contact form routing, 2 CMS collections, Commons palette and entity separation, training and documentation. This is also the written completion notice, which the Lois closeout missed entirely. File it and log it in HubSpot.",
       "sourceUpdatedAt": "2026-08-25T00:24:45Z"
-    },
-    {
-      "id": "deliverable-12875010209",
-      "mondayItemId": "12875010209",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12875010209",
-      "projectId": "halo-pathways",
-      "name": "Project Close Out - Invoice + Collect $2,370",
-      "owner": "Eli Fisher",
-      "status": "not-started",
-      "priority": "high",
-      "phase": "closure",
-      "baselineStart": "2026-10-26",
-      "baselineDue": "2026-10-27",
-      "currentStart": "2026-10-26",
-      "currentDue": "2026-10-27",
-      "dependencyIds": [],
-      "definitionOfDone": "Payment 3 of $2,370 invoiced AND collected. This is the $2,160 project balance plus Website Care month one at $250, LESS the $40 the client overpaid on the deposit ($2,200 cleared against a $2,160 invoice). Total contract $7,450. Also: Google review requested, survey collected, and written completion notice sent AND logged in HubSpot. The Lois closeout missed that last step.",
-      "sourceUpdatedAt": "2026-08-25T00:25:44Z"
     },
     {
       "id": "deliverable-12875010021",
@@ -714,42 +750,6 @@
       "sourceUpdatedAt": "2026-08-25T00:25:44Z"
     },
     {
-      "id": "deliverable-12898119625",
-      "mondayItemId": "12898119625",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12898119625",
-      "projectId": "halo-pathways",
-      "name": "Palette Options + Pathways Logo Review",
-      "owner": "Eli Fisher",
-      "status": "not-started",
-      "priority": "high",
-      "phase": "planning",
-      "baselineStart": "2026-09-01",
-      "baselineDue": "2026-09-05",
-      "currentStart": "2026-09-01",
-      "currentDue": "2026-09-05",
-      "dependencyIds": [],
-      "definitionOfDone": "PALETTE WAS REOPENED AT THE 8/25 KICKOFF. Felicia had previously wanted a more playful palette distinct from HALO Commons. She has since tested colors herself, did not like the result, and is now leaning toward keeping it simple. Eli committed to bringing MULTIPLE palette options to the design phase so she is not locked into one direction. Ship in advance of the 9/8 session for markup. OPEN: a palette change may also change the LOGO COLOR. Felicia has sent the multicolor Pathways logo and confirmed she has several alternate multicolor palettes and hues that would still work. Assess the logo against each candidate palette.",
-      "sourceUpdatedAt": "2026-08-26T00:03:24Z"
-    },
-    {
-      "id": "deliverable-12898133643",
-      "mondayItemId": "12898133643",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12898133643",
-      "projectId": "halo-pathways",
-      "name": "Schedule Remaining 3 Sessions (Donate/Forms, Full Site Review, Training)",
-      "owner": "Eli Fisher",
-      "status": "not-started",
-      "priority": "high",
-      "phase": "planning",
-      "baselineStart": "2026-09-28",
-      "baselineDue": "2026-09-28",
-      "currentStart": "2026-09-28",
-      "currentDue": "2026-09-28",
-      "dependencyIds": [],
-      "definitionOfDone": "KICKOFF DECISION #6: Donate and Forms, Full Site Review, and Training and Handoff were DEFERRED, not booked. They get scheduled around the 9/28 halfway review. This is why the Project Kickoff item is NOT Done: its definition of done required the entire meeting sequence booked before hanging up, and only 9/8 and 9/28 were secured. All October dates on this board remain PROVISIONAL until this item closes. ALSO ASK AT THE 9/28 REVIEW, not before: is anyone besides Felicia and Larry going to want to review the site before it goes live, a board member or the attorney? That question was never asked on the kickoff call.",
-      "sourceUpdatedAt": "2026-08-26T00:03:30Z"
-    },
-    {
       "id": "deliverable-12898109319",
       "mondayItemId": "12898109319",
       "mondayUrl": "https://businessplansplus.monday.com/boards/18406004595/pulses/12898109319",
@@ -769,6 +769,132 @@
     }
   ],
   "tasks": [
+    {
+      "id": "task-12898165366",
+      "mondayItemId": "12898165366",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12898165366",
+      "projectId": "legacy-b-studio",
+      "deliverableId": "deliverable-12694619794",
+      "checkpointIds": [
+        "legacy-design-review"
+      ],
+      "name": "Copy Prompts + Services/Pricing Questions to Benji",
+      "owner": "Eli Fisher",
+      "status": "not-started",
+      "priority": "high",
+      "baselineDue": "2026-08-27",
+      "currentDue": "2026-08-27",
+      "latestSafeDate": "2026-08-27",
+      "blockedBy": [],
+      "clientOwned": false,
+      "evidenceUrl": null,
+      "sourceUpdatedAt": "2026-08-26T00:15:51Z"
+    },
+    {
+      "id": "task-12898163425",
+      "mondayItemId": "12898163425",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12898163425",
+      "projectId": "legacy-b-studio",
+      "deliverableId": "deliverable-12694619794",
+      "checkpointIds": [
+        "legacy-design-review"
+      ],
+      "name": "CLIENT: Hero Image Options (incl. collage)",
+      "owner": null,
+      "status": "not-started",
+      "priority": "high",
+      "baselineDue": "2026-08-28",
+      "currentDue": "2026-08-28",
+      "latestSafeDate": "2026-08-28",
+      "blockedBy": [],
+      "clientOwned": true,
+      "evidenceUrl": null,
+      "sourceUpdatedAt": "2026-08-26T00:15:59Z"
+    },
+    {
+      "id": "task-12898165512",
+      "mondayItemId": "12898165512",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12898165512",
+      "projectId": "legacy-b-studio",
+      "deliverableId": "deliverable-12694619794",
+      "checkpointIds": [
+        "legacy-design-review"
+      ],
+      "name": "CLIENT: Page Copy - Home, About, Services",
+      "owner": null,
+      "status": "not-started",
+      "priority": "high",
+      "baselineDue": "2026-08-28",
+      "currentDue": "2026-08-28",
+      "latestSafeDate": "2026-08-28",
+      "blockedBy": [],
+      "clientOwned": true,
+      "evidenceUrl": null,
+      "sourceUpdatedAt": "2026-08-26T00:15:55Z"
+    },
+    {
+      "id": "task-12898174708",
+      "mondayItemId": "12898174708",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12898174708",
+      "projectId": "legacy-b-studio",
+      "deliverableId": "deliverable-12694619794",
+      "checkpointIds": [
+        "legacy-design-review"
+      ],
+      "name": "CLIENT: Testimonials / Client Quotes - Proof Section",
+      "owner": null,
+      "status": "not-started",
+      "priority": "high",
+      "baselineDue": "2026-08-28",
+      "currentDue": "2026-08-28",
+      "latestSafeDate": "2026-08-28",
+      "blockedBy": [],
+      "clientOwned": true,
+      "evidenceUrl": null,
+      "sourceUpdatedAt": "2026-08-26T00:16:04Z"
+    },
+    {
+      "id": "task-12898165675",
+      "mondayItemId": "12898165675",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12898165675",
+      "projectId": "legacy-b-studio",
+      "deliverableId": "deliverable-12694620424",
+      "checkpointIds": [
+        "legacy-launch-closeout"
+      ],
+      "name": "HubSpot Contact Form + Deal Pipeline + Training",
+      "owner": "Eli Fisher",
+      "status": "not-started",
+      "priority": "high",
+      "baselineDue": "2026-09-16",
+      "currentDue": "2026-09-16",
+      "latestSafeDate": "2026-09-15",
+      "blockedBy": [],
+      "clientOwned": false,
+      "evidenceUrl": null,
+      "sourceUpdatedAt": "2026-08-26T00:16:10Z"
+    },
+    {
+      "id": "task-12898163435",
+      "mondayItemId": "12898163435",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12898163435",
+      "projectId": "legacy-b-studio",
+      "deliverableId": "deliverable-12694726971",
+      "checkpointIds": [
+        "legacy-launch-closeout"
+      ],
+      "name": "Webflow Editor Link + Marketing Plan Handoff",
+      "owner": "Eli Fisher",
+      "status": "not-started",
+      "priority": "normal",
+      "baselineDue": "2026-09-17",
+      "currentDue": "2026-09-17",
+      "latestSafeDate": "2026-09-15",
+      "blockedBy": [],
+      "clientOwned": false,
+      "evidenceUrl": null,
+      "sourceUpdatedAt": "2026-08-26T00:23:03Z"
+    },
     {
       "id": "task-12694620654",
       "mondayItemId": "12694620654",
@@ -806,44 +932,6 @@
       "clientOwned": false,
       "evidenceUrl": null,
       "sourceUpdatedAt": "2026-08-23T13:21:46Z"
-    },
-    {
-      "id": "task-12694620663",
-      "mondayItemId": "12694620663",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12694620663",
-      "projectId": "legacy-b-studio",
-      "deliverableId": "deliverable-12694582811",
-      "checkpointIds": [],
-      "name": "Set up Project Kickoff Meeting",
-      "owner": null,
-      "status": "done",
-      "priority": "normal",
-      "baselineDue": null,
-      "currentDue": null,
-      "latestSafeDate": null,
-      "blockedBy": [],
-      "clientOwned": false,
-      "evidenceUrl": null,
-      "sourceUpdatedAt": "2026-08-23T13:21:52Z"
-    },
-    {
-      "id": "task-12694620660",
-      "mondayItemId": "12694620660",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12694620660",
-      "projectId": "legacy-b-studio",
-      "deliverableId": "deliverable-12694582811",
-      "checkpointIds": [],
-      "name": "Collect Credentials & Project Assets",
-      "owner": null,
-      "status": "done",
-      "priority": "normal",
-      "baselineDue": null,
-      "currentDue": null,
-      "latestSafeDate": null,
-      "blockedBy": [],
-      "clientOwned": false,
-      "evidenceUrl": null,
-      "sourceUpdatedAt": "2026-08-23T13:21:54Z"
     },
     {
       "id": "task-12694620656",
@@ -922,109 +1010,23 @@
       "sourceUpdatedAt": "2026-08-02T17:51:48Z"
     },
     {
-      "id": "task-12898165366",
-      "mondayItemId": "12898165366",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12898165366",
+      "id": "task-12694620660",
+      "mondayItemId": "12694620660",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12694620660",
       "projectId": "legacy-b-studio",
-      "deliverableId": "deliverable-12694619794",
-      "checkpointIds": [
-        "legacy-design-review"
-      ],
-      "name": "Copy Prompts + Services/Pricing Questions to Benji",
-      "owner": "Eli Fisher",
-      "status": "not-started",
-      "priority": "high",
-      "baselineDue": "2026-08-27",
-      "currentDue": "2026-08-27",
-      "latestSafeDate": "2026-08-27",
+      "deliverableId": "deliverable-12694582811",
+      "checkpointIds": [],
+      "name": "Collect Credentials & Project Assets",
+      "owner": null,
+      "status": "done",
+      "priority": "normal",
+      "baselineDue": null,
+      "currentDue": null,
+      "latestSafeDate": null,
       "blockedBy": [],
       "clientOwned": false,
       "evidenceUrl": null,
-      "sourceUpdatedAt": "2026-08-26T00:15:51Z"
-    },
-    {
-      "id": "task-12898165512",
-      "mondayItemId": "12898165512",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12898165512",
-      "projectId": "legacy-b-studio",
-      "deliverableId": "deliverable-12694619794",
-      "checkpointIds": [
-        "legacy-design-review"
-      ],
-      "name": "CLIENT: Page Copy - Home, About, Services",
-      "owner": null,
-      "status": "not-started",
-      "priority": "high",
-      "baselineDue": "2026-08-28",
-      "currentDue": "2026-08-28",
-      "latestSafeDate": "2026-08-28",
-      "blockedBy": [],
-      "clientOwned": true,
-      "evidenceUrl": null,
-      "sourceUpdatedAt": "2026-08-26T00:15:55Z"
-    },
-    {
-      "id": "task-12898163425",
-      "mondayItemId": "12898163425",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12898163425",
-      "projectId": "legacy-b-studio",
-      "deliverableId": "deliverable-12694619794",
-      "checkpointIds": [
-        "legacy-design-review"
-      ],
-      "name": "CLIENT: Hero Image Options (incl. collage)",
-      "owner": null,
-      "status": "not-started",
-      "priority": "high",
-      "baselineDue": "2026-08-28",
-      "currentDue": "2026-08-28",
-      "latestSafeDate": "2026-08-28",
-      "blockedBy": [],
-      "clientOwned": true,
-      "evidenceUrl": null,
-      "sourceUpdatedAt": "2026-08-26T00:15:59Z"
-    },
-    {
-      "id": "task-12898174708",
-      "mondayItemId": "12898174708",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12898174708",
-      "projectId": "legacy-b-studio",
-      "deliverableId": "deliverable-12694619794",
-      "checkpointIds": [
-        "legacy-design-review"
-      ],
-      "name": "CLIENT: Testimonials / Client Quotes - Proof Section",
-      "owner": null,
-      "status": "not-started",
-      "priority": "high",
-      "baselineDue": "2026-08-28",
-      "currentDue": "2026-08-28",
-      "latestSafeDate": "2026-08-28",
-      "blockedBy": [],
-      "clientOwned": true,
-      "evidenceUrl": null,
-      "sourceUpdatedAt": "2026-08-26T00:16:04Z"
-    },
-    {
-      "id": "task-12898165675",
-      "mondayItemId": "12898165675",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12898165675",
-      "projectId": "legacy-b-studio",
-      "deliverableId": "deliverable-12694620424",
-      "checkpointIds": [
-        "legacy-launch-closeout"
-      ],
-      "name": "HubSpot Contact Form + Deal Pipeline + Training",
-      "owner": "Eli Fisher",
-      "status": "not-started",
-      "priority": "high",
-      "baselineDue": "2026-09-16",
-      "currentDue": "2026-09-16",
-      "latestSafeDate": "2026-09-15",
-      "blockedBy": [],
-      "clientOwned": false,
-      "evidenceUrl": null,
-      "sourceUpdatedAt": "2026-08-26T00:16:10Z"
+      "sourceUpdatedAt": "2026-08-23T13:21:54Z"
     },
     {
       "id": "task-12694620661",
@@ -1065,15 +1067,34 @@
       "sourceUpdatedAt": "2026-08-02T17:51:48Z"
     },
     {
-      "id": "task-12694620665",
-      "mondayItemId": "12694620665",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12694620665",
+      "id": "task-12694620663",
+      "mondayItemId": "12694620663",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12694620663",
+      "projectId": "legacy-b-studio",
+      "deliverableId": "deliverable-12694582811",
+      "checkpointIds": [],
+      "name": "Set up Project Kickoff Meeting",
+      "owner": null,
+      "status": "done",
+      "priority": "normal",
+      "baselineDue": null,
+      "currentDue": null,
+      "latestSafeDate": null,
+      "blockedBy": [],
+      "clientOwned": false,
+      "evidenceUrl": null,
+      "sourceUpdatedAt": "2026-08-23T13:21:52Z"
+    },
+    {
+      "id": "task-12694620664",
+      "mondayItemId": "12694620664",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12694620664",
       "projectId": "legacy-b-studio",
       "deliverableId": "deliverable-12694726971",
       "checkpointIds": [
         "legacy-launch-closeout"
       ],
-      "name": "Set up Project Closeout Meeting",
+      "name": "Collect Final Payment",
       "owner": null,
       "status": "not-started",
       "priority": "normal",
@@ -1086,15 +1107,15 @@
       "sourceUpdatedAt": "2026-08-02T17:51:49Z"
     },
     {
-      "id": "task-12694620664",
-      "mondayItemId": "12694620664",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12694620664",
+      "id": "task-12694620665",
+      "mondayItemId": "12694620665",
+      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12694620665",
       "projectId": "legacy-b-studio",
       "deliverableId": "deliverable-12694726971",
       "checkpointIds": [
         "legacy-launch-closeout"
       ],
-      "name": "Collect Final Payment",
+      "name": "Set up Project Closeout Meeting",
       "owner": null,
       "status": "not-started",
       "priority": "normal",
@@ -1147,27 +1168,6 @@
       "clientOwned": false,
       "evidenceUrl": null,
       "sourceUpdatedAt": "2026-08-02T17:51:50Z"
-    },
-    {
-      "id": "task-12898163435",
-      "mondayItemId": "12898163435",
-      "mondayUrl": "https://businessplansplus.monday.com/boards/18406004597/pulses/12898163435",
-      "projectId": "legacy-b-studio",
-      "deliverableId": "deliverable-12694726971",
-      "checkpointIds": [
-        "legacy-launch-closeout"
-      ],
-      "name": "Webflow Editor Link + Marketing Plan Handoff",
-      "owner": "Eli Fisher",
-      "status": "not-started",
-      "priority": "normal",
-      "baselineDue": "2026-09-17",
-      "currentDue": "2026-09-17",
-      "latestSafeDate": "2026-09-15",
-      "blockedBy": [],
-      "clientOwned": false,
-      "evidenceUrl": null,
-      "sourceUpdatedAt": "2026-08-26T00:23:03Z"
     },
     {
       "id": "task-12694620668",
@@ -1294,7 +1294,7 @@
       ],
       "name": "Define Scope",
       "owner": "Eli Fisher",
-      "status": "not-started",
+      "status": "done",
       "priority": "high",
       "baselineDue": "2026-08-29",
       "currentDue": "2026-08-29",
@@ -1302,7 +1302,7 @@
       "blockedBy": [],
       "clientOwned": false,
       "evidenceUrl": null,
-      "sourceUpdatedAt": "2026-08-23T13:48:16Z"
+      "sourceUpdatedAt": "2026-08-28T20:58:13Z"
     },
     {
       "id": "task-12875066169",
@@ -1315,7 +1315,7 @@
       ],
       "name": "Input Timeline in Hubspot & Monday",
       "owner": "Eli Fisher",
-      "status": "not-started",
+      "status": "done",
       "priority": "high",
       "baselineDue": "2026-08-29",
       "currentDue": "2026-08-29",
@@ -1323,7 +1323,7 @@
       "blockedBy": [],
       "clientOwned": false,
       "evidenceUrl": null,
-      "sourceUpdatedAt": "2026-08-23T13:48:16Z"
+      "sourceUpdatedAt": "2026-08-28T20:58:16Z"
     },
     {
       "id": "task-12875066170",
@@ -1336,7 +1336,7 @@
       ],
       "name": "Develop Project Execution Plan",
       "owner": "Eli Fisher",
-      "status": "not-started",
+      "status": "done",
       "priority": "high",
       "baselineDue": "2026-08-29",
       "currentDue": "2026-08-29",
@@ -1344,7 +1344,7 @@
       "blockedBy": [],
       "clientOwned": false,
       "evidenceUrl": null,
-      "sourceUpdatedAt": "2026-08-23T13:48:32Z"
+      "sourceUpdatedAt": "2026-08-28T20:58:28Z"
     },
     {
       "id": "task-12875045253",
