@@ -59,6 +59,63 @@
 // object here every Friday. Do not hand-edit history, only prepend.
 const AUDIT_LOG = [
   {
+    date: "2026-09-13",
+    stats: { total: 69, won: 23, wonAmt: 38272.75, lost: 42, lostAmt: 76070.15, open: 4, openAmt: 7898.99, closeRate: 35.4 },
+    headline: "Two new deals came in under a new rep, Aurelia Tech closed won, and All State's stale-activity flag finally cleared. Source of Business fill rate on open deals took a real hit though, dropping over 40 points as the new deals came in unlabeled.",
+    changes: [
+      "2 new deals entered the pipeline this week, both owned by Josue Batista, a new rep in the CRM: MG Cleaning Services ($5,500, Qualified & Working) and Emerald Facility Management (no amount yet, Discovery Scheduled). Confirmed with Kenny these are his, sourced straight from his own outreach.",
+      "Checked the activity behind those two deals: Josue has logged 37 calls and 15 sequence emails since August 4. Both prospects are engaging back, not just being dialed. Max Volmar Jr. at MG Cleaning had a 24-minute call on Sept 11, the day the deal picked up its $5,500 amount. Robert Sheridan at Emerald has four calls logged plus a live email reply thread. The sequence is converting.",
+      "Aurelia Tech closed won ($800, closed Sept 9). Last audit it was flagged 27 days past its close date, that leak resolved itself by closing rather than by someone updating the date.",
+      "All State's 33-day activity gap is fixed, last touched September 11. Kenny confirmed this is Felicia Russell (Allstate agency), proposal for a basic AI setup went out this week, so it's live, not stalling. That makes the leftover Closed Lost Reason of 'Not a Fit' still sitting on the open record a clear data-entry leftover, not a signal to close it, worth clearing so it stops reading as mixed signals.",
+      "Kenny confirmed Jennifer Robinson signed for a technical audit this week. That deal does not exist anywhere in HubSpot, checked by name, by contact, and by 'technical audit' in the deal name. A real signed engagement isn't tracked yet.",
+      "Legacy B. Studio - Website (the Benji account) is confirmed a real signed deal, closed won since July 30. Its $0 amount instead of the actual $2,500 has now been carried across five straight audits without a fix.",
+      "Source of Business fill rate on open deals dropped from 66.7% to 25.0%, purely because the two new deals don't have it set yet.",
+      "Eli Fisher's only deal showing open in HubSpot right now is Sipsies Lemonade - Launch Pad. Kenny mentioned he's actively working a couple of website deals, worth checking whether those exist as deals yet or are still pre-CRM.",
+      "Checked for a HubSpot seat under the name Valentine: none exists. Confirmed not working any deals, he isn't a rep in this portal.",
+      "Open pipeline nearly tripled in headline dollars ($2,599 to $7,899), but that's mostly the two new deals landing, not existing deals growing. No new losses this week, lost count and dollar total unchanged."
+    ],
+    revivable: { count: 30, amount: 48675.15 },
+    actionsNew: [
+      "Create Jennifer Robinson's technical audit deal in HubSpot, signed this week but not logged anywhere",
+      "Enter an amount for Emerald Facility Management, currently blank",
+      "Set a close date for Sipsies Lemonade - Launch Pad, 2 weeks old with none",
+      "Clear the leftover Not a Fit reason on All State, confirmed live (proposal sent to Felicia Russell)",
+      "Fill Source of Business on MG Cleaning Services and Emerald Facility Management at creation going forward",
+      "Check whether Eli's other website deals exist in HubSpot yet"
+    ],
+    actionsCarried: [
+      "Fix Legacy B. Studio's amount to $2,500 instead of $0, confirmed real and signed, 5th straight audit",
+      "Name a DRI and date for the ICP Tier Match backfill, still 0% across all 27 open+won deals",
+      "Batch fill Engagement Type on the 4 open deals, still 0%",
+      "Confirm Twanda Bradley's lost reason, blank across every audit",
+      "Add Specific Referral Source on Xtremely Clean Hourly Consulting"
+    ]
+  },
+  {
+    date: "2026-09-04",
+    stats: { total: 67, won: 22, wonAmt: 37472.75, lost: 42, lostAmt: 76070.15, open: 3, openAmt: 2599, closeRate: 34.4 },
+    headline: "First fully-automated run of this audit, no prior report to diff against so this becomes the new baseline. ICP Tier Match and Engagement Type are both sitting at 0% across the board, and two open deals need attention: one well past its close date, one gone quiet for over a month.",
+    changes: [
+      "First automated run, no prior hubspot-audit report existed to compare against. Everything below is the new baseline going forward.",
+      "ICP Tier Match is not filled on a single open or won deal (0 of 25). The property exists with values ready to use, it's just not getting used, so deal mix by tier can't be measured yet.",
+      "Engagement Type is also empty on all 3 open deals. Both gaps read like a workflow or reminder miss rather than one-off oversights, since each is 0% across the board.",
+      "Aurelia Tech is 27 days past its August 9 close date but still active, last touched the day of this audit.",
+      "All State has gone 33 days without activity, past the 14-day threshold, needs a check-in call or a decision to disqualify.",
+      "Sipsies Lemonade - Launch Pad is a brand new deal (created Sept 1) missing source of business, close date, ICP tier, service interest, and engagement type.",
+      "No deals are sitting in Verbal Commitment, no verbal-yes-no-contract leak to report."
+    ],
+    revivable: { count: 30, amount: 48675.15 },
+    actionsNew: [
+      "Name a DRI and date for the ICP Tier Match backfill, 0% on every open and won deal",
+      "Batch fill Engagement Type on the 3 open deals, 0% across the board",
+      "Move or decide Aurelia Tech's close date, 27 days past due",
+      "Check in on All State or decide to disqualify, 33 days no activity",
+      "Fill in source of business, close date, ICP tier, service interest, and engagement type on Sipsies Lemonade - Launch Pad",
+      "Confirm Twanda Bradley's lost reason, the one lost deal still missing it"
+    ],
+    actionsCarried: []
+  },
+  {
     date: "2026-08-28",
     stats: { total: 66, won: 22, wonAmt: 37472.75, lost: 41, lostAmt: 73570.15, open: 3, openAmt: 4500, closeRate: 34.9 },
     headline: "Flava Meets Fusion is decided, closed lost. Aurelia Tech picked up a $2,000 amount. Service Interest's fill rate looks a lot better this week, but the evidence says last week's report undercounted it rather than anyone doing new backfill work.",
