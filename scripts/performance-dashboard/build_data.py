@@ -203,16 +203,17 @@ M["2026-07"]["ig"]["f"]=188
 
 # ---- SALES (HubSpot, by close date as recorded) ----
 won=[("2025-06",2337.5,"Eli"),("2025-06",678,"Eli"),("2025-07",3750,"Daunte"),("2025-08",599,"Kenny"),("2025-08",998,"Kenny"),
-("2025-10",1248,"Daunte"),("2025-12",2000,"Eli"),("2025-12",3315,"Kenny"),("2025-12",599,"Kenny"),("2025-12",1500,"Eli"),
+("2025-10",1248,"Daunte"),("2025-12",2000,"Eli"),("2025-12",1500,"Eli"),("2025-12",599,"Kenny"),("2025-12",3315,"Kenny"),
 ("2026-02",500,"Daunte"),("2026-02",500,"Daunte"),("2026-02",500,"Eli"),("2026-02",3200,"Eli"),("2026-03",1000,"Eli"),
-("2026-04",4500,"Eli"),("2026-04",500,"Daunte"),("2026-04",1649,"Eli"),("2026-04",449.25,"Kenny"),("2026-01",3350,"Daunte")]
+("2026-04",1350,"Eli"),("2026-04",500,"Daunte"),("2026-04",1649,"Eli"),("2026-04",449.25,"Kenny"),("2026-05",3350,"Daunte"),
+("2026-07",0,"Eli"),("2026-09",7450,"Eli"),("2026-09",800,"Kenny")]
 lost=[("2025-08",599),("2025-08",550),("2025-09",3463),("2025-09",1200),("2025-10",1247),("2025-10",200),
 ("2025-10",599),("2025-10",0),("2025-10",200),("2025-11",3563),("2025-11",599),("2025-12",1747),
 ("2025-12",2000),("2025-12",599),("2026-01",2823),("2026-02",1398),("2026-02",1000),("2026-02",3440),
 ("2026-02",0),("2026-02",1000),("2026-02",1997),("2026-03",509.15),("2026-03",2248),("2026-04",3599),
 ("2026-04",0),("2026-04",5197),("2026-04",599),("2026-05",4500),("2026-05",3000),("2026-05",2000),
 ("2026-05",4500),("2026-05",1799),("2026-05",1000),("2026-06",0),("2026-06",2000),("2026-07",599),
-("2026-07",4500),("2026-07",1799),("2026-07",0)]
+("2026-07",4500),("2026-07",1799),("2026-07",0),("2026-08",3000),("2026-08",4497),("2026-08",2500)]
 for m,a,o in won: M[m]["wonN"]+=1; M[m]["wonV"]+=a; M[m].setdefault("wonOwner",defaultdict(float))[o]+=a
 for m,a in lost: M[m]["lostN"]+=1; M[m]["lostV"]+=a
 
@@ -226,29 +227,33 @@ for m,d in _rw.items():
     M[m]["reels"]={"n":d["n"],"v":d["v"],"r":d["r"],"s":d["s"],"sh":d["sh"],"wt":round(d["wt"]/d["n"],1) if d["n"] else 0}
 
 # ---- DEAL LISTS (won + lost, by close month; FA attributed to Q1) ----
-DEALS=[("2025-06","Remember Wynn Foundations",2337.5,"Eli",1),("2025-06","SEEDFOLKids Foundations",678,"Eli",1),
-("2025-07","Tier 1 Foundations",3750,"Daunte",1),("2025-08","Mable Blueprinting",599,"Kenny",1),("2025-08","Stack All Profits",998,"Kenny",1),
-("2025-10","Wedelia Wellness",1248,"Daunte",1),("2025-12","Roberts Brothers - Mktg & Legal",2000,"Eli",1),("2025-12","Xtremely Clean - Automation/CRM",3315,"Kenny",1),
-("2025-12","Fawwwkk",599,"Kenny",1),("2025-12","Legacy Roofing",1500,"Eli",1),("2026-02","Xtremely Clean - Hourly",500,"Daunte",1),
-("2026-02","Xtremely Clean - 10hrs",500,"Daunte",1),("2026-02","MAA - 10hrs",500,"Eli",1),("2026-02","SEEDFOLKids - Strategic Planning",3200,"Eli",1),
-("2026-03","SEEDFOLKids - Brand Guideline",1000,"Eli",1),("2026-04","Lois Marketing - Operator System",4500,"Eli",1),("2026-04","Xtremely Clean - Proposal Dev",500,"Daunte",1),
-("2026-04","HALO Commons - Launch Pad",1649,"Eli",1),("2026-04","De Dior Studios - BP",449.25,"Kenny",1),("2026-01","Financial Acuity - Growth Package",3350,"Daunte",1),
-("2025-08","MGP Business Plan",599,"",0),("2025-08","Invitation to a Wedding",550,"",0),("2025-09","Heart & Soul",3463,"",0),("2025-09","For The Girls Tampa",1200,"",0),
-("2025-10","Squeaky Whips",1247,"",0),("2025-10","Mattie Mae's Fixings",200,"",0),("2025-10","E&M Beautiful Me",599,"",0),("2025-10","Courtesy Office Cleaning",0,"",0),
-("2025-10","Stack all Profits - Consult",200,"",0),("2025-11","RIVR",3563,"",0),("2025-11","The About Group",599,"",0),("2025-12","Revive Realty",1747,"",0),
-("2025-12","African Learning Temple",2000,"",0),("2025-12","Troops in Treatment",599,"",0),("2026-01","G. Roberts Logistics",2823,"",0),("2026-02","Stack All Profit - Web/QB",1398,"",0),
-("2026-02","Prime Pulse Logistics",1000,"",0),("2026-02","Carlo Thompson - RE CRM",3440,"",0),("2026-02","VoltAir Consulting",0,"",0),("2026-02","B5 ReAffirm",1000,"",0),
-("2026-02","For the Girls - Start",1997,"",0),("2026-03","Sterling Diversified",509.15,"",0),("2026-03","Richard's Funeral Home",2248,"",0),("2026-04","Clinical Research Specialist",3599,"",0),
-("2026-04","Noisey Creative",0,"",0),("2026-04","Twanda Bradley - Campaign",5197,"",0),("2026-04","Cleaning Top To Bottom",599,"",0),("2026-05","Replace It Auto Glass",4500,"",0),
-("2026-05","StudentCrowd - Focus Group",3000,"",0),("2026-05","Zing Juice Bar",2000,"",0),("2026-05","Rare Hues Collective",4500,"",0),("2026-05","Love Your Beauty",1799,"",0),
-("2026-05","Cape to the Bay",1000,"",0),("2026-06","Curbology",0,"",0),("2026-06","Hyacinthe Property Mgmt",2000,"",0),("2026-07","TwentyTen Motors",599,"",0),
-("2026-07","Merge Pro",4500,"",0),("2026-07","RW Events",1799,"",0),("2026-07","Spring Circle",0,"",0)]
+DEALS=[("2025-06","Remember Wynn Foundations",2337.5,"Eli",1),("2025-06","SEEDFOLKids Foundations",678,"Eli",1),("2025-07","Tier 1 Foundations",3750,"Daunte",1),
+("2025-08","Mable Blueprinting",599,"Kenny",1),("2025-08","MGP Business Plan",599,"",0),("2025-08","Invitation to a Wedding",550,"",0),
+("2025-08","Stack All Profits",998,"Kenny",1),("2025-09","Heart & Soul",3463,"",0),("2025-09","For The Girls Tampa",1200,"",0),
+("2025-10","Wedelia Wellness",1248,"Daunte",1),("2025-10","Squeaky Whips",1247,"",0),("2025-10","Mattie Mae's Fixings",200,"",0),
+("2025-10","E&M Beautiful Me",599,"",0),("2025-10","Courtesy Office Cleaning",0,"",0),("2025-10","Stack all Profits - Consult",200,"",0),
+("2025-11","RIVR",3563,"",0),("2025-11","The About Group",599,"",0),("2025-12","Revive Realty",1747,"",0),
+("2025-12","African Learning Temple",2000,"",0),("2025-12","Roberts Brothers - Mktg & Legal",2000,"Eli",1),("2025-12","Legacy Roofing",1500,"Eli",1),
+("2025-12","Fawwwkk",599,"Kenny",1),("2025-12","Xtremely Clean - Automation/CRM",3315,"Kenny",1),("2025-12","Troops in Treatment",599,"",0),
+("2026-01","G. Roberts Logistics",2823,"",0),("2026-02","Xtremely Clean - Hourly",500,"Daunte",1),("2026-02","Stack All Profit - Web/QB",1398,"",0),
+("2026-02","Xtremely Clean - 10hrs",500,"Daunte",1),("2026-02","Prime Pulse Logistics",1000,"",0),("2026-02","MAA - 10hrs",500,"Eli",1),
+("2026-02","Carlo Thompson - RE CRM",3440,"",0),("2026-02","SEEDFOLKids - Strategic Planning",3200,"Eli",1),("2026-02","VoltAir Consulting",0,"",0),
+("2026-02","B5 ReAffirm",1000,"",0),("2026-02","For the Girls - Start",1997,"",0),("2026-03","Sterling Diversified",509.15,"",0),
+("2026-03","Richard's Funeral Home",2248,"",0),("2026-03","SEEDFOLKids - Brand Guideline",1000,"Eli",1),("2026-04","Clinical Research Specialist",3599,"",0),
+("2026-04","Noisey Creative",0,"",0),("2026-04","Lois Marketing - Operator System",1350,"Eli",1),("2026-04","Twanda Bradley - Campaign",5197,"",0),
+("2026-04","Cleaning Top To Bottom",599,"",0),("2026-04","Xtremely Clean - Proposal Dev",500,"Daunte",1),("2026-04","HALO Commons - Launch Pad",1649,"Eli",1),
+("2026-04","De Dior Studios - BP",449.25,"Kenny",1),("2026-05","Financial Acuity - Growth Package",3350,"Daunte",1),("2026-05","Replace It Auto Glass",4500,"",0),
+("2026-05","StudentCrowd - Focus Group",3000,"",0),("2026-05","Zing Juice Bar",2000,"",0),("2026-05","Rare Hues Collective",4500,"",0),
+("2026-05","Love Your Beauty",1799,"",0),("2026-05","Cape to the Bay",1000,"",0),("2026-06","Curbology",0,"",0),
+("2026-06","Hyacinthe Property Mgmt",2000,"",0),("2026-07","TwentyTen Motors",599,"",0),("2026-07","Merge Pro",4500,"",0),
+("2026-07","RW Events",1799,"",0),("2026-07","Spring Circle",0,"",0),("2026-07","Legacy B. Studio - Website",0,"Eli",1),
+("2026-08","HALO Retainer",3000,"",0),("2026-08","Flava Meets Fusion",4497,"",0),("2026-08","Sipsies Lemonade - Custom Pkg",2500,"",0),
+("2026-09","HALO Pathways - Full Website",7450,"Eli",1),("2026-09","Aurelia Tech",800,"Kenny",1)]
 DEAL_ROWS=[{"ym":m,"n":n,"a":a,"o":o,"w":w} for (m,n,a,o,w) in DEALS]
 
-# ---- CURRENT PIPELINE (point-in-time, as of 2026-07-22) ----
-PIPELINE=[{"n":"Flava Meets Fusion","a":4497,"stage":"Proposal","o":"Kenny"},{"n":"HALO Retainer","a":3000,"stage":"Proposal","o":"Eli"},
-{"n":"Sipsies Lemonade - Custom","a":2500,"stage":"Proposal","o":"Eli"},{"n":"Legacy B. Studio - Website","a":1500,"stage":"Qualified","o":"Eli"},
-{"n":"All State (Felicia Russell)","a":0,"stage":"Qualified","o":"Kenny"},{"n":"Aurelia Tech","a":0,"stage":"Lead","o":"Kenny"}]
+# ---- CURRENT PIPELINE (point-in-time, as of 2026-09-13) ----
+PIPELINE=[{"n":"MG Cleaning Services","a":5500,"stage":"Qualified","o":"Josue"},{"n":"Emerald Facility Management","a":0,"stage":"Discovery","o":"Josue"},
+{"n":"Sipsies Lemonade - Launch Pad","a":1799,"stage":"Proposal","o":"Eli"},{"n":"All State (Felicia Russell)","a":599.99,"stage":"Proposal","o":"Kenny"}]
 
 # ---- emit ----
 months=sorted(M.keys())
@@ -265,7 +270,7 @@ for m in months:
         "tt":{k:round(v,2) for k,v in d["tt"].items()},"li":{k:round(v,2) for k,v in d["li"].items()},
         "web":{k:round(v,2) for k,v in d["web"].items()},
         "reels":d.get("reels",{})}
-out={"generated":"2026-07-24","months":months,"data":data,"deals":DEAL_ROWS,"pipeline":PIPELINE}
+out={"generated":"2026-09-13","months":months,"data":data,"deals":DEAL_ROWS,"pipeline":PIPELINE}
 args.output.parent.mkdir(parents=True, exist_ok=True)
 serialized=serialize_for_script(out)
 args.output.write_text(serialized,encoding="utf-8")
