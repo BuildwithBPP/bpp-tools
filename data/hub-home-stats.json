@@ -1,88 +1,98 @@
 {
-  "generated_at": "2026-08-30T20:40:02.852773",
-  "as_of_date": "2026-07-29",
-  "stats": {
-    "cash_on_hand": 1993,
-    "cash_note": "STALE - 32 days old (2026-07-29 bank feed). Newest forecast file is 2026-05-01. Do not treat as current.",
-    "ar_total": 4570,
-    "ar_note": "estimate - HubSpot has no amount_paid field. HALO Pathways $7,450 (closes won 9/1, milestone 1 ~$2,235 + halfway $2,880 + closeout $2,370 all outstanding) plus Legacy B $750 outstanding against a $1,500 signed quote that HubSpot records as $0.",
-    "active_clients_count": 4,
-    "active_clients_names": [
-      "HALO Pathways",
-      "Legacy B. Studio",
-      "Financial Acuity",
-      "Lois Marketing"
-    ],
-    "pipeline_total": 2000,
-    "pipeline_count": 2
+ "generated_at": "2026-09-14T08:04:26.339980",
+ "as_of_date": "2026-09-14",
+ "stats": {
+  "cash_on_hand": null,
+  "cash_note": "UNMEASURED. The last figure the hub carried ($1,993) is a 2026-07-29 bank feed, 47 days old, and predates the HALO Pathways close. Newest forecast file is 2026-05-01. Deliberately blank rather than stale.",
+  "ar_total": 7750,
+  "ar_note": "estimate - HubSpot has no amount_paid field. HALO Pathways $5,250 (halfway $2,880 on 9/28 + closeout $2,370 on 10/27), Lois $1,350, Legacy B $750 (HubSpot still records $0 against a signed $1,500 quote), Aurelia $400. Excludes Financial Acuity, which has no readable balance.",
+  "active_clients_count": 4,
+  "active_clients_names": [
+   "HALO Pathways",
+   "Legacy B. Studio",
+   "Financial Acuity",
+   "Lois Marketing"
+  ],
+  "pipeline_total": 7899,
+  "pipeline_count": 4
+ },
+ "ar_scenarios": [
+  {
+   "name": "Legacy B halfway invoice sent",
+   "receivables_in": 375,
+   "ending_operating": null,
+   "hits_phase2": false,
+   "highlight": true,
+   "detail": "$375, seven days late. Smallest number on the page and the only one that needs nothing but an email."
   },
-  "ar_scenarios": [
-    {
-      "name": "HALO milestone 1 invoiced at kickoff",
-      "receivables_in": 2235,
-      "ending_operating": 4228,
-      "hits_phase2": true,
-      "highlight": true,
-      "detail": "30% of $7,450 at signing. Kickoff is Tue 8/25. This is the collect action of the week."
-    },
-    {
-      "name": "+ Lois final at closeout",
-      "receivables_in": 3585,
-      "ending_operating": 5578,
-      "hits_phase2": true,
-      "highlight": false,
-      "detail": "~$1,350. Close Out is In Progress and due 8/29."
-    },
-    {
-      "name": "+ Legacy B second half",
-      "receivables_in": 4335,
-      "ending_operating": 6328,
-      "hits_phase2": true,
-      "highlight": false,
-      "detail": "$750 at the halfway milestone, now dated 9/8 on the reset timeline."
-    }
-  ],
-  "active_clients": [
-    {
-      "name": "HALO Pathways",
-      "phase": "Planning",
-      "owner": "Eli",
-      "next_milestone": "Design direction session 9/8 \u00b7 halfway invoice $2,880 on 9/28",
-      "owner_color": "eli"
-    },
-    {
-      "name": "Legacy B. Studio",
-      "phase": "Build",
-      "owner": "Eli",
-      "next_milestone": "4 pages due 9/6 \u00b7 halfway invoice 9/7 ($375 due, $750 outstanding)",
-      "owner_color": "eli"
-    },
-    {
-      "name": "Financial Acuity",
-      "phase": "Blocked",
-      "owner": "Eli",
-      "next_milestone": "GBP 58 days overdue \u00b7 Wix training w/ Maxine Mon 8/31 5:15",
-      "owner_color": "eli"
-    },
-    {
-      "name": "Lois Marketing",
-      "phase": "Closeout",
-      "owner": "Eli",
-      "next_milestone": "Close Out overdue 8/29 \u00b7 7-day termination notice never sent",
-      "owner_color": "eli"
-    }
-  ],
-  "operating_norms_compact": [
-    "WIP limit is 2 items In Progress per owner.",
-    "No silent weeks - every active client gets a touch.",
-    "Every blocker leaves the Monday meeting as a calendar invite with a name and a date, or it is explicitly dropped.",
-    "Anything needing more than 3 minutes of discussion goes to Saturday."
-  ],
-  "what_changed_recent": [
-    "Pipeline fell 71% in one week: $6,997 to $2,000. Flava ($4,497), HALO Retainer ($3,000) and Sipsies ($2,500) all closed lost - all three with a reason recorded.",
-    "HALO Pathways $7,450 closes won 9/1 - largest single collectable in BPP history.",
-    "HALO Pathways engagement fully scheduled through 10/29 with four named acceptance gates.",
-    "Legacy B re-engaged: wireframe built 8/29, design review 9/1, halfway invoice 9/7.",
-    "Client delivery command center shipped to the hub."
-  ]
+  {
+   "name": "+ HALO halfway milestone 9/28",
+   "receivables_in": 3255,
+   "ending_operating": null,
+   "hits_phase2": true,
+   "highlight": true,
+   "detail": "$2,880, earned by MS 2. Gated entirely on MS 1 starting this week."
+  },
+  {
+   "name": "+ Lois final at closeout",
+   "receivables_in": 4605,
+   "ending_operating": null,
+   "hits_phase2": true,
+   "highlight": false,
+   "detail": "~$1,350. Close Out is 16 days overdue and the termination notice still has not been sent."
+  },
+  {
+   "name": "+ Legacy B remaining balance",
+   "receivables_in": 4980,
+   "ending_operating": null,
+   "hits_phase2": true,
+   "highlight": false,
+   "detail": "$375 more at close out, against the $750 total outstanding. HubSpot has to be corrected to $1,500 first."
+  }
+ ],
+ "active_clients": [
+  {
+   "name": "HALO Pathways",
+   "phase": "Planning",
+   "owner": "Eli",
+   "next_milestone": "MS 1 design direction 6 days overdue \u00b7 halfway invoice $2,880 on 9/28",
+   "owner_color": "eli"
+  },
+  {
+   "name": "Legacy B. Studio",
+   "phase": "Build",
+   "owner": "Eli",
+   "next_milestone": "Halfway meeting + $375 invoice 7 days overdue \u00b7 launch booked 9/16-17",
+   "owner_color": "eli"
+  },
+  {
+   "name": "Financial Acuity",
+   "phase": "Closure",
+   "owner": "Daunte",
+   "next_milestone": "GBP 73 days overdue, blocked on Maxine verification video",
+   "owner_color": "daunte"
+  },
+  {
+   "name": "Lois Marketing",
+   "phase": "Closure",
+   "owner": "Eli",
+   "next_milestone": "Close Out 16 days overdue \u00b7 7-day termination notice never sent",
+   "owner_color": "eli"
+  }
+ ],
+ "operating_norms_compact": [
+  "WIP limit is 2 items In Progress per owner.",
+  "No silent weeks - every active client gets a touch.",
+  "Every blocker leaves the Monday meeting as a calendar invite with a name and a date, or it is explicitly dropped.",
+  "Anything needing more than 3 minutes of discussion goes to Saturday."
+ ],
+ "what_changed_recent": [
+  "No brief ran for the week of 2026-09-07. This refresh covers two weeks.",
+  "HALO Pathways closed won 9/1 at $7,450, deposit received - the largest signed contract BPP has had.",
+  "Aurelia Tech closed won 9/9 at $800, resolving the 8/31 deep-dive question, but at 40% of the $2,000 it was carried at.",
+  "Pipeline recovered 295% to $7,899. Josue opened the two newest deals on 9/7, including MG Cleaning at $5,500.",
+  "Sipsies came back as a $1,799 Launch Pad on 9/1 after the $2,500 Custom Package closed lost 8/30.",
+  "Overdue items went from 6 to 15. The nine new ones are all HALO Pathways and Legacy B. Studio.",
+  "Zero commits to bpp-tools in 15 days; nothing shipped on either Monday board in the last 7."
+ ]
 }
