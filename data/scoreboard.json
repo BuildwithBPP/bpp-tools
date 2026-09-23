@@ -778,11 +778,6 @@
     "why": "Deposit timing correction (Kenny, 9/14); HubSpot close date is 9/1"
    },
    {
-    "match": "Aurelia",
-    "o": "Kenny",
-    "why": "Kenny works the relationship; HubSpot owner field says Daunte"
-   },
-   {
     "match": "Flava Meets Fusion",
     "ym": "2026-08",
     "why": "Lost in August; HubSpot has no close date"
@@ -901,25 +896,25 @@
     "pkg": "AI Jumpstart: Workflows",
     "o": "Daunte",
     "val": 1799,
-    "paid": null,
-    "rem": null,
+    "paid": 1799,
+    "rem": 0,
     "phase": "Kickoff done 9/22",
     "wait": "us",
     "status": "In delivery",
-    "next": "Owner to confirm at Sunday meeting",
+    "next": "Send kickoff recap; book Session 1 (target 9/29 or 10/1)",
     "ask": "Lost in May, won back in September. Ask what changed; that is our win-back story"
    },
    {
     "n": "Aurelia Tech",
     "pkg": "Engagement",
-    "o": "Kenny",
+    "o": "Daunte (took over from Kenny 9/22)",
     "val": 800,
     "paid": 400,
     "rem": 400,
     "phase": "Kickoff 9/11",
     "wait": "us",
     "status": "In delivery",
-    "next": "Owner to confirm at Sunday meeting",
+    "next": "Date the audit report and book the next meeting",
     "ask": "Came through a family friend. Thank the person who sent them"
    },
    {
