@@ -940,7 +940,7 @@
     "phase": "Closeout ran 7/31",
     "wait": "client",
     "status": "GBP waiting on client",
-    "next": "Google Business Profile goes live after the owner finishes Google’s video verification",
+    "next": "Google Business Profile goes live after the owner finishes Google\u2019s video verification",
     "blk": "Only the client can do the verification",
     "ask": "Testimonial for the case study"
    },
@@ -962,14 +962,14 @@
    "chain": {
     "v": 10898,
     "share": 44,
-    "path": "Rodney → Carlo Thompson → HALO Commons ($1,649) → HALO Pathways ($7,450) + Felicia → Sipsies ($1,799)"
+    "path": "Rodney \u2192 Carlo Thompson \u2192 HALO Commons ($1,649) \u2192 HALO Pathways ($7,450) + Felicia \u2192 Sipsies ($1,799)"
    },
    "partnersSigned": 0,
    "partnersGoal": 5,
    "bench": 26,
    "intros": null,
-   "introsGoal": "8–10 / month",
-   "reviewsGoal": "2–4 / month",
+   "introsGoal": "8\u201310 / month",
+   "reviewsGoal": "2\u20134 / month",
    "formAlerts": false,
    "mix": [
     [
@@ -1020,6 +1020,118 @@
      "Retanaco Accounting",
      22
     ]
+   ]
+  },
+  "ai": {
+   "dealMatch": [
+    "Jumpstart",
+    "Claude",
+    "Aurelia",
+    "AI Ops",
+    "AI OS"
+   ],
+   "asOf": "2026-09-23",
+   "owns": "AI plugins, MCPs, automations, Hub builds, and the AI Jumpstart offer line (sold + delivered). Lead: Daunte.",
+   "metrics": [
+    {
+     "l": "AI pipeline",
+     "v": "2 intro calls",
+     "s": "Sept (9/16, 9/18). $0 in open AI deals",
+     "c": "warn"
+    },
+    {
+     "l": "Active AI engagements",
+     "v": "2",
+     "s": "Cape to the Bay, Aurelia. Wedelia AI OS shipped 9/1",
+     "c": "info"
+    },
+    {
+     "l": "Offer line",
+     "v": "3 tiers",
+     "s": "Jumpstart $599 / $1,999 / $2,997",
+     "c": "info"
+    },
+    {
+     "l": "Skills library",
+     "v": "77",
+     "s": "+14 new since Jul 1",
+     "c": "good"
+    },
+    {
+     "l": "Hub builds, Q3",
+     "v": "138",
+     "s": "bpp-tools commits (Daunte 73). Private bpp-hq work not counted",
+     "c": "info"
+    }
+   ],
+   "pipeline": [
+    [
+     "Cape to the Bay",
+     "AI Jumpstart: Workflows",
+     "Won 9/20",
+     "$1,799",
+     "Daunte"
+    ],
+    [
+     "Aurelia Tech",
+     "Tech ownership audit",
+     "Won 9/9",
+     "$800",
+     "Daunte"
+    ],
+    [
+     "AI Intro Call",
+     "Intro meeting 9/16",
+     "Outcome not logged",
+     "tbd",
+     "Daunte"
+    ],
+    [
+     "BPP x A Tech",
+     "Intro meeting 9/18",
+     "Outcome not logged",
+     "tbd",
+     "Daunte"
+    ],
+    [
+     "Xtremely Clean",
+     "Claude implementation talk",
+     "Task open since 7/30",
+     "tbd",
+     "Daunte"
+    ]
+   ],
+   "decisions": [
+    [
+     "Claude Partner Network scoping",
+     "No owner",
+     "Parked since 8/17"
+    ],
+    [
+     "AI Ops Care retainer pricing",
+     "Daunte + Kenny",
+     "Open since 5/18"
+    ],
+    [
+     "QuickBooks products for the Jumpstart tiers",
+     "Daunte",
+     "Spec written, not built"
+    ],
+    [
+     "Validate the Hub save Worker end to end",
+     "Daunte",
+     "Open since 5/11"
+    ],
+    [
+     "Lois AI automation milestone",
+     "Daunte",
+     "Last update 7/21; Lois closed 8/20"
+    ]
+   ],
+   "notes": [
+    "<b>Measure this lane on revenue and engagements, not commits.</b> The Monday brief scored AI on bpp-tools commits, so it read red in September while the lane was closing deals. Daunte's newer work lives in the private bpp-hq repo.",
+    "<b>No HubSpot field marks a deal as AI.</b> Add a Service line property (Kenny, as HubSpot owner) so AI revenue counts itself instead of by deal-name matching.",
+    "<b>Pricing drift:</b> bpp-hq lists all three Jumpstart tiers as approved (8/6); the hub's offers registry has only Setup and the package pages still say Workflows and Pilot are proposed. Cape to the Bay signed at $1,799, $200 under list."
    ]
   }
  }
