@@ -787,6 +787,11 @@
     "match": "Flava Meets Fusion",
     "ym": "2026-08",
     "why": "Lost in August; HubSpot has no close date"
+   },
+   {
+    "id": "336708889321",
+    "o": "Kenny",
+    "why": "Kenny closed it 9/9 (Eli, 9/23). HubSpot owner moved to Daunte on 9/22 for delivery"
    }
   ],
   "pipelineNotes": {
@@ -912,7 +917,7 @@
    {
     "n": "Aurelia Tech",
     "pkg": "Engagement",
-    "o": "Daunte (took over from Kenny 9/22)",
+    "o": "Kenny closed it · Daunte delivering (since 9/22)",
     "val": 800,
     "paid": 400,
     "rem": 400,
@@ -1069,7 +1074,7 @@
      "Tech ownership audit",
      "Won 9/9",
      "$800",
-     "Daunte"
+     "Kenny (closed), Daunte (delivery)"
     ],
     [
      "AI Intro Call",
