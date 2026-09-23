@@ -846,8 +846,8 @@
     "dept": "Finance + ops",
     "who": "Daunte",
     "r": "QuickBooks, AR, KPI dashboards, Monday boards",
-    "v": "Unmeasured",
-    "l": "cash on hand (no current figure in 6 weekly briefs)"
+    "v": "$7.9K",
+    "l": "cash on 9/11 (QuickBooks pull, $4.1K spendable). Not refreshed since"
    }
   ],
   "commitments": [],
@@ -858,7 +858,7 @@
    "<b>Emerald</b> has no dollar value and no touch in 13 days.",
    "<b>Legacy B. Studio</b> shows $0 in HubSpot; the real contract is $1,500 cash.",
    "<b>The /referral form</b> (Typeform) notifies nobody. A referral today would sit unseen.",
-   "<b>Financial tab stops at Jul 24.</b> Needs a QuickBooks export (Daunte). Marketing refreshes once Metricool is connected."
+   "<b>Financial tab charts stop at Jul 24.</b> A 9/11 QuickBooks pull exists (cash $7,867) but never reached the hub or the Monday briefs. One current cash number, one owner."
   ],
   "clients": [
    {
