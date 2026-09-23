@@ -129,7 +129,6 @@
   @media (max-width:900px){ .tiles{grid-template-columns:repeat(2,1fr);} .grid2,.grid2.wide-l{grid-template-columns:1fr;} }
 
   /* snapshot tabs (Scoreboard, Clients) are point-in-time: the period slicer + KPI tiles don't apply */
-  body[data-view="snap"] .controls, body[data-view="snap"] #kpis { display:none; }
   .snapnote { font-size:11px; color:var(--muted); margin:10px 0 0; }
   /* Sunday agenda strip */
   .agenda { display:flex; gap:8px; flex-wrap:wrap; margin:16px 0 4px; }
@@ -250,7 +249,7 @@
   <div class="tiles" id="kpis"></div>
 
   <div class="tabbar" id="tabbar">
-    <button data-tab="score" class="on">Q4 Scoreboard</button>
+    <button data-tab="score" class="on">Scorecard</button>
     <button data-tab="sales">Sales</button>
     <button data-tab="clients">Clients</button>
     <button data-tab="ai">AI &amp; Tech</button>
@@ -263,12 +262,12 @@
   <!-- Q4 SCOREBOARD (point-in-time, opens every Sunday meeting) -->
   <div class="panel on" id="tab-score">
     <div class="agenda" aria-label="Sunday meeting order">
-      <div class="ag"><b>1 &middot; Scoreboard</b>On pace? <span>5 min</span></div>
+      <div class="ag"><b>1 &middot; Scorecard</b>On pace? <span>5 min</span></div>
       <div class="ag"><b>2 &middot; Sales</b>Every open deal has a next step <span>10 min</span></div>
       <div class="ag"><b>3 &middot; Clients</b>Blockers + the ask <span>5 min</span></div>
       <div class="ag"><b>4 &middot; Commit</b>Three things for the week <span>10 min</span></div>
     </div>
-    <div class="shead"><span class="n">1</span><span class="t">Q4 Scoreboard</span><span class="s" id="s-score">&mdash;</span></div>
+    <div class="shead"><span class="n">1</span><span class="t">Scorecard</span><span class="s" id="s-score">&mdash;</span></div>
     <div class="hero" id="sc-hero"></div>
     <div class="card mt12">
       <div class="card-t">This week&rsquo;s activity</div>
@@ -290,7 +289,7 @@
   <!-- CLIENTS (point-in-time) -->
   <div class="panel" id="tab-clients">
     <div class="shead"><span class="n">3</span><span class="t">Clients</span><span class="s" id="s-clients">&mdash;</span></div>
-    <div class="card-s" style="margin:0 0 12px">Active delivery plus anything closed in the last 90 days. The top stripe shows who the next step waits on: <span class="st info">us</span> <span class="st wait">client</span> <span class="st ok">closed</span>. Every client ends with an ask, because referrals are where 2026 revenue came from.</div>
+    <div class="card-s" style="margin:0 0 12px">Live status today (the period picker doesn't change this tab). Active delivery plus anything closed in the last 90 days. The top stripe shows who the next step waits on: <span class="st info">us</span> <span class="st wait">client</span> <span class="st ok">closed</span>. Every client ends with an ask, because referrals are where 2026 revenue came from.</div>
     <div class="clients" id="cl-grid"></div>
   </div>
 
@@ -668,7 +667,7 @@ function render(){
   $('ct-lost').innerHTML='Selected period &middot; '+lost.length+' deals';
   $('ch-wonlist').innerHTML=maskMoney(dealList(won,true));
   $('ch-lostlist').innerHTML=maskMoney(dealList(lost,false));
-  if(LIVE) $('ch-pipeline').innerHTML=maskMoney(pipelineTable());
+  if(LIVE){ $('ch-pipeline').innerHTML=maskMoney(pipelineTable()); renderScore(); renderAI(); }
   // reels
   const rl={n:0,v:0,r:0,s:0,sh:0,wt:[]};
   months.forEach(m=>{ const r=g(m).reels; if(r&&r.n){ rl.n+=r.n; rl.v+=r.v; rl.r+=r.r; rl.s+=r.s; rl.sh+=r.sh; rl.wt.push(r.wt);} });
@@ -806,9 +805,9 @@ function buildControls(){
   const yearMonths=isAll?[]:MONTHS.filter(m=>m.startsWith(state.year));
   $('monthSel').disabled=isAll;
   $('monthSel').innerHTML='<option value="">'+(isAll?'— all-time —':'— pick month —')+'</option>'+yearMonths.map(m=>'<option value="'+m.slice(5)+'"'+(state.period==='MONTH'&&state.month===m.slice(5)?' selected':'')+'>'+MN[+m.slice(5)-1]+' '+state.year+'</option>').join('');
-  $('yearSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{ state.year=b.dataset.y; if(state.year==='All'||state.period==='MONTH'){state.period='FY';state.month=null;} buildControls(); render(); });
-  $('periodSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{ if(isAll) return; state.period=b.dataset.p; state.month=null; setSeg(); render(); $('monthSel').value=''; });
-  $('monthSel').onchange=e=>{ if(e.target.value){ state.period='MONTH'; state.month=e.target.value; setSeg(); render(); } };
+  $('yearSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{ state.__touched=true; state.year=b.dataset.y; if(state.year==='All'||state.period==='MONTH'){state.period='FY';state.month=null;} buildControls(); render(); });
+  $('periodSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{ if(isAll) return; state.__touched=true; state.period=b.dataset.p; state.month=null; setSeg(); render(); $('monthSel').value=''; });
+  $('monthSel').onchange=e=>{ if(e.target.value){ state.__touched=true; state.period='MONTH'; state.month=e.target.value; setSeg(); render(); } };
 }
 function setSeg(){
   $('periodSeg').querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.dataset.p===state.period));
@@ -837,7 +836,7 @@ const NARRATIVE={
    +'<div class="note red mt12"><div class="nt">5 things to fix in Q3</div><div class="nb"><b>1.</b> Collect the $2,340 (Rodney finishes HALO plan; scope Lois AI). <b>2.</b> Prevent the next double-count &mdash; quarterly HubSpot deal snapshot into DA-004. <b>3.</b> Fix the follow-up leak (repair sequence tracking; weekly follow-up task). <b>4.</b> Close carried Q1 items or kill them (QB recat, Engagement Type backfill, resource page, Clockify). <b>5.</b> Small leaks: cancel Gamma, delete the "test" deal, match $444 Unapplied Cash, Rodney W-9.</div></div>'
    +'<div class="note gold mt12"><div class="nt">Where we are &rarr; where we\'re going</div><div class="nb">Two straight quarters missing $15K (48%, then 39%), same monthly shape. But the quarter was profitable, expenses fell, cash improved ($7,687 on Jul 14), and Phase 2 comp unlocked. The constraint is revenue, not cost. Fastest money is the $2,340 already earned; pipeline is $11,497 with three proposals out (HALO Retainer is the first recurring-revenue test). Set 2 revenue-gated OKRs for Q3, scored monthly.</div></div>'
  },
- '2026-Q3':{fin:"<b>Profit went into receivables, not the bank.</b> Cash revenue: Jul $2,640, Aug $3,550 (best month of 2026), Sep 1-11 $400 (QuickBooks pull 9/11). Accrual net income Jun-Sep was $4,095 but bank cash moved about $50. On 9/11: $7,867 cash ($4,094 spendable, $3,643 reserve) and $5,761 AR, 91% of it HALO. Software is 51% of operating expenses; partner pay rose to 43.5% of revenue in Jul-Aug. The written comp plan ($50 per partner per deal) no longer matches the 15% commission paid in practice. <b>The charts on this tab still stop at Jul 24</b>; the 9/11 figures above are from the QuickBooks report, not yet loaded here.",sales:"<b>Best signed quarter of 2026: $11,848</b> (Q1 $9,050, Q2 $7,098), with HALO Pathways 63% of it. Seven deals lost for about $16.9K; silence (11) and budget (9) lead the year. The pipeline never refilled: $18.9K on 8/16, about $5K on 9/23. One referral chain produced 44% of 2026 signed; events signed $0. Cape to the Bay proved a lost deal can come back. CRM integrity slipped: Legacy B at $0, Lois's amount changed from $4,500 to $1,350, lead source blank on 41 of 42 deals.",mkt:"<b>Social has been dark since 5/30</b> and Metricool data ends 7/24, so there are no Q3 content numbers. The marketing contractor left 7/8; the 7/29 plan (pause, rebuild, strategy in August) produced no strategy. Nine lead magnets are built and none capture a lead; three case studies are drafted and none cleared for public use. Newsletter and social first drafts are underway as of 9/23.",web:"Shipped: the client survey at /survey and the Marketing SOP. Leaks: the /referral form notifies nobody, /resources cards still read Coming Soon, no case studies on the site, and the Google profile has the wrong category, phone, and domain. Q2 was the last measured period (932 page views).",review:"<div class=\"note gold\" style=\"margin-top:0\"><div class=\"nt\">Draft for the Q3 team review</div><div class=\"nb\">Compiled 9/23 from HubSpot, the 9/11 QuickBooks pull, eight Monday briefs and the Q3 meeting notes. Q3 closes 9/30, so the sales numbers can still move. <b>No formal Q3 goals were recorded</b> after the Q2 review, so the scorecard grades what the team committed to in the July meetings instead.</div></div><div class=\"rev-grid mt12\"><div class=\"card\"><div class=\"card-t\">Q3 scorecard</div><div class=\"card-s\">Commitments from the July meetings &middot; 1 hit, 3 partial, 5 miss</div><div class=\"okr-row\"><span><b>Sign $15K in Q3</b>: $11,848 (79%). Best quarter of 2026, but a miss</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"okr-row\"><span><b>Collect the ~$2,340 earned in Q2</b>: Financial Acuity + HALO Commons finals in by 8/2; Lois final still unconfirmed</span><span class=\"chip warn\"><span class=\"cd\"></span>Partial</span></div><div class=\"okr-row\"><span><b>Reprice + productize</b>: Operator to $5,500, AI Jumpstart $599 / $1,999 / $2,997 ratified, first Jumpstart sold 9/20</span><span class=\"chip good\"><span class=\"cd\"></span>Hit</span></div><div class=\"okr-row\"><span><b>Stand up a commission sales rep</b>: onboarded 7/23, two cleaning deals open by 9/7; comp plan still a draft</span><span class=\"chip warn\"><span class=\"cd\"></span>Partial</span></div><div class=\"okr-row\"><span><b>Fix the follow-up leak</b>: 139 overdue HubSpot tasks, silence still the #1 loss reason</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"okr-row\"><span><b>Replace sprints with weekly money moves</b>: no tracking surface picked; decision log empty since 6/22</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"okr-row\"><span><b>Marketing: pause, rebuild, strategy in August</b>: no strategy delivered; social dark since 5/30</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"okr-row\"><span><b>Meeting cadence</b> (Mon standup + Wed deep dive): 8 briefs in 12 Mondays</span><span class=\"chip warn\"><span class=\"cd\"></span>Partial</span></div><div class=\"okr-row\"><span><b>Q2 small fixes</b> (deal snapshot, $444 unapplied cash, lead source)</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"cap mt12\">Same pattern as Q2: offers and tools ship, the follow-through on revenue systems does not. Capacity is the reason, not effort: the team put combined owner time at about 10 hours a week in July.</div></div><div class=\"card\"><div class=\"card-t\">Client delivery</div><div class=\"card-s\">Status as of 9/23</div><table class=\"dl tnum\" style=\"margin-top:4px\"><tbody><tr><td><b>HALO Pathways</b><span class=\"h\">$7,450 site. Paused by client 9/16; halfway review 9/28</span></td><td class=\"r\"><span class=\"pill2 qual\">$5,250 open</span></td></tr><tr><td><b>Legacy B. Studio</b><span class=\"h\">Built; domain blocked (Wix + old Workspace)</span></td><td class=\"r\"><span class=\"pill2 qual\">$375 at closeout</span></td></tr><tr><td><b>Sipsies Lemonade</b><span class=\"h\">Signed 9/14; waiting on intake</span></td><td class=\"r\"><span class=\"pill2 prop\">$1,199 open</span></td></tr><tr><td><b>Cape to the Bay</b><span class=\"h\">AI Jumpstart signed 9/20; in delivery</span></td><td class=\"r\"><span class=\"pill2 prop\">payment not tracked</span></td></tr><tr><td><b>Aurelia Tech</b><span class=\"h\">Signed 9/9; in delivery</span></td><td class=\"r\"><span class=\"pill2 prop\">~$400 open</span></td></tr><tr><td><b>Financial Acuity</b><span class=\"h\">Closed out 7/31; GBP waiting on client</span></td><td class=\"r\"><span class=\"pill2 won\">Paid</span></td></tr><tr><td><b>HALO Commons</b><span class=\"h\">Closed out in July</span></td><td class=\"r\"><span class=\"pill2 won\">Paid</span></td></tr><tr><td><b>Lois Marketing</b><span class=\"h\">Closed 8/20</span></td><td class=\"r\"><span class=\"pill2 qual\">Final $1,350 unconfirmed</span></td></tr></tbody></table><div class=\"cap mt12\"><b>Targets:</b> the 7/29 re-base set 2026 at $26K base / $40K team / $60K upside. Signed so far: $24,846 (96% of base, 62% of team). <b>AI &amp; Tech:</b> first Jumpstart sold, performance dashboard + financial position + delivery tracker + mobile hub shipped, BPP HQ proof of concept merged.</div></div></div><div class=\"note red mt12\"><div class=\"nt\">5 things to fix in Q4</div><div class=\"nb\"><b>1. One current cash number on the hub</b>, with an owner and a date. The 9/11 QuickBooks pull never reached the briefs; Q3 estimated taxes are unconfirmed. <b>2. Collect the ~$7.5K already earned</b>: HALO $5,250 (sign-off or a new date in writing), Sipsies $1,199, Legacy B $375, confirm Lois. Deposits at signing. <b>3. Close the follow-up leak</b>, now three quarters running: pre-call gate, live proposals, day 3 / 7 / 14 cadence, clear the 139 overdue tasks. <b>4. Instrument HubSpot</b>: required lead source, /referral routed into HubSpot with alerts, a Service line field, fix the Legacy B and Lois records. <b>5. Make decisions stick</b>: one owner for the decision log; settle marketing fund-or-park in writing first.</div></div><div class=\"note gold mt12\"><div class=\"nt\">Where we are &rarr; where we're going</div><div class=\"nb\">Q3 was the best signed quarter of 2026 at $11,848, and August the best cash month ($3,550). Offers were repriced, the first AI Jumpstart sold, and the hub matured. But the pipeline fell from $18.9K (8/16) to about $5K, the profit is sitting in receivables (HALO is 91% of them) while bank cash barely moved from June to September, and marketing has been dark 13 weeks. With about 10 owner hours a week, Q4 can't run on more process. Two revenue-gated goals, scored weekly on the Q4 Scoreboard: <b>collect what's earned</b>, and <b>sign $15K from warm referrals and Operator-tier work</b>.</div></div>"}
+ '2026-Q3':{fin:"<b>Profit went into receivables, not the bank.</b> Cash revenue: Jul $2,640, Aug $3,550 (best month of 2026), Sep 1-11 $400 (QuickBooks pull 9/11). Accrual net income Jun-Sep was $4,095 but bank cash moved about $50. On 9/11: $7,867 cash ($4,094 spendable, $3,643 reserve) and $5,761 AR, 91% of it HALO. Software is 51% of operating expenses; partner pay rose to 43.5% of revenue in Jul-Aug. The written comp plan ($50 per partner per deal) no longer matches the 15% commission paid in practice. <b>The charts on this tab still stop at Jul 24</b>; the 9/11 figures above are from the QuickBooks report, not yet loaded here.",sales:"<b>Best signed quarter of 2026: $11,848</b> (Q1 $9,050, Q2 $7,098), with HALO Pathways 63% of it. Seven deals lost for about $16.9K; silence (11) and budget (9) lead the year. The pipeline never refilled: $18.9K on 8/16, about $5K on 9/23. One referral chain produced 44% of 2026 signed; events signed $0. Cape to the Bay proved a lost deal can come back. CRM integrity slipped: Legacy B at $0, Lois's amount changed from $4,500 to $1,350, lead source blank on 41 of 42 deals.",mkt:"<b>Social has been dark since 5/30</b> and Metricool data ends 7/24, so there are no Q3 content numbers. The marketing contractor left 7/8; the 7/29 plan (pause, rebuild, strategy in August) produced no strategy. Nine lead magnets are built and none capture a lead; three case studies are drafted and none cleared for public use. Newsletter and social first drafts are underway as of 9/23.",web:"Shipped: the client survey at /survey and the Marketing SOP. Leaks: the /referral form notifies nobody, /resources cards still read Coming Soon, no case studies on the site, and the Google profile has the wrong category, phone, and domain. Q2 was the last measured period (932 page views).",review:"<div class=\"note gold\" style=\"margin-top:0\"><div class=\"nt\">Draft for the Q3 team review</div><div class=\"nb\">Compiled 9/23 from HubSpot, the 9/11 QuickBooks pull, eight Monday briefs and the Q3 meeting notes. Q3 closes 9/30, so the sales numbers can still move. <b>No formal Q3 goals were recorded</b> after the Q2 review, so the scorecard grades what the team committed to in the July meetings instead.</div></div><div class=\"rev-grid mt12\"><div class=\"card\"><div class=\"card-t\">Q3 scorecard</div><div class=\"card-s\">Commitments from the July meetings &middot; 1 hit, 3 partial, 5 miss</div><div class=\"okr-row\"><span><b>Sign $15K in Q3</b>: $11,848 (79%). Best quarter of 2026, but a miss</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"okr-row\"><span><b>Collect the ~$2,340 earned in Q2</b>: Financial Acuity + HALO Commons finals in by 8/2; Lois final still unconfirmed</span><span class=\"chip warn\"><span class=\"cd\"></span>Partial</span></div><div class=\"okr-row\"><span><b>Reprice + productize</b>: Operator to $5,500, AI Jumpstart $599 / $1,999 / $2,997 ratified, first Jumpstart sold 9/20</span><span class=\"chip good\"><span class=\"cd\"></span>Hit</span></div><div class=\"okr-row\"><span><b>Stand up a commission sales rep</b>: onboarded 7/23, two cleaning deals open by 9/7; comp plan still a draft</span><span class=\"chip warn\"><span class=\"cd\"></span>Partial</span></div><div class=\"okr-row\"><span><b>Fix the follow-up leak</b>: 139 overdue HubSpot tasks, silence still the #1 loss reason</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"okr-row\"><span><b>Replace sprints with weekly money moves</b>: no tracking surface picked; decision log empty since 6/22</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"okr-row\"><span><b>Marketing: pause, rebuild, strategy in August</b>: no strategy delivered; social dark since 5/30</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"okr-row\"><span><b>Meeting cadence</b> (Mon standup + Wed deep dive): 8 briefs in 12 Mondays</span><span class=\"chip warn\"><span class=\"cd\"></span>Partial</span></div><div class=\"okr-row\"><span><b>Q2 small fixes</b> (deal snapshot, $444 unapplied cash, lead source)</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"cap mt12\">Same pattern as Q2: offers and tools ship, the follow-through on revenue systems does not. Capacity is the reason, not effort: the team put combined owner time at about 10 hours a week in July.</div></div><div class=\"card\"><div class=\"card-t\">Client delivery</div><div class=\"card-s\">Status as of 9/23</div><table class=\"dl tnum\" style=\"margin-top:4px\"><tbody><tr><td><b>HALO Pathways</b><span class=\"h\">$7,450 site. Paused by client 9/16; halfway review 9/28</span></td><td class=\"r\"><span class=\"pill2 qual\">$5,250 open</span></td></tr><tr><td><b>Legacy B. Studio</b><span class=\"h\">Built; domain blocked (Wix + old Workspace)</span></td><td class=\"r\"><span class=\"pill2 qual\">$375 at closeout</span></td></tr><tr><td><b>Sipsies Lemonade</b><span class=\"h\">Signed 9/14; waiting on intake</span></td><td class=\"r\"><span class=\"pill2 prop\">$1,199 open</span></td></tr><tr><td><b>Cape to the Bay</b><span class=\"h\">AI Jumpstart signed 9/20; in delivery</span></td><td class=\"r\"><span class=\"pill2 prop\">payment not tracked</span></td></tr><tr><td><b>Aurelia Tech</b><span class=\"h\">Signed 9/9; in delivery</span></td><td class=\"r\"><span class=\"pill2 prop\">~$400 open</span></td></tr><tr><td><b>Financial Acuity</b><span class=\"h\">Closed out 7/31; GBP waiting on client</span></td><td class=\"r\"><span class=\"pill2 won\">Paid</span></td></tr><tr><td><b>HALO Commons</b><span class=\"h\">Closed out in July</span></td><td class=\"r\"><span class=\"pill2 won\">Paid</span></td></tr><tr><td><b>Lois Marketing</b><span class=\"h\">Closed 8/20</span></td><td class=\"r\"><span class=\"pill2 qual\">Final $1,350 unconfirmed</span></td></tr></tbody></table><div class=\"cap mt12\"><b>Targets:</b> the 7/29 re-base set 2026 at $26K base / $40K team / $60K upside. Signed so far: $24,846 (96% of base, 62% of team). <b>AI &amp; Tech:</b> first Jumpstart sold, performance dashboard + financial position + delivery tracker + mobile hub shipped, BPP HQ proof of concept merged.</div></div></div><div class=\"note red mt12\"><div class=\"nt\">5 things to fix in Q4</div><div class=\"nb\"><b>1. One current cash number on the hub</b>, with an owner and a date. The 9/11 QuickBooks pull never reached the briefs; Q3 estimated taxes are unconfirmed. <b>2. Collect the ~$7.5K already earned</b>: HALO $5,250 (sign-off or a new date in writing), Sipsies $1,199, Legacy B $375, confirm Lois. Deposits at signing. <b>3. Close the follow-up leak</b>, now three quarters running: pre-call gate, live proposals, day 3 / 7 / 14 cadence, clear the 139 overdue tasks. <b>4. Instrument HubSpot</b>: required lead source, /referral routed into HubSpot with alerts, a Service line field, fix the Legacy B and Lois records. <b>5. Make decisions stick</b>: one owner for the decision log; settle marketing fund-or-park in writing first.</div></div><div class=\"note gold mt12\"><div class=\"nt\">Where we are &rarr; where we're going</div><div class=\"nb\">Q3 was the best signed quarter of 2026 at $11,848, and August the best cash month ($3,550). Offers were repriced, the first AI Jumpstart sold, and the hub matured. But the pipeline fell from $18.9K (8/16) to about $5K, the profit is sitting in receivables (HALO is 91% of them) while bank cash barely moved from June to September, and marketing has been dark 13 weeks. With about 10 owner hours a week, Q4 can't run on more process. Two revenue-gated goals, scored weekly on the Scorecard: <b>collect what's earned</b>, and <b>sign $15K from warm referrals and Operator-tier work</b>.</div></div>"}
 };
 // ---------- LIVE: point-in-time data, loaded from data/scoreboard.json ----------
 // auto   = rewritten by the weekly HubSpot routine (Sun + Wed 6am ET). Never hand-edit.
@@ -851,9 +850,9 @@ function applyOverrides(deals, ovs){
     return x; }).filter(d=>d.ym);
 }
 // HubSpot deals drive the Sales history (won/lost by month). QuickBooks + Metricool fields are untouched.
-function applyDealsToHistory(deals){
+function applyDealsToHistory(deals, asOf){
   DATA.deals=deals.map(d=>({ym:d.ym,n:d.n,a:d.a,o:d.o,w:d.w}));
-  const first='2025-06', last=deals.reduce((m,d)=>d.ym>m?d.ym:m, MONTHS[MONTHS.length-1]);
+  const first='2025-06', last=deals.reduce((m,d)=>d.ym>m?d.ym:m, [MONTHS[MONTHS.length-1], (asOf||'').slice(0,7)].sort().pop());
   let [y,m]=first.split('-').map(Number);
   while(true){ const k=y+'-'+String(m).padStart(2,'0'); if(k>last) break;
     if(!D[k]){ D[k]=blankMonth(); MONTHS.push(k); }
@@ -867,7 +866,7 @@ function quarterOf(s){ const q=Math.floor((+s.slice(5,7)-1)/3); const y=s.slice(
 function deriveLive(j){
   const A=j.auto, M=j.manual;
   const deals=applyOverrides(A.deals||[], M.dealOverrides);
-  applyDealsToHistory(deals);
+  applyDealsToHistory(deals, A.asOf);
   const T=M.target, asOf=A.asOf;
   const won=deals.filter(d=>d.w===1), lost=deals.filter(d=>d.w===0);
   const q4Won=won.filter(d=>d.close>=T.start && d.close<=T.end);
@@ -904,36 +903,56 @@ function mdy(s){ if(!s) return '&mdash;'; const d=dparse(s); return MN[d.getMont
 function wonIn(months){ return months.reduce((t,m)=>t+(D[m]?D[m].wonV:0),0); }
 function winRate2026(){ const yr=LIVE.asOf.slice(0,4); const r=DATA.deals.filter(x=>x.ym.startsWith(yr)); const w=r.filter(x=>x.w===1).length; return {w, n:r.length, rate:r.length?w/r.length:0}; }
 
-function renderScore(){
+function pad2(n){ return String(n).padStart(2,'0'); }
+// The calendar range the period picker points at (full quarter/year even before its months have data).
+function scopeRange(){
   const T=LIVE.target, asOf=LIVE.asOf;
-  const q4=LIVE.q4Won.reduce((t,x)=>t+x.a,0);
-  const weeks=Math.ceil((daysBetween(T.start,T.end)+1)/7), perWk=T.goal/weeks;
-  const started=daysBetween(T.start,asOf)>=0, wkIn=started?Math.min(weeks,Math.floor(daysBetween(T.start,asOf)/7)+1):0;
-  const paceNow=started?Math.round(perWk*wkIn):0;
-  const q3=wonIn(['2026-07','2026-08','2026-09']);
-  const yr=wonIn(MONTHS.filter(m=>m.startsWith('2026')))+q4;
+  if(state.year==='All') return {start:'2025-01-01', end:asOf, label:'All time', goal:null};
+  let m0,m1; if(state.period==='FY'){m0=1;m1=12;} else if(state.period==='MONTH'){m0=m1=+state.month;} else {const q=+state.period.slice(1); m0=q*3-2; m1=q*3;}
+  const y=+state.year, start=y+'-'+pad2(m0)+'-01', end=y+'-'+pad2(m1)+'-'+pad2(new Date(y,m1,0).getDate());
+  const label=state.period==='FY'?('Full year '+y):state.period==='MONTH'?(MN[m0-1]+' '+y):(state.period+' '+y);
+  const goal=state.period==='FY'?T.yearGoal:state.period==='MONTH'?Math.round(T.goal/3):T.goal;
+  return {start,end,label,goal};
+}
+function signedBetween(start,end,filter){ const a=start.slice(0,7), b=end.slice(0,7); return LIVE.won.filter(d=>d.ym>=a&&d.ym<=b&&(!filter||filter(d))); }
+function isAIDeal(d){ const M=((LIVE.ai&&LIVE.ai.dealMatch)||['Jumpstart','Claude']).map(x=>x.toLowerCase()); return M.some(k=>d.n.toLowerCase().includes(k)); }
+function renderScore(){
+  const T=LIVE.target, asOf=LIVE.asOf, R=scopeRange();
+  const signedDeals=signedBetween(R.start,R.end), signed=signedDeals.reduce((t,d)=>t+d.a,0);
+  const days=daysBetween(R.start,R.end)+1, weeks=Math.max(1,Math.round(days/7));
+  const inRange=asOf>=R.start&&asOf<=R.end, before=asOf<R.start;
+  const pace=R.goal&&inRange?Math.round(R.goal*(daysBetween(R.start,asOf)+1)/days):0;
+  const pr=priorScope(state.year,state.period,state.month);
+  const prSigned=pr?scopeMonths(pr.year,pr.period,pr.month).reduce((t,m)=>t+(D[m]?D[m].wonV:0),0):null;
   const wr=winRate2026();
   const open=LIVE.pipeline.filter(p=>!p.flag).reduce((t,p)=>t+p.a,0);
   const need=T.goal/(wr.rate||0.35), cov=open/T.goal;
-  const pct=Math.min(100,q4/T.goal*100), markPct=Math.min(100,paceNow/T.goal*100);
-  const toStart=daysBetween(asOf,T.start);
-  $('s-score').innerHTML='Live snapshot &middot; HubSpot pulled '+mdy(asOf);
-  const heroQ='<div class="card"><div class="card-t">'+T.label+' signed</div><div class="card-s">Target '+usdFull(T.goal)+' &middot; '+T.basis+'</div>'
-   +'<div class="big tnum">'+usdFull(q4)+' <small>of '+usdFull(T.goal)+'</small></div>'
-   +'<div class="prog"><div class="fill" style="width:'+pct.toFixed(1)+'%"></div>'+(started?'<div class="mark" style="left:'+markPct.toFixed(1)+'%" data-l="pace '+usd(paceNow)+'"></div>':'')+'</div>'
-   +'<div class="progcap"><span>'+(started?('Week '+wkIn+' of '+weeks):('Starts Oct 1, in '+toStart+' day'+(toStart===1?'':'s')))+'</span><span>'+usdFull(Math.round(perWk))+' a week keeps pace</span></div>'
-   +'<div class="sub">Q3 closes Sep 30 at <b>'+usdFull(q3)+'</b> of $15,000 ('+Math.round(q3/15000*100)+'%).</div></div>';
-  const heroP='<div class="card"><div class="card-t">Pipeline coverage</div><div class="card-s">Open deal value against the Q4 target</div>'
+  const yr=state.year==='All'?asOf.slice(0,4):state.year;
+  const yrSigned=LIVE.won.filter(d=>d.ym.startsWith(yr)).reduce((t,d)=>t+d.a,0);
+  $('s-score').innerHTML=R.label+' &middot; HubSpot pulled '+mdy(asOf);
+  let status;
+  if(!R.goal) status='<span>'+signedDeals.length+' deals signed</span><span></span>';
+  else if(before) status='<span>Starts '+mdy(R.start)+', in '+daysBetween(asOf,R.start)+' days</span><span>'+usdFull(Math.round(R.goal/weeks))+' a week keeps pace</span>';
+  else if(inRange) status='<span>Day '+(daysBetween(R.start,asOf)+1)+' of '+days+' &middot; pace today '+usdFull(pace)+'</span><span>'+usdFull(Math.round(R.goal/weeks))+' a week keeps pace</span>';
+  else status='<span>Closed at '+Math.round(signed/R.goal*100)+'% of target</span><span>'+signedDeals.length+' deals signed</span>';
+  const heroQ='<div class="card"><div class="card-t">Signed, '+R.label+'</div><div class="card-s">'+(R.goal?'Target '+usdFull(R.goal)+' &middot; ':'')+T.basis+'</div>'
+   +'<div class="big tnum">'+usdFull(signed)+(R.goal?' <small>of '+usdFull(R.goal)+'</small>':'')+'</div>'
+   +(R.goal?'<div class="prog"><div class="fill" style="width:'+Math.min(100,signed/R.goal*100).toFixed(1)+'%"></div>'+(inRange?'<div class="mark" style="left:'+Math.min(100,pace/R.goal*100).toFixed(1)+'%" data-l="pace"></div>':'')+'</div>':'<div style="height:14px"></div>')
+   +'<div class="progcap">'+status+'</div>'
+   +(pr&&prSigned!==null?'<div class="sub">'+pr.label+': <b>'+usdFull(prSigned)+'</b> signed.</div>':'')+'</div>';
+  const heroP='<div class="card"><div class="card-t">Pipeline coverage, today</div><div class="card-s">Open deal value against the '+usdFull(T.goal)+' quarterly target &middot; live, not affected by the period picker</div>'
    +'<div class="big tnum">'+cov.toFixed(1)+'x <small>'+usd(open)+' open</small></div>'
-   +'<div class="sub">At our 2026 win rate (<b>'+Math.round(wr.rate*100)+'%</b>, '+wr.w+' of '+wr.n+' decided deals), '+usd(T.goal)+' signed needs about <b>'+usd(Math.round(need/1000)*1000)+'</b> in proposals. <b>The gap is new pipeline.</b></div>'
+   +'<div class="sub">At our '+asOf.slice(0,4)+' win rate (<b>'+Math.round(wr.rate*100)+'%</b>, '+wr.w+' of '+wr.n+' decided deals), '+usd(T.goal)+' signed needs about <b>'+usd(Math.round(need/1000)*1000)+'</b> in proposals.</div>'
    +'<div style="margin-top:10px"><span class="chip '+(cov>=2.5?'good':cov>=1?'warn':'bad')+'"><span class="cd"></span>'+(cov>=2.5?'covered':cov>=1?'thin':'short')+'</span></div></div>';
-  const heroY='<div class="card"><div class="card-t">2026 so far</div><div class="card-s">Signed value, Jan 1 to today</div>'
-   +'<div class="big tnum">'+usdFull(yr)+' <small>of '+usd(T.yearGoal)+'</small></div>'
-   +'<div class="prog"><div class="fill" style="width:'+Math.min(100,yr/T.yearGoal*100).toFixed(1)+'%;background:linear-gradient(90deg,var(--gold-dark),var(--gold))"></div></div>'
-   +'<div class="sub">'+Math.round(yr/T.yearGoal*100)+'% of the original $60K goal. A $15K Q4 lands the year near <b>'+usd(yr-q4+T.goal)+'</b>.</div></div>';
+  const heroY='<div class="card"><div class="card-t">'+yr+' so far</div><div class="card-s">Signed value for the year</div>'
+   +'<div class="big tnum">'+usdFull(yrSigned)+' <small>of '+usd(T.yearGoal)+'</small></div>'
+   +'<div class="prog"><div class="fill" style="width:'+Math.min(100,yrSigned/T.yearGoal*100).toFixed(1)+'%;background:linear-gradient(90deg,var(--gold-dark),var(--gold))"></div></div>'
+   +'<div class="sub">'+Math.round(yrSigned/T.yearGoal*100)+'% of the '+usd(T.yearGoal)+' year goal.</div></div>';
+  const ai=signedBetween(R.start,R.end,isAIDeal).reduce((t,d)=>t+d.a,0);
+  LIVE.calc.aiSignedQ=usd(ai); LIVE.calcLabel.aiSignedQ='AI + tech signed, '+R.label;
   $('sc-hero').innerHTML=maskMoney(heroQ+heroP+heroY);
   // activity
-  $('sc-act-s').innerHTML='Last 7 days, '+mdy(LIVE.week.from)+' to '+mdy(LIVE.week.to)+' &middot; <span class="src auto">auto</span> comes from HubSpot, <span class="src man">manual</span> is filled in at the meeting. Targets are proposed.';
+  $('sc-act-s').innerHTML='Live: last 7 days, not affected by the period picker. '+mdy(LIVE.week.from)+' to '+mdy(LIVE.week.to)+' &middot; <span class="src auto">auto</span> comes from HubSpot, <span class="src man">manual</span> is filled in at the meeting. Targets are proposed.';
   let a='<table class="act tnum" data-mobile="off"><thead><tr><th>Measure</th><th class="r">Target / wk</th><th class="r">Actual</th><th>Status</th><th>Detail</th></tr></thead><tbody>';
   LIVE.activity.forEach(x=>{
     let st;
@@ -1023,7 +1042,8 @@ function renderAI(){
   $('s-ai').innerHTML='Lead: Daunte &middot; snapshot '+mdy(A.asOf);
   $('ai-owns').innerHTML=A.owns+(A.editNote?' <b>'+A.editNote+'</b>':'');
   $('ct-ai').innerHTML='Signed value is counted from HubSpot deals; the other five are updated by hand until HubSpot can tag AI work';
-  const signed=mini('AI + tech signed, '+LIVE.q.label, usdFull(LIVE.aiSigned), LIVE.aiDeals.length+' deal'+(LIVE.aiDeals.length===1?'':'s')+' (HubSpot)', LIVE.aiSigned>0?'good':'warn');
+  const R=scopeRange(), aiD=signedBetween(R.start,R.end,isAIDeal), aiV=aiD.reduce((t,d)=>t+d.a,0);
+  const signed=mini('AI + tech signed, '+R.label, usdFull(aiV), aiD.length+' deal'+(aiD.length===1?'':'s')+' (HubSpot, follows the period picker)', aiV>0?'good':'warn');
   $('ch-ai').innerHTML=maskMoney('<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px" class="aigrid">'+signed+A.metrics.map(m=>mini(m.l,m.v,m.s,m.c)).join('')+'</div>');
   let t='<table class="dl"><thead><tr><th>Account</th><th>What</th><th>Status</th><th class="r">Value</th></tr></thead><tbody>';
   A.pipeline.forEach(r=>{ t+='<tr><td><b>'+r[0]+'</b><span class="h">'+r[4]+'</span></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td class="r">'+r[3]+'</td></tr>'; });
@@ -1040,7 +1060,7 @@ function renderLive(){
 }
 // ---------- tabs ----------
 // Scoreboard + Clients are point-in-time: hide the period slicer and KPI tiles there. The tab is kept in the URL hash (#score, #sales, ...).
-const SNAP=['score','clients','ai'];
+const SNAP=[];
 function showTab(key){
   if(!document.getElementById('tab-'+key)) key='score';
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on', p.id==='tab-'+key));
@@ -1069,7 +1089,9 @@ document.addEventListener('mousemove', e=>{
 });
 buildControls(); render(); showTab(location.hash.slice(1)||'score');
 fetch('../data/scoreboard.json?v='+Date.now()).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-  .then(j=>{ LIVE=deriveLive(j); buildControls(); render(); renderLive(); })
+  .then(j=>{ LIVE=deriveLive(j);
+    if(!state.__touched){ const a=LIVE.asOf; state.year=a.slice(0,4); state.period='Q'+(Math.floor((+a.slice(5,7)-1)/3)+1); state.month=null; }
+    buildControls(); render(); renderLive(); })
   .catch(e=>{ $('sc-hero').innerHTML='<div class="card" style="grid-column:1/-1"><div class="card-t">Scoreboard data did not load</div><div class="card-s">data/scoreboard.json: '+e.message+'. The history tabs still work.</div></div>'; });
 </script>
 
