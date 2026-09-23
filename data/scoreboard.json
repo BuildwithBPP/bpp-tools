@@ -1,5 +1,5 @@
 {
- "_about": "Scoreboard data for pages/performance-dashboard.html. 'auto' is rewritten by the weekly HubSpot routine (Sun + Wed 6am ET); never hand-edit it, it gets overwritten. 'manual' is edited by people (or Claude on request) and the routine never touches it.",
+ "_about": "Scoreboard data for pages/performance-dashboard.html. 'auto' is rewritten by the weekly HubSpot routine (Sun + Wed 6am ET); never hand-edit it, it gets overwritten. 'manual' is edited by people (or Claude on request) and the routine never touches it. The AI & Tech tab reads manual.ai; the lane lead owns those numbers.",
  "auto": {
   "asOf": "2026-09-23",
   "generatedAt": "2026-09-23T14:30:00Z",
@@ -804,52 +804,6 @@
     "d": "No system logs these yet. Filled in at the meeting"
    }
   ],
-  "departments": [
-   {
-    "dept": "Sales",
-    "who": "Eli (sales manager) + Josue",
-    "r": "Both close deals. Josue also runs cold outreach",
-    "calc": "coverage",
-    "l": "pipeline coverage (goal 3x)"
-   },
-   {
-    "dept": "Referrals + partners",
-    "who": "Rodney",
-    "r": "Warm intros and referral partners",
-    "v": "TBD",
-    "l": "number and incentive set with Eli after the 9/23 talk",
-    "p": true
-   },
-   {
-    "dept": "Marketing + content",
-    "who": "Kenny",
-    "r": "Newsletter, social. Main owner of HubSpot",
-    "v": "1 of 42",
-    "l": "2026 deals with a real lead source",
-    "p": true
-   },
-   {
-    "dept": "Client delivery",
-    "who": "Eli",
-    "r": "Onboarding, timelines, deliverables",
-    "calc": "toCollect",
-    "l": "still to collect from active clients"
-   },
-   {
-    "dept": "AI workforce + tech",
-    "who": "Daunte",
-    "r": "AI offers, automations, Hub builds",
-    "calc": "aiSignedQ",
-    "l": "AI work signed this quarter"
-   },
-   {
-    "dept": "Finance + ops",
-    "who": "Daunte",
-    "r": "QuickBooks, AR, KPI dashboards, Monday boards",
-    "v": "$7.9K",
-    "l": "cash on 9/11 (QuickBooks pull, $4.1K spendable). Not refreshed since"
-   }
-  ],
   "commitments": [],
   "fixes": [
    "<b>{overdue} overdue HubSpot tasks</b>, about 62 of them auto-created call tasks from July. Close the dead ones so the follow-up number means something.",
@@ -1132,7 +1086,43 @@
     "<b>Measure this lane on revenue and engagements, not commits.</b> The Monday brief scored AI on bpp-tools commits, so it read red in September while the lane was closing deals. Daunte's newer work lives in the private bpp-hq repo.",
     "<b>No HubSpot field marks a deal as AI.</b> Add a Service line property (Kenny, as HubSpot owner) so AI revenue counts itself instead of by deal-name matching.",
     "<b>Pricing drift:</b> bpp-hq lists all three Jumpstart tiers as approved (8/6); the hub's offers registry has only Setup and the package pages still say Workflows and Pilot are proposed. Cape to the Bay signed at $1,799, $200 under list."
-   ]
-  }
+   ],
+   "editNote": "This tab is Daunte's. To change a number, a deal, or a decision, edit manual.ai in data/scoreboard.json (or ask Claude). The KPIs here are a starting point, not a decision."
+  },
+  "people": [
+   {
+    "n": "Eli",
+    "lead": "Client delivery: onboarding, timelines, deliverables. For now also handling sales and managing Josue",
+    "calc": "toCollect",
+    "l": "still to collect from active clients"
+   },
+   {
+    "n": "Josue",
+    "lead": "Cold outreach and closing deals, with Eli",
+    "calc": "pipelineOf:Josue",
+    "l": "open pipeline"
+   },
+   {
+    "n": "Kenny",
+    "lead": "Sales + marketing lead. Newsletter, social, and main HubSpot owner",
+    "calc": "coverage",
+    "l": "pipeline coverage (goal 3x)",
+    "p": true
+   },
+   {
+    "n": "Rodney",
+    "lead": "Referrals + partners (part of Marketing: warm intros handed to Sales)",
+    "v": "TBD",
+    "l": "number and incentive set with Eli",
+    "p": true
+   },
+   {
+    "n": "Daunte",
+    "lead": "AI workforce + tech, and finance + ops",
+    "calc": "aiSignedQ",
+    "l": "AI + tech work signed this quarter"
+   }
+  ],
+  "peopleNote": "Kenny and Eli are splitting sales roles this week; these cards update after that talk."
  }
 }
