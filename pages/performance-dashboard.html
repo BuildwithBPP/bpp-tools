@@ -160,10 +160,10 @@
   .src { display:inline-block; font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 6px; border-radius:4px; margin-left:6px; vertical-align:1px; }
   .src.auto { background:#e4eef7; color:var(--navy); } .src.man { background:var(--warn-soft); color:#9a6a06; }
   /* owners */
-  .owners { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .owners { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
   .own { background:var(--bg); border-radius:8px; padding:12px 13px; }
   .own .on { font-size:13px; font-weight:800; color:var(--ink); }
-  .own .or { font-size:10.5px; color:var(--muted); margin-top:1px; min-height:28px; }
+  .own .or { font-size:10.5px; color:var(--muted); margin-top:1px; min-height:42px; line-height:1.4; }
   .own .ov { font-size:20px; font-weight:800; color:var(--navy); margin-top:6px; letter-spacing:-.4px; }
   .own .ol { font-size:10.5px; color:var(--ink-2); margin-top:2px; }
   .commit { list-style:none; counter-reset:c; }
@@ -276,9 +276,10 @@
       <div class="tscroll"><div id="sc-act"></div></div>
     </div>
     <div class="card mt12">
-      <div class="card-t">Departments</div>
-      <div class="card-s">Who leads each lane and the one number it answers for. Numbers marked <i>proposed</i> get confirmed at the Sunday meeting.</div>
+      <div class="card-t">Who owns what</div>
+      <div class="card-s">What each person leads and the one number that answers for it. Numbers marked <i>proposed</i> get confirmed at the Sunday meeting.</div>
       <div class="owners" id="sc-owners"></div>
+      <div class="cap" id="sc-people-note"></div>
     </div>
     <div class="grid2 mt12">
       <div class="card"><div class="card-t">This week&rsquo;s 3 commitments</div><div class="card-s" id="sc-commit-s">Written at the end of the Sunday meeting</div><ol class="commit" id="sc-commit"></ol></div>
@@ -840,7 +841,7 @@ const NARRATIVE={
 };
 // ---------- LIVE: point-in-time data, loaded from data/scoreboard.json ----------
 // auto   = rewritten by the weekly HubSpot routine (Sun + Wed 6am ET). Never hand-edit.
-// manual = team-owned: targets, clients, commitments, fixes, departments. The routine never touches it.
+// manual = team-owned: targets, clients, commitments, fixes, people, ai. The routine never touches it.
 let LIVE=null;
 const REASON_LABEL={'Stopped Communicating':'Went silent','Budget':'Budget','Timing':'Timing','Not a Fit':'Not a fit','Disqualified by Us':'Disqualified by us','Another Agency':'Another agency','Other':'Other / none given'};
 function blankMonth(){ return {rev:0,exp:0,net:0,revcat:{},revoff:{},expcat:{},wonN:0,wonV:0,lostN:0,lostV:0,wonOwner:{},ig:{v:0,p:0,e:0,f:0},fb:{v:0,p:0,e:0,f:0},tt:{v:0,p:0,e:0,f:0},li:{v:0,p:0,e:0,f:0},web:{pv:0,vis:0},reels:{}}; }
@@ -879,7 +880,7 @@ function deriveLive(j){
   const activity=(M.activity||[]).map(a=>{ if(a.src==='auto'){ const v=a.key==='overdue'?{v:A.overdue.total,d:'Open tasks past due. Breakdown by owner on the Sales tab'}:(A.activity[a.key]||{v:null,d:'No data this run'}); return {...a, v:v.v, d:v.d}; } return a; });
   const L={asOf, financeAsOf:M.financeAsOf, socialAsOf:M.socialAsOf, target:T, week:A.week, generatedAt:A.generatedAt, by:A.by,
     deals, won, lost, q4Won, activity, pipeline, lostReasons, overdue:A.overdue.byOwner, overdueTotal:A.overdue.total,
-    departments:M.departments||[], commitments:M.commitments||[], clients:M.clients||[], referrals:M.referrals||{},
+    people:M.people||[], peopleNote:M.peopleNote||'', commitments:M.commitments||[], clients:M.clients||[], referrals:M.referrals||{},
     fixes:(M.fixes||[]).map(f=>f.replace('{overdue}',A.overdue.total))};
   // calculated department numbers
   const open=pipeline.filter(p=>!p.flag).reduce((t,p)=>t+p.a,0);
@@ -889,7 +890,9 @@ function deriveLive(j){
   const ai=aiDeals.reduce((t,d)=>t+d.a,0);
   const toCollect=L.clients.reduce((t,c)=>t+(c.rem||0),0);
   L.calc={coverage:(open/T.goal).toFixed(1)+'x', toCollect:usd(toCollect), aiSignedQ:usd(ai)};
-  L.calcLabel={aiSignedQ:'AI + tech work signed in '+cq.label};
+  pipeline.filter(p=>!p.flag).forEach(p=>{ const k='pipelineOf:'+p.o; L.calc[k]=(L.calc[k]||0)+p.a; });
+  Object.keys(L.calc).filter(k=>k.startsWith('pipelineOf:')).forEach(k=>{ const n=pipeline.filter(p=>!p.flag&&('pipelineOf:'+p.o)===k).length; L.calcLabel=L.calcLabel||{}; L.calcLabel[k]='open pipeline, '+n+' deal'+(n===1?'':'s'); L.calc[k]=usd(L.calc[k]); });
+  L.calcLabel=Object.assign(L.calcLabel||{},{aiSignedQ:'AI + tech work signed in '+cq.label});
   L.ai=M.ai||null; L.aiDeals=aiDeals; L.aiSigned=ai; L.q=cq;
   return L;
 }
@@ -948,8 +951,9 @@ function renderScore(){
     mob+='<div class="ai"><div class="at"><span class="an">'+x.k+'<span class="src '+x.src+'">'+(x.src==='auto'?'auto':'manual')+'</span></span><span class="av tnum">'+(x.v===null?'&ndash;':x.v)+' <small>/ '+x.t+'</small></span></div><div style="margin-top:5px">'+st+'</div><div class="ad">'+x.d+'</div></div>';
   });
   $('sc-act').innerHTML=a+'</tbody></table>'+mob+'</div>';
-  $('sc-owners').innerHTML=maskMoney(LIVE.departments.map(o=>{ const v=o.calc?LIVE.calc[o.calc]:o.v, l=(o.calc&&LIVE.calcLabel[o.calc])||o.l;
-    return '<div class="own"><div class="on">'+o.dept+'</div><div class="or"><b style="color:var(--ink-2)">'+o.who+'</b><br>'+o.r+'</div><div class="ov tnum">'+v+'</div><div class="ol">'+l+(o.p?' &middot; <i>proposed</i>':'')+'</div></div>'; }).join(''));
+  $('sc-owners').innerHTML=maskMoney(LIVE.people.map(o=>{ const v=o.calc?(LIVE.calc[o.calc]||'$0'):o.v, l=(o.calc&&LIVE.calcLabel[o.calc])||o.l;
+    return '<div class="own"><div class="on">'+o.n+'</div><div class="or">'+o.lead+'</div><div class="ov tnum">'+v+'</div><div class="ol">'+l+(o.p?' &middot; <i>proposed</i>':'')+'</div></div>'; }).join(''));
+  $('sc-people-note').innerHTML=LIVE.peopleNote||'';
   const C=LIVE.commitments;
   $('sc-commit').innerHTML=(C.length?C.map(c=>'<li class="set"><span><b>'+c.w+'</b> &middot; '+c.t+(c.due?' <span style="color:var(--muted)">by '+c.due+'</span>':'')+'</span></li>').join(''):[1,2,3].map(()=>'<li>Set at Sunday&rsquo;s meeting</li>').join(''));
   $('sc-fix').innerHTML=maskMoney(LIVE.fixes.map(f=>'<li>'+f+'</li>').join(''));
@@ -1017,7 +1021,7 @@ function renderReferrals(){
 function renderAI(){
   const A=LIVE.ai; if(!A){ $('ch-ai').innerHTML='<div class="empty">No AI data in scoreboard.json yet</div>'; return; }
   $('s-ai').innerHTML='Lead: Daunte &middot; snapshot '+mdy(A.asOf);
-  $('ai-owns').innerHTML=A.owns;
+  $('ai-owns').innerHTML=A.owns+(A.editNote?' <b>'+A.editNote+'</b>':'');
   $('ct-ai').innerHTML='Signed value is counted from HubSpot deals; the other five are updated by hand until HubSpot can tag AI work';
   const signed=mini('AI + tech signed, '+LIVE.q.label, usdFull(LIVE.aiSigned), LIVE.aiDeals.length+' deal'+(LIVE.aiDeals.length===1?'':'s')+' (HubSpot)', LIVE.aiSigned>0?'good':'warn');
   $('ch-ai').innerHTML=maskMoney('<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px" class="aigrid">'+signed+A.metrics.map(m=>mini(m.l,m.v,m.s,m.c)).join('')+'</div>');
