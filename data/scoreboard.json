@@ -843,7 +843,6 @@
    "<b>Lead source is blank.</b> 41 of 42 deals this year say OFFLINE, so no channel can be credited or cut. Make it required on every new contact and deal.",
    "<b>All State</b> has a lost reason but is still open in Proposal Sent. Close it or clear the reason.",
    "<b>Emerald</b> has no dollar value and no touch in 13 days.",
-   "<b>Legacy B. Studio</b> shows $0 in HubSpot; the real contract is $1,500 cash.",
    "<b>The /referral form</b> (Typeform) notifies nobody. A referral today would sit unseen.",
    "<b>Financial tab charts stop at Jul 24.</b> A 9/11 QuickBooks pull exists (cash $7,867) but never reached the hub or the Monday briefs. One current cash number, one owner."
   ],
