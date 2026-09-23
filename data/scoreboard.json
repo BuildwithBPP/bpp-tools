@@ -2,7 +2,7 @@
  "_about": "Scoreboard data for pages/performance-dashboard.html. 'auto' is rewritten by the weekly HubSpot routine (Sun + Wed 6am ET); never hand-edit it, it gets overwritten. 'manual' is edited by people (or Claude on request) and the routine never touches it. The AI & Tech tab reads manual.ai; the lane lead owns those numbers.",
  "auto": {
   "asOf": "2026-09-23",
-  "generatedAt": "2026-09-23T15:13:40Z",
+  "generatedAt": "2026-09-23T15:15:52Z",
   "by": "GitHub Action (HubSpot API)",
   "week": {
    "from": "2026-09-16",
