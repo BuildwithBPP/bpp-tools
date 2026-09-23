@@ -201,8 +201,8 @@
   .actm .av small { font-size:11px; font-weight:600; color:var(--muted); }
   .actm .ad { font-size:11px; color:var(--ink-2); margin-top:5px; line-height:1.45; }
   @media (max-width:640px){ .act{display:none;} .actm{display:block;} }
-  @media (max-width:900px){ .hero{grid-template-columns:1fr;} .owners{grid-template-columns:repeat(2,1fr);} .clients{grid-template-columns:1fr;} .funnel{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:560px){ .owners{grid-template-columns:1fr;} .wrap{padding:16px 16px 48px;} .header,.controls,.privbar,.foot{padding-left:16px;padding-right:16px;} .big{font-size:28px;} .tabbar button{padding:9px 11px;font-size:12.5px;} .cl .row{grid-template-columns:1fr;gap:2px;} }
+  @media (max-width:900px){ .aigrid{grid-template-columns:repeat(2,1fr)!important;} .hero{grid-template-columns:1fr;} .owners{grid-template-columns:repeat(2,1fr);} .clients{grid-template-columns:1fr;} .funnel{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .aigrid{grid-template-columns:1fr!important;} .owners{grid-template-columns:1fr;} .wrap{padding:16px 16px 48px;} .header,.controls,.privbar,.foot{padding-left:16px;padding-right:16px;} .big{font-size:28px;} .tabbar button{padding:9px 11px;font-size:12.5px;} .cl .row{grid-template-columns:1fr;gap:2px;} }
 </style>
 </head>
 <body data-privacy="on">
@@ -253,6 +253,7 @@
     <button data-tab="score" class="on">Q4 Scoreboard</button>
     <button data-tab="sales">Sales</button>
     <button data-tab="clients">Clients</button>
+    <button data-tab="ai">AI &amp; Tech</button>
     <button data-tab="mkt">Marketing</button>
     <button data-tab="fin">Financial</button>
     <button data-tab="web">Website</button>
@@ -292,9 +293,21 @@
     <div class="clients" id="cl-grid"></div>
   </div>
 
+  <!-- AI & TECH (point-in-time) -->
+  <div class="panel" id="tab-ai">
+    <div class="shead"><span class="n">4</span><span class="t">AI &amp; Tech</span><span class="s" id="s-ai">&mdash;</span></div>
+    <div class="card-s" id="ai-owns" style="margin:0 0 12px">&mdash;</div>
+    <div class="card"><div class="card-t">Where the lane stands</div><div class="card-s" id="ct-ai">&mdash;</div><div id="ch-ai"></div></div>
+    <div class="grid2 mt12">
+      <div class="card"><div class="card-t">AI deals + pipeline</div><div class="card-s">Signed work and open conversations in this lane</div><div id="ch-aipipe"></div></div>
+      <div class="card"><div class="card-t">Open AI decisions</div><div class="card-s">From the Monday brief and decision log</div><div id="ch-aidec"></div></div>
+    </div>
+    <div id="ai-notes"></div>
+  </div>
+
   <!-- FINANCIAL -->
   <div class="panel" id="tab-fin">
-    <div class="shead"><span class="n">5</span><span class="t">Financial</span><span class="s" id="s-fin">&mdash;</span></div>
+    <div class="shead"><span class="n">6</span><span class="t">Financial</span><span class="s" id="s-fin">&mdash;</span></div>
     <div class="card" id="card-avgfin" style="display:none"><div class="card-t">Monthly averages</div><div class="card-s" id="ct-avgfin">Per-month run-rate across the selected period &middot; the pace, not the total</div><div id="ch-avgfin"></div></div>
     <div class="grid2 wide-l mt12">
       <div class="card"><div class="card-t">Revenue &amp; net income by month</div><div class="card-s" id="ct-rev">Cash basis &middot; QuickBooks. Revenue bars + net income line (gold); line dips below zero on loss months.</div><div id="ch-rev"></div></div>
@@ -330,7 +343,7 @@
 
   <!-- MARKETING -->
   <div class="panel" id="tab-mkt">
-    <div class="shead"><span class="n">4</span><span class="t">Marketing &amp; content</span><span class="s" id="s-mkt">&mdash;</span></div>
+    <div class="shead"><span class="n">5</span><span class="t">Marketing &amp; content</span><span class="s" id="s-mkt">&mdash;</span></div>
     <div class="card"><div class="card-t">Referrals &amp; referral partners</div><div class="card-s" id="ct-ref">&mdash;</div><div id="ch-ref"></div></div>
     <div class="grid2 mt12">
       <div class="card"><div class="card-t">Where 2026 bookings came from</div><div class="card-s">Signed value by how the client found us &middot; HubSpot referral field + team knowledge</div><div id="ch-srcmix"></div></div>
@@ -347,7 +360,7 @@
 
   <!-- WEBSITE -->
   <div class="panel" id="tab-web">
-    <div class="shead"><span class="n">6</span><span class="t">Website</span><span class="s" id="s-web">&mdash;</span></div>
+    <div class="shead"><span class="n">7</span><span class="t">Website</span><span class="s" id="s-web">&mdash;</span></div>
     <div class="grid2 wide-l">
       <div class="card"><div class="card-t">Website traffic by month</div><div class="card-s">Page views &middot; GA via Metricool. Selected period highlighted.</div><div id="ch-web"></div></div>
       <div class="card"><div class="card-t">Traffic summary</div><div class="card-s">Selected period</div><div id="ch-websum"></div></div>
@@ -357,7 +370,7 @@
 
   <!-- REVIEW -->
   <div class="panel" id="tab-review">
-    <div class="shead"><span class="n">7</span><span class="t">Quarterly Review</span><span class="s" id="s-review">the story behind the numbers</span></div>
+    <div class="shead"><span class="n">8</span><span class="t">Quarterly Review</span><span class="s" id="s-review">the story behind the numbers</span></div>
     <div id="review-body"></div>
   </div>
 
@@ -870,10 +883,13 @@ function deriveLive(j){
   // calculated department numbers
   const open=pipeline.filter(p=>!p.flag).reduce((t,p)=>t+p.a,0);
   const cq=quarterOf(asOf);
-  const ai=won.filter(d=>d.close>=cq.start && d.close<=cq.end && /\bAI\b|claude|jumpstart|automation/i.test(d.n)).reduce((t,d)=>t+d.a,0);
+  const AIM=((M.ai&&M.ai.dealMatch)||['Jumpstart','Claude']).map(x=>x.toLowerCase());
+  const aiDeals=won.filter(d=>d.close>=cq.start && d.close<=cq.end && AIM.some(k=>d.n.toLowerCase().includes(k)));
+  const ai=aiDeals.reduce((t,d)=>t+d.a,0);
   const toCollect=L.clients.reduce((t,c)=>t+(c.rem||0),0);
   L.calc={coverage:(open/T.goal).toFixed(1)+'x', toCollect:usd(toCollect), aiSignedQ:usd(ai)};
-  L.calcLabel={aiSignedQ:'AI work signed in '+cq.label};
+  L.calcLabel={aiSignedQ:'AI + tech work signed in '+cq.label};
+  L.ai=M.ai||null; L.aiDeals=aiDeals; L.aiSigned=ai; L.q=cq;
   return L;
 }
 
@@ -997,14 +1013,29 @@ function renderReferrals(){
   $('ch-bench').innerHTML=t+'</tbody></table><div class="cap">Ask partners for nothing first: offer a free Business Systems Audit for 2&ndash;3 of their clients. Full bench: _claude/context/referral-partners.md.</div>';
   $('mkt-stale').innerHTML='Social and website numbers below stop at '+mdy(LIVE.socialAsOf)+' (last Metricool export). They refresh once the Metricool connection is set up.';
 }
+function renderAI(){
+  const A=LIVE.ai; if(!A){ $('ch-ai').innerHTML='<div class="empty">No AI data in scoreboard.json yet</div>'; return; }
+  $('s-ai').innerHTML='Lead: Daunte &middot; snapshot '+mdy(A.asOf);
+  $('ai-owns').innerHTML=A.owns;
+  $('ct-ai').innerHTML='Signed value is counted from HubSpot deals; the other five are updated by hand until HubSpot can tag AI work';
+  const signed=mini('AI + tech signed, '+LIVE.q.label, usdFull(LIVE.aiSigned), LIVE.aiDeals.length+' deal'+(LIVE.aiDeals.length===1?'':'s')+' (HubSpot)', LIVE.aiSigned>0?'good':'warn');
+  $('ch-ai').innerHTML=maskMoney('<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px" class="aigrid">'+signed+A.metrics.map(m=>mini(m.l,m.v,m.s,m.c)).join('')+'</div>');
+  let t='<table class="dl"><thead><tr><th>Account</th><th>What</th><th>Status</th><th class="r">Value</th></tr></thead><tbody>';
+  A.pipeline.forEach(r=>{ t+='<tr><td><b>'+r[0]+'</b><span class="h">'+r[4]+'</span></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td class="r">'+r[3]+'</td></tr>'; });
+  $('ch-aipipe').innerHTML=maskMoney(t+'</tbody></table>');
+  let d='<table class="dl"><thead><tr><th>Decision</th><th>Owner</th><th>Status</th></tr></thead><tbody>';
+  A.decisions.forEach(r=>{ d+='<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td><span class="st '+(/No owner|Open since|not built/.test(r[2]+r[1])?'wait':'mute')+'">'+r[2]+'</span></td></tr>'; });
+  $('ch-aidec').innerHTML=d+'</tbody></table>';
+  $('ai-notes').innerHTML=maskMoney(A.notes.map((n,i)=>note(i===0?'How to read this lane':i===1?'Fix the data':'Watch',i===0?'gold':'',n)).join(''));
+}
 function renderLive(){
   $('asof2').innerHTML='HubSpot pulled '+mdy(LIVE.asOf)+' &middot; QuickBooks as of '+mdy(LIVE.financeAsOf)+' &middot; Metricool as of '+mdy(LIVE.socialAsOf);
   $('foot-ft').innerHTML='Sales data pulled from HubSpot '+LIVE.asOf+'; financial and social from DA-004 / DA-003 as of '+LIVE.financeAsOf+' &middot; internal use only';
-  renderScore(); renderSalesLive(); renderClients(); renderReferrals();
+  renderScore(); renderSalesLive(); renderClients(); renderReferrals(); renderAI();
 }
 // ---------- tabs ----------
 // Scoreboard + Clients are point-in-time: hide the period slicer and KPI tiles there. The tab is kept in the URL hash (#score, #sales, ...).
-const SNAP=['score','clients'];
+const SNAP=['score','clients','ai'];
 function showTab(key){
   if(!document.getElementById('tab-'+key)) key='score';
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on', p.id==='tab-'+key));
