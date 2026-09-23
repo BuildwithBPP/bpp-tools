@@ -1,0 +1,1026 @@
+{
+ "_about": "Scoreboard data for pages/performance-dashboard.html. 'auto' is rewritten by the weekly HubSpot routine (Sun + Wed 6am ET); never hand-edit it, it gets overwritten. 'manual' is edited by people (or Claude on request) and the routine never touches it.",
+ "auto": {
+  "asOf": "2026-09-23",
+  "generatedAt": "2026-09-23T14:30:00Z",
+  "by": "seed (Claude, live HubSpot pull 9/23)",
+  "week": {
+   "from": "2026-09-16",
+   "to": "2026-09-22"
+  },
+  "deals": [
+   {
+    "id": "",
+    "n": "Remember Wynn Foundations",
+    "a": 2337.5,
+    "o": "Eli",
+    "close": "2025-06-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "SEEDFOLKids Foundations",
+    "a": 678,
+    "o": "Eli",
+    "close": "2025-06-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Tier 1 Foundations",
+    "a": 3750,
+    "o": "Daunte",
+    "close": "2025-07-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Mable Blueprinting",
+    "a": 599,
+    "o": "Kenny",
+    "close": "2025-08-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "MGP Business Plan",
+    "a": 599,
+    "o": "",
+    "close": "2025-08-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "Invitation to a Wedding",
+    "a": 550,
+    "o": "",
+    "close": "2025-08-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "Stack All Profits",
+    "a": 998,
+    "o": "Kenny",
+    "close": "2025-08-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Heart & Soul",
+    "a": 3463,
+    "o": "",
+    "close": "2025-09-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "For The Girls Tampa",
+    "a": 1200,
+    "o": "",
+    "close": "2025-09-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "Wedelia Wellness",
+    "a": 1248,
+    "o": "Daunte",
+    "close": "2025-10-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Squeaky Whips",
+    "a": 1247,
+    "o": "",
+    "close": "2025-10-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "Mattie Mae's Fixings",
+    "a": 200,
+    "o": "",
+    "close": "2025-10-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "E&M Beautiful Me",
+    "a": 599,
+    "o": "",
+    "close": "2025-10-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "Courtesy Office Cleaning",
+    "a": 0,
+    "o": "",
+    "close": "2025-10-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "Stack all Profits - Consult",
+    "a": 200,
+    "o": "",
+    "close": "2025-10-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "RIVR",
+    "a": 3563,
+    "o": "",
+    "close": "2025-11-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "The About Group",
+    "a": 599,
+    "o": "",
+    "close": "2025-11-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "Revive Realty",
+    "a": 1747,
+    "o": "",
+    "close": "2025-12-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "African Learning Temple",
+    "a": 2000,
+    "o": "",
+    "close": "2025-12-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "Roberts Brothers - Mktg & Legal",
+    "a": 2000,
+    "o": "Eli",
+    "close": "2025-12-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Legacy Roofing",
+    "a": 1500,
+    "o": "Eli",
+    "close": "2025-12-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Fawwwkk",
+    "a": 599,
+    "o": "Kenny",
+    "close": "2025-12-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Xtremely Clean - Automation/CRM",
+    "a": 3315,
+    "o": "Kenny",
+    "close": "2025-12-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Troops in Treatment",
+    "a": 599,
+    "o": "",
+    "close": "2025-12-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "G. Roberts Logistics",
+    "a": 2823,
+    "o": "",
+    "close": "2026-01-15",
+    "w": 0,
+    "reasons": [
+     "Timing",
+     "Other"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Xtremely Clean - Hourly",
+    "a": 500,
+    "o": "Daunte",
+    "close": "2026-02-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Stack All Profit - Web/QB",
+    "a": 1398,
+    "o": "",
+    "close": "2026-02-15",
+    "w": 0,
+    "reasons": [
+     "Budget"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Xtremely Clean - 10hrs",
+    "a": 500,
+    "o": "Daunte",
+    "close": "2026-02-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Prime Pulse Logistics",
+    "a": 1000,
+    "o": "",
+    "close": "2026-02-15",
+    "w": 0,
+    "reasons": [
+     "Disqualified by Us",
+     "Budget"
+    ]
+   },
+   {
+    "id": "",
+    "n": "MAA - 10hrs",
+    "a": 500,
+    "o": "Eli",
+    "close": "2026-02-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Carlo Thompson - RE CRM",
+    "a": 3440,
+    "o": "",
+    "close": "2026-02-15",
+    "w": 0,
+    "reasons": [
+     "Stopped Communicating"
+    ]
+   },
+   {
+    "id": "",
+    "n": "SEEDFOLKids - Strategic Planning",
+    "a": 3200,
+    "o": "Eli",
+    "close": "2026-02-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "VoltAir Consulting",
+    "a": 0,
+    "o": "",
+    "close": "2026-02-15",
+    "w": 0,
+    "reasons": [
+     "Stopped Communicating"
+    ]
+   },
+   {
+    "id": "",
+    "n": "B5 ReAffirm",
+    "a": 1000,
+    "o": "",
+    "close": "2026-02-15",
+    "w": 0,
+    "reasons": [
+     "Timing"
+    ]
+   },
+   {
+    "id": "",
+    "n": "For the Girls - Start",
+    "a": 1997,
+    "o": "",
+    "close": "2026-02-15",
+    "w": 0,
+    "reasons": [
+     "Budget"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Sterling Diversified",
+    "a": 509.15,
+    "o": "",
+    "close": "2026-03-15",
+    "w": 0,
+    "reasons": [
+     "Budget"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Richard's Funeral Home",
+    "a": 2248,
+    "o": "",
+    "close": "2026-03-15",
+    "w": 0,
+    "reasons": [
+     "Stopped Communicating"
+    ]
+   },
+   {
+    "id": "",
+    "n": "SEEDFOLKids - Brand Guideline",
+    "a": 1000,
+    "o": "Eli",
+    "close": "2026-03-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Clinical Research Specialist",
+    "a": 3599,
+    "o": "",
+    "close": "2026-04-15",
+    "w": 0,
+    "reasons": [
+     "Disqualified by Us",
+     "Stopped Communicating"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Noisey Creative",
+    "a": 0,
+    "o": "",
+    "close": "2026-04-15",
+    "w": 0,
+    "reasons": [
+     "Budget"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Lois Marketing - Operator System",
+    "a": 1350,
+    "o": "Eli",
+    "close": "2026-04-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Twanda Bradley - Campaign",
+    "a": 5197,
+    "o": "",
+    "close": "2026-04-15",
+    "w": 0,
+    "reasons": []
+   },
+   {
+    "id": "",
+    "n": "Cleaning Top To Bottom",
+    "a": 599,
+    "o": "",
+    "close": "2026-04-15",
+    "w": 0,
+    "reasons": [
+     "Stopped Communicating"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Xtremely Clean - Proposal Dev",
+    "a": 500,
+    "o": "Daunte",
+    "close": "2026-04-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "HALO Commons - Launch Pad",
+    "a": 1649,
+    "o": "Eli",
+    "close": "2026-04-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "De Dior Studios - BP",
+    "a": 449.25,
+    "o": "Kenny",
+    "close": "2026-04-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Financial Acuity - Growth Package",
+    "a": 3350,
+    "o": "Daunte",
+    "close": "2026-05-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Replace It Auto Glass",
+    "a": 4500,
+    "o": "",
+    "close": "2026-05-15",
+    "w": 0,
+    "reasons": [
+     "Budget"
+    ]
+   },
+   {
+    "id": "",
+    "n": "StudentCrowd - Focus Group",
+    "a": 3000,
+    "o": "",
+    "close": "2026-05-15",
+    "w": 0,
+    "reasons": [
+     "Not a Fit"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Zing Juice Bar",
+    "a": 2000,
+    "o": "",
+    "close": "2026-05-15",
+    "w": 0,
+    "reasons": [
+     "Timing",
+     "Stopped Communicating"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Rare Hues Collective",
+    "a": 4500,
+    "o": "",
+    "close": "2026-05-15",
+    "w": 0,
+    "reasons": [
+     "Budget",
+     "Timing",
+     "Disqualified by Us"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Love Your Beauty",
+    "a": 1799,
+    "o": "",
+    "close": "2026-05-15",
+    "w": 0,
+    "reasons": [
+     "Budget"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Cape to the Bay",
+    "a": 1000,
+    "o": "",
+    "close": "2026-05-15",
+    "w": 0,
+    "reasons": [
+     "Timing"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Curbology",
+    "a": 0,
+    "o": "",
+    "close": "2026-06-15",
+    "w": 0,
+    "reasons": [
+     "Not a Fit",
+     "Stopped Communicating"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Hyacinthe Property Mgmt",
+    "a": 2000,
+    "o": "",
+    "close": "2026-06-15",
+    "w": 0,
+    "reasons": [
+     "Timing",
+     "Not a Fit"
+    ]
+   },
+   {
+    "id": "",
+    "n": "TwentyTen Motors",
+    "a": 599,
+    "o": "",
+    "close": "2026-07-15",
+    "w": 0,
+    "reasons": [
+     "Stopped Communicating"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Merge Pro",
+    "a": 4500,
+    "o": "",
+    "close": "2026-07-15",
+    "w": 0,
+    "reasons": [
+     "Not a Fit",
+     "Stopped Communicating"
+    ]
+   },
+   {
+    "id": "",
+    "n": "RW Events",
+    "a": 1799,
+    "o": "",
+    "close": "2026-07-15",
+    "w": 0,
+    "reasons": [
+     "Stopped Communicating"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Spring Circle",
+    "a": 0,
+    "o": "",
+    "close": "2026-07-15",
+    "w": 0,
+    "reasons": [
+     "Disqualified by Us"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Legacy B. Studio - Website",
+    "a": 0,
+    "o": "Eli",
+    "close": "2026-07-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "HALO Retainer",
+    "a": 3000,
+    "o": "",
+    "close": "2026-08-15",
+    "w": 0,
+    "reasons": [
+     "Not a Fit"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Flava Meets Fusion",
+    "a": 4497,
+    "o": "",
+    "close": "2026-08-15",
+    "w": 0,
+    "reasons": [
+     "Stopped Communicating"
+    ]
+   },
+   {
+    "id": "",
+    "n": "Sipsies Lemonade - Custom Pkg",
+    "a": 2500,
+    "o": "",
+    "close": "2026-08-15",
+    "w": 0,
+    "reasons": [
+     "Budget"
+    ]
+   },
+   {
+    "id": "",
+    "n": "HALO Pathways - Full Website",
+    "a": 7450,
+    "o": "Eli",
+    "close": "2026-08-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Aurelia Tech",
+    "a": 800,
+    "o": "Kenny",
+    "close": "2026-09-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Sipsies Lemonade - Launch Pad",
+    "a": 1799,
+    "o": "Eli",
+    "close": "2026-09-15",
+    "w": 1
+   },
+   {
+    "id": "",
+    "n": "Cape to the Bay - AI Jumpstart",
+    "a": 1799,
+    "o": "Daunte",
+    "close": "2026-09-15",
+    "w": 1
+   }
+  ],
+  "pipeline": [
+   {
+    "id": "346796494557",
+    "n": "MG Cleaning Services",
+    "o": "Josue",
+    "stage": "Qualified & Working",
+    "a": 4998.99,
+    "last": "2026-09-21",
+    "nextDate": "2026-09-25",
+    "close": "2026-09-27",
+    "lostReasonSet": false
+   },
+   {
+    "id": "346577594053",
+    "n": "Emerald Facility Management",
+    "o": "Josue",
+    "stage": "Discovery Scheduled",
+    "a": 0,
+    "last": "2026-09-10",
+    "nextDate": null,
+    "close": "2026-09-27",
+    "lostReasonSet": false
+   },
+   {
+    "id": "332612789949",
+    "n": "All State (Felicia Russell)",
+    "o": "Kenny",
+    "stage": "Proposal Sent",
+    "a": 599.99,
+    "last": "2026-09-21",
+    "nextDate": null,
+    "close": null,
+    "lostReasonSet": true
+   }
+  ],
+  "activity": {
+   "salesCalls": {
+    "v": 2,
+    "d": "AI Intro Call (9/16) and BPP x A Tech (9/18), both Daunte"
+   },
+   "newDeals": {
+    "v": 1,
+    "d": "Cape to the Bay AI Jumpstart, opened 9/17 and signed 9/20"
+   }
+  },
+  "overdue": {
+   "total": 139,
+   "byOwner": [
+    [
+     "Admin / auto-created",
+     62
+    ],
+    [
+     "Kenny",
+     33
+    ],
+    [
+     "Daunte",
+     19
+    ],
+    [
+     "Josue",
+     19
+    ],
+    [
+     "Eli",
+     6
+    ]
+   ]
+  }
+ },
+ "manual": {
+  "target": {
+   "label": "Q4 2026",
+   "start": "2026-10-01",
+   "end": "2026-12-31",
+   "goal": 15000,
+   "yearGoal": 60000,
+   "basis": "signed deals (HubSpot closed-won)"
+  },
+  "financeAsOf": "2026-07-24",
+  "socialAsOf": "2026-07-24",
+  "dealOverrides": [
+   {
+    "match": "HALO Pathways",
+    "ym": "2026-08",
+    "why": "Deposit timing correction (Kenny, 9/14); HubSpot close date is 9/1"
+   },
+   {
+    "match": "Aurelia",
+    "o": "Kenny",
+    "why": "Kenny works the relationship; HubSpot owner field says Daunte"
+   },
+   {
+    "match": "Flava Meets Fusion",
+    "ym": "2026-08",
+    "why": "Lost in August; HubSpot has no close date"
+   }
+  ],
+  "pipelineNotes": {
+   "346796494557": {
+    "note": "Josue + Daunte own the close",
+    "next": "Demo Fri 9/25"
+   },
+   "346577594053": {
+    "note": "Discovery ran 9/8; no value set"
+   },
+   "332612789949": {
+    "note": "Marked Not a Fit but still open"
+   }
+  },
+  "activity": [
+   {
+    "key": "salesCalls",
+    "k": "Sales calls held",
+    "h": "Discovery, intro or demo meetings logged in HubSpot",
+    "t": 2,
+    "src": "auto"
+   },
+   {
+    "key": "newDeals",
+    "k": "New deals opened",
+    "h": "Builds the pipeline Q4 needs",
+    "t": 2,
+    "src": "auto"
+   },
+   {
+    "key": "proposals",
+    "k": "Proposals presented",
+    "h": "Quote walked through live, not emailed cold",
+    "t": 1,
+    "src": "man",
+    "v": null,
+    "d": "Not tracked in HubSpot yet. Filled in at the meeting"
+   },
+   {
+    "key": "overdue",
+    "k": "Overdue follow-up tasks",
+    "h": "Open HubSpot tasks past their due date",
+    "t": 0,
+    "src": "auto",
+    "lowerBetter": true
+   },
+   {
+    "key": "intros",
+    "k": "Warm intros + referrals in",
+    "h": "People sent to us by someone who knows them",
+    "t": 2,
+    "src": "man",
+    "v": null,
+    "d": "No system logs these yet. Filled in at the meeting"
+   }
+  ],
+  "departments": [
+   {
+    "dept": "Sales",
+    "who": "Eli (sales manager) + Josue",
+    "r": "Both close deals. Josue also runs cold outreach",
+    "calc": "coverage",
+    "l": "pipeline coverage (goal 3x)"
+   },
+   {
+    "dept": "Referrals + partners",
+    "who": "Rodney",
+    "r": "Warm intros and referral partners",
+    "v": "TBD",
+    "l": "number and incentive set with Eli after the 9/23 talk",
+    "p": true
+   },
+   {
+    "dept": "Marketing + content",
+    "who": "Kenny",
+    "r": "Newsletter, social. Main owner of HubSpot",
+    "v": "1 of 42",
+    "l": "2026 deals with a real lead source",
+    "p": true
+   },
+   {
+    "dept": "Client delivery",
+    "who": "Eli",
+    "r": "Onboarding, timelines, deliverables",
+    "calc": "toCollect",
+    "l": "still to collect from active clients"
+   },
+   {
+    "dept": "AI workforce + tech",
+    "who": "Daunte",
+    "r": "AI offers, automations, Hub builds",
+    "calc": "aiSignedQ",
+    "l": "AI work signed this quarter"
+   },
+   {
+    "dept": "Finance + ops",
+    "who": "Daunte",
+    "r": "QuickBooks, AR, KPI dashboards, Monday boards",
+    "v": "Unmeasured",
+    "l": "cash on hand (no current figure in 6 weekly briefs)"
+   }
+  ],
+  "commitments": [],
+  "fixes": [
+   "<b>{overdue} overdue HubSpot tasks</b>, about 62 of them auto-created call tasks from July. Close the dead ones so the follow-up number means something.",
+   "<b>Lead source is blank.</b> 41 of 42 deals this year say OFFLINE, so no channel can be credited or cut. Make it required on every new contact and deal.",
+   "<b>All State</b> has a lost reason but is still open in Proposal Sent. Close it or clear the reason.",
+   "<b>Emerald</b> has no dollar value and no touch in 13 days.",
+   "<b>Legacy B. Studio</b> shows $0 in HubSpot; the real contract is $1,500 cash.",
+   "<b>The /referral form</b> (Typeform) notifies nobody. A referral today would sit unseen.",
+   "<b>Financial tab stops at Jul 24.</b> Needs a QuickBooks export (Daunte). Marketing refreshes once Metricool is connected."
+  ],
+  "clients": [
+   {
+    "n": "HALO Pathways",
+    "pkg": "Full website build",
+    "o": "Eli",
+    "val": 7450,
+    "paid": 2200,
+    "rem": 5250,
+    "phase": "Design direction",
+    "wait": "client",
+    "status": "Paused by client",
+    "next": "Halfway Review Mon 9/28, 5:30. Agree the direction, the pause, and a restart date",
+    "blk": "Client asked 9/16 to pause the build until a partner contract is finalized",
+    "ask": "Not yet, mid-project"
+   },
+   {
+    "n": "Legacy B. Studio",
+    "pkg": "Website",
+    "o": "Eli",
+    "val": 1500,
+    "paid": 1125,
+    "rem": 375,
+    "phase": "Built, in closeout",
+    "wait": "client",
+    "status": "Domain blocked",
+    "next": "Closeout and the final $375 once the domain clears",
+    "blk": "Wix clientHold plus an old Google Workspace tenant; the client has to file the recovery",
+    "ask": "The two testimonials he offered 8/25",
+    "note": "The $1,000 \"marketing discount\" is an unpapered barter, not revenue"
+   },
+   {
+    "n": "Sipsies Lemonade",
+    "pkg": "Launch Pad",
+    "o": "Eli (site) + Rodney (business plan)",
+    "val": 1799,
+    "paid": 600,
+    "rem": 1199,
+    "phase": "Kickoff done 9/22",
+    "wait": "client",
+    "status": "Waiting on intake",
+    "next": "Intake questionnaire back, then build starts the week of 9/28",
+    "blk": "Website intake form sent 9/22",
+    "ask": "Referral card at closeout. Felicia sent her, so thank Felicia"
+   },
+   {
+    "n": "Cape to the Bay",
+    "pkg": "AI Jumpstart: Workflows",
+    "o": "Daunte",
+    "val": 1799,
+    "paid": null,
+    "rem": null,
+    "phase": "Kickoff done 9/22",
+    "wait": "us",
+    "status": "In delivery",
+    "next": "Owner to confirm at Sunday meeting",
+    "ask": "Lost in May, won back in September. Ask what changed; that is our win-back story"
+   },
+   {
+    "n": "Aurelia Tech",
+    "pkg": "Engagement",
+    "o": "Kenny",
+    "val": 800,
+    "paid": 400,
+    "rem": 400,
+    "phase": "Kickoff 9/11",
+    "wait": "us",
+    "status": "In delivery",
+    "next": "Owner to confirm at Sunday meeting",
+    "ask": "Came through a family friend. Thank the person who sent them"
+   },
+   {
+    "n": "Financial Acuity",
+    "pkg": "Growth Package",
+    "o": "Daunte",
+    "val": 3350,
+    "paid": 3350,
+    "rem": 0,
+    "phase": "Closeout ran 7/31",
+    "wait": "client",
+    "status": "GBP waiting on client",
+    "next": "Google Business Profile goes live after the owner finishes Google’s video verification",
+    "blk": "Only the client can do the verification",
+    "ask": "Testimonial for the case study"
+   },
+   {
+    "n": "Lois Marketing",
+    "pkg": "Operator System",
+    "o": "Eli",
+    "val": 1350,
+    "paid": null,
+    "rem": null,
+    "phase": "Closed 8/20",
+    "wait": "done",
+    "status": "Closed",
+    "next": "Confirm the final payment landed (AR lists $1,350 as unconfirmed)",
+    "ask": "Google review from Phil. Eli asks in person"
+   }
+  ],
+  "referrals": {
+   "chain": {
+    "v": 10898,
+    "share": 44,
+    "path": "Rodney → Carlo Thompson → HALO Commons ($1,649) → HALO Pathways ($7,450) + Felicia → Sipsies ($1,799)"
+   },
+   "partnersSigned": 0,
+   "partnersGoal": 5,
+   "bench": 26,
+   "intros": null,
+   "introsGoal": "8–10 / month",
+   "reviewsGoal": "2–4 / month",
+   "formAlerts": false,
+   "mix": [
+    [
+     "Referral chain",
+     10898
+    ],
+    [
+     "Repeat clients",
+     5700
+    ],
+    [
+     "Won back",
+     1799
+    ],
+    [
+     "Personal network",
+     800
+    ],
+    [
+     "Not recorded",
+     5649
+    ]
+   ],
+   "events": "Events and cold inbound: $0 signed in 2026 (0 wins, 5 losses)",
+   "top": [
+    [
+     "Kevin G. Brick",
+     "Brick Business Law",
+     23
+    ],
+    [
+     "Kalpesh J. Patel",
+     "FL Patel Law",
+     23
+    ],
+    [
+     "Albert Lee",
+     "Tampa Bay BBIC (lender)",
+     23
+    ],
+    [
+     "Ryan Greenacre",
+     "Greenacre Properties (HOA)",
+     23
+    ],
+    [
+     "Marie & Victor Retanaco",
+     "Retanaco Accounting",
+     22
+    ]
+   ]
+  }
+ }
+}

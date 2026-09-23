@@ -160,7 +160,7 @@
   .src { display:inline-block; font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 6px; border-radius:4px; margin-left:6px; vertical-align:1px; }
   .src.auto { background:#e4eef7; color:var(--navy); } .src.man { background:var(--warn-soft); color:#9a6a06; }
   /* owners */
-  .owners { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+  .owners { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
   .own { background:var(--bg); border-radius:8px; padding:12px 13px; }
   .own .on { font-size:13px; font-weight:800; color:var(--ink); }
   .own .or { font-size:10.5px; color:var(--muted); margin-top:1px; min-height:28px; }
@@ -275,8 +275,8 @@
       <div class="tscroll"><div id="sc-act"></div></div>
     </div>
     <div class="card mt12">
-      <div class="card-t">Who owns what</div>
-      <div class="card-s">One number per person. Numbers marked <i>proposed</i> get confirmed at the Sunday meeting.</div>
+      <div class="card-t">Departments</div>
+      <div class="card-s">Who leads each lane and the one number it answers for. Numbers marked <i>proposed</i> get confirmed at the Sunday meeting.</div>
       <div class="owners" id="sc-owners"></div>
     </div>
     <div class="grid2 mt12">
@@ -654,7 +654,7 @@ function render(){
   $('ct-lost').innerHTML='Selected period &middot; '+lost.length+' deals';
   $('ch-wonlist').innerHTML=maskMoney(dealList(won,true));
   $('ch-lostlist').innerHTML=maskMoney(dealList(lost,false));
-  $('ch-pipeline').innerHTML=maskMoney(pipelineTable());
+  if(LIVE) $('ch-pipeline').innerHTML=maskMoney(pipelineTable());
   // reels
   const rl={n:0,v:0,r:0,s:0,sh:0,wt:[]};
   months.forEach(m=>{ const r=g(m).reels; if(r&&r.n){ rl.n+=r.n; rl.v+=r.v; rl.r+=r.r; rl.s+=r.s; rl.sh+=r.sh; rl.wt.push(r.wt);} });
@@ -824,75 +824,65 @@ const NARRATIVE={
    +'<div class="note gold mt12"><div class="nt">Where we are &rarr; where we\'re going</div><div class="nb">Two straight quarters missing $15K (48%, then 39%), same monthly shape. But the quarter was profitable, expenses fell, cash improved ($7,687 on Jul 14), and Phase 2 comp unlocked. The constraint is revenue, not cost. Fastest money is the $2,340 already earned; pipeline is $11,497 with three proposals out (HALO Retainer is the first recurring-revenue test). Set 2 revenue-gated OKRs for Q3, scored monthly.</div></div>'
  }
 };
-// ---------- LIVE: point-in-time data for Scoreboard, Sales pipeline, Clients, Referrals ----------
-// Refreshed weekly before the Sunday sales meeting (HubSpot pull). Edit this object, not the render code.
-const LIVE = {
- asOf:'2026-09-23', financeAsOf:'2026-07-24', socialAsOf:'2026-07-24',
- target:{label:'Q4 2026', start:'2026-10-01', end:'2026-12-31', goal:15000, yearGoal:60000, basis:'signed deals (HubSpot closed-won)'},
- q4Won:[],                       // deals signed on/after Oct 1: {n,a,o,date}
- week:{from:'2026-09-16', to:'2026-09-22'},
- activity:[
-  {k:'Sales calls held', h:'Discovery, intro or demo meetings logged in HubSpot', v:2, t:2, src:'auto', d:'AI Intro Call (9/16) and BPP x A Tech (9/18), both Daunte'},
-  {k:'New deals opened', h:'Builds the pipeline Q4 needs', v:1, t:2, src:'auto', d:'Cape to the Bay AI Jumpstart, opened 9/17 and signed 9/20'},
-  {k:'Proposals presented', h:'Quote walked through live, not emailed cold', v:null, t:1, src:'man', d:'Not tracked in HubSpot yet. Filled in at the meeting'},
-  {k:'Overdue follow-up tasks', h:'Open HubSpot tasks past their due date', v:139, t:0, src:'auto', lowerBetter:true, d:'About 62 are auto-created call tasks from July. See Sales tab'},
-  {k:'Warm intros + referrals in', h:'People sent to us by someone who knows them', v:null, t:2, src:'man', d:'No system logs these yet. Filled in at the meeting'}
- ],
- owners:[
-  {n:'Eli', r:'Sales manager. Closes Operator deals', v:'0.3x', l:'pipeline coverage (goal 3x)'},
-  {n:'Josue', r:'Cold outreach. Cleaning + facilities', v:'$5.0K', l:'open pipeline, 2 deals'},
-  {n:'Rodney', r:'Referrals + partners', v:'0 / 8', l:'warm intros this month', p:true},
-  {n:'Kenny', r:'Newsletter, social, HubSpot setup', v:'1 of 42', l:'2026 deals with a real lead source', p:true},
-  {n:'Daunte', r:'HubSpot pipeline + his accounts', v:'$1.8K', l:'signed in Q3 (Cape to the Bay)'}
- ],
- commitments:[],                // [{w:'who', t:'what', due:'Mon 9/28'}] written after Sunday's meeting
- fixes:[
-  '<b>139 overdue HubSpot tasks</b>, about 62 of them auto-created call tasks from July. Close the dead ones so the follow-up number means something.',
-  '<b>Lead source is blank.</b> 41 of 42 deals this year say OFFLINE, so no channel can be credited or cut. Make it required on every new contact and deal.',
-  '<b>All State</b> has a lost reason but is still open in Proposal Sent. Close it or clear the reason.',
-  '<b>Emerald</b> has no dollar value and no touch in 13 days.',
-  '<b>Legacy B. Studio</b> shows $0 in HubSpot; the real contract is $1,500 cash.',
-  '<b>The /referral form</b> (Typeform) notifies nobody. A referral today would sit unseen.',
-  '<b>Financial + Marketing tabs stop at Jul 24.</b> QuickBooks export (Daunte) and the Metricool connection will fix them.'
- ],
- pipeline:[
-  {n:'MG Cleaning Services', o:'Josue', stage:'Qualified & Working', a:4998.99, last:'2026-09-21', next:'Demo Fri 9/25', close:'2026-09-27', note:'Josue + Daunte own the close', id:'346796494557'},
-  {n:'Emerald Facility Management', o:'Josue', stage:'Discovery Scheduled', a:0, last:'2026-09-10', next:null, close:'2026-09-27', note:'Discovery ran 9/8; no value set', id:'346577594053'},
-  {n:'All State (Felicia Russell)', o:'Kenny', stage:'Proposal Sent', a:599.99, last:'2026-09-21', next:null, close:null, note:'Marked Not a Fit but still open', flag:true, id:'332612789949'}
- ],
- lostReasons:[['Went silent',11],['Budget',9],['Timing',6],['Not a fit',5],['Disqualified by us',4],['Other / none given',2]],
- overdue:[['Admin / auto-created',62],['Kenny',33],['Daunte',19],['Josue',19],['Eli',6]],
- clients:[
-  {n:'HALO Pathways', pkg:'Full website build', o:'Eli', val:7450, paid:2200, rem:5250, phase:'Design direction', wait:'client', status:'Paused by client',
-   next:'Halfway Review Mon 9/28, 5:30. Agree the direction, the pause, and a restart date', blk:'Client asked 9/16 to pause the build until a partner contract is finalized', ask:'Not yet, mid-project'},
-  {n:'Legacy B. Studio', pkg:'Website', o:'Eli', val:1500, paid:1125, rem:375, phase:'Built, in closeout', wait:'client', status:'Domain blocked',
-   next:'Closeout and the final $375 once the domain clears', blk:'Wix clientHold plus an old Google Workspace tenant; the client has to file the recovery', ask:'The two testimonials he offered 8/25', note:'The $1,000 "marketing discount" is an unpapered barter, not revenue'},
-  {n:'Sipsies Lemonade', pkg:'Launch Pad', o:'Eli (site) + Rodney (business plan)', val:1799, paid:600, rem:1199, phase:'Kickoff done 9/22', wait:'client', status:'Waiting on intake',
-   next:'Intake questionnaire back, then build starts the week of 9/28', blk:'Website intake form sent 9/22', ask:'Referral card at closeout. Felicia sent her, so thank Felicia'},
-  {n:'Cape to the Bay', pkg:'AI Jumpstart: Workflows', o:'Daunte', val:1799, paid:null, rem:null, phase:'Kickoff done 9/22', wait:'us', status:'In delivery',
-   next:'Owner to confirm at Sunday meeting', ask:'Lost in May, won back in September. Ask what changed; that is our win-back story'},
-  {n:'Aurelia Tech', pkg:'Engagement', o:'Kenny', val:800, paid:400, rem:400, phase:'Kickoff 9/11', wait:'us', status:'In delivery',
-   next:'Owner to confirm at Sunday meeting', ask:'Came through a family friend. Thank the person who sent them'},
-  {n:'Financial Acuity', pkg:'Growth Package', o:'Daunte', val:3350, paid:3350, rem:0, phase:'Closeout ran 7/31', wait:'client', status:'GBP waiting on client',
-   next:'Google Business Profile goes live after the owner finishes Google’s video verification', blk:'Only the client can do the verification', ask:'Testimonial for the case study'},
-  {n:'Lois Marketing', pkg:'Operator System', o:'Eli', val:1350, paid:null, rem:null, phase:'Closed 8/20', wait:'done', status:'Closed',
-   next:'Confirm the final payment landed (AR lists $1,350 as unconfirmed)', ask:'Google review from Phil. Eli asks in person'}
- ],
- referrals:{
-  chain:{v:10898, share:44, path:'Rodney → Carlo Thompson → HALO Commons ($1,649) → HALO Pathways ($7,450) + Felicia → Sipsies ($1,799)'},
-  partnersSigned:0, partnersGoal:5, bench:26, intros:null, introsGoal:'8–10 / month', reviewsGoal:'2–4 / month',
-  formAlerts:false,
-  mix:[['Referral chain',10898],['Repeat clients',5700],['Won back',1799],['Personal network',800],['Not recorded',5649]],
-  events:'Events and cold inbound: $0 signed in 2026 (0 wins, 5 losses)',
-  top:[['Kevin G. Brick','Brick Business Law',23],['Kalpesh J. Patel','FL Patel Law',23],['Albert Lee','Tampa Bay BBIC (lender)',23],['Ryan Greenacre','Greenacre Properties (HOA)',23],['Marie & Victor Retanaco','Retanaco Accounting',22]]
- }
-};
+// ---------- LIVE: point-in-time data, loaded from data/scoreboard.json ----------
+// auto   = rewritten by the weekly HubSpot routine (Sun + Wed 6am ET). Never hand-edit.
+// manual = team-owned: targets, clients, commitments, fixes, departments. The routine never touches it.
+let LIVE=null;
+const REASON_LABEL={'Stopped Communicating':'Went silent','Budget':'Budget','Timing':'Timing','Not a Fit':'Not a fit','Disqualified by Us':'Disqualified by us','Another Agency':'Another agency','Other':'Other / none given'};
+function blankMonth(){ return {rev:0,exp:0,net:0,revcat:{},revoff:{},expcat:{},wonN:0,wonV:0,lostN:0,lostV:0,wonOwner:{},ig:{v:0,p:0,e:0,f:0},fb:{v:0,p:0,e:0,f:0},tt:{v:0,p:0,e:0,f:0},li:{v:0,p:0,e:0,f:0},web:{pv:0,vis:0},reels:{}}; }
+function applyOverrides(deals, ovs){
+  return deals.map(d=>{ const x={...d, ym:(d.close||'').slice(0,7)};
+    (ovs||[]).forEach(o=>{ if((o.id&&o.id===d.id)||(o.match&&d.n.toLowerCase().includes(o.match.toLowerCase()))){ if(o.ym) x.ym=o.ym; if(o.o) x.o=o.o; } });
+    return x; }).filter(d=>d.ym);
+}
+// HubSpot deals drive the Sales history (won/lost by month). QuickBooks + Metricool fields are untouched.
+function applyDealsToHistory(deals){
+  DATA.deals=deals.map(d=>({ym:d.ym,n:d.n,a:d.a,o:d.o,w:d.w}));
+  const first='2025-06', last=deals.reduce((m,d)=>d.ym>m?d.ym:m, MONTHS[MONTHS.length-1]);
+  let [y,m]=first.split('-').map(Number);
+  while(true){ const k=y+'-'+String(m).padStart(2,'0'); if(k>last) break;
+    if(!D[k]){ D[k]=blankMonth(); MONTHS.push(k); }
+    Object.assign(D[k],{wonN:0,wonV:0,lostN:0,lostV:0,wonOwner:{}});
+    m++; if(m>12){m=1;y++;} }
+  MONTHS.sort(); MONTHS.forEach(k=>{ const yy=k.slice(0,4); if(!YEARS.includes(yy)) YEARS.push(yy); }); YEARS.sort();
+  deals.forEach(d=>{ const r=D[d.ym]; if(!r) return;
+    if(d.w===1){ r.wonN++; r.wonV+=d.a; const o=d.o||'Unassigned'; r.wonOwner[o]=(r.wonOwner[o]||0)+d.a; } else { r.lostN++; r.lostV+=d.a; } });
+}
+function quarterOf(s){ const q=Math.floor((+s.slice(5,7)-1)/3); const y=s.slice(0,4); const sm=String(q*3+1).padStart(2,'0'), em=String(q*3+3).padStart(2,'0'); return {label:'Q'+(q+1), start:y+'-'+sm+'-01', end:y+'-'+em+'-31'}; }
+function deriveLive(j){
+  const A=j.auto, M=j.manual;
+  const deals=applyOverrides(A.deals||[], M.dealOverrides);
+  applyDealsToHistory(deals);
+  const T=M.target, asOf=A.asOf;
+  const won=deals.filter(d=>d.w===1), lost=deals.filter(d=>d.w===0);
+  const q4Won=won.filter(d=>d.close>=T.start && d.close<=T.end);
+  // lost reasons, current year
+  const yr=asOf.slice(0,4), tally={};
+  lost.filter(d=>d.ym.startsWith(yr)).forEach(d=>{ const rs=(d.reasons&&d.reasons.length)?d.reasons:['Other']; rs.forEach(r=>{ const l=REASON_LABEL[r]||r; tally[l]=(tally[l]||0)+1; }); });
+  const lostReasons=Object.entries(tally).sort((a,b)=>b[1]-a[1]);
+  const pipeline=(A.pipeline||[]).map(p=>{ const n=(M.pipelineNotes||{})[p.id]||{};
+    return {...p, note:n.note||'', next:n.next||(p.nextDate?('Activity '+mdy(p.nextDate)):null), flag:!!(n.flag||p.lostReasonSet)}; });
+  const activity=(M.activity||[]).map(a=>{ if(a.src==='auto'){ const v=a.key==='overdue'?{v:A.overdue.total,d:'Open tasks past due. Breakdown by owner on the Sales tab'}:(A.activity[a.key]||{v:null,d:'No data this run'}); return {...a, v:v.v, d:v.d}; } return a; });
+  const L={asOf, financeAsOf:M.financeAsOf, socialAsOf:M.socialAsOf, target:T, week:A.week, generatedAt:A.generatedAt, by:A.by,
+    deals, won, lost, q4Won, activity, pipeline, lostReasons, overdue:A.overdue.byOwner, overdueTotal:A.overdue.total,
+    departments:M.departments||[], commitments:M.commitments||[], clients:M.clients||[], referrals:M.referrals||{},
+    fixes:(M.fixes||[]).map(f=>f.replace('{overdue}',A.overdue.total))};
+  // calculated department numbers
+  const open=pipeline.filter(p=>!p.flag).reduce((t,p)=>t+p.a,0);
+  const cq=quarterOf(asOf);
+  const ai=won.filter(d=>d.close>=cq.start && d.close<=cq.end && /\bAI\b|claude|jumpstart|automation/i.test(d.n)).reduce((t,d)=>t+d.a,0);
+  const toCollect=L.clients.reduce((t,c)=>t+(c.rem||0),0);
+  L.calc={coverage:(open/T.goal).toFixed(1)+'x', toCollect:usd(toCollect), aiSignedQ:usd(ai)};
+  L.calcLabel={aiSignedQ:'AI work signed in '+cq.label};
+  return L;
+}
+
 const DAY=864e5;
 function dparse(s){ const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); }
 function daysBetween(a,b){ return Math.round((dparse(b)-dparse(a))/DAY); }
 function mdy(s){ if(!s) return '&mdash;'; const d=dparse(s); return MN[d.getMonth()]+' '+d.getDate(); }
 function wonIn(months){ return months.reduce((t,m)=>t+(D[m]?D[m].wonV:0),0); }
-function winRate2026(){ const r=DATA.deals.filter(x=>x.ym.startsWith('2026')); const w=r.filter(x=>x.w===1).length; return {w, n:r.length, rate:r.length?w/r.length:0}; }
+function winRate2026(){ const yr=LIVE.asOf.slice(0,4); const r=DATA.deals.filter(x=>x.ym.startsWith(yr)); const w=r.filter(x=>x.w===1).length; return {w, n:r.length, rate:r.length?w/r.length:0}; }
 
 function renderScore(){
   const T=LIVE.target, asOf=LIVE.asOf;
@@ -941,7 +931,8 @@ function renderScore(){
     mob+='<div class="ai"><div class="at"><span class="an">'+x.k+'<span class="src '+x.src+'">'+(x.src==='auto'?'auto':'manual')+'</span></span><span class="av tnum">'+(x.v===null?'&ndash;':x.v)+' <small>/ '+x.t+'</small></span></div><div style="margin-top:5px">'+st+'</div><div class="ad">'+x.d+'</div></div>';
   });
   $('sc-act').innerHTML=a+'</tbody></table>'+mob+'</div>';
-  $('sc-owners').innerHTML=maskMoney(LIVE.owners.map(o=>'<div class="own"><div class="on">'+o.n+'</div><div class="or">'+o.r+'</div><div class="ov tnum">'+o.v+'</div><div class="ol">'+o.l+(o.p?' &middot; <i>proposed</i>':'')+'</div></div>').join(''));
+  $('sc-owners').innerHTML=maskMoney(LIVE.departments.map(o=>{ const v=o.calc?LIVE.calc[o.calc]:o.v, l=(o.calc&&LIVE.calcLabel[o.calc])||o.l;
+    return '<div class="own"><div class="on">'+o.dept+'</div><div class="or"><b style="color:var(--ink-2)">'+o.who+'</b><br>'+o.r+'</div><div class="ov tnum">'+v+'</div><div class="ol">'+l+(o.p?' &middot; <i>proposed</i>':'')+'</div></div>'; }).join(''));
   const C=LIVE.commitments;
   $('sc-commit').innerHTML=(C.length?C.map(c=>'<li class="set"><span><b>'+c.w+'</b> &middot; '+c.t+(c.due?' <span style="color:var(--muted)">by '+c.due+'</span>':'')+'</span></li>').join(''):[1,2,3].map(()=>'<li>Set at Sunday&rsquo;s meeting</li>').join(''));
   $('sc-fix').innerHTML=maskMoney(LIVE.fixes.map(f=>'<li>'+f+'</li>').join(''));
@@ -963,7 +954,8 @@ function pipelineTable(){
 }
 function renderSalesLive(){
   const L=LIVE.lostReasons, tot=L.reduce((t,x)=>t+x[1],0);
-  $('ct-lostwhy').innerHTML='Reason tags on the 28 deals lost this year (a deal can carry more than one) &middot; '+tot+' tags';
+  const nLost=LIVE.lost.filter(d=>d.ym.startsWith(LIVE.asOf.slice(0,4))).length;
+  $('ct-lostwhy').innerHTML='Reason tags on the '+nLost+' deals lost this year (a deal can carry more than one) &middot; '+tot+' tags';
   $('ch-lostwhy').innerHTML=barChart(L.map((x,i)=>({label:x[0],val:x[1],color:i===0?'url(#gBad)':'url(#gHbar)'})),{fmt:v=>''+v});
   const O=LIVE.overdue, ot=O.reduce((t,x)=>t+x[1],0);
   $('ct-overdue').innerHTML=ot+' open tasks past due, by HubSpot owner &middot; target is zero';
@@ -1006,7 +998,7 @@ function renderReferrals(){
   $('mkt-stale').innerHTML='Social and website numbers below stop at '+mdy(LIVE.socialAsOf)+' (last Metricool export). They refresh once the Metricool connection is set up.';
 }
 function renderLive(){
-  $('asof2').innerHTML='HubSpot pulled '+mdy(LIVE.asOf)+' &middot; QuickBooks + Metricool as of '+mdy(LIVE.financeAsOf);
+  $('asof2').innerHTML='HubSpot pulled '+mdy(LIVE.asOf)+' &middot; QuickBooks as of '+mdy(LIVE.financeAsOf)+' &middot; Metricool as of '+mdy(LIVE.socialAsOf);
   $('foot-ft').innerHTML='Sales data pulled from HubSpot '+LIVE.asOf+'; financial and social from DA-004 / DA-003 as of '+LIVE.financeAsOf+' &middot; internal use only';
   renderScore(); renderSalesLive(); renderClients(); renderReferrals();
 }
@@ -1039,7 +1031,10 @@ document.addEventListener('mousemove', e=>{
     _tip.style.left=lx+'px'; _tip.style.top=(e.clientY-10)+'px';
   } else _tip.style.display='none';
 });
-buildControls(); render(); renderLive(); showTab(location.hash.slice(1)||'score');
+buildControls(); render(); showTab(location.hash.slice(1)||'score');
+fetch('../data/scoreboard.json?v='+Date.now()).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+  .then(j=>{ LIVE=deriveLive(j); buildControls(); render(); renderLive(); })
+  .catch(e=>{ $('sc-hero').innerHTML='<div class="card" style="grid-column:1/-1"><div class="card-t">Scoreboard data did not load</div><div class="card-s">data/scoreboard.json: '+e.message+'. The history tabs still work.</div></div>'; });
 </script>
 
 <script src="../js/nav.js" data-page="strategy"></script>
