@@ -844,7 +844,7 @@
   ],
   "commitments": [],
   "fixes": [
-   "<b>{overdue} overdue HubSpot tasks</b>, about 62 of them auto-created call tasks from July. Close the dead ones so the follow-up number means something.",
+   "<b>{overdue} overdue HubSpot tasks</b>, spread across everyone (see Sales tab), with about a quarter of them unassigned auto-created call tasks from July. Close or reschedule the dead ones so the follow-up number means something.",
    "<b>Lead source is blank.</b> 41 of 42 deals this year say OFFLINE, so no channel can be credited or cut. Make it required on every new contact and deal.",
    "<b>All State</b> has a lost reason but is still open in Proposal Sent. Close it or clear the reason.",
    "<b>Emerald</b> has no dollar value and no touch in 13 days.",
