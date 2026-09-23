@@ -76,6 +76,7 @@
 
   .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .grid2.wide-l { grid-template-columns:1.25fr 0.75fr; }
+  .grid2 > *, .hero > *, .clients > * { min-width:0; }
   .card { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:17px 19px; box-shadow:var(--shadow); }
   .card-t { font-size:13px; font-weight:700; color:var(--ink); }
   .card-s { font-size:10.5px; color:var(--muted); margin-top:1px; margin-bottom:12px; }
@@ -126,6 +127,82 @@
   .foot .ft { font-size:10px; color:rgba(255,255,255,0.42); } .foot .fg { font-size:11px; font-weight:700; color:var(--gold); }
 
   @media (max-width:900px){ .tiles{grid-template-columns:repeat(2,1fr);} .grid2,.grid2.wide-l{grid-template-columns:1fr;} }
+
+  /* snapshot tabs (Scoreboard, Clients) are point-in-time: the period slicer + KPI tiles don't apply */
+  body[data-view="snap"] .controls, body[data-view="snap"] #kpis { display:none; }
+  .snapnote { font-size:11px; color:var(--muted); margin:10px 0 0; }
+  /* Sunday agenda strip */
+  .agenda { display:flex; gap:8px; flex-wrap:wrap; margin:16px 0 4px; }
+  .agenda .ag { flex:1 1 150px; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:9px 12px; font-size:12px; color:var(--ink-2); }
+  .agenda .ag b { display:block; color:var(--navy); font-size:12px; margin-bottom:2px; }
+  .agenda .ag span { font-size:10.5px; color:var(--muted); }
+  /* scoreboard hero */
+  .hero { display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:12px; margin-top:12px; }
+  .hero .card { position:relative; overflow:hidden; }
+  .big { font-size:34px; font-weight:800; color:var(--navy); letter-spacing:-1px; line-height:1.1; margin-top:6px; }
+  .big small { font-size:16px; font-weight:600; color:var(--muted); letter-spacing:0; }
+  .prog { height:12px; background:var(--grid); border-radius:6px; margin:14px 0 6px; position:relative; overflow:visible; }
+  .prog .fill { height:100%; border-radius:6px; background:linear-gradient(90deg,var(--navy),var(--blue)); min-width:2px; }
+  .prog .mark { position:absolute; top:-4px; bottom:-4px; width:2px; background:var(--gold-dark); }
+  .prog .mark::after { content:attr(data-l); position:absolute; top:-17px; left:50%; transform:translateX(-50%); font-size:9.5px; font-weight:700; color:#9a6a06; white-space:nowrap; }
+  .progcap { display:flex; justify-content:space-between; gap:10px; font-size:11px; color:var(--ink-2); flex-wrap:wrap; }
+  .sub { font-size:11.5px; color:var(--ink-2); margin-top:8px; line-height:1.55; }
+  .sub b { color:var(--ink); }
+  /* weekly activity table */
+  .act { width:100%; border-collapse:collapse; }
+  .act th { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); text-align:left; padding:0 8px 8px; border-bottom:1px solid var(--border-strong); }
+  .act th.r, .act td.r { text-align:right; }
+  .act td { padding:10px 8px; font-size:12.5px; border-bottom:1px solid var(--grid); vertical-align:top; }
+  .act tr:last-child td { border-bottom:none; }
+  .act .m { font-weight:700; color:var(--ink); }
+  .act .h { display:block; font-size:10.5px; color:var(--muted); margin-top:2px; font-weight:400; }
+  .act .v { font-size:15px; font-weight:800; color:var(--navy); }
+  .src { display:inline-block; font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 6px; border-radius:4px; margin-left:6px; vertical-align:1px; }
+  .src.auto { background:#e4eef7; color:var(--navy); } .src.man { background:var(--warn-soft); color:#9a6a06; }
+  /* owners */
+  .owners { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+  .own { background:var(--bg); border-radius:8px; padding:12px 13px; }
+  .own .on { font-size:13px; font-weight:800; color:var(--ink); }
+  .own .or { font-size:10.5px; color:var(--muted); margin-top:1px; min-height:28px; }
+  .own .ov { font-size:20px; font-weight:800; color:var(--navy); margin-top:6px; letter-spacing:-.4px; }
+  .own .ol { font-size:10.5px; color:var(--ink-2); margin-top:2px; }
+  .commit { list-style:none; counter-reset:c; }
+  .commit li { counter-increment:c; display:flex; gap:10px; align-items:flex-start; padding:10px 0; border-bottom:1px dashed var(--border-strong); font-size:12.5px; color:var(--muted); }
+  .commit li:last-child { border-bottom:none; }
+  .commit li::before { content:counter(c); flex:0 0 22px; height:22px; border-radius:6px; background:var(--gold); color:var(--navy-dark); font-weight:800; font-size:11px; display:flex; align-items:center; justify-content:center; }
+  .commit li.set { color:var(--ink); }
+  .fix li { font-size:12px; color:var(--ink-2); line-height:1.55; margin:0 0 7px 16px; }
+  .fix li b { color:var(--ink); }
+  /* status pills */
+  .st { display:inline-block; padding:2px 8px; border-radius:4px; font-size:10px; font-weight:700; white-space:nowrap; }
+  .st.ok { background:var(--good-soft); color:var(--good-dark); } .st.wait { background:var(--warn-soft); color:#9a6a06; }
+  .st.bad { background:var(--red-soft); color:var(--red); } .st.info { background:#e4eef7; color:var(--navy); } .st.mute { background:var(--grid); color:var(--ink-2); }
+  .dl td .h { display:block; font-size:10.5px; color:var(--muted); margin-top:2px; }
+  .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tscroll .dl { min-width:640px; }
+  /* client cards */
+  .clients { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  .cl { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:15px 17px; box-shadow:var(--shadow); border-top:3px solid var(--navy); }
+  .cl.b-client { border-top-color:var(--warn); } .cl.b-us { border-top-color:var(--blue); } .cl.done { border-top-color:var(--good); }
+  .cl .ch { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+  .cl .cn { font-size:14px; font-weight:800; color:var(--ink); }
+  .cl .cp { font-size:11px; color:var(--muted); margin-top:1px; }
+  .cl .row { display:grid; grid-template-columns:92px 1fr; gap:8px; font-size:12px; padding:6px 0; border-top:1px solid var(--grid); }
+  .cl .row:first-of-type { margin-top:10px; }
+  .cl .k { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); padding-top:2px; }
+  .cl .money { display:flex; gap:14px; flex-wrap:wrap; }
+  .cl .money span b { color:var(--navy); }
+  .funnel { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .actm { display:none; }
+  .actm .ai { background:var(--bg); border-radius:8px; padding:11px 12px; margin-top:8px; }
+  .actm .at { display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .actm .an { font-size:12.5px; font-weight:700; color:var(--ink); }
+  .actm .av { font-size:18px; font-weight:800; color:var(--navy); white-space:nowrap; }
+  .actm .av small { font-size:11px; font-weight:600; color:var(--muted); }
+  .actm .ad { font-size:11px; color:var(--ink-2); margin-top:5px; line-height:1.45; }
+  @media (max-width:640px){ .act{display:none;} .actm{display:block;} }
+  @media (max-width:900px){ .hero{grid-template-columns:1fr;} .owners{grid-template-columns:repeat(2,1fr);} .clients{grid-template-columns:1fr;} .funnel{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .owners{grid-template-columns:1fr;} .wrap{padding:16px 16px 48px;} .header,.controls,.privbar,.foot{padding-left:16px;padding-right:16px;} .big{font-size:28px;} .tabbar button{padding:9px 11px;font-size:12.5px;} .cl .row{grid-template-columns:1fr;gap:2px;} }
 </style>
 </head>
 <body data-privacy="on">
@@ -143,7 +220,7 @@
   <div class="h-right">
     <div class="h-asof">
       <div class="a1" id="asof">&mdash;</div>
-      <div class="a2">HubSpot refreshed 2026-09-13 &middot; QuickBooks/Metricool as of 2026-07-24</div>
+      <div class="a2" id="asof2">&mdash;</div>
     </div>
     <div class="segp" id="privSeg">
       <button class="on" data-priv="on">Protected</button>
@@ -173,16 +250,51 @@
   <div class="tiles" id="kpis"></div>
 
   <div class="tabbar" id="tabbar">
-    <button data-tab="fin" class="on">Financial</button>
+    <button data-tab="score" class="on">Q4 Scoreboard</button>
     <button data-tab="sales">Sales</button>
+    <button data-tab="clients">Clients</button>
     <button data-tab="mkt">Marketing</button>
+    <button data-tab="fin">Financial</button>
     <button data-tab="web">Website</button>
     <button data-tab="review">Quarterly Review</button>
   </div>
 
+  <!-- Q4 SCOREBOARD (point-in-time, opens every Sunday meeting) -->
+  <div class="panel on" id="tab-score">
+    <div class="agenda" aria-label="Sunday meeting order">
+      <div class="ag"><b>1 &middot; Scoreboard</b>On pace? <span>5 min</span></div>
+      <div class="ag"><b>2 &middot; Sales</b>Every open deal has a next step <span>10 min</span></div>
+      <div class="ag"><b>3 &middot; Clients</b>Blockers + the ask <span>5 min</span></div>
+      <div class="ag"><b>4 &middot; Commit</b>Three things for the week <span>10 min</span></div>
+    </div>
+    <div class="shead"><span class="n">1</span><span class="t">Q4 Scoreboard</span><span class="s" id="s-score">&mdash;</span></div>
+    <div class="hero" id="sc-hero"></div>
+    <div class="card mt12">
+      <div class="card-t">This week&rsquo;s activity</div>
+      <div class="card-s" id="sc-act-s">&mdash;</div>
+      <div class="tscroll"><div id="sc-act"></div></div>
+    </div>
+    <div class="card mt12">
+      <div class="card-t">Who owns what</div>
+      <div class="card-s">One number per person. Numbers marked <i>proposed</i> get confirmed at the Sunday meeting.</div>
+      <div class="owners" id="sc-owners"></div>
+    </div>
+    <div class="grid2 mt12">
+      <div class="card"><div class="card-t">This week&rsquo;s 3 commitments</div><div class="card-s" id="sc-commit-s">Written at the end of the Sunday meeting</div><ol class="commit" id="sc-commit"></ol></div>
+      <div class="card"><div class="card-t">Fix the data</div><div class="card-s">Each of these makes a number on this page wrong or blind</div><ul class="fix" id="sc-fix"></ul></div>
+    </div>
+  </div>
+
+  <!-- CLIENTS (point-in-time) -->
+  <div class="panel" id="tab-clients">
+    <div class="shead"><span class="n">3</span><span class="t">Clients</span><span class="s" id="s-clients">&mdash;</span></div>
+    <div class="card-s" style="margin:0 0 12px">Active delivery plus anything closed in the last 90 days. The top stripe shows who the next step waits on: <span class="st info">us</span> <span class="st wait">client</span> <span class="st ok">closed</span>. Every client ends with an ask, because referrals are where 2026 revenue came from.</div>
+    <div class="clients" id="cl-grid"></div>
+  </div>
+
   <!-- FINANCIAL -->
-  <div class="panel on" id="tab-fin">
-    <div class="shead"><span class="n">1</span><span class="t">Financial</span><span class="s" id="s-fin">&mdash;</span></div>
+  <div class="panel" id="tab-fin">
+    <div class="shead"><span class="n">5</span><span class="t">Financial</span><span class="s" id="s-fin">&mdash;</span></div>
     <div class="card" id="card-avgfin" style="display:none"><div class="card-t">Monthly averages</div><div class="card-s" id="ct-avgfin">Per-month run-rate across the selected period &middot; the pace, not the total</div><div id="ch-avgfin"></div></div>
     <div class="grid2 wide-l mt12">
       <div class="card"><div class="card-t">Revenue &amp; net income by month</div><div class="card-s" id="ct-rev">Cash basis &middot; QuickBooks. Revenue bars + net income line (gold); line dips below zero on loss months.</div><div id="ch-rev"></div></div>
@@ -198,7 +310,13 @@
   <!-- SALES -->
   <div class="panel" id="tab-sales">
     <div class="shead"><span class="n">2</span><span class="t">Sales</span><span class="s" id="s-sales">&mdash;</span></div>
-    <div class="grid2">
+    <div class="card"><div class="card-t">Open pipeline</div><div class="card-s" id="ct-pipe">&mdash;</div><div class="tscroll"><div id="ch-pipeline"></div></div></div>
+    <div class="grid2 mt12">
+      <div class="card"><div class="card-t">Why we lose (2026)</div><div class="card-s" id="ct-lostwhy">&mdash;</div><div id="ch-lostwhy"></div></div>
+      <div class="card"><div class="card-t">Overdue follow-up tasks</div><div class="card-s" id="ct-overdue">&mdash;</div><div id="ch-overdue"></div></div>
+    </div>
+    <div class="snapnote">The cards above are live snapshots and ignore the period picker. Everything below follows it.</div>
+    <div class="grid2 mt12">
       <div class="card"><div class="card-t">Deals won vs lost by month</div><div class="card-s">HubSpot closed-won / closed-lost value, by close date</div><div id="ch-deals"></div></div>
       <div class="card"><div class="card-t">Win rate &amp; deal flow</div><div class="card-s">Selected period &middot; count, value, and efficiency</div><div id="ch-winrate"></div></div>
     </div>
@@ -207,14 +325,19 @@
       <div class="card"><div class="card-t">Closed-won deals</div><div class="card-s" id="ct-won">Selected period</div><div id="ch-wonlist"></div></div>
       <div class="card"><div class="card-t">Lost deals</div><div class="card-s" id="ct-lost">Selected period</div><div id="ch-lostlist"></div></div>
     </div>
-    <div class="card mt12"><div class="card-t">Active pipeline</div><div class="card-s">Point-in-time snapshot as of Jul 22, 2026 &middot; HubSpot open deals (not affected by the period slicer)</div><div id="ch-pipeline"></div></div>
     <div id="nar-sales"></div>
   </div>
 
   <!-- MARKETING -->
   <div class="panel" id="tab-mkt">
-    <div class="shead"><span class="n">3</span><span class="t">Marketing &amp; content</span><span class="s" id="s-mkt">&mdash;</span></div>
-    <div class="grid2">
+    <div class="shead"><span class="n">4</span><span class="t">Marketing &amp; content</span><span class="s" id="s-mkt">&mdash;</span></div>
+    <div class="card"><div class="card-t">Referrals &amp; referral partners</div><div class="card-s" id="ct-ref">&mdash;</div><div id="ch-ref"></div></div>
+    <div class="grid2 mt12">
+      <div class="card"><div class="card-t">Where 2026 bookings came from</div><div class="card-s">Signed value by how the client found us &middot; HubSpot referral field + team knowledge</div><div id="ch-srcmix"></div></div>
+      <div class="card"><div class="card-t">Referral partner bench</div><div class="card-s" id="ct-bench">&mdash;</div><div id="ch-bench"></div></div>
+    </div>
+    <div class="snapnote" id="mkt-stale">&mdash;</div>
+    <div class="grid2 mt12">
       <div class="card"><div class="card-t">Content views by platform</div><div class="card-s">Selected period &middot; Metricool</div><div id="ch-social"></div></div>
       <div class="card"><div class="card-t">Platform performance</div><div class="card-s">Selected period &middot; posts, views, engagement &amp; follower growth by platform</div><div id="ch-foll"></div></div>
     </div>
@@ -224,7 +347,7 @@
 
   <!-- WEBSITE -->
   <div class="panel" id="tab-web">
-    <div class="shead"><span class="n">4</span><span class="t">Website</span><span class="s" id="s-web">&mdash;</span></div>
+    <div class="shead"><span class="n">6</span><span class="t">Website</span><span class="s" id="s-web">&mdash;</span></div>
     <div class="grid2 wide-l">
       <div class="card"><div class="card-t">Website traffic by month</div><div class="card-s">Page views &middot; GA via Metricool. Selected period highlighted.</div><div id="ch-web"></div></div>
       <div class="card"><div class="card-t">Traffic summary</div><div class="card-s">Selected period</div><div id="ch-websum"></div></div>
@@ -234,7 +357,7 @@
 
   <!-- REVIEW -->
   <div class="panel" id="tab-review">
-    <div class="shead"><span class="n">5</span><span class="t">Quarterly Review</span><span class="s" id="s-review">the story behind the numbers</span></div>
+    <div class="shead"><span class="n">7</span><span class="t">Quarterly Review</span><span class="s" id="s-review">the story behind the numbers</span></div>
     <div id="review-body"></div>
   </div>
 
@@ -245,17 +368,17 @@
 </div>
 
 <div class="foot">
-  <div class="ft">Sales data refreshed 2026-09-13 from HubSpot; financial/social from DA-004/DA-003 as of 2026-07-24 &middot; internal use only</div>
+  <div class="ft" id="foot-ft">&mdash;</div>
   <div class="fg">buildwithbpp.com</div>
 </div>
 
 <script>
-const DATA = {"generated":"2026-09-13","months":["2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09"],"data":{"2025-03":{"rev":0.0,"exp":610.22,"net":-610.22,"revcat":{},"revoff":{},"expcat":{"Fees":0.24,"Software":609.98},"wonN":0,"wonV":0,"lostN":0,"lostV":0,"wonOwner":{},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-04":{"rev":305.0,"exp":1556.48,"net":-1251.48,"revcat":{"Consulting":305.0},"revoff":{"Business Planning":305.0},"expcat":{"Other":256.75,"Content & Marketing":500.0,"Fees":-7.76,"Software":807.49},"wonN":0,"wonV":0,"lostN":0,"lostV":0,"wonOwner":{},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-05":{"rev":1549.0,"exp":1056.76,"net":493.12,"revcat":{"Consulting":299.0,"Marketing":170.84,"Technology":1079.16},"revoff":{"Business Planning":299.0,"Systems & CRM":516.67,"Website & Digital":562.49,"Local SEO / GMB":83.34,"Marketing & Social":87.5},"expcat":{"Fees":51.57,"Other":63.85,"Software":941.34},"wonN":0,"wonV":0,"lostN":0,"lostV":0,"wonOwner":{},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-06":{"rev":4596.9,"exp":1729.29,"net":2870.71,"revcat":{"Consulting":377.71,"Marketing":370.84,"Technology":4776.92,"Other":0.0},"revoff":{"Business Planning":251.95,"Consulting & Other":1125.76,"Finance / QuickBooks":935.07,"Website & Digital":1112.49,"Systems & CRM":2929.36,"Local SEO / GMB":83.34,"Marketing & Social":87.5},"expcat":{"Fees":156.73,"Other":460.86,"Client Costs":160.0,"Owner Pay":600.0,"Software":351.7},"wonN":2,"wonV":3015.5,"lostN":0,"lostV":0,"wonOwner":{"Eli":3015.5},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-07":{"rev":1250.0,"exp":1395.97,"net":-142.81,"revcat":{"Marketing":170.84,"Technology":1079.16},"revoff":{"Systems & CRM":516.67,"Website & Digital":562.49,"Local SEO / GMB":83.34,"Marketing & Social":87.5},"expcat":{"Fees":57.24,"Client Costs":35.4,"Content & Marketing":180.0,"Owner Pay":999.0,"Software":243.72,"Other":-119.39},"wonN":1,"wonV":3750,"lostN":0,"lostV":0,"wonOwner":{"Daunte":3750.0},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-08":{"rev":1801.6,"exp":1309.35,"net":494.85,"revcat":{"Consulting":520.29,"Marketing":424.15,"Technology":1100.24},"revoff":{"Business Planning":347.05,"Consulting & Other":173.24,"Finance / QuickBooks":462.93,"Systems & CRM":637.31,"Marketing & Social":424.15},"expcat":{"Fees":70.54,"Client Costs":335.2,"Content & Marketing":575.0,"Software":328.61},"wonN":2,"wonV":1597,"lostN":2,"lostV":1149,"wonOwner":{"Kenny":1597.0},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-09":{"rev":2598.3,"exp":1842.16,"net":758.75,"revcat":{"Consulting":500.0,"Marketing":974.15,"Technology":750.0,"Other":424.15},"revoff":{"Consulting & Other":300.0,"Website & Digital":1750.0,"Marketing & Social":1223.3,"Systems & CRM":375.0},"expcat":{"Fees":54.92,"Client Costs":217.32,"Content & Marketing":500.0,"Software":1069.92},"wonN":0,"wonV":0,"lostN":2,"lostV":4663,"wonOwner":{},"ig":{"v":2455.0,"p":9.0,"e":72.0,"f":0},"fb":{"v":2367.0,"p":11.0,"e":256.0,"f":1118.0},"tt":{"v":20.0,"p":5.0,"e":16.0,"f":0},"li":{"v":66.0,"p":1.0,"e":3.0,"f":187.0},"web":{"pv":0,"vis":0},"reels":{"n":5,"v":770,"r":502,"s":0,"sh":3,"wt":6.5}},"2025-10":{"rev":374.4,"exp":1072.5,"net":-695.57,"revcat":{"Marketing":374.4},"revoff":{"Business Planning":374.4},"expcat":{"Fees":27.73,"Client Costs":67.2,"Content & Marketing":500.0,"Owner Pay":100.0,"Software":377.57},"wonN":1,"wonV":1248,"lostN":5,"lostV":2246,"wonOwner":{"Daunte":1248.0},"ig":{"v":2678.0,"p":14.0,"e":99.0,"f":46.0},"fb":{"v":1791.0,"p":14.0,"e":127.0,"f":1120.0},"tt":{"v":498.0,"p":5.0,"e":11.0,"f":12.0},"li":{"v":19.0,"p":1.0,"e":0.0,"f":188.0},"web":{"pv":0,"vis":0},"reels":{"n":4,"v":1701,"r":1184,"s":0,"sh":8,"wt":5.8}},"2025-11":{"rev":299.5,"exp":753.7,"net":-450.9,"revcat":{"Marketing":299.5},"revoff":{"Marketing & Social":299.5},"expcat":{"Fees":37.9,"Other":43.61,"Client Costs":36.05,"Content & Marketing":150.0,"Software":486.14},"wonN":0,"wonV":0,"lostN":2,"lostV":4162,"wonOwner":{},"ig":{"v":4699.0,"p":51.0,"e":140.0,"f":54.0},"fb":{"v":2572.0,"p":46.0,"e":187.0,"f":1125.0},"tt":{"v":2832.0,"p":23.0,"e":41.0,"f":18.0},"li":{"v":48.0,"p":2.0,"e":2.0,"f":188.0},"web":{"pv":5.0,"vis":5.0},"reels":{"n":17,"v":3424,"r":2729,"s":1,"sh":12,"wt":5.4}},"2025-12":{"rev":2049.5,"exp":1742.01,"net":310.77,"revcat":{"Marketing":2049.5},"revoff":{"Website & Digital":1000.0,"Marketing & Social":1049.5},"expcat":{"Fees":46.5,"Other":29.41,"Client Costs":55.16,"Content & Marketing":660.0,"Rodney Rev-Share":405.0,"Software":545.94},"wonN":4,"wonV":7414,"lostN":3,"lostV":4346,"wonOwner":{"Eli":3500.0,"Kenny":3914.0},"ig":{"v":9721.0,"p":69.0,"e":358.0,"f":79.0},"fb":{"v":2835.0,"p":70.0,"e":192.0,"f":1140.0},"tt":{"v":3373.0,"p":24.0,"e":46.0,"f":24.0},"li":{"v":492.0,"p":23.0,"e":89.0,"f":191.0},"web":{"pv":148.0,"vis":135.0},"reels":{"n":18,"v":7575,"r":5454,"s":6,"sh":27,"wt":6.0}},"2026-01":{"rev":2540.0,"exp":1112.04,"net":1431.35,"revcat":{"Consulting":500.0,"Marketing":293.61,"Technology":1892.18,"Other":40.0},"revoff":{"Consulting & Other":540.0,"Local SEO / GMB":326.24,"Website & Digital":1565.94,"Brand & Design":293.61},"expcat":{"Fees":19.62,"Other":79.42,"Client Costs":54.62,"Rodney Rev-Share":142.0,"Content & Marketing":247.24,"Software":569.14},"wonN":0,"wonV":0,"lostN":1,"lostV":2823,"wonOwner":{},"ig":{"v":4846.0,"p":28.0,"e":160.0,"f":104.0},"fb":{"v":1284.0,"p":23.0,"e":94.0,"f":1146.0},"tt":{"v":938.0,"p":6.0,"e":43.0,"f":27.0},"li":{"v":284.0,"p":6.0,"e":9.0,"f":193.0},"web":{"pv":203.0,"vis":168.0},"reels":{"n":6,"v":3853,"r":2373,"s":6,"sh":14,"wt":6.5}},"2026-02":{"rev":2459.2,"exp":2124.93,"net":337.67,"revcat":{"Consulting":1000.0,"Marketing":1459.2},"revoff":{"Consulting & Other":1000.0,"Business Planning":1459.2},"expcat":{"Fees":124.86,"Other":345.89,"Client Costs":54.85,"Content & Marketing":821.0,"Rodney Rev-Share":122.96,"Software":655.37},"wonN":4,"wonV":4700,"lostN":6,"lostV":8835,"wonOwner":{"Daunte":1000.0,"Eli":3700.0},"ig":{"v":565.0,"p":14.0,"e":0.0,"f":107.0},"fb":{"v":376.0,"p":10.0,"e":0.0,"f":1147.0},"tt":{"v":112.0,"p":0.0,"e":0.0,"f":30.0},"li":{"v":55.0,"p":0.0,"e":0.0,"f":194.0},"web":{"pv":127.0,"vis":91.0},"reels":{}},"2026-03":{"rev":2280.0,"exp":2615.7,"net":-331.25,"revcat":{"Marketing":2280.0},"revoff":{"Business Planning":1280.0,"Brand & Design":1000.0},"expcat":{"Fees":58.52,"Client Costs":54.85,"Content & Marketing":590.5,"Rodney Rev-Share":114.0,"Software":1797.83},"wonN":1,"wonV":1000,"lostN":2,"lostV":2757.15,"wonOwner":{"Eli":1000.0},"ig":{"v":2977.0,"p":23.0,"e":111.0,"f":111.0},"fb":{"v":1951.0,"p":18.0,"e":384.0,"f":1144.0},"tt":{"v":354.0,"p":3.0,"e":5.0,"f":30.0},"li":{"v":233.0,"p":3.0,"e":73.0,"f":193.0},"web":{"pv":83.0,"vis":69.0},"reels":{"n":1,"v":445,"r":340,"s":0,"sh":1,"wt":6.3}},"2026-04":{"rev":2623.75,"exp":1767.01,"net":861.8,"revcat":{"Consulting":449.25,"Marketing":2174.5},"revoff":{"Business Planning":449.25,"Systems & CRM":1350.0,"Website & Digital":824.5},"expcat":{"Fees":112.81,"Other":386.09,"Client Costs":54.85,"Content & Marketing":346.71,"Rodney Rev-Share":131.19,"Software":735.36},"wonN":4,"wonV":3948.25,"lostN":4,"lostV":9395,"wonOwner":{"Eli":2999.0,"Daunte":500.0,"Kenny":449.25},"ig":{"v":11718.0,"p":80.0,"e":371.0,"f":145.0},"fb":{"v":4377.0,"p":65.0,"e":288.0,"f":1150.0},"tt":{"v":26846.0,"p":21.0,"e":3028.0,"f":73.0},"li":{"v":631.0,"p":13.0,"e":125.0,"f":196.0},"web":{"pv":185.0,"vis":94.0},"reels":{"n":18,"v":7613,"r":5294,"s":10,"sh":19,"wt":6.1}},"2026-05":{"rev":2300.0,"exp":1605.91,"net":699.74,"revcat":{"Consulting":500.0,"Marketing":1800.0},"revoff":{"Consulting & Other":500.0,"Systems & CRM":1800.0},"expcat":{"Fees":112.16,"Client Costs":21.0,"Content & Marketing":550.0,"Contract Labor":375.0,"Owner Pay":300.0,"Rodney Rev-Share":115.0,"Software":132.75},"wonN":1,"wonV":3350,"lostN":6,"lostV":16799,"wonOwner":{"Daunte":3350.0},"ig":{"v":9401.0,"p":54.0,"e":241.0,"f":180.0},"fb":{"v":2150.0,"p":48.0,"e":67.0,"f":1154.0},"tt":{"v":5902.0,"p":17.0,"e":60.0,"f":86.0},"li":{"v":811.0,"p":25.0,"e":91.0,"f":200.0},"web":{"pv":238.0,"vis":117.0},"reels":{"n":15,"v":4453,"r":2896,"s":2,"sh":15,"wt":7.0}},"2026-06":{"rev":960.0,"exp":1349.12,"net":-381.73,"revcat":{"Marketing":960.0},"revoff":{"Business Planning":960.0},"expcat":{"Fees":50.64,"Client Costs":25.31,"Contract Labor":-50.0,"Rodney Rev-Share":48.0,"Software":1275.17},"wonN":0,"wonV":0,"lostN":2,"lostV":2000,"wonOwner":{},"ig":{"v":1438.0,"p":8.0,"e":0.0,"f":184.0},"fb":{"v":569.0,"p":11.0,"e":6.0,"f":1157.0},"tt":{"v":538.0,"p":0.0,"e":0.0,"f":86.0},"li":{"v":208.0,"p":0.0,"e":0.0,"f":202.0},"web":{"pv":509.0,"vis":153.0},"reels":{}},"2026-07":{"rev":1889.75,"exp":1227.91,"net":669.42,"revcat":{"Marketing":980.89,"Technology":1007.82},"revoff":{"Local SEO / GMB":173.76,"Website & Digital":1658.56,"Brand & Design":156.39},"expcat":{"Fees":44.3,"Other":55.15,"Client Costs":25.52,"Owner Pay":600.0,"Software":502.94},"wonN":1,"wonV":0,"lostN":4,"lostV":6898,"wonOwner":{"Eli":0.0},"ig":{"v":1554.0,"p":3.0,"e":0.0,"f":188},"fb":{"v":253.0,"p":5.0,"e":32.0,"f":1161},"tt":{"v":88.0,"p":0.0,"e":0.0,"f":85},"li":{"v":26.0,"p":0.0,"e":0.0,"f":202},"web":{"pv":131.0,"vis":78.0},"reels":{}},"2026-08":{"rev":0,"exp":0,"net":0,"revcat":{},"revoff":{},"expcat":{},"wonN":1,"wonV":7450,"lostN":3,"lostV":9997,"wonOwner":{"Eli":7450.0},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2026-09":{"rev":0,"exp":0,"net":0,"revcat":{},"revoff":{},"expcat":{},"wonN":1,"wonV":800,"lostN":0,"lostV":0,"wonOwner":{"Kenny":800.0},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}}},"deals":[{"ym":"2025-06","n":"Remember Wynn Foundations","a":2337.5,"o":"Eli","w":1},{"ym":"2025-06","n":"SEEDFOLKids Foundations","a":678,"o":"Eli","w":1},{"ym":"2025-07","n":"Tier 1 Foundations","a":3750,"o":"Daunte","w":1},{"ym":"2025-08","n":"Mable Blueprinting","a":599,"o":"Kenny","w":1},{"ym":"2025-08","n":"MGP Business Plan","a":599,"o":"","w":0},{"ym":"2025-08","n":"Invitation to a Wedding","a":550,"o":"","w":0},{"ym":"2025-08","n":"Stack All Profits","a":998,"o":"Kenny","w":1},{"ym":"2025-09","n":"Heart & Soul","a":3463,"o":"","w":0},{"ym":"2025-09","n":"For The Girls Tampa","a":1200,"o":"","w":0},{"ym":"2025-10","n":"Wedelia Wellness","a":1248,"o":"Daunte","w":1},{"ym":"2025-10","n":"Squeaky Whips","a":1247,"o":"","w":0},{"ym":"2025-10","n":"Mattie Mae's Fixings","a":200,"o":"","w":0},{"ym":"2025-10","n":"E&M Beautiful Me","a":599,"o":"","w":0},{"ym":"2025-10","n":"Courtesy Office Cleaning","a":0,"o":"","w":0},{"ym":"2025-10","n":"Stack all Profits - Consult","a":200,"o":"","w":0},{"ym":"2025-11","n":"RIVR","a":3563,"o":"","w":0},{"ym":"2025-11","n":"The About Group","a":599,"o":"","w":0},{"ym":"2025-12","n":"Revive Realty","a":1747,"o":"","w":0},{"ym":"2025-12","n":"African Learning Temple","a":2000,"o":"","w":0},{"ym":"2025-12","n":"Roberts Brothers - Mktg & Legal","a":2000,"o":"Eli","w":1},{"ym":"2025-12","n":"Legacy Roofing","a":1500,"o":"Eli","w":1},{"ym":"2025-12","n":"Fawwwkk","a":599,"o":"Kenny","w":1},{"ym":"2025-12","n":"Xtremely Clean - Automation/CRM","a":3315,"o":"Kenny","w":1},{"ym":"2025-12","n":"Troops in Treatment","a":599,"o":"","w":0},{"ym":"2026-01","n":"G. Roberts Logistics","a":2823,"o":"","w":0},{"ym":"2026-02","n":"Xtremely Clean - Hourly","a":500,"o":"Daunte","w":1},{"ym":"2026-02","n":"Stack All Profit - Web/QB","a":1398,"o":"","w":0},{"ym":"2026-02","n":"Xtremely Clean - 10hrs","a":500,"o":"Daunte","w":1},{"ym":"2026-02","n":"Prime Pulse Logistics","a":1000,"o":"","w":0},{"ym":"2026-02","n":"MAA - 10hrs","a":500,"o":"Eli","w":1},{"ym":"2026-02","n":"Carlo Thompson - RE CRM","a":3440,"o":"","w":0},{"ym":"2026-02","n":"SEEDFOLKids - Strategic Planning","a":3200,"o":"Eli","w":1},{"ym":"2026-02","n":"VoltAir Consulting","a":0,"o":"","w":0},{"ym":"2026-02","n":"B5 ReAffirm","a":1000,"o":"","w":0},{"ym":"2026-02","n":"For the Girls - Start","a":1997,"o":"","w":0},{"ym":"2026-03","n":"Sterling Diversified","a":509.15,"o":"","w":0},{"ym":"2026-03","n":"Richard's Funeral Home","a":2248,"o":"","w":0},{"ym":"2026-03","n":"SEEDFOLKids - Brand Guideline","a":1000,"o":"Eli","w":1},{"ym":"2026-04","n":"Clinical Research Specialist","a":3599,"o":"","w":0},{"ym":"2026-04","n":"Noisey Creative","a":0,"o":"","w":0},{"ym":"2026-04","n":"Lois Marketing - Operator System","a":1350,"o":"Eli","w":1},{"ym":"2026-04","n":"Twanda Bradley - Campaign","a":5197,"o":"","w":0},{"ym":"2026-04","n":"Cleaning Top To Bottom","a":599,"o":"","w":0},{"ym":"2026-04","n":"Xtremely Clean - Proposal Dev","a":500,"o":"Daunte","w":1},{"ym":"2026-04","n":"HALO Commons - Launch Pad","a":1649,"o":"Eli","w":1},{"ym":"2026-04","n":"De Dior Studios - BP","a":449.25,"o":"Kenny","w":1},{"ym":"2026-05","n":"Financial Acuity - Growth Package","a":3350,"o":"Daunte","w":1},{"ym":"2026-05","n":"Replace It Auto Glass","a":4500,"o":"","w":0},{"ym":"2026-05","n":"StudentCrowd - Focus Group","a":3000,"o":"","w":0},{"ym":"2026-05","n":"Zing Juice Bar","a":2000,"o":"","w":0},{"ym":"2026-05","n":"Rare Hues Collective","a":4500,"o":"","w":0},{"ym":"2026-05","n":"Love Your Beauty","a":1799,"o":"","w":0},{"ym":"2026-05","n":"Cape to the Bay","a":1000,"o":"","w":0},{"ym":"2026-06","n":"Curbology","a":0,"o":"","w":0},{"ym":"2026-06","n":"Hyacinthe Property Mgmt","a":2000,"o":"","w":0},{"ym":"2026-07","n":"TwentyTen Motors","a":599,"o":"","w":0},{"ym":"2026-07","n":"Merge Pro","a":4500,"o":"","w":0},{"ym":"2026-07","n":"RW Events","a":1799,"o":"","w":0},{"ym":"2026-07","n":"Spring Circle","a":0,"o":"","w":0},{"ym":"2026-07","n":"Legacy B. Studio - Website","a":0,"o":"Eli","w":1},{"ym":"2026-08","n":"HALO Retainer","a":3000,"o":"","w":0},{"ym":"2026-08","n":"Flava Meets Fusion","a":4497,"o":"","w":0},{"ym":"2026-08","n":"Sipsies Lemonade - Custom Pkg","a":2500,"o":"","w":0},{"ym":"2026-08","n":"HALO Pathways - Full Website","a":7450,"o":"Eli","w":1},{"ym":"2026-09","n":"Aurelia Tech","a":800,"o":"Kenny","w":1}],"pipeline":[{"n":"MG Cleaning Services","a":5500,"stage":"Qualified","o":"Josue"},{"n":"Emerald Facility Management","a":0,"stage":"Discovery","o":"Josue"},{"n":"Sipsies Lemonade - Launch Pad","a":1799,"stage":"Proposal","o":"Eli"},{"n":"All State (Felicia Russell)","a":599.99,"stage":"Proposal","o":"Kenny"}]};
+const DATA = {"generated":"2026-09-23","months":["2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09"],"data":{"2025-03":{"rev":0.0,"exp":610.22,"net":-610.22,"revcat":{},"revoff":{},"expcat":{"Fees":0.24,"Software":609.98},"wonN":0,"wonV":0,"lostN":0,"lostV":0,"wonOwner":{},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-04":{"rev":305.0,"exp":1556.48,"net":-1251.48,"revcat":{"Consulting":305.0},"revoff":{"Business Planning":305.0},"expcat":{"Other":256.75,"Content & Marketing":500.0,"Fees":-7.76,"Software":807.49},"wonN":0,"wonV":0,"lostN":0,"lostV":0,"wonOwner":{},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-05":{"rev":1549.0,"exp":1056.76,"net":493.12,"revcat":{"Consulting":299.0,"Marketing":170.84,"Technology":1079.16},"revoff":{"Business Planning":299.0,"Systems & CRM":516.67,"Website & Digital":562.49,"Local SEO / GMB":83.34,"Marketing & Social":87.5},"expcat":{"Fees":51.57,"Other":63.85,"Software":941.34},"wonN":0,"wonV":0,"lostN":0,"lostV":0,"wonOwner":{},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-06":{"rev":4596.9,"exp":1729.29,"net":2870.71,"revcat":{"Consulting":377.71,"Marketing":370.84,"Technology":4776.92,"Other":0.0},"revoff":{"Business Planning":251.95,"Consulting & Other":1125.76,"Finance / QuickBooks":935.07,"Website & Digital":1112.49,"Systems & CRM":2929.36,"Local SEO / GMB":83.34,"Marketing & Social":87.5},"expcat":{"Fees":156.73,"Other":460.86,"Client Costs":160.0,"Owner Pay":600.0,"Software":351.7},"wonN":2,"wonV":3015.5,"lostN":0,"lostV":0,"wonOwner":{"Eli":3015.5},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-07":{"rev":1250.0,"exp":1395.97,"net":-142.81,"revcat":{"Marketing":170.84,"Technology":1079.16},"revoff":{"Systems & CRM":516.67,"Website & Digital":562.49,"Local SEO / GMB":83.34,"Marketing & Social":87.5},"expcat":{"Fees":57.24,"Client Costs":35.4,"Content & Marketing":180.0,"Owner Pay":999.0,"Software":243.72,"Other":-119.39},"wonN":1,"wonV":3750,"lostN":0,"lostV":0,"wonOwner":{"Daunte":3750.0},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-08":{"rev":1801.6,"exp":1309.35,"net":494.85,"revcat":{"Consulting":520.29,"Marketing":424.15,"Technology":1100.24},"revoff":{"Business Planning":347.05,"Consulting & Other":173.24,"Finance / QuickBooks":462.93,"Systems & CRM":637.31,"Marketing & Social":424.15},"expcat":{"Fees":70.54,"Client Costs":335.2,"Content & Marketing":575.0,"Software":328.61},"wonN":2,"wonV":1597,"lostN":2,"lostV":1149,"wonOwner":{"Kenny":1597.0},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2025-09":{"rev":2598.3,"exp":1842.16,"net":758.75,"revcat":{"Consulting":500.0,"Marketing":974.15,"Technology":750.0,"Other":424.15},"revoff":{"Consulting & Other":300.0,"Website & Digital":1750.0,"Marketing & Social":1223.3,"Systems & CRM":375.0},"expcat":{"Fees":54.92,"Client Costs":217.32,"Content & Marketing":500.0,"Software":1069.92},"wonN":0,"wonV":0,"lostN":2,"lostV":4663,"wonOwner":{},"ig":{"v":2455.0,"p":9.0,"e":72.0,"f":0},"fb":{"v":2367.0,"p":11.0,"e":256.0,"f":1118.0},"tt":{"v":20.0,"p":5.0,"e":16.0,"f":0},"li":{"v":66.0,"p":1.0,"e":3.0,"f":187.0},"web":{"pv":0,"vis":0},"reels":{"n":5,"v":770,"r":502,"s":0,"sh":3,"wt":6.5}},"2025-10":{"rev":374.4,"exp":1072.5,"net":-695.57,"revcat":{"Marketing":374.4},"revoff":{"Business Planning":374.4},"expcat":{"Fees":27.73,"Client Costs":67.2,"Content & Marketing":500.0,"Owner Pay":100.0,"Software":377.57},"wonN":1,"wonV":1248,"lostN":5,"lostV":2246,"wonOwner":{"Daunte":1248.0},"ig":{"v":2678.0,"p":14.0,"e":99.0,"f":46.0},"fb":{"v":1791.0,"p":14.0,"e":127.0,"f":1120.0},"tt":{"v":498.0,"p":5.0,"e":11.0,"f":12.0},"li":{"v":19.0,"p":1.0,"e":0.0,"f":188.0},"web":{"pv":0,"vis":0},"reels":{"n":4,"v":1701,"r":1184,"s":0,"sh":8,"wt":5.8}},"2025-11":{"rev":299.5,"exp":753.7,"net":-450.9,"revcat":{"Marketing":299.5},"revoff":{"Marketing & Social":299.5},"expcat":{"Fees":37.9,"Other":43.61,"Client Costs":36.05,"Content & Marketing":150.0,"Software":486.14},"wonN":0,"wonV":0,"lostN":2,"lostV":4162,"wonOwner":{},"ig":{"v":4699.0,"p":51.0,"e":140.0,"f":54.0},"fb":{"v":2572.0,"p":46.0,"e":187.0,"f":1125.0},"tt":{"v":2832.0,"p":23.0,"e":41.0,"f":18.0},"li":{"v":48.0,"p":2.0,"e":2.0,"f":188.0},"web":{"pv":5.0,"vis":5.0},"reels":{"n":17,"v":3424,"r":2729,"s":1,"sh":12,"wt":5.4}},"2025-12":{"rev":2049.5,"exp":1742.01,"net":310.77,"revcat":{"Marketing":2049.5},"revoff":{"Website & Digital":1000.0,"Marketing & Social":1049.5},"expcat":{"Fees":46.5,"Other":29.41,"Client Costs":55.16,"Content & Marketing":660.0,"Rodney Rev-Share":405.0,"Software":545.94},"wonN":4,"wonV":7414,"lostN":3,"lostV":4346,"wonOwner":{"Eli":3500.0,"Kenny":3914.0},"ig":{"v":9721.0,"p":69.0,"e":358.0,"f":79.0},"fb":{"v":2835.0,"p":70.0,"e":192.0,"f":1140.0},"tt":{"v":3373.0,"p":24.0,"e":46.0,"f":24.0},"li":{"v":492.0,"p":23.0,"e":89.0,"f":191.0},"web":{"pv":148.0,"vis":135.0},"reels":{"n":18,"v":7575,"r":5454,"s":6,"sh":27,"wt":6.0}},"2026-01":{"rev":2540.0,"exp":1112.04,"net":1431.35,"revcat":{"Consulting":500.0,"Marketing":293.61,"Technology":1892.18,"Other":40.0},"revoff":{"Consulting & Other":540.0,"Local SEO / GMB":326.24,"Website & Digital":1565.94,"Brand & Design":293.61},"expcat":{"Fees":19.62,"Other":79.42,"Client Costs":54.62,"Rodney Rev-Share":142.0,"Content & Marketing":247.24,"Software":569.14},"wonN":0,"wonV":0,"lostN":1,"lostV":2823,"wonOwner":{},"ig":{"v":4846.0,"p":28.0,"e":160.0,"f":104.0},"fb":{"v":1284.0,"p":23.0,"e":94.0,"f":1146.0},"tt":{"v":938.0,"p":6.0,"e":43.0,"f":27.0},"li":{"v":284.0,"p":6.0,"e":9.0,"f":193.0},"web":{"pv":203.0,"vis":168.0},"reels":{"n":6,"v":3853,"r":2373,"s":6,"sh":14,"wt":6.5}},"2026-02":{"rev":2459.2,"exp":2124.93,"net":337.67,"revcat":{"Consulting":1000.0,"Marketing":1459.2},"revoff":{"Consulting & Other":1000.0,"Business Planning":1459.2},"expcat":{"Fees":124.86,"Other":345.89,"Client Costs":54.85,"Content & Marketing":821.0,"Rodney Rev-Share":122.96,"Software":655.37},"wonN":4,"wonV":4700,"lostN":6,"lostV":8835,"wonOwner":{"Daunte":1000.0,"Eli":3700.0},"ig":{"v":565.0,"p":14.0,"e":0.0,"f":107.0},"fb":{"v":376.0,"p":10.0,"e":0.0,"f":1147.0},"tt":{"v":112.0,"p":0.0,"e":0.0,"f":30.0},"li":{"v":55.0,"p":0.0,"e":0.0,"f":194.0},"web":{"pv":127.0,"vis":91.0},"reels":{}},"2026-03":{"rev":2280.0,"exp":2615.7,"net":-331.25,"revcat":{"Marketing":2280.0},"revoff":{"Business Planning":1280.0,"Brand & Design":1000.0},"expcat":{"Fees":58.52,"Client Costs":54.85,"Content & Marketing":590.5,"Rodney Rev-Share":114.0,"Software":1797.83},"wonN":1,"wonV":1000,"lostN":2,"lostV":2757.15,"wonOwner":{"Eli":1000.0},"ig":{"v":2977.0,"p":23.0,"e":111.0,"f":111.0},"fb":{"v":1951.0,"p":18.0,"e":384.0,"f":1144.0},"tt":{"v":354.0,"p":3.0,"e":5.0,"f":30.0},"li":{"v":233.0,"p":3.0,"e":73.0,"f":193.0},"web":{"pv":83.0,"vis":69.0},"reels":{"n":1,"v":445,"r":340,"s":0,"sh":1,"wt":6.3}},"2026-04":{"rev":2623.75,"exp":1767.01,"net":861.8,"revcat":{"Consulting":449.25,"Marketing":2174.5},"revoff":{"Business Planning":449.25,"Systems & CRM":1350.0,"Website & Digital":824.5},"expcat":{"Fees":112.81,"Other":386.09,"Client Costs":54.85,"Content & Marketing":346.71,"Rodney Rev-Share":131.19,"Software":735.36},"wonN":4,"wonV":3948.25,"lostN":4,"lostV":9395,"wonOwner":{"Eli":2999.0,"Daunte":500.0,"Kenny":449.25},"ig":{"v":11718.0,"p":80.0,"e":371.0,"f":145.0},"fb":{"v":4377.0,"p":65.0,"e":288.0,"f":1150.0},"tt":{"v":26846.0,"p":21.0,"e":3028.0,"f":73.0},"li":{"v":631.0,"p":13.0,"e":125.0,"f":196.0},"web":{"pv":185.0,"vis":94.0},"reels":{"n":18,"v":7613,"r":5294,"s":10,"sh":19,"wt":6.1}},"2026-05":{"rev":2300.0,"exp":1605.91,"net":699.74,"revcat":{"Consulting":500.0,"Marketing":1800.0},"revoff":{"Consulting & Other":500.0,"Systems & CRM":1800.0},"expcat":{"Fees":112.16,"Client Costs":21.0,"Content & Marketing":550.0,"Contract Labor":375.0,"Owner Pay":300.0,"Rodney Rev-Share":115.0,"Software":132.75},"wonN":1,"wonV":3350,"lostN":6,"lostV":16799,"wonOwner":{"Daunte":3350.0},"ig":{"v":9401.0,"p":54.0,"e":241.0,"f":180.0},"fb":{"v":2150.0,"p":48.0,"e":67.0,"f":1154.0},"tt":{"v":5902.0,"p":17.0,"e":60.0,"f":86.0},"li":{"v":811.0,"p":25.0,"e":91.0,"f":200.0},"web":{"pv":238.0,"vis":117.0},"reels":{"n":15,"v":4453,"r":2896,"s":2,"sh":15,"wt":7.0}},"2026-06":{"rev":960.0,"exp":1349.12,"net":-381.73,"revcat":{"Marketing":960.0},"revoff":{"Business Planning":960.0},"expcat":{"Fees":50.64,"Client Costs":25.31,"Contract Labor":-50.0,"Rodney Rev-Share":48.0,"Software":1275.17},"wonN":0,"wonV":0,"lostN":2,"lostV":2000,"wonOwner":{},"ig":{"v":1438.0,"p":8.0,"e":0.0,"f":184.0},"fb":{"v":569.0,"p":11.0,"e":6.0,"f":1157.0},"tt":{"v":538.0,"p":0.0,"e":0.0,"f":86.0},"li":{"v":208.0,"p":0.0,"e":0.0,"f":202.0},"web":{"pv":509.0,"vis":153.0},"reels":{}},"2026-07":{"rev":1889.75,"exp":1227.91,"net":669.42,"revcat":{"Marketing":980.89,"Technology":1007.82},"revoff":{"Local SEO / GMB":173.76,"Website & Digital":1658.56,"Brand & Design":156.39},"expcat":{"Fees":44.3,"Other":55.15,"Client Costs":25.52,"Owner Pay":600.0,"Software":502.94},"wonN":1,"wonV":0,"lostN":4,"lostV":6898,"wonOwner":{"Eli":0.0},"ig":{"v":1554.0,"p":3.0,"e":0.0,"f":188},"fb":{"v":253.0,"p":5.0,"e":32.0,"f":1161},"tt":{"v":88.0,"p":0.0,"e":0.0,"f":85},"li":{"v":26.0,"p":0.0,"e":0.0,"f":202},"web":{"pv":131.0,"vis":78.0},"reels":{}},"2026-08":{"rev":0,"exp":0,"net":0,"revcat":{},"revoff":{},"expcat":{},"wonN":1,"wonV":7450,"lostN":3,"lostV":9997,"wonOwner":{"Eli":7450.0},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}},"2026-09":{"rev":0,"exp":0,"net":0,"revcat":{},"revoff":{},"expcat":{},"wonN":3,"wonV":4398,"lostN":0,"lostV":0,"wonOwner":{"Kenny":800.0,"Eli":1799.0,"Daunte":1799.0},"ig":{"v":0,"p":0,"e":0,"f":0},"fb":{"v":0,"p":0,"e":0,"f":0},"tt":{"v":0,"p":0,"e":0,"f":0},"li":{"v":0,"p":0,"e":0,"f":0},"web":{"pv":0,"vis":0},"reels":{}}},"deals":[{"ym":"2025-06","n":"Remember Wynn Foundations","a":2337.5,"o":"Eli","w":1},{"ym":"2025-06","n":"SEEDFOLKids Foundations","a":678,"o":"Eli","w":1},{"ym":"2025-07","n":"Tier 1 Foundations","a":3750,"o":"Daunte","w":1},{"ym":"2025-08","n":"Mable Blueprinting","a":599,"o":"Kenny","w":1},{"ym":"2025-08","n":"MGP Business Plan","a":599,"o":"","w":0},{"ym":"2025-08","n":"Invitation to a Wedding","a":550,"o":"","w":0},{"ym":"2025-08","n":"Stack All Profits","a":998,"o":"Kenny","w":1},{"ym":"2025-09","n":"Heart & Soul","a":3463,"o":"","w":0},{"ym":"2025-09","n":"For The Girls Tampa","a":1200,"o":"","w":0},{"ym":"2025-10","n":"Wedelia Wellness","a":1248,"o":"Daunte","w":1},{"ym":"2025-10","n":"Squeaky Whips","a":1247,"o":"","w":0},{"ym":"2025-10","n":"Mattie Mae's Fixings","a":200,"o":"","w":0},{"ym":"2025-10","n":"E&M Beautiful Me","a":599,"o":"","w":0},{"ym":"2025-10","n":"Courtesy Office Cleaning","a":0,"o":"","w":0},{"ym":"2025-10","n":"Stack all Profits - Consult","a":200,"o":"","w":0},{"ym":"2025-11","n":"RIVR","a":3563,"o":"","w":0},{"ym":"2025-11","n":"The About Group","a":599,"o":"","w":0},{"ym":"2025-12","n":"Revive Realty","a":1747,"o":"","w":0},{"ym":"2025-12","n":"African Learning Temple","a":2000,"o":"","w":0},{"ym":"2025-12","n":"Roberts Brothers - Mktg & Legal","a":2000,"o":"Eli","w":1},{"ym":"2025-12","n":"Legacy Roofing","a":1500,"o":"Eli","w":1},{"ym":"2025-12","n":"Fawwwkk","a":599,"o":"Kenny","w":1},{"ym":"2025-12","n":"Xtremely Clean - Automation/CRM","a":3315,"o":"Kenny","w":1},{"ym":"2025-12","n":"Troops in Treatment","a":599,"o":"","w":0},{"ym":"2026-01","n":"G. Roberts Logistics","a":2823,"o":"","w":0},{"ym":"2026-02","n":"Xtremely Clean - Hourly","a":500,"o":"Daunte","w":1},{"ym":"2026-02","n":"Stack All Profit - Web/QB","a":1398,"o":"","w":0},{"ym":"2026-02","n":"Xtremely Clean - 10hrs","a":500,"o":"Daunte","w":1},{"ym":"2026-02","n":"Prime Pulse Logistics","a":1000,"o":"","w":0},{"ym":"2026-02","n":"MAA - 10hrs","a":500,"o":"Eli","w":1},{"ym":"2026-02","n":"Carlo Thompson - RE CRM","a":3440,"o":"","w":0},{"ym":"2026-02","n":"SEEDFOLKids - Strategic Planning","a":3200,"o":"Eli","w":1},{"ym":"2026-02","n":"VoltAir Consulting","a":0,"o":"","w":0},{"ym":"2026-02","n":"B5 ReAffirm","a":1000,"o":"","w":0},{"ym":"2026-02","n":"For the Girls - Start","a":1997,"o":"","w":0},{"ym":"2026-03","n":"Sterling Diversified","a":509.15,"o":"","w":0},{"ym":"2026-03","n":"Richard's Funeral Home","a":2248,"o":"","w":0},{"ym":"2026-03","n":"SEEDFOLKids - Brand Guideline","a":1000,"o":"Eli","w":1},{"ym":"2026-04","n":"Clinical Research Specialist","a":3599,"o":"","w":0},{"ym":"2026-04","n":"Noisey Creative","a":0,"o":"","w":0},{"ym":"2026-04","n":"Lois Marketing - Operator System","a":1350,"o":"Eli","w":1},{"ym":"2026-04","n":"Twanda Bradley - Campaign","a":5197,"o":"","w":0},{"ym":"2026-04","n":"Cleaning Top To Bottom","a":599,"o":"","w":0},{"ym":"2026-04","n":"Xtremely Clean - Proposal Dev","a":500,"o":"Daunte","w":1},{"ym":"2026-04","n":"HALO Commons - Launch Pad","a":1649,"o":"Eli","w":1},{"ym":"2026-04","n":"De Dior Studios - BP","a":449.25,"o":"Kenny","w":1},{"ym":"2026-05","n":"Financial Acuity - Growth Package","a":3350,"o":"Daunte","w":1},{"ym":"2026-05","n":"Replace It Auto Glass","a":4500,"o":"","w":0},{"ym":"2026-05","n":"StudentCrowd - Focus Group","a":3000,"o":"","w":0},{"ym":"2026-05","n":"Zing Juice Bar","a":2000,"o":"","w":0},{"ym":"2026-05","n":"Rare Hues Collective","a":4500,"o":"","w":0},{"ym":"2026-05","n":"Love Your Beauty","a":1799,"o":"","w":0},{"ym":"2026-05","n":"Cape to the Bay","a":1000,"o":"","w":0},{"ym":"2026-06","n":"Curbology","a":0,"o":"","w":0},{"ym":"2026-06","n":"Hyacinthe Property Mgmt","a":2000,"o":"","w":0},{"ym":"2026-07","n":"TwentyTen Motors","a":599,"o":"","w":0},{"ym":"2026-07","n":"Merge Pro","a":4500,"o":"","w":0},{"ym":"2026-07","n":"RW Events","a":1799,"o":"","w":0},{"ym":"2026-07","n":"Spring Circle","a":0,"o":"","w":0},{"ym":"2026-07","n":"Legacy B. Studio - Website","a":0,"o":"Eli","w":1},{"ym":"2026-08","n":"HALO Retainer","a":3000,"o":"","w":0},{"ym":"2026-08","n":"Flava Meets Fusion","a":4497,"o":"","w":0},{"ym":"2026-08","n":"Sipsies Lemonade - Custom Pkg","a":2500,"o":"","w":0},{"ym":"2026-08","n":"HALO Pathways - Full Website","a":7450,"o":"Eli","w":1},{"ym":"2026-09","n":"Aurelia Tech","a":800,"o":"Kenny","w":1},{"ym":"2026-09","n":"Sipsies Lemonade - Launch Pad","a":1799,"o":"Eli","w":1},{"ym":"2026-09","n":"Cape to the Bay - AI Jumpstart","a":1799,"o":"Daunte","w":1}]};
 const D = DATA.data, MONTHS = DATA.months;
 const MN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const QS = {Q1:['01','02','03'],Q2:['04','05','06'],Q3:['07','08','09'],Q4:['10','11','12']};
 const YEARS = [...new Set(MONTHS.map(m=>m.slice(0,4)))].sort();
-let state = { year: YEARS[YEARS.length-1], period: 'Q2', month: null };
+let state = { year: YEARS[YEARS.length-1], period: 'Q3', month: null };
 
 const EMPTY = {rev:0,exp:0,net:0,revcat:{},wonN:0,wonV:0,lostN:0,lostV:0,ig:{v:0,p:0,e:0,f:0},fb:{v:0,p:0,e:0,f:0},tt:{v:0,p:0,e:0,f:0},li:{v:0,p:0,e:0,f:0},web:{pv:0,vis:0}};
 const g = m => D[m] || EMPTY;
@@ -555,14 +678,6 @@ function dealList(rows,won){
   s+='<tr class="tot"><td>Total</td>'+(won?'<td></td>':'')+'<td class="r">'+usdFull(tot)+'</td></tr></tbody></table>';
   return s;
 }
-function pipelineTable(){
-  const P=DATA.pipeline||[]; const tot=P.reduce((s,r)=>s+r.a,0);
-  const cls=st=>st==='Proposal'?'prop':'qual';
-  let s='<table class="dl tnum"><thead><tr><th>Deal</th><th>Owner</th><th>Stage</th><th class="r">Value</th></tr></thead><tbody>';
-  P.forEach(r=>{ s+='<tr><td>'+esc(r.n)+'</td><td>'+r.o+'</td><td><span class="pill2 '+cls(r.stage)+'">'+r.stage+'</span></td><td class="r">'+(r.a?usdFull(r.a):'TBD')+'</td></tr>'; });
-  s+='<tr class="tot"><td>Total valued</td><td></td><td></td><td class="r">'+usdFull(tot)+'</td></tr></tbody></table>';
-  return s;
-}
 function reelsCard(rl){
   if(!rl.n) return '<div class="empty">No Instagram Reels published in this period</div>';
   const wt=rl.wt.length?(rl.wt.reduce((a,b)=>a+b,0)/rl.wt.length):0;
@@ -709,11 +824,203 @@ const NARRATIVE={
    +'<div class="note gold mt12"><div class="nt">Where we are &rarr; where we\'re going</div><div class="nb">Two straight quarters missing $15K (48%, then 39%), same monthly shape. But the quarter was profitable, expenses fell, cash improved ($7,687 on Jul 14), and Phase 2 comp unlocked. The constraint is revenue, not cost. Fastest money is the $2,340 already earned; pipeline is $11,497 with three proposals out (HALO Retainer is the first recurring-revenue test). Set 2 revenue-gated OKRs for Q3, scored monthly.</div></div>'
  }
 };
+// ---------- LIVE: point-in-time data for Scoreboard, Sales pipeline, Clients, Referrals ----------
+// Refreshed weekly before the Sunday sales meeting (HubSpot pull). Edit this object, not the render code.
+const LIVE = {
+ asOf:'2026-09-23', financeAsOf:'2026-07-24', socialAsOf:'2026-07-24',
+ target:{label:'Q4 2026', start:'2026-10-01', end:'2026-12-31', goal:15000, yearGoal:60000, basis:'signed deals (HubSpot closed-won)'},
+ q4Won:[],                       // deals signed on/after Oct 1: {n,a,o,date}
+ week:{from:'2026-09-16', to:'2026-09-22'},
+ activity:[
+  {k:'Sales calls held', h:'Discovery, intro or demo meetings logged in HubSpot', v:2, t:2, src:'auto', d:'AI Intro Call (9/16) and BPP x A Tech (9/18), both Daunte'},
+  {k:'New deals opened', h:'Builds the pipeline Q4 needs', v:1, t:2, src:'auto', d:'Cape to the Bay AI Jumpstart, opened 9/17 and signed 9/20'},
+  {k:'Proposals presented', h:'Quote walked through live, not emailed cold', v:null, t:1, src:'man', d:'Not tracked in HubSpot yet. Filled in at the meeting'},
+  {k:'Overdue follow-up tasks', h:'Open HubSpot tasks past their due date', v:139, t:0, src:'auto', lowerBetter:true, d:'About 62 are auto-created call tasks from July. See Sales tab'},
+  {k:'Warm intros + referrals in', h:'People sent to us by someone who knows them', v:null, t:2, src:'man', d:'No system logs these yet. Filled in at the meeting'}
+ ],
+ owners:[
+  {n:'Eli', r:'Sales manager. Closes Operator deals', v:'0.3x', l:'pipeline coverage (goal 3x)'},
+  {n:'Josue', r:'Cold outreach. Cleaning + facilities', v:'$5.0K', l:'open pipeline, 2 deals'},
+  {n:'Rodney', r:'Referrals + partners', v:'0 / 8', l:'warm intros this month', p:true},
+  {n:'Kenny', r:'Newsletter, social, HubSpot setup', v:'1 of 42', l:'2026 deals with a real lead source', p:true},
+  {n:'Daunte', r:'HubSpot pipeline + his accounts', v:'$1.8K', l:'signed in Q3 (Cape to the Bay)'}
+ ],
+ commitments:[],                // [{w:'who', t:'what', due:'Mon 9/28'}] written after Sunday's meeting
+ fixes:[
+  '<b>139 overdue HubSpot tasks</b>, about 62 of them auto-created call tasks from July. Close the dead ones so the follow-up number means something.',
+  '<b>Lead source is blank.</b> 41 of 42 deals this year say OFFLINE, so no channel can be credited or cut. Make it required on every new contact and deal.',
+  '<b>All State</b> has a lost reason but is still open in Proposal Sent. Close it or clear the reason.',
+  '<b>Emerald</b> has no dollar value and no touch in 13 days.',
+  '<b>Legacy B. Studio</b> shows $0 in HubSpot; the real contract is $1,500 cash.',
+  '<b>The /referral form</b> (Typeform) notifies nobody. A referral today would sit unseen.',
+  '<b>Financial + Marketing tabs stop at Jul 24.</b> QuickBooks export (Daunte) and the Metricool connection will fix them.'
+ ],
+ pipeline:[
+  {n:'MG Cleaning Services', o:'Josue', stage:'Qualified & Working', a:4998.99, last:'2026-09-21', next:'Demo Fri 9/25', close:'2026-09-27', note:'Josue + Daunte own the close', id:'346796494557'},
+  {n:'Emerald Facility Management', o:'Josue', stage:'Discovery Scheduled', a:0, last:'2026-09-10', next:null, close:'2026-09-27', note:'Discovery ran 9/8; no value set', id:'346577594053'},
+  {n:'All State (Felicia Russell)', o:'Kenny', stage:'Proposal Sent', a:599.99, last:'2026-09-21', next:null, close:null, note:'Marked Not a Fit but still open', flag:true, id:'332612789949'}
+ ],
+ lostReasons:[['Went silent',11],['Budget',9],['Timing',6],['Not a fit',5],['Disqualified by us',4],['Other / none given',2]],
+ overdue:[['Admin / auto-created',62],['Kenny',33],['Daunte',19],['Josue',19],['Eli',6]],
+ clients:[
+  {n:'HALO Pathways', pkg:'Full website build', o:'Eli', val:7450, paid:2200, rem:5250, phase:'Design direction', wait:'client', status:'Paused by client',
+   next:'Halfway Review Mon 9/28, 5:30. Agree the direction, the pause, and a restart date', blk:'Client asked 9/16 to pause the build until a partner contract is finalized', ask:'Not yet, mid-project'},
+  {n:'Legacy B. Studio', pkg:'Website', o:'Eli', val:1500, paid:1125, rem:375, phase:'Built, in closeout', wait:'client', status:'Domain blocked',
+   next:'Closeout and the final $375 once the domain clears', blk:'Wix clientHold plus an old Google Workspace tenant; the client has to file the recovery', ask:'The two testimonials he offered 8/25', note:'The $1,000 "marketing discount" is an unpapered barter, not revenue'},
+  {n:'Sipsies Lemonade', pkg:'Launch Pad', o:'Eli (site) + Rodney (business plan)', val:1799, paid:600, rem:1199, phase:'Kickoff done 9/22', wait:'client', status:'Waiting on intake',
+   next:'Intake questionnaire back, then build starts the week of 9/28', blk:'Website intake form sent 9/22', ask:'Referral card at closeout. Felicia sent her, so thank Felicia'},
+  {n:'Cape to the Bay', pkg:'AI Jumpstart: Workflows', o:'Daunte', val:1799, paid:null, rem:null, phase:'Kickoff done 9/22', wait:'us', status:'In delivery',
+   next:'Owner to confirm at Sunday meeting', ask:'Lost in May, won back in September. Ask what changed; that is our win-back story'},
+  {n:'Aurelia Tech', pkg:'Engagement', o:'Kenny', val:800, paid:400, rem:400, phase:'Kickoff 9/11', wait:'us', status:'In delivery',
+   next:'Owner to confirm at Sunday meeting', ask:'Came through a family friend. Thank the person who sent them'},
+  {n:'Financial Acuity', pkg:'Growth Package', o:'Daunte', val:3350, paid:3350, rem:0, phase:'Closeout ran 7/31', wait:'client', status:'GBP waiting on client',
+   next:'Google Business Profile goes live after the owner finishes Google’s video verification', blk:'Only the client can do the verification', ask:'Testimonial for the case study'},
+  {n:'Lois Marketing', pkg:'Operator System', o:'Eli', val:1350, paid:null, rem:null, phase:'Closed 8/20', wait:'done', status:'Closed',
+   next:'Confirm the final payment landed (AR lists $1,350 as unconfirmed)', ask:'Google review from Phil. Eli asks in person'}
+ ],
+ referrals:{
+  chain:{v:10898, share:44, path:'Rodney → Carlo Thompson → HALO Commons ($1,649) → HALO Pathways ($7,450) + Felicia → Sipsies ($1,799)'},
+  partnersSigned:0, partnersGoal:5, bench:26, intros:null, introsGoal:'8–10 / month', reviewsGoal:'2–4 / month',
+  formAlerts:false,
+  mix:[['Referral chain',10898],['Repeat clients',5700],['Won back',1799],['Personal network',800],['Not recorded',5649]],
+  events:'Events and cold inbound: $0 signed in 2026 (0 wins, 5 losses)',
+  top:[['Kevin G. Brick','Brick Business Law',23],['Kalpesh J. Patel','FL Patel Law',23],['Albert Lee','Tampa Bay BBIC (lender)',23],['Ryan Greenacre','Greenacre Properties (HOA)',23],['Marie & Victor Retanaco','Retanaco Accounting',22]]
+ }
+};
+const DAY=864e5;
+function dparse(s){ const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); }
+function daysBetween(a,b){ return Math.round((dparse(b)-dparse(a))/DAY); }
+function mdy(s){ if(!s) return '&mdash;'; const d=dparse(s); return MN[d.getMonth()]+' '+d.getDate(); }
+function wonIn(months){ return months.reduce((t,m)=>t+(D[m]?D[m].wonV:0),0); }
+function winRate2026(){ const r=DATA.deals.filter(x=>x.ym.startsWith('2026')); const w=r.filter(x=>x.w===1).length; return {w, n:r.length, rate:r.length?w/r.length:0}; }
+
+function renderScore(){
+  const T=LIVE.target, asOf=LIVE.asOf;
+  const q4=LIVE.q4Won.reduce((t,x)=>t+x.a,0);
+  const weeks=Math.ceil((daysBetween(T.start,T.end)+1)/7), perWk=T.goal/weeks;
+  const started=daysBetween(T.start,asOf)>=0, wkIn=started?Math.min(weeks,Math.floor(daysBetween(T.start,asOf)/7)+1):0;
+  const paceNow=started?Math.round(perWk*wkIn):0;
+  const q3=wonIn(['2026-07','2026-08','2026-09']);
+  const yr=wonIn(MONTHS.filter(m=>m.startsWith('2026')))+q4;
+  const wr=winRate2026();
+  const open=LIVE.pipeline.filter(p=>!p.flag).reduce((t,p)=>t+p.a,0);
+  const need=T.goal/(wr.rate||0.35), cov=open/T.goal;
+  const pct=Math.min(100,q4/T.goal*100), markPct=Math.min(100,paceNow/T.goal*100);
+  const toStart=daysBetween(asOf,T.start);
+  $('s-score').innerHTML='Live snapshot &middot; HubSpot pulled '+mdy(asOf);
+  const heroQ='<div class="card"><div class="card-t">'+T.label+' signed</div><div class="card-s">Target '+usdFull(T.goal)+' &middot; '+T.basis+'</div>'
+   +'<div class="big tnum">'+usdFull(q4)+' <small>of '+usdFull(T.goal)+'</small></div>'
+   +'<div class="prog"><div class="fill" style="width:'+pct.toFixed(1)+'%"></div>'+(started?'<div class="mark" style="left:'+markPct.toFixed(1)+'%" data-l="pace '+usd(paceNow)+'"></div>':'')+'</div>'
+   +'<div class="progcap"><span>'+(started?('Week '+wkIn+' of '+weeks):('Starts Oct 1, in '+toStart+' day'+(toStart===1?'':'s')))+'</span><span>'+usdFull(Math.round(perWk))+' a week keeps pace</span></div>'
+   +'<div class="sub">Q3 closes Sep 30 at <b>'+usdFull(q3)+'</b> of $15,000 ('+Math.round(q3/15000*100)+'%).</div></div>';
+  const heroP='<div class="card"><div class="card-t">Pipeline coverage</div><div class="card-s">Open deal value against the Q4 target</div>'
+   +'<div class="big tnum">'+cov.toFixed(1)+'x <small>'+usd(open)+' open</small></div>'
+   +'<div class="sub">At our 2026 win rate (<b>'+Math.round(wr.rate*100)+'%</b>, '+wr.w+' of '+wr.n+' decided deals), '+usd(T.goal)+' signed needs about <b>'+usd(Math.round(need/1000)*1000)+'</b> in proposals. <b>The gap is new pipeline.</b></div>'
+   +'<div style="margin-top:10px"><span class="chip '+(cov>=2.5?'good':cov>=1?'warn':'bad')+'"><span class="cd"></span>'+(cov>=2.5?'covered':cov>=1?'thin':'short')+'</span></div></div>';
+  const heroY='<div class="card"><div class="card-t">2026 so far</div><div class="card-s">Signed value, Jan 1 to today</div>'
+   +'<div class="big tnum">'+usdFull(yr)+' <small>of '+usd(T.yearGoal)+'</small></div>'
+   +'<div class="prog"><div class="fill" style="width:'+Math.min(100,yr/T.yearGoal*100).toFixed(1)+'%;background:linear-gradient(90deg,var(--gold-dark),var(--gold))"></div></div>'
+   +'<div class="sub">'+Math.round(yr/T.yearGoal*100)+'% of the original $60K goal. A $15K Q4 lands the year near <b>'+usd(yr-q4+T.goal)+'</b>.</div></div>';
+  $('sc-hero').innerHTML=maskMoney(heroQ+heroP+heroY);
+  // activity
+  $('sc-act-s').innerHTML='Last 7 days, '+mdy(LIVE.week.from)+' to '+mdy(LIVE.week.to)+' &middot; <span class="src auto">auto</span> comes from HubSpot, <span class="src man">manual</span> is filled in at the meeting. Targets are proposed.';
+  let a='<table class="act tnum" data-mobile="off"><thead><tr><th>Measure</th><th class="r">Target / wk</th><th class="r">Actual</th><th>Status</th><th>Detail</th></tr></thead><tbody>';
+  LIVE.activity.forEach(x=>{
+    let st;
+    if(x.v===null) st='<span class="st mute">fill in</span>';
+    else if(x.lowerBetter) st=x.v<=x.t?'<span class="st ok">on target</span>':'<span class="st bad">'+x.v+' over</span>';
+    else st=x.v>=x.t?'<span class="st ok">on target</span>':'<span class="st '+(x.v>0?'wait':'bad')+'">'+(x.t-x.v)+' short</span>';
+    a+='<tr><td><span class="m">'+x.k+'</span><span class="src '+x.src+'">'+(x.src==='auto'?'auto':'manual')+'</span><span class="h">'+x.h+'</span></td><td class="r">'+x.t+'</td><td class="r"><span class="v">'+(x.v===null?'&ndash;':x.v)+'</span></td><td>'+st+'</td><td style="font-size:11.5px;color:var(--ink-2)">'+x.d+'</td></tr>';
+  });
+  let mob='<div class="actm">';
+  LIVE.activity.forEach(x=>{
+    let st;
+    if(x.v===null) st='<span class="st mute">fill in</span>';
+    else if(x.lowerBetter) st=x.v<=x.t?'<span class="st ok">on target</span>':'<span class="st bad">'+x.v+' over</span>';
+    else st=x.v>=x.t?'<span class="st ok">on target</span>':'<span class="st '+(x.v>0?'wait':'bad')+'">'+(x.t-x.v)+' short</span>';
+    mob+='<div class="ai"><div class="at"><span class="an">'+x.k+'<span class="src '+x.src+'">'+(x.src==='auto'?'auto':'manual')+'</span></span><span class="av tnum">'+(x.v===null?'&ndash;':x.v)+' <small>/ '+x.t+'</small></span></div><div style="margin-top:5px">'+st+'</div><div class="ad">'+x.d+'</div></div>';
+  });
+  $('sc-act').innerHTML=a+'</tbody></table>'+mob+'</div>';
+  $('sc-owners').innerHTML=maskMoney(LIVE.owners.map(o=>'<div class="own"><div class="on">'+o.n+'</div><div class="or">'+o.r+'</div><div class="ov tnum">'+o.v+'</div><div class="ol">'+o.l+(o.p?' &middot; <i>proposed</i>':'')+'</div></div>').join(''));
+  const C=LIVE.commitments;
+  $('sc-commit').innerHTML=(C.length?C.map(c=>'<li class="set"><span><b>'+c.w+'</b> &middot; '+c.t+(c.due?' <span style="color:var(--muted)">by '+c.due+'</span>':'')+'</span></li>').join(''):[1,2,3].map(()=>'<li>Set at Sunday&rsquo;s meeting</li>').join(''));
+  $('sc-fix').innerHTML=maskMoney(LIVE.fixes.map(f=>'<li>'+f+'</li>').join(''));
+}
+
+function pipelineTable(){
+  const P=LIVE.pipeline, asOf=LIVE.asOf;
+  const valued=P.filter(p=>!p.flag).reduce((t,p)=>t+p.a,0);
+  $('ct-pipe').innerHTML='Live from HubSpot, '+mdy(asOf)+' &middot; '+P.length+' open deals &middot; last touch turns amber at 7 days and red at 14 (silence is our #1 loss reason)';
+  let s='<table class="dl tnum"><thead><tr><th>Deal</th><th>Owner</th><th>Stage</th><th class="r">Value</th><th class="r">Last touch</th><th>Next step</th><th>Expected close</th></tr></thead><tbody>';
+  P.forEach(r=>{
+    const dd=daysBetween(r.last,asOf), cls=dd>=14?'bad':dd>=7?'wait':'ok';
+    s+='<tr><td><b>'+esc(r.n)+'</b>'+(r.note?'<span class="h">'+r.note+'</span>':'')+'</td><td>'+r.o+'</td><td><span class="pill2 '+(/Proposal/.test(r.stage)?'prop':'qual')+'">'+r.stage+'</span>'+(r.flag?' <span class="st bad">fix</span>':'')+'</td>'
+      +'<td class="r">'+(r.a?usdFull(r.a):'<span class="st wait">no value</span>')+'</td><td class="r"><span class="st '+cls+'">'+dd+'d ago</span></td>'
+      +'<td>'+(r.next?r.next:'<span class="st bad">none set</span>')+'</td><td>'+mdy(r.close)+'</td></tr>';
+  });
+  s+='<tr class="tot"><td>Total valued (excl. flagged)</td><td></td><td></td><td class="r">'+usdFull(valued)+'</td><td></td><td></td><td></td></tr></tbody></table>';
+  return s;
+}
+function renderSalesLive(){
+  const L=LIVE.lostReasons, tot=L.reduce((t,x)=>t+x[1],0);
+  $('ct-lostwhy').innerHTML='Reason tags on the 28 deals lost this year (a deal can carry more than one) &middot; '+tot+' tags';
+  $('ch-lostwhy').innerHTML=barChart(L.map((x,i)=>({label:x[0],val:x[1],color:i===0?'url(#gBad)':'url(#gHbar)'})),{fmt:v=>''+v});
+  const O=LIVE.overdue, ot=O.reduce((t,x)=>t+x[1],0);
+  $('ct-overdue').innerHTML=ot+' open tasks past due, by HubSpot owner &middot; target is zero';
+  $('ch-overdue').innerHTML=barChart(O.map(x=>({label:x[0],val:x[1],color:'url(#gGold)'})),{fmt:v=>''+v})
+   +'<div class="cap">Most of the admin pile is auto-created call tasks from the July sequences. Close or reschedule the dead ones; the real follow-ups get lost in the noise.</div>';
+}
+function renderClients(){
+  const C=LIVE.clients; const active=C.filter(c=>c.wait!=='done').length;
+  const rem=C.reduce((t,c)=>t+(c.rem||0),0);
+  $('s-clients').innerHTML=maskMoney(active+' active &middot; '+(C.length-active)+' closed &middot; '+usdFull(rem)+' still to collect');
+  $('cl-grid').innerHTML=maskMoney(C.map(c=>{
+    const stripe=c.wait==='done'?'done':c.wait==='client'?'b-client':'b-us';
+    const pill=c.wait==='done'?'<span class="st ok">'+c.status+'</span>':c.wait==='client'?'<span class="st wait">'+c.status+'</span>':'<span class="st info">'+c.status+'</span>';
+    const money='<div class="money"><span>Value <b>'+usdFull(c.val)+'</b></span><span>Paid <b>'+(c.paid===null?'not tracked':usdFull(c.paid))+'</b></span><span>Left <b>'+(c.rem===null?'not tracked':usdFull(c.rem))+'</b></span></div>';
+    return '<div class="cl '+stripe+'"><div class="ch"><div><div class="cn">'+c.n+'</div><div class="cp">'+c.pkg+' &middot; '+c.o+'</div></div>'+pill+'</div>'
+     +'<div class="row"><span class="k">Phase</span><span>'+c.phase+'</span></div>'
+     +'<div class="row"><span class="k">Money</span>'+money+'</div>'
+     +'<div class="row"><span class="k">Next step</span><span>'+c.next+'</span></div>'
+     +(c.blk?'<div class="row"><span class="k">Waiting on</span><span>'+c.blk+'</span></div>':'')
+     +'<div class="row"><span class="k">The ask</span><span><b>'+c.ask+'</b></span></div>'
+     +(c.note?'<div class="row"><span class="k">Note</span><span style="color:var(--ink-2)">'+c.note+'</span></div>':'')
+     +'</div>';
+  }).join(''));
+}
+function renderReferrals(){
+  const R=LIVE.referrals;
+  $('ct-ref').innerHTML='Our best channel has no system yet &middot; snapshot '+mdy(LIVE.asOf);
+  $('ch-ref').innerHTML=maskMoney('<div class="funnel">'
+   +mini('One referral chain', usdFull(R.chain.v), R.chain.share+'% of 2026 signed', 'good')
+   +mini('Partners signed', R.partnersSigned+' of '+R.partnersGoal, R.bench+' on the bench, goal by Dec 31', R.partnersSigned>=R.partnersGoal?'good':'bad')
+   +mini('Warm intros this month', R.intros===null?'&ndash;':''+R.intros, 'Rodney goal '+R.introsGoal+' (proposed)', 'warn')
+   +mini('Referral form alerts', R.formAlerts?'On':'Off', R.formAlerts?'someone is notified':'a referral today goes unseen', R.formAlerts?'good':'bad')
+   +'</div><div class="cap">The chain: '+R.chain.path+'. Nobody asked for it; it happened. The job now is to make it happen on purpose.</div>');
+  $('ch-srcmix').innerHTML=barChart(R.mix.map((x,i)=>({label:x[0],val:x[1],color:x[0]==='Not recorded'?'#c4d0da':['url(#gNavy)','url(#gBlue)','url(#gSky)','url(#gGold)'][i]})),{fmt:usd,pii:true})
+   +'<div class="cap">'+R.events+'. About three quarters of what we signed came from people who already knew us.</div>';
+  $('ct-bench').innerHTML=R.bench+' researched targets (June lead-scraping runs), none signed. Top five by fit score:';
+  let t='<table class="dl"><thead><tr><th>Partner</th><th>Firm</th><th class="r">Score /25</th></tr></thead><tbody>';
+  R.top.forEach(x=>{ t+='<tr><td>'+x[0]+'</td><td>'+x[1]+'</td><td class="r">'+x[2]+'</td></tr>'; });
+  $('ch-bench').innerHTML=t+'</tbody></table><div class="cap">Ask partners for nothing first: offer a free Business Systems Audit for 2&ndash;3 of their clients. Full bench: _claude/context/referral-partners.md.</div>';
+  $('mkt-stale').innerHTML='Social and website numbers below stop at '+mdy(LIVE.socialAsOf)+' (last Metricool export). They refresh once the Metricool connection is set up.';
+}
+function renderLive(){
+  $('asof2').innerHTML='HubSpot pulled '+mdy(LIVE.asOf)+' &middot; QuickBooks + Metricool as of '+mdy(LIVE.financeAsOf);
+  $('foot-ft').innerHTML='Sales data pulled from HubSpot '+LIVE.asOf+'; financial and social from DA-004 / DA-003 as of '+LIVE.financeAsOf+' &middot; internal use only';
+  renderScore(); renderSalesLive(); renderClients(); renderReferrals();
+}
 // ---------- tabs ----------
-document.querySelectorAll('#tabbar button').forEach(b=>b.onclick=()=>{
-  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on', p.id==='tab-'+b.dataset.tab));
-  document.querySelectorAll('#tabbar button').forEach(x=>x.classList.toggle('on', x===b));
-});
+// Scoreboard + Clients are point-in-time: hide the period slicer and KPI tiles there. The tab is kept in the URL hash (#score, #sales, ...).
+const SNAP=['score','clients'];
+function showTab(key){
+  if(!document.getElementById('tab-'+key)) key='score';
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on', p.id==='tab-'+key));
+  document.querySelectorAll('#tabbar button').forEach(x=>x.classList.toggle('on', x.dataset.tab===key));
+  document.body.setAttribute('data-view', SNAP.includes(key)?'snap':'hist');
+  if(location.hash.slice(1)!==key) history.replaceState(null,'','#'+key);
+}
+document.querySelectorAll('#tabbar button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
 // ---------- privacy toggle ----------
 document.querySelectorAll('#privSeg button').forEach(b=>b.onclick=()=>{
   document.body.setAttribute('data-privacy', b.dataset.priv);
@@ -732,7 +1039,7 @@ document.addEventListener('mousemove', e=>{
     _tip.style.left=lx+'px'; _tip.style.top=(e.clientY-10)+'px';
   } else _tip.style.display='none';
 });
-buildControls(); render();
+buildControls(); render(); renderLive(); showTab(location.hash.slice(1)||'score');
 </script>
 
 <script src="../js/nav.js" data-page="strategy"></script>
