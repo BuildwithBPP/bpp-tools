@@ -758,6 +758,12 @@
      6
     ]
    ]
+  },
+  "outreach": {
+   "Eli": {
+    "v": 1,
+    "d": "Cynerge Group"
+   }
   }
  },
  "manual": {
@@ -1155,6 +1161,26 @@
     "l": "AI + tech work signed this quarter"
    }
   ],
-  "peopleNote": "Kenny and Eli are splitting sales roles this week; these cards update after that talk."
+  "peopleNote": "Kenny and Eli are splitting sales roles this week; these cards update after that talk.",
+  "outreach": {
+   "k": "New people reached",
+   "h": "Someone we haven't talked to before, reached by a call, email or meeting logged in HubSpot. Counts when you own the contact and log the first touch (sequence emails log themselves). Clients don't count.",
+   "targets": [
+    {
+     "n": "Eli",
+     "t": 20
+    },
+    {
+     "n": "Josue",
+     "t": 15
+    },
+    {
+     "n": "Kenny",
+     "t": 10
+    }
+   ],
+   "result": "2 discovery calls a week",
+   "note": "Set 9/23. Ramp: half the target the weeks of 9/28 and 10/5 while lists and sequences are built, full from 10/12. Check the rate on 10/25: if 45 a week isn't producing 2 discovery calls, raise the number or fix the message."
+  }
  }
 }

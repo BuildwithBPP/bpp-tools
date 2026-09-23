@@ -226,6 +226,23 @@ def build_auto(token: str, today: date) -> dict:
     new_names = [clean_name(r["properties"].get("dealname")) for r in new_rows
                  if not is_test(r["properties"].get("dealname"))]
 
+    # New people reached last week, per person: contacts whose owner logged their first
+    # call, email or meeting with them in the window (HubSpot's "Date of first engagement").
+    # Clients are skipped so delivery email doesn't count as outreach.
+    reached_rows = search_all(token, "contacts", [{"filters": [
+        {"propertyName": "hs_sa_first_engagement_date", "operator": "GTE", "value": ms(w0)},
+        {"propertyName": "hs_sa_first_engagement_date", "operator": "LT", "value": ms(w1)}]}],
+        ["firstname", "lastname", "company", "hubspot_owner_id", "lifecyclestage"])
+    reached: dict[str, list[str]] = {}
+    for r in reached_rows:
+        p = r["properties"]
+        if (p.get("lifecyclestage") or "") == "customer":
+            continue
+        who = oname(p.get("hubspot_owner_id")) or "No owner"
+        label = (p.get("company") or " ".join(x for x in (p.get("firstname"), p.get("lastname")) if x) or "unnamed").strip()
+        reached.setdefault(who, []).append(label)
+    outreach = {who: {"v": len(v), "d": short_list(sorted(v))} for who, v in reached.items()}
+
     # Overdue follow-up tasks, total and by owner.
     base = [{"propertyName": "hs_task_status", "operator": "NEQ", "value": "COMPLETED"},
             {"propertyName": "hs_timestamp", "operator": "LT", "value": ms(w1)}]
@@ -253,6 +270,7 @@ def build_auto(token: str, today: date) -> dict:
             "salesCalls": {"v": len(calls), "d": short_list(calls) or "None logged in HubSpot this week"},
             "newDeals": {"v": len(new_names), "d": short_list(new_names) or "No new deals opened this week"},
         },
+        "outreach": outreach,
         "overdue": {"total": total, "byOwner": by_owner},
     }
 
@@ -289,7 +307,8 @@ def main() -> None:
     print(f"asOf {auto['asOf']}: {len(auto['deals'])} closed deals, {len(won_q)} won this quarter "
           f"(${sum(d['a'] for d in won_q):,.0f}), open pipeline ${sum(p['a'] for p in auto['pipeline']):,.0f} "
           f"across {len(auto['pipeline'])} deals, {auto['overdue']['total']} overdue tasks, "
-          f"{auto['activity']['salesCalls']['v']} sales calls + {auto['activity']['newDeals']['v']} new deals last week")
+          f"{auto['activity']['salesCalls']['v']} sales calls + {auto['activity']['newDeals']['v']} new deals + "
+          f"{sum(o['v'] for o in auto['outreach'].values())} new people reached last week")
     if args.dry_run:
         return
     out = {"_about": doc.get("_about", ""), "auto": auto, "manual": doc["manual"]}

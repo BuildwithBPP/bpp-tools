@@ -275,6 +275,11 @@
       <div class="tscroll"><div id="sc-act"></div></div>
     </div>
     <div class="card mt12">
+      <div class="card-t">Outreach: new people reached</div>
+      <div class="card-s" id="sc-out-s">&mdash;</div>
+      <div class="tscroll"><div id="sc-out"></div></div>
+    </div>
+    <div class="card mt12">
       <div class="card-t">Who owns what</div>
       <div class="card-s">What each person leads and the one number that answers for it. Numbers marked <i>proposed</i> get confirmed at the Sunday meeting.</div>
       <div class="owners" id="sc-owners"></div>
@@ -893,6 +898,7 @@ function deriveLive(j){
   Object.keys(L.calc).filter(k=>k.startsWith('pipelineOf:')).forEach(k=>{ const n=pipeline.filter(p=>!p.flag&&('pipelineOf:'+p.o)===k).length; L.calcLabel=L.calcLabel||{}; L.calcLabel[k]='open pipeline, '+n+' deal'+(n===1?'':'s'); L.calc[k]=usd(L.calc[k]); });
   L.calcLabel=Object.assign(L.calcLabel||{},{aiSignedQ:'AI + tech work signed in '+cq.label});
   L.ai=M.ai||null; L.aiDeals=aiDeals; L.aiSigned=ai; L.q=cq;
+  L.outreach=M.outreach?{cfg:M.outreach, got:A.outreach||{}}:null;
   return L;
 }
 
@@ -970,6 +976,7 @@ function renderScore(){
     mob+='<div class="ai"><div class="at"><span class="an">'+x.k+'<span class="src '+x.src+'">'+(x.src==='auto'?'auto':'manual')+'</span></span><span class="av tnum">'+(x.v===null?'&ndash;':x.v)+' <small>/ '+x.t+'</small></span></div><div style="margin-top:5px">'+st+'</div><div class="ad">'+x.d+'</div></div>';
   });
   $('sc-act').innerHTML=a+'</tbody></table>'+mob+'</div>';
+  renderOutreach();
   $('sc-owners').innerHTML=maskMoney(LIVE.people.map(o=>{ const v=o.calc?(LIVE.calc[o.calc]||'$0'):o.v, l=(o.calc&&LIVE.calcLabel[o.calc])||o.l;
     return '<div class="own"><div class="on">'+o.n+'</div><div class="or">'+o.lead+'</div><div class="ov tnum">'+v+'</div><div class="ol">'+l+(o.p?' &middot; <i>proposed</i>':'')+'</div></div>'; }).join(''));
   $('sc-people-note').innerHTML=LIVE.peopleNote||'';
@@ -978,6 +985,23 @@ function renderScore(){
   $('sc-fix').innerHTML=maskMoney(LIVE.fixes.map(f=>'<li>'+f+'</li>').join(''));
 }
 
+function renderOutreach(){
+  const O=LIVE.outreach; if(!O){ $('sc-out-s').innerHTML='No outreach targets set.'; $('sc-out').innerHTML=''; return; }
+  const c=O.cfg, g=O.got;
+  const rows=c.targets.map(x=>({n:x.n, t:x.t, v:(g[x.n]||{}).v||0, d:(g[x.n]||{}).d||'None logged'}));
+  const tt=rows.reduce((s,r)=>s+r.t,0), tv=rows.reduce((s,r)=>s+r.v,0);
+  const extra=Object.keys(g).filter(k=>!c.targets.some(x=>x.n===k));
+  const st=(v,t)=>v>=t?'<span class="st ok">on target</span>':'<span class="st '+(v>0?'wait':'bad')+'">'+(t-v)+' short</span>';
+  $('sc-out-s').innerHTML='<span class="src auto">auto</span> Last 7 days, '+mdy(LIVE.week.from)+' to '+mdy(LIVE.week.to)+'. '+c.h+' The result we want: <b>'+c.result+'</b>.';
+  let a='<table class="act tnum" data-mobile="off"><thead><tr><th>Person</th><th class="r">Target / wk</th><th class="r">Actual</th><th>Status</th><th>Who</th></tr></thead><tbody>';
+  rows.forEach(r=>{ a+='<tr><td><span class="m">'+r.n+'</span></td><td class="r">'+r.t+'</td><td class="r"><span class="v">'+r.v+'</span></td><td>'+st(r.v,r.t)+'</td><td style="font-size:11.5px;color:var(--ink-2)">'+esc(r.d)+'</td></tr>'; });
+  a+='<tr><td><span class="m">Team</span></td><td class="r"><b>'+tt+'</b></td><td class="r"><span class="v">'+tv+'</span></td><td>'+st(tv,tt)+'</td><td></td></tr></tbody></table>';
+  let mob='<div class="actm">';
+  rows.concat([{n:'Team',t:tt,v:tv,d:''}]).forEach(r=>{ mob+='<div class="ai"><div class="at"><span class="an">'+r.n+'</span><span class="av tnum">'+r.v+' <small>/ '+r.t+'</small></span></div><div style="margin-top:5px">'+st(r.v,r.t)+'</div>'+(r.d?'<div class="ad">'+esc(r.d)+'</div>':'')+'</div>'; });
+  mob+='</div>';
+  const note=(extra.length?'<div class="cap">Also reached: '+extra.map(k=>esc(k)+' '+g[k].v).join(', ')+'. Contacts need an owner to count toward someone.</div>':'')+(c.note?'<div class="cap">'+c.note+'</div>':'');
+  $('sc-out').innerHTML=a+mob+note;
+}
 function pipelineTable(){
   const P=LIVE.pipeline, asOf=LIVE.asOf;
   const valued=P.filter(p=>!p.flag).reduce((t,p)=>t+p.a,0);
