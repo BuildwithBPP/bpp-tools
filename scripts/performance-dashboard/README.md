@@ -29,5 +29,12 @@ Builds `pages/performance-dashboard.html` — the sliceable (year / quarter / mo
 
 Source locations are portable. Pass `--social-dir` and `--financial-dir`, set `BPP_DASHBOARD_SOCIAL_DIR` and `BPP_DASHBOARD_FINANCIAL_DIR`, or run the command from a BPP workspace descendant so the script can safely discover the two data directories. Validation reports the financial and social source families separately.
 
+## Point-in-time data (Scoreboard, Sales pipeline, Clients, AI & Tech, Referrals)
+These tabs do **not** come from `build_data.py`. The page fetches `data/scoreboard.json` at load time:
+- `auto`: rewritten from HubSpot by `scripts/scoreboard/refresh_scoreboard.py`, run by the **Scoreboard refresh** GitHub Action (`.github/workflows/scoreboard-refresh.yml`) every Sunday + Wednesday ~6am ET, or on demand from the repo's Actions tab. Never hand-edit it. The HubSpot deals in `auto.deals` also override the won/lost-by-month history, so the inline HubSpot lists in `build_data.py` no longer need a manual re-pull.
+- `manual`: team-owned (targets, people, clients, commitments, fixes, referrals, `ai` for Daunte's tab, deal overrides). The Action never touches it.
+
+`template.html` carries the loader, so re-rendering with `build_data.py --render` keeps all of this.
+
 ## Design system
 Adopted from `financial-position-v2.html`: Inter typography, tabular numerals, refined navy/gold palette, tile accent bars, status chips, and hand-built gradient SVG charts (rendered dynamically here). This is the preferred "sharp" style for BPP dashboards going forward.

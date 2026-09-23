@@ -76,6 +76,7 @@
 
   .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .grid2.wide-l { grid-template-columns:1.25fr 0.75fr; }
+  .grid2 > *, .hero > *, .clients > * { min-width:0; }
   .card { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:17px 19px; box-shadow:var(--shadow); }
   .card-t { font-size:13px; font-weight:700; color:var(--ink); }
   .card-s { font-size:10.5px; color:var(--muted); margin-top:1px; margin-bottom:12px; }
@@ -126,6 +127,82 @@
   .foot .ft { font-size:10px; color:rgba(255,255,255,0.42); } .foot .fg { font-size:11px; font-weight:700; color:var(--gold); }
 
   @media (max-width:900px){ .tiles{grid-template-columns:repeat(2,1fr);} .grid2,.grid2.wide-l{grid-template-columns:1fr;} }
+
+  /* snapshot tabs (Scoreboard, Clients) are point-in-time: the period slicer + KPI tiles don't apply */
+  body[data-view="snap"] .controls, body[data-view="snap"] #kpis { display:none; }
+  .snapnote { font-size:11px; color:var(--muted); margin:10px 0 0; }
+  /* Sunday agenda strip */
+  .agenda { display:flex; gap:8px; flex-wrap:wrap; margin:16px 0 4px; }
+  .agenda .ag { flex:1 1 150px; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:9px 12px; font-size:12px; color:var(--ink-2); }
+  .agenda .ag b { display:block; color:var(--navy); font-size:12px; margin-bottom:2px; }
+  .agenda .ag span { font-size:10.5px; color:var(--muted); }
+  /* scoreboard hero */
+  .hero { display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:12px; margin-top:12px; }
+  .hero .card { position:relative; overflow:hidden; }
+  .big { font-size:34px; font-weight:800; color:var(--navy); letter-spacing:-1px; line-height:1.1; margin-top:6px; }
+  .big small { font-size:16px; font-weight:600; color:var(--muted); letter-spacing:0; }
+  .prog { height:12px; background:var(--grid); border-radius:6px; margin:14px 0 6px; position:relative; overflow:visible; }
+  .prog .fill { height:100%; border-radius:6px; background:linear-gradient(90deg,var(--navy),var(--blue)); min-width:2px; }
+  .prog .mark { position:absolute; top:-4px; bottom:-4px; width:2px; background:var(--gold-dark); }
+  .prog .mark::after { content:attr(data-l); position:absolute; top:-17px; left:50%; transform:translateX(-50%); font-size:9.5px; font-weight:700; color:#9a6a06; white-space:nowrap; }
+  .progcap { display:flex; justify-content:space-between; gap:10px; font-size:11px; color:var(--ink-2); flex-wrap:wrap; }
+  .sub { font-size:11.5px; color:var(--ink-2); margin-top:8px; line-height:1.55; }
+  .sub b { color:var(--ink); }
+  /* weekly activity table */
+  .act { width:100%; border-collapse:collapse; }
+  .act th { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); text-align:left; padding:0 8px 8px; border-bottom:1px solid var(--border-strong); }
+  .act th.r, .act td.r { text-align:right; }
+  .act td { padding:10px 8px; font-size:12.5px; border-bottom:1px solid var(--grid); vertical-align:top; }
+  .act tr:last-child td { border-bottom:none; }
+  .act .m { font-weight:700; color:var(--ink); }
+  .act .h { display:block; font-size:10.5px; color:var(--muted); margin-top:2px; font-weight:400; }
+  .act .v { font-size:15px; font-weight:800; color:var(--navy); }
+  .src { display:inline-block; font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 6px; border-radius:4px; margin-left:6px; vertical-align:1px; }
+  .src.auto { background:#e4eef7; color:var(--navy); } .src.man { background:var(--warn-soft); color:#9a6a06; }
+  /* owners */
+  .owners { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+  .own { background:var(--bg); border-radius:8px; padding:12px 13px; }
+  .own .on { font-size:13px; font-weight:800; color:var(--ink); }
+  .own .or { font-size:10.5px; color:var(--muted); margin-top:1px; min-height:42px; line-height:1.4; }
+  .own .ov { font-size:20px; font-weight:800; color:var(--navy); margin-top:6px; letter-spacing:-.4px; }
+  .own .ol { font-size:10.5px; color:var(--ink-2); margin-top:2px; }
+  .commit { list-style:none; counter-reset:c; }
+  .commit li { counter-increment:c; display:flex; gap:10px; align-items:flex-start; padding:10px 0; border-bottom:1px dashed var(--border-strong); font-size:12.5px; color:var(--muted); }
+  .commit li:last-child { border-bottom:none; }
+  .commit li::before { content:counter(c); flex:0 0 22px; height:22px; border-radius:6px; background:var(--gold); color:var(--navy-dark); font-weight:800; font-size:11px; display:flex; align-items:center; justify-content:center; }
+  .commit li.set { color:var(--ink); }
+  .fix li { font-size:12px; color:var(--ink-2); line-height:1.55; margin:0 0 7px 16px; }
+  .fix li b { color:var(--ink); }
+  /* status pills */
+  .st { display:inline-block; padding:2px 8px; border-radius:4px; font-size:10px; font-weight:700; white-space:nowrap; }
+  .st.ok { background:var(--good-soft); color:var(--good-dark); } .st.wait { background:var(--warn-soft); color:#9a6a06; }
+  .st.bad { background:var(--red-soft); color:var(--red); } .st.info { background:#e4eef7; color:var(--navy); } .st.mute { background:var(--grid); color:var(--ink-2); }
+  .dl td .h { display:block; font-size:10.5px; color:var(--muted); margin-top:2px; }
+  .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tscroll .dl { min-width:640px; }
+  /* client cards */
+  .clients { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  .cl { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:15px 17px; box-shadow:var(--shadow); border-top:3px solid var(--navy); }
+  .cl.b-client { border-top-color:var(--warn); } .cl.b-us { border-top-color:var(--blue); } .cl.done { border-top-color:var(--good); }
+  .cl .ch { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+  .cl .cn { font-size:14px; font-weight:800; color:var(--ink); }
+  .cl .cp { font-size:11px; color:var(--muted); margin-top:1px; }
+  .cl .row { display:grid; grid-template-columns:92px 1fr; gap:8px; font-size:12px; padding:6px 0; border-top:1px solid var(--grid); }
+  .cl .row:first-of-type { margin-top:10px; }
+  .cl .k { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); padding-top:2px; }
+  .cl .money { display:flex; gap:14px; flex-wrap:wrap; }
+  .cl .money span b { color:var(--navy); }
+  .funnel { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .actm { display:none; }
+  .actm .ai { background:var(--bg); border-radius:8px; padding:11px 12px; margin-top:8px; }
+  .actm .at { display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .actm .an { font-size:12.5px; font-weight:700; color:var(--ink); }
+  .actm .av { font-size:18px; font-weight:800; color:var(--navy); white-space:nowrap; }
+  .actm .av small { font-size:11px; font-weight:600; color:var(--muted); }
+  .actm .ad { font-size:11px; color:var(--ink-2); margin-top:5px; line-height:1.45; }
+  @media (max-width:640px){ .act{display:none;} .actm{display:block;} }
+  @media (max-width:900px){ .aigrid{grid-template-columns:repeat(2,1fr)!important;} .hero{grid-template-columns:1fr;} .owners{grid-template-columns:repeat(2,1fr);} .clients{grid-template-columns:1fr;} .funnel{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .aigrid{grid-template-columns:1fr!important;} .owners{grid-template-columns:1fr;} .wrap{padding:16px 16px 48px;} .header,.controls,.privbar,.foot{padding-left:16px;padding-right:16px;} .big{font-size:28px;} .tabbar button{padding:9px 11px;font-size:12.5px;} .cl .row{grid-template-columns:1fr;gap:2px;} }
 </style>
 </head>
 <body data-privacy="on">
@@ -143,7 +220,7 @@
   <div class="h-right">
     <div class="h-asof">
       <div class="a1" id="asof">&mdash;</div>
-      <div class="a2">HubSpot refreshed 2026-09-13 &middot; QuickBooks/Metricool as of 2026-07-24</div>
+      <div class="a2" id="asof2">&mdash;</div>
     </div>
     <div class="segp" id="privSeg">
       <button class="on" data-priv="on">Protected</button>
@@ -173,16 +250,65 @@
   <div class="tiles" id="kpis"></div>
 
   <div class="tabbar" id="tabbar">
-    <button data-tab="fin" class="on">Financial</button>
+    <button data-tab="score" class="on">Q4 Scoreboard</button>
     <button data-tab="sales">Sales</button>
+    <button data-tab="clients">Clients</button>
+    <button data-tab="ai">AI &amp; Tech</button>
     <button data-tab="mkt">Marketing</button>
+    <button data-tab="fin">Financial</button>
     <button data-tab="web">Website</button>
     <button data-tab="review">Quarterly Review</button>
   </div>
 
+  <!-- Q4 SCOREBOARD (point-in-time, opens every Sunday meeting) -->
+  <div class="panel on" id="tab-score">
+    <div class="agenda" aria-label="Sunday meeting order">
+      <div class="ag"><b>1 &middot; Scoreboard</b>On pace? <span>5 min</span></div>
+      <div class="ag"><b>2 &middot; Sales</b>Every open deal has a next step <span>10 min</span></div>
+      <div class="ag"><b>3 &middot; Clients</b>Blockers + the ask <span>5 min</span></div>
+      <div class="ag"><b>4 &middot; Commit</b>Three things for the week <span>10 min</span></div>
+    </div>
+    <div class="shead"><span class="n">1</span><span class="t">Q4 Scoreboard</span><span class="s" id="s-score">&mdash;</span></div>
+    <div class="hero" id="sc-hero"></div>
+    <div class="card mt12">
+      <div class="card-t">This week&rsquo;s activity</div>
+      <div class="card-s" id="sc-act-s">&mdash;</div>
+      <div class="tscroll"><div id="sc-act"></div></div>
+    </div>
+    <div class="card mt12">
+      <div class="card-t">Who owns what</div>
+      <div class="card-s">What each person leads and the one number that answers for it. Numbers marked <i>proposed</i> get confirmed at the Sunday meeting.</div>
+      <div class="owners" id="sc-owners"></div>
+      <div class="cap" id="sc-people-note"></div>
+    </div>
+    <div class="grid2 mt12">
+      <div class="card"><div class="card-t">This week&rsquo;s 3 commitments</div><div class="card-s" id="sc-commit-s">Written at the end of the Sunday meeting</div><ol class="commit" id="sc-commit"></ol></div>
+      <div class="card"><div class="card-t">Fix the data</div><div class="card-s">Each of these makes a number on this page wrong or blind</div><ul class="fix" id="sc-fix"></ul></div>
+    </div>
+  </div>
+
+  <!-- CLIENTS (point-in-time) -->
+  <div class="panel" id="tab-clients">
+    <div class="shead"><span class="n">3</span><span class="t">Clients</span><span class="s" id="s-clients">&mdash;</span></div>
+    <div class="card-s" style="margin:0 0 12px">Active delivery plus anything closed in the last 90 days. The top stripe shows who the next step waits on: <span class="st info">us</span> <span class="st wait">client</span> <span class="st ok">closed</span>. Every client ends with an ask, because referrals are where 2026 revenue came from.</div>
+    <div class="clients" id="cl-grid"></div>
+  </div>
+
+  <!-- AI & TECH (point-in-time) -->
+  <div class="panel" id="tab-ai">
+    <div class="shead"><span class="n">4</span><span class="t">AI &amp; Tech</span><span class="s" id="s-ai">&mdash;</span></div>
+    <div class="card-s" id="ai-owns" style="margin:0 0 12px">&mdash;</div>
+    <div class="card"><div class="card-t">Where the lane stands</div><div class="card-s" id="ct-ai">&mdash;</div><div id="ch-ai"></div></div>
+    <div class="grid2 mt12">
+      <div class="card"><div class="card-t">AI deals + pipeline</div><div class="card-s">Signed work and open conversations in this lane</div><div id="ch-aipipe"></div></div>
+      <div class="card"><div class="card-t">Open AI decisions</div><div class="card-s">From the Monday brief and decision log</div><div id="ch-aidec"></div></div>
+    </div>
+    <div id="ai-notes"></div>
+  </div>
+
   <!-- FINANCIAL -->
-  <div class="panel on" id="tab-fin">
-    <div class="shead"><span class="n">1</span><span class="t">Financial</span><span class="s" id="s-fin">&mdash;</span></div>
+  <div class="panel" id="tab-fin">
+    <div class="shead"><span class="n">6</span><span class="t">Financial</span><span class="s" id="s-fin">&mdash;</span></div>
     <div class="card" id="card-avgfin" style="display:none"><div class="card-t">Monthly averages</div><div class="card-s" id="ct-avgfin">Per-month run-rate across the selected period &middot; the pace, not the total</div><div id="ch-avgfin"></div></div>
     <div class="grid2 wide-l mt12">
       <div class="card"><div class="card-t">Revenue &amp; net income by month</div><div class="card-s" id="ct-rev">Cash basis &middot; QuickBooks. Revenue bars + net income line (gold); line dips below zero on loss months.</div><div id="ch-rev"></div></div>
@@ -198,7 +324,13 @@
   <!-- SALES -->
   <div class="panel" id="tab-sales">
     <div class="shead"><span class="n">2</span><span class="t">Sales</span><span class="s" id="s-sales">&mdash;</span></div>
-    <div class="grid2">
+    <div class="card"><div class="card-t">Open pipeline</div><div class="card-s" id="ct-pipe">&mdash;</div><div class="tscroll"><div id="ch-pipeline"></div></div></div>
+    <div class="grid2 mt12">
+      <div class="card"><div class="card-t">Why we lose (2026)</div><div class="card-s" id="ct-lostwhy">&mdash;</div><div id="ch-lostwhy"></div></div>
+      <div class="card"><div class="card-t">Overdue follow-up tasks</div><div class="card-s" id="ct-overdue">&mdash;</div><div id="ch-overdue"></div></div>
+    </div>
+    <div class="snapnote">The cards above are live snapshots and ignore the period picker. Everything below follows it.</div>
+    <div class="grid2 mt12">
       <div class="card"><div class="card-t">Deals won vs lost by month</div><div class="card-s">HubSpot closed-won / closed-lost value, by close date</div><div id="ch-deals"></div></div>
       <div class="card"><div class="card-t">Win rate &amp; deal flow</div><div class="card-s">Selected period &middot; count, value, and efficiency</div><div id="ch-winrate"></div></div>
     </div>
@@ -207,14 +339,19 @@
       <div class="card"><div class="card-t">Closed-won deals</div><div class="card-s" id="ct-won">Selected period</div><div id="ch-wonlist"></div></div>
       <div class="card"><div class="card-t">Lost deals</div><div class="card-s" id="ct-lost">Selected period</div><div id="ch-lostlist"></div></div>
     </div>
-    <div class="card mt12"><div class="card-t">Active pipeline</div><div class="card-s">Point-in-time snapshot as of Jul 22, 2026 &middot; HubSpot open deals (not affected by the period slicer)</div><div id="ch-pipeline"></div></div>
     <div id="nar-sales"></div>
   </div>
 
   <!-- MARKETING -->
   <div class="panel" id="tab-mkt">
-    <div class="shead"><span class="n">3</span><span class="t">Marketing &amp; content</span><span class="s" id="s-mkt">&mdash;</span></div>
-    <div class="grid2">
+    <div class="shead"><span class="n">5</span><span class="t">Marketing &amp; content</span><span class="s" id="s-mkt">&mdash;</span></div>
+    <div class="card"><div class="card-t">Referrals &amp; referral partners</div><div class="card-s" id="ct-ref">&mdash;</div><div id="ch-ref"></div></div>
+    <div class="grid2 mt12">
+      <div class="card"><div class="card-t">Where 2026 bookings came from</div><div class="card-s">Signed value by how the client found us &middot; HubSpot referral field + team knowledge</div><div id="ch-srcmix"></div></div>
+      <div class="card"><div class="card-t">Referral partner bench</div><div class="card-s" id="ct-bench">&mdash;</div><div id="ch-bench"></div></div>
+    </div>
+    <div class="snapnote" id="mkt-stale">&mdash;</div>
+    <div class="grid2 mt12">
       <div class="card"><div class="card-t">Content views by platform</div><div class="card-s">Selected period &middot; Metricool</div><div id="ch-social"></div></div>
       <div class="card"><div class="card-t">Platform performance</div><div class="card-s">Selected period &middot; posts, views, engagement &amp; follower growth by platform</div><div id="ch-foll"></div></div>
     </div>
@@ -224,7 +361,7 @@
 
   <!-- WEBSITE -->
   <div class="panel" id="tab-web">
-    <div class="shead"><span class="n">4</span><span class="t">Website</span><span class="s" id="s-web">&mdash;</span></div>
+    <div class="shead"><span class="n">7</span><span class="t">Website</span><span class="s" id="s-web">&mdash;</span></div>
     <div class="grid2 wide-l">
       <div class="card"><div class="card-t">Website traffic by month</div><div class="card-s">Page views &middot; GA via Metricool. Selected period highlighted.</div><div id="ch-web"></div></div>
       <div class="card"><div class="card-t">Traffic summary</div><div class="card-s">Selected period</div><div id="ch-websum"></div></div>
@@ -234,7 +371,7 @@
 
   <!-- REVIEW -->
   <div class="panel" id="tab-review">
-    <div class="shead"><span class="n">5</span><span class="t">Quarterly Review</span><span class="s" id="s-review">the story behind the numbers</span></div>
+    <div class="shead"><span class="n">8</span><span class="t">Quarterly Review</span><span class="s" id="s-review">the story behind the numbers</span></div>
     <div id="review-body"></div>
   </div>
 
@@ -245,7 +382,7 @@
 </div>
 
 <div class="foot">
-  <div class="ft">Sales data refreshed 2026-09-13 from HubSpot; financial/social from DA-004/DA-003 as of 2026-07-24 &middot; internal use only</div>
+  <div class="ft" id="foot-ft">&mdash;</div>
   <div class="fg">buildwithbpp.com</div>
 </div>
 
@@ -255,7 +392,7 @@ const D = DATA.data, MONTHS = DATA.months;
 const MN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const QS = {Q1:['01','02','03'],Q2:['04','05','06'],Q3:['07','08','09'],Q4:['10','11','12']};
 const YEARS = [...new Set(MONTHS.map(m=>m.slice(0,4)))].sort();
-let state = { year: YEARS[YEARS.length-1], period: 'Q2', month: null };
+let state = { year: YEARS[YEARS.length-1], period: 'Q3', month: null };
 
 const EMPTY = {rev:0,exp:0,net:0,revcat:{},wonN:0,wonV:0,lostN:0,lostV:0,ig:{v:0,p:0,e:0,f:0},fb:{v:0,p:0,e:0,f:0},tt:{v:0,p:0,e:0,f:0},li:{v:0,p:0,e:0,f:0},web:{pv:0,vis:0}};
 const g = m => D[m] || EMPTY;
@@ -531,7 +668,7 @@ function render(){
   $('ct-lost').innerHTML='Selected period &middot; '+lost.length+' deals';
   $('ch-wonlist').innerHTML=maskMoney(dealList(won,true));
   $('ch-lostlist').innerHTML=maskMoney(dealList(lost,false));
-  $('ch-pipeline').innerHTML=maskMoney(pipelineTable());
+  if(LIVE) $('ch-pipeline').innerHTML=maskMoney(pipelineTable());
   // reels
   const rl={n:0,v:0,r:0,s:0,sh:0,wt:[]};
   months.forEach(m=>{ const r=g(m).reels; if(r&&r.n){ rl.n+=r.n; rl.v+=r.v; rl.r+=r.r; rl.s+=r.s; rl.sh+=r.sh; rl.wt.push(r.wt);} });
@@ -543,7 +680,7 @@ function render(){
   $('nar-sales').innerHTML=nar&&nar.sales?maskMoney(note('Sales insights','',nar.sales)):'';
   $('nar-mkt').innerHTML=nar&&nar.mkt?note('Content insight','red',nar.mkt):'';
   $('nar-web').innerHTML=nar&&nar.web?note('Website insight','gold',nar.web):'';
-  $('review-body').innerHTML=nar&&nar.review?maskMoney(nar.review):'<div class="note"><div class="nt">No compiled review for this period</div><div class="nb">The Quarterly Review write-up (OKR scorecard, delivery status, action plan) is authored per quarter. Pick a reviewed quarter (<b>Q2 2026</b>) to read it; the other four tabs work for any period.</div></div>';
+  $('review-body').innerHTML=nar&&nar.review?maskMoney(nar.review):'<div class="note"><div class="nt">No compiled review for this period</div><div class="nb">The Quarterly Review write-up (OKR scorecard, delivery status, action plan) is authored per quarter. Pick a reviewed quarter (<b>Q2 2026</b> or <b>Q3 2026</b>) to read it; the history tabs work for any period.</div></div>';
   $('s-review').innerHTML=nar?(qkey.replace('-',' ')+' &middot; the story behind the numbers'):'select a reviewed quarter';
 }
 function note(t,cls,body){ return '<div class="note '+(cls||'')+' mt12"><div class="nt">'+t+'</div><div class="nb">'+body+'</div></div>'; }
@@ -553,14 +690,6 @@ function dealList(rows,won){
   let s='<table class="dl tnum"><thead><tr><th>Deal</th>'+(won?'<th>Owner</th>':'')+'<th class="r">Value</th></tr></thead><tbody>';
   rows.forEach(r=>{ s+='<tr><td>'+esc(r.n)+'</td>'+(won?'<td>'+(r.o||'&mdash;')+'</td>':'')+'<td class="r">'+(r.a?usdFull(r.a):'&mdash;')+'</td></tr>'; });
   s+='<tr class="tot"><td>Total</td>'+(won?'<td></td>':'')+'<td class="r">'+usdFull(tot)+'</td></tr></tbody></table>';
-  return s;
-}
-function pipelineTable(){
-  const P=DATA.pipeline||[]; const tot=P.reduce((s,r)=>s+r.a,0);
-  const cls=st=>st==='Proposal'?'prop':'qual';
-  let s='<table class="dl tnum"><thead><tr><th>Deal</th><th>Owner</th><th>Stage</th><th class="r">Value</th></tr></thead><tbody>';
-  P.forEach(r=>{ s+='<tr><td>'+esc(r.n)+'</td><td>'+r.o+'</td><td><span class="pill2 '+cls(r.stage)+'">'+r.stage+'</span></td><td class="r">'+(r.a?usdFull(r.a):'TBD')+'</td></tr>'; });
-  s+='<tr class="tot"><td>Total valued</td><td></td><td></td><td class="r">'+usdFull(tot)+'</td></tr></tbody></table>';
   return s;
 }
 function reelsCard(rl){
@@ -707,13 +836,219 @@ const NARRATIVE={
    +'<div class="cap mt12"><b>Comp:</b> Phase 2 active (savings crossed $3K Jun 29); $50/partner closed-deal bonus live. <b>Discount leakage $0</b> this quarter. Deep balance-sheet / runway / ratios live on the Financial Position tool.</div></div></div>'
    +'<div class="note red mt12"><div class="nt">5 things to fix in Q3</div><div class="nb"><b>1.</b> Collect the $2,340 (Rodney finishes HALO plan; scope Lois AI). <b>2.</b> Prevent the next double-count &mdash; quarterly HubSpot deal snapshot into DA-004. <b>3.</b> Fix the follow-up leak (repair sequence tracking; weekly follow-up task). <b>4.</b> Close carried Q1 items or kill them (QB recat, Engagement Type backfill, resource page, Clockify). <b>5.</b> Small leaks: cancel Gamma, delete the "test" deal, match $444 Unapplied Cash, Rodney W-9.</div></div>'
    +'<div class="note gold mt12"><div class="nt">Where we are &rarr; where we\'re going</div><div class="nb">Two straight quarters missing $15K (48%, then 39%), same monthly shape. But the quarter was profitable, expenses fell, cash improved ($7,687 on Jul 14), and Phase 2 comp unlocked. The constraint is revenue, not cost. Fastest money is the $2,340 already earned; pipeline is $11,497 with three proposals out (HALO Retainer is the first recurring-revenue test). Set 2 revenue-gated OKRs for Q3, scored monthly.</div></div>'
- }
+ },
+ '2026-Q3':{fin:"<b>Profit went into receivables, not the bank.</b> Cash revenue: Jul $2,640, Aug $3,550 (best month of 2026), Sep 1-11 $400 (QuickBooks pull 9/11). Accrual net income Jun-Sep was $4,095 but bank cash moved about $50. On 9/11: $7,867 cash ($4,094 spendable, $3,643 reserve) and $5,761 AR, 91% of it HALO. Software is 51% of operating expenses; partner pay rose to 43.5% of revenue in Jul-Aug. The written comp plan ($50 per partner per deal) no longer matches the 15% commission paid in practice. <b>The charts on this tab still stop at Jul 24</b>; the 9/11 figures above are from the QuickBooks report, not yet loaded here.",sales:"<b>Best signed quarter of 2026: $11,848</b> (Q1 $9,050, Q2 $7,098), with HALO Pathways 63% of it. Seven deals lost for about $16.9K; silence (11) and budget (9) lead the year. The pipeline never refilled: $18.9K on 8/16, about $5K on 9/23. One referral chain produced 44% of 2026 signed; events signed $0. Cape to the Bay proved a lost deal can come back. CRM integrity slipped: Legacy B at $0, Lois's amount changed from $4,500 to $1,350, lead source blank on 41 of 42 deals.",mkt:"<b>Social has been dark since 5/30</b> and Metricool data ends 7/24, so there are no Q3 content numbers. The marketing contractor left 7/8; the 7/29 plan (pause, rebuild, strategy in August) produced no strategy. Nine lead magnets are built and none capture a lead; three case studies are drafted and none cleared for public use. Newsletter and social first drafts are underway as of 9/23.",web:"Shipped: the client survey at /survey and the Marketing SOP. Leaks: the /referral form notifies nobody, /resources cards still read Coming Soon, no case studies on the site, and the Google profile has the wrong category, phone, and domain. Q2 was the last measured period (932 page views).",review:"<div class=\"note gold\" style=\"margin-top:0\"><div class=\"nt\">Draft for the Q3 team review</div><div class=\"nb\">Compiled 9/23 from HubSpot, the 9/11 QuickBooks pull, eight Monday briefs and the Q3 meeting notes. Q3 closes 9/30, so the sales numbers can still move. <b>No formal Q3 goals were recorded</b> after the Q2 review, so the scorecard grades what the team committed to in the July meetings instead.</div></div><div class=\"rev-grid mt12\"><div class=\"card\"><div class=\"card-t\">Q3 scorecard</div><div class=\"card-s\">Commitments from the July meetings &middot; 1 hit, 3 partial, 5 miss</div><div class=\"okr-row\"><span><b>Sign $15K in Q3</b>: $11,848 (79%). Best quarter of 2026, but a miss</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"okr-row\"><span><b>Collect the ~$2,340 earned in Q2</b>: Financial Acuity + HALO Commons finals in by 8/2; Lois final still unconfirmed</span><span class=\"chip warn\"><span class=\"cd\"></span>Partial</span></div><div class=\"okr-row\"><span><b>Reprice + productize</b>: Operator to $5,500, AI Jumpstart $599 / $1,999 / $2,997 ratified, first Jumpstart sold 9/20</span><span class=\"chip good\"><span class=\"cd\"></span>Hit</span></div><div class=\"okr-row\"><span><b>Stand up a commission sales rep</b>: onboarded 7/23, two cleaning deals open by 9/7; comp plan still a draft</span><span class=\"chip warn\"><span class=\"cd\"></span>Partial</span></div><div class=\"okr-row\"><span><b>Fix the follow-up leak</b>: 139 overdue HubSpot tasks, silence still the #1 loss reason</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"okr-row\"><span><b>Replace sprints with weekly money moves</b>: no tracking surface picked; decision log empty since 6/22</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"okr-row\"><span><b>Marketing: pause, rebuild, strategy in August</b>: no strategy delivered; social dark since 5/30</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"okr-row\"><span><b>Meeting cadence</b> (Mon standup + Wed deep dive): 8 briefs in 12 Mondays</span><span class=\"chip warn\"><span class=\"cd\"></span>Partial</span></div><div class=\"okr-row\"><span><b>Q2 small fixes</b> (deal snapshot, $444 unapplied cash, lead source)</span><span class=\"chip bad\"><span class=\"cd\"></span>Miss</span></div><div class=\"cap mt12\">Same pattern as Q2: offers and tools ship, the follow-through on revenue systems does not. Capacity is the reason, not effort: the team put combined owner time at about 10 hours a week in July.</div></div><div class=\"card\"><div class=\"card-t\">Client delivery</div><div class=\"card-s\">Status as of 9/23</div><table class=\"dl tnum\" style=\"margin-top:4px\"><tbody><tr><td><b>HALO Pathways</b><span class=\"h\">$7,450 site. Paused by client 9/16; halfway review 9/28</span></td><td class=\"r\"><span class=\"pill2 qual\">$5,250 open</span></td></tr><tr><td><b>Legacy B. Studio</b><span class=\"h\">Built; domain blocked (Wix + old Workspace)</span></td><td class=\"r\"><span class=\"pill2 qual\">$375 at closeout</span></td></tr><tr><td><b>Sipsies Lemonade</b><span class=\"h\">Signed 9/14; waiting on intake</span></td><td class=\"r\"><span class=\"pill2 prop\">$1,199 open</span></td></tr><tr><td><b>Cape to the Bay</b><span class=\"h\">AI Jumpstart signed 9/20; in delivery</span></td><td class=\"r\"><span class=\"pill2 prop\">payment not tracked</span></td></tr><tr><td><b>Aurelia Tech</b><span class=\"h\">Signed 9/9; in delivery</span></td><td class=\"r\"><span class=\"pill2 prop\">~$400 open</span></td></tr><tr><td><b>Financial Acuity</b><span class=\"h\">Closed out 7/31; GBP waiting on client</span></td><td class=\"r\"><span class=\"pill2 won\">Paid</span></td></tr><tr><td><b>HALO Commons</b><span class=\"h\">Closed out in July</span></td><td class=\"r\"><span class=\"pill2 won\">Paid</span></td></tr><tr><td><b>Lois Marketing</b><span class=\"h\">Closed 8/20</span></td><td class=\"r\"><span class=\"pill2 qual\">Final $1,350 unconfirmed</span></td></tr></tbody></table><div class=\"cap mt12\"><b>Targets:</b> the 7/29 re-base set 2026 at $26K base / $40K team / $60K upside. Signed so far: $24,846 (96% of base, 62% of team). <b>AI &amp; Tech:</b> first Jumpstart sold, performance dashboard + financial position + delivery tracker + mobile hub shipped, BPP HQ proof of concept merged.</div></div></div><div class=\"note red mt12\"><div class=\"nt\">5 things to fix in Q4</div><div class=\"nb\"><b>1. One current cash number on the hub</b>, with an owner and a date. The 9/11 QuickBooks pull never reached the briefs; Q3 estimated taxes are unconfirmed. <b>2. Collect the ~$7.5K already earned</b>: HALO $5,250 (sign-off or a new date in writing), Sipsies $1,199, Legacy B $375, confirm Lois. Deposits at signing. <b>3. Close the follow-up leak</b>, now three quarters running: pre-call gate, live proposals, day 3 / 7 / 14 cadence, clear the 139 overdue tasks. <b>4. Instrument HubSpot</b>: required lead source, /referral routed into HubSpot with alerts, a Service line field, fix the Legacy B and Lois records. <b>5. Make decisions stick</b>: one owner for the decision log; settle marketing fund-or-park in writing first.</div></div><div class=\"note gold mt12\"><div class=\"nt\">Where we are &rarr; where we're going</div><div class=\"nb\">Q3 was the best signed quarter of 2026 at $11,848, and August the best cash month ($3,550). Offers were repriced, the first AI Jumpstart sold, and the hub matured. But the pipeline fell from $18.9K (8/16) to about $5K, the profit is sitting in receivables (HALO is 91% of them) while bank cash barely moved from June to September, and marketing has been dark 13 weeks. With about 10 owner hours a week, Q4 can't run on more process. Two revenue-gated goals, scored weekly on the Q4 Scoreboard: <b>collect what's earned</b>, and <b>sign $15K from warm referrals and Operator-tier work</b>.</div></div>"}
 };
+// ---------- LIVE: point-in-time data, loaded from data/scoreboard.json ----------
+// auto   = rewritten by the weekly HubSpot routine (Sun + Wed 6am ET). Never hand-edit.
+// manual = team-owned: targets, clients, commitments, fixes, people, ai. The routine never touches it.
+let LIVE=null;
+const REASON_LABEL={'Stopped Communicating':'Went silent','Budget':'Budget','Timing':'Timing','Not a Fit':'Not a fit','Disqualified by Us':'Disqualified by us','Another Agency':'Another agency','Other':'Other / none given'};
+function blankMonth(){ return {rev:0,exp:0,net:0,revcat:{},revoff:{},expcat:{},wonN:0,wonV:0,lostN:0,lostV:0,wonOwner:{},ig:{v:0,p:0,e:0,f:0},fb:{v:0,p:0,e:0,f:0},tt:{v:0,p:0,e:0,f:0},li:{v:0,p:0,e:0,f:0},web:{pv:0,vis:0},reels:{}}; }
+function applyOverrides(deals, ovs){
+  return deals.map(d=>{ const x={...d, ym:(d.close||'').slice(0,7)};
+    (ovs||[]).forEach(o=>{ if((o.id&&o.id===d.id)||(o.match&&d.n.toLowerCase().includes(o.match.toLowerCase()))){ if(o.ym) x.ym=o.ym; if(o.o) x.o=o.o; } });
+    return x; }).filter(d=>d.ym);
+}
+// HubSpot deals drive the Sales history (won/lost by month). QuickBooks + Metricool fields are untouched.
+function applyDealsToHistory(deals){
+  DATA.deals=deals.map(d=>({ym:d.ym,n:d.n,a:d.a,o:d.o,w:d.w}));
+  const first='2025-06', last=deals.reduce((m,d)=>d.ym>m?d.ym:m, MONTHS[MONTHS.length-1]);
+  let [y,m]=first.split('-').map(Number);
+  while(true){ const k=y+'-'+String(m).padStart(2,'0'); if(k>last) break;
+    if(!D[k]){ D[k]=blankMonth(); MONTHS.push(k); }
+    Object.assign(D[k],{wonN:0,wonV:0,lostN:0,lostV:0,wonOwner:{}});
+    m++; if(m>12){m=1;y++;} }
+  MONTHS.sort(); MONTHS.forEach(k=>{ const yy=k.slice(0,4); if(!YEARS.includes(yy)) YEARS.push(yy); }); YEARS.sort();
+  deals.forEach(d=>{ const r=D[d.ym]; if(!r) return;
+    if(d.w===1){ r.wonN++; r.wonV+=d.a; const o=d.o||'Unassigned'; r.wonOwner[o]=(r.wonOwner[o]||0)+d.a; } else { r.lostN++; r.lostV+=d.a; } });
+}
+function quarterOf(s){ const q=Math.floor((+s.slice(5,7)-1)/3); const y=s.slice(0,4); const sm=String(q*3+1).padStart(2,'0'), em=String(q*3+3).padStart(2,'0'); return {label:'Q'+(q+1), start:y+'-'+sm+'-01', end:y+'-'+em+'-31'}; }
+function deriveLive(j){
+  const A=j.auto, M=j.manual;
+  const deals=applyOverrides(A.deals||[], M.dealOverrides);
+  applyDealsToHistory(deals);
+  const T=M.target, asOf=A.asOf;
+  const won=deals.filter(d=>d.w===1), lost=deals.filter(d=>d.w===0);
+  const q4Won=won.filter(d=>d.close>=T.start && d.close<=T.end);
+  // lost reasons, current year
+  const yr=asOf.slice(0,4), tally={};
+  lost.filter(d=>d.ym.startsWith(yr)).forEach(d=>{ const rs=(d.reasons&&d.reasons.length)?d.reasons:['Other']; rs.forEach(r=>{ const l=REASON_LABEL[r]||r; tally[l]=(tally[l]||0)+1; }); });
+  const lostReasons=Object.entries(tally).sort((a,b)=>b[1]-a[1]);
+  const pipeline=(A.pipeline||[]).map(p=>{ const n=(M.pipelineNotes||{})[p.id]||{};
+    return {...p, note:n.note||'', next:n.next||(p.nextDate?('Activity '+mdy(p.nextDate)):null), flag:!!(n.flag||p.lostReasonSet)}; });
+  const activity=(M.activity||[]).map(a=>{ if(a.src==='auto'){ const v=a.key==='overdue'?{v:A.overdue.total,d:'Open tasks past due. Breakdown by owner on the Sales tab'}:(A.activity[a.key]||{v:null,d:'No data this run'}); return {...a, v:v.v, d:v.d}; } return a; });
+  const L={asOf, financeAsOf:M.financeAsOf, socialAsOf:M.socialAsOf, target:T, week:A.week, generatedAt:A.generatedAt, by:A.by,
+    deals, won, lost, q4Won, activity, pipeline, lostReasons, overdue:A.overdue.byOwner, overdueTotal:A.overdue.total,
+    people:M.people||[], peopleNote:M.peopleNote||'', commitments:M.commitments||[], clients:M.clients||[], referrals:M.referrals||{},
+    fixes:(M.fixes||[]).map(f=>f.replace('{overdue}',A.overdue.total))};
+  // calculated department numbers
+  const open=pipeline.filter(p=>!p.flag).reduce((t,p)=>t+p.a,0);
+  const cq=quarterOf(asOf);
+  const AIM=((M.ai&&M.ai.dealMatch)||['Jumpstart','Claude']).map(x=>x.toLowerCase());
+  const aiDeals=won.filter(d=>d.close>=cq.start && d.close<=cq.end && AIM.some(k=>d.n.toLowerCase().includes(k)));
+  const ai=aiDeals.reduce((t,d)=>t+d.a,0);
+  const toCollect=L.clients.reduce((t,c)=>t+(c.rem||0),0);
+  L.calc={coverage:(open/T.goal).toFixed(1)+'x', toCollect:usd(toCollect), aiSignedQ:usd(ai)};
+  pipeline.filter(p=>!p.flag).forEach(p=>{ const k='pipelineOf:'+p.o; L.calc[k]=(L.calc[k]||0)+p.a; });
+  Object.keys(L.calc).filter(k=>k.startsWith('pipelineOf:')).forEach(k=>{ const n=pipeline.filter(p=>!p.flag&&('pipelineOf:'+p.o)===k).length; L.calcLabel=L.calcLabel||{}; L.calcLabel[k]='open pipeline, '+n+' deal'+(n===1?'':'s'); L.calc[k]=usd(L.calc[k]); });
+  L.calcLabel=Object.assign(L.calcLabel||{},{aiSignedQ:'AI + tech work signed in '+cq.label});
+  L.ai=M.ai||null; L.aiDeals=aiDeals; L.aiSigned=ai; L.q=cq;
+  return L;
+}
+
+const DAY=864e5;
+function dparse(s){ const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); }
+function daysBetween(a,b){ return Math.round((dparse(b)-dparse(a))/DAY); }
+function mdy(s){ if(!s) return '&mdash;'; const d=dparse(s); return MN[d.getMonth()]+' '+d.getDate(); }
+function wonIn(months){ return months.reduce((t,m)=>t+(D[m]?D[m].wonV:0),0); }
+function winRate2026(){ const yr=LIVE.asOf.slice(0,4); const r=DATA.deals.filter(x=>x.ym.startsWith(yr)); const w=r.filter(x=>x.w===1).length; return {w, n:r.length, rate:r.length?w/r.length:0}; }
+
+function renderScore(){
+  const T=LIVE.target, asOf=LIVE.asOf;
+  const q4=LIVE.q4Won.reduce((t,x)=>t+x.a,0);
+  const weeks=Math.ceil((daysBetween(T.start,T.end)+1)/7), perWk=T.goal/weeks;
+  const started=daysBetween(T.start,asOf)>=0, wkIn=started?Math.min(weeks,Math.floor(daysBetween(T.start,asOf)/7)+1):0;
+  const paceNow=started?Math.round(perWk*wkIn):0;
+  const q3=wonIn(['2026-07','2026-08','2026-09']);
+  const yr=wonIn(MONTHS.filter(m=>m.startsWith('2026')))+q4;
+  const wr=winRate2026();
+  const open=LIVE.pipeline.filter(p=>!p.flag).reduce((t,p)=>t+p.a,0);
+  const need=T.goal/(wr.rate||0.35), cov=open/T.goal;
+  const pct=Math.min(100,q4/T.goal*100), markPct=Math.min(100,paceNow/T.goal*100);
+  const toStart=daysBetween(asOf,T.start);
+  $('s-score').innerHTML='Live snapshot &middot; HubSpot pulled '+mdy(asOf);
+  const heroQ='<div class="card"><div class="card-t">'+T.label+' signed</div><div class="card-s">Target '+usdFull(T.goal)+' &middot; '+T.basis+'</div>'
+   +'<div class="big tnum">'+usdFull(q4)+' <small>of '+usdFull(T.goal)+'</small></div>'
+   +'<div class="prog"><div class="fill" style="width:'+pct.toFixed(1)+'%"></div>'+(started?'<div class="mark" style="left:'+markPct.toFixed(1)+'%" data-l="pace '+usd(paceNow)+'"></div>':'')+'</div>'
+   +'<div class="progcap"><span>'+(started?('Week '+wkIn+' of '+weeks):('Starts Oct 1, in '+toStart+' day'+(toStart===1?'':'s')))+'</span><span>'+usdFull(Math.round(perWk))+' a week keeps pace</span></div>'
+   +'<div class="sub">Q3 closes Sep 30 at <b>'+usdFull(q3)+'</b> of $15,000 ('+Math.round(q3/15000*100)+'%).</div></div>';
+  const heroP='<div class="card"><div class="card-t">Pipeline coverage</div><div class="card-s">Open deal value against the Q4 target</div>'
+   +'<div class="big tnum">'+cov.toFixed(1)+'x <small>'+usd(open)+' open</small></div>'
+   +'<div class="sub">At our 2026 win rate (<b>'+Math.round(wr.rate*100)+'%</b>, '+wr.w+' of '+wr.n+' decided deals), '+usd(T.goal)+' signed needs about <b>'+usd(Math.round(need/1000)*1000)+'</b> in proposals. <b>The gap is new pipeline.</b></div>'
+   +'<div style="margin-top:10px"><span class="chip '+(cov>=2.5?'good':cov>=1?'warn':'bad')+'"><span class="cd"></span>'+(cov>=2.5?'covered':cov>=1?'thin':'short')+'</span></div></div>';
+  const heroY='<div class="card"><div class="card-t">2026 so far</div><div class="card-s">Signed value, Jan 1 to today</div>'
+   +'<div class="big tnum">'+usdFull(yr)+' <small>of '+usd(T.yearGoal)+'</small></div>'
+   +'<div class="prog"><div class="fill" style="width:'+Math.min(100,yr/T.yearGoal*100).toFixed(1)+'%;background:linear-gradient(90deg,var(--gold-dark),var(--gold))"></div></div>'
+   +'<div class="sub">'+Math.round(yr/T.yearGoal*100)+'% of the original $60K goal. A $15K Q4 lands the year near <b>'+usd(yr-q4+T.goal)+'</b>.</div></div>';
+  $('sc-hero').innerHTML=maskMoney(heroQ+heroP+heroY);
+  // activity
+  $('sc-act-s').innerHTML='Last 7 days, '+mdy(LIVE.week.from)+' to '+mdy(LIVE.week.to)+' &middot; <span class="src auto">auto</span> comes from HubSpot, <span class="src man">manual</span> is filled in at the meeting. Targets are proposed.';
+  let a='<table class="act tnum" data-mobile="off"><thead><tr><th>Measure</th><th class="r">Target / wk</th><th class="r">Actual</th><th>Status</th><th>Detail</th></tr></thead><tbody>';
+  LIVE.activity.forEach(x=>{
+    let st;
+    if(x.v===null) st='<span class="st mute">fill in</span>';
+    else if(x.lowerBetter) st=x.v<=x.t?'<span class="st ok">on target</span>':'<span class="st bad">'+x.v+' over</span>';
+    else st=x.v>=x.t?'<span class="st ok">on target</span>':'<span class="st '+(x.v>0?'wait':'bad')+'">'+(x.t-x.v)+' short</span>';
+    a+='<tr><td><span class="m">'+x.k+'</span><span class="src '+x.src+'">'+(x.src==='auto'?'auto':'manual')+'</span><span class="h">'+x.h+'</span></td><td class="r">'+x.t+'</td><td class="r"><span class="v">'+(x.v===null?'&ndash;':x.v)+'</span></td><td>'+st+'</td><td style="font-size:11.5px;color:var(--ink-2)">'+x.d+'</td></tr>';
+  });
+  let mob='<div class="actm">';
+  LIVE.activity.forEach(x=>{
+    let st;
+    if(x.v===null) st='<span class="st mute">fill in</span>';
+    else if(x.lowerBetter) st=x.v<=x.t?'<span class="st ok">on target</span>':'<span class="st bad">'+x.v+' over</span>';
+    else st=x.v>=x.t?'<span class="st ok">on target</span>':'<span class="st '+(x.v>0?'wait':'bad')+'">'+(x.t-x.v)+' short</span>';
+    mob+='<div class="ai"><div class="at"><span class="an">'+x.k+'<span class="src '+x.src+'">'+(x.src==='auto'?'auto':'manual')+'</span></span><span class="av tnum">'+(x.v===null?'&ndash;':x.v)+' <small>/ '+x.t+'</small></span></div><div style="margin-top:5px">'+st+'</div><div class="ad">'+x.d+'</div></div>';
+  });
+  $('sc-act').innerHTML=a+'</tbody></table>'+mob+'</div>';
+  $('sc-owners').innerHTML=maskMoney(LIVE.people.map(o=>{ const v=o.calc?(LIVE.calc[o.calc]||'$0'):o.v, l=(o.calc&&LIVE.calcLabel[o.calc])||o.l;
+    return '<div class="own"><div class="on">'+o.n+'</div><div class="or">'+o.lead+'</div><div class="ov tnum">'+v+'</div><div class="ol">'+l+(o.p?' &middot; <i>proposed</i>':'')+'</div></div>'; }).join(''));
+  $('sc-people-note').innerHTML=LIVE.peopleNote||'';
+  const C=LIVE.commitments;
+  $('sc-commit').innerHTML=(C.length?C.map(c=>'<li class="set"><span><b>'+c.w+'</b> &middot; '+c.t+(c.due?' <span style="color:var(--muted)">by '+c.due+'</span>':'')+'</span></li>').join(''):[1,2,3].map(()=>'<li>Set at Sunday&rsquo;s meeting</li>').join(''));
+  $('sc-fix').innerHTML=maskMoney(LIVE.fixes.map(f=>'<li>'+f+'</li>').join(''));
+}
+
+function pipelineTable(){
+  const P=LIVE.pipeline, asOf=LIVE.asOf;
+  const valued=P.filter(p=>!p.flag).reduce((t,p)=>t+p.a,0);
+  $('ct-pipe').innerHTML='Live from HubSpot, '+mdy(asOf)+' &middot; '+P.length+' open deals &middot; last touch turns amber at 7 days and red at 14 (silence is our #1 loss reason)';
+  let s='<table class="dl tnum"><thead><tr><th>Deal</th><th>Owner</th><th>Stage</th><th class="r">Value</th><th class="r">Last touch</th><th>Next step</th><th>Expected close</th></tr></thead><tbody>';
+  P.forEach(r=>{
+    const dd=daysBetween(r.last,asOf), cls=dd>=14?'bad':dd>=7?'wait':'ok';
+    s+='<tr><td><b>'+esc(r.n)+'</b>'+(r.note?'<span class="h">'+r.note+'</span>':'')+'</td><td>'+r.o+'</td><td><span class="pill2 '+(/Proposal/.test(r.stage)?'prop':'qual')+'">'+r.stage+'</span>'+(r.flag?' <span class="st bad">fix</span>':'')+'</td>'
+      +'<td class="r">'+(r.a?usdFull(r.a):'<span class="st wait">no value</span>')+'</td><td class="r"><span class="st '+cls+'">'+dd+'d ago</span></td>'
+      +'<td>'+(r.next?r.next:'<span class="st bad">none set</span>')+'</td><td>'+mdy(r.close)+'</td></tr>';
+  });
+  s+='<tr class="tot"><td>Total valued (excl. flagged)</td><td></td><td></td><td class="r">'+usdFull(valued)+'</td><td></td><td></td><td></td></tr></tbody></table>';
+  return s;
+}
+function renderSalesLive(){
+  const L=LIVE.lostReasons, tot=L.reduce((t,x)=>t+x[1],0);
+  const nLost=LIVE.lost.filter(d=>d.ym.startsWith(LIVE.asOf.slice(0,4))).length;
+  $('ct-lostwhy').innerHTML='Reason tags on the '+nLost+' deals lost this year (a deal can carry more than one) &middot; '+tot+' tags';
+  $('ch-lostwhy').innerHTML=barChart(L.map((x,i)=>({label:x[0],val:x[1],color:i===0?'url(#gBad)':'url(#gHbar)'})),{fmt:v=>''+v});
+  const O=LIVE.overdue, ot=O.reduce((t,x)=>t+x[1],0);
+  $('ct-overdue').innerHTML=ot+' open tasks past due, by HubSpot owner &middot; target is zero';
+  $('ch-overdue').innerHTML=barChart(O.map(x=>({label:x[0],val:x[1],color:'url(#gGold)'})),{fmt:v=>''+v})
+   +'<div class="cap">Most of the admin pile is auto-created call tasks from the July sequences. Close or reschedule the dead ones; the real follow-ups get lost in the noise.</div>';
+}
+function renderClients(){
+  const C=LIVE.clients; const active=C.filter(c=>c.wait!=='done').length;
+  const rem=C.reduce((t,c)=>t+(c.rem||0),0);
+  $('s-clients').innerHTML=maskMoney(active+' active &middot; '+(C.length-active)+' closed &middot; '+usdFull(rem)+' still to collect');
+  $('cl-grid').innerHTML=maskMoney(C.map(c=>{
+    const stripe=c.wait==='done'?'done':c.wait==='client'?'b-client':'b-us';
+    const pill=c.wait==='done'?'<span class="st ok">'+c.status+'</span>':c.wait==='client'?'<span class="st wait">'+c.status+'</span>':'<span class="st info">'+c.status+'</span>';
+    const money='<div class="money"><span>Value <b>'+usdFull(c.val)+'</b></span><span>Paid <b>'+(c.paid===null?'not tracked':usdFull(c.paid))+'</b></span><span>Left <b>'+(c.rem===null?'not tracked':usdFull(c.rem))+'</b></span></div>';
+    return '<div class="cl '+stripe+'"><div class="ch"><div><div class="cn">'+c.n+'</div><div class="cp">'+c.pkg+' &middot; '+c.o+'</div></div>'+pill+'</div>'
+     +'<div class="row"><span class="k">Phase</span><span>'+c.phase+'</span></div>'
+     +'<div class="row"><span class="k">Money</span>'+money+'</div>'
+     +'<div class="row"><span class="k">Next step</span><span>'+c.next+'</span></div>'
+     +(c.blk?'<div class="row"><span class="k">Waiting on</span><span>'+c.blk+'</span></div>':'')
+     +'<div class="row"><span class="k">The ask</span><span><b>'+c.ask+'</b></span></div>'
+     +(c.note?'<div class="row"><span class="k">Note</span><span style="color:var(--ink-2)">'+c.note+'</span></div>':'')
+     +'</div>';
+  }).join(''));
+}
+function renderReferrals(){
+  const R=LIVE.referrals;
+  $('ct-ref').innerHTML='Our best channel has no system yet &middot; snapshot '+mdy(LIVE.asOf);
+  $('ch-ref').innerHTML=maskMoney('<div class="funnel">'
+   +mini('One referral chain', usdFull(R.chain.v), R.chain.share+'% of 2026 signed', 'good')
+   +mini('Partners signed', R.partnersSigned+' of '+R.partnersGoal, R.bench+' on the bench, goal by Dec 31', R.partnersSigned>=R.partnersGoal?'good':'bad')
+   +mini('Warm intros this month', R.intros===null?'&ndash;':''+R.intros, 'Rodney goal '+R.introsGoal+' (proposed)', 'warn')
+   +mini('Referral form alerts', R.formAlerts?'On':'Off', R.formAlerts?'someone is notified':'a referral today goes unseen', R.formAlerts?'good':'bad')
+   +'</div><div class="cap">The chain: '+R.chain.path+'. Nobody asked for it; it happened. The job now is to make it happen on purpose.</div>');
+  $('ch-srcmix').innerHTML=barChart(R.mix.map((x,i)=>({label:x[0],val:x[1],color:x[0]==='Not recorded'?'#c4d0da':['url(#gNavy)','url(#gBlue)','url(#gSky)','url(#gGold)'][i]})),{fmt:usd,pii:true})
+   +'<div class="cap">'+R.events+'. About three quarters of what we signed came from people who already knew us.</div>';
+  $('ct-bench').innerHTML=R.bench+' researched targets (June lead-scraping runs), none signed. Top five by fit score:';
+  let t='<table class="dl"><thead><tr><th>Partner</th><th>Firm</th><th class="r">Score /25</th></tr></thead><tbody>';
+  R.top.forEach(x=>{ t+='<tr><td>'+x[0]+'</td><td>'+x[1]+'</td><td class="r">'+x[2]+'</td></tr>'; });
+  $('ch-bench').innerHTML=t+'</tbody></table><div class="cap">Ask partners for nothing first: offer a free Business Systems Audit for 2&ndash;3 of their clients. Full bench: _claude/context/referral-partners.md.</div>';
+  $('mkt-stale').innerHTML='Social and website numbers below stop at '+mdy(LIVE.socialAsOf)+' (last Metricool export). They refresh once the Metricool connection is set up.';
+}
+function renderAI(){
+  const A=LIVE.ai; if(!A){ $('ch-ai').innerHTML='<div class="empty">No AI data in scoreboard.json yet</div>'; return; }
+  $('s-ai').innerHTML='Lead: Daunte &middot; snapshot '+mdy(A.asOf);
+  $('ai-owns').innerHTML=A.owns+(A.editNote?' <b>'+A.editNote+'</b>':'');
+  $('ct-ai').innerHTML='Signed value is counted from HubSpot deals; the other five are updated by hand until HubSpot can tag AI work';
+  const signed=mini('AI + tech signed, '+LIVE.q.label, usdFull(LIVE.aiSigned), LIVE.aiDeals.length+' deal'+(LIVE.aiDeals.length===1?'':'s')+' (HubSpot)', LIVE.aiSigned>0?'good':'warn');
+  $('ch-ai').innerHTML=maskMoney('<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px" class="aigrid">'+signed+A.metrics.map(m=>mini(m.l,m.v,m.s,m.c)).join('')+'</div>');
+  let t='<table class="dl"><thead><tr><th>Account</th><th>What</th><th>Status</th><th class="r">Value</th></tr></thead><tbody>';
+  A.pipeline.forEach(r=>{ t+='<tr><td><b>'+r[0]+'</b><span class="h">'+r[4]+'</span></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td class="r">'+r[3]+'</td></tr>'; });
+  $('ch-aipipe').innerHTML=maskMoney(t+'</tbody></table>');
+  let d='<table class="dl"><thead><tr><th>Decision</th><th>Owner</th><th>Status</th></tr></thead><tbody>';
+  A.decisions.forEach(r=>{ d+='<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td><span class="st '+(/No owner|Open since|not built/.test(r[2]+r[1])?'wait':'mute')+'">'+r[2]+'</span></td></tr>'; });
+  $('ch-aidec').innerHTML=d+'</tbody></table>';
+  $('ai-notes').innerHTML=maskMoney(A.notes.map((n,i)=>note(i===0?'How to read this lane':i===1?'Fix the data':'Watch',i===0?'gold':'',n)).join(''));
+}
+function renderLive(){
+  $('asof2').innerHTML='HubSpot pulled '+mdy(LIVE.asOf)+' &middot; QuickBooks as of '+mdy(LIVE.financeAsOf)+' &middot; Metricool as of '+mdy(LIVE.socialAsOf);
+  $('foot-ft').innerHTML='Sales data pulled from HubSpot '+LIVE.asOf+'; financial and social from DA-004 / DA-003 as of '+LIVE.financeAsOf+' &middot; internal use only';
+  renderScore(); renderSalesLive(); renderClients(); renderReferrals(); renderAI();
+}
 // ---------- tabs ----------
-document.querySelectorAll('#tabbar button').forEach(b=>b.onclick=()=>{
-  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on', p.id==='tab-'+b.dataset.tab));
-  document.querySelectorAll('#tabbar button').forEach(x=>x.classList.toggle('on', x===b));
-});
+// Scoreboard + Clients are point-in-time: hide the period slicer and KPI tiles there. The tab is kept in the URL hash (#score, #sales, ...).
+const SNAP=['score','clients','ai'];
+function showTab(key){
+  if(!document.getElementById('tab-'+key)) key='score';
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on', p.id==='tab-'+key));
+  document.querySelectorAll('#tabbar button').forEach(x=>x.classList.toggle('on', x.dataset.tab===key));
+  document.body.setAttribute('data-view', SNAP.includes(key)?'snap':'hist');
+  if(location.hash.slice(1)!==key) history.replaceState(null,'','#'+key);
+}
+document.querySelectorAll('#tabbar button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
 // ---------- privacy toggle ----------
 document.querySelectorAll('#privSeg button').forEach(b=>b.onclick=()=>{
   document.body.setAttribute('data-privacy', b.dataset.priv);
@@ -732,7 +1067,10 @@ document.addEventListener('mousemove', e=>{
     _tip.style.left=lx+'px'; _tip.style.top=(e.clientY-10)+'px';
   } else _tip.style.display='none';
 });
-buildControls(); render();
+buildControls(); render(); showTab(location.hash.slice(1)||'score');
+fetch('../data/scoreboard.json?v='+Date.now()).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+  .then(j=>{ LIVE=deriveLive(j); buildControls(); render(); renderLive(); })
+  .catch(e=>{ $('sc-hero').innerHTML='<div class="card" style="grid-column:1/-1"><div class="card-t">Scoreboard data did not load</div><div class="card-s">data/scoreboard.json: '+e.message+'. The history tabs still work.</div></div>'; });
 </script>
 
 <script src="../js/nav.js" data-page="strategy"></script>
