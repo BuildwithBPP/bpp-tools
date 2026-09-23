@@ -981,7 +981,7 @@ function renderSalesLive(){
   const O=LIVE.overdue, ot=O.reduce((t,x)=>t+x[1],0);
   $('ct-overdue').innerHTML=ot+' open tasks past due, by HubSpot owner &middot; target is zero';
   $('ch-overdue').innerHTML=barChart(O.map(x=>({label:x[0],val:x[1],color:'url(#gGold)'})),{fmt:v=>''+v})
-   +'<div class="cap">Most of the admin pile is auto-created call tasks from the July sequences. Close or reschedule the dead ones; the real follow-ups get lost in the noise.</div>';
+   +'<div class="cap">The unassigned pile is auto-created call tasks from the July sequences. Close or reschedule dead tasks in every lane; the real follow-ups get lost in the noise.</div>';
 }
 function renderClients(){
   const C=LIVE.clients; const active=C.filter(c=>c.wait!=='done').length;
