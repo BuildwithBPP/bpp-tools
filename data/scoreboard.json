@@ -2,225 +2,259 @@
  "_about": "Scoreboard data for pages/performance-dashboard.html. 'auto' is rewritten by the weekly HubSpot routine (Sun + Wed 6am ET); never hand-edit it, it gets overwritten. 'manual' is edited by people (or Claude on request) and the routine never touches it. The AI & Tech tab reads manual.ai; the lane lead owns those numbers.",
  "auto": {
   "asOf": "2026-09-23",
-  "generatedAt": "2026-09-23T14:30:00Z",
-  "by": "seed (Claude, live HubSpot pull 9/23)",
+  "generatedAt": "2026-09-23T15:13:40Z",
+  "by": "GitHub Action (HubSpot API)",
   "week": {
    "from": "2026-09-16",
    "to": "2026-09-22"
   },
   "deals": [
    {
-    "id": "",
-    "n": "Remember Wynn Foundations",
+    "id": "72250329801",
+    "n": "SEEDFOLKids Foundations for Growth",
+    "a": 678.0,
+    "o": "Eli",
+    "close": "2025-06-02",
+    "w": 1
+   },
+   {
+    "id": "88676592350",
+    "n": "Remember Wynn Foundations for Growth",
     "a": 2337.5,
     "o": "Eli",
-    "close": "2025-06-15",
+    "close": "2025-06-02",
     "w": 1
    },
    {
-    "id": "",
-    "n": "SEEDFOLKids Foundations",
-    "a": 678,
-    "o": "Eli",
-    "close": "2025-06-15",
-    "w": 1
-   },
-   {
-    "id": "",
-    "n": "Tier 1 Foundations",
-    "a": 3750,
+    "id": "60996315891",
+    "n": "Tier 1 Foundations for Growth",
+    "a": 3750.0,
     "o": "Daunte",
-    "close": "2025-07-15",
+    "close": "2025-06-30",
     "w": 1
    },
    {
-    "id": "",
+    "id": "60965157566",
     "n": "Mable Blueprinting",
-    "a": 599,
+    "a": 599.0,
     "o": "Kenny",
-    "close": "2025-08-15",
+    "close": "2025-08-01",
     "w": 1
    },
    {
-    "id": "",
+    "id": "129566470847",
     "n": "MGP Business Plan",
-    "a": 599,
-    "o": "",
-    "close": "2025-08-15",
-    "w": 0,
-    "reasons": []
-   },
-   {
-    "id": "",
-    "n": "Invitation to a Wedding",
-    "a": 550,
-    "o": "",
-    "close": "2025-08-15",
-    "w": 0,
-    "reasons": []
-   },
-   {
-    "id": "",
-    "n": "Stack All Profits",
-    "a": 998,
-    "o": "Kenny",
-    "close": "2025-08-15",
-    "w": 1
-   },
-   {
-    "id": "",
-    "n": "Heart & Soul",
-    "a": 3463,
-    "o": "",
-    "close": "2025-09-15",
-    "w": 0,
-    "reasons": []
-   },
-   {
-    "id": "",
-    "n": "For The Girls Tampa",
-    "a": 1200,
-    "o": "",
-    "close": "2025-09-15",
-    "w": 0,
-    "reasons": []
-   },
-   {
-    "id": "",
-    "n": "Wedelia Wellness",
-    "a": 1248,
+    "a": 599.0,
     "o": "Daunte",
-    "close": "2025-10-15",
+    "close": "2025-08-06",
+    "w": 0,
+    "reasons": [
+     "Disqualified by Us"
+    ]
+   },
+   {
+    "id": "135198815993",
+    "n": "Invitation to a Wedding",
+    "a": 550.0,
+    "o": "Eli",
+    "close": "2025-08-11",
+    "w": 0,
+    "reasons": [
+     "Budget"
+    ]
+   },
+   {
+    "id": "142842842858",
+    "n": "Stack All Profits",
+    "a": 998.0,
+    "o": "Kenny",
+    "close": "2025-08-22",
     "w": 1
    },
    {
-    "id": "",
+    "id": "90794493639",
+    "n": "Heart & Soul Foundations for Growth",
+    "a": 3463.0,
+    "o": "Eli",
+    "close": "2025-09-26",
+    "w": 0,
+    "reasons": [
+     "Timing",
+     "Budget"
+    ]
+   },
+   {
+    "id": "65775459037",
+    "n": "For The Girls Tampa",
+    "a": 1200.0,
+    "o": "Daunte",
+    "close": "2025-09-27",
+    "w": 0,
+    "reasons": [
+     "Timing",
+     "Budget"
+    ]
+   },
+   {
+    "id": "176000118472",
+    "n": "Wedelia Wellness – BP+QB+GMB – P1 – Oct 2025",
+    "a": 1248.0,
+    "o": "Daunte",
+    "close": "2025-10-10",
+    "w": 1
+   },
+   {
+    "id": "116521167562",
     "n": "Squeaky Whips",
-    "a": 1247,
-    "o": "",
-    "close": "2025-10-15",
+    "a": 1247.0,
+    "o": "Eli",
+    "close": "2025-10-11",
     "w": 0,
-    "reasons": []
+    "reasons": [
+     "Timing"
+    ]
    },
    {
-    "id": "",
+    "id": "129566471869",
     "n": "Mattie Mae's Fixings",
-    "a": 200,
-    "o": "",
-    "close": "2025-10-15",
+    "a": 200.0,
+    "o": "Daunte",
+    "close": "2025-10-11",
     "w": 0,
-    "reasons": []
+    "reasons": [
+     "Stopped Communicating"
+    ]
    },
    {
-    "id": "",
-    "n": "E&M Beautiful Me",
-    "a": 599,
-    "o": "",
-    "close": "2025-10-15",
+    "id": "138434680522",
+    "n": "E&M BEAUTIFUL ME LLC",
+    "a": 599.0,
+    "o": "Eli",
+    "close": "2025-10-11",
     "w": 0,
-    "reasons": []
+    "reasons": [
+     "Timing"
+    ]
    },
    {
-    "id": "",
+    "id": "190745018072",
     "n": "Courtesy Office Cleaning",
     "a": 0,
-    "o": "",
-    "close": "2025-10-15",
+    "o": "Kenny",
+    "close": "2025-10-21",
     "w": 0,
-    "reasons": []
+    "reasons": [
+     "Disqualified by Us",
+     "Stopped Communicating"
+    ]
    },
    {
-    "id": "",
-    "n": "Stack all Profits - Consult",
-    "a": 200,
-    "o": "",
-    "close": "2025-10-15",
+    "id": "161660385009",
+    "n": "Stack all Profits- Consult Hours",
+    "a": 200.0,
+    "o": "Kenny",
+    "close": "2025-10-24",
     "w": 0,
-    "reasons": []
+    "reasons": [
+     "Stopped Communicating",
+     "Timing"
+    ]
    },
    {
-    "id": "",
+    "id": "187329479389",
     "n": "RIVR",
-    "a": 3563,
-    "o": "",
-    "close": "2025-11-15",
+    "a": 3563.0,
+    "o": "Eli",
+    "close": "2025-11-01",
     "w": 0,
-    "reasons": []
+    "reasons": [
+     "Budget",
+     "Timing"
+    ]
    },
    {
-    "id": "",
-    "n": "The About Group",
-    "a": 599,
-    "o": "",
-    "close": "2025-11-15",
+    "id": "209642742476",
+    "n": "The About Group LLC",
+    "a": 599.0,
+    "o": "Kenny",
+    "close": "2025-11-20",
     "w": 0,
-    "reasons": []
+    "reasons": [
+     "Stopped Communicating"
+    ]
    },
    {
-    "id": "",
+    "id": "191853981386",
     "n": "Revive Realty",
-    "a": 1747,
-    "o": "",
-    "close": "2025-12-15",
+    "a": 1747.0,
+    "o": "Daunte",
+    "close": "2025-12-01",
     "w": 0,
-    "reasons": []
+    "reasons": [
+     "Stopped Communicating",
+     "Budget"
+    ]
    },
    {
-    "id": "",
+    "id": "200821862095",
     "n": "African Learning Temple",
-    "a": 2000,
-    "o": "",
-    "close": "2025-12-15",
-    "w": 0,
-    "reasons": []
-   },
-   {
-    "id": "",
-    "n": "Roberts Brothers - Mktg & Legal",
-    "a": 2000,
-    "o": "Eli",
-    "close": "2025-12-15",
-    "w": 1
-   },
-   {
-    "id": "",
-    "n": "Legacy Roofing",
-    "a": 1500,
-    "o": "Eli",
-    "close": "2025-12-15",
-    "w": 1
-   },
-   {
-    "id": "",
-    "n": "Fawwwkk",
-    "a": 599,
+    "a": 2000.0,
     "o": "Kenny",
-    "close": "2025-12-15",
-    "w": 1
-   },
-   {
-    "id": "",
-    "n": "Xtremely Clean - Automation/CRM",
-    "a": 3315,
-    "o": "Kenny",
-    "close": "2025-12-15",
-    "w": 1
-   },
-   {
-    "id": "",
-    "n": "Troops in Treatment",
-    "a": 599,
-    "o": "",
-    "close": "2025-12-15",
+    "close": "2025-12-03",
     "w": 0,
-    "reasons": []
+    "reasons": [
+     "Stopped Communicating"
+    ]
    },
    {
-    "id": "",
-    "n": "G. Roberts Logistics",
-    "a": 2823,
-    "o": "",
-    "close": "2026-01-15",
+    "id": "157698977493",
+    "n": "Roberts Brothers Landscaping, LLC - Marketing & Legal Formation",
+    "a": 2000.0,
+    "o": "Eli",
+    "close": "2025-12-05",
+    "w": 1
+   },
+   {
+    "id": "67168941781",
+    "n": "Xtremely Clean Janitorial Service LLC - Automation, Crm, Sales, etc",
+    "a": 3315.0,
+    "o": "Kenny",
+    "close": "2025-12-09",
+    "w": 1
+   },
+   {
+    "id": "140312520400",
+    "n": "Legacy Roofing and Construction Services",
+    "a": 1500.0,
+    "o": "Eli",
+    "close": "2025-12-09",
+    "w": 1
+   },
+   {
+    "id": "210806448881",
+    "n": "Fawwwkk LLC",
+    "a": 599.0,
+    "o": "Kenny",
+    "close": "2025-12-09",
+    "w": 1
+   },
+   {
+    "id": "231963862761",
+    "n": "Troops in Treatment- Business Plan",
+    "a": 599.0,
+    "o": "Rodney",
+    "close": "2025-12-19",
+    "w": 0,
+    "reasons": [
+     "Budget"
+    ]
+   },
+   {
+    "id": "198208409315",
+    "n": "G. Roberts Logistics - Trucking Startup Kit",
+    "a": 2823.0,
+    "o": "Eli",
+    "close": "2026-01-21",
     "w": 0,
     "reasons": [
      "Timing",
@@ -228,38 +262,38 @@
     ]
    },
    {
-    "id": "",
-    "n": "Xtremely Clean - Hourly",
-    "a": 500,
+    "id": "280376293052",
+    "n": "Xtremely Clean Hourly Consulting",
+    "a": 500.0,
     "o": "Daunte",
-    "close": "2026-02-15",
+    "close": "2026-02-02",
     "w": 1
    },
    {
-    "id": "",
-    "n": "Stack All Profit - Web/QB",
-    "a": 1398,
-    "o": "",
-    "close": "2026-02-15",
+    "id": "277987855054",
+    "n": "Stack All Profit- Website, QuickBooks, Tax Help, & Bank",
+    "a": 1398.0,
+    "o": "Kenny",
+    "close": "2026-02-09",
     "w": 0,
     "reasons": [
      "Budget"
     ]
    },
    {
-    "id": "",
-    "n": "Xtremely Clean - 10hrs",
-    "a": 500,
+    "id": "294218621648",
+    "n": "Xtremely Clean Janitorial Services - 10 hours of consulting",
+    "a": 500.0,
     "o": "Daunte",
-    "close": "2026-02-15",
+    "close": "2026-02-12",
     "w": 1
    },
    {
-    "id": "",
-    "n": "Prime Pulse Logistics",
-    "a": 1000,
-    "o": "",
-    "close": "2026-02-15",
+    "id": "276777876176",
+    "n": "Prime Pulse Logistics, LLC - (Starter Package)",
+    "a": 1000.0,
+    "o": "Kenny",
+    "close": "2026-02-13",
     "w": 0,
     "reasons": [
      "Disqualified by Us",
@@ -267,101 +301,101 @@
     ]
    },
    {
-    "id": "",
-    "n": "MAA - 10hrs",
-    "a": 500,
+    "id": "291908911859",
+    "n": "MAA - 10 hours of consulting",
+    "a": 500.0,
     "o": "Eli",
     "close": "2026-02-15",
     "w": 1
    },
    {
-    "id": "",
-    "n": "Carlo Thompson - RE CRM",
-    "a": 3440,
-    "o": "",
-    "close": "2026-02-15",
+    "id": "212647420643",
+    "n": "Carlo Thompson - Real Estate | CRM Build",
+    "a": 3440.0,
+    "o": "Eli",
+    "close": "2026-02-18",
     "w": 0,
     "reasons": [
      "Stopped Communicating"
     ]
    },
    {
-    "id": "",
-    "n": "SEEDFOLKids - Strategic Planning",
-    "a": 3200,
+    "id": "294304225012",
+    "n": "SEEDFOLkids - Strategic Planning",
+    "a": 3200.0,
     "o": "Eli",
-    "close": "2026-02-15",
+    "close": "2026-02-18",
     "w": 1
    },
    {
-    "id": "",
-    "n": "VoltAir Consulting",
+    "id": "191853982424",
+    "n": "VoltAir Consulting Engineers, Inc",
     "a": 0,
-    "o": "",
-    "close": "2026-02-15",
+    "o": "Kenny",
+    "close": "2026-02-19",
     "w": 0,
     "reasons": [
      "Stopped Communicating"
     ]
    },
    {
-    "id": "",
-    "n": "B5 ReAffirm",
-    "a": 1000,
-    "o": "",
-    "close": "2026-02-15",
+    "id": "290297228993",
+    "n": "B5™ ReAffirm/BONA5D™ Credit Consultants, LLC",
+    "a": 1000.0,
+    "o": "Eli",
+    "close": "2026-02-20",
     "w": 0,
     "reasons": [
      "Timing"
     ]
    },
    {
-    "id": "",
-    "n": "For the Girls - Start",
-    "a": 1997,
-    "o": "",
-    "close": "2026-02-15",
+    "id": "267668325058",
+    "n": "For the Girls - Start package",
+    "a": 1997.0,
+    "o": "Daunte",
+    "close": "2026-02-25",
     "w": 0,
     "reasons": [
      "Budget"
     ]
    },
    {
-    "id": "",
-    "n": "Sterling Diversified",
+    "id": "294216409847",
+    "n": "Sterling Diversified Business Solutions, LLC: BP QB",
     "a": 509.15,
-    "o": "",
-    "close": "2026-03-15",
+    "o": "Kenny",
+    "close": "2026-03-11",
     "w": 0,
     "reasons": [
      "Budget"
     ]
    },
    {
-    "id": "",
-    "n": "Richard's Funeral Home",
-    "a": 2248,
-    "o": "",
-    "close": "2026-03-15",
+    "id": "286910860997",
+    "n": "Richard's Funeral Home - Marketing",
+    "a": 2248.0,
+    "o": "Kenny",
+    "close": "2026-03-25",
     "w": 0,
     "reasons": [
      "Stopped Communicating"
     ]
    },
    {
-    "id": "",
-    "n": "SEEDFOLKids - Brand Guideline",
-    "a": 1000,
+    "id": "316973462256",
+    "n": "SEEDFOLKids Brand Guideline",
+    "a": 1000.0,
     "o": "Eli",
-    "close": "2026-03-15",
+    "close": "2026-03-30",
     "w": 1
    },
    {
-    "id": "",
-    "n": "Clinical Research Specialist",
-    "a": 3599,
-    "o": "",
-    "close": "2026-04-15",
+    "id": "316331139829",
+    "n": "The Clinical Research Specialist - Business Plan, Landing Page, CRM",
+    "a": 3599.0,
+    "o": "Admin",
+    "close": "2026-04-06",
     "w": 0,
     "reasons": [
      "Disqualified by Us",
@@ -369,104 +403,104 @@
     ]
    },
    {
-    "id": "",
-    "n": "Noisey Creative",
+    "id": "317244696265",
+    "n": "Noisey Creative Studio",
     "a": 0,
-    "o": "",
-    "close": "2026-04-15",
+    "o": "Eli",
+    "close": "2026-04-06",
     "w": 0,
     "reasons": [
      "Budget"
     ]
    },
    {
-    "id": "",
-    "n": "Lois Marketing - Operator System",
-    "a": 1350,
+    "id": "320114231025",
+    "n": "Lois Marketing LLC - Operator System",
+    "a": 1350.0,
     "o": "Eli",
-    "close": "2026-04-15",
+    "close": "2026-04-10",
     "w": 1
    },
    {
-    "id": "",
-    "n": "Twanda Bradley - Campaign",
-    "a": 5197,
-    "o": "",
-    "close": "2026-04-15",
+    "id": "306162226902",
+    "n": "Twanda Bradley — County Commission Campaign (District 3)",
+    "a": 5197.0,
+    "o": "Kenny",
+    "close": "2026-04-11",
     "w": 0,
     "reasons": []
    },
    {
-    "id": "",
-    "n": "Cleaning Top To Bottom",
-    "a": 599,
-    "o": "",
-    "close": "2026-04-15",
+    "id": "232557328068",
+    "n": "Cleaning Top To Bottom & Decor, LLC - Business Plan",
+    "a": 599.0,
+    "o": "Kenny",
+    "close": "2026-04-12",
     "w": 0,
     "reasons": [
      "Stopped Communicating"
     ]
    },
    {
-    "id": "",
-    "n": "Xtremely Clean - Proposal Dev",
-    "a": 500,
+    "id": "322574435044",
+    "n": "Xtremely Clean - Proposal Development",
+    "a": 500.0,
     "o": "Daunte",
-    "close": "2026-04-15",
+    "close": "2026-04-24",
     "w": 1
    },
    {
-    "id": "",
-    "n": "HALO Commons - Launch Pad",
-    "a": 1649,
+    "id": "320836887242",
+    "n": "Halo Commons, LLC/HACO Pathways - Launch Pad",
+    "a": 1649.0,
     "o": "Eli",
-    "close": "2026-04-15",
+    "close": "2026-04-27",
     "w": 1
    },
    {
-    "id": "",
+    "id": "321922417344",
     "n": "De Dior Studios - BP",
     "a": 449.25,
     "o": "Kenny",
-    "close": "2026-04-15",
+    "close": "2026-04-30",
     "w": 1
    },
    {
-    "id": "",
-    "n": "Financial Acuity - Growth Package",
-    "a": 3350,
+    "id": "268064750302",
+    "n": "Financial Acuity - Growth Package Custom",
+    "a": 3350.0,
     "o": "Daunte",
-    "close": "2026-05-15",
+    "close": "2026-05-02",
     "w": 1
    },
    {
-    "id": "",
-    "n": "Replace It Auto Glass",
-    "a": 4500,
-    "o": "",
-    "close": "2026-05-15",
-    "w": 0,
-    "reasons": [
-     "Budget"
-    ]
-   },
-   {
-    "id": "",
-    "n": "StudentCrowd - Focus Group",
-    "a": 3000,
-    "o": "",
-    "close": "2026-05-15",
+    "id": "304627490540",
+    "n": "Focus Group Facilitation | StudentCrowd",
+    "a": 3000.0,
+    "o": "Eli",
+    "close": "2026-05-05",
     "w": 0,
     "reasons": [
      "Not a Fit"
     ]
    },
    {
-    "id": "",
-    "n": "Zing Juice Bar",
-    "a": 2000,
-    "o": "",
-    "close": "2026-05-15",
+    "id": "320116391666",
+    "n": "Replace It Auto Glass LLC",
+    "a": 4500.0,
+    "o": "Eli",
+    "close": "2026-05-05",
+    "w": 0,
+    "reasons": [
+     "Budget"
+    ]
+   },
+   {
+    "id": "288898147052",
+    "n": "Zing Juice Bar - QB & CONSULTING",
+    "a": 2000.0,
+    "o": "Daunte",
+    "close": "2026-05-10",
     "w": 0,
     "reasons": [
      "Timing",
@@ -474,11 +508,11 @@
     ]
    },
    {
-    "id": "",
+    "id": "324845392583",
     "n": "Rare Hues Collective",
-    "a": 4500,
-    "o": "",
-    "close": "2026-05-15",
+    "a": 4500.0,
+    "o": "Kenny",
+    "close": "2026-05-14",
     "w": 0,
     "reasons": [
      "Budget",
@@ -487,10 +521,10 @@
     ]
    },
    {
-    "id": "",
+    "id": "324845178609",
     "n": "Love Your Beauty",
-    "a": 1799,
-    "o": "",
+    "a": 1799.0,
+    "o": "Kenny",
     "close": "2026-05-15",
     "w": 0,
     "reasons": [
@@ -498,22 +532,22 @@
     ]
    },
    {
-    "id": "",
-    "n": "Cape to the Bay",
-    "a": 1000,
-    "o": "",
-    "close": "2026-05-15",
+    "id": "319801374407",
+    "n": "Cape to the Bay — Cowork Setup",
+    "a": 1000.0,
+    "o": "Daunte",
+    "close": "2026-05-18",
     "w": 0,
     "reasons": [
      "Timing"
     ]
    },
    {
-    "id": "",
+    "id": "322354050775",
     "n": "Curbology",
     "a": 0,
-    "o": "",
-    "close": "2026-06-15",
+    "o": "Eli",
+    "close": "2026-06-03",
     "w": 0,
     "reasons": [
      "Not a Fit",
@@ -521,11 +555,11 @@
     ]
    },
    {
-    "id": "",
-    "n": "Hyacinthe Property Mgmt",
-    "a": 2000,
-    "o": "",
-    "close": "2026-06-15",
+    "id": "327712699110",
+    "n": "Hyacinthe Property Management",
+    "a": 2000.0,
+    "o": "Kenny",
+    "close": "2026-06-22",
     "w": 0,
     "reasons": [
      "Timing",
@@ -533,21 +567,21 @@
     ]
    },
    {
-    "id": "",
+    "id": "324940526316",
     "n": "TwentyTen Motors",
-    "a": 599,
-    "o": "",
-    "close": "2026-07-15",
+    "a": 599.0,
+    "o": "Daunte",
+    "close": "2026-07-07",
     "w": 0,
     "reasons": [
      "Stopped Communicating"
     ]
    },
    {
-    "id": "",
+    "id": "326812103390",
     "n": "Merge Pro",
-    "a": 4500,
-    "o": "",
+    "a": 4500.0,
+    "o": "Kenny",
     "close": "2026-07-15",
     "w": 0,
     "reasons": [
@@ -556,10 +590,10 @@
     ]
    },
    {
-    "id": "",
-    "n": "RW Events",
-    "a": 1799,
-    "o": "",
+    "id": "327712699126",
+    "n": "RW EVENTS",
+    "a": 1799.0,
+    "o": "Kenny",
     "close": "2026-07-15",
     "w": 0,
     "reasons": [
@@ -567,87 +601,87 @@
     ]
    },
    {
-    "id": "",
+    "id": "336708908746",
     "n": "Spring Circle",
     "a": 0,
-    "o": "",
-    "close": "2026-07-15",
+    "o": "Kenny",
+    "close": "2026-07-21",
     "w": 0,
     "reasons": [
      "Disqualified by Us"
     ]
    },
    {
-    "id": "",
+    "id": "318652395217",
     "n": "Legacy B. Studio - Website",
-    "a": 0,
+    "a": 0.0,
     "o": "Eli",
-    "close": "2026-07-15",
+    "close": "2026-07-30",
     "w": 1
    },
    {
-    "id": "",
+    "id": "337433235134",
     "n": "HALO Retainer",
-    "a": 3000,
-    "o": "",
-    "close": "2026-08-15",
+    "a": 3000.0,
+    "o": "Eli",
+    "close": "2026-08-13",
     "w": 0,
     "reasons": [
      "Not a Fit"
     ]
    },
    {
-    "id": "",
-    "n": "Flava Meets Fusion",
-    "a": 4497,
-    "o": "",
-    "close": "2026-08-15",
-    "w": 0,
-    "reasons": [
-     "Stopped Communicating"
-    ]
-   },
-   {
-    "id": "",
-    "n": "Sipsies Lemonade - Custom Pkg",
-    "a": 2500,
-    "o": "",
-    "close": "2026-08-15",
+    "id": "332227512025",
+    "n": "Sipsies Lemonade - Custom Package",
+    "a": 2500.0,
+    "o": "Eli",
+    "close": "2026-08-30",
     "w": 0,
     "reasons": [
      "Budget"
     ]
    },
    {
-    "id": "",
-    "n": "HALO Pathways - Full Website",
-    "a": 7450,
+    "id": "342019601088",
+    "n": "HALO Pathways - Full Website Build",
+    "a": 7450.0,
     "o": "Eli",
-    "close": "2026-08-15",
+    "close": "2026-09-01",
     "w": 1
    },
    {
-    "id": "",
+    "id": "336708889321",
     "n": "Aurelia Tech",
-    "a": 800,
-    "o": "Kenny",
-    "close": "2026-09-15",
-    "w": 1
-   },
-   {
-    "id": "",
-    "n": "Sipsies Lemonade - Launch Pad",
-    "a": 1799,
-    "o": "Eli",
-    "close": "2026-09-15",
-    "w": 1
-   },
-   {
-    "id": "",
-    "n": "Cape to the Bay - AI Jumpstart",
-    "a": 1799,
+    "a": 800.0,
     "o": "Daunte",
-    "close": "2026-09-15",
+    "close": "2026-09-09",
+    "w": 1
+   },
+   {
+    "id": "345184527050",
+    "n": "Sipsies Lemonade - Launch Pad",
+    "a": 1799.0,
+    "o": "Eli",
+    "close": "2026-09-14",
+    "w": 1
+   },
+   {
+    "id": "336708204266",
+    "n": "Flava Meets Fusion",
+    "a": 4497.0,
+    "o": "Kenny",
+    "close": "2026-09-20",
+    "w": 0,
+    "reasons": [
+     "Stopped Communicating"
+    ]
+   },
+   {
+    "id": "348860058313",
+    "n": "Cape To The Bay - AI Jumpstart: Workflows",
+    "a": 1799.0,
+    "o": "Daunte",
+    "close": "2026-09-20",
     "w": 1
    }
   ],
@@ -664,6 +698,17 @@
     "lostReasonSet": false
    },
    {
+    "id": "332612789949",
+    "n": "All State",
+    "o": "Kenny",
+    "stage": "Proposal Sent",
+    "a": 599.99,
+    "last": "2026-09-21",
+    "nextDate": null,
+    "close": null,
+    "lostReasonSet": true
+   },
+   {
     "id": "346577594053",
     "n": "Emerald Facility Management",
     "o": "Josue",
@@ -673,39 +718,32 @@
     "nextDate": null,
     "close": "2026-09-27",
     "lostReasonSet": false
-   },
-   {
-    "id": "332612789949",
-    "n": "All State (Felicia Russell)",
-    "o": "Kenny",
-    "stage": "Proposal Sent",
-    "a": 599.99,
-    "last": "2026-09-21",
-    "nextDate": null,
-    "close": null,
-    "lostReasonSet": true
    }
   ],
   "activity": {
    "salesCalls": {
-    "v": 2,
-    "d": "AI Intro Call (9/16) and BPP x A Tech (9/18), both Daunte"
+    "v": 1,
+    "d": "AI Intro Call (9/16, Daunte)"
    },
    "newDeals": {
     "v": 1,
-    "d": "Cape to the Bay AI Jumpstart, opened 9/17 and signed 9/20"
+    "d": "Cape To The Bay - AI Jumpstart: Workflows"
    }
   },
   "overdue": {
    "total": 139,
    "byOwner": [
     [
-     "Admin / auto-created",
-     62
-    ],
-    [
      "Kenny",
      33
+    ],
+    [
+     "Admin / auto-created",
+     32
+    ],
+    [
+     "Rodney",
+     30
     ],
     [
      "Daunte",
@@ -894,7 +932,7 @@
     "phase": "Closeout ran 7/31",
     "wait": "client",
     "status": "GBP waiting on client",
-    "next": "Google Business Profile goes live after the owner finishes Google\u2019s video verification",
+    "next": "Google Business Profile goes live after the owner finishes Google’s video verification",
     "blk": "Only the client can do the verification",
     "ask": "Testimonial for the case study"
    },
@@ -916,14 +954,14 @@
    "chain": {
     "v": 10898,
     "share": 44,
-    "path": "Rodney \u2192 Carlo Thompson \u2192 HALO Commons ($1,649) \u2192 HALO Pathways ($7,450) + Felicia \u2192 Sipsies ($1,799)"
+    "path": "Rodney → Carlo Thompson → HALO Commons ($1,649) → HALO Pathways ($7,450) + Felicia → Sipsies ($1,799)"
    },
    "partnersSigned": 0,
    "partnersGoal": 5,
    "bench": 26,
    "intros": null,
-   "introsGoal": "8\u201310 / month",
-   "reviewsGoal": "2\u20134 / month",
+   "introsGoal": "8–10 / month",
+   "reviewsGoal": "2–4 / month",
    "formAlerts": false,
    "mix": [
     [
