@@ -1059,7 +1059,7 @@ function renderReferrals(){
   let t='<table class="dl"><thead><tr><th>Partner</th><th>Firm</th><th class="r">Score /25</th></tr></thead><tbody>';
   R.top.forEach(x=>{ t+='<tr><td>'+x[0]+'</td><td>'+x[1]+'</td><td class="r">'+x[2]+'</td></tr>'; });
   $('ch-bench').innerHTML=t+'</tbody></table><div class="cap">Ask partners for nothing first: offer a free Business Systems Audit for 2&ndash;3 of their clients. Full bench: _claude/context/referral-partners.md.</div>';
-  $('mkt-stale').innerHTML='Social and website numbers below stop at '+mdy(LIVE.socialAsOf)+' (last Metricool export). They refresh once the Metricool connection is set up.';
+  $('mkt-stale').innerHTML='Social and website numbers below run through '+mdy(LIVE.socialAsOf)+' (Metricool, pulled by hand; not automatic yet). The current month is partial.';
 }
 function renderAI(){
   const A=LIVE.ai; if(!A){ $('ch-ai').innerHTML='<div class="empty">No AI data in scoreboard.json yet</div>'; return; }

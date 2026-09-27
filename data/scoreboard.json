@@ -786,8 +786,8 @@
    "yearGoal": 60000,
    "basis": "signed deals (HubSpot closed-won)"
   },
-  "financeAsOf": "2026-07-24",
-  "socialAsOf": "2026-07-24",
+  "financeAsOf": "2026-09-11",
+  "socialAsOf": "2026-09-26",
   "dealOverrides": [
    {
     "match": "HALO Pathways",
@@ -807,7 +807,7 @@
   ],
   "pipelineNotes": {
    "346796494557": {
-    "note": "Josue + Daunte own the close. Demo ran 9/25"
+    "note": "Demo ran 9/25; no outcome logged in HubSpot. Close date is today. Josue + Daunte: reconfirm quote validity and delivery dates"
    },
    "346577594053": {
     "note": "Discovery ran 9/8; no value set"
@@ -816,7 +816,7 @@
     "note": "Marked Not a Fit but still open"
    },
    "350254191298": {
-    "note": "Named DEMO / sample, no activity. Confirm with Daunte: delete in HubSpot or rename to the real bid",
+    "note": "Sample record; the refresh skips DEMO-named deals",
     "flag": true
    }
   },
@@ -864,13 +864,15 @@
   ],
   "commitments": [],
   "fixes": [
+   "<b>MG Cleaning</b> ($4,999): the 9/25 demo has no outcome logged and the close date is today. Log the outcome and re-date the close.",
    "<b>{overdue} overdue HubSpot tasks</b>, spread across everyone (see Sales tab), with about a quarter of them unassigned auto-created call tasks from July. Close or reschedule the dead ones so the follow-up number means something.",
    "<b>Lead source is blank.</b> 41 of 42 deals this year say OFFLINE, so no channel can be credited or cut. Make it required on every new contact and deal.",
    "<b>All State</b> has a lost reason but is still open in Proposal Sent. Close it or clear the reason.",
    "<b>Emerald</b> has no dollar value. Discovery follow-up is set for 10/1; put a number on it.",
-   "<b>DEMO MG (Sample Office Cleaning Bid)</b> is a $3,500 open deal with no activity. It is flagged and left out of coverage until Daunte confirms it's real or deletes it.",
+   "<b>DEMO MG (Sample Office Cleaning Bid)</b>, a $3,500 sample deal, is still open in HubSpot under Daunte. The dashboard now skips deals named DEMO; delete it in HubSpot if it isn't needed.",
    "<b>The /referral form</b> (Typeform) notifies nobody. A referral today would sit unseen.",
-   "<b>Financial tab charts stop at Jul 24.</b> A 9/11 QuickBooks pull exists (cash $7,867) but never reached the hub or the Monday briefs. One current cash number, one owner."
+   "<b>Financials run through Sep 11</b> (Daunte's 9/11 QuickBooks pull: revenue, expenses and net income by month). Revenue and expense categories after Jul 22 still need the full QuickBooks export; Daunte owns the next pull.",
+   "<b>Instagram interactions and Reels</b> come back empty from Metricool after July, so IG engagement reads 0 for Aug-Sep. That is missing data, not zero engagement."
   ],
   "clients": [
    {
@@ -883,7 +885,7 @@
     "phase": "Design direction",
     "wait": "client",
     "status": "Paused by client",
-    "next": "Halfway Review Mon 9/28, 5:30. Agree the direction, the pause, and a restart date",
+    "next": "Website Design Discussion Mon 9/28, 6 PM (invite sent 9/27, not accepted yet). Agree the direction, the pause, and a restart date",
     "blk": "Client asked 9/16 to pause the build until a partner contract is finalized",
     "ask": "Not yet, mid-project"
    },
@@ -897,7 +899,7 @@
     "phase": "Built, in closeout",
     "wait": "client",
     "status": "Domain blocked",
-    "next": "Closeout and the final $375 once the domain clears",
+    "next": "Reply to Benji's 9/24 edits (Super Bowl image, name to \"Tahj H.\", Haitians of Boston feature). Closeout and the final $375 once the domain clears",
     "blk": "Wix clientHold plus an old Google Workspace tenant; the client has to file the recovery",
     "ask": "The two testimonials he offered 8/25",
     "note": "The $1,000 \"marketing discount\" is an unpapered barter, not revenue"
@@ -912,8 +914,8 @@
     "phase": "Kickoff done 9/22",
     "wait": "client",
     "status": "Waiting on intake",
-    "next": "Intake questionnaire back, then build starts the week of 9/28",
-    "blk": "Website intake form sent 9/22",
+    "next": "Forms still in progress (Lauren, 9/23). Dates proposed, not confirmed: business plan 9/28, questionnaire 9/30, halfway + 2nd invoice 10/6, closeout 10/21. Lauren away 10/8-10/14",
+    "blk": "Website intake form sent 9/22, not back yet",
     "ask": "Referral card at closeout. Felicia sent her, so thank Felicia"
    },
    {
@@ -926,7 +928,7 @@
     "phase": "Kickoff done 9/22",
     "wait": "us",
     "status": "In delivery",
-    "next": "Send kickoff recap; book Session 1 (target 9/29 or 10/1)",
+    "next": "Book Session 1: Khaleel's best is Wed 9/30 afternoon (replied 9/26). He's stuck on step 3 of the ChatGPT export. Recap went out 9/22",
     "ask": "Lost in May, won back in September. Ask what changed; that is our win-back story"
    },
    {

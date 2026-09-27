@@ -118,7 +118,8 @@ def clean_name(n: str | None) -> str:
 
 
 def is_test(n: str | None) -> bool:
-    return (n or "").strip().lower() == "test"
+    # "test", or a sample record named "DEMO ..." (word match, so "Demolition Co" still counts)
+    return re.match(r"(test$|demo\b)", (n or "").strip().lower()) is not None
 
 
 def num(v) -> float:
