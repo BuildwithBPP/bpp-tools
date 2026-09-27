@@ -1008,9 +1008,9 @@ function pipelineTable(){
   $('ct-pipe').innerHTML='Live from HubSpot, '+mdy(asOf)+' &middot; '+P.length+' open deals &middot; last touch turns amber at 7 days and red at 14 (silence is our #1 loss reason)';
   let s='<table class="dl tnum"><thead><tr><th>Deal</th><th>Owner</th><th>Stage</th><th class="r">Value</th><th class="r">Last touch</th><th>Next step</th><th>Expected close</th></tr></thead><tbody>';
   P.forEach(r=>{
-    const dd=daysBetween(r.last,asOf), cls=dd>=14?'bad':dd>=7?'wait':'ok';
+    const dd=r.last?daysBetween(r.last,asOf):null, cls=dd===null||dd>=14?'bad':dd>=7?'wait':'ok';
     s+='<tr><td><b>'+esc(r.n)+'</b>'+(r.note?'<span class="h">'+r.note+'</span>':'')+'</td><td>'+r.o+'</td><td><span class="pill2 '+(/Proposal/.test(r.stage)?'prop':'qual')+'">'+r.stage+'</span>'+(r.flag?' <span class="st bad">fix</span>':'')+'</td>'
-      +'<td class="r">'+(r.a?usdFull(r.a):'<span class="st wait">no value</span>')+'</td><td class="r"><span class="st '+cls+'">'+dd+'d ago</span></td>'
+      +'<td class="r">'+(r.a?usdFull(r.a):'<span class="st wait">no value</span>')+'</td><td class="r"><span class="st '+cls+'">'+(dd===null?'never':dd+'d ago')+'</span></td>'
       +'<td>'+(r.next?r.next:'<span class="st bad">none set</span>')+'</td><td>'+mdy(r.close)+'</td></tr>';
   });
   s+='<tr class="tot"><td>Total valued (excl. flagged)</td><td></td><td></td><td class="r">'+usdFull(valued)+'</td><td></td><td></td><td></td></tr></tbody></table>';

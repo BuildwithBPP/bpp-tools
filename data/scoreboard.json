@@ -807,14 +807,17 @@
   ],
   "pipelineNotes": {
    "346796494557": {
-    "note": "Josue + Daunte own the close",
-    "next": "Demo Fri 9/25"
+    "note": "Josue + Daunte own the close. Demo ran 9/25"
    },
    "346577594053": {
     "note": "Discovery ran 9/8; no value set"
    },
    "332612789949": {
     "note": "Marked Not a Fit but still open"
+   },
+   "350254191298": {
+    "note": "Named DEMO / sample, no activity. Confirm with Daunte: delete in HubSpot or rename to the real bid",
+    "flag": true
    }
   },
   "activity": [
@@ -864,7 +867,8 @@
    "<b>{overdue} overdue HubSpot tasks</b>, spread across everyone (see Sales tab), with about a quarter of them unassigned auto-created call tasks from July. Close or reschedule the dead ones so the follow-up number means something.",
    "<b>Lead source is blank.</b> 41 of 42 deals this year say OFFLINE, so no channel can be credited or cut. Make it required on every new contact and deal.",
    "<b>All State</b> has a lost reason but is still open in Proposal Sent. Close it or clear the reason.",
-   "<b>Emerald</b> has no dollar value and no touch in 13 days.",
+   "<b>Emerald</b> has no dollar value. Discovery follow-up is set for 10/1; put a number on it.",
+   "<b>DEMO MG (Sample Office Cleaning Bid)</b> is a $3,500 open deal with no activity. It is flagged and left out of coverage until Daunte confirms it's real or deletes it.",
    "<b>The /referral form</b> (Typeform) notifies nobody. A referral today would sit unseen.",
    "<b>Financial tab charts stop at Jul 24.</b> A 9/11 QuickBooks pull exists (cash $7,867) but never reached the hub or the Monday briefs. One current cash number, one owner."
   ],
