@@ -201,6 +201,21 @@ for r in igj:
     M["2026-07"]["ig"]["v"]+=f(r[3]); M["2026-07"]["ig"]["p"]+=f(r[2]); M["2026-07"]["ig"]["e"]+=f(r[5])
 M["2026-07"]["ig"]["f"]=188
 
+# ---- JUL 23 - SEP 26 2026 social (Metricool monthly totals, pulled 2026-09-27) ----
+# per platform [views, posts, interactions, followers-at-month-end]; web [pageviews, visitors]. 2026-07 = Jul 23-31 only
+# (added to the inline Jul 1-22 rows above). IG interactions + Reels came back empty from Metricool, so they read 0.
+SOC_TAIL={"2026-07": {"ig": [261, 1, 0, 189], "fb": [57, 0, 0, 1160], "tt": [31, 0, 0, 85], "li": [10, 0, 0, 202], "web": [28, 20]}, "2026-08": {"ig": [480, 1, 0, 187], "fb": [432, 5, 7, 1158], "tt": [95, 0, 4, 85], "li": [13, 0, 0, 201], "web": [182, 131]}, "2026-09": {"ig": [639, 1, 0, 187], "fb": [997, 17, 28, 1154], "tt": [62, 0, 0, 85], "li": [8, 0, 1, 201], "web": [136, 96]}}
+for m,plats in SOC_TAIL.items():
+    for k,v in plats.items():
+        if k=="web": M[m]["web"]["pv"]+=v[0]; M[m]["web"]["vis"]+=v[1]
+        else: M[m][k]["v"]+=v[0]; M[m][k]["p"]+=v[1]; M[m][k]["e"]+=v[2]; M[m][k]["f"]=v[3]
+
+# ---- JUL - SEP 11 2026 financial (Daunte's QuickBooks pull 2026-09-11, cash basis) ----
+# [net revenue, COGS + operating expenses, net income incl. interest]. Overrides DA-004's partial July (through Jul 22).
+# Category splits (revcat/expcat/revoff) after Jul 22 still need the full QuickBooks export.
+for m,(rev,exp,net) in {"2026-07":(2639.75,2513.08,134.25),"2026-08":(3550.0,2666.31,892.27),"2026-09":(400.0,559.14,-150.01)}.items():
+    M[m]["rev"],M[m]["exp"],M[m]["net"]=rev,exp,net
+
 # ---- SALES (HubSpot, by close date as recorded) ----
 won=[("2025-06",2337.5,"Eli"),("2025-06",678,"Eli"),("2025-07",3750,"Daunte"),("2025-08",599,"Kenny"),("2025-08",998,"Kenny"),
 ("2025-10",1248,"Daunte"),("2025-12",2000,"Eli"),("2025-12",1500,"Eli"),("2025-12",599,"Kenny"),("2025-12",3315,"Kenny"),
