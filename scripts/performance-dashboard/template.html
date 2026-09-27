@@ -281,12 +281,6 @@
       <div class="card-s" id="sc-out-s">&mdash;</div>
       <div class="tscroll"><div id="sc-out"></div></div>
     </div>
-    <div class="card mt12">
-      <div class="card-t">Who owns what</div>
-      <div class="card-s">What each person leads and the one number that answers for it. Numbers marked <i>proposed</i> get confirmed at the Sunday meeting.</div>
-      <div class="owners" id="sc-owners"></div>
-      <div class="cap" id="sc-people-note"></div>
-    </div>
     <div class="grid2 mt12">
       <div class="card"><div class="card-t">This week&rsquo;s 3 commitments</div><div class="card-s" id="sc-commit-s">Written at the end of the Sunday meeting</div><ol class="commit" id="sc-commit"></ol></div>
       <div class="card"><div class="card-t">Fix the data</div><div class="card-s">Each of these makes a number on this page wrong or blind</div><ul class="fix" id="sc-fix"></ul></div>
@@ -588,11 +582,21 @@ function areaLine(buckets, mFn, {fmt=num, height=230}={}){
   return s;
 }
 
-function spark(vals){
+// Sparkline: the last few periods of the same kind as the one picked, ending on it, so its last
+// step always agrees with the "vs prior period" arrow. Green when that step is up, red when down.
+function spark(vals, labels){
+  if(vals.length<2) return '';
   const W=70,H=22; const max=Math.max(...vals,1),min=Math.min(...vals,0);
   const rng=max-min||1; const n=vals.length;
   const pts=vals.map((v,i)=>(1+i*(W-2)/(n-1)).toFixed(1)+','+(H-2-(v-min)/rng*(H-6)).toFixed(1));
-  return '<svg class="spark" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'"><polyline points="'+pts.join(' ')+'" fill="none" stroke="#2a78d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="'+pts[pts.length-1].split(',')[0]+'" cy="'+pts[pts.length-1].split(',')[1]+'" r="2.3" fill="#2a78d6"/></svg>';
+  const c=vals[n-1]>=vals[n-2]?'var(--good)':'var(--red)', last=pts[n-1].split(',');
+  return '<svg class="spark" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'"><title>'+(labels?labels.join(' \u2192 '):'')+'</title><polyline points="'+pts.join(' ')+'" fill="none" style="stroke:'+c+'" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="'+last[0]+'" cy="'+last[1]+'" r="2.3" style="fill:'+c+'"/></svg>';
+}
+function sparkSeries(year, period, month, fn){
+  if(year==='All') return {v:YEARS.map(y=>fn(scopeMonths(y,'FY',null))), l:YEARS.slice()};
+  const v=[], l=[]; let sc={year,period,month,label:period==='FY'?year:period==='MONTH'?MN[+month-1]+" '"+year.slice(2):period+' '+year};
+  for(let i=0;i<6&&sc;i++){ v.unshift(fn(scopeMonths(sc.year,sc.period,sc.month))); l.unshift(sc.label); sc=priorScope(sc.year,sc.period,sc.month); }
+  return {v,l};
 }
 
 // ---------- render ----------
@@ -617,13 +621,13 @@ function render(){
   $('s-web').innerHTML=num(a.web.pv)+' page views';
 
   // KPI tiles
-  const revSpark=yearMonths.map(m=>g(m).rev);
+  const revSpark=sparkSeries(year,period,month,ms=>ms.reduce((t,m)=>t+g(m).rev,0));
   const margin=a.rev?Math.round(a.net/a.rev*100):0;
   const socV=a.ig.v+a.fb.v+a.tt.v+a.li.v, psocV=pa?(pa.ig.v+pa.fb.v+pa.tt.v+pa.li.v):null;
   const foll=a.ig.f+a.fb.f+a.tt.f+a.li.f, pfoll=pa?(pa.ig.f+pa.fb.f+pa.tt.f+pa.li.f):null;
   const netAcc=a.net>=0?'acc-good':'acc-red';
   $('kpis').innerHTML=maskMoney(
-    tile('Revenue', usdFull(a.rev), deltaHTML(a.rev,pa&&pa.rev,usdFull)+cmp, 'acc-good', spark(revSpark))
+    tile('Revenue', usdFull(a.rev), deltaHTML(a.rev,pa&&pa.rev,usdFull)+cmp, 'acc-good', spark(revSpark.v,revSpark.l))
    +tile('Net income', usdFull(a.net), (margin)+'% margin &middot; '+deltaHTML(a.net,pa&&pa.net,usdFull), netAcc)
    +tile('Deals won', usdFull(a.wonV), a.wonN+' deals &middot; '+deltaHTML(a.wonV,pa&&pa.wonV,usdFull), 'acc-gold')
    +tile('Content views', num(socV), deltaHTML(socV,psocV,num)+cmp, '')
@@ -984,9 +988,6 @@ function renderScore(){
   $('sc-act').innerHTML=a+'</tbody></table>'+mob+'</div>';
   renderOutreach();
   $('s-score').innerHTML=R.label+' &middot; HubSpot pulled '+mdy(asOf)+' &middot; <b>'+TALLY.filter(Boolean).length+' of '+TALLY.length+' on track</b>';
-  $('sc-owners').innerHTML=maskMoney(LIVE.people.map(o=>{ const v=o.calc?(LIVE.calc[o.calc]||'$0'):o.v, l=(o.calc&&LIVE.calcLabel[o.calc])||o.l;
-    return '<div class="own"><div class="on">'+o.n+'</div><div class="or">'+o.lead+'</div><div class="ov tnum">'+v+'</div><div class="ol">'+l+(o.p?' &middot; <i>proposed</i>':'')+'</div></div>'; }).join(''));
-  $('sc-people-note').innerHTML=LIVE.peopleNote||'';
   const C=LIVE.commitments;
   $('sc-commit').innerHTML=(C.length?C.map(c=>'<li class="set"><span><b>'+c.w+'</b> &middot; '+c.t+(c.due?' <span style="color:var(--muted)">by '+c.due+'</span>':'')+'</span></li>').join(''):[1,2,3].map(()=>'<li>Set at Sunday&rsquo;s meeting</li>').join(''));
   renderLastWeek();
