@@ -1,12 +1,12 @@
 {
  "_about": "Scoreboard data for pages/performance-dashboard.html. 'auto' is rewritten by the weekly HubSpot routine (Sun + Wed 6am ET); never hand-edit it, it gets overwritten. 'manual' is edited by people (or Claude on request) and the routine never touches it. The AI & Tech tab reads manual.ai; the lane lead owns those numbers.",
  "auto": {
-  "asOf": "2026-09-23",
-  "generatedAt": "2026-09-23T18:17:36Z",
+  "asOf": "2026-09-27",
+  "generatedAt": "2026-09-27T14:54:52Z",
   "by": "GitHub Action (HubSpot API)",
   "week": {
-   "from": "2026-09-16",
-   "to": "2026-09-22"
+   "from": "2026-09-20",
+   "to": "2026-09-26"
   },
   "deals": [
    {
@@ -692,9 +692,20 @@
     "o": "Josue",
     "stage": "Qualified & Working",
     "a": 4998.99,
-    "last": "2026-09-21",
-    "nextDate": "2026-09-25",
+    "last": "2026-09-25",
+    "nextDate": null,
     "close": "2026-09-27",
+    "lostReasonSet": false
+   },
+   {
+    "id": "350254191298",
+    "n": "DEMO MG — Sample Office Cleaning Bid",
+    "o": "Daunte",
+    "stage": "Qualified & Working",
+    "a": 3500.0,
+    "last": null,
+    "nextDate": null,
+    "close": null,
     "lostReasonSet": false
    },
    {
@@ -714,8 +725,8 @@
     "o": "Josue",
     "stage": "Discovery Scheduled",
     "a": 0,
-    "last": "2026-09-10",
-    "nextDate": null,
+    "last": "2026-09-25",
+    "nextDate": "2026-10-01",
     "close": "2026-09-27",
     "lostReasonSet": false
    }
@@ -723,21 +734,21 @@
   "activity": {
    "salesCalls": {
     "v": 1,
-    "d": "AI Intro Call (9/16, Daunte)"
+    "d": "MG Cleaning Services Demo (9/25, Josue)"
    },
    "newDeals": {
     "v": 1,
-    "d": "Cape To The Bay - AI Jumpstart: Workflows"
+    "d": "DEMO MG — Sample Office Cleaning Bid"
    }
   },
   "outreach": {
-   "Eli": {
+   "Admin": {
     "v": 1,
-    "d": "Cynerge Group"
+    "d": "Rodney Jones"
    }
   },
   "overdue": {
-   "total": 139,
+   "total": 141,
    "byOwner": [
     [
      "Kenny",
@@ -753,11 +764,11 @@
     ],
     [
      "Daunte",
-     19
+     22
     ],
     [
      "Josue",
-     19
+     18
     ],
     [
      "Eli",
