@@ -1,5 +1,5 @@
 {
- "_about": "Scoreboard data for pages/performance-dashboard.html. 'auto' is rewritten by the weekly HubSpot routine (Sun + Wed 6am ET); never hand-edit it, it gets overwritten. 'manual' is edited by people (or Claude on request) and the routine never touches it. The AI & Tech tab reads manual.ai; the lane lead owns those numbers.",
+ "_about": "Scoreboard data for pages/performance-dashboard.html. 'auto' is rewritten by the weekly HubSpot routine (Sun + Wed 6am ET); never hand-edit it, it gets overwritten. 'manual' is edited by people (or Claude on request) and the routine never touches it. The AI & Tech tab reads manual.ai; the lane lead owns those numbers. Commitments: 'commitments' = this week's 3 ({w: who, t: what, due}). Each Sunday they move to 'lastWeek' ({week, items} with done: true/false, marked at the meeting), the marked week is appended to 'commitHistory' ({week, done, total}) for the running done rate, and the new 3 go into 'commitments'. Outreach 'ramp' scales the weekly targets until the given date.",
  "auto": {
   "asOf": "2026-09-27",
   "generatedAt": "2026-09-27T21:02:27Z",
@@ -1191,7 +1191,15 @@
     }
    ],
    "result": "2 discovery calls a week",
-   "note": "Set 9/23. Ramp: half the target the weeks of 9/28 and 10/5 while lists and sequences are built, full from 10/12. Check the rate on 10/25: if 45 a week isn't producing 2 discovery calls, raise the number or fix the message."
-  }
+   "note": "Set 9/23. Ramp: half the target the weeks of 9/28 and 10/5 while lists and sequences are built, full from 10/12. Check the rate on 10/25: if 45 a week isn't producing 2 discovery calls, raise the number or fix the message.",
+   "ramp": [
+    {
+     "until": "2026-10-11",
+     "factor": 0.5
+    }
+   ]
+  },
+  "lastWeek": null,
+  "commitHistory": []
  }
 }

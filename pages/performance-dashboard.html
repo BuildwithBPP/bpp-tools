@@ -176,6 +176,7 @@
   .st { display:inline-block; padding:2px 8px; border-radius:4px; font-size:10px; font-weight:700; white-space:nowrap; }
   .st.ok { background:var(--good-soft); color:var(--good-dark); } .st.wait { background:var(--warn-soft); color:#9a6a06; }
   .st.bad { background:var(--red-soft); color:var(--red); } .st.info { background:#e4eef7; color:var(--navy); } .st.mute { background:var(--grid); color:var(--ink-2); }
+  .trk-d { font-size:10.5px; color:var(--ink-2); margin-left:5px; }
   .dl td .h { display:block; font-size:10.5px; color:var(--muted); margin-top:2px; }
   .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   .tscroll .dl { min-width:640px; }
@@ -262,11 +263,12 @@
   <!-- Q4 SCOREBOARD (point-in-time, opens every Sunday meeting) -->
   <div class="panel on" id="tab-score">
     <div class="agenda" aria-label="Sunday meeting order">
-      <div class="ag"><b>1 &middot; Scorecard</b>On pace? <span>5 min</span></div>
-      <div class="ag"><b>2 &middot; Sales</b>Every open deal has a next step <span>10 min</span></div>
-      <div class="ag"><b>3 &middot; Clients</b>Blockers + the ask <span>5 min</span></div>
-      <div class="ag"><b>4 &middot; Commit</b>Three things for the week <span>10 min</span></div>
+      <div class="ag"><b>1 &middot; Open</b>Good news + last week&rsquo;s 3: done or not <span>5 min</span></div>
+      <div class="ag"><b>2 &middot; Scorecard</b>On or off track, one word a line <span>5 min</span></div>
+      <div class="ag"><b>3 &middot; Sales</b>Stuck deals leave with an owner + date <span>12 min</span></div>
+      <div class="ag"><b>4 &middot; Commit</b>3 for the week, book the calls, rate it <span>8 min</span></div>
     </div>
+    <div class="card" style="margin-bottom:14px"><div class="card-t">Last week&rsquo;s 3 commitments</div><div class="card-s" id="sc-last-s">&mdash;</div><ol class="commit" id="sc-last"></ol></div>
     <div class="shead"><span class="n">1</span><span class="t">Scorecard</span><span class="s" id="s-score">&mdash;</span></div>
     <div class="hero" id="sc-hero"></div>
     <div class="card mt12">
@@ -884,7 +886,7 @@ function deriveLive(j){
   const activity=(M.activity||[]).map(a=>{ if(a.src==='auto'){ const v=a.key==='overdue'?{v:A.overdue.total,d:'Open tasks past due. Breakdown by owner on the Sales tab'}:(A.activity[a.key]||{v:null,d:'No data this run'}); return {...a, v:v.v, d:v.d}; } return a; });
   const L={asOf, financeAsOf:M.financeAsOf, socialAsOf:M.socialAsOf, target:T, week:A.week, generatedAt:A.generatedAt, by:A.by,
     deals, won, lost, q4Won, activity, pipeline, lostReasons, overdue:A.overdue.byOwner, overdueTotal:A.overdue.total,
-    people:M.people||[], peopleNote:M.peopleNote||'', commitments:M.commitments||[], clients:M.clients||[], referrals:M.referrals||{},
+    people:M.people||[], peopleNote:M.peopleNote||'', commitments:M.commitments||[], lastWeek:M.lastWeek||null, commitHistory:M.commitHistory||[], clients:M.clients||[], referrals:M.referrals||{},
     fixes:(M.fixes||[]).map(f=>f.replace('{overdue}',A.overdue.total))};
   // calculated department numbers
   const open=pipeline.filter(p=>!p.flag).reduce((t,p)=>t+p.a,0);
@@ -922,7 +924,13 @@ function scopeRange(){
 }
 function signedBetween(start,end,filter){ const a=start.slice(0,7), b=end.slice(0,7); return LIVE.won.filter(d=>d.ym>=a&&d.ym<=b&&(!filter||filter(d))); }
 function isAIDeal(d){ const M=((LIVE.ai&&LIVE.ai.dealMatch)||['Jumpstart','Claude']).map(x=>x.toLowerCase()); return M.some(k=>d.n.toLowerCase().includes(k)); }
+// On/off track: one word per scorecard line. TALLY feeds the "N of M on track" count in the header.
+let TALLY=[];
+function trk(on,detail){ return '<span class="st '+(on?'ok':'bad')+'">'+(on?'On track':'Off track')+'</span>'+(detail?'<span class="trk-d">'+detail+'</span>':''); }
+function trkT(on,detail){ TALLY.push(on); return trk(on,detail); }
+function actSt(x){ if(x.v===null) return '<span class="st mute">fill in</span>'; const on=x.lowerBetter?x.v<=x.t:x.v>=x.t; return trkT(on, on?'':(x.lowerBetter?x.v+' over':(x.t-x.v)+' short')); }
 function renderScore(){
+  TALLY=[];
   const T=LIVE.target, asOf=LIVE.asOf, R=scopeRange();
   const signedDeals=signedBetween(R.start,R.end), signed=signedDeals.reduce((t,d)=>t+d.a,0);
   const days=daysBetween(R.start,R.end)+1, weeks=Math.max(1,Math.round(days/7));
@@ -935,6 +943,7 @@ function renderScore(){
   const need=T.goal/(wr.rate||0.35), cov=open/T.goal;
   const yr=state.year==='All'?asOf.slice(0,4):state.year;
   const yrSigned=LIVE.won.filter(d=>d.ym.startsWith(yr)).reduce((t,d)=>t+d.a,0);
+  const yPace=yr===asOf.slice(0,4)?Math.round(T.yearGoal*(daysBetween(yr+'-01-01',asOf)+1)/(daysBetween(yr+'-01-01',yr+'-12-31')+1)):null;
   $('s-score').innerHTML=R.label+' &middot; HubSpot pulled '+mdy(asOf);
   let status;
   if(!R.goal) status='<span>'+signedDeals.length+' deals signed</span><span></span>';
@@ -945,54 +954,63 @@ function renderScore(){
    +'<div class="big tnum">'+usdFull(signed)+(R.goal?' <small>of '+usdFull(R.goal)+'</small>':'')+'</div>'
    +(R.goal?'<div class="prog"><div class="fill" style="width:'+Math.min(100,signed/R.goal*100).toFixed(1)+'%"></div>'+(inRange?'<div class="mark" style="left:'+Math.min(100,pace/R.goal*100).toFixed(1)+'%" data-l="pace"></div>':'')+'</div>':'<div style="height:14px"></div>')
    +'<div class="progcap">'+status+'</div>'
+   +(R.goal&&!before?'<div style="margin-top:8px">'+trkT(inRange?signed>=pace:signed>=R.goal, inRange?(signed>=pace?'at or ahead of pace':usdFull(pace-signed)+' behind pace'):'closed at '+Math.round(signed/R.goal*100)+'%')+'</div>':'')
    +(pr&&prSigned!==null?'<div class="sub">'+pr.label+': <b>'+usdFull(prSigned)+'</b> signed.</div>':'')+'</div>';
   const heroP='<div class="card"><div class="card-t">Pipeline coverage, today</div><div class="card-s">Open deal value against the '+usdFull(T.goal)+' quarterly target &middot; live, not affected by the period picker</div>'
    +'<div class="big tnum">'+cov.toFixed(1)+'x <small>'+usd(open)+' open</small></div>'
    +'<div class="sub">At our '+asOf.slice(0,4)+' win rate (<b>'+Math.round(wr.rate*100)+'%</b>, '+wr.w+' of '+wr.n+' decided deals), '+usd(T.goal)+' signed needs about <b>'+usd(Math.round(need/1000)*1000)+'</b> in proposals.</div>'
-   +'<div style="margin-top:10px"><span class="chip '+(cov>=2.5?'good':cov>=1?'warn':'bad')+'"><span class="cd"></span>'+(cov>=2.5?'covered':cov>=1?'thin':'short')+'</span></div></div>';
+   +'<div style="margin-top:10px">'+trkT(cov>=3, cov.toFixed(1)+'x of the 3x goal')+'</div></div>';
   const heroY='<div class="card"><div class="card-t">'+yr+' so far</div><div class="card-s">Signed value for the year</div>'
    +'<div class="big tnum">'+usdFull(yrSigned)+' <small>of '+usd(T.yearGoal)+'</small></div>'
    +'<div class="prog"><div class="fill" style="width:'+Math.min(100,yrSigned/T.yearGoal*100).toFixed(1)+'%;background:linear-gradient(90deg,var(--gold-dark),var(--gold))"></div></div>'
-   +'<div class="sub">'+Math.round(yrSigned/T.yearGoal*100)+'% of the '+usd(T.yearGoal)+' year goal.</div></div>';
+   +'<div class="sub">'+Math.round(yrSigned/T.yearGoal*100)+'% of the '+usd(T.yearGoal)+' year goal.</div>'
+   +(yPace!==null?'<div style="margin-top:8px">'+trkT(yrSigned>=yPace, yrSigned>=yPace?'at or ahead of pace':usd(yPace-yrSigned)+' behind pace ('+usd(yPace)+' by today)')+'</div>':'')+'</div>';
   const ai=signedBetween(R.start,R.end,isAIDeal).reduce((t,d)=>t+d.a,0);
   LIVE.calc.aiSignedQ=usd(ai); LIVE.calcLabel.aiSignedQ='AI + tech signed, '+R.label;
   $('sc-hero').innerHTML=maskMoney(heroQ+heroP+heroY);
   // activity
   $('sc-act-s').innerHTML='Live: last 7 days, not affected by the period picker. '+mdy(LIVE.week.from)+' to '+mdy(LIVE.week.to)+' &middot; <span class="src auto">auto</span> comes from HubSpot, <span class="src man">manual</span> is filled in at the meeting. Targets are proposed.';
+  const ST=LIVE.activity.map(actSt);
   let a='<table class="act tnum" data-mobile="off"><thead><tr><th>Measure</th><th class="r">Target / wk</th><th class="r">Actual</th><th>Status</th><th>Detail</th></tr></thead><tbody>';
-  LIVE.activity.forEach(x=>{
-    let st;
-    if(x.v===null) st='<span class="st mute">fill in</span>';
-    else if(x.lowerBetter) st=x.v<=x.t?'<span class="st ok">on target</span>':'<span class="st bad">'+x.v+' over</span>';
-    else st=x.v>=x.t?'<span class="st ok">on target</span>':'<span class="st '+(x.v>0?'wait':'bad')+'">'+(x.t-x.v)+' short</span>';
+  LIVE.activity.forEach((x,i)=>{
+    const st=ST[i];
     a+='<tr><td><span class="m">'+x.k+'</span><span class="src '+x.src+'">'+(x.src==='auto'?'auto':'manual')+'</span><span class="h">'+x.h+'</span></td><td class="r">'+x.t+'</td><td class="r"><span class="v">'+(x.v===null?'&ndash;':x.v)+'</span></td><td>'+st+'</td><td style="font-size:11.5px;color:var(--ink-2)">'+x.d+'</td></tr>';
   });
   let mob='<div class="actm">';
-  LIVE.activity.forEach(x=>{
-    let st;
-    if(x.v===null) st='<span class="st mute">fill in</span>';
-    else if(x.lowerBetter) st=x.v<=x.t?'<span class="st ok">on target</span>':'<span class="st bad">'+x.v+' over</span>';
-    else st=x.v>=x.t?'<span class="st ok">on target</span>':'<span class="st '+(x.v>0?'wait':'bad')+'">'+(x.t-x.v)+' short</span>';
+  LIVE.activity.forEach((x,i)=>{
+    const st=ST[i];
     mob+='<div class="ai"><div class="at"><span class="an">'+x.k+'<span class="src '+x.src+'">'+(x.src==='auto'?'auto':'manual')+'</span></span><span class="av tnum">'+(x.v===null?'&ndash;':x.v)+' <small>/ '+x.t+'</small></span></div><div style="margin-top:5px">'+st+'</div><div class="ad">'+x.d+'</div></div>';
   });
   $('sc-act').innerHTML=a+'</tbody></table>'+mob+'</div>';
   renderOutreach();
+  $('s-score').innerHTML=R.label+' &middot; HubSpot pulled '+mdy(asOf)+' &middot; <b>'+TALLY.filter(Boolean).length+' of '+TALLY.length+' on track</b>';
   $('sc-owners').innerHTML=maskMoney(LIVE.people.map(o=>{ const v=o.calc?(LIVE.calc[o.calc]||'$0'):o.v, l=(o.calc&&LIVE.calcLabel[o.calc])||o.l;
     return '<div class="own"><div class="on">'+o.n+'</div><div class="or">'+o.lead+'</div><div class="ov tnum">'+v+'</div><div class="ol">'+l+(o.p?' &middot; <i>proposed</i>':'')+'</div></div>'; }).join(''));
   $('sc-people-note').innerHTML=LIVE.peopleNote||'';
   const C=LIVE.commitments;
   $('sc-commit').innerHTML=(C.length?C.map(c=>'<li class="set"><span><b>'+c.w+'</b> &middot; '+c.t+(c.due?' <span style="color:var(--muted)">by '+c.due+'</span>':'')+'</span></li>').join(''):[1,2,3].map(()=>'<li>Set at Sunday&rsquo;s meeting</li>').join(''));
+  renderLastWeek();
   $('sc-fix').innerHTML=maskMoney(LIVE.fixes.map(f=>'<li>'+f+'</li>').join(''));
 }
 
+function renderLastWeek(){
+  const Lw=LIVE.lastWeek, H=LIVE.commitHistory||[];
+  if(!Lw||!Lw.items||!Lw.items.length){ $('sc-last-s').innerHTML='First meeting: nothing to review yet. This week&rsquo;s three show up here next Sunday.'; $('sc-last').innerHTML=''; return; }
+  const it=Lw.items, dn=it.filter(c=>c.done===true).length, marked=it.some(c=>c.done===true||c.done===false);
+  const tot=H.reduce((t,h)=>t+h.total,0), tdn=H.reduce((t,h)=>t+h.done,0);
+  $('sc-last-s').innerHTML='Set '+mdy(Lw.week)+' &middot; '+(marked?'<b>'+dn+' of '+it.length+' done ('+Math.round(dn/it.length*100)+'%)</b>':'marked at the meeting')+' &middot; target 90%'+(tot?' &middot; running rate '+Math.round(tdn/tot*100)+'% ('+tdn+' of '+tot+')':'')+'. Done or not done, no stories; a miss goes to the issues list.';
+  $('sc-last').innerHTML=it.map(c=>'<li class="set"><span><b>'+c.w+'</b> &middot; '+c.t+(c.due?' <span style="color:var(--muted)">by '+c.due+'</span>':'')+' '+(c.done===true?'<span class="st ok">Done</span>':c.done===false?'<span class="st bad">Not done</span>':'<span class="st mute">mark at the meeting</span>')+'</span></li>').join('');
+}
 function renderOutreach(){
   const O=LIVE.outreach; if(!O){ $('sc-out-s').innerHTML='No outreach targets set.'; $('sc-out').innerHTML=''; return; }
   const c=O.cfg, g=O.got;
-  const rows=c.targets.map(x=>({n:x.n, t:x.t, v:(g[x.n]||{}).v||0, d:(g[x.n]||{}).d||'None logged'}));
+  const rp=(c.ramp||[]).find(r=>LIVE.week.to<=r.until), f=rp?rp.factor:1;
+  const rows=c.targets.map(x=>({n:x.n, t:Math.round(x.t*f), v:(g[x.n]||{}).v||0, d:(g[x.n]||{}).d||'None logged'}));
+  rows.forEach(r=>TALLY.push(r.v>=r.t));
   const tt=rows.reduce((s,r)=>s+r.t,0), tv=rows.reduce((s,r)=>s+r.v,0);
   const extra=Object.keys(g).filter(k=>!c.targets.some(x=>x.n===k));
-  const st=(v,t)=>v>=t?'<span class="st ok">on target</span>':'<span class="st '+(v>0?'wait':'bad')+'">'+(t-v)+' short</span>';
-  $('sc-out-s').innerHTML='<span class="src auto">auto</span> Last 7 days, '+mdy(LIVE.week.from)+' to '+mdy(LIVE.week.to)+'. '+c.h+' The result we want: <b>'+c.result+'</b>.';
+  const st=(v,t)=>trk(v>=t, v>=t?'':(t-v)+' short');
+  $('sc-out-s').innerHTML='<span class="src auto">auto</span> Last 7 days, '+mdy(LIVE.week.from)+' to '+mdy(LIVE.week.to)+'. '+c.h+' The result we want: <b>'+c.result+'</b>.'+(f<1?' <b>Ramp week:</b> targets are '+Math.round(f*100)+'% of full until '+mdy(rp.until)+'.':'');
   let a='<table class="act tnum" data-mobile="off"><thead><tr><th>Person</th><th class="r">Target / wk</th><th class="r">Actual</th><th>Status</th><th>Who</th></tr></thead><tbody>';
   rows.forEach(r=>{ a+='<tr><td><span class="m">'+r.n+'</span></td><td class="r">'+r.t+'</td><td class="r"><span class="v">'+r.v+'</span></td><td>'+st(r.v,r.t)+'</td><td style="font-size:11.5px;color:var(--ink-2)">'+esc(r.d)+'</td></tr>'; });
   a+='<tr><td><span class="m">Team</span></td><td class="r"><b>'+tt+'</b></td><td class="r"><span class="v">'+tv+'</span></td><td>'+st(tv,tt)+'</td><td></td></tr></tbody></table>';
