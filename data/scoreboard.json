@@ -2,7 +2,7 @@
  "_about": "Scoreboard data for pages/performance-dashboard.html. 'auto' is rewritten by the weekly HubSpot routine (Sun + Wed 6am ET); never hand-edit it, it gets overwritten. 'manual' is edited by people (or Claude on request) and the routine never touches it. The AI & Tech tab reads manual.ai; the lane lead owns those numbers.",
  "auto": {
   "asOf": "2026-09-27",
-  "generatedAt": "2026-09-27T14:54:52Z",
+  "generatedAt": "2026-09-27T21:02:27Z",
   "by": "GitHub Action (HubSpot API)",
   "week": {
    "from": "2026-09-20",
@@ -698,17 +698,6 @@
     "lostReasonSet": false
    },
    {
-    "id": "350254191298",
-    "n": "DEMO MG — Sample Office Cleaning Bid",
-    "o": "Daunte",
-    "stage": "Qualified & Working",
-    "a": 3500.0,
-    "last": null,
-    "nextDate": null,
-    "close": null,
-    "lostReasonSet": false
-   },
-   {
     "id": "332612789949",
     "n": "All State",
     "o": "Kenny",
@@ -737,8 +726,8 @@
     "d": "MG Cleaning Services Demo (9/25, Josue)"
    },
    "newDeals": {
-    "v": 1,
-    "d": "DEMO MG — Sample Office Cleaning Bid"
+    "v": 0,
+    "d": "No new deals opened this week"
    }
   },
   "outreach": {
