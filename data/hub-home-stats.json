@@ -1,62 +1,63 @@
 {
-  "generated_at": "2026-09-20T08:19:22",
-  "as_of_date": "2026-09-20",
+  "generated_at": "2026-09-27T22:29:00",
+  "as_of_date": "2026-09-11",
   "stats": {
-    "cash_on_hand": null,
-    "cash_note": "UNMEASURED for the sixth brief. Newest forecast file is 2026-05-01. Deliberately blank rather than stale.",
-    "ar_total": 8574,
-    "ar_note": "estimate - HubSpot has no amount_paid field. HALO $5,250, Sipsies $1,199, Lois $1,350 (unconfirmed), Legacy B $375 (halfway paid; HubSpot still $0), Aurelia $400.",
-    "active_clients_count": 5,
+    "cash_on_hand": 7867.34,
+    "cash_note": "QuickBooks 9/11, 16 days old: $4,094 spendable + $3,643 reserve + small accounts. Excludes Cape $1,799 and Sipsies $600 received since.",
+    "ar_total": 7224,
+    "ar_note": "estimate - HubSpot has no amount_paid field. HALO $5,250 (paused by client), Sipsies $1,199, Aurelia $400, Legacy B $375. Lois $1,350 unconfirmed, excluded.",
+    "active_clients_count": 6,
     "active_clients_names": [
       "HALO Pathways",
       "Legacy B. Studio",
       "Sipsies Lemonade",
-      "Financial Acuity",
-      "Aurelia Tech"
+      "Cape to the Bay",
+      "Aurelia Tech",
+      "Financial Acuity"
     ],
-    "pipeline_total": 7597.98,
-    "pipeline_count": 4
+    "pipeline_total": 5598.98,
+    "pipeline_count": 3
   },
   "ar_scenarios": [
     {
-      "name": "Sipsies halfway 10/2",
+      "name": "Sipsies halfway 10/6",
       "receivables_in": 600,
       "ending_operating": null,
       "hits_phase2": false,
       "highlight": true,
-      "detail": "$600 payment 2 at the halfway milestone. Board says 10/2. Cleanest money on the page."
+      "detail": "$600 payment 2. Lauren confirmed the schedule 9/27; she is away 10/8-10/14, so 10/6 is the window."
     },
     {
-      "name": "+ Legacy B closeout",
-      "receivables_in": 975,
+      "name": "+ Aurelia balance",
+      "receivables_in": 1000,
       "ending_operating": null,
       "hits_phase2": false,
       "highlight": true,
-      "detail": "$375 final, gated on the domain unblocking. Halfway $375 is already in."
+      "detail": "$400 at the audit report. The report has no date yet."
+    },
+    {
+      "name": "+ Legacy B closeout",
+      "receivables_in": 1375,
+      "ending_operating": null,
+      "hits_phase2": false,
+      "highlight": false,
+      "detail": "$375 final, gated on the domain. Chase deadline 9/30."
     },
     {
       "name": "+ HALO halfway",
-      "receivables_in": 3855,
+      "receivables_in": 4255,
       "ending_operating": null,
-      "hits_phase2": true,
-      "highlight": true,
-      "detail": "$2,880, earned by MS 2, gated on the Design Direction signature. 9/28 is not happening."
-    },
-    {
-      "name": "+ Lois final (unconfirmed)",
-      "receivables_in": 5205,
-      "ending_operating": null,
-      "hits_phase2": true,
+      "hits_phase2": false,
       "highlight": false,
-      "detail": "$1,350 if never collected. Lois left the Monday board; nobody has confirmed the final payment landed."
+      "detail": "$2,880, earned by MS 2. Paused at the client's request, so not before the restart date set Monday."
     }
   ],
   "active_clients": [
     {
       "name": "HALO Pathways",
-      "phase": "Planning (unsigned)",
+      "phase": "Paused by client",
       "owner": "Eli",
-      "next_milestone": "Design Direction sign-off, then $2,880 halfway",
+      "next_milestone": "Pause terms Mon 9/28; $2,880 halfway after restart",
       "owner_color": "eli"
     },
     {
@@ -68,24 +69,31 @@
     },
     {
       "name": "Sipsies Lemonade",
-      "phase": "Kickoff 9/21",
+      "phase": "Kicked off 9/21",
       "owner": "Eli",
-      "next_milestone": "$600 halfway (10/2)",
+      "next_milestone": "$600 halfway (10/6)",
       "owner_color": "eli"
+    },
+    {
+      "name": "Cape to the Bay",
+      "phase": "Session 1 on 9/30",
+      "owner": "Daunte",
+      "next_milestone": "Paid in full; Session 4 closeout 10/29",
+      "owner_color": "daunte"
+    },
+    {
+      "name": "Aurelia Tech",
+      "phase": "Audit in delivery",
+      "owner": "Daunte",
+      "next_milestone": "$400 at the audit report",
+      "owner_color": "daunte"
     },
     {
       "name": "Financial Acuity",
       "phase": "Closeout, client-blocked",
-      "owner": "Kenny",
+      "owner": "Daunte",
       "next_milestone": "GBP verification video",
-      "owner_color": "kenny"
-    },
-    {
-      "name": "Aurelia Tech",
-      "phase": "Not started",
-      "owner": "Kenny",
-      "next_milestone": "Halfway milestone",
-      "owner_color": "kenny"
+      "owner_color": "daunte"
     }
   ],
   "operating_norms_compact": [
@@ -95,9 +103,10 @@
     "Anything needing more than 3 minutes of discussion goes to Saturday."
   ],
   "what_changed_recent": [
-    "Sipsies Lemonade closed won 9/14 ($1,799)",
-    "Legacy B site built + halfway $375 collected",
-    "Legacy B domain double-blocked (Wix + Google Workspace)",
-    "Aurelia Tech board created 9/18"
+    "Cape to the Bay closed won 9/20 ($1,799, paid in full); kickoff 9/22",
+    "HALO asked 9/16 to pause the build; Halfway Review Mon 9/28",
+    "Legacy B corrected to $1,500 in HubSpot (9/23)",
+    "Newsletter rebuilt as The Blueprint (9/22), not yet sent",
+    "BPP Internal Monday board no longer found"
   ]
 }
