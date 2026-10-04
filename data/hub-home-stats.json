@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-27T22:29:00",
+  "generated_at": "2026-10-04T15:35:00",
   "as_of_date": "2026-09-11",
   "stats": {
     "cash_on_hand": 7867.34,
-    "cash_note": "QuickBooks 9/11, 16 days old: $4,094 spendable + $3,643 reserve + small accounts. Excludes Cape $1,799 and Sipsies $600 received since.",
+    "cash_note": "QuickBooks 9/11, 23 days old: $4,094 spendable + $3,643 reserve + small accounts. Excludes Cape $1,799 and Sipsies $600 received since. Q3 close not posted.",
     "ar_total": 7224,
-    "ar_note": "estimate - HubSpot has no amount_paid field. HALO $5,250 (paused by client), Sipsies $1,199, Aurelia $400, Legacy B $375. Lois $1,350 unconfirmed, excluded.",
+    "ar_note": "estimate - HubSpot has no amount_paid field. HALO $5,250 (build back on since 9/28), Sipsies $1,199, Aurelia $400, Legacy B $375.",
     "active_clients_count": 6,
     "active_clients_names": [
       "HALO Pathways",
@@ -25,15 +25,15 @@
       "ending_operating": null,
       "hits_phase2": false,
       "highlight": true,
-      "detail": "$600 payment 2. Lauren confirmed the schedule 9/27; she is away 10/8-10/14, so 10/6 is the window."
+      "detail": "$600 payment 2 at Tuesday's halfway review; Lauren is away 10/8-10/14."
     },
     {
       "name": "+ Aurelia balance",
       "receivables_in": 1000,
       "ending_operating": null,
       "hits_phase2": false,
-      "highlight": true,
-      "detail": "$400 at the audit report. The report has no date yet."
+      "highlight": false,
+      "detail": "$400 at the audit report, which still has no date."
     },
     {
       "name": "+ Legacy B closeout",
@@ -41,42 +41,42 @@
       "ending_operating": null,
       "hits_phase2": false,
       "highlight": false,
-      "detail": "$375 final, gated on the domain. Chase deadline 9/30."
+      "detail": "$375 final, gated on Benji's credentials for HubSpot + the contact form."
     },
     {
       "name": "+ HALO halfway",
       "receivables_in": 4255,
       "ending_operating": null,
       "hits_phase2": false,
-      "highlight": false,
-      "detail": "$2,880, earned by MS 2. Paused at the client's request, so not before the restart date set Monday."
+      "highlight": true,
+      "detail": "$2,880 once Felicia signs off in writing and Home, Our Story, The HALO Model are on a real link. Build back on since 9/28; Home on staging 10/1."
     }
   ],
   "active_clients": [
     {
       "name": "HALO Pathways",
-      "phase": "Paused by client",
+      "phase": "Build back on (9/28)",
       "owner": "Eli",
-      "next_milestone": "Pause terms Mon 9/28; $2,880 halfway after restart",
+      "next_milestone": "Written sign-off + 3 pages = $2,880 halfway",
       "owner_color": "eli"
     },
     {
       "name": "Legacy B. Studio",
-      "phase": "Built, domain-blocked",
+      "phase": "Built, domain access gained",
       "owner": "Eli",
-      "next_milestone": "$375 at closeout",
+      "next_milestone": "$375 at closeout (Benji's credentials)",
       "owner_color": "eli"
     },
     {
       "name": "Sipsies Lemonade",
-      "phase": "Kicked off 9/21",
+      "phase": "Domain + Workspace live 9/30",
       "owner": "Eli",
       "next_milestone": "$600 halfway (10/6)",
       "owner_color": "eli"
     },
     {
       "name": "Cape to the Bay",
-      "phase": "Session 1 on 9/30",
+      "phase": "Session 1 pending client setup",
       "owner": "Daunte",
       "next_milestone": "Paid in full; Session 4 closeout 10/29",
       "owner_color": "daunte"
@@ -103,10 +103,8 @@
     "Anything needing more than 3 minutes of discussion goes to Saturday."
   ],
   "what_changed_recent": [
-    "Cape to the Bay closed won 9/20 ($1,799, paid in full); kickoff 9/22",
-    "HALO asked 9/16 to pause the build; Halfway Review Mon 9/28",
-    "Legacy B corrected to $1,500 in HubSpot (9/23)",
-    "Newsletter rebuilt as The Blueprint (9/22), not yet sent",
-    "BPP Internal Monday board no longer found"
+    "HALO build back on (9/28 call); Home live on staging 10/1",
+    "Q3 closed at $13,348 signed (89% of $15K)",
+    "Josue steps back from BPP until about the third week of October"
   ]
 }
