@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Negotiation One Sheet · BPP Tools Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&family=Merriweather:ital,wght@1,400&display=swap">
+<style>
+  :root {
+    --navy: #044771;
+    --navy-dark: #033359;
+    --gold: #F1BE5C;
+    --ink: #1A2B3C;
+    --ink2: #334155;
+    --muted: #64748B;
+    --rule: #C3CED9;
+    --tint: #EEF3F8;
+    --paper: #FFFFFF;
+    --ground: #E9EEF3;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font: 400 9.4pt/1.4 "Poppins", "Segoe UI", system-ui, sans-serif;
+    padding-inline: 16px;
+    padding-block: 24px;
+  }
+  .sheet {
+    background: var(--paper);
+    max-width: 8.5in;
+    margin: 0 auto 24px;
+    padding: 0.45in 0.5in;
+    box-shadow: 0 1px 3px rgba(4, 71, 113, 0.12);
+  }
+  h1, h2, h3 { font-family: "Montserrat", "Segoe UI", system-ui, sans-serif; color: var(--navy); margin: 0; text-wrap: balance; }
+  h1 { font-size: 17pt; font-weight: 800; letter-spacing: -0.01em; }
+  .masthead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; padding-bottom: 6px; border-bottom: 2px solid var(--gold); }
+  .masthead p { margin: 0; color: var(--muted); font-size: 8pt; }
+  .fields { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px 16px; margin: 10px 0 12px; }
+  .field { display: flex; align-items: flex-end; gap: 6px; font-size: 8.4pt; color: var(--ink2); white-space: nowrap; }
+  .field span { flex: 1; border-bottom: 1px solid var(--rule); height: 1.25em; }
+  .field.wide { grid-column: span 2; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chips b { font-weight: 500; border: 1px solid var(--rule); border-radius: 3px; padding: 0 6px; font-size: 8pt; }
+
+  .opener { background: var(--tint); padding: 8px 12px; margin-bottom: 12px; }
+  .opener h3 { font-size: 8pt; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .opener dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 3px 10px; }
+  .opener dt { font-weight: 600; font-size: 8pt; color: var(--navy); padding-top: 1px; }
+  .opener dd { margin: 0; }
+
+  section { margin-bottom: 11px; break-inside: avoid; }
+  h2 { font-size: 10.5pt; font-weight: 700; display: flex; gap: 7px; align-items: baseline; margin-bottom: 2px; }
+  h2 .n { font-size: 9pt; color: var(--paper); background: var(--navy); border-radius: 50%; width: 1.55em; height: 1.55em; display: inline-grid; place-items: center; flex: none; }
+  h2 .target { font-family: "Poppins", sans-serif; font-weight: 500; font-size: 8pt; color: var(--muted); }
+  .hint { color: var(--ink2); margin: 0 0 3px; font-size: 8.4pt; }
+  .say { font-family: "Merriweather", Georgia, serif; font-style: italic; color: var(--navy-dark); }
+  .lines { display: grid; }
+  .lines i { display: block; height: 0.29in; border-bottom: 1px solid var(--rule); font-style: normal; font-size: 7.5pt; color: var(--muted); padding-top: 0.14in; }
+  .lines.num { counter-reset: ln; }
+  .lines.num i::before { counter-increment: ln; content: counter(ln); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; }
+  .checks { list-style: none; margin: 2px 0 4px; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1px 14px; font-size: 8.4pt; }
+  .checks li::before { content: ""; display: inline-block; width: 8px; height: 8px; border: 1.2px solid var(--navy); margin-right: 6px; vertical-align: 0; }
+  .checks.one { grid-template-columns: 1fr; }
+  .walk { font-size: 8.2pt; color: var(--ink2); margin: 3px 0 0; }
+  .walk b { color: var(--navy); }
+  table { width: 100%; border-collapse: collapse; font-size: 8.2pt; margin-top: 3px; }
+  th, td { text-align: left; padding: 2px 6px 2px 0; border-bottom: 1px solid var(--tint); vertical-align: top; }
+  th { font-family: "Montserrat", sans-serif; font-size: 7.5pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+  td.st { color: var(--muted); white-space: nowrap; }
+  .flag { font-size: 7.8pt; color: var(--ink2); margin: 3px 0 0; }
+  .nos { margin: 2px 0 0; padding-left: 1.2em; }
+  .nos li { margin-bottom: 1px; }
+  .debrief { border-top: 2px solid var(--navy); padding-top: 6px; margin-top: 4px; }
+  .debrief .checks { grid-template-columns: 1fr 1fr 1fr; }
+  .p1 .lines i { height: 0.26in; padding-top: 0.12in; }
+  .p1 section { margin-bottom: 9px; }
+  .p2 section { margin-bottom: 6px; }
+  .p2 .lines i { height: 0.225in; padding-top: 0.09in; }
+  .p2 .hint { margin-bottom: 2px; }
+  .p2 table td, .p2 table th { padding-top: 1px; padding-bottom: 1px; }
+  .foot { display: flex; justify-content: space-between; color: var(--muted); font-size: 7.2pt; margin-top: 6px; }
+
+  .toolbar { max-width: 8.5in; margin: 0 auto 12px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .toolbar a, .toolbar button { font: 600 13px "Poppins", "Segoe UI", system-ui, sans-serif; color: var(--navy); min-height: 44px; display: inline-flex; align-items: center; }
+  .toolbar a { text-decoration: none; }
+  .toolbar a:hover { text-decoration: underline; }
+  .toolbar button { background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 0 16px; cursor: pointer; }
+  .toolbar button:hover { border-color: var(--navy); }
+  .toolbar a:focus-visible, .toolbar button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  @media (max-width: 640px) {
+    .sheet { padding: 20px 16px; }
+    .fields, .two, .checks, .debrief .checks { grid-template-columns: 1fr; }
+    .field.wide { grid-column: auto; }
+    .opener dl { grid-template-columns: 1fr; }
+    td.st { white-space: normal; }
+  }
+  @page { size: letter; margin: 0; }
+  @media print {
+    body { background: var(--paper); padding: 0; }
+    .toolbar { display: none; }
+    .sheet { box-shadow: none; margin: 0; max-width: none; width: 8.5in; height: 11in; overflow: hidden; break-after: page; }
+    .sheet:last-child { break-after: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="dept-sales.html">&larr; Sales &amp; BD</a>
+  <button type="button" onclick="window.print()">Print the blank sheet</button>
+</div>
+
+<div class="sheet p1">
+  <div class="masthead">
+    <h1>Negotiation One Sheet</h1>
+    <p>Business Plans Plus · fill it out before the call · don't read from it on the call</p>
+  </div>
+
+  <div class="fields">
+    <div class="field">Prospect <span></span></div>
+    <div class="field">Company <span></span></div>
+    <div class="field">Industry <span></span></div>
+    <div class="field">How they found us <span></span></div>
+    <div class="field">Package in play <span></span></div>
+    <div class="field">Date <span></span></div>
+    <div class="field wide">Call type&nbsp; <span class="chips" style="border:0"><b>Discovery</b><b>Price</b><b>Close</b><b>Re-engage</b></span></div>
+    <div class="field">Running it <span></span></div>
+  </div>
+
+  <div class="opener">
+    <h3>Opening lines · say them your way, not word for word</h3>
+    <dl>
+      <dt>In a room</dt>
+      <dd><span class="say">"I'm one of the owners of Business Plans Plus. We work with service businesses around Tampa, like cleaning companies and contractors, where everything still runs through the owner. We set it up so it doesn't all go through them, and they can take on more work and grow."</span> Then: <span class="say">"What about you, does everything still run through you?"</span></dd>
+      <dt>Warm call</dt>
+      <dd><span class="say">"I'm not going to spend this call pitching you. I'd rather hear what's going on. What made you want to talk?"</span></dd>
+      <dt>Cold call</dt>
+      <dd><span class="say">"I know I'm calling out of the blue. Is now a bad time?"</span></dd>
+      <dt>Partners</dt>
+      <dd><span class="say">"If you've got a client who's doing well but can't take a day off because everything runs through them, send them my way."</span></dd>
+    </dl>
+  </div>
+
+  <section>
+    <h2><span class="n">1</span>My goal</h2>
+    <p class="hint">The best realistic outcome. Just one. Package, price, terms, start date, and the next step with a date. Think about the worst case, but don't write it down. Say this out loud to a teammate before the call.</p>
+    <div class="lines"><i></i><i></i></div>
+    <p class="walk"><b>We walk away if:</b> no revenue or team yet · not a service business · they won't use what we build · they expect a big discount to start.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>What I know <span class="target">say it back near the end</span></h2>
+    <p class="hint">Their situation in their words, two or three sentences. You want <span class="say">"that's right."</span> ("You're right" means they've stopped listening.) Then ask <span class="say">"Did I miss something?"</span></p>
+    <div class="lines"><i></i><i></i><i></i></div>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>Accusation audit <span class="target">aim for 6</span></h2>
+    <p class="hint">Every bad thing they might think about us or this call. Say the big ones early, before they can. <span class="say">"You're probably thinking ___."</span></p>
+    <div class="lines num"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span>Labels <span class="target">aim for 5</span></h2>
+    <p class="hint">What you think they're feeling. Say it, then stop talking. <span class="say">"It seems like ___." "It sounds like ___." "It looks like ___."</span></p>
+    <div class="lines num"><i></i><i></i><i></i><i></i><i></i></div>
+  </section>
+
+  <div class="foot"><span>Based on Chris Voss, <em>Never Split the Difference</em>, and the Black Swan Group prep sheet</span><span>v1 · 2026-09-27 · page 1 of 2</span></div>
+</div>
+
+<div class="sheet p2">
+  <section>
+    <h2><span class="n">5</span>Questions <span class="target">4 What · 3 How · 2 no-oriented · 1 why</span></h2>
+    <p class="hint">Cover all three: what they want (<span class="say">"What are we trying to fix here?"</span>), who else decides (<span class="say">"Who else has a say in something like this?"</span>), what doing nothing costs (<span class="say">"What happens if you do nothing?"</span>).</p>
+    <div class="two">
+      <div><div class="hint" style="margin:2px 0 0"><b>What</b></div><div class="lines num"><i></i><i></i><i></i><i></i></div></div>
+      <div><div class="hint" style="margin:2px 0 0"><b>How</b></div><div class="lines num"><i></i><i></i><i></i></div></div>
+    </div>
+    <div class="two" style="margin-top:4px">
+      <div><div class="hint" style="margin:2px 0 0"><b>No-oriented</b> <span class="say">"Would it be crazy to ___?" "Are you against ___?"</span></div><div class="lines num"><i></i><i></i></div></div>
+      <div><div class="hint" style="margin:2px 0 0"><b>Why (proof of life)</b> <span class="say">"Why us, and not ___?"</span> If they can't answer, you may just be the comparison quote.</div><div class="lines"><i></i></div></div>
+    </div>
+  </section>
+
+  <div class="two">
+    <section>
+      <h2><span class="n">6</span>What could be hiding</h2>
+      <p class="hint">The thing you don't know yet that could kill the deal.</p>
+      <ul class="checks one">
+        <li>Someone else decides (partner, spouse, lender)</li>
+        <li>Cash timing (slow season, a client pays late)</li>
+        <li>Another quote, or hiring instead</li>
+        <li>They only want advice, not the build</li>
+        <li>Burned by a consultant or software before</li>
+      </ul>
+      <p class="hint">What doesn't add up? · What do they lose if nothing changes?</p>
+      <div class="lines"><i></i><i></i></div>
+    </section>
+    <section>
+      <h2><span class="n">7</span>Their likely worries</h2>
+      <p class="hint">Follow-up labels. <span class="say">"It seems like you're worried that ___."</span></p>
+      <div class="lines num"><i></i><i></i><i></i></div>
+      <h2 style="margin-top:8px"><span class="n">9</span>Saying no, keeping them</h2>
+      <ol class="nos say">
+        <li>"How am I supposed to do that?"</li>
+        <li>"I'm afraid that doesn't work for me."</li>
+        <li>"I'm sorry, no."</li>
+      </ol>
+      <p class="hint" style="margin-top:2px">Not a fit: <span class="say">"It seems like we're not the right fit right now. Where do you want to go from here?"</span></p>
+    </section>
+  </div>
+
+  <section>
+    <h2><span class="n">8</span>Price <span class="target">the price doesn't move, terms can</span></h2>
+    <div class="two">
+      <div>
+        <p class="hint">What doing nothing costs them, in their numbers</p><div class="lines"><i></i></div>
+        <p class="hint" style="margin-top:4px">What they'd compare us to</p><div class="lines"><i></i></div>
+      </div>
+      <div>
+        <p class="hint">Heads-up first: <span class="say">"The price might catch you off guard."</span></p>
+        <p class="hint">Then the exact number, then stop talking.</p>
+        <div class="lines"><i style="font-size:9pt;color:var(--ink)">$</i></div>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>If they push, give ground in smaller steps</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Start: standard terms (Operator 50% to start · 25% at process map + CRM · 25% at sign-off)</td><td class="st">Approved</td></tr>
+        <tr><td>Move the start date to when their cash is there</td><td class="st">Proposed</td></tr>
+        <tr><td>Swap scope inside the same package, same price</td><td class="st">Approved</td></tr>
+        <tr><td>Pay in full, take 3% off (only helps if cash isn't the problem)</td><td class="st">Approved</td></tr>
+        <tr><td>Step down to the AI Jumpstart Pilot ($2,997) instead of discounting</td><td class="st">Rule approved · price Proposed</td></tr>
+        <tr><td>Last: something cheap for us, valuable to them: ____________________</td><td class="st">Your call</td></tr>
+      </tbody>
+    </table>
+    <p class="flag">Not approved yet, don't offer until Kenny and Daunte OK it: smaller deposits in shrinking steps (50% → 40% → 35% → three payments of $1,833).</p>
+  </section>
+
+  <div class="two">
+    <section>
+      <h2><span class="n">10</span>What they can give besides money</h2>
+      <ul class="checks one">
+        <li>A Google review when we finish</li>
+        <li>Their story as a case study</li>
+        <li>An intro to one or two owners they know</li>
+        <li>A reference call for a future client</li>
+        <li>A decision by a set date</li>
+      </ul>
+    </section>
+    <section>
+      <h2><span class="n">11</span>The close</h2>
+      <p class="hint">Before you hang up, get them to agree three times:</p>
+      <p class="hint say" style="margin:0">"What are the next steps?"<br>"How will we know we're on track?"<br>"What should we do if we get off track?"</p>
+      <p class="hint" style="margin-top:4px"><b>Next step + date</b></p>
+      <div class="lines"><i></i></div>
+    </section>
+  </div>
+
+  <div class="debrief">
+    <h2>After the call <span class="target">2 minutes</span></h2>
+    <ul class="checks">
+      <li>They said "that's right"</li>
+      <li>I talked less than half the time</li>
+      <li>Logged in HubSpot with next step + date</li>
+    </ul>
+    <div class="two">
+      <div><p class="hint" style="margin:3px 0 0">The black swan was</p><div class="lines"><i></i></div></div>
+      <div><p class="hint" style="margin:3px 0 0">Keep doing · Change</p><div class="lines"><i></i></div></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Business Plans Plus · Sales &amp; BD</span><span>page 2 of 2</span></div>
+</div>
+
+</body>
+</html>
