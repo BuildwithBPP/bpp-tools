@@ -35,6 +35,11 @@
  * testing on his phone). r26motion 0.0.4 also skips scroll fade-ins on phones.
  * Tablet (768-991px): the nav folds the wordmark to the monogram so a 5th
  * nav link fits on one row.
+ * Nav dropdown (1.9.5): the /resources nav link gets a chevron + panel on
+ * desktop (Interactive Tools / Guides & Templates / Premium, NAV_SUB) and
+ * indented sub-links in the phone menu; the
+ * phone menu scrolls when taller than the screen; /path#id links on the
+ * same page land below the nav.
  * Mobile menu (1.9.3): links to other pages keep the menu up until the next
  * page paints (no fade back to the old page); same-page links close it.
  * Touch devices (1.9.2): 3D dots at 1.5x resolution, no antialias, 30fps, and
@@ -103,10 +108,26 @@
     /* tablet: 5 nav links + CTA on one row (aios-00, verified 768-1024) */
     '.r26-nav-link,.r26-nav-cta{white-space:nowrap}',
     '@media (min-width:768px) and (max-width:991px){.r26-nav-links{grid-column-gap:22px;column-gap:22px;gap:22px}.r26x-brandtxt{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}',
-    '.r26x-menu{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,#033359 0%,#044771 100%);display:flex;flex-direction:column;justify-content:center;padding:6rem 2.25rem 3rem;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility 0s linear .4s}',
+    '.r26x-menu{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,#033359 0%,#044771 100%);display:flex;flex-direction:column;justify-content:flex-start;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:6rem 2.25rem 3rem;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility 0s linear .4s}',
     '.r26x-menu.r26x-on{opacity:1;visibility:visible;transition:opacity .4s ease}',
     '.r26x-menu a{font-family:Montserrat,sans-serif;color:#fff;text-decoration:none;font-size:1.75rem;font-weight:700;padding:.65rem 0;letter-spacing:-.01em;transform:translateY(18px);opacity:0;transition:transform .55s cubic-bezier(.16,1,.3,1),opacity .45s ease}',
     '.r26x-menu.r26x-on a{transform:none;opacity:1}',
+    '.r26x-menu>:first-child{margin-top:auto}.r26x-menu>:last-child{margin-bottom:auto}', /* centered when it fits, scrolls when it doesn't */
+    '.r26x-menu a.r26x-menu-sub{font-family:Poppins,sans-serif;font-size:1.02rem;font-weight:500;color:rgba(255,255,255,.8);padding:.42rem 0 .42rem 1.05rem;margin-left:.1rem;border-left:2px solid rgba(241,190,92,.55);letter-spacing:0}',
+    '.r26x-menu a.r26x-menu-sub:last-of-type{margin-bottom:.3rem}',
+    /* nav dropdown built from data-r26-sub (1.9.5) */
+    '.r26x-dd{position:relative;display:inline-flex;align-items:center;gap:2px}',
+    '.r26x-dd-btn{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;margin-right:-6px;padding:0;border:0;background:transparent;color:rgba(255,255,255,.82);cursor:pointer;border-radius:6px}',
+    '.r26x-dd-btn:hover,.r26x-dd.r26x-open .r26x-dd-btn{color:#F1BE5C}',
+    '.r26x-dd-btn:focus-visible{outline:2px solid #F1BE5C;outline-offset:2px}',
+    '.r26x-dd-btn svg{width:12px;height:12px;transition:transform .25s ease}',
+    '.r26x-dd.r26x-open .r26x-dd-btn svg{transform:rotate(180deg)}',
+    '.r26x-dd-panel{position:absolute;top:calc(100% + 14px);left:50%;min-width:230px;padding:8px;margin:0;list-style:none;background:#033359;border:1px solid rgba(241,190,92,.25);border-radius:12px;box-shadow:0 18px 40px rgba(2,30,52,.45);opacity:0;visibility:hidden;transform:translate(-50%,-6px);transition:opacity .18s ease,transform .18s ease,visibility 0s linear .18s;z-index:120}',
+    '.r26x-dd-panel::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px}', /* hover bridge across the gap */
+    '.r26x-dd.r26x-open .r26x-dd-panel{opacity:1;visibility:visible;transform:translate(-50%,0);transition:opacity .18s ease,transform .18s ease}',
+    '.r26x-dd-panel li{margin:0;padding:0}',
+    '.r26x-dd-panel a{display:block;padding:10px 14px;border-radius:8px;color:#fff;font-family:Poppins,sans-serif;font-size:.92rem;font-weight:500;text-decoration:none;white-space:nowrap}',
+    '.r26x-dd-panel a:hover,.r26x-dd-panel a:focus-visible{background:rgba(241,190,92,.14);color:#F1BE5C;outline:none}',
     '.r26x-menu .r26x-menu-cta{display:inline-block;margin-top:1.5rem;background:#F1BE5C;color:#033359;border-radius:999px;padding:.9rem 1.9rem;font-size:1.05rem;text-align:center}',
     '.r26x-menu .r26x-menu-tag{color:#5987A5;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.25rem;font-family:Montserrat,sans-serif;font-weight:600}',
     'body.r26x-lock{overflow:hidden}',
@@ -178,7 +199,7 @@
     /* logo rows: 3 across on small phones */
     '@media (max-width:479px){.r26-logos-row{grid-column-gap:24px;column-gap:24px}}',
     /* reduced motion: kill our transitions/animations */
-    '@media (prefers-reduced-motion:reduce){html.r26x-navcta .r26-nav-cta{animation:none}.r26x-awrap,.r26x-chev,.r26x-wi,.r26x-menu,.r26x-menu a,.r26-nav-link::after,.r26-footer-link::after{transition:none!important}.r26x-glow{animation:none!important}.r26x-wi{transform:none!important}}'
+    '@media (prefers-reduced-motion:reduce){html.r26x-navcta .r26-nav-cta{animation:none}.r26x-dd-panel,.r26x-dd-btn svg{transition:none!important}.r26x-awrap,.r26x-chev,.r26x-wi,.r26x-menu,.r26x-menu a,.r26-nav-link::after,.r26-footer-link::after{transition:none!important}.r26x-glow{animation:none!important}.r26x-wi{transform:none!important}}'
   ].join('');
 
   var style = d.createElement('style');
@@ -446,6 +467,87 @@
   }
 
   /* ------------------------------------------------------- mobile menu */
+  /* Sub-links per nav item. Webflow can't store double quotes in an attribute,
+     so the Resources submenu lives here, keyed by the link's path (identical
+     on every page). A data-r26-sub JSON attribute still overrides if one ever
+     becomes possible. Section ids (#tools/#guides/#premium) live on /resources. */
+  var NAV_SUB = {
+    '/resources': [
+      { t: 'Interactive Tools', h: '/resources#tools' },
+      { t: 'Guides & Templates', h: '/resources#guides' },
+      { t: 'Premium', h: '/resources#premium' }
+    ]
+  };
+  function subItems(a) {
+    var raw = a.getAttribute('data-r26-sub');
+    if (raw) {
+      try { var v = JSON.parse(raw); if (Array.isArray(v)) return v.filter(function (it) { return it && it.t && it.h; }); } catch (e) {}
+    }
+    var path; try { path = new URL(a.href, location.href).pathname.replace(/\/$/, ''); } catch (e) { return []; }
+    return NAV_SUB[path] || [];
+  }
+
+  /* ------------------------------------------- nav dropdown (1.9.5)
+     The parent link still navigates; a chevron button beside it toggles the
+     panel (disclosure pattern: aria-expanded/aria-controls). Fine pointers
+     also open on hover; focus inside keeps it open; Escape or a click
+     outside closes it. Phones get the sub-links in the mobile menu instead. */
+  function closeDropdowns() {
+    d.querySelectorAll('.r26x-dd.r26x-open').forEach(function (w) {
+      w.classList.remove('r26x-open');
+      var b = w.querySelector('.r26x-dd-btn');
+      if (b) b.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  function navSub() {
+    d.querySelectorAll('.r26-nav-links a.r26-nav-link').forEach(function (a, n) {
+      var items = subItems(a);
+      if (!items.length || (a.parentNode && a.parentNode.classList.contains('r26x-dd'))) return;
+      var wrap = d.createElement('span');
+      wrap.className = 'r26x-dd';
+      a.parentNode.insertBefore(wrap, a);
+      wrap.appendChild(a);
+      var id = 'r26x-dd-' + n;
+      var btn = d.createElement('button');
+      btn.type = 'button';
+      btn.className = 'r26x-dd-btn';
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-controls', id);
+      btn.setAttribute('aria-label', 'Show ' + (a.textContent || '').trim() + ' links');
+      btn.innerHTML = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4.5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      var panel = d.createElement('ul');
+      panel.className = 'r26x-dd-panel';
+      panel.id = id;
+      items.forEach(function (it) {
+        var li = d.createElement('li'), s = d.createElement('a');
+        s.href = it.h;
+        s.textContent = it.t;
+        li.appendChild(s);
+        panel.appendChild(li);
+      });
+      wrap.appendChild(btn);
+      wrap.appendChild(panel);
+      var t = 0;
+      function set(open) {
+        clearTimeout(t);
+        wrap.classList.toggle('r26x-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+      btn.addEventListener('click', function (e) { e.preventDefault(); set(!wrap.classList.contains('r26x-open')); });
+      if (FINE) {
+        wrap.addEventListener('mouseenter', function () { set(true); });
+        wrap.addEventListener('mouseleave', function () { clearTimeout(t); t = setTimeout(function () { set(false); }, 180); });
+      }
+      wrap.addEventListener('focusout', function (e) { if (!wrap.contains(e.relatedTarget)) set(false); });
+      wrap.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && wrap.classList.contains('r26x-open')) { set(false); btn.focus(); }
+      });
+      d.addEventListener('click', function (e) { if (!wrap.contains(e.target)) set(false); });
+      panel.addEventListener('click', function () { set(false); });
+    });
+  }
+
   function mobileMenu() {
     var inner = d.querySelector('.r26-nav-inner');
     if (!inner) return;
@@ -468,13 +570,21 @@
     tag.appendChild(tagMark);
     tag.appendChild(d.createTextNode('Business Plans Plus'));
     menu.appendChild(tag);
-    var links = d.querySelectorAll('.r26-nav-links a');
-    links.forEach(function (a, i) {
+    var links = d.querySelectorAll('.r26-nav-links a.r26-nav-link'), k = 0;
+    links.forEach(function (a) {
       var c = d.createElement('a');
       c.href = a.getAttribute('href');
       c.textContent = a.textContent;
-      c.style.transitionDelay = (0.05 + i * 0.06) + 's';
+      c.style.transitionDelay = (0.05 + k++ * 0.06) + 's';
       menu.appendChild(c);
+      subItems(a).forEach(function (it) {
+        var sc = d.createElement('a');
+        sc.href = it.h;
+        sc.textContent = it.t;
+        sc.className = 'r26x-menu-sub';
+        sc.style.transitionDelay = (0.05 + k++ * 0.06) + 's';
+        menu.appendChild(sc);
+      });
     });
     var cta = d.querySelector('.r26-nav-cta');
     if (cta) {
@@ -482,7 +592,7 @@
       c2.href = cta.getAttribute('href');
       c2.textContent = cta.textContent;
       c2.className = 'r26x-menu-cta';
-      c2.style.transitionDelay = (0.05 + links.length * 0.06) + 's';
+      c2.style.transitionDelay = (0.05 + k * 0.06) + 's';
       menu.appendChild(c2);
     }
     d.body.appendChild(menu);
@@ -550,14 +660,22 @@
     }
     d.addEventListener('click', function (e) {
       if (e.defaultPrevented || e.button) return;
-      var a = e.target.closest && e.target.closest('a[href^="#"]');
-      if (!a || a.hasAttribute('data-w-tab') || a.getAttribute('role') === 'tab' || a.closest('.w-tabs,.w-slider,.w-dropdown,.w-lightbox')) return;
-      var id = decodeURIComponent(a.getAttribute('href').slice(1));
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a || a.target === '_blank' || a.hasAttribute('data-w-tab') || a.getAttribute('role') === 'tab' || a.closest('.w-tabs,.w-slider,.w-dropdown,.w-lightbox')) return;
+      var raw = a.getAttribute('href'), id;
+      if (raw.charAt(0) === '#') id = raw.slice(1);
+      else { /* 1.9.5: /resources#tools while already on /resources */
+        var u; try { u = new URL(a.href, location.href); } catch (err) { return; }
+        if (u.origin !== location.origin || !u.hash || u.pathname.replace(/\/$/, '') !== location.pathname.replace(/\/$/, '')) return;
+        id = u.hash.slice(1);
+      }
+      id = decodeURIComponent(id);
       if (!id || !d.getElementById(id)) return;
       e.preventDefault();
       e.stopPropagation();
       var bg = d.querySelector('.r26x-burger.r26x-on');
       if (bg) bg.click();
+      closeDropdowns(); /* this handler stops the click before the panel sees it */
       go(id, true);
       if (history.replaceState) history.replaceState(null, '', '#' + id);
     }, true);
@@ -1269,6 +1387,7 @@
     slider();
     accordion();
     mobileMenu();
+    navSub();
     navState();
     navCta();
     anchorOffset();
