@@ -30,8 +30,10 @@
  *    logo rows wrap into balanced rows.
  *
  * Guards: prefers-reduced-motion disables all motion (accordion + menu stay,
- * instant). Coarse pointers skip cursor/tilt/magnetic. <768px skips WebGL
- * (the subhero dots landed inside headline letters on phones).
+ * instant). Coarse pointers skip cursor/tilt/magnetic. Subhero WebGL runs on
+ * phones too (1.9.0 turned it off under 768px; Eli brought it back 10/20).
+ * Tablet (768-991px): the nav folds the wordmark to the monogram so a 5th
+ * nav link fits on one row.
  */
 (function () {
   'use strict';
@@ -83,6 +85,9 @@
     'html.r26x-navcta .r26x-burger{margin-left:8px}',
     'html.r26x-navcta .r26x-brandtxt{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}',
     '@keyframes r26xIn{from{opacity:0}to{opacity:1}}',
+    /* tablet: 5 nav links + CTA on one row (aios-00, verified 768-1024) */
+    '.r26-nav-link,.r26-nav-cta{white-space:nowrap}',
+    '@media (min-width:768px) and (max-width:991px){.r26-nav-links{grid-column-gap:22px;column-gap:22px;gap:22px}.r26x-brandtxt{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}',
     '.r26x-menu{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,#033359 0%,#044771 100%);display:flex;flex-direction:column;justify-content:center;padding:6rem 2.25rem 3rem;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility 0s linear .4s}',
     '.r26x-menu.r26x-on{opacity:1;visibility:visible;transition:opacity .4s ease}',
     '.r26x-menu a{font-family:Montserrat,sans-serif;color:#fff;text-decoration:none;font-size:1.75rem;font-weight:700;padding:.65rem 0;letter-spacing:-.01em;transform:translateY(18px);opacity:0;transition:transform .55s cubic-bezier(.16,1,.3,1),opacity .45s ease}',
@@ -1232,9 +1237,9 @@
   }
 
   /* Subhero constellations (about/packages/booking/referral/service pages)
-     keep Three.js on desktop; the home page never loads it. */
+     use Three.js; the home page never loads it. */
   function init3D() {
-    if (REDUCED || window.innerWidth < 768) return;
+    if (REDUCED) return;
     var subhero = d.querySelector('.r26-subhero');
     if (!subhero) return;
     function start() {
