@@ -30,8 +30,9 @@
  *    logo rows wrap into balanced rows.
  *
  * Guards: prefers-reduced-motion disables all motion (accordion + menu stay,
- * instant). Coarse pointers skip cursor/tilt/magnetic. Subhero WebGL runs on
- * phones too (1.9.0 turned it off under 768px; Eli brought it back 10/20).
+ * instant). Coarse pointers skip cursor/tilt/magnetic. Subhero WebGL is off
+ * under 768px (1.9.0 off, 1.9.1 back on, 1.9.4 off again: Eli 10/20 after
+ * testing on his phone). r26motion 0.0.4 also skips scroll fade-ins on phones.
  * Tablet (768-991px): the nav folds the wordmark to the monogram so a 5th
  * nav link fits on one row.
  * Mobile menu (1.9.3): links to other pages keep the menu up until the next
@@ -1239,7 +1240,9 @@
   /* Subhero constellations (about/packages/booking/referral/service pages)
      use Three.js; the home page never loads it. */
   function init3D() {
-    if (REDUCED) return;
+    /* 1.9.4 (Eli 10/20, phone still felt laggy after 1.9.2): no 3D dots on
+       phones; tablets and desktop keep them. */
+    if (REDUCED || window.innerWidth < 768) return;
     var subhero = d.querySelector('.r26-subhero');
     if (!subhero) return;
     function start() {
