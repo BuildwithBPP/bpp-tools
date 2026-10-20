@@ -14,8 +14,8 @@
  *  - Subhero 3D (Three.js, lazy ESM import, desktop only):
  *      about -> node-constellation sphere behind .r26-subhero
  *      packages/booking/referral -> sparse ambient constellation in subhero
- *  - Home H1: line-by-line GSAP SplitText reveal (reuses the gsap that
- *    r26motion loads; CSS word reveal as fallback).
+ *  - H1 reveal: CSS word-by-word rise on the home and subhero H1s (no
+ *    network dependency since 1.9.2).
  *  - White BPP monogram injected beside the nav/footer wordmarks
  *  - Interactive layer (all pages): FAQ accordion (answers open by default),
  *    mobile menu, magnetic buttons ([data-magnetic]), 3D card tilt + gold
@@ -34,6 +34,10 @@
  * phones too (1.9.0 turned it off under 768px; Eli brought it back 10/20).
  * Tablet (768-991px): the nav folds the wordmark to the monogram so a 5th
  * nav link fits on one row.
+ * Touch devices (1.9.2): 3D dots at 1.5x resolution, no antialias, 30fps, and
+ * paused while the finger is scrolling; home canvas at 1.5x and 30fps when
+ * idle; no backdrop blur on the scrolled header; no hero parallax. Home H1
+ * uses the CSS word reveal (no wait on gsap + SplitText downloads).
  */
 (function () {
   'use strict';
@@ -43,6 +47,12 @@
   var d = document;
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var FINE = window.matchMedia('(pointer: fine)').matches;
+  /* LITE = touch devices (phones/tablets): same visuals, less GPU work per frame.
+     Eli 10/20: keep the 3D dots + home animation on phones, but scrolling felt laggy. */
+  var LITE = !FINE;
+  var lastScroll = 0;
+  if (LITE) window.addEventListener('scroll', function () { lastScroll = performance.now(); }, { passive: true });
+  function scrolling(now) { return now - lastScroll < 140; }
   var PATH = location.pathname;
   var THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js';
 
@@ -85,6 +95,8 @@
     'html.r26x-navcta .r26x-burger{margin-left:8px}',
     'html.r26x-navcta .r26x-brandtxt{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}',
     '@keyframes r26xIn{from{opacity:0}to{opacity:1}}',
+    /* touch: drop the backdrop blur on the scrolled header (it is 94% opaque; re-blurring moving content every scroll frame costs GPU on phones) */
+    '@media (hover:none) and (pointer:coarse){.r26-nav.r26x-scrolled{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background-color:rgba(3,51,89,.97)!important}}',
     /* tablet: 5 nav links + CTA on one row (aios-00, verified 768-1024) */
     '.r26-nav-link,.r26-nav-cta{white-space:nowrap}',
     '@media (min-width:768px) and (max-width:991px){.r26-nav-links{grid-column-gap:22px;column-gap:22px;gap:22px}.r26x-brandtxt{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}',
@@ -575,7 +587,7 @@
 
   /* ------------------------------ logo rows: even rows, no orphan logo */
   function balanceLogos() {
-    var rows = d.querySelectorAll('.r26-logos-row');
+    var rows = d.querySelectorAll('.r26-logos-row, .r26-proof-logos');
     if (!rows.length) return;
     function fit() {
       rows.forEach(function (row) {
@@ -718,42 +730,13 @@
   }
 
   /* ------------------------------------------------ split-text reveal */
-  /* Home H1: line-by-line via GSAP SplitText (gsap is already CDN-loaded by
-     r26motion — poll for it, never double-load gsap itself). Falls back to
-     the CSS word reveal if gsap/SplitText don't arrive. Subhero pages keep
-     the CSS word reveal. */
   function splitReveal() {
     if (REDUCED) return;
+    /* 1.9.2: the home H1 used to wait for gsap + SplitText downloads before it
+       could show (largest paint 3.8-6.4s on phones). The CSS word reveal starts
+       on the next frame with no network dependency. */
     var hero = d.querySelector('.r26-hero-h1');
-    if (hero) {
-      if (hero.dataset.r26xSplit) return;
-      hero.dataset.r26xSplit = '1';
-      var waited = 0;
-      (function poll() {
-        if (window.gsap) {
-          var s = d.createElement('script');
-          s.src = 'https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js';
-          s.onload = function () {
-            try {
-              window.gsap.registerPlugin(window.SplitText);
-              var split = new window.SplitText(hero, { type: 'lines', linesClass: 'r26x-line' });
-              split.lines.forEach(function (ln) {
-                var wrap = d.createElement('div');
-                wrap.style.overflow = 'hidden';
-                ln.parentNode.insertBefore(wrap, ln);
-                wrap.appendChild(ln);
-              });
-              window.gsap.from(split.lines, { yPercent: 112, duration: 0.9, ease: 'expo.out', stagger: 0.07 });
-            } catch (e) { delete hero.dataset.r26xSplit; cssWordReveal(hero); }
-          };
-          s.onerror = function () { delete hero.dataset.r26xSplit; cssWordReveal(hero); };
-          d.head.appendChild(s);
-        } else if ((waited += 80) < 2400) setTimeout(poll, 80);
-        else { delete hero.dataset.r26xSplit; cssWordReveal(hero); }
-      })();
-      return;
-    }
-    cssWordReveal(d.querySelector('.r26-subhero-h1'));
+    cssWordReveal(hero || d.querySelector('.r26-subhero-h1'));
   }
 
   function cssWordReveal(el) {
@@ -792,7 +775,7 @@
   /* ---------------------------------------------------------- parallax */
   function parallax() {
     if (REDUCED) return;
-    var hv = d.querySelector('.r26-hero-visual');
+    var hv = FINE ? d.querySelector('.r26-hero-visual') : null; /* touch: no scroll-linked transform */
     var sh = window.innerWidth >= 768 ? d.querySelector('.r26-subhero-inner') : null; /* subhero parallax off on mobile (felt like the section scrolled with you) */
     if (!hv && !sh) return;
     var raf = 0;
@@ -825,17 +808,20 @@
     }, { rootMargin: '120px' });
     io.observe(host);
     d.addEventListener('visibilitychange', function () { active = !d.hidden; });
-    var t0 = performance.now();
+    var clock = 0, last = performance.now();
     (function frame(now) {
       requestAnimationFrame(frame);
-      if (!active || !visible) return;
-      draw((now - t0) / 1000);
-    })(t0);
+      if (!active || !visible || (LITE && scrolling(now))) { last = now; return; }
+      if (LITE && now - last < 31) return; /* ~30fps on touch: the dots drift slowly */
+      clock += Math.min(now - last, 100) / 1000;
+      last = now;
+      draw(clock);
+    })(last);
   }
 
   function fitRenderer(THREE, host) {
-    var r = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' });
-    r.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    var r = new THREE.WebGLRenderer({ alpha: true, antialias: !LITE, powerPreference: 'low-power' });
+    r.setPixelRatio(Math.min(window.devicePixelRatio || 1, LITE ? 1.5 : 2));
     r.setSize(host.clientWidth, host.clientHeight);
     return r;
   }
@@ -876,7 +862,7 @@
     mount.appendChild(canvas);
     mount.classList.add('r26x-3d-live');
     var ctx = canvas.getContext('2d');
-    var DPR = Math.min(window.devicePixelRatio || 1, 2);
+    var DPR = Math.min(window.devicePixelRatio || 1, LITE ? 1.5 : 2);
     var W = 0, H = 0, P = { w: 0, h: 0, x: 0, y: 0 };
 
     function size() {
@@ -1136,13 +1122,16 @@
         new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }, { rootMargin: '160px' }).observe(mount);
       }
       d.addEventListener('visibilitychange', function () { active = !d.hidden; });
-      var t0 = performance.now();
+      var t0 = performance.now(), last = t0;
       (function frame(now) {
         raf = requestAnimationFrame(frame);
-        if (!active || !visible) return;
+        if (!active || !visible) { last = now; return; }
         var target = clamp((window.scrollY - HOLD) / DIST, 0, 1);
-        sp += (target - sp) * 0.14;
-        smx += (mx - smx) * 0.05; smy += (my - smy) * 0.05;
+        /* touch + not scrolling + nearly settled: 30fps is plenty for the ambient drift */
+        if (LITE && !scrolling(now) && Math.abs(target - sp) < 0.002 && now - last < 31) return;
+        var k = Math.min(now - last, 100) / 16.667; last = now; /* frame-rate independent easing */
+        sp += (target - sp) * (1 - Math.pow(1 - 0.14, k));
+        smx += (mx - smx) * (1 - Math.pow(0.95, k)); smy += (my - smy) * (1 - Math.pow(0.95, k));
         draw((now - t0) / 1000);
       })(t0);
     }
