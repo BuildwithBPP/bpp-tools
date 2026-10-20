@@ -9,8 +9,8 @@
  *    [data-hero-3d] — scattered business clutter (glyph chips + loose
  *    dashboard parts) drifts in disorder, then sweeps into a clean, glowing
  *    command-center dashboard with a live chart + pulse (~2.3s). NO WebGL on
- *    the home page. Mobile and reduced-motion render the settled dashboard as
- *    one static frame; no-JS keeps the CSS stand-in. No dependencies.
+ *    the home page. Reduced-motion renders the settled dashboard as one
+ *    static frame; no-JS keeps the CSS stand-in. No dependencies.
  *  - Subhero 3D (Three.js, lazy ESM import, desktop only):
  *      about -> node-constellation sphere behind .r26-subhero
  *      packages/booking/referral -> sparse ambient constellation in subhero
@@ -22,9 +22,16 @@
  *    sheen, custom cursor, scroll parallax, nav scroll state, CTA glow,
  *    link underline draw-ins.
  *  - Safety net: repairs href="#" nav/CTA links on the home redesign page.
+ *  - Faster path to the form (v1.9.0, 2026-10-20): /booking links land on the
+ *    form (/booking#book); mobile header shows a compact Book a Call once you
+ *    scroll past the hero; same-page #anchors land below the fixed nav;
+ *    plain-text phone/email become tel:/mailto: links; FAQ questions are real
+ *    buttons inside the H3; bigger tap areas on small links + slider dots;
+ *    logo rows wrap into balanced rows.
  *
  * Guards: prefers-reduced-motion disables all motion (accordion + menu stay,
- * instant). Coarse pointers skip cursor/tilt/magnetic. <768px skips WebGL.
+ * instant). Coarse pointers skip cursor/tilt/magnetic. <768px skips WebGL
+ * (the subhero dots landed inside headline letters on phones).
  */
 (function () {
   'use strict';
@@ -43,7 +50,9 @@
   var css = [
     /* FAQ accordion */
     '.r26x-q{cursor:pointer;position:relative;padding-right:2.4rem;-webkit-user-select:none;user-select:none;outline-offset:4px}',
-    '.r26x-q:focus-visible{outline:2px solid #F1BE5C}',
+    '.r26x-qbtn{all:unset;display:block;width:100%;box-sizing:border-box;cursor:pointer;-webkit-tap-highlight-color:transparent}',
+    '.r26x-qbtn::after{content:"";position:absolute;left:0;right:0;top:-11px;bottom:-11px}', /* 44px tap area, no layout change */
+    '.r26x-qbtn:focus-visible{outline:2px solid #F1BE5C;outline-offset:4px;border-radius:4px}',
     '.r26x-chev{position:absolute;right:.1rem;top:50%;width:1.2rem;height:1.2rem;margin-top:-.6rem;transition:transform .45s cubic-bezier(.16,1,.3,1)}',
     '.r26x-chev::before,.r26x-chev::after{content:"";position:absolute;left:50%;top:50%;background:#F1BE5C;border-radius:2px}',
     '.r26x-chev::before{width:14px;height:2px;transform:translate(-50%,-50%)}',
@@ -68,7 +77,12 @@
     '.r26x-burger.r26x-on span:nth-child(2){opacity:0}',
     '.r26x-burger.r26x-on span:nth-child(3){top:22px;transform:rotate(-45deg);background:#F1BE5C}',
     /* mobile: burger replaces the pill CTA (menu carries Book a Call); clip page-wide x-overflow */
-    '@media (max-width:767px){.r26x-burger{display:block}.r26-nav-cta{display:none}html{overflow-x:clip}}',
+    '@media (max-width:767px){.r26x-burger{display:block}.r26-nav-cta{display:none}html{overflow-x:clip}',
+    /* mobile, past the hero: wordmark folds to the monogram and a compact Book a Call shows */
+    'html.r26x-navcta .r26-nav-cta{display:inline-flex;align-items:center;min-height:40px;padding:0 16px!important;font-size:.85rem!important;margin-left:auto;white-space:nowrap;animation:r26xIn .3s ease}',
+    'html.r26x-navcta .r26x-burger{margin-left:8px}',
+    'html.r26x-navcta .r26x-brandtxt{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}',
+    '@keyframes r26xIn{from{opacity:0}to{opacity:1}}',
     '.r26x-menu{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,#033359 0%,#044771 100%);display:flex;flex-direction:column;justify-content:center;padding:6rem 2.25rem 3rem;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility 0s linear .4s}',
     '.r26x-menu.r26x-on{opacity:1;visibility:visible;transition:opacity .4s ease}',
     '.r26x-menu a{font-family:Montserrat,sans-serif;color:#fff;text-decoration:none;font-size:1.75rem;font-weight:700;padding:.65rem 0;letter-spacing:-.01em;transform:translateY(18px);opacity:0;transition:transform .55s cubic-bezier(.16,1,.3,1),opacity .45s ease}',
@@ -104,8 +118,9 @@
     '.r26x-slider-btn{width:46px;height:46px;border-radius:50%;border:1.5px solid #5987A5;background:transparent;color:#044771;font-size:1.1rem;cursor:pointer;transition:border-color .25s ease,background-color .25s ease,color .25s ease}',
     '.r26x-slider-btn:hover{border-color:#F1BE5C;background:#F1BE5C;color:#033359}',
     '.r26x-slider-btn:focus-visible{outline:2px solid #F1BE5C;outline-offset:3px}',
-    '.r26x-slider-dots{display:flex;gap:9px}',
-    '.r26x-slider-dot{width:9px;height:9px;border-radius:50%;border:0;padding:0;background:#C9D6E0;cursor:pointer;transition:background-color .25s ease,transform .25s ease}',
+    '.r26x-slider-dots{display:flex;gap:16px}',
+    '.r26x-slider-dot{position:relative;width:9px;height:9px;border-radius:50%;border:0;padding:0;background:#C9D6E0;cursor:pointer;transition:background-color .25s ease,transform .25s ease}',
+    '.r26x-slider-dot::after{content:"";position:absolute;inset:-8px;border-radius:50%}',
     '.r26x-slider-dot.r26x-on{background:#F1BE5C;transform:scale(1.25)}',
     /* youtube facade */
     '.r26x-video{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background-size:cover;background-position:center;cursor:pointer;box-shadow:0 18px 48px rgba(2,30,52,.28)}',
@@ -133,8 +148,17 @@
     '.r26-subhero-inner{position:relative;z-index:1}',
     '.r26x-sub3d{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.4s ease}',
     '.r26x-sub3d.r26x-in{opacity:1}',
+    /* small text links: taller tap area without moving anything */
+    '.r26-price-more{position:relative}',
+    '.r26-price-more::after{content:"";position:absolute;left:0;right:0;top:-12px;bottom:-12px}',
+    '.r26-price-more.r26-more-inline{padding:12px 0}.r26-price-more.r26-more-inline::after{display:none}',
+    /* auto-linked phone/email */
+    'a.r26x-autolink{color:inherit;text-decoration:underline;text-decoration-color:rgba(241,190,92,.6);text-underline-offset:3px}',
+    'a.r26x-autolink:hover{text-decoration-color:#F1BE5C}',
+    /* logo rows: 3 across on small phones */
+    '@media (max-width:479px){.r26-logos-row{grid-column-gap:24px;column-gap:24px}}',
     /* reduced motion: kill our transitions/animations */
-    '@media (prefers-reduced-motion:reduce){.r26x-awrap,.r26x-chev,.r26x-wi,.r26x-menu,.r26x-menu a,.r26-nav-link::after,.r26-footer-link::after{transition:none!important}.r26x-glow{animation:none!important}.r26x-wi{transform:none!important}}'
+    '@media (prefers-reduced-motion:reduce){html.r26x-navcta .r26-nav-cta{animation:none}.r26x-awrap,.r26x-chev,.r26x-wi,.r26x-menu,.r26x-menu a,.r26-nav-link::after,.r26-footer-link::after{transition:none!important}.r26x-glow{animation:none!important}.r26x-wi{transform:none!important}}'
   ].join('');
 
   var style = d.createElement('style');
@@ -163,6 +187,10 @@
         if (map[i][0].test(t)) { a.setAttribute('href', map[i][1]); return; }
       }
       if (/book|call|start with|contact/.test(t)) a.setAttribute('href', '/booking');
+    });
+    /* booking links land on the form, not the top of /booking */
+    d.querySelectorAll('a[href]').forEach(function (a) {
+      if (/^(https?:\/\/(www\.)?buildwithbpp\.com)?\/booking\/?$/.test(a.getAttribute('href'))) a.setAttribute('href', '/booking#book');
     });
   }
 
@@ -327,6 +355,12 @@
         img.src = BRAND_MARK;
         img.alt = '';
         img.className = pair[1];
+        if (pair[0] === '.r26-nav-brand' && !el.querySelector('.r26x-brandtxt')) {
+          var txt = d.createElement('span');
+          txt.className = 'r26x-brandtxt';
+          while (el.firstChild) txt.appendChild(el.firstChild);
+          el.appendChild(txt);
+        }
         el.insertBefore(img, el.firstChild);
       });
     });
@@ -352,14 +386,18 @@
         chev.className = 'r26x-chev';
         chev.setAttribute('aria-hidden', 'true');
         q.classList.add('r26x-q');
+        /* keep the heading a heading; the control is a button inside it */
+        var btn = d.createElement('button');
+        btn.type = 'button';
+        btn.className = 'r26x-qbtn';
+        while (q.firstChild) btn.appendChild(q.firstChild);
+        q.appendChild(btn);
         q.appendChild(chev);
-        q.setAttribute('role', 'button');
-        q.setAttribute('tabindex', '0');
-        q.setAttribute('aria-controls', wrap.id);
+        btn.setAttribute('aria-controls', wrap.id);
 
         function setOpen(open, instant) {
           item.classList.toggle('r26x-open', open);
-          q.setAttribute('aria-expanded', open ? 'true' : 'false');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
           if (REDUCED || instant) {
             wrap.style.transition = 'none';
             wrap.style.height = open ? 'auto' : '0px';
@@ -382,9 +420,6 @@
         }
         function toggle() { setOpen(!item.classList.contains('r26x-open')); }
         q.addEventListener('click', toggle);
-        q.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-        });
         setOpen(true, true); /* all answers visible by default; still collapsible */
       });
     });
@@ -450,6 +485,117 @@
     });
     window.addEventListener('resize', function () {
       if (window.innerWidth > 767) set(false);
+    });
+  }
+
+  /* --------------------------------- mobile header Book a Call (B1)
+     The pill doesn't fit beside the full wordmark on phones, so at the top
+     the header is unchanged; past the hero the wordmark folds to the
+     monogram (still read by screen readers) and the pill shows. */
+  function navCta() {
+    if (!d.querySelector('.r26-nav-cta')) return;
+    var root = d.documentElement, on = false, raf = 0;
+    function check() {
+      raf = 0;
+      var s = window.scrollY > window.innerHeight * 0.6;
+      if (s !== on) { on = s; root.classList.toggle('r26x-navcta', s); }
+    }
+    window.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(check); }, { passive: true });
+    check();
+  }
+
+  /* -------------------------------------- same-page anchors below the nav
+     webflow.js scrolls #links to the very top, under the fixed nav. Capture
+     phase so it runs first; skips anything already handled (the /booking
+     script owns #book) and Webflow tab/slider/dropdown links. */
+  function anchorOffset() {
+    function go(id, smooth) {
+      var t = d.getElementById(id);
+      if (!t) return false;
+      var nav = d.querySelector('.r26-nav');
+      var y = t.getBoundingClientRect().top + window.pageYOffset - ((nav ? nav.getBoundingClientRect().height : 72) + 8);
+      y = Math.max(0, y);
+      if (window.__r26lenis && smooth && !REDUCED) window.__r26lenis.scrollTo(y);
+      else window.scrollTo({ top: y, behavior: smooth && !REDUCED ? 'smooth' : 'auto' });
+      return true;
+    }
+    d.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button) return;
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a || a.hasAttribute('data-w-tab') || a.getAttribute('role') === 'tab' || a.closest('.w-tabs,.w-slider,.w-dropdown,.w-lightbox')) return;
+      var id = decodeURIComponent(a.getAttribute('href').slice(1));
+      if (!id || !d.getElementById(id)) return;
+      e.preventDefault();
+      e.stopPropagation();
+      var bg = d.querySelector('.r26x-burger.r26x-on');
+      if (bg) bg.click();
+      go(id, true);
+      if (history.replaceState) history.replaceState(null, '', '#' + id);
+    }, true);
+    var h = decodeURIComponent((location.hash || '').slice(1));
+    if (h && h !== 'book' && d.getElementById(h)) {
+      [0, 400, 1200].forEach(function (ms) { setTimeout(function () { go(h, false); }, ms); });
+      window.addEventListener('load', function () { setTimeout(function () { go(h, false); }, 60); });
+    }
+  }
+
+  /* ---------------------------------------- phone/email -> tap to call/mail */
+  function autolink() {
+    var RX = /\(813\)\s314-7552|info@buildwithbpp\.com/g, HAS = /\(813\)\s314-7552|info@buildwithbpp\.com/;
+    var skip = 'a,button,script,style,noscript,textarea,select,option,label,svg,title,[contenteditable],#ci-root';
+    var walker = d.createTreeWalker(d.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        var p = n.parentElement;
+        return HAS.test(n.nodeValue) && p && !p.closest(skip) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    var list = [];
+    while (walker.nextNode()) list.push(walker.currentNode);
+    list.forEach(function (n) {
+      var s = n.nodeValue, frag = d.createDocumentFragment(), last = 0, m;
+      RX.lastIndex = 0;
+      while ((m = RX.exec(s))) {
+        frag.appendChild(d.createTextNode(s.slice(last, m.index)));
+        var a = d.createElement('a');
+        a.className = 'r26x-autolink';
+        a.href = m[0].charAt(0) === '(' ? 'tel:+18133147552' : 'mailto:info@buildwithbpp.com';
+        a.textContent = m[0];
+        frag.appendChild(a);
+        last = RX.lastIndex;
+      }
+      frag.appendChild(d.createTextNode(s.slice(last)));
+      n.parentNode.replaceChild(frag, n);
+    });
+  }
+
+  /* ------------------------------ logo rows: even rows, no orphan logo */
+  function balanceLogos() {
+    var rows = d.querySelectorAll('.r26-logos-row');
+    if (!rows.length) return;
+    function fit() {
+      rows.forEach(function (row) {
+        row.style.maxWidth = '';
+        var kids = row.children, n = kids.length;
+        if (n < 3) return;
+        var w = 0;
+        for (var i = 0; i < n; i++) w = Math.max(w, kids[i].getBoundingClientRect().width);
+        if (!w) return;
+        var gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+        var per = Math.max(1, Math.floor((row.clientWidth + gap) / (w + gap)));
+        if (per >= n) return;
+        var even = Math.ceil(n / Math.ceil(n / per));
+        row.style.maxWidth = Math.ceil(even * w + (even - 1) * gap + 2) + 'px';
+        row.style.marginLeft = 'auto';
+        row.style.marginRight = 'auto';
+      });
+    }
+    var t = 0;
+    function later() { clearTimeout(t); t = setTimeout(fit, 120); }
+    fit();
+    window.addEventListener('resize', later);
+    /* lazy logos are 0px wide until they load */
+    rows.forEach(function (row) {
+      row.querySelectorAll('img').forEach(function (img) { if (!img.complete) img.addEventListener('load', later); });
     });
   }
 
@@ -581,7 +727,7 @@
       (function poll() {
         if (window.gsap) {
           var s = d.createElement('script');
-          s.src = 'https://cdn.jsdelivr.net/npm/gsap@3/dist/SplitText.min.js';
+          s.src = 'https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js';
           s.onload = function () {
             try {
               window.gsap.registerPlugin(window.SplitText);
@@ -1085,16 +1231,16 @@
     catch (e) { /* leave the CSS stand-in in place */ }
   }
 
-  /* Subhero constellations (about/packages/booking/referral) keep Three.js;
-     the home page never loads it. */
+  /* Subhero constellations (about/packages/booking/referral/service pages)
+     keep Three.js on desktop; the home page never loads it. */
   function init3D() {
-    if (REDUCED) return;
+    if (REDUCED || window.innerWidth < 768) return;
     var subhero = d.querySelector('.r26-subhero');
     if (!subhero) return;
     function start() {
       import(THREE_URL).then(function (THREE) {
         try {
-          var about = PATH.indexOf('about-redesign') !== -1;
+          var about = /^\/about(-redesign)?\/?$/.test(PATH);
           constellation(THREE, subhero, about
             ? { n: 130, r: 2.3, x: 2.1, link: 0.42, lineOpacity: 0.3 }
             : { n: 80, r: 2.6, x: 2.4, link: 0.4, lineOpacity: 0.18 });
@@ -1109,12 +1255,16 @@
   function boot() {
     fixRawImages();
     repairLinks();
+    autolink();
     brandLogo();
     videoFacade();
     slider();
     accordion();
     mobileMenu();
     navState();
+    navCta();
+    anchorOffset();
+    balanceLogos();
     magnetic();
     tilt();
     cursor();
