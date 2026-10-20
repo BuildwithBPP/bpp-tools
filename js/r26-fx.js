@@ -34,6 +34,8 @@
  * phones too (1.9.0 turned it off under 768px; Eli brought it back 10/20).
  * Tablet (768-991px): the nav folds the wordmark to the monogram so a 5th
  * nav link fits on one row.
+ * Mobile menu (1.9.3): links to other pages keep the menu up until the next
+ * page paints (no fade back to the old page); same-page links close it.
  * Touch devices (1.9.2): 3D dots at 1.5x resolution, no antialias, 30fps, and
  * paused while the finger is scrolling; home canvas at 1.5x and 30fps when
  * idle; no backdrop blur on the scrolled header; no hero parallax. Home H1
@@ -495,8 +497,17 @@
       set(!menu.classList.contains('r26x-on'));
     });
     menu.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') set(false);
+      var a = e.target.closest && e.target.closest('a');
+      if (!a) return;
+      /* 1.9.3: a link to another page keeps the menu up until the next page
+         paints. Closing it first faded the menu back over the old page for a
+         beat (looked like a glitch on phones). Same-page #links still close. */
+      var u; try { u = new URL(a.href, location.href); } catch (err) { set(false); return; }
+      var samePage = u.origin === location.origin && u.pathname.replace(/\/$/, '') === location.pathname.replace(/\/$/, '');
+      if (samePage || a.target === '_blank' || e.metaKey || e.ctrlKey) set(false);
     });
+    /* back/forward cache restores the page as it was left: menu open */
+    window.addEventListener('pageshow', function (e) { if (e.persisted) set(false); });
     d.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') set(false);
     });
