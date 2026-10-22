@@ -40,6 +40,12 @@
  * indented sub-links in the phone menu; the
  * phone menu scrolls when taller than the screen; /path#id links on the
  * same page land below the nav.
+ * Nav (1.9.6, Eli 10/22 after a blind nav gauntlet vs ZenPilot): a Services
+ * dropdown (NAV_SUB '/#services', AI first, "Starting out" group for LLC/EIN
+ * and business plans) and Resources labels that say Free. Phone menu: items
+ * with sub-links fold into tap-to-open rows (first sub-link = "All ..."), the
+ * nav bar sits above the open menu so the close X shows (it was hidden under
+ * the menu), and the in-menu brand tag is gone.
  * Mobile menu (1.9.3): links to other pages keep the menu up until the next
  * page paints (no fade back to the old page); same-page links close it.
  * Touch devices (1.9.2): 3D dots at 1.5x resolution, no antialias, 30fps, and
@@ -108,6 +114,9 @@
     /* tablet: 5 nav links + CTA on one row (aios-00, verified 768-1024) */
     '.r26-nav-link,.r26-nav-cta{white-space:nowrap}',
     '@media (min-width:768px) and (max-width:991px){.r26-nav-links{grid-column-gap:22px;column-gap:22px;gap:22px}.r26x-brandtxt{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}',
+    /* 1.9.6: small laptops (992-1199px): 5 links + 2 chevrons need tighter gaps so the wordmark keeps its room */
+    '@media (min-width:992px) and (max-width:1099px){.r26-nav-links{grid-column-gap:18px!important;column-gap:18px!important;gap:18px!important}.r26-nav-inner{padding-left:32px!important;padding-right:32px!important}}',
+    '@media (min-width:1100px) and (max-width:1199px){.r26-nav-links{grid-column-gap:24px!important;column-gap:24px!important;gap:24px!important}.r26-nav-inner{padding-left:48px!important;padding-right:48px!important}}',
     '.r26x-menu{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,#033359 0%,#044771 100%);display:flex;flex-direction:column;justify-content:flex-start;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:6rem 2.25rem 3rem;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility 0s linear .4s}',
     '.r26x-menu.r26x-on{opacity:1;visibility:visible;transition:opacity .4s ease}',
     '.r26x-menu a{font-family:Montserrat,sans-serif;color:#fff;text-decoration:none;font-size:1.75rem;font-weight:700;padding:.65rem 0;letter-spacing:-.01em;transform:translateY(18px);opacity:0;transition:transform .55s cubic-bezier(.16,1,.3,1),opacity .45s ease}',
@@ -130,6 +139,19 @@
     '.r26x-dd-panel a:hover,.r26x-dd-panel a:focus-visible{background:rgba(241,190,92,.14);color:#F1BE5C;outline:none}',
     '.r26x-menu .r26x-menu-cta{display:inline-block;margin-top:1.5rem;background:#F1BE5C;color:#033359;border-radius:999px;padding:.9rem 1.9rem;font-size:1.05rem;text-align:center}',
     '.r26x-menu .r26x-menu-tag{color:#5987A5;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.25rem;font-family:Montserrat,sans-serif;font-weight:600}',
+    /* 1.9.6: group label inside a dropdown ("Starting out") */
+    '.r26x-dd-panel .r26x-dd-grp{margin:6px 6px 0;padding:10px 8px 4px;border-top:1px solid rgba(255,255,255,.16);font-family:Poppins,sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.62);list-style:none}',
+    /* 1.9.6: the nav bar stays above the open phone menu, so the close X and wordmark show */
+    'html.r26x-mopen .r26-nav{z-index:1002!important}',
+    /* 1.9.6: phone menu rows that fold their sub-links */
+    '.r26x-menu .r26x-menu-row{display:inline-flex;align-items:center;gap:.5rem;align-self:flex-start;background:transparent;border:0;margin:0;cursor:pointer;text-align:left;font-family:Montserrat,sans-serif;color:#fff;font-size:1.75rem;font-weight:700;padding:.65rem 0;letter-spacing:-.01em;transform:translateY(18px);opacity:0;transition:transform .55s cubic-bezier(.16,1,.3,1),opacity .45s ease}',
+    '.r26x-menu.r26x-on .r26x-menu-row{transform:none;opacity:1}',
+    '.r26x-menu .r26x-menu-row::after{content:"";width:.42em;height:.42em;border-right:2.5px solid #F1BE5C;border-bottom:2.5px solid #F1BE5C;transform:translateY(-.18em) rotate(45deg);transition:transform .25s ease}',
+    '.r26x-menu .r26x-menu-row[aria-expanded="true"]::after{transform:translateY(.08em) rotate(225deg)}',
+    '.r26x-menu .r26x-menu-row:focus-visible{outline:2px solid #F1BE5C;outline-offset:4px;border-radius:6px}',
+    '.r26x-menu .r26x-menu-subs{display:flex;flex-direction:column;padding:0 0 .4rem}',
+    '.r26x-menu .r26x-menu-subs[hidden]{display:none!important}',
+    '.r26x-menu .r26x-menu-grp{font-family:Poppins,sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.62);padding:.75rem 0 .25rem 1.15rem}',
     'body.r26x-lock{overflow:hidden}',
     /* card tilt + sheen */
     '.r26x-tilt{will-change:transform}',
@@ -199,7 +221,7 @@
     /* logo rows: 3 across on small phones */
     '@media (max-width:479px){.r26-logos-row{grid-column-gap:24px;column-gap:24px}}',
     /* reduced motion: kill our transitions/animations */
-    '@media (prefers-reduced-motion:reduce){html.r26x-navcta .r26-nav-cta{animation:none}.r26x-dd-panel,.r26x-dd-btn svg{transition:none!important}.r26x-awrap,.r26x-chev,.r26x-wi,.r26x-menu,.r26x-menu a,.r26-nav-link::after,.r26-footer-link::after{transition:none!important}.r26x-glow{animation:none!important}.r26x-wi{transform:none!important}}'
+    '@media (prefers-reduced-motion:reduce){html.r26x-navcta .r26-nav-cta{animation:none}.r26x-dd-panel,.r26x-dd-btn svg{transition:none!important}.r26x-awrap,.r26x-chev,.r26x-wi,.r26x-menu,.r26x-menu a,.r26x-menu .r26x-menu-row,.r26x-menu .r26x-menu-row::after,.r26-nav-link::after,.r26-footer-link::after{transition:none!important}.r26x-glow{animation:none!important}.r26x-wi{transform:none!important}}'
   ].join('');
 
   var style = d.createElement('style');
@@ -471,20 +493,33 @@
      so the Resources submenu lives here, keyed by the link's path (identical
      on every page). A data-r26-sub JSON attribute still overrides if one ever
      becomes possible. Section ids (#tools/#guides/#premium) live on /resources. */
+  /* 1.9.6: keys may carry a hash ('/#services' = the Services nav link, which
+     lands on the home "What we build" section). { g: '...' } is a group label. */
   var NAV_SUB = {
+    '/#services': [
+      { t: 'AI Automation', h: '/ai-automation' },
+      { t: 'HubSpot CRM Setup', h: '/hubspot-crm-setup' },
+      { t: 'Process Mapping & SOPs', h: '/process-mapping-sops' },
+      { t: 'QuickBooks Setup & Cleanup', h: '/quickbooks-setup-cleanup' },
+      { t: 'Website Design', h: '/website-design' },
+      { g: 'Starting out' },
+      { t: 'LLC Formation & EIN', h: '/llc-formation-ein' },
+      { t: 'Business Plan Writing', h: '/business-plan-writer-tampa' }
+    ],
     '/resources': [
-      { t: 'Interactive Tools', h: '/resources#tools' },
-      { t: 'Guides & Templates', h: '/resources#guides' },
-      { t: 'Premium', h: '/resources#premium' }
+      { t: 'Free Tools', h: '/resources#tools' },
+      { t: 'Free Guides & Templates', h: '/resources#guides' },
+      { t: 'AI Operator Pack (coming soon)', h: '/resources#premium' }
     ]
   };
   function subItems(a) {
     var raw = a.getAttribute('data-r26-sub');
     if (raw) {
-      try { var v = JSON.parse(raw); if (Array.isArray(v)) return v.filter(function (it) { return it && it.t && it.h; }); } catch (e) {}
+      try { var v = JSON.parse(raw); if (Array.isArray(v)) return v.filter(function (it) { return it && (it.g || (it.t && it.h)); }); } catch (e) {}
     }
-    var path; try { path = new URL(a.href, location.href).pathname.replace(/\/$/, ''); } catch (e) { return []; }
-    return NAV_SUB[path] || [];
+    var u; try { u = new URL(a.href, location.href); } catch (e) { return []; }
+    var path = u.pathname.replace(/\/$/, '') || '/';
+    return NAV_SUB[path + u.hash] || NAV_SUB[path] || [];
   }
 
   /* ------------------------------------------- nav dropdown (1.9.5)
@@ -520,7 +555,9 @@
       panel.className = 'r26x-dd-panel';
       panel.id = id;
       items.forEach(function (it) {
-        var li = d.createElement('li'), s = d.createElement('a');
+        var li = d.createElement('li');
+        if (it.g) { li.className = 'r26x-dd-grp'; li.textContent = it.g; panel.appendChild(li); return; }
+        var s = d.createElement('a');
         s.href = it.h;
         s.textContent = it.t;
         li.appendChild(s);
@@ -558,33 +595,64 @@
     burger.innerHTML = '<span></span><span></span><span></span>';
     inner.appendChild(burger);
 
+    /* 1.9.6: no brand tag inside the menu. The nav bar now stays above the
+       open menu (html.r26x-mopen), so its wordmark and the close X show. */
     var menu = d.createElement('nav');
     menu.className = 'r26x-menu';
     menu.setAttribute('aria-label', 'Mobile');
-    var tag = d.createElement('div');
-    tag.className = 'r26x-menu-tag';
-    var tagMark = d.createElement('img');
-    tagMark.src = BRAND_MARK;
-    tagMark.alt = '';
-    tagMark.className = 'r26x-brandmark-m';
-    tag.appendChild(tagMark);
-    tag.appendChild(d.createTextNode('Business Plans Plus'));
-    menu.appendChild(tag);
     var links = d.querySelectorAll('.r26-nav-links a.r26-nav-link'), k = 0;
-    links.forEach(function (a) {
-      var c = d.createElement('a');
-      c.href = a.getAttribute('href');
-      c.textContent = a.textContent;
-      c.style.transitionDelay = (0.05 + k++ * 0.06) + 's';
-      menu.appendChild(c);
-      subItems(a).forEach(function (it) {
+    links.forEach(function (a, n) {
+      var label = (a.textContent || '').trim();
+      var items = subItems(a);
+      if (!items.length) {
+        var c = d.createElement('a');
+        c.href = a.getAttribute('href');
+        c.textContent = label;
+        c.style.transitionDelay = (0.05 + k++ * 0.06) + 's';
+        menu.appendChild(c);
+        return;
+      }
+      /* 1.9.6: items with sub-links fold into a tap-to-open row, so the menu
+         stays short and Book a Call stays on screen. The first sub-link goes
+         where the parent link goes ("All services", "All resources"). */
+      var id = 'r26x-ms-' + n;
+      var row = d.createElement('button');
+      row.type = 'button';
+      row.className = 'r26x-menu-row';
+      row.setAttribute('aria-expanded', 'false');
+      row.setAttribute('aria-controls', id);
+      row.textContent = label;
+      row.style.transitionDelay = (0.05 + k++ * 0.06) + 's';
+      var subs = d.createElement('div');
+      subs.className = 'r26x-menu-subs';
+      subs.id = id;
+      subs.hidden = true;
+      var all = d.createElement('a');
+      all.href = a.getAttribute('href');
+      all.textContent = 'All ' + label.toLowerCase();
+      all.className = 'r26x-menu-sub';
+      subs.appendChild(all);
+      items.forEach(function (it) {
+        if (it.g) {
+          var g = d.createElement('div');
+          g.className = 'r26x-menu-grp';
+          g.textContent = it.g;
+          subs.appendChild(g);
+          return;
+        }
         var sc = d.createElement('a');
         sc.href = it.h;
         sc.textContent = it.t;
         sc.className = 'r26x-menu-sub';
-        sc.style.transitionDelay = (0.05 + k++ * 0.06) + 's';
-        menu.appendChild(sc);
+        subs.appendChild(sc);
       });
+      row.addEventListener('click', function () {
+        var open = row.getAttribute('aria-expanded') !== 'true';
+        row.setAttribute('aria-expanded', open ? 'true' : 'false');
+        subs.hidden = !open;
+      });
+      menu.appendChild(row);
+      menu.appendChild(subs);
     });
     var cta = d.querySelector('.r26-nav-cta');
     if (cta) {
@@ -601,6 +669,7 @@
       burger.classList.toggle('r26x-on', open);
       menu.classList.toggle('r26x-on', open);
       d.body.classList.toggle('r26x-lock', open);
+      d.documentElement.classList.toggle('r26x-mopen', open);
       burger.setAttribute('aria-expanded', open ? 'true' : 'false');
       burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     }
