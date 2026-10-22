@@ -40,6 +40,8 @@
  * indented sub-links in the phone menu; the
  * phone menu scrolls when taller than the screen; /path#id links on the
  * same page land below the nav.
+ * Calm pages (1.9.7, 2026-10-22): any element with data-r26-calm turns off the
+ *   decorative motion layer for that page; used by the home v2 redesign.
  * Nav (1.9.6, Eli 10/22 after a blind nav gauntlet vs ZenPilot): a Services
  * dropdown (NAV_SUB '/#services', AI first, "Starting out" group for LLC/EIN
  * and business plans) and Resources labels that say Free. Phone menu: items
@@ -1461,6 +1463,10 @@
     navCta();
     anchorOffset();
     balanceLogos();
+    /* 1.9.7: a page opts out of decorative motion with data-r26-calm on any
+       element (cursor, tilt, magnetic, split text, parallax, glow, hero canvas,
+       3D). Nav, menus, links, images, sliders and accordions still run. */
+    if (d.querySelector('[data-r26-calm]')) { d.documentElement.classList.add('r26x-calm'); return; }
     magnetic();
     tilt();
     cursor();
