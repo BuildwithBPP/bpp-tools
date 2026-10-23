@@ -42,7 +42,7 @@
  * same page land below the nav.
  * Calm pages (1.9.7, 2026-10-22): any element with data-r26-calm turns off the
  *   decorative motion layer for that page; used by the home v2 redesign.
- * Logo marquee + referral (1.9.9, Eli 2026-10-23): every client-logo strip
+ * Logo marquee + referral (1.9.9-1.9.10, Eli 2026-10-23; 1.9.10 adds logo width/height so loading doesn't shift the row): every client-logo strip
  *   (.r26-svc-trust-logos, .r26-proof-logos, .r26-hm-logos-set) becomes one
  *   continuous left-to-right loop of the full client list (LOGOS below); the
  *   page's own logos are the no-JS fallback. Pauses on hover/focus; reduced
@@ -817,18 +817,18 @@
      with empty alt text so screen readers hear each client once. */
   var LOGO_BASE = 'https://cdn.prod.website-files.com/699f9483b49696115c2aff2c/';
   var LOGOS = [
-    ['69c937c365594898a9c54dc9_Tier%20One%20Solar.png', 'Tier 1 Solar'],
-    ['6adb9464b86e58b641766c18_cs-sfk-logo-240.png', 'SEEDFOLKids'],
-    ['69c93aadc8ba7a7dbd2a7dc3_Xtremely%20Clean.png', 'Xtremely Clean Janitorial Services'],
-    ['6adbaf284826b09289eee58f_client-logo-sipsies-lemonade.png', 'Sipsies Lemonade'],
-    ['69c937c3a53561d113dac9e4_Legacy%20Roofing%20And%20Construction.png', 'Legacy Roofing and Construction'],
-    ['69c937c3c7c47b666b3a1230_Remember%20Wynn.png', 'Remember Wynn Productions'],
-    ['6adbaf2a4826b09289eee663_client-logo-legacy-b-studio.png', 'Legacy B. Studio'],
-    ['69c93aadc63e739bf6d50b3b_WWCB.png', 'What We Could Be Exchange'],
-    ['69c937c3bbc98b6a8ed22ca5_Deedy%27s%20Senior%20care.png', "Deedy's Bryse Senior Care"],
-    ['69c7d7146047924493618260_Untitled%20(100%20x%20100%20px)%20(100%20x%2050%20px)%20(2).png', 'Black Business Bus Tour'],
-    ['69c937c303244279d3015cae_Grace%20walks.png', 'GraceWalks'],
-    ['69c82acf4974e4951ea38662_The%20Best%20Blue%20Velvet.png', 'The Best Blue Velvet']
+    ['69c937c365594898a9c54dc9_Tier%20One%20Solar.png', 'Tier 1 Solar', 100, 50],
+    ['6adb9464b86e58b641766c18_cs-sfk-logo-240.png', 'SEEDFOLKids', 240, 130],
+    ['69c93aadc8ba7a7dbd2a7dc3_Xtremely%20Clean.png', 'Xtremely Clean Janitorial Services', 100, 50],
+    ['6adbaf284826b09289eee58f_client-logo-sipsies-lemonade.png', 'Sipsies Lemonade', 124, 100],
+    ['69c937c3a53561d113dac9e4_Legacy%20Roofing%20And%20Construction.png', 'Legacy Roofing and Construction', 100, 50],
+    ['69c937c3c7c47b666b3a1230_Remember%20Wynn.png', 'Remember Wynn Productions', 100, 50],
+    ['6adbaf2a4826b09289eee663_client-logo-legacy-b-studio.png', 'Legacy B. Studio', 302, 100],
+    ['69c93aadc63e739bf6d50b3b_WWCB.png', 'What We Could Be Exchange', 100, 50],
+    ['69c937c3bbc98b6a8ed22ca5_Deedy%27s%20Senior%20care.png', "Deedy's Bryse Senior Care", 100, 50],
+    ['69c7d7146047924493618260_Untitled%20(100%20x%20100%20px)%20(100%20x%2050%20px)%20(2).png', 'Black Business Bus Tour', 100, 50],
+    ['69c937c303244279d3015cae_Grace%20walks.png', 'GraceWalks', 100, 50],
+    ['69c82acf4974e4951ea38662_The%20Best%20Blue%20Velvet.png', 'The Best Blue Velvet', 100, 50]
   ];
   function marquee() {
     d.querySelectorAll('.r26-svc-trust-logos, .r26-proof-logos, .r26-hm-logos-set').forEach(function (box) {
@@ -851,6 +851,7 @@
           var img = d.createElement('img');
           img.src = LOGO_BASE + LOGOS[i][0];
           img.alt = k ? '' : LOGOS[i][1];
+          img.width = LOGOS[i][2]; img.height = LOGOS[i][3]; /* reserves each logo's width before it loads (no sideways shift) */
           if (cls) img.className = cls;
           img.decoding = 'async';
           set.appendChild(img);
