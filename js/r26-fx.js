@@ -42,6 +42,12 @@
  * same page land below the nav.
  * Calm pages (1.9.7, 2026-10-22): any element with data-r26-calm turns off the
  *   decorative motion layer for that page; used by the home v2 redesign.
+ * Logo marquee + referral (1.9.9, Eli 2026-10-23): every client-logo strip
+ *   (.r26-svc-trust-logos, .r26-proof-logos, .r26-hm-logos-set) becomes one
+ *   continuous left-to-right loop of the full client list (LOGOS below); the
+ *   page's own logos are the no-JS fallback. Pauses on hover/focus; reduced
+ *   motion gets one still, centered, wrapping row. The Resources dropdown
+ *   gains a "Partners" group with the Referral Program.
  * Phones + FAQ (1.9.8, 2026-10-23 polish sweep): no word-by-word H1 reveal under
  *   768px (each word span made the heading line taller once it ran, which
  *   pushed the page down: layout shift 0.21 on /resources, 0.09 on home).
@@ -227,6 +233,16 @@
     'a.r26x-autolink:hover{text-decoration-color:#F1BE5C}',
     /* logo rows: 3 across on small phones */
     '@media (max-width:479px){.r26-logos-row{grid-column-gap:24px;column-gap:24px}}',
+    /* logo marquee (1.9.9) */
+    '.r26x-mq-host{display:block!important;width:100%;overflow:hidden;min-width:0;max-width:none!important}',
+    '.r26x-mq{overflow:hidden;width:100%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%)}',
+    '.r26x-mq-track{display:flex;width:max-content;animation:r26x-mq 50s linear infinite;will-change:transform}',
+    '.r26x-mq-set{display:flex;align-items:center;flex:none}',
+    '.r26x-mq-set>img{flex:none;max-width:none;margin:0 56px 0 0}',
+    '.r26x-mq:hover .r26x-mq-track,.r26x-mq:focus-within .r26x-mq-track{animation-play-state:paused}',
+    '@keyframes r26x-mq{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}',
+    '@media (max-width:767px){.r26x-mq-set>img{margin-right:36px}.r26x-mq-track{animation-duration:38s}}',
+    '@media (prefers-reduced-motion:reduce){.r26x-mq-track{animation:none;width:auto}.r26x-mq-set{flex:1 1 auto;flex-wrap:wrap;justify-content:center;row-gap:20px}.r26x-mq-set>img{margin:0 18px}.r26x-mq-set[aria-hidden]{display:none}.r26x-mq{-webkit-mask-image:none;mask-image:none}}',
     /* reduced motion: kill our transitions/animations */
     '@media (prefers-reduced-motion:reduce){html.r26x-navcta .r26-nav-cta{animation:none}.r26x-dd-panel,.r26x-dd-btn svg{transition:none!important}.r26x-awrap,.r26x-chev,.r26x-wi,.r26x-menu,.r26x-menu a,.r26x-menu .r26x-menu-row,.r26x-menu .r26x-menu-row::after,.r26-nav-link::after,.r26-footer-link::after{transition:none!important}.r26x-glow{animation:none!important}.r26x-wi{transform:none!important}}'
   ].join('');
@@ -516,7 +532,9 @@
     '/resources': [
       { t: 'Free Tools', h: '/resources#tools' },
       { t: 'Free Guides & Templates', h: '/resources#guides' },
-      { t: 'AI Operator Pack (coming soon)', h: '/resources#premium' }
+      { t: 'AI Operator Pack (coming soon)', h: '/resources#premium' },
+      { g: 'Partners' },
+      { t: 'Referral Program', h: '/referral' }
     ]
   };
   function subItems(a) {
@@ -792,11 +810,65 @@
   }
 
   /* ------------------------------ logo rows: even rows, no orphan logo */
+  /* ------------------------------------------------ logo marquee (1.9.9)
+     One client list for every strip, so a new client logo is one line here.
+     Two copies of the set sit in the track; the track slides from -50% to 0
+     (left to right) and loops seamlessly. The second copy is aria-hidden
+     with empty alt text so screen readers hear each client once. */
+  var LOGO_BASE = 'https://cdn.prod.website-files.com/699f9483b49696115c2aff2c/';
+  var LOGOS = [
+    ['69c937c365594898a9c54dc9_Tier%20One%20Solar.png', 'Tier 1 Solar'],
+    ['6adb9464b86e58b641766c18_cs-sfk-logo-240.png', 'SEEDFOLKids'],
+    ['69c93aadc8ba7a7dbd2a7dc3_Xtremely%20Clean.png', 'Xtremely Clean Janitorial Services'],
+    ['6adbaf284826b09289eee58f_client-logo-sipsies-lemonade.png', 'Sipsies Lemonade'],
+    ['69c937c3a53561d113dac9e4_Legacy%20Roofing%20And%20Construction.png', 'Legacy Roofing and Construction'],
+    ['69c937c3c7c47b666b3a1230_Remember%20Wynn.png', 'Remember Wynn Productions'],
+    ['6adbaf2a4826b09289eee663_client-logo-legacy-b-studio.png', 'Legacy B. Studio'],
+    ['69c93aadc63e739bf6d50b3b_WWCB.png', 'What We Could Be Exchange'],
+    ['69c937c3bbc98b6a8ed22ca5_Deedy%27s%20Senior%20care.png', "Deedy's Bryse Senior Care"],
+    ['69c7d7146047924493618260_Untitled%20(100%20x%20100%20px)%20(100%20x%2050%20px)%20(2).png', 'Black Business Bus Tour'],
+    ['69c937c303244279d3015cae_Grace%20walks.png', 'GraceWalks'],
+    ['69c82acf4974e4951ea38662_The%20Best%20Blue%20Velvet.png', 'The Best Blue Velvet']
+  ];
+  function marquee() {
+    d.querySelectorAll('.r26-svc-trust-logos, .r26-proof-logos, .r26-hm-logos-set').forEach(function (box) {
+      if (box.getAttribute('data-r26-mq')) return;
+      var first = box.querySelector('img, imgraw');
+      if (!first) return;
+      var cls = (first.getAttribute('class') || '').split(/\s+/);
+      cls = cls.filter(function (c, i) { return c && cls.indexOf(c) === i; }).join(' ');
+      box.setAttribute('data-r26-mq', '1');
+      [].slice.call(box.querySelectorAll('img, imgraw')).forEach(function (n) { n.parentNode.removeChild(n); });
+      var vp = d.createElement('div');
+      vp.className = 'r26x-mq';
+      var track = d.createElement('div');
+      track.className = 'r26x-mq-track';
+      for (var k = 0; k < 2; k++) {
+        var set = d.createElement('div');
+        set.className = 'r26x-mq-set';
+        if (k) set.setAttribute('aria-hidden', 'true');
+        for (var i = 0; i < LOGOS.length; i++) {
+          var img = d.createElement('img');
+          img.src = LOGO_BASE + LOGOS[i][0];
+          img.alt = k ? '' : LOGOS[i][1];
+          if (cls) img.className = cls;
+          img.decoding = 'async';
+          set.appendChild(img);
+        }
+        track.appendChild(set);
+      }
+      vp.appendChild(track);
+      box.appendChild(vp);
+      box.classList.add('r26x-mq-host');
+    });
+  }
+
   function balanceLogos() {
     var rows = d.querySelectorAll('.r26-logos-row, .r26-proof-logos');
     if (!rows.length) return;
     function fit() {
       rows.forEach(function (row) {
+        if (row.classList.contains('r26x-mq-host')) return;
         row.style.maxWidth = '';
         var kids = row.children, n = kids.length;
         if (n < 3) return;
@@ -1458,6 +1530,7 @@
   /* --------------------------------------------------------------- boot */
   function boot() {
     fixRawImages();
+    marquee();
     repairLinks();
     autolink();
     brandLogo();
