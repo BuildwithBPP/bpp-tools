@@ -42,6 +42,9 @@
  * same page land below the nav.
  * Calm pages (1.9.7, 2026-10-22): any element with data-r26-calm turns off the
  *   decorative motion layer for that page; used by the home v2 redesign.
+ * Services page (1.9.11, Eli 2026-10-23): the Services nav link now goes to
+ *   /services (the new all-services page); NAV_SUB keys it as '/services' and
+ *   keeps '/#services' as an alias for any page still on the old anchor.
  * Logo marquee + referral (1.9.9-1.9.10, Eli 2026-10-23; 1.9.10 adds logo width/height so loading doesn't shift the row): every client-logo strip
  *   (.r26-svc-trust-logos, .r26-proof-logos, .r26-hm-logos-set) becomes one
  *   continuous left-to-right loop of the full client list (LOGOS below); the
@@ -518,17 +521,20 @@
      becomes possible. Section ids (#tools/#guides/#premium) live on /resources. */
   /* 1.9.6: keys may carry a hash ('/#services' = the Services nav link, which
      lands on the home "What we build" section). { g: '...' } is a group label. */
+  /* 1.9.11: the Services link moved to /services; '/#services' stays as an alias. */
+  var SVC_SUB = [
+    { t: 'AI Automation', h: '/ai-automation' },
+    { t: 'HubSpot CRM Setup', h: '/hubspot-crm-setup' },
+    { t: 'Process Mapping & SOPs', h: '/process-mapping-sops' },
+    { t: 'QuickBooks Setup & Cleanup', h: '/quickbooks-setup-cleanup' },
+    { t: 'Website Design', h: '/website-design' },
+    { g: 'Starting out' },
+    { t: 'LLC Formation & EIN', h: '/llc-formation-ein' },
+    { t: 'Business Plan Writing', h: '/business-plan-writer-tampa' }
+  ];
   var NAV_SUB = {
-    '/#services': [
-      { t: 'AI Automation', h: '/ai-automation' },
-      { t: 'HubSpot CRM Setup', h: '/hubspot-crm-setup' },
-      { t: 'Process Mapping & SOPs', h: '/process-mapping-sops' },
-      { t: 'QuickBooks Setup & Cleanup', h: '/quickbooks-setup-cleanup' },
-      { t: 'Website Design', h: '/website-design' },
-      { g: 'Starting out' },
-      { t: 'LLC Formation & EIN', h: '/llc-formation-ein' },
-      { t: 'Business Plan Writing', h: '/business-plan-writer-tampa' }
-    ],
+    '/services': SVC_SUB,
+    '/#services': SVC_SUB,
     '/resources': [
       { t: 'Free Tools', h: '/resources#tools' },
       { t: 'Free Guides & Templates', h: '/resources#guides' },
