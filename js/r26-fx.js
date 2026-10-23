@@ -17,7 +17,7 @@
  *  - H1 reveal: CSS word-by-word rise on the home and subhero H1s (no
  *    network dependency since 1.9.2).
  *  - White BPP monogram injected beside the nav/footer wordmarks
- *  - Interactive layer (all pages): FAQ accordion (answers open by default),
+ *  - Interactive layer (all pages): FAQ accordion (first answer open; 1.9.8),
  *    mobile menu, magnetic buttons ([data-magnetic]), 3D card tilt + gold
  *    sheen, custom cursor, scroll parallax, nav scroll state, CTA glow,
  *    link underline draw-ins.
@@ -42,6 +42,11 @@
  * same page land below the nav.
  * Calm pages (1.9.7, 2026-10-22): any element with data-r26-calm turns off the
  *   decorative motion layer for that page; used by the home v2 redesign.
+ * Phones + FAQ (1.9.8, 2026-10-23 polish sweep): no word-by-word H1 reveal under
+ *   768px (each word span made the heading line taller once it ran, which
+ *   pushed the page down: layout shift 0.21 on /resources, 0.09 on home).
+ *   FAQ lists open only the first answer; the rest stay in the page, collapsed.
+ *   Slider dots get a 44px-tall tap area.
  * Nav (1.9.6, Eli 10/22 after a blind nav gauntlet vs ZenPilot): a Services
  * dropdown (NAV_SUB '/#services', AI first, "Starting out" group for LLC/EIN
  * and business plans) and Resources labels that say Free. Phone menu: items
@@ -185,7 +190,7 @@
     '.r26x-slider-btn:focus-visible{outline:2px solid #F1BE5C;outline-offset:3px}',
     '.r26x-slider-dots{display:flex;gap:16px}',
     '.r26x-slider-dot{position:relative;width:9px;height:9px;border-radius:50%;border:0;padding:0;background:#C9D6E0;cursor:pointer;transition:background-color .25s ease,transform .25s ease}',
-    '.r26x-slider-dot::after{content:"";position:absolute;inset:-8px;border-radius:50%}',
+    '.r26x-slider-dot::after{content:"";position:absolute;inset:-18px -8px;border-radius:50%}', /* 1.9.8: 45px tall, no overlap with the next dot */
     '.r26x-slider-dot.r26x-on{background:#F1BE5C;transform:scale(1.25)}',
     /* youtube facade */
     '.r26x-video{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background-size:cover;background-position:center;cursor:pointer;box-shadow:0 18px 48px rgba(2,30,52,.28)}',
@@ -485,7 +490,7 @@
         }
         function toggle() { setOpen(!item.classList.contains('r26x-open')); }
         q.addEventListener('click', toggle);
-        setOpen(true, true); /* all answers visible by default; still collapsible */
+        setOpen(idx === 0, true); /* 1.9.8: first answer open, the rest collapsed (still in the page) */
       });
     });
   }
@@ -933,6 +938,8 @@
   /* ------------------------------------------------ split-text reveal */
   function splitReveal() {
     if (REDUCED) return;
+    /* 1.9.8: phones skip it; the word spans re-flowed the H1 and shifted the page */
+    if (window.matchMedia('(max-width: 767px)').matches) return;
     /* 1.9.2: the home H1 used to wait for gsap + SplitText downloads before it
        could show (largest paint 3.8-6.4s on phones). The CSS word reveal starts
        on the next frame with no network dependency. */
