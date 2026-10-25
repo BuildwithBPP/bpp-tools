@@ -1,5 +1,7 @@
 # BPP Tools — 2026 Industry-Standard Modernization Plan
 
+> **SUPERSEDED 2026-06-10 by [`2026-06-10-site-modernization-v2.md`](./2026-06-10-site-modernization-v2.md).** v2 raises the bar from "docs polish" to agency-grade craft + an AI-forward showcase layer, drops the Daunte sign-off gate, and fixes the page count (42, not 35). This file is kept for history. Read v2 for the live plan.
+
 ## Context
 
 The BPP Tools Hub (`buildwithbpp.github.io/bpp-tools/`) is a hand-authored static site: 30+ HTML pages, 405-line shared CSS, two JS files, no build step, no CI. It functions but is structurally behind 2026 standard for an internal docs/hub site. Goal is for it to feel comparable to Stripe Docs / Linear Docs / Vercel Docs in polish and feature set — a real modernization, not just hygiene fixes — while preserving the "free static hosting, no DevOps" deploy story.
