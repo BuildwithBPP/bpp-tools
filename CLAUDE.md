@@ -93,6 +93,15 @@ The hub is mobile responsive from the shared layer only — no page-by-page medi
 - Reference pages (ICP profiles, service packages, etc.) are self-contained HTML files linked from the hub but not styled by `styles.css`.
 - The content dashboard is loaded via iframe in `pages/marketing.html`.
 
+## SOPs (added 2026-10-27)
+
+- `pages/sops.html` is the index of every BPP SOP and playbook, grouped by department, and the **SOPs** nav tab points to it. Every new SOP gets a row there, and a card in the Library page's SOPs group so global search finds it.
+- **This repo is public.** SOP pages must not carry client names, amounts owed, or credentials.
+- SOP pages built from markdown, like `website-development-sop.html`, are **generated**. The markdown file in SharePoint is the source: edit it, then run `python3 scripts/build-sop-page.py "<path to the .md>" pages/<name>.html "<subtitle>"`.
+  - The script strips `<!-- internal -->` blocks.
+  - It refuses to build if any client folder name from the BPP workspace appears in the public text.
+- Never hand-edit a generated SOP page.
+
 ## Other BPP Repos
 
 | Repo | Purpose |

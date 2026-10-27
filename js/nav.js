@@ -10,6 +10,7 @@
     { id: 'home',        label: 'Home',        emoji: '🏠', href: base + 'index.html' },
     { id: 'departments', label: 'Departments', emoji: '🏢', href: base + 'pages/departments.html' },
     { id: 'library',     label: 'Library',     emoji: '📚', href: base + 'pages/library.html' },
+    { id: 'sops',        label: 'SOPs',        emoji: '📋', href: base + 'pages/sops.html' },
     { id: 'strategy',    label: 'Strategy',    emoji: '🎯', href: base + 'pages/strategy.html' }
   ];
   var tabsHtml = tabs.map(function (t) {
@@ -183,12 +184,13 @@
     return out;
   }
 
-  // Seed with the 4 top-level nav tabs so they're always searchable
+  // Seed with the 5 top-level nav tabs so they're always searchable
   // even if library.html / departments.html fail to load.
   var navSeed = [
     { title: 'Home',        desc: 'BPP Tools Hub — quick actions, cash, AR, active clients', href: 'index.html' },
     { title: 'Departments', desc: 'All 6 departments and their DRIs',                        href: 'pages/departments.html' },
     { title: 'Library',     desc: 'Every page in the Hub, grouped by what it is',            href: 'pages/library.html' },
+    { title: 'SOPs',        desc: 'Every SOP and playbook, grouped by department',           href: 'pages/sops.html' },
     { title: 'Strategy',    desc: 'Strategic plan, business plan, synthesis, KPIs',          href: 'pages/strategy.html' }
   ];
 

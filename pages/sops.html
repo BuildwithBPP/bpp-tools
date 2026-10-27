@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOPs · BPP Tools Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  :root {
+    --navy: #044771; --navy-dark: #033359; --blue: #5987A5; --blue-mid: #3a6d8f;
+    --gold: #F1BE5C; --gold-dark: #d4a43e; --bg: #edf1f5; --card-bg: #ffffff;
+    --card-border: #c8d3dc; --ink: #14222f; --gray: #3f4a55;
+  }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--ink); }
+
+  .sop-header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 32px 48px; color: #fff; }
+  .sop-header h1 { font-family: 'Montserrat', sans-serif; font-size: 30px; font-weight: 800; margin: 0; }
+  .sop-header p { font-size: 16px; line-height: 1.55; opacity: 0.85; margin: 8px 0 0; max-width: 720px; }
+
+  .sop-page { max-width: 960px; margin: 0 auto; padding: 28px 24px 64px; }
+
+  .howto { background: var(--card-bg); border: 1px solid var(--card-border); border-left: 5px solid var(--gold); border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; }
+  .howto p { font-size: 16px; line-height: 1.6; color: var(--gray); margin: 0 0 8px; }
+  .howto p:last-child { margin-bottom: 0; }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 10px; font-size: 14px; color: var(--gray); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 26px; }
+  .jump a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 22px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--navy); font-size: 15px; font-weight: 600; text-decoration: none; }
+  .jump a:hover, .jump a:focus-visible { border-color: var(--navy); }
+  .dept { margin-bottom: 30px; scroll-margin-top: 72px; }
+  .dept h2 { font-family: 'Montserrat', sans-serif; font-size: 21px; font-weight: 700; color: var(--navy); margin: 0 0 4px; }
+  .dept .dri { font-size: 14px; color: var(--blue-mid); margin: 0 0 12px; font-weight: 600; }
+  .dept .empty { font-size: 15px; color: var(--gray); background: var(--card-bg); border: 1px dashed var(--card-border); border-radius: 10px; padding: 14px 18px; margin: 0; }
+
+  ul.sop-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .sop { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: start; }
+  .sop.is-new { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+  .sop-title { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: var(--ink); line-height: 1.35; }
+  .sop-title a { color: var(--navy); text-decoration: none; display: inline-block; padding: 11px 0; margin: -11px 0; }
+  .sop-title a:hover, .sop-title a:focus-visible { text-decoration: underline; }
+  .sop-desc { grid-column: 1 / 2; font-size: 15px; line-height: 1.55; color: var(--gray); margin: 0; }
+  .sop-where { grid-column: 1 / 2; font-size: 13.5px; line-height: 1.5; color: var(--blue-mid); margin: 2px 0 0; overflow-wrap: anywhere; }
+  .sop-where b { color: var(--ink); font-weight: 600; }
+  .sop-note { grid-column: 1 / -1; font-size: 14px; line-height: 1.5; color: #7a4b00; background: #fff6e0; border-radius: 6px; padding: 8px 12px; margin: 6px 0 0; }
+  .sop-meta { grid-column: 2 / 3; grid-row: 1 / 3; text-align: right; white-space: nowrap; }
+  .sop-date { display: block; font-size: 13.5px; color: var(--gray); margin-top: 6px; }
+
+  .chip { display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; }
+  .chip-new { background: #fef3c7; color: #8a5300; }
+  .chip-review { background: #fde7d9; color: #9a3412; }
+  .chip-old { background: #e8edf2; color: #3f4a55; }
+  .chip-hub { background: #e3eef6; color: var(--navy); }
+  .chip-sp { background: #ece8f5; color: #4b3a7a; }
+
+  .write-new { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 20px 24px; margin-top: 36px; }
+  .write-new h2 { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 700; color: var(--navy); margin: 0 0 10px; }
+  .write-new ol { margin: 0; padding-left: 22px; }
+  .write-new li { font-size: 15.5px; line-height: 1.6; color: var(--gray); margin-bottom: 6px; }
+
+  @media (max-width: 640px) {
+    .sop-header { padding: 24px 18px; }
+    .sop-header h1 { font-size: 26px; }
+    .sop-page { padding: 20px 16px 48px; }
+    .sop { grid-template-columns: 1fr; padding: 14px 16px; }
+    .sop-meta { grid-column: 1 / -1; grid-row: auto; text-align: left; white-space: normal; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+    .sop-date { display: inline; margin-top: 0; }
+    .sop-desc, .sop-where { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+<div id="hub-nav"></div>
+
+<div class="sop-header">
+  <h1>SOPs</h1>
+  <p>How we run BPP, step by step. Every SOP and playbook in one place, grouped by department.</p>
+</div>
+
+<main class="sop-page">
+
+  <div class="howto">
+    <p><b>Find your department, then open the SOP.</b> Hub pages open right here. SharePoint files live in the team workspace: open SharePoint or your synced OneDrive folder and follow the path shown.</p>
+    <p>Anything marked <b>2025</b> hasn't been edited since 2025. Check with the department owner before you rely on it.</p>
+    <div class="legend">
+      <span><span class="chip chip-new">New</span> just written</span>
+      <span><span class="chip chip-review">Needs review</span> known to be out of date</span>
+      <span><span class="chip chip-old">2025</span> not edited since 2025</span>
+      <span><span class="chip chip-hub">Hub</span> <span class="chip chip-sp">SharePoint</span> where it lives</span>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to a department">
+    <a href="#delivery">Delivery</a>
+    <a href="#sales">Sales</a>
+    <a href="#marketing">Marketing</a>
+    <a href="#finance-ops">Finance &amp; Ops</a>
+    <a href="#ai-tech">AI &amp; Tech</a>
+    <a href="#write-one">Write a new SOP</a>
+  </nav>
+
+  <section class="dept" id="delivery">
+    <h2>Client Delivery &amp; Design</h2>
+    <p class="dri">Owner: Eli</p>
+    <ul class="sop-list">
+      <li class="sop is-new">
+        <div class="sop-title"><a href="website-development-sop.html">Website Development SOP</a></div>
+        <p class="sop-desc">Every client website, from signed quote to live site and closeout. Six meetings, two review gates, the go-live checklist.</p>
+        <p class="sop-where"><b>Also in SharePoint:</b> 1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes › website-development-sop.md</p>
+        <div class="sop-meta"><span class="chip chip-new">New</span> <span class="chip chip-hub">Hub</span><span class="sop-date">Oct 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Website Quote Terms</div>
+        <p class="sop-desc">Paste-ready terms for every website quote: two review rounds, written approvals, the late-payment pause, go-live after the final payment, and client-paid hosting.</p>
+        <p class="sop-where">1. Internal Operations › 6. Templates &amp; Resources › 1. Proposal &amp; Service Agreeement Templates › website-quote-terms.md</p>
+        <div class="sop-meta"><span class="chip chip-new">New</span> <span class="chip chip-sp">SharePoint</span><span class="sop-date">Oct 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title"><a href="webflow-client-hosting-sop.html">Webflow Client Hosting SOP</a></div>
+        <p class="sop-desc">Who pays for a client's hosting, when to send the payment request, and editor access vs. a full transfer.</p>
+        <div class="sop-meta"><span class="chip chip-hub">Hub</span><span class="sop-date">Aug 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title"><a href="kickoff.html">Kickoff</a></div>
+        <p class="sop-desc">Onboarding flow, the kickoff deck and the first two-week plan.</p>
+        <div class="sop-meta"><span class="chip chip-hub">Hub</span><span class="sop-date">Jul 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title"><a href="delivery-playbook.html">Delivery Playbook</a></div>
+        <p class="sop-desc">Delivery standards and timelines for each package.</p>
+        <div class="sop-meta"><span class="chip chip-review">Needs review</span> <span class="chip chip-hub">Hub</span><span class="sop-date">May 2026</span></div>
+        <p class="sop-note">Its Launch Pad steps still say Wix. BPP builds in Webflow only. For any website, follow the Website Development SOP.</p>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Client Onboarding Guide</div>
+        <p class="sop-desc">The 2025 onboarding steps. Setup now runs through Claude's <code>/bpp-onboard</code> (Website Development SOP, stage 0).</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes</p>
+        <div class="sop-meta"><span class="chip chip-old">2025</span> <span class="chip chip-sp">SharePoint</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Client Follow-Up SOP</div>
+        <p class="sop-desc">Client communication through the engagement.</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes</p>
+        <div class="sop-meta"><span class="chip chip-old">2025</span> <span class="chip chip-sp">SharePoint</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Business Plan Development SOP</div>
+        <p class="sop-desc">How we gather, research, draft and deliver a business plan.</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes</p>
+        <div class="sop-meta"><span class="chip chip-old">2025</span> <span class="chip chip-sp">SharePoint</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Playbook Development SOP</div>
+        <p class="sop-desc">How we build a client's strategic playbook.</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes</p>
+        <div class="sop-meta"><span class="chip chip-old">2025</span> <span class="chip chip-sp">SharePoint</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Client Journey Map</div>
+        <p class="sop-desc">The eight stages of a client's journey with BPP, from first contact on.</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes › Business Plans Plus Client Journey.docx</p>
+        <div class="sop-meta"><span class="chip chip-old">2025</span> <span class="chip chip-sp">SharePoint</span></div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="dept" id="sales">
+    <h2>Sales &amp; Business Development</h2>
+    <p class="dri">Owner: Kenny</p>
+    <ul class="sop-list">
+      <li class="sop">
+        <div class="sop-title">Client Intake SOP</div>
+        <p class="sop-desc">What happens when someone fills out the /booking form: the alert, who calls, and the one-hour callback.</p>
+        <p class="sop-where">1. Internal Operations › 2. Marketing &amp; Sales › Client Intake › client-intake-sop.md</p>
+        <div class="sop-meta"><span class="chip chip-sp">SharePoint</span><span class="sop-date">Oct 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Partner Referral SOP</div>
+        <p class="sop-desc">How referrals come in, who follows up, and how the referral rewards get paid.</p>
+        <p class="sop-where">1. Internal Operations › 2. Marketing &amp; Sales › Partner Referral › referral-process-sop.md</p>
+        <div class="sop-meta"><span class="chip chip-sp">SharePoint</span><span class="sop-date">Oct 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title"><a href="seller-start.html">Seller Start Here</a></div>
+        <p class="sop-desc">The seller path from qualifying a lead through the proposal and follow-up.</p>
+        <div class="sop-meta"><span class="chip chip-hub">Hub</span><span class="sop-date">Jul 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title"><a href="pre-call.html">Pre-Call Prep</a></div>
+        <p class="sop-desc">Prepping for a discovery call and researching the prospect.</p>
+        <div class="sop-meta"><span class="chip chip-hub">Hub</span><span class="sop-date">Jul 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title"><a href="negotiation-one-sheet.html">Negotiation One Sheet</a></div>
+        <p class="sop-desc">A fill-in prep sheet for discovery, price and re-engage calls.</p>
+        <div class="sop-meta"><span class="chip chip-hub">Hub</span><span class="sop-date">Oct 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title"><a href="commercial-cleaning-90-day-sales-plan.html">Commercial Cleaning 90-Day Sales Plan</a></div>
+        <p class="sop-desc">The paid audit offer, the HubSpot motion, scripts and 30/60/90 controls for cleaning companies.</p>
+        <div class="sop-meta"><span class="chip chip-hub">Hub</span><span class="sop-date">Aug 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">HubSpot Import SOP: Scraped Leads</div>
+        <p class="sop-desc">Importing scraped leads into HubSpot with owners and tracking set correctly.</p>
+        <p class="sop-where">Business Plans Plus › bpp-hubspot-import-sop-v1.md</p>
+        <div class="sop-meta"><span class="chip chip-sp">SharePoint</span><span class="sop-date">Jun 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Discovery Call Checklist</div>
+        <p class="sop-desc">What every discovery call should find out.</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes</p>
+        <div class="sop-meta"><span class="chip chip-old">2025</span> <span class="chip chip-sp">SharePoint</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Proposal Development SOP</div>
+        <p class="sop-desc">How we draft, customize and send a proposal.</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes</p>
+        <div class="sop-meta"><span class="chip chip-old">2025</span> <span class="chip chip-sp">SharePoint</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Email Templates Library</div>
+        <p class="sop-desc">Standard client emails, from follow-ups to kickoff invites.</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes</p>
+        <div class="sop-meta"><span class="chip chip-old">2025</span> <span class="chip chip-sp">SharePoint</span></div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="dept" id="marketing">
+    <h2>Marketing &amp; Content</h2>
+    <p class="dri">Owner: Kenny</p>
+    <ul class="sop-list">
+      <li class="sop">
+        <div class="sop-title"><a href="marketing-sop.html">Marketing SOP: The BPP Marketing System</a></div>
+        <p class="sop-desc">The IdeaBank, the Media Drive, Metricool, content day and the script workflow.</p>
+        <div class="sop-meta"><span class="chip chip-hub">Hub</span><span class="sop-date">Jul 2026</span></div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="dept" id="finance-ops">
+    <h2>Finance &amp; Operations</h2>
+    <p class="dri">Owner: Daunte</p>
+    <ul class="sop-list">
+      <li class="sop">
+        <div class="sop-title"><a href="weekly-routines.html">Operating Routines</a></div>
+        <p class="sop-desc">The weekly and monthly routines that keep BPP running.</p>
+        <div class="sop-meta"><span class="chip chip-hub">Hub</span><span class="sop-date">May 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title"><a href="internal-board-model.html">BPP Internal Board: How We Run Work</a></div>
+        <p class="sop-desc">Sprint vs. operations work on the Monday internal board.</p>
+        <div class="sop-meta"><span class="chip chip-hub">Hub</span><span class="sop-date">May 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Collections SOP</div>
+        <p class="sop-desc">Invoicing and following up on late payments.</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes</p>
+        <div class="sop-meta"><span class="chip chip-old">2025</span> <span class="chip chip-sp">SharePoint</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">QuickBooks Service Categories &amp; Invoice Setup Guide</div>
+        <p class="sop-desc">How services and invoices are set up in QuickBooks.</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes</p>
+        <div class="sop-meta"><span class="chip chip-old">2025</span> <span class="chip chip-sp">SharePoint</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Co-Owner Decision Making Protocol</div>
+        <p class="sop-desc">How the co-owners make and record decisions.</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes</p>
+        <div class="sop-meta"><span class="chip chip-old">2025</span> <span class="chip chip-sp">SharePoint</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Todoist Project Organization Guide · Todoist Query Filters</div>
+        <p class="sop-desc">How BPP tasks were organized and filtered in Todoist.</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes</p>
+        <div class="sop-meta"><span class="chip chip-old">2025</span> <span class="chip chip-sp">SharePoint</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title">Integrated Process &amp; SOP Architecture</div>
+        <p class="sop-desc">The 2025 map of how each stage of the client journey connects to an SOP.</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes</p>
+        <div class="sop-meta"><span class="chip chip-old">2025</span> <span class="chip chip-sp">SharePoint</span></div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="dept" id="ai-tech">
+    <h2>AI Workforce &amp; Tech</h2>
+    <p class="dri">Owner: Daunte</p>
+    <ul class="sop-list">
+      <li class="sop">
+        <div class="sop-title">Claude Cowork Setup Guide</div>
+        <p class="sop-desc">Setting up Claude Cowork and how BPP's AI workspace is organized.</p>
+        <p class="sop-where">1. Internal Operations › 5. Team &amp; Training › SOPs &amp; Processes › bpp-cowork-setup-guide.docx</p>
+        <div class="sop-meta"><span class="chip chip-sp">SharePoint</span><span class="sop-date">Apr 2026</span></div>
+      </li>
+      <li class="sop">
+        <div class="sop-title"><a href="git-onboarding-guide.html">Git, the Simple Version</a></div>
+        <p class="sop-desc">The handful of git commands the team actually needs.</p>
+        <div class="sop-meta"><span class="chip chip-hub">Hub</span><span class="sop-date">May 2026</span></div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="dept" id="hr">
+    <h2>HR &amp; People</h2>
+    <p class="dri">Parked until the role is filled</p>
+    <p class="empty">No SOPs yet.</p>
+  </section>
+
+  <section class="write-new" id="write-one">
+    <h2>Writing a new SOP</h2>
+    <ol>
+      <li>Copy the shape of the <a href="website-development-sop.html">Website Development SOP</a>: the flow at a glance, who does what, the rules, each stage with a "done when", what to do when things go sideways, and a list of terms.</li>
+      <li>Write it so someone new could run it on their first day. Short steps, plain words, the exact lines to say.</li>
+      <li>Save the markdown file in SharePoint next to the work it covers, and add a hub page if the team will use it often.</li>
+      <li>Add it to this page under its department. If it replaces an older SOP, mark the old one.</li>
+      <li>Keep client names, amounts owed and passwords off hub pages. The hub is public.</li>
+    </ol>
+  </section>
+
+</main>
+
+<script src="../js/nav.js" data-page="sops"></script>
+</body>
+</html>
