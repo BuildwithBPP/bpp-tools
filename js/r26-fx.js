@@ -42,6 +42,9 @@
  * same page land below the nav.
  * Calm pages (1.9.7, 2026-10-22): any element with data-r26-calm turns off the
  *   decorative motion layer for that page; used by the home v2 redesign.
+ * Referral first (1.9.12, Eli 2026-10-25): the Resources dropdown opens with
+ *   "Refer an owner, get $150 or more" in gold above a divider ({ hl: 1 });
+ *   the "Partners" group label is gone. The phone menu shows it gold too.
  * Services page (1.9.11, Eli 2026-10-23): the Services nav link now goes to
  *   /services (the new all-services page); NAV_SUB keys it as '/services' and
  *   keeps '/#services' as an alias for any page still on the old anchor.
@@ -155,6 +158,10 @@
     '.r26x-dd-panel a:hover,.r26x-dd-panel a:focus-visible{background:rgba(241,190,92,.14);color:#F1BE5C;outline:none}',
     '.r26x-menu .r26x-menu-cta{display:inline-block;margin-top:1.5rem;background:#F1BE5C;color:#033359;border-radius:999px;padding:.9rem 1.9rem;font-size:1.05rem;text-align:center}',
     '.r26x-menu .r26x-menu-tag{color:#5987A5;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.25rem;font-family:Montserrat,sans-serif;font-weight:600}',
+    /* 1.9.12: highlighted first item (referral): gold, divider under it */
+    '.r26x-dd-panel li.r26x-dd-hl{margin:0 0 6px;padding:0 0 6px;border-bottom:1px solid rgba(255,255,255,.16)}',
+    '.r26x-dd-panel li.r26x-dd-hl a{color:#F1BE5C}',
+    '.r26x-menu a.r26x-menu-sub.r26x-menu-hl{color:#F1BE5C}',
     /* 1.9.6: group label inside a dropdown ("Starting out") */
     '.r26x-dd-panel .r26x-dd-grp{margin:6px 6px 0;padding:10px 8px 4px;border-top:1px solid rgba(255,255,255,.16);font-family:Poppins,sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.62);list-style:none}',
     /* 1.9.6: the nav bar stays above the open phone menu, so the close X and wordmark show */
@@ -536,11 +543,10 @@
     '/services': SVC_SUB,
     '/#services': SVC_SUB,
     '/resources': [
+      { t: 'Refer an owner, get $150 or more', h: '/referral', hl: 1 },
       { t: 'Free Tools', h: '/resources#tools' },
       { t: 'Free Guides & Templates', h: '/resources#guides' },
-      { t: 'AI Operator Pack (coming soon)', h: '/resources#premium' },
-      { g: 'Partners' },
-      { t: 'Referral Program', h: '/referral' }
+      { t: 'AI Operator Pack (coming soon)', h: '/resources#premium' }
     ]
   };
   function subItems(a) {
@@ -588,6 +594,7 @@
       items.forEach(function (it) {
         var li = d.createElement('li');
         if (it.g) { li.className = 'r26x-dd-grp'; li.textContent = it.g; panel.appendChild(li); return; }
+        if (it.hl) li.className = 'r26x-dd-hl';
         var s = d.createElement('a');
         s.href = it.h;
         s.textContent = it.t;
@@ -674,7 +681,7 @@
         var sc = d.createElement('a');
         sc.href = it.h;
         sc.textContent = it.t;
-        sc.className = 'r26x-menu-sub';
+        sc.className = it.hl ? 'r26x-menu-sub r26x-menu-hl' : 'r26x-menu-sub';
         subs.appendChild(sc);
       });
       row.addEventListener('click', function () {
