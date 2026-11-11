@@ -2,25 +2,33 @@
  * BPP Content Approvals: a swipe-to-approve web app for finished content in Google Drive.
  *
  * Swipe right to approve, swipe left to decline with written feedback. When a piece has
- * enough approvals it shows up under "Ready for Metricool" with its caption and a download
- * link, and whoever schedules it marks it scheduled.
+ * enough approvals it shows up under "Ready" with its caption and a download link, and
+ * whoever schedules it (Metricool, or the LinkedIn page for newsletters) marks it scheduled.
+ *
+ * What gets reviewed:
+ * - The Queue tab of the "BPP Content Approvals" sheet. One row per piece: a Drive link, a title,
+ *   the platforms it's meant for, a caption, an optional cover image link, and notes.
+ *   Videos, images, PDFs and Google Docs (newsletters) all work.
+ * - If the Queue tab is empty or missing, the app scans BPP Media for recent finished files instead.
+ *   Set SOURCE to "both" to always do both.
  *
  * How access works (no shared secrets anywhere):
  * - Deploy as a web app that runs as "User accessing the web app" and is open to
  *   "Anyone with a Google account" (appsscript.json sets both).
  * - Every request runs with the viewer's own Google identity, so Google Drive sharing is the
- *   access list. A viewer must be able to open the BPP Media folder AND the
+ *   access list. A viewer must be able to open the BPP Media folder AND edit the
  *   "BPP Content Approvals" sheet, or the app shows nothing.
  * - Every vote is written to the Decisions tab of that sheet with the voter's email and a
  *   timestamp. The sheet is the audit log.
  *
  * Settings live in Project Settings > Script properties. All are optional:
- *   ROOT_FOLDER_ID          Drive folder to scan. Default: the folder named "BPP Media".
- *   SHEET_ID                Decisions sheet. Default: the sheet named "BPP Content Approvals" inside the root folder.
+ *   ROOT_FOLDER_ID          Drive folder for the scan and access check. Default: the folder named "BPP Media".
+ *   SHEET_ID                The approvals sheet. Default: the sheet named "BPP Content Approvals" inside the root folder.
+ *   SOURCE                  auto (Queue tab if it has rows, otherwise scan) | queue | scan | both. Default auto.
  *   REQUIRED_APPROVALS      Approvals needed before a piece is ready. Default 3 (Kenny, Eli and Daunte).
- *   LOOKBACK_DAYS           Only files added in the last N days are reviewed. Default 60.
- *   INCLUDE_FOLDER_PATTERN  A file is reviewable if any folder on its path matches. Default "final|media assets".
- *   EXCLUDE_FOLDER_PATTERN  Folders skipped entirely. Default raw footage, inbox, archive and trending-audio copies.
+ *   LOOKBACK_DAYS           Scan only: files added in the last N days. Default 60.
+ *   INCLUDE_FOLDER_PATTERN  Scan only: a file is reviewable if any folder on its path matches. Default "final|media assets".
+ *   EXCLUDE_FOLDER_PATTERN  Scan only: folders skipped entirely. Default raw footage, inbox, archive and trending-audio copies.
  *   REVIEWERS               Optional comma list of emails allowed to vote. Blank = anyone who can edit the sheet.
  *   REVIEWER_NAMES          Optional "email=Name" pairs, comma separated, for display.
  */
@@ -28,6 +36,7 @@
 var DEFAULTS = {
   ROOT_FOLDER_NAME: 'BPP Media',
   SHEET_NAME: 'BPP Content Approvals',
+  SOURCE: 'auto',
   REQUIRED_APPROVALS: 3,
   LOOKBACK_DAYS: 60,
   INCLUDE_FOLDER_PATTERN: 'final|media assets',
@@ -37,10 +46,24 @@ var DEFAULTS = {
 };
 
 var HEADERS = ['Timestamp', 'Reviewer', 'File ID', 'File name', 'Decision', 'Feedback', 'Folder', 'Drive link'];
+var QUEUE_HEADERS = ['Drive link', 'Title', 'Type', 'Platforms', 'Caption', 'Cover image', 'Notes'];
 var FOLDER_MIME = 'application/vnd.google-apps.folder';
+var DOC_MIME = 'application/vnd.google-apps.document';
 var DECISIONS = ['approve', 'decline', 'undo', 'scheduled', 'reset'];
-var SCAN_CACHE_KEY = 'scan_v1';
-var SCAN_CACHE_SECONDS = 600;
+var ITEMS_CACHE_KEY = 'items_v2';
+var ITEMS_CACHE_SECONDS = 600;
+
+/** Platform keys the page has icons for, and the words that map to each. */
+var PLATFORMS = [
+  ['instagram', /insta|\big\b|reels?\b/],
+  ['facebook', /facebook|\bfb\b/],
+  ['linkedin', /linked\s*in|\bli\b/],
+  ['tiktok', /tik\s*tok|\btt\b/],
+  ['youtube', /you\s*tube|\byt\b|shorts/],
+  ['threads', /threads/],
+  ['x', /twitter|\bx\b/],
+  ['pinterest', /pinterest/]
+];
 
 /* ---------- web entry point ---------- */
 
@@ -56,23 +79,19 @@ function doGet() {
 /** Everything the page needs: who you are, your review queue, and the two status boards. */
 function getState() {
   var me = authorize_();
-  var c = cfg_();
-  var items = scan_(false);
-  return buildState_(me, c, items);
+  return buildState_(me, cfg_(), items_(false));
 }
 
-/** Same as getState, but rescans Drive instead of using the 10-minute cache. */
+/** Same as getState, but reloads Drive and the Queue tab instead of using the 10-minute cache. */
 function refreshState() {
   var me = authorize_();
-  var c = cfg_();
-  var items = scan_(true);
-  return buildState_(me, c, items);
+  return buildState_(me, cfg_(), items_(true));
 }
 
 /**
  * Record a decision. decision is one of:
  *   approve | decline (feedback required) | undo (removes your last vote on this file)
- *   scheduled (it is queued in Metricool) | reset (clears every vote so the file is reviewed again)
+ *   scheduled (it is queued to post) | reset (clears every vote so the file is reviewed again)
  */
 function decide(fileId, decision, feedback) {
   var me = authorize_();
@@ -83,12 +102,12 @@ function decide(fileId, decision, feedback) {
     throw new Error('Add a short reason so the editor knows what to fix.');
   }
   var item = itemIndex_()[fileId];
-  if (!item) throw new Error('That file is not in the review folders anymore. Refresh and try again.');
+  if (!item) throw new Error('That file is not in the review list anymore. Refresh and try again.');
 
   var lock = LockService.getScriptLock();
   lock.waitLock(15000);
   try {
-    sheet_().appendRow([
+    decisionsSheet_().appendRow([
       new Date(), me, fileId, cell_(item.name), decision, cell_(feedback), cell_(item.folder), item.link
     ]);
   } finally {
@@ -97,57 +116,62 @@ function decide(fileId, decision, feedback) {
   return { ok: true };
 }
 
-/** A preview image for a file as a data: URI, or '' when Drive has no thumbnail. */
+/** A preview image for a piece as a data: URI, or '' when Drive has none. Uses the cover image when one is set. */
 function getThumb(fileId) {
   authorize_();
-  if (!isId_(fileId) || !itemIndex_()[fileId]) return '';
+  var item = isId_(fileId) ? itemIndex_()[fileId] : null;
+  if (!item) return '';
+  var source = item.coverId || fileId;
   var cache = CacheService.getScriptCache();
-  var key = 'th_' + fileId;
+  var key = 'th_' + source;
   var hit = cache.get(key);
   if (hit) return hit;
 
-  var item = itemIndex_()[fileId];
   var uri = '';
-  var meta = driveGet_('files/' + fileId + '?fields=thumbnailLink,hasThumbnail&supportsAllDrives=true');
+  var meta = driveGet_('files/' + source + '?fields=thumbnailLink,mimeType,size&supportsAllDrives=true');
   if (meta && meta.thumbnailLink) {
     uri = fetchDataUri_(meta.thumbnailLink.replace(/=s\d+$/, '=s1000'));
   }
-  if (!uri && item.kind === 'image' && item.size && item.size < 2500000) {
-    uri = fetchDataUri_('https://www.googleapis.com/drive/v3/files/' + fileId + '?alt=media&supportsAllDrives=true');
+  if (!uri && meta && String(meta.mimeType).indexOf('image/') === 0 && Number(meta.size || 0) < 2500000) {
+    uri = fetchDataUri_('https://www.googleapis.com/drive/v3/files/' + source + '?alt=media&supportsAllDrives=true');
   }
   if (uri && uri.length < 95000) cache.put(key, uri, 21600);
   return uri;
 }
 
-/** The caption text that sits next to a reel (same file name, .txt), or ''. */
+/** The caption (Queue tab, or a same-name .txt next to the file), or the full text of a newsletter doc. */
 function getCaption(fileId) {
   authorize_();
   var item = itemIndex_()[fileId];
-  if (!item || !item.captionId) return '';
+  if (!item) return '';
+  if (item.caption) return item.caption;
+  var url = '';
+  if (item.kind === 'doc') url = 'https://www.googleapis.com/drive/v3/files/' + fileId + '/export?mimeType=text%2Fplain';
+  else if (item.captionId) url = 'https://www.googleapis.com/drive/v3/files/' + item.captionId + '?alt=media&supportsAllDrives=true';
+  if (!url) return '';
   var cache = CacheService.getScriptCache();
-  var key = 'cap_' + item.captionId;
+  var key = 'cap_' + fileId;
   var hit = cache.get(key);
   if (hit !== null) return hit;
-  var res = UrlFetchApp.fetch(
-    'https://www.googleapis.com/drive/v3/files/' + item.captionId + '?alt=media&supportsAllDrives=true',
-    { headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() }, muteHttpExceptions: true }
-  );
-  var text = res.getResponseCode() === 200 ? res.getContentText('UTF-8').slice(0, 5000) : '';
-  cache.put(key, text, 21600);
+  var res = UrlFetchApp.fetch(url, { headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() }, muteHttpExceptions: true });
+  var text = res.getResponseCode() === 200 ? res.getContentText('UTF-8').replace(/^﻿/, '').slice(0, 20000) : '';
+  if (text.length < 90000) cache.put(key, text, 1800);
   return text;
 }
 
-/** Optional: run once from the editor to check the setup. Writes nothing except the sheet header. */
+/** Optional: run once from the editor to check the setup. Writes nothing except sheet headers. */
 function setup() {
   var c = cfg_();
   ensureConfig_(c);
   var ss = SpreadsheetApp.openById(c.SHEET_ID);
+  decisionsSheet_();
   Logger.log('Root folder: ' + DriveApp.getFolderById(c.ROOT_FOLDER_ID).getName() + ' (' + c.ROOT_FOLDER_ID + ')');
-  Logger.log('Decisions sheet: ' + ss.getUrl());
+  Logger.log('Approvals sheet: ' + ss.getUrl());
+  Logger.log('Queue rows: ' + queueRows_().length);
   Logger.log('People who can vote (sheet editors): ' + ss.getEditors().map(function (u) { return u.getEmail(); }).join(', '));
-  var items = scan_(true);
-  Logger.log('Reviewable files found: ' + items.length);
-  items.slice(0, 10).forEach(function (i) { Logger.log('  ' + i.folder + ' / ' + i.name); });
+  var items = items_(true);
+  Logger.log('Pieces in review: ' + items.length);
+  items.slice(0, 10).forEach(function (i) { Logger.log('  [' + i.platforms.join(', ') + '] ' + i.name); });
 }
 
 /* ---------- state ---------- */
@@ -171,8 +195,9 @@ function buildState_(me, c, items) {
       : approvals.length >= c.REQUIRED_APPROVALS ? 'ready'
       : 'pending';
     var out = {
-      id: it.id, name: it.name, kind: it.kind, mime: it.mime, folder: it.folder,
-      created: it.created, link: it.link, hasCaption: !!it.captionId,
+      id: it.id, name: it.name, kind: it.kind, type: it.type, platforms: it.platforms, notes: it.notes || '',
+      folder: it.folder, created: it.created, link: it.link,
+      hasCaption: !!(it.caption || it.captionId || it.kind === 'doc'),
       votes: votes, approvals: approvals.length, mine: mine, status: status
     };
     if (status === 'scheduled') { scheduled++; return; }
@@ -196,7 +221,7 @@ function buildState_(me, c, items) {
 }
 
 function decisions_() {
-  var sh = sheet_();
+  var sh = decisionsSheet_();
   var last = sh.getLastRow();
   if (last < 2) return [];
   return sh.getRange(2, 1, last - 1, 6).getValues().map(function (r) {
@@ -230,17 +255,117 @@ function tally_(rows) {
   return t;
 }
 
-/* ---------- Drive scan ---------- */
+/* ---------- what's in review ---------- */
 
-/** Walks the root folder breadth first, a few dozen folders per Drive query, and caches the result. */
-function scan_(force) {
+/** The pieces in review, from the Queue tab and/or a Drive scan, cached until the Queue tab changes. */
+function items_(force) {
   var c = cfg_();
   ensureConfig_(c);
+  var rows = queueRows_();
+  var mode = String(c.SOURCE || 'auto').toLowerCase();
+  if (mode === 'auto') mode = rows.length ? 'queue' : 'scan';
+  var sig = mode + ':' + Utilities.base64Encode(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, JSON.stringify(rows)));
   if (!force) {
-    var cached = getBig_(SCAN_CACHE_KEY);
-    if (cached) return JSON.parse(cached);
+    var cached = getBig_(ITEMS_CACHE_KEY);
+    if (cached) {
+      var obj = JSON.parse(cached);
+      if (obj.sig === sig) return obj.items;
+    }
   }
+  var items = [];
+  if (mode === 'queue' || mode === 'both') items = items.concat(fromQueue_(rows));
+  if (mode === 'scan' || mode === 'both') {
+    var seen = {};
+    items.forEach(function (i) { seen[i.id] = true; });
+    scanDrive_(c).forEach(function (i) { if (!seen[i.id]) items.push(i); });
+  }
+  putBig_(ITEMS_CACHE_KEY, JSON.stringify({ sig: sig, items: items }), ITEMS_CACHE_SECONDS);
+  return items;
+}
 
+function itemIndex_() {
+  var idx = {};
+  items_(false).forEach(function (i) { idx[i.id] = i; });
+  return idx;
+}
+
+/** Reads the Queue tab. Columns are matched by header name, so their order doesn't matter. */
+function queueRows_() {
+  var sh = queueSheet_();
+  if (!sh || sh.getLastRow() < 2) return [];
+  var values = sh.getDataRange().getDisplayValues();
+  var head = values[0].map(function (h) { return String(h).toLowerCase().trim(); });
+  function col(names) {
+    for (var i = 0; i < head.length; i++) if (names.indexOf(head[i]) >= 0) return i;
+    return -1;
+  }
+  var cLink = col(['drive link', 'link', 'file', 'url']);
+  var cTitle = col(['title', 'name']);
+  var cType = col(['type', 'format']);
+  var cPlat = col(['platforms', 'platform', 'channels', 'channel']);
+  var cCap = col(['caption', 'copy']);
+  var cCover = col(['cover image', 'cover', 'thumbnail']);
+  var cNotes = col(['notes', 'note']);
+  if (cLink < 0) return [];
+  var rows = [];
+  var seen = {};
+  for (var r = 1; r < values.length; r++) {
+    var v = values[r];
+    var id = idFrom_(v[cLink]);
+    if (!id || seen[id]) continue;
+    seen[id] = true;
+    rows.push({
+      id: id,
+      title: cTitle >= 0 ? String(v[cTitle]).trim() : '',
+      type: cType >= 0 ? String(v[cType]).trim() : '',
+      platforms: cPlat >= 0 ? String(v[cPlat]).trim() : '',
+      caption: cCap >= 0 ? String(v[cCap]).trim() : '',
+      cover: cCover >= 0 ? idFrom_(v[cCover]) : '',
+      notes: cNotes >= 0 ? String(v[cNotes]).trim() : ''
+    });
+  }
+  return rows;
+}
+
+/** Looks up every Queue row in Drive (in parallel) and labels it with the folder it came from. */
+function fromQueue_(rows) {
+  if (!rows.length) return [];
+  var metas = fetchMeta_(rows.map(function (r) { return r.id; }), 'id,name,mimeType,createdTime,webViewLink,size,parents,trashed');
+  var parentIds = unique_(metas.map(function (m) { return m && m.parents ? m.parents[0] : ''; }));
+  var parents = toMap_(fetchMeta_(parentIds, 'id,name,parents'));
+  var grandIds = unique_(Object.keys(parents).map(function (k) { return parents[k].parents ? parents[k].parents[0] : ''; }));
+  var grands = toMap_(fetchMeta_(grandIds, 'id,name'));
+
+  var out = [];
+  rows.forEach(function (r, i) {
+    var m = metas[i];
+    if (!m || m.trashed) return;
+    var p = m.parents ? parents[m.parents[0]] : null;
+    var g = p && p.parents ? grands[p.parents[0]] : null;
+    var folder = p ? ((/final/i.test(p.name) && g) ? g.name : p.name) : '';
+    var kind = kindOf_(m.mimeType);
+    out.push({
+      id: m.id,
+      name: r.title || m.name,
+      fileName: m.name,
+      mime: m.mimeType,
+      kind: kind,
+      type: r.type || defaultType_(kind),
+      platforms: platforms_(r.platforms, kind),
+      caption: r.caption,
+      coverId: r.cover,
+      notes: r.notes,
+      folder: folder,
+      created: m.createdTime,
+      link: m.webViewLink || ('https://drive.google.com/file/d/' + m.id + '/view'),
+      size: Number(m.size || 0)
+    });
+  });
+  return out;
+}
+
+/** Walks the root folder breadth first, a few dozen folders per Drive query. */
+function scanDrive_(c) {
   var include = new RegExp(c.INCLUDE_FOLDER_PATTERN, 'i');
   var exclude = new RegExp(c.EXCLUDE_FOLDER_PATTERN, 'i');
   var since = new Date(Date.now() - c.LOOKBACK_DAYS * 86400000).toISOString();
@@ -256,7 +381,7 @@ function scan_(force) {
       var chunk = frontier.slice(i, i + 30);
       var q = '(' + chunk.map(function (id) { return "'" + id + "' in parents"; }).join(' or ') + ')' +
         " and trashed = false and (mimeType = '" + FOLDER_MIME + "' or ((" +
-        "mimeType contains 'image/' or mimeType contains 'video/' or mimeType = 'application/pdf' or mimeType = 'text/plain'" +
+        "mimeType contains 'image/' or mimeType contains 'video/' or mimeType = 'application/pdf' or mimeType = 'text/plain' or mimeType = '" + DOC_MIME + "'" +
         ") and createdTime > '" + since + "'))";
       driveList_(q, 'id,name,mimeType,parents,createdTime,webViewLink,size').forEach(function (f) {
         var parentId = (f.parents || []).filter(function (p) { return folders[p]; })[0];
@@ -274,11 +399,15 @@ function scan_(force) {
         if (!parent.include) return;
         var base = parentId + '/' + f.name.replace(/\.[^.]+$/, '').toLowerCase();
         if (f.mimeType === 'text/plain') { captions[base] = f.id; return; }
+        var kind = kindOf_(f.mimeType);
         media.push({
           id: f.id,
           name: f.name,
+          fileName: f.name,
           mime: f.mimeType,
-          kind: f.mimeType.indexOf('video/') === 0 ? 'video' : f.mimeType.indexOf('image/') === 0 ? 'image' : 'pdf',
+          kind: kind,
+          type: defaultType_(kind),
+          platforms: platforms_(parent.path + ' ' + f.name, kind),
           folder: parent.path,
           created: f.createdTime,
           link: f.webViewLink || ('https://drive.google.com/file/d/' + f.id + '/view'),
@@ -292,15 +421,52 @@ function scan_(force) {
 
   media.forEach(function (m) { m.captionId = captions[m.base] || ''; delete m.base; });
   media.sort(function (a, b) { return a.created < b.created ? 1 : -1; });
-  media = media.slice(0, 400);
-  putBig_(SCAN_CACHE_KEY, JSON.stringify(media), SCAN_CACHE_SECONDS);
-  return media;
+  return media.slice(0, 400);
 }
 
-function itemIndex_() {
-  var idx = {};
-  scan_(false).forEach(function (i) { idx[i.id] = i; });
-  return idx;
+function kindOf_(mime) {
+  mime = String(mime || '');
+  if (mime.indexOf('video/') === 0) return 'video';
+  if (mime.indexOf('image/') === 0) return 'image';
+  if (mime === 'application/pdf') return 'pdf';
+  if (mime === DOC_MIME) return 'doc';
+  return 'file';
+}
+
+function defaultType_(kind) {
+  return { video: 'Video', image: 'Image', pdf: 'PDF', doc: 'Newsletter' }[kind] || 'File';
+}
+
+/** Turns "IG, FB and LinkedIn" into ['instagram', 'facebook', 'linkedin']. Falls back by file type. */
+function platforms_(text, kind) {
+  var s = String(text || '').toLowerCase();
+  var out = [];
+  PLATFORMS.forEach(function (p) { if (p[1].test(s)) out.push(p[0]); });
+  if (out.length) return out;
+  return (kind === 'doc' || kind === 'pdf') ? ['linkedin'] : ['instagram', 'facebook'];
+}
+
+/* ---------- Drive helpers ---------- */
+
+/** files.get for many ids at once. Returns metadata objects (or null) in the same order. */
+function fetchMeta_(ids, fields) {
+  var token = ScriptApp.getOAuthToken();
+  var out = [];
+  for (var i = 0; i < ids.length; i += 40) {
+    var chunk = ids.slice(i, i + 40);
+    var responses = UrlFetchApp.fetchAll(chunk.map(function (id) {
+      return {
+        url: 'https://www.googleapis.com/drive/v3/files/' + encodeURIComponent(id) +
+          '?supportsAllDrives=true&fields=' + encodeURIComponent(fields),
+        headers: { Authorization: 'Bearer ' + token },
+        muteHttpExceptions: true
+      };
+    }));
+    responses.forEach(function (res) {
+      out.push(res.getResponseCode() === 200 ? JSON.parse(res.getContentText()) : null);
+    });
+  }
+  return out;
 }
 
 function driveList_(q, fields) {
@@ -349,11 +515,18 @@ function fetchDataUri_(url) {
   return 'data:' + type + ';base64,' + Utilities.base64Encode(blob.getBytes());
 }
 
+/** Pulls a Drive file id out of a share link, an open?id= link, or a bare id. */
+function idFrom_(text) {
+  var s = String(text || '').trim();
+  var m = s.match(/\/d\/([A-Za-z0-9_-]{10,})/) || s.match(/[?&]id=([A-Za-z0-9_-]{10,})/) || s.match(/^([A-Za-z0-9_-]{10,})$/);
+  return m ? m[1] : '';
+}
+
 /* ---------- identity and config ---------- */
 
 /**
- * Confirms the viewer is signed in and can open both the root folder and the decisions sheet.
- * The scan and thumbnail caches are shared across users, so nothing is served before this passes.
+ * Confirms the viewer is signed in and can open both the root folder and the approvals sheet.
+ * The item and thumbnail caches are shared across users, so nothing is served before this passes.
  */
 function authorize_() {
   var email = (Session.getActiveUser().getEmail() || '').toLowerCase().trim();
@@ -387,7 +560,7 @@ function cfg_() {
   return c;
 }
 
-/** Finds the root folder and the decisions sheet by name the first time, then remembers their ids. */
+/** Finds the root folder and the approvals sheet by name the first time, then remembers their ids. */
 function ensureConfig_(c) {
   var props = PropertiesService.getScriptProperties();
   if (!c.ROOT_FOLDER_ID) {
@@ -406,15 +579,34 @@ function ensureConfig_(c) {
   }
 }
 
-function sheet_() {
+/** The Queue tab: named "Queue", or any tab whose first header is a link column. */
+function queueSheet_() {
+  var c = cfg_();
+  ensureConfig_(c);
+  var sheets = SpreadsheetApp.openById(c.SHEET_ID).getSheets();
+  for (var i = 0; i < sheets.length; i++) if (/^queue$/i.test(sheets[i].getName())) return sheets[i];
+  for (var j = 0; j < sheets.length; j++) {
+    if (sheets[j].getName() === 'Decisions' || sheets[j].getLastRow() < 1) continue;
+    var first = String(sheets[j].getRange(1, 1).getDisplayValue()).toLowerCase().trim();
+    if (/^(drive link|link|file|url)$/.test(first)) return sheets[j];
+  }
+  return null;
+}
+
+/** The Decisions tab, created with its header row the first time it's needed. */
+function decisionsSheet_() {
   var c = cfg_();
   ensureConfig_(c);
   var ss = SpreadsheetApp.openById(c.SHEET_ID);
   var sh = ss.getSheetByName('Decisions');
   if (!sh) {
-    sh = ss.getSheets()[0];
-    if (sh.getLastRow() > 0) sh = ss.insertSheet('Decisions');
-    else sh.setName('Decisions');
+    var first = ss.getSheets()[0];
+    if (first.getLastRow() === 0 && ss.getSheets().length === 1) {
+      sh = first.setName('Decisions');
+      ss.insertSheet('Queue', 0).appendRow(QUEUE_HEADERS);
+    } else {
+      sh = ss.insertSheet('Decisions');
+    }
   }
   if (sh.getLastRow() === 0) {
     sh.appendRow(HEADERS);
@@ -448,6 +640,17 @@ function isId_(id) {
 function cell_(s) {
   s = String(s == null ? '' : s);
   return /^[=+\-@\t\r]/.test(s) ? "'" + s : s;
+}
+
+function unique_(list) {
+  var seen = {};
+  return list.filter(function (x) { if (!x || seen[x]) return false; seen[x] = true; return true; });
+}
+
+function toMap_(list) {
+  var m = {};
+  list.forEach(function (x) { if (x && x.id) m[x.id] = x; });
+  return m;
 }
 
 function putBig_(key, value, seconds) {

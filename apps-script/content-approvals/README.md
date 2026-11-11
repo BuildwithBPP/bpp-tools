@@ -15,9 +15,24 @@ It's the step between Post-Production and Scheduled in the [Content Pipeline SOP
 
 ## What it reads
 
-- **Content:** every image, video and PDF added in the last 60 days under the **BPP Media** folder, as long as some folder on its path has "Final" or "media assets" in its name. Raw footage, the inbox, archives and the trending-audio copies are skipped.
-- **Captions:** a `.txt` file with the same name as a video, in the same folder, shows up as its caption. The Graphic Generations reels already ship this way.
-- **Decisions:** the **Decisions** tab of the **BPP Content Approvals** Google Sheet in BPP Media. One row per swipe: time, reviewer email, file, decision, note. The latest swipe from each person counts.
+The **BPP Content Approvals** Google Sheet in BPP Media has two tabs:
+
+- **Queue** (the review list). One row per piece. Columns are matched by name, so their order doesn't matter:
+
+  | Column | What goes in it |
+  |---|---|
+  | Drive link | Share link to the video, image, PDF or Google Doc |
+  | Title | What the card shows. Blank uses the file name |
+  | Type | Reel, Talking head, Podcast clip, Newsletter, Carousel... shown as the card's badge |
+  | Platforms | Where it's meant to go: `Instagram, Facebook, LinkedIn, TikTok, YouTube, Threads, X`. Each one gets a small icon on the card |
+  | Caption | The post copy. It shows on the card and gets a Copy button in Ready |
+  | Cover image | Optional link to an image to show instead of the file's own preview (newsletters use their cover) |
+  | Notes | Anything reviewers should know |
+
+  Newsletters are Google Docs. Their full text shows on the card and in the Read view.
+- **Decisions** (the audit log). One row per swipe: time, reviewer email, file, decision, note. The latest swipe from each person counts. The app creates this tab on first use.
+
+If the Queue tab is empty, the app scans BPP Media instead: every image, video and PDF added in the last 60 days under a folder with "Final" or "media assets" in its name, skipping raw footage, the inbox, archives and trending-audio copies. A `.txt` file with the same name as a video becomes its caption. Set the `SOURCE` script property to `both` to review the Queue and the scan together.
 
 ## Security model
 
@@ -30,7 +45,7 @@ It's the step between Post-Production and Scheduled in the [Content Pipeline SOP
 ## Setup (about 5 minutes, one time, Kenny)
 
 1. Sign in to Google with the BPP admin account that owns BPP Media.
-2. Check that the **BPP Content Approvals** sheet exists inside BPP Media. If it doesn't, create a blank Google Sheet there with that exact name. Share it as **Editor** with each reviewer's Google account. They also need at least **Viewer** on BPP Media.
+2. Check that the **BPP Content Approvals** sheet exists inside BPP Media (it does as of 2026-11-10, with the first 37 pieces in its Queue tab). Share it as **Editor** with each reviewer's Google account. They also need at least **Viewer** on BPP Media.
 3. Go to [script.google.com](https://script.google.com) and click **New project**. Name it **BPP Content Approvals**.
 4. Open **Project Settings** (gear icon) and check **Show "appsscript.json" manifest file in editor**.
 5. Back in the editor, paste this folder's files:
@@ -48,6 +63,7 @@ Optional: run `setup()` from the editor once. It writes the sheet header and log
 
 | Property | Default | What it does |
 |---|---|---|
+| `SOURCE` | `auto` | `auto` uses the Queue tab when it has rows, otherwise the scan. Also `queue`, `scan` or `both` |
 | `REQUIRED_APPROVALS` | `3` | Approvals needed before a piece is ready for Metricool |
 | `LOOKBACK_DAYS` | `60` | Only files added in this window show up |
 | `INCLUDE_FOLDER_PATTERN` | `final\|media assets` | A file is reviewable if any folder on its path matches |
@@ -55,6 +71,10 @@ Optional: run `setup()` from the editor once. It writes the sheet header and log
 | `REVIEWERS` | blank | Comma list of emails allowed to vote. Blank means anyone who can edit the sheet |
 | `REVIEWER_NAMES` | blank | `email=Name` pairs, comma separated, for display |
 | `ROOT_FOLDER_ID`, `SHEET_ID` | found by name | Filled in automatically on first run |
+
+## Platform icons
+
+The small platform icons come from Font Awesome Free's brand set (icons CC BY 4.0), loaded from jsDelivr at a pinned version. If that script can't load, the card still says "For Instagram, Facebook" in text.
 
 ## Updating the code
 

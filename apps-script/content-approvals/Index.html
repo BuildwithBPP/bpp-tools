@@ -5,6 +5,9 @@
 <meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Platform icons: Font Awesome Free brand icons (CC BY 4.0), SVG + JS build -->
+<script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/js/brands.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/js/fontawesome.min.js"></script>
 <style>
 :root{
   --navy:#044771; --navy-dark:#013259; --gold:#F1BE5C; --gold-dim:#D4A63E;
@@ -49,6 +52,15 @@ a{color:var(--navy)}
 .kind{position:absolute;top:12px;left:12px;background:rgba(1,50,89,.85);color:var(--gold);font:700 10px var(--head);letter-spacing:.14em;text-transform:uppercase;padding:5px 9px;border-radius:6px}
 .play{position:absolute;bottom:12px;right:12px;display:flex;gap:8px}
 .pill-btn{min-height:40px;padding:0 14px;border-radius:20px;background:rgba(255,255,255,.95);color:var(--navy-dark);font:700 12px var(--head);display:inline-flex;align-items:center;gap:6px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.plats{position:absolute;top:10px;right:10px;display:flex;gap:6px}
+.plat{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.95);color:var(--navy-dark);display:inline-flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.plat svg{width:15px;height:15px}
+.plat-row{display:flex;gap:6px;margin-top:8px}
+.plat-row .plat{width:26px;height:26px;font-size:13px;background:var(--bg);box-shadow:none}
+.plat-row .plat svg{width:13px;height:13px}
+.for{font-weight:600;color:var(--navy)}
+.note{margin-top:8px;font-size:12px;color:var(--muted);font-style:italic}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .stamp{position:absolute;top:26px;font:800 30px var(--head);letter-spacing:.06em;padding:4px 12px;border:4px solid;border-radius:10px;opacity:0;pointer-events:none;background:rgba(255,255,255,.9)}
 .stamp.yes{left:22px;color:var(--green);border-color:var(--green);transform:rotate(-12deg)}
 .stamp.no{right:22px;color:var(--red);border-color:var(--red);transform:rotate(12deg)}
@@ -89,7 +101,7 @@ a{color:var(--navy)}
 
 /* lists */
 .list{flex:1;overflow:auto;padding:14px 16px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px}
-.row{background:#fff;border-radius:14px;box-shadow:0 2px 10px rgba(1,50,89,.08);overflow:hidden;display:flex;flex-direction:column}
+.row{flex:none;background:#fff;border-radius:14px;box-shadow:0 2px 10px rgba(1,50,89,.08);overflow:hidden;display:flex;flex-direction:column}
 .row-top{display:flex;gap:12px;padding:12px}
 .thumb{width:72px;height:96px;flex:none;border-radius:8px;background:#0b2238;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .thumb img{width:100%;height:100%;object-fit:cover}
@@ -230,6 +242,27 @@ a{color:var(--navy)}
     });
   }
 
+  var PLATFORM = {
+    instagram: ['fa-instagram', 'Instagram'], facebook: ['fa-facebook-f', 'Facebook'], linkedin: ['fa-linkedin-in', 'LinkedIn'],
+    tiktok: ['fa-tiktok', 'TikTok'], youtube: ['fa-youtube', 'YouTube'], threads: ['fa-threads', 'Threads'],
+    x: ['fa-x-twitter', 'X'], pinterest: ['fa-pinterest-p', 'Pinterest']
+  };
+  function platIcons(item, cls) {
+    var list = (item.platforms || []).filter(function (p) { return PLATFORM[p]; });
+    if (!list.length) return '';
+    return '<div class="' + cls + '">' + list.map(function (p) {
+      return '<span class="plat" title="' + PLATFORM[p][1] + '"><i class="fa-brands ' + PLATFORM[p][0] + '" aria-hidden="true"></i><span class="sr">' + PLATFORM[p][1] + '</span></span>';
+    }).join('') + '</div>';
+  }
+  function platNames(item) {
+    return (item.platforms || []).map(function (p) { return PLATFORM[p] ? PLATFORM[p][1] : p; }).join(', ');
+  }
+  function previewUrl(item) {
+    return item.kind === 'doc'
+      ? 'https://docs.google.com/document/d/' + encodeURIComponent(item.id) + '/preview'
+      : 'https://drive.google.com/file/d/' + encodeURIComponent(item.id) + '/preview';
+  }
+
   function voteChips(item) {
     var out = (item.votes || []).map(function (v) {
       return '<span class="chip ' + (v.decision === 'approve' ? 'ok' : 'no') + '">' +
@@ -315,15 +348,16 @@ a{color:var(--navy)}
     var others = item.status === 'changes' ? quotes(item) : '';
     el.innerHTML =
       '<div class="media"><div class="ph">Loading preview</div>' +
-      '<span class="kind">' + esc(item.kind) + '</span>' +
+      '<span class="kind">' + esc(item.type || item.kind) + '</span>' + platIcons(item, 'plats') +
       '<div class="play">' +
-      (item.kind !== 'image' ? '<button class="pill-btn" type="button" data-preview>&#9654; Preview</button>' : '') +
+      (item.kind !== 'image' ? '<button class="pill-btn" type="button" data-preview>' + (item.kind === 'doc' ? 'Read' : '&#9654; Preview') + '</button>' : '') +
       '<a class="pill-btn" href="' + esc(item.link) + '">Open</a></div>' +
       '<div class="stamp yes">APPROVE</div><div class="stamp no">DECLINE</div></div>' +
       '<div class="info"><div class="name">' + esc(item.name) + '</div>' +
-      '<div class="meta">' + esc(item.folder) + ' · ' + ago(item.created) + '</div>' +
+      '<div class="meta">' + (platNames(item) ? '<span class="for">For ' + esc(platNames(item)) + '</span> · ' : '') + esc(item.folder) + ' · ' + ago(item.created) + '</div>' +
       '<div class="chips">' + voteChips(item) + '</div>' + others +
-      (item.hasCaption ? '<div class="caption-label">Caption</div><div class="caption" data-caption>Loading caption</div>' : '') +
+      (item.notes ? '<div class="note">' + esc(item.notes) + '</div>' : '') +
+      (item.hasCaption ? '<div class="caption-label">' + (item.kind === 'doc' ? 'Newsletter text' : 'Caption') + '</div><div class="caption" data-caption>Loading</div>' : '') +
       '</div>';
     var media = el.querySelector('.media');
     thumb(item.id).then(function (uri) {
@@ -486,7 +520,7 @@ a{color:var(--navy)}
   /* ---------- preview ---------- */
 
   function openViewer(item) {
-    $('viewer-frame').src = 'https://drive.google.com/file/d/' + encodeURIComponent(item.id) + '/preview';
+    $('viewer-frame').src = previewUrl(item);
     $('viewer-open').href = item.link;
     $('viewer-scrim').classList.add('on');
   }
@@ -503,18 +537,19 @@ a{color:var(--navy)}
       v.innerHTML = '<div class="empty"><h2>Nothing ready yet</h2><div>A piece lands here once it has ' + state.required + ' approvals and no declines.</div></div>';
       return;
     }
-    v.innerHTML = '<div class="list"><div class="list-note">Approved by the team. Download it, paste the caption into Metricool, then mark it scheduled so it leaves this list.</div></div>';
+    v.innerHTML = '<div class="list"><div class="list-note">Approved by the team. Download it and paste the caption into Metricool (newsletters go on the LinkedIn page), then mark it scheduled so it leaves this list.</div></div>';
     var list = v.querySelector('.list');
     state.ready.forEach(function (item) {
       var row = document.createElement('div');
       row.className = 'row';
       row.innerHTML = '<div class="row-top"><div class="thumb"></div><div class="row-body">' +
-        '<div class="name">' + esc(item.name) + '</div><div class="meta">' + esc(item.folder) + ' · ' + ago(item.created) + '</div>' +
+        '<div class="name">' + esc(item.name) + '</div><div class="meta">' + esc(item.type || item.kind) + ' · ' + esc(item.folder) + '</div>' +
+        platIcons(item, 'plat-row') +
         '<div class="chips">' + voteChips(item) + '</div></div></div>' +
-        (item.hasCaption ? '<div class="cap-box" data-cap>Loading caption</div>' : '') +
+        (item.hasCaption ? '<div class="cap-box" data-cap>Loading</div>' : '') +
         '<div class="row-actions">' +
-        (item.hasCaption ? '<button class="btn ghost" type="button" data-copy>Copy caption</button>' : '') +
-        '<a class="btn ghost" href="https://drive.google.com/uc?export=download&id=' + encodeURIComponent(item.id) + '">Download</a>' +
+        (item.hasCaption ? '<button class="btn ghost" type="button" data-copy>' + (item.kind === 'doc' ? 'Copy text' : 'Copy caption') + '</button>' : '') +
+        (item.kind === 'doc' ? '' : '<a class="btn ghost" href="https://drive.google.com/uc?export=download&id=' + encodeURIComponent(item.id) + '">Download</a>') +
         '<a class="btn ghost" href="' + esc(item.link) + '">Open in Drive</a>' +
         '<button class="btn gold" type="button" data-sched>Mark scheduled</button></div>';
       fillThumb(row.querySelector('.thumb'), item.id, item.kind);
@@ -565,8 +600,8 @@ a{color:var(--navy)}
       var row = document.createElement('div');
       row.className = 'row';
       row.innerHTML = '<div class="row-top"><div class="thumb"></div><div class="row-body">' +
-        '<div class="name">' + esc(item.name) + '</div><div class="meta">' + esc(item.folder) + ' · ' + ago(item.created) + '</div>' +
-        quotes(item) + '</div></div>' +
+        '<div class="name">' + esc(item.name) + '</div><div class="meta">' + esc(item.type || item.kind) + ' · ' + esc(item.folder) + '</div>' +
+        platIcons(item, 'plat-row') + quotes(item) + '</div></div>' +
         '<div class="row-actions"><a class="btn ghost" href="' + esc(item.link) + '">Open in Drive</a>' +
         '<button class="btn primary" type="button" data-reset>Send back to review</button></div>';
       fillThumb(row.querySelector('.thumb'), item.id, item.kind);
