@@ -1,0 +1,5 @@
+{
+  "webAppUrl": "",
+  "requiredApprovals": 3,
+  "setupGuide": "https://github.com/BuildwithBPP/bpp-tools/tree/main/apps-script/content-approvals"
+}
