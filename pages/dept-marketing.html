@@ -6,6 +6,39 @@
 <title>Marketing &amp; Content · BPP Tools Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css">
+<style>
+  /* Content approvals */
+  .ca-hero{display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,var(--navy-dark),var(--navy));color:#fff;border-radius:12px;padding:20px 22px;text-decoration:none;margin-bottom:12px;transition:transform .15s,box-shadow .15s;}
+  .ca-hero:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(4,71,113,.25);}
+  .ca-icon{width:52px;height:52px;flex:none;border-radius:12px;background:var(--gold);color:var(--navy-dark);display:flex;align-items:center;justify-content:center;}
+  .ca-body{flex:1;min-width:0;}
+  .ca-title{font-family:var(--head);font-size:17px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .ca-badge{font-size:9px;font-weight:700;letter-spacing:.08em;padding:2px 7px;border-radius:3px;background:var(--gold);color:var(--navy-dark);}
+  .ca-badge.setup{background:rgba(255,255,255,.18);color:#fff;}
+  .ca-desc{font-size:13px;color:#C9D8E6;margin-top:4px;line-height:1.5;}
+  .ca-arrow{font-size:22px;color:var(--gold);flex:none;}
+  .ca-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:28px;}
+  .ca-step{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--muted);line-height:1.55;}
+  .ca-step b{display:block;font-family:var(--head);font-size:12.5px;color:var(--text);margin-bottom:2px;}
+  .ca-step .n{display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center;margin-right:6px;}
+
+  /* Newsletter publish log */
+  .nl-meta{font-size:12px;color:var(--muted);margin:-2px 0 10px;}
+  .nl-table{width:100%;border-collapse:collapse;background:var(--card);border:1.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:8px;}
+  .nl-table th{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:10px 14px;text-align:left;background:var(--navy);color:#fff;}
+  .nl-table td{font-size:12.5px;color:var(--text2);padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+  .nl-table tr:last-child td{border-bottom:none;}
+  .nl-table td.nl-date{white-space:nowrap;font-weight:600;color:var(--text);}
+  .nl-table a{color:var(--navy);font-weight:600;}
+  .nl-note{display:block;font-size:11.5px;color:var(--muted);margin-top:2px;}
+  .nl-empty{color:var(--muted);font-style:italic;}
+  .nl-pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:10px;white-space:nowrap;background:#eef2f6;color:var(--muted);}
+  .nl-pill.published{background:var(--green-bg);color:var(--green);}
+  .nl-pill.approved,.nl-pill.scheduled{background:var(--gold-glow);color:#a16207;}
+  .nl-pill.draft{background:var(--steel-glow);color:var(--navy);}
+  .nl-pill.missed,.nl-pill.not-published{background:var(--red-bg);color:var(--red);}
+  .nl-foot{font-size:11.5px;color:var(--muted);margin-bottom:28px;}
+</style>
 </head>
 <body>
 
@@ -17,6 +50,33 @@
     <h1>Marketing &amp; Content</h1>
     <div class="dept-dri">DRI · Kenny Hawkins</div>
     <div class="dept-owns">Strategy, social, newsletter, blog, and brand voice.</div>
+  </div>
+
+  <div class="dept-section" id="content-approvals">
+    <div class="dept-section-label">Content Approvals</div>
+    <a class="ca-hero" id="ca-link" href="https://github.com/BuildwithBPP/bpp-tools/tree/main/apps-script/content-approvals" target="_blank" rel="noopener">
+      <div class="ca-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M9 12.5l2 2 4-4.5"/></svg></div>
+      <div class="ca-body">
+        <div class="ca-title">Swipe to approve content <span class="ca-badge setup" id="ca-badge">SETUP</span></div>
+        <div class="ca-desc" id="ca-desc">Final cuts from BPP Media in Google Drive, one card at a time. Swipe right to approve. Swipe left to decline and say why. Works on your phone.</div>
+      </div>
+      <div class="ca-arrow">&rarr;</div>
+    </a>
+    <div class="ca-steps">
+      <div class="ca-step"><b><span class="n">1</span>Drop it in Drive</b>Finished pieces go in a Final folder in BPP Media. Claude's reels land in 07_media assets on their own.</div>
+      <div class="ca-step"><b><span class="n">2</span>Swipe</b>Kenny, Eli and Daunte each swipe. A left swipe asks for a note so the editor knows what to fix.</div>
+      <div class="ca-step"><b><span class="n">3</span>Schedule it</b>At <span id="ca-required">3</span> approvals it moves to Ready for Metricool with its caption and a download link. Mark it scheduled when it's queued.</div>
+    </div>
+  </div>
+
+  <div class="dept-section" id="newsletter-log">
+    <div class="dept-section-label">Newsletter Publish Log</div>
+    <div class="nl-meta" id="nl-meta">LinkedIn newsletter, every Friday at 9:00 AM ET from the Business Plans Plus company page.</div>
+    <table class="nl-table">
+      <thead><tr><th>Friday</th><th>Author</th><th>Issue</th><th>Status</th></tr></thead>
+      <tbody id="nl-body"></tbody>
+    </table>
+    <div class="nl-foot">Claude drafts each issue on Tuesday and updates this log when it goes live. Source: data/newsletter-log.json.</div>
   </div>
 
   <div class="dept-section">
@@ -44,7 +104,7 @@
   <div class="dept-section">
     <div class="dept-section-label">AI Agents</div>
     <div class="card-grid">
-      <a class="link-card" href="skill-dictionary.html"><div class="lc-icon">&#129302;</div><div class="lc-body"><div class="lc-title">draft-newsletter</div><div class="lc-desc">Bi-weekly LinkedIn newsletter drafting</div></div><div class="lc-arrow">&rarr;</div></a>
+      <a class="link-card" href="skill-dictionary.html"><div class="lc-icon">&#129302;</div><div class="lc-body"><div class="lc-title">draft-newsletter</div><div class="lc-desc">Weekly LinkedIn newsletter drafting (Tuesday draft, Friday publish)</div></div><div class="lc-arrow">&rarr;</div></a>
       <a class="link-card" href="skill-dictionary.html"><div class="lc-icon">&#129302;</div><div class="lc-body"><div class="lc-title">linkedin-engagement</div><div class="lc-desc">BPP-voice LinkedIn comment drafting</div></div><div class="lc-arrow">&rarr;</div></a>
       <a class="link-card" href="skill-dictionary.html"><div class="lc-icon">&#129302;</div><div class="lc-body"><div class="lc-title">youtube-seo</div><div class="lc-desc">YouTube and video SEO keyword research</div></div><div class="lc-arrow">&rarr;</div></a>
     </div>
@@ -58,6 +118,42 @@
 </div>
 
 <script src="../js/nav.js" data-page="departments"></script>
+<script>
+(function () {
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function fmt(d) {
+    var p = String(d).split('-');
+    var m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][Number(p[1]) - 1];
+    return m ? m + ' ' + Number(p[2]) + ', ' + p[0] : esc(d);
+  }
+
+  fetch('../data/content-approvals.json?t=' + Date.now()).then(function (r) { return r.json(); }).then(function (c) {
+    if (c.requiredApprovals) document.getElementById('ca-required').textContent = c.requiredApprovals;
+    if (c.webAppUrl && /^https:\/\/script\.google\.com\//.test(c.webAppUrl)) {
+      document.getElementById('ca-link').href = c.webAppUrl;
+      var b = document.getElementById('ca-badge');
+      b.textContent = 'LIVE';
+      b.className = 'ca-badge';
+    } else {
+      document.getElementById('ca-desc').textContent = 'Final cuts from BPP Media in Google Drive, one card at a time. Swipe right to approve, left to decline and say why. Not switched on yet: the link opens the 5-minute setup guide.';
+    }
+  }).catch(function () {});
+
+  fetch('../data/newsletter-log.json?t=' + Date.now()).then(function (r) { return r.json(); }).then(function (log) {
+    if (log.cadence) document.getElementById('nl-meta').textContent = 'LinkedIn newsletter. ' + log.cadence + (log.updated ? ' Updated ' + fmt(log.updated) + '.' : '');
+    var rows = (log.issues || []).slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+    document.getElementById('nl-body').innerHTML = rows.map(function (i) {
+      var title = i.title ? (i.url ? '<a href="' + esc(i.url) + '" target="_blank" rel="noopener">' + esc(i.title) + '</a>' : esc(i.title)) : '<span class="nl-empty">' + (i.status === 'Planned' ? 'Not drafted yet' : 'No issue') + '</span>';
+      var note = i.note ? '<span class="nl-note">' + esc(i.note) + '</span>' : '';
+      var cls = String(i.status || '').toLowerCase().replace(/\s+/g, '-');
+      return '<tr><td class="nl-date">' + fmt(i.date) + '</td><td>' + esc(i.author) + '</td><td>' + title + note + '</td>' +
+        '<td><span class="nl-pill ' + esc(cls) + '">' + esc(i.status) + '</span></td></tr>';
+    }).join('');
+  }).catch(function () {
+    document.getElementById('nl-body').innerHTML = '<tr><td colspan="4" class="nl-empty">Could not load the log.</td></tr>';
+  });
+})();
+</script>
 
 </body>
 </html>

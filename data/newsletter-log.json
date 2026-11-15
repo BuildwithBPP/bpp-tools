@@ -1,0 +1,15 @@
+{
+  "updated": "2026-11-10",
+  "cadence": "Fridays, 9:00 AM ET, from the Business Plans Plus company page. Rotation: Daunte, Kenny, Eli.",
+  "issues": [
+    { "date": "2026-12-18", "author": "Eli Fisher", "title": "", "status": "Planned", "url": "" },
+    { "date": "2026-12-11", "author": "Kenny Hawkins", "title": "", "status": "Planned", "url": "" },
+    { "date": "2026-12-04", "author": "Daunte Benjamin", "title": "", "status": "Planned", "url": "" },
+    { "date": "2026-11-27", "author": "Eli Fisher", "title": "", "status": "Planned", "url": "", "note": "Drafted automatically on Tue Nov 17" },
+    { "date": "2026-11-20", "author": "Kenny Hawkins", "title": "We almost rewrote our pitch. The menu was the problem.", "status": "Draft", "url": "", "note": "Kenny to confirm by Thu Nov 19" },
+    { "date": "2026-11-13", "author": "Daunte Benjamin", "title": "You're already paying for both. They just aren't talking to each other.", "status": "Approved", "url": "", "note": "Waiting on Daunte's OK by Thu Nov 12" },
+    { "date": "2026-06-05", "author": "Eli Fisher", "title": "", "status": "Missed", "url": "", "note": "Rotation paused over the summer" },
+    { "date": "2026-05-23", "author": "Kenny Hawkins", "title": "The revenue was already there. The system just wasn't built to collect it.", "status": "Not published", "url": "", "note": "Drafted, never posted" },
+    { "date": "2026-05-08", "author": "Daunte Benjamin", "title": "We built an AI workforce for our 3-person consulting firm. Here's what it actually does.", "status": "Published", "url": "https://www.linkedin.com/pulse/we-built-ai-workforce-our-3-person-consulting-firm-heres-8s93e/" }
+  ]
+}
