@@ -1,8 +1,9 @@
 /*!
  * r26-fx.js — buildwithbpp.com 2026 redesign experience layer
  * Self-mounting: attach as a hosted page script (footer) on the r26 redesign
- * pages only. Pairs with the registered `r26motion` script (Lenis smooth
- * scroll + scroll reveals + count-up) and does NOT re-init any of that.
+ * pages only. Pairs with the registered `r26motion` script (scroll reveals +
+ * count-up; Lenis smooth scroll was removed in r26motion 0.0.5, 2026-11-21)
+ * and does NOT re-init any of that.
  *
  * What it adds:
  *  - Home hero: vanilla 2D-canvas "chaos to command center" dashboard in
@@ -42,6 +43,8 @@
  * same page land below the nav.
  * Calm pages (1.9.7, 2026-10-22): any element with data-r26-calm turns off the
  *   decorative motion layer for that page; used by the home v2 redesign.
+ * Referral reward (1.9.13, Eli 2026-11-21): the dropdown item now reads
+ *   "Refer an owner, get $250 or more" (site referral reward raised to $250).
  * Referral first (1.9.12, Eli 2026-10-25): the Resources dropdown opens with
  *   "Refer an owner, get $150 or more" in gold above a divider ({ hl: 1 });
  *   the "Partners" group label is gone. The phone menu shows it gold too.
@@ -543,7 +546,7 @@
     '/services': SVC_SUB,
     '/#services': SVC_SUB,
     '/resources': [
-      { t: 'Refer an owner, get $150 or more', h: '/referral', hl: 1 },
+      { t: 'Refer an owner, get $250 or more', h: '/referral', hl: 1 },
       { t: 'Free Tools', h: '/resources#tools' },
       { t: 'Free Guides & Templates', h: '/resources#guides' },
       { t: 'AI Operator Pack (coming soon)', h: '/resources#premium' }
